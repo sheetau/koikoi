@@ -172,3 +172,11 @@ Early relational continuation update 500 (566,585 new matches) versus assisted R
 Scale update-6,000 budget audit confirms 8,656,699 current research12 matches + 1,000,464 research12 initialization = 9,657,163; paper8 initialization 11,141,556 separately. Parent resume counters are not double-counted. runs/ppo12_scale_seed30001_captured/budget_6000.json.
 
 Captured scale update 7,000 versus the research12 transfer-pilot initialization on 10,000 development pairs: 51.2175%, CI 50.6275-51.7825%, +1.2146 points. Both deterministic and endgame-assisted. Report runs/ppo12_scale_seed30001_captured/eval_7000_vs_parent.json. This supports a small development gain against the parent; it is not a comparison with the eight-round published baseline or a held-out result.
+
+## Longer-return controlled screen
+
+configs/relational8_lambda99.json changes gae_lambda from 0.95 to 0.99, otherwise exactly matching the resolved config of relational8_fullgraph_seed50001. Initialize from the same runs/relational8_v2/update_00002000.pt, use seed 50,001, reset optimizer/RNG/counters, 1,000 new updates / 131,072,000 decisions, snapshots every 250. Planned run runs/relational8_lambda99_seed50001. Control update 1,000 is already saved. Earlier control phases used ordinary collection; its capture migration was verified bit-identical, so execution history is recorded rather than treated as a learning-parameter change. This is one deliberately paired training seed, not a multi-seed result. Native 10,000-pair and published-opponent shared-deal comparisons determine further study; no final-test deals used.
+
+Initialized functionality check in runs/relational_lambda99_smoke completed three updates / 393,216 decisions / 3,064 matches with finite metrics. These duplicated pilot updates are not counted toward the controlled experiment's target or the research12 budget. No new algorithm code was needed.
+
+The lambda-0.95 control at new update 1,000 beat its initialization on 10,000 development pairs: 50.9825%, CI 50.4299-51.535%, +0.6298 points (runs/relational8_fullgraph_seed50001/eval_1000_vs_parent.json). This is a small parent-relative improvement; public-baseline superiority remains unproven.
