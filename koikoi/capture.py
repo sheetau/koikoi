@@ -3,6 +3,36 @@
 import torch
 
 
+class CapturedRollout:
+    """Capture a tensor-only collector; warmup must not advance games or RNG."""
+
+    @torch.no_grad()
+    def __init__(self, collect, state):
+        device = state.device
+        saved_state = state.clone()
+        cpu_rng = torch.get_rng_state()
+        cuda_rng = torch.cuda.get_rng_state(device)
+        with torch.cuda.device(device):
+            stream = torch.cuda.Stream(device=device)
+            stream.wait_stream(torch.cuda.current_stream(device))
+            with torch.cuda.stream(stream):
+                for _ in range(3):
+                    collect()
+            torch.cuda.current_stream(device).wait_stream(stream)
+            self.graph = torch.cuda.CUDAGraph()
+            with torch.cuda.graph(self.graph):
+                self.batch, self.totals = collect()
+            state.copy_(saved_state)
+            torch.set_rng_state(cpu_rng)
+            torch.cuda.set_rng_state(cuda_rng, device)
+
+    def __call__(self):
+        self.graph.replay()
+        # PPO replaces its advantage entry after normalization. Preserve the
+        # original graph output references for the next collection.
+        return self.batch.copy(), self.totals
+
+
 class CapturedMinibatch:
     """Fixed-shape step; model/Adam tensors retain their addresses after capture."""
 

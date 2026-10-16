@@ -108,6 +108,11 @@ def main():
         action="store_true",
         help="Enable captured minibatches for --training-config",
     )
+    p.add_argument(
+        "--cuda-rollout",
+        action="store_true",
+        help="Enable captured rollout/returns for --training-config",
+    )
     p.add_argument("--profile", default="research12")
     args = p.parse_args()
     if min(args.steps, args.horizon, args.envs) < 1:
@@ -116,10 +121,14 @@ def main():
         p.error("Select returns, policy, or full training throughput")
     if args.cuda_graph and not args.training_config:
         p.error("--cuda-graph requires --training-config")
+    if args.cuda_rollout and not args.training_config:
+        p.error("--cuda-rollout requires --training-config")
     if args.training_config:
         config = json.loads(args.training_config.read_text(encoding="utf-8"))
         if args.cuda_graph:
             config["cuda_graph"] = True
+        if args.cuda_rollout:
+            config["cuda_rollout"] = True
         print(json.dumps(benchmark_training(Config(**config), args.steps), indent=2))
         return
     torch.set_num_threads(4)

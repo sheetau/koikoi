@@ -10,14 +10,14 @@ import os
 import random
 import subprocess
 import time
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, replace
 from pathlib import Path
 
 import numpy as np
 import torch
 from torch.nn import functional as F
 
-from .capture import CapturedMinibatch
+from .capture import CapturedMinibatch, CapturedRollout
 from .env import BatchEnv
 from .estimators import CentralQ, critic_input, native_gae, q_boost
 from .layout import PLAYER
@@ -51,6 +51,7 @@ class Config:
     returns_backend: str = "native"
     endgame: bool = False
     cuda_graph: bool = False
+    cuda_rollout: bool = False
 
     def __post_init__(self):
         if self.endgame and self.reward != "match":
@@ -87,6 +88,10 @@ class Config:
             size = self.envs * self.horizon
             if size % min(size, self.minibatch):
                 raise ValueError("CUDA graph minibatches must all have the same size")
+        if self.cuda_rollout and (
+            not self.device.startswith("cuda") or self.algorithm != "ppo"
+        ):
+            raise ValueError("Captured rollouts currently support CUDA PPO only")
 
 
 def signed_gae(rewards, values, dones, players, next_value, next_player, lam=0.95):
@@ -143,6 +148,7 @@ class Trainer:
             capturable=config.cuda_graph,
         )
         self.captured_minibatch = None
+        self.captured_rollout = None
         self.critic = (
             CentralQ(config.critic_width).to(config.device)
             if config.algorithm == "vrpo"
@@ -187,12 +193,23 @@ class Trainer:
             "provenance": payload["provenance"],
         }
 
+    def enable_rollout_capture(self):
+        """Explicit execution change, retaining optimizer, games, RNG and budget."""
+        previous = self.config.cuda_rollout
+        if previous:
+            return
+        self.config = replace(self.config, cuda_rollout=True)
+        self.provenance["execution_change"] = {
+            "cuda_rollout": {"from": previous, "to": True},
+            "retains_training_state": True,
+        }
+
     def actor(self, obs, mask):
         with torch.autocast(
             device_type=self.env.device.type,
             dtype=torch.bfloat16,
             enabled=self.config.precision == "bf16",
-            cache_enabled=not self.config.cuda_graph,
+            cache_enabled=not (self.config.cuda_graph or self.config.cuda_rollout),
         ):
             result = self.model(obs, mask)
         return tuple(value.float() for value in result)
@@ -208,6 +225,23 @@ class Trainer:
 
     @torch.no_grad()
     def collect(self):
+        if self.config.cuda_rollout:
+            if self.captured_rollout is None:
+                self.captured_rollout = CapturedRollout(
+                    self.collect_device, self.env.state
+                )
+            batch, totals = self.captured_rollout()
+        else:
+            batch, totals = self.collect_device()
+        rounds, matches = totals.cpu().tolist()
+        self.counters["rounds"] += rounds
+        self.counters["matches"] += matches
+        self.counters["decisions"] += self.config.envs * self.config.horizon
+        return batch
+
+    @torch.no_grad()
+    def collect_device(self):
+        """Tensor-only collection; Python counters stay outside graph replay."""
         buffers = {
             k: []
             for k in (
@@ -294,11 +328,7 @@ class Trainer:
                 else signed_gae(*arguments)
             )
         batch["advantage"], batch["return"] = advantages, returns
-        rounds, matches = totals.cpu().tolist()
-        self.counters["rounds"] += rounds
-        self.counters["matches"] += matches
-        self.counters["decisions"] += self.config.envs * self.config.horizon
-        return {k: v.flatten(0, 1) for k, v in batch.items()}
+        return {k: v.flatten(0, 1) for k, v in batch.items()}, totals
 
     @torch.no_grad()
     def refresh_q_advantages(self, batch):
@@ -478,10 +508,9 @@ class Trainer:
             "source_sha256": payload["provenance"]["source_sha256"],
             "revision": payload["provenance"]["revision"],
         }
-        if "initialized_from" in payload["provenance"]:
-            obj.provenance["initialized_from"] = payload["provenance"][
-                "initialized_from"
-            ]
+        for key in ("initialized_from", "execution_change"):
+            if key in payload["provenance"]:
+                obj.provenance[key] = payload["provenance"][key]
         if (
             payload["provenance"]["source_sha256"] != obj.provenance["source_sha256"]
             and not allow_code_change
@@ -516,6 +545,11 @@ def main():
         help="Load actor weights only; reset optimizer, deals, RNG and all counters",
     )
     parser.add_argument("--allow-code-change", action="store_true")
+    parser.add_argument(
+        "--enable-cuda-rollout",
+        action="store_true",
+        help="Explicitly enable rollout capture on resume, retaining all training state",
+    )
     parser.add_argument("--updates", type=int, default=10)
     parser.add_argument("--target-matches", type=int, default=0)
     parser.add_argument("--checkpoint-every", type=int, default=10)
@@ -534,10 +568,14 @@ def main():
         parser.error(
             "--resume restores its config; use --initialize for a new experiment"
         )
+    if args.enable_cuda_rollout and not args.resume:
+        parser.error("--enable-cuda-rollout requires --resume; new runs use config")
     if not args.resume and (args.run / "metrics.jsonl").exists():
         parser.error("Run already has metrics; use --resume or a new run directory")
     if args.resume:
         trainer = Trainer.restore(args.resume, args.allow_code_change)
+        if args.enable_cuda_rollout:
+            trainer.enable_rollout_capture()
     else:
         trainer = Trainer(
             Config(**json.loads(args.config.read_text(encoding="utf-8")))
