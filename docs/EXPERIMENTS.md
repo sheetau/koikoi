@@ -358,3 +358,20 @@ The favorable but inconclusive paired estimate warrants a fixed additional 900-p
 Expected outputs under the same MLP run: eval_5000_cuda_control_new900.json, eval_5000_koi_search192_new900.json and koi_search192_1000_summary.json. Runner runs/run_koi_search192_extension.py checks disjoint contiguous ranges, matching inference/search settings and checkpoint identities within segments, hashes source reports, compares both GPU controls with prior CPU records, and computes the full paired difference. It does not invent a pooled latency percentile. The aggregation script hash is stored in the summary. This extension will start from the committed protocol; it is not a strength result yet.
 
 The additional-900 control/search pipeline started from committed protocol 53a4a45, unchanged package 4ff30860..., with its fixed settings and aggregation endpoint. Runner and control-evaluator process identities verified; control pair counts are advancing. Operational session/process/log paths are in STATUS.md. Do not infer a method decision from intermediate scores.
+
+## Relational koi-substitution diagnostic
+
+To check whether the earlier MLP koi-substitution finding also appears with the relational representation, an additional diagnostic fixed the card policy to runs/relational8_fullgraph_seed50001/update_00001000.pt and replaced only koi decisions with pinned published RL-WP. This 300-pair diagnostic was declared in the work log before execution, while the fixed 900-pair search extension was running. It did not change that extension's model, settings, deal range or aggregation. This documentation records the completed diagnostic; it is not a retrospective claim of a separately committed preregistration.
+
+Commands (CPU default, development seeds 1,000,000-1,000,299):
+
+```powershell
+./.venv/Scripts/python.exe -m koikoi.evaluate --agent runs/relational8_fullgraph_seed50001/update_00001000.pt --koi-agent rl-wp --opponent rl-wp-assisted --profile paper8 --pairs 300 --seed 1000000 --endgame --deterministic --output runs/relational8_fullgraph_seed50001/eval_1000_wp_koi300.json
+./.venv/Scripts/python.exe -m koikoi.compare runs/relational8_fullgraph_seed50001/eval_1000_wp_koi300.json runs/relational8_fullgraph_seed50001/eval_1000_wp.json --output runs/relational8_fullgraph_seed50001/difference_wp_koi300.json
+```
+
+Composite draw-adjusted win rate against assisted RL-WP: 51.4167% (95% paired-bootstrap CI 48.0833-54.75%), +1.66 points (CI -0.2967 to +3.5803), 300 pairs / 600 matches / 67,953 decisions. Full relational control on the same deals: 49.5% (46.25-52.75%), +1.3567 points. Shared-pair difference: +1.9167 percentage points (CI -0.9167 to +4.6667), +0.3033 points (CI -1.3268 to +1.86). Neither improvement nor public-baseline superiority is established. No default change or training method is selected from this result.
+
+Actual checkpoint SHA 0cf7f198a04e5cb217650da2838cc4e509be6e83157e04241f833dfdac112296 agrees with both reports. Deterministic/endgame settings, CPU device, contiguous shared development seeds, means, bootstrap intervals and paired comparison were independently checked/recomputed. Audit runs/relational_koi300_audit.json stores report hashes. Diagnostic evaluator revision d1c0d1f, package 4ff30860b37e14ec4e769814c54e07db296cc3554c13bc4920b6042103168674; published revision 89d789565c7c36c84b74662e43001d960bf80901. The historical control evaluator used package 2bfd85f8..., with no-search actor/game behavior unchanged by the intervening optional training/search implementations. Runner runs/run_relational_koi_diagnostic.py completed successfully, session 10917 terminal.
+
+This is an inference component diagnostic using the same development deals as earlier comparisons, not an independent training replication, held-out result or additional training budget. Published koi is an explicit dependency; composite strength cannot be attributed solely to our learned relational network. Mean candidate latency 0.5508 ms and p95 2.2138 ms were recorded under concurrent workloads, not an isolated deployment benchmark. Continue the already-fixed full-1,000 search endpoint before selecting a further method.
