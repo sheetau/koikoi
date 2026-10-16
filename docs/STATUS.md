@@ -2,17 +2,15 @@
 
 Goal remains active. New100M research12 training is complete; public assisted-RL-WP superiority, independent selected-method validation, untouched final testing and manuscript remain unfinished. Final seeds100,000,000+ are unused. Submission is a later decision.
 
-## Live work: verify handles before acting
+## Current experiment decision
 
-Only experiment running: fixed full-action search extension. Session17341, actual runner PID47200 (parent65592), evaluator PID45000 (parent28136), `python -m runs.run_all_search192_extension`. Commands and advancing log verified. All training and earlier evaluation pipelines are terminal success. Never duplicate live work, restart because of a polling timeout, or resume completed training unchanged; STOP migration directories remain closed.
+Full-action original-model extension completed successfully: runner session17341 and PIDs47200/45000 terminal. Combined original100+additional900 =1,000 development pairs. All report/settings/model hashes, original controls, segment and combined statistics, paired differences and counters independently recomputed by runs/audit_all_search192_extension.py. Evidence: runs/ppo8_seed10001_captured/all_search192_1000_independent_audit.json (SHA2e18f29dee800c1d3190a8bf4546373b75d1d7b753c884135a0dc234a57ef8ac).
 
-- Model: `runs/ppo8_seed10001_captured/update_00005000.pt`, SHA edc44213bc5c5c840297afc33ee64a57b91e9dee48c202535906fc916cde109d.
-- Fixed additional900 development pairs, seeds1,000,100-1,000,999, assisted RL-WP/paper8/deterministic/endgame/CUDA/uniform128/horizon192/confidence2.5/--search-all/--search-cuda-graph. No interim selection, new training, chunk flag or final-test data.
-- Primary endpoint retains original100 plus new900 =1,000 pairs. Compare corresponding existing no-search and koi-only100+900 controls. Validate actual checkpoint SHA, not slash conventions in paths.
-- Log `runs/all_search192_new900.log`; manifest `runs/all_search192_extension_process.json`. Outputs under model directory: `eval_5000_all_search192_new900.json`, `all_search192_1000_summary.json`.
-- Protocol b1f7012; live evaluator retains imported package20e9d7c3... despite subsequent source edits. Evaluation provenance was captured at start. A later aggregation's on-disk hash may be newer; do not attribute it to the live evaluator.
+Full-action51.15% (95%CI49.325-52.95), points+1.262 (+0.126925..+2.394025). Versus no-search49.375%: paired+1.775pp (+0.774375..+2.75), points+0.772 (+0.221..+1.327). Versus koi-only50.025%: +1.125pp (+0.075..+2.2), points+0.526 (-0.061025..+1.093025). Positive development improvement, not established absolute public superiority. Original100 selection remains part of this nested endpoint.
 
-After completion: inspect actual reports/settings/hashes, independently recompute all endpoints and paired intervals, then choose the next strength experiment. A persistent positive full-action effect requires independent-model confirmation before untouched final testing. Keep original records; shared deals across models are not extra independent pairs. Original100 screen:49.25%, paired gain vs control+6pp (CI+2.25..+10), vs koi+4.25pp (+0.24375..+8.75); absolute superiority unproven and prefix reused after method selection.
+Next fixed protocol (commit before launch): independent original seed1 model runs/ppo8_v3/update_00005000.pt, SHA d104ae00824aca114e6cd414c74d02670b9a8de5a009ad4fad557005f66233e5. Exactly1,000 development pairs seeds1,000,000-1,000,999 against assisted RL-WP, paper8/deterministic/endgame/CUDA/uniform128/horizon192/confidence2.5/full-action/capture/chunk32. Validated execution optimization only; no training, policy change, interim selection or final seeds. Compare existing eval_5000_cuda_control1000.json and eval_5000_koi_search192_captured1000.json. Primary replication endpoint is paired win-rate gain over no-search with95%CI lower bound>0; koi comparison and points secondary. Same deals across models are not extra independent pairs. An inconclusive endpoint is not automatically extended.
+
+Runner runs/run_all_search192_seed1.py; log runs/all_search192_seed1.log; manifest runs/all_search192_seed1_process.json. Outputs under runs/ppo8_v3: eval_5000_all_search192_chunk32_1000.json, all_search192_1000_summary.json. Verify actual handles before launching or acting; never duplicate or restart on observation timeout. After completion independently audit the endpoint before choosing final protocol. All previous pipelines and training are terminal; do not resume completed training unchanged.
 
 ## Verified implementation and latest change
 
