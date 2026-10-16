@@ -11,7 +11,7 @@ Implementation and research in progress; the published RL-WP strength gate is st
 - CUDA Graph minibatch updates with rollback of warmup parameters, optimizer and RNG; FP32/BF16 restart verified.
 - Checkpoint budget audit separates rule profiles and pretraining; resume counters are not counted twice. It audits one model ancestry, not the union of all project experiments.
 
-Validation: 62 tests passed on this host, no skips, including CUDA and pinned upstream. Two expected upstream Transformer performance warnings. Ruff passed. Details of independent correctness/restart checks are in EXPERIMENTS.md.
+Validation: 66 tests passed on this host, no skips, including CUDA and pinned upstream. Two expected upstream Transformer performance warnings. Ruff passed. Details of independent correctness/restart checks are in EXPERIMENTS.md.
 
 Hardware: RTX 5070 Ti 16 GB, Ryzen 9 9900X, about 62 GiB RAM; local Python 3.12 / PyTorch 2.12.0+cu130 / NumPy 2.5.4. Use .venv/Scripts/python.exe.
 
@@ -47,3 +47,5 @@ Finish final-checkpoint evaluations for replication and relational jobs. Screen 
 Before claiming success: exceed assisted RL-WP on paper8, replicate training results, evaluate chosen methods on untouched final-test deals, verify at least 100M completed twelve-round training matches, and prepare the research manuscript. Final-test seeds (100,000,000+) remain unused. Method/ablation selection, belief calibration, archived opponents and reduced-game exploitability are research options, not established results. Submission is a later decision.
 
 Wider candidate config: configs/ppo8_wide_bf16.json (MLP width 512, seed 40,001, BF16, CUDA Graph). Five measured full learning updates after five warmups completed in 3.871 seconds / 10,468 matches while other jobs ran (runs/wide_bf16_benchmark.json). This checks feasibility, not playing strength or isolated throughput. Initial screening target is 500 updates / 131,072,000 decisions, then evaluate against the 500-update width-128 checkpoint and assisted RL-WP before extending.
+
+Koi-decision substitution is now available as `evaluate --koi-agent`: independently choose the card and koi policies, with explicit component metadata, retained pair replay and guard settings. Full-match routing, nested RNG replay and invalid protocol rejection passed; composing RL-WP with itself reproduced the assisted reference on a two-pair identity smoke check. Use this diagnostic to localize the remaining strength gap; no hybrid strength result exists yet.

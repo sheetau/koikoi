@@ -113,3 +113,17 @@ class EndgameAgent:
             self.solved_decisions += 1
             return action
         return self.agent.act(env)
+
+
+class KoiAgent:
+    """Use a separate observation-only policy for koi/stop decisions."""
+
+    def __init__(self, cards, koi):
+        self.cards, self.koi = cards, koi
+
+    @property
+    def solved_decisions(self):
+        return sum(getattr(a, "solved_decisions", 0) for a in (self.cards, self.koi))
+
+    def act(self, env):
+        return (self.koi if env.state[PHASE] == KOI else self.cards).act(env)

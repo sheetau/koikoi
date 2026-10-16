@@ -8,7 +8,7 @@ from pathlib import Path
 import numpy as np
 import torch
 
-from .agents import EndgameAgent, GreedyAgent, NeuralAgent, RandomAgent
+from .agents import EndgameAgent, GreedyAgent, KoiAgent, NeuralAgent, RandomAgent
 from .layout import CONTINUE, KOI, PHASE, PLAYER, POINTS, TERMINAL
 from .reference import ReferenceEnv
 from .search import SearchAgent
@@ -88,11 +88,19 @@ def duel(a, b, seed, profile):
 def seed_agents(a, b, seed):
     """Each duplicate deal is replayable independently of earlier pair lengths."""
     torch.manual_seed(seed)
-    for offset, agent in enumerate((a, b)):
+
+    def reset(agent, agent_seed):
         while isinstance(agent, EndgameAgent):
             agent = agent.agent
+        if isinstance(agent, KoiAgent):
+            reset(agent.cards, agent_seed)
+            reset(agent.koi, agent_seed + 100003)
+            return
         if hasattr(agent, "rng"):
-            agent.rng = np.random.default_rng(seed + 101 * (offset + 1))
+            agent.rng = np.random.default_rng(agent_seed)
+
+    for offset, agent in enumerate((a, b)):
+        reset(agent, seed + 101 * (offset + 1))
 
 
 def main():
@@ -103,6 +111,10 @@ def main():
         help="random, greedy, rl-wp, rl-point, or local checkpoint",
     )
     parser.add_argument("--opponent", default="rl-wp")
+    parser.add_argument(
+        "--koi-agent",
+        help="Override only candidate koi/stop decisions with this agent; no search",
+    )
     parser.add_argument("--profile", choices=("paper8", "research12"), default="paper8")
     parser.add_argument("--pairs", type=int, default=100)
     parser.add_argument("--seed", type=int, default=1_000_000)
@@ -149,18 +161,26 @@ def main():
         parser.error(str(error))
     if args.profile != "paper8" and any(
         x in ("rl-wp", "rl-point", "rl-wp-assisted", "rl-point-assisted")
-        for x in (args.agent, args.opponent)
+        for x in (args.agent, args.opponent, args.koi_agent)
     ):
         parser.error("Published baselines require paper8")
+    if args.koi_agent and args.search != "none":
+        parser.error("Koi-policy substitution cannot be combined with search")
     torch.set_num_threads(2)
     torch.manual_seed(args.seed)
     evaluation_provenance = provenance()
     a = make_agent(args.agent, args.seed + 101, args.deterministic, args.device)
     b = make_agent(args.opponent, args.seed + 202, args.deterministic, args.device)
+    koi = (
+        make_agent(args.koi_agent, args.seed + 100104, args.deterministic, args.device)
+        if args.koi_agent
+        else None
+    )
+    effective_koi = koi if koi is not None else a
     candidate_guard = (
         args.endgame
-        or isinstance(a, EndgameAgent)
-        or getattr(a, "requires_endgame", False)
+        or isinstance(effective_koi, EndgameAgent)
+        or getattr(effective_koi, "requires_endgame", False)
     )
     opponent_guard = (
         args.opponent_endgame
@@ -174,14 +194,16 @@ def main():
             "training_config": agent.training_config,
             "training_provenance": agent.training_provenance,
         }
-        for name, agent in ((args.agent, a), (args.opponent, b))
+        for name, agent in ((args.agent, a), (args.opponent, b), (args.koi_agent, koi))
         if isinstance(agent, NeuralAgent)
     }
-    for agent in (a, b):
+    for agent in (a, b, koi):
         if isinstance(agent, NeuralAgent) and agent.profile != args.profile:
             parser.error(
                 "Checkpoint rule profile differs; transfer evaluations need a separate protocol"
             )
+    if koi is not None:
+        a = KoiAgent(a, koi)
     if args.search != "none":
         if not isinstance(a, NeuralAgent):
             parser.error("Search requires a neural checkpoint")
@@ -238,6 +260,7 @@ def main():
     report = {
         "protocol_version": 2,
         "agent": args.agent,
+        "koi_agent": args.koi_agent,
         "opponent": args.opponent,
         "profile": args.profile,
         "split": args.split,
