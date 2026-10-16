@@ -43,7 +43,7 @@ class FrozenOpponent:
         # Loading an opponent must not consume the learner's random stream.
         with torch.random.fork_rng(devices=devices):
             self.model = PolicyValue(
-                config["kind"], config["width"], config["layers"]
+                config["kind"], config["width"], config["layers"], config.get("koi_width", 0)
             ).to(device)
             self.model.load_state_dict(weights)
         self.model.eval().requires_grad_(False)

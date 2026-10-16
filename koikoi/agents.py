@@ -55,7 +55,9 @@ class NeuralAgent:
         config = payload["config"]
         self.training_config = config
         self.model = (
-            PolicyValue(config["kind"], config["width"], config["layers"])
+            PolicyValue(
+                config["kind"], config["width"], config["layers"], config.get("koi_width", 0)
+            )
             .to(device)
             .eval()
         )

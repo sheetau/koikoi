@@ -8,9 +8,13 @@ from .reference import BLUE, KASU, LIGHTS, RED, RIBBONS, TANE
 
 
 class PolicyValue(nn.Module):
-    def __init__(self, kind="mlp", width=128, layers=2):
+    def __init__(self, kind="mlp", width=128, layers=2, koi_width=0):
         super().__init__()
         self.config = {"kind": kind, "width": width, "layers": layers}
+        if koi_width < 0:
+            raise ValueError("koi_width must be nonnegative")
+        if koi_width:
+            self.config["koi_width"] = koi_width
         self.kind = kind
         if kind in ("mlp", "features", "relational"):
             extra = 0
@@ -91,6 +95,20 @@ class PolicyValue(nn.Module):
             nn.init.orthogonal_(head.weight, gain=0.01)
             nn.init.zeros_(head.bias)
 
+        self.koi_residual = None
+        if koi_width:
+            # Preserve the base actor and sampling RNG; start with identical logits.
+            with torch.random.fork_rng(devices=[]):
+                self.koi_residual = nn.Sequential(
+                    nn.Linear(OBS_SIZE, koi_width),
+                    nn.Tanh(),
+                    nn.Linear(koi_width, koi_width),
+                    nn.Tanh(),
+                    nn.Linear(koi_width, 2),
+                )
+                nn.init.zeros_(self.koi_residual[-1].weight)
+                nn.init.zeros_(self.koi_residual[-1].bias)
+
     def forward(self, obs, mask):
         if self.kind in ("mlp", "features", "relational"):
             inputs = obs
@@ -148,7 +166,10 @@ class PolicyValue(nn.Module):
             )
             belief = self.belief(features[:, :48]).squeeze(-1)
         card_logits = torch.where(obs[:, 528:529] > 0, discard, pick)
-        logits = torch.cat([card_logits, self.koi(pooled)], dim=-1)
+        koi_logits = self.koi(pooled)
+        if self.koi_residual is not None:
+            koi_logits = koi_logits + self.koi_residual(obs)
+        logits = torch.cat([card_logits, koi_logits], dim=-1)
         logits = logits.masked_fill(~mask, -1e9)
         return logits, self.value(pooled).squeeze(-1), belief
 

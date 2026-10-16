@@ -1,0 +1,22 @@
+{
+  "device": "cuda",
+  "profile": "paper8",
+  "envs": 1024,
+  "horizon": 128,
+  "kind": "mlp",
+  "width": 128,
+  "epochs": 3,
+  "minibatch": 4096,
+  "entropy": 0.02,
+  "belief_weight": 0.0,
+  "reward": "match",
+  "precision": "float32",
+  "seed": 60001,
+  "cuda_graph": true,
+  "gae_lambda": 0.95,
+  "cuda_rollout": true,
+  "ppo_value": "observation",
+  "critic_width": 256,
+  "policy_scope": "all",
+  "koi_width": 0
+}

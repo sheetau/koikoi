@@ -62,8 +62,23 @@ class Config:
     cuda_rollout: bool = False
     opponent_fraction: float = 0.0
     ppo_value: str = "shared"
+    policy_scope: str = "all"
+    koi_width: int = 0
 
     def __post_init__(self):
+        if self.policy_scope not in ("all", "koi") or self.koi_width < 0:
+            raise ValueError("Invalid policy scope or koi width")
+        if self.policy_scope == "koi" and (
+            self.algorithm != "ppo"
+            or self.opponent_fraction
+            or self.ppo_value != "observation"
+            or self.reward != "match"
+            or self.belief_weight
+        ):
+            raise ValueError(
+                "Koi-only learning requires self-play match PPO, observation critic, "
+                "and no belief loss"
+            )
         if self.ppo_value not in ("shared", "observation", "privileged"):
             raise ValueError("Unknown PPO value mode")
         if self.ppo_value != "shared" and (
@@ -163,9 +178,14 @@ class Trainer:
         np.random.seed(config.seed)
         torch.manual_seed(config.seed)
         self.env = BatchEnv(config.envs, config.device, config.profile, config.seed)
-        self.model = PolicyValue(config.kind, config.width, config.layers).to(
-            config.device
-        )
+        self.model = PolicyValue(
+            config.kind, config.width, config.layers, config.koi_width
+        ).to(config.device)
+        if config.policy_scope == "koi":
+            self.model.requires_grad_(False)
+            for head in (self.model.koi, self.model.value, self.model.koi_residual):
+                if head is not None:
+                    head.requires_grad_(True)
         self.opponent_value = (
             OpponentValue(config.width).to(config.device)
             if config.opponent_fraction
@@ -210,6 +230,8 @@ class Trainer:
         self.counters = {"updates": 0, "decisions": 0, "rounds": 0, "matches": 0}
         if config.opponent_fraction:
             self.counters["learner_decisions"] = 0
+        if config.policy_scope == "koi":
+            self.counters["policy_decisions"] = 0
         self.provenance = provenance()
 
     def set_frozen_opponent(self, path):
@@ -280,7 +302,17 @@ class Trainer:
         for field in ("kind", "width", "layers"):
             if payload["config"][field] != getattr(self.config, field):
                 raise ValueError(f"Initialization architecture mismatch: {field}")
-        self.model.load_state_dict(payload["model"])
+        source_width = payload["config"].get("koi_width", 0)
+        if source_width == self.config.koi_width:
+            self.model.load_state_dict(payload["model"])
+        elif source_width == 0 and self.config.koi_width > 0:
+            initial = self.model.state_dict()
+            base_keys = {k for k in initial if not k.startswith("koi_residual.")}
+            if set(payload["model"]) != base_keys:
+                raise ValueError("Initialization model keys do not match the base actor")
+            self.model.load_state_dict(initial | payload["model"])
+        else:
+            raise ValueError("Initialization architecture mismatch: koi_width")
         self.provenance["initialized_from"] = {
             "sha256": hashlib.sha256(content).hexdigest(),
             "profile": payload["config"]["profile"],
@@ -341,6 +373,8 @@ class Trainer:
         rounds, matches = totals.cpu().tolist()
         if self.config.opponent_fraction:
             self.counters["learner_decisions"] += int(batch["learner"].sum())
+        if self.config.policy_scope == "koi":
+            self.counters["policy_decisions"] += int(batch["mask"][:, 48:].any(-1).sum())
         self.counters["rounds"] += rounds
         self.counters["matches"] += matches
         self.counters["decisions"] += self.config.envs * self.config.horizon
@@ -507,21 +541,25 @@ class Trainer:
         logp = logprobs.gather(1, data["action"][:, None]).squeeze(-1)
         delta = logp - data["old_logp"]
         learner = data.get("learner")
-        if learner is not None:
-            delta = torch.where(learner.bool(), delta, 0.0)
+        policy_weight = (
+            mask[:, 48:].any(-1).float() if c.policy_scope == "koi" else learner
+        )
+        if policy_weight is not None:
+            delta = torch.where(policy_weight.bool(), delta, 0.0)
         ratio = delta.exp()
         adv = data["advantage"]
         policy_terms = -torch.minimum(
             ratio * adv, ratio.clamp(1 - c.clip, 1 + c.clip) * adv
         )
         entropy_terms = -(logprobs.exp() * logprobs).sum(-1)
-        if learner is None:
+        if policy_weight is None:
             policy_loss = policy_terms.mean()
             entropy = entropy_terms.mean()
         else:
-            count = learner.sum().clamp_min(1)
-            policy_loss = (policy_terms * learner).sum() / count
-            entropy = (entropy_terms * learner).sum() / count
+            count = policy_weight.sum().clamp_min(1)
+            policy_loss = (policy_terms * policy_weight).sum() / count
+            entropy = (entropy_terms * policy_weight).sum() / count
+        if learner is not None:
             value = torch.where(learner.bool(), value, self.role_value(obs))
         value_loss = F.mse_loss(value, data["return"])
         unknown = obs[:, :528].reshape(-1, 48, 11)[:, :, 4]
@@ -552,8 +590,8 @@ class Trainer:
             kl_terms = (ratio - 1) - delta
             kl = (
                 kl_terms.mean()
-                if learner is None
-                else (kl_terms * learner).sum() / learner.sum().clamp_min(1)
+                if policy_weight is None
+                else (kl_terms * policy_weight).sum() / policy_weight.sum().clamp_min(1)
             )
             metrics = [policy_loss, value_loss, entropy, belief_loss, kl, grad]
             if self.ppo_critic is not None:
@@ -564,8 +602,12 @@ class Trainer:
         batch = self.collect()
         c = self.config
         advantage = batch["advantage"]
-        if "learner" in batch:
-            learner = batch["learner"]
+        learner = (
+            batch["mask"][:, 48:].any(-1).float()
+            if c.policy_scope == "koi"
+            else batch.get("learner")
+        )
+        if learner is not None:
             count = learner.sum().clamp_min(1)
             mean = (advantage * learner).sum() / count
             variance = ((advantage - mean).square() * learner).sum() / count

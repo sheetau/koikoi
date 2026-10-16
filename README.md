@@ -73,6 +73,12 @@ Additional comparison configs: `vrpo8.json` selects a separate centralized Q cri
 
 `ppo8_endgame.json` trains with public match-outcome dominance rules enabled in the policy mask before sampling. Checkpoints retain this behavior automatically during inference and search; reports show the actual assistance settings for each agent. `ppo8_control.json` is identical except for this flag, for controlled weight-initialized comparisons. This option requires match-outcome rewards; point difference is not its objective.
 
+For experimental koi-only adaptation, set `policy_scope="koi"` with `ppo_value="observation"`, match rewards and zero belief loss. Card-network weights stay frozen; only the koi head, optional koi residual network, observation-only actor value head and separate return critic are optimized. Policy loss, entropy, KL and advantage normalization use koi rows only; values and signed returns still cover the complete match. Card actions remain sampled from the fixed card policy during learning. `policy_decisions` counts koi rows separately from total simulator decisions in metrics/checkpoints; historical phase counts are not inferred by the lineage budget auditor.
+
+`koi_width>0` adds a 560-input, two-hidden-layer tanh network whose two outputs are added to the existing koi logits. Its zero-initialized output preserves the parent policy, and initialization preserves sampling RNG. `--initialize` accepts a base checkpoint without this branch or an exactly matching branch width; incompatible residual widths are rejected. Checkpoints embed the complete inference model and restore its frozen/trainable split. Defaults `policy_scope="all"` and `koi_width=0` preserve existing behavior.
+
+The matched `ppo8_koi_control.json`, `ppo8_koi_head.json` and `ppo8_koi_residual.json` configs compare full-policy continuation, koi-head-only adaptation and koi-head plus width-128 residual adaptation. All use the same fresh observation critic and initialization checkpoint. The experiment is a hypothesis about decision specialization, not an established strength improvement.
+
 ## Evaluate
 
 ```powershell
