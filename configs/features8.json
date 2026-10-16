@@ -1,0 +1,13 @@
+{
+  "device": "cuda",
+  "profile": "paper8",
+  "envs": 2048,
+  "horizon": 128,
+  "kind": "features",
+  "width": 128,
+  "epochs": 3,
+  "minibatch": 8192,
+  "entropy": 0.02,
+  "belief_weight": 0.0,
+  "reward": "match"
+}

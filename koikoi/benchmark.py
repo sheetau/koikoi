@@ -24,13 +24,19 @@ def main():
     model = PolicyValue().to(args.device).eval() if args.policy else None
     counts = torch.zeros(2, dtype=torch.int64, device=args.device)
     with torch.no_grad():
-        for t in range(args.steps+100):
+        for t in range(args.steps + 100):
             if t == 100:
                 if args.device.startswith("cuda"):
                     torch.cuda.synchronize()
                 start = time.perf_counter()
             obs, mask = env.observe()
-            logits = model(obs, mask)[0] if model else torch.zeros_like(mask, dtype=torch.float32).masked_fill(~mask, -1e9)
+            logits = (
+                model(obs, mask)[0]
+                if model
+                else torch.zeros_like(mask, dtype=torch.float32).masked_fill(
+                    ~mask, -1e9
+                )
+            )
             actions, _ = sample_action(logits)
             result = env.step(actions)
             if t >= 100:
@@ -38,13 +44,26 @@ def main():
             env.reset_done()
     if args.device.startswith("cuda"):
         torch.cuda.synchronize()
-    elapsed = time.perf_counter()-start
+    elapsed = time.perf_counter() - start
     rounds, matches = counts.cpu().tolist()
-    print(json.dumps({"kind": "policy_inference" if model else "random_policy", "profile": args.profile,
-                      "envs": args.envs, "seconds": elapsed, "decisions": args.steps*args.envs,
-                      "rounds": rounds, "matches": matches, "decisions_per_second": args.steps*args.envs/elapsed,
-                      "matches_per_second": matches/elapsed, "includes_learning": False,
-                      "provenance": provenance()}, indent=2))
+    print(
+        json.dumps(
+            {
+                "kind": "policy_inference" if model else "random_policy",
+                "profile": args.profile,
+                "envs": args.envs,
+                "seconds": elapsed,
+                "decisions": args.steps * args.envs,
+                "rounds": rounds,
+                "matches": matches,
+                "decisions_per_second": args.steps * args.envs / elapsed,
+                "matches_per_second": matches / elapsed,
+                "includes_learning": False,
+                "provenance": provenance(),
+            },
+            indent=2,
+        )
+    )
 
 
 if __name__ == "__main__":

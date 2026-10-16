@@ -3,9 +3,36 @@
 from __future__ import annotations
 
 import copy
+
 import numpy as np
 
-from .layout import *
+from .layout import (
+    ACTION_SIZE,
+    BANKRUPT,
+    BEFORE,
+    DEALER,
+    DISCARD,
+    EPISODE,
+    HISTORY,
+    KOI,
+    KOIS,
+    OBS_SIZE,
+    PENDING,
+    PHASE,
+    PICK_DRAW,
+    PICK_HAND,
+    PLAYER,
+    POINTS,
+    PROFILES,
+    ROUND,
+    ROUNDS,
+    SEED,
+    STATE_SIZE,
+    STOCK,
+    STOP,
+    TERMINAL,
+    TURN,
+)
 
 LIGHTS = {0, 8, 28, 40, 44}
 TANE = {4, 12, 16, 20, 24, 29, 32, 36, 41}
@@ -58,8 +85,10 @@ def mix64(x):
 
 
 def valid_deal(deck):
-    return all(max(np.bincount(np.asarray(deck[a:a+8]) // 4, minlength=12)) < 4
-               for a in (0, 8, 16))
+    return all(
+        max(np.bincount(np.asarray(deck[a : a + 8]) // 4, minlength=12)) < 4
+        for a in (0, 8, 16)
+    )
 
 
 class ReferenceEnv:
@@ -68,7 +97,7 @@ class ReferenceEnv:
         self.state = np.zeros(STATE_SIZE, dtype=np.int32)
         s = self.state
         s[ROUNDS], s[BANKRUPT], s[SEED], s[EPISODE] = rounds, bankrupt, seed, episode
-        s[POINTS:POINTS+2] = 30
+        s[POINTS : POINTS + 2] = 30
         s[DEALER] = mix(seed ^ mix(episode + 1)) & 1
         self.deal()
 
@@ -78,7 +107,13 @@ class ReferenceEnv:
     def deal(self, deck=None):
         s = self.state
         if deck is None:
-            rng = RNG(mix64(int(s[SEED]) ^ mix64(int(s[EPISODE]) + 1) ^ mix64(int(s[ROUND]) + 17)))
+            rng = RNG(
+                mix64(
+                    int(s[SEED])
+                    ^ mix64(int(s[EPISODE]) + 1)
+                    ^ mix64(int(s[ROUND]) + 17)
+                )
+            )
             while True:
                 deck = list(range(48))
                 for i in range(47, 0, -1):
@@ -95,11 +130,14 @@ class ReferenceEnv:
         s[np.asarray(deck[16:24])] = 2
         s[PLAYER], s[TURN], s[PHASE] = s[DEALER], 0, DISCARD
         s[PENDING], s[STOCK], s[BEFORE] = -1, 47, 0
-        s[KOIS:KOIS+2] = 0
+        s[KOIS : KOIS + 2] = 0
         s[HISTORY:] = 0
 
     def yaku(self, player):
-        return score(np.flatnonzero(self.state[:48] == 3 + player), int(self.state[KOIS+player]))
+        return score(
+            np.flatnonzero(self.state[:48] == 3 + player),
+            int(self.state[KOIS + player]),
+        )
 
     def matches(self):
         s = self.state
@@ -130,11 +168,13 @@ class ReferenceEnv:
         s = self.state
         delta = points if winner == 0 else -points
         s[POINTS] += delta
-        s[POINTS+1] -= delta
+        s[POINTS + 1] -= delta
         result[1], result[3] = 1, delta
-        if s[ROUND] + 1 == s[ROUNDS] or (s[BANKRUPT] and min(s[POINTS:POINTS+2]) <= 0):
+        if s[ROUND] + 1 == s[ROUNDS] or (
+            s[BANKRUPT] and min(s[POINTS : POINTS + 2]) <= 0
+        ):
             s[PHASE] = TERMINAL
-            result[0] = int(np.sign(s[POINTS] - s[POINTS+1]))
+            result[0] = int(np.sign(s[POINTS] - s[POINTS + 1]))
             result[2] = 1
         else:
             s[ROUND] += 1
@@ -154,7 +194,7 @@ class ReferenceEnv:
         s = self.state
         if self.yaku(s[PLAYER]) > s[BEFORE]:
             if s[TURN] >= 14:
-                s[HISTORY+s[TURN]*5+4] = 1
+                s[HISTORY + s[TURN] * 5 + 4] = 1
                 self.finish(int(s[PLAYER]), self.yaku(s[PLAYER]), result)
             else:
                 s[PHASE] = KOI
@@ -163,10 +203,10 @@ class ReferenceEnv:
 
     def draw(self, result):
         s = self.state
-        card = s[48+s[STOCK]]
+        card = s[48 + s[STOCK]]
         s[STOCK] -= 1
         s[PENDING], s[card] = card, 5
-        s[HISTORY+s[TURN]*5+2] = card + 1
+        s[HISTORY + s[TURN] * 5 + 2] = card + 1
         if len(self.matches()) == 2:
             s[PHASE] = PICK_DRAW
         else:
@@ -178,7 +218,7 @@ class ReferenceEnv:
             raise ValueError(f"Illegal action {action}")
         s = self.state
         result = np.zeros(4, dtype=np.int32)
-        phase, h = s[PHASE], HISTORY+s[TURN]*5
+        phase, h = s[PHASE], HISTORY + s[TURN] * 5
         if phase == DISCARD:
             s[BEFORE] = self.yaku(s[PLAYER])
             s[PENDING], s[action], s[h] = action, 5, action + 1
@@ -195,11 +235,11 @@ class ReferenceEnv:
             else:
                 self.after_draw(result)
         else:
-            s[h+4] = 1 if action == STOP else 2
+            s[h + 4] = 1 if action == STOP else 2
             if action == STOP:
                 self.finish(int(s[PLAYER]), self.yaku(s[PLAYER]), result)
             else:
-                s[KOIS+s[PLAYER]] += 1
+                s[KOIS + s[PLAYER]] += 1
                 self.end_turn(result)
         return result
 
@@ -209,22 +249,32 @@ class ReferenceEnv:
         cards = obs[:528].reshape(48, 11)
         cards[:, 0] = s[:48] == p
         cards[:, 1] = s[:48] == 2
-        cards[:, 2] = s[:48] == 3+p
-        cards[:, 3] = s[:48] == 4-p
-        cards[:, 4] = (s[:48] == 1-p) | (s[:48] == -1)
+        cards[:, 2] = s[:48] == 3 + p
+        cards[:, 3] = s[:48] == 4 - p
+        cards[:, 4] = (s[:48] == 1 - p) | (s[:48] == -1)
         cards[:, 5] = s[:48] == 5
         cards[s[64:72], 6] = 1
         for turn in range(16):
             for offset, feature in ((0, 7), (2, 8), (1, 9), (3, 10)):
-                c = s[HISTORY+turn*5+offset] - 1
+                c = s[HISTORY + turn * 5 + offset] - 1
                 if c >= 0:
-                    cards[c, feature] = (turn+1)/16
+                    cards[c, feature] = (turn + 1) / 16
         g = obs[528:]
         if s[PHASE] < 4:
             g[s[PHASE]] = 1
-        g[4:16] = [s[TURN]/16, float(s[DEALER] == p), s[ROUND]/12, s[ROUNDS]/12,
-                   s[POINTS+p]/64, s[POINTS+1-p]/64, s[KOIS+p]/8, s[KOIS+1-p]/8,
-                   (s[STOCK]-23)/24, np.count_nonzero(s[:48] == 1-p)/8,
-                   s[BEFORE]/32, s[BANKRUPT]]
-        g[16:] = s[HISTORY+4::5]/2
+        g[4:16] = [
+            s[TURN] / 16,
+            float(s[DEALER] == p),
+            s[ROUND] / 12,
+            s[ROUNDS] / 12,
+            s[POINTS + p] / 64,
+            s[POINTS + 1 - p] / 64,
+            s[KOIS + p] / 8,
+            s[KOIS + 1 - p] / 8,
+            (s[STOCK] - 23) / 24,
+            np.count_nonzero(s[:48] == 1 - p) / 8,
+            s[BEFORE] / 32,
+            s[BANKRUPT],
+        ]
+        g[16:] = s[HISTORY + 4 :: 5] / 2
         return obs

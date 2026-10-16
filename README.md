@@ -1,6 +1,6 @@
 # Koi-Koi research
 
-GPU-parallel Koi-Koi simulation, self-play PPO, published-baseline evaluation, and belief-sampled inference rollouts. This is a research implementation; no strongest-AI or equilibrium claim has been established. See [current evidence](docs/STATUS.md), [rules](docs/RULES.md), and [architecture](docs/DESIGN.md).
+GPU-parallel Koi-Koi simulation, self-play PPO and Q-boosting, published-baseline evaluation, and belief-sampled inference rollouts. This is a research implementation; no strongest-AI or equilibrium claim has been established. See [current evidence](docs/STATUS.md), [rules](docs/RULES.md), and [architecture](docs/DESIGN.md).
 
 ## Setup (Windows / NVIDIA)
 
@@ -31,6 +31,8 @@ Tests compare independent Python rules with C++ and CUDA, scoring and full match
 
 `--updates` is an absolute cumulative update target. `--target-matches` instead trains until the cumulative completed-match counter reaches the specified number (possibly overshooting by a rollout). `--checkpoint-every` controls completed-update snapshots. Ctrl+C retains the last completed snapshot, never a partial update. Resuming modified source requires explicit `--allow-code-change` and creates a new provenance record; it is not an exact continuation experiment.
 
+`--max-seconds` sets a wall-time limit checked between completed updates. Creating `runs/<run>/STOP` also requests a clean checkpoint and exit; remove that file before resuming. Starting a new training run in a directory with existing metrics is rejected. Checkpoints record the parent checkpoint hash when continued.
+
 The eventual scale target, after selecting a validated method:
 
 ```powershell
@@ -38,6 +40,8 @@ The eventual scale target, after selecting a validated method:
 ```
 
 This command is a capability, not evidence that the run has been performed. `paper8` and `research12` are different versioned protocols. Do not compare published eight-round weights on a twelve-round match. Config `reward=round` is a separately labeled point-reward experiment, not the default win-rate objective. `kind=transformer` selects card-token attention; `belief_weight>0` trains the hidden-card auxiliary predictor. Policy inputs never receive its ground-truth labels.
+
+Additional comparison configs: `vrpo8.json` selects a separate centralized Q critic ([implementation scope and deviations](docs/VRPO.md)); `features8.json` adds public role/month counts to the MLP; `transformer8_bf16.json` uses mixed precision with float32 loss calculations. The Q-boosting option is experimental, not a proven improvement. Compare by both decision budget and wall time, with multiple independent training seeds.
 
 ## Evaluate
 
@@ -50,5 +54,7 @@ This command is a capability, not evidence that the run has been performed. `pap
 `--search uniform` requires no trained belief head. Search initially focuses on koi/stop decisions; both rollout players use only their own observations. It is a finite-budget policy-rollout heuristic, not PIMC or a Nash-safe subgame solver. Report search time separately. Neural policies sample by default; `--deterministic` is a separate evaluation setting.
 
 Each pair exchanges agent seats while retaining identical seat-assigned deals and initial dealer. Reports include pair-bootstrap confidence intervals, draw-adjusted win rate, point difference, decision latency, exact seeds and code provenance. Small smoke evaluations cannot establish superiority. Development seeds start at 1,000,000; reserve 100,000,000 and above for final tests (`--split test`). Do not tune against final test results.
+
+Evaluation protocol version 2 independently seeds each pair and repeats policy RNG seeds across its two legs. Reports hash the checkpoint bytes actually loaded and record their training counters/provenance. Earlier pilot reports without a protocol version used one continuous policy RNG stream; do not combine their pair records with version 2.
 
 Original models retain their historical input quirks. The loader adapts an obsolete PyTorch class name and loads the original parameter tensors into the same architecture on modern PyTorch. Fetch source with `python -m koikoi.upstream --fetch`; the pin and license are in [third-party notices](THIRD_PARTY_NOTICES.md). Load only trusted local training checkpoints: PyTorch pickle deserialization is used.

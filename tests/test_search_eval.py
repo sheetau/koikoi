@@ -1,9 +1,8 @@
 import numpy as np
-import torch
 
-from koikoi.evaluate import duel, paired_interval
 from koikoi.agents import GreedyAgent
-from koikoi.layout import *
+from koikoi.evaluate import duel, paired_interval, seed_agents
+from koikoi.layout import STOCK
 from koikoi.reference import ReferenceEnv, valid_deal
 from koikoi.search import sample_hidden
 
@@ -19,7 +18,9 @@ def test_sampling_preserves_observation_and_deck():
             np.testing.assert_array_equal(observation, world.observe())
             assert sorted(world.state[48:96]) == list(range(48))
             assert valid_deal(world.state[48:96])
-            assert set(world.state[72:49+world.state[STOCK]]) == set(np.flatnonzero(world.state[:48] == -1))
+            assert set(world.state[72 : 49 + world.state[STOCK]]) == set(
+                np.flatnonzero(world.state[:48] == -1)
+            )
         env.step(rng.choice(np.flatnonzero(env.legal())))
 
 
@@ -36,7 +37,20 @@ def test_deterministic_duplicate_pairs_and_interval():
     a, b = GreedyAgent(), GreedyAgent()
     first = duel(a, b, 987, "paper8")
     second = duel(b, a, 987, "paper8")
-    assert (first[0]+1-second[0])/2 == .5
+    assert (first[0] + 1 - second[0]) / 2 == 0.5
     assert first[1] == second[1]
-    assert paired_interval([.5]*10) == [.5, .5]
-    assert paired_interval([.5]) is None
+    assert paired_interval([0.5] * 10) == [0.5, 0.5]
+    assert paired_interval([0.5]) is None
+
+
+def test_pair_replay_is_independent_of_prior_rng_consumption():
+    from koikoi.agents import RandomAgent
+
+    a, b = RandomAgent(), GreedyAgent()
+    seed_agents(a, b, 4321)
+    first = duel(a, b, 4321, "paper8")
+    a.rng.random(1000)
+    seed_agents(a, b, 4321)
+    second = duel(a, b, 4321, "paper8")
+    assert first[:2] == second[:2]
+    assert first[3] == second[3]

@@ -11,7 +11,7 @@ Build a reproducible Koi-Koi research system; exceed the published RL-WP baselin
 - NVRTC compiles CUDA kernels using the CUDA libraries supplied by PyTorch; no system-wide CUDA toolkit is required. CUDA Driver API launches kernels on PyTorch's current stream.
 - A masked policy/value network sees only acting-player observations, public within-round history and match context. Optional opponent-card prediction uses hidden cards only as supervised labels.
 - PPO with signed, player-relative returns is the initial training baseline. Multiple decisions by one player must NOT flip value signs. Round boundaries do not terminate match returns.
-- PPO versus VRPO, flat versus card-token networks, current versus archived opponents, belief versus uniform sampling, and search versus no search are separate experiments. Do not call an unvalidated Q estimator VRPO.
+- PPO versus Q-boosting, flat versus explicit public features versus card-token networks, current versus archived opponents, belief versus uniform sampling, and search versus no search are separate experiments. The VRPO-inspired option and its deviations are documented in docs/VRPO.md; no improvement or equilibrium guarantee is presumed.
 - Search samples consistent hidden states, then calls observation-only policies for both seats. No perfect-information optimization of sampled hidden states.
 
 ## Evaluation

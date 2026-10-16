@@ -1,10 +1,14 @@
 """Observation-only reference opponents and trained-policy adapters."""
 
+import hashlib
+import io
+from pathlib import Path
+
 import numpy as np
 import torch
 
 from .model import PolicyValue
-from .reference import LIGHTS, TANE, RIBBONS
+from .reference import LIGHTS, RIBBONS, TANE
 
 
 class RandomAgent:
@@ -29,8 +33,10 @@ class GreedyAgent:
         if obs[528] > 0:
             value = np.zeros(48)
             for c in np.flatnonzero(legal[:48]):
-                matches = [j for j in range(c//4*4, c//4*4+4) if cards[j, 1]]
-                value[c] = weights[c]+sum(weights[matches]) if matches else -weights[c]
+                matches = [j for j in range(c // 4 * 4, c // 4 * 4 + 4) if cards[j, 1]]
+                value[c] = (
+                    weights[c] + sum(weights[matches]) if matches else -weights[c]
+                )
         else:
             value = weights
         return int(np.where(legal[:48], value, -np.inf).argmax())
@@ -38,9 +44,19 @@ class GreedyAgent:
 
 class NeuralAgent:
     def __init__(self, checkpoint, device="cpu", deterministic=False):
-        payload = torch.load(checkpoint, map_location="cpu", weights_only=False)
+        content = Path(checkpoint).read_bytes()
+        self.checkpoint_sha256 = hashlib.sha256(content).hexdigest()
+        payload = torch.load(
+            io.BytesIO(content), map_location="cpu", weights_only=False
+        )
+        self.training_counters = payload["counters"]
+        self.training_provenance = payload["provenance"]
         config = payload["config"]
-        self.model = PolicyValue(config["kind"], config["width"], config["layers"]).to(device).eval()
+        self.model = (
+            PolicyValue(config["kind"], config["width"], config["layers"])
+            .to(device)
+            .eval()
+        )
         self.model.load_state_dict(payload["model"])
         self.device, self.deterministic = device, deterministic
         self.profile = config["profile"]
@@ -51,4 +67,8 @@ class NeuralAgent:
         obs = torch.from_numpy(env.observe()).to(self.device).unsqueeze(0)
         mask = torch.from_numpy(env.legal()).to(self.device).unsqueeze(0)
         logits, _, _ = self.model(obs, mask)
-        return int(logits.argmax(-1) if self.deterministic else torch.multinomial(logits.softmax(-1), 1))
+        return int(
+            logits.argmax(-1)
+            if self.deterministic
+            else torch.multinomial(logits.softmax(-1), 1)
+        )
