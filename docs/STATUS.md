@@ -14,9 +14,9 @@ Against actual old source 499990c, two ordinary self-play updates remain bit-ide
 
 Use .venv/Scripts/python.exe: Python 3.12, Torch 2.12.0+cu130, NumPy 2.5.4. Hardware RTX 5070 Ti 16 GB, Ryzen 9900X, about 62 GiB RAM. Preserve UTF-8 and existing line endings.
 
-## Only live training job (revalidate before acting)
+## Live training jobs (revalidate before acting)
 
-runs/ppo12_scale_seed30001_captured: 15,831 updates / 22,862,759 cumulative new research12 matches last observed. Source 142c265, child PID 57432 (parent 6624), session 57088. Target 100,000,000 new completed matches. Process and advancing finite metrics verified.
+runs/ppo12_scale_seed30001_captured: 22,132 updates / 31,962,756 cumulative new research12 matches last observed. Source 142c265, child PID 57432 (parent 6624), session 57088. Target 100,000,000 new completed matches. Process and advancing finite metrics verified.
 
 ```powershell
 ./.venv/Scripts/python.exe -m koikoi.train --resume runs/ppo12_scale_seed30001/update_00005800.pt --allow-code-change --enable-cuda-rollout --run runs/ppo12_scale_seed30001_captured --target-matches 100000000 --checkpoint-every 1000
@@ -24,7 +24,11 @@ runs/ppo12_scale_seed30001_captured: 15,831 updates / 22,862,759 cumulative new 
 
 These counters exclude 1,000,464 research12 and 11,141,556 paper8 initialization matches. Never relaunch a live job. Use immutable numbered snapshots. A run-local STOP requests clean exit after a completed update. Old ppo12_scale_seed30001, relational8_graph_seed50001 and ppo8_seed10001 are terminal migration directories with STOP; do not restart them.
 
-All other trainers and evaluation watchers completed, including sessions 29416, 68401, 33995 and 93839. No pending public/hybrid/entropy evaluations remain. The finished relational and entropy runs must not be resumed merely because their process is absent.
+Prior relational/entropy/hybrid trainers and evaluation watchers completed, including sessions 29416, 68401, 33995 and 93839. Those finished runs must not be resumed merely because their process is absent.
+
+New historical-opponent run runs/relational8_history20_seed50001 is live from committed 14d62c0: 99 updates / 111,494 matches / 12,976,128 simulator decisions / 11,682,879 learner decisions observed. Child PID 43060 (parent 19056), training session 95960. Command: `python -m koikoi.train --config configs/relational8_history20.json --initialize runs/relational8_v2/update_00002000.pt --frozen-opponent runs/relational8_v2/update_00002000.pt --run runs/relational8_history20_seed50001 --updates 1000 --checkpoint-every 250`. Process and advancing finite metrics verified.
+
+Final-evaluation watcher session 52845 guards PID 43060 and waits for immutable update_00001000.pt. It then runs 10,000 direct pairs versus control update 1,000, 300 assisted-RL-WP pairs and shared-pair control difference. Outputs ab_1000.json, eval_1000_wp.json and difference_vs_control.json in the history run; logs runs/history20_final_*.log. It fails if the trainer exits without the snapshot. Do not duplicate this watcher.
 
 ## Completed evidence and decisions (development only)
 
@@ -60,7 +64,7 @@ Immutable update-12,000 audit: 17,324,780 new research12 + 1,000,464 research12 
 
 Optional fixed-history PPO is implemented, default off. Config opponent_fraction assigns floor(envs * fraction) environments to one fixed checkpoint; learner seats alternate per completed match. Frozen actions are excluded from policy/entropy/belief/KL losses and advantage normalization. A separate trainable observation-only opponent-role critic supplies its signed GAE values; both trainable networks participate in graph rollback. Frozen weights/config/provenance are embedded for self-contained restart. Frozen-opponent pretraining is disclosed separately and excluded from learner ancestry. This is a hypothesis about opponent diversity, not a demonstrated strength gain or a full population/NFSP algorithm.
 
-Next controlled screen: configs/relational8_history20.json, seed 50,001, initialize learner and frozen opponent from runs/relational8_v2/update_00002000.pt. 204 of 1,024 environments use the frozen opponent. The resolved config differs from the prior control only in opponent_fraction 0 -> 0.2; the implementation adds the role critic and yields fewer learner decisions per simulator decision, so this is a method screen, not an isolated opponent-diversity effect. Target 1,000 new updates / 131,072,000 simulator decisions, snapshots every 250. Record actual learner_decisions, expected roughly 90% of total. Planned run runs/relational8_history20_seed50001; compare with control update 1,000 on 10,000 direct pairs and 300 shared assisted-RL-WP development pairs. Positive evidence requires independent training replication and untouched final evaluation.
+Live controlled screen: configs/relational8_history20.json, seed 50,001, initialize learner and frozen opponent from runs/relational8_v2/update_00002000.pt. 204 of 1,024 environments use the frozen opponent. The resolved config differs from the prior control only in opponent_fraction 0 -> 0.2; the implementation adds the role critic and yields fewer learner decisions per simulator decision, so this is a method screen, not an isolated opponent-diversity effect. Target 1,000 new updates / 131,072,000 simulator decisions, snapshots every 250. Record actual learner_decisions, expected roughly 90% of total. Run runs/relational8_history20_seed50001; compare with control update 1,000 on 10,000 direct pairs and 300 shared assisted-RL-WP development pairs. Positive evidence requires independent training replication and untouched final evaluation.
 
 Initialized production-shape smoke passed three updates: 3,062 matches / 393,216 simulator decisions / 353,918 learner decisions, finite losses/gradients, runs/relational_history20_smoke. This is execution validation, not strength evidence; duplicated smoke learning is excluded from the controlled experiment.
 
