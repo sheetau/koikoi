@@ -1,0 +1,10 @@
+{
+  "device": "cuda",
+  "profile": "paper8",
+  "envs": 128,
+  "horizon": 64,
+  "width": 64,
+  "epochs": 2,
+  "minibatch": 2048,
+  "belief_weight": 0.1
+}
