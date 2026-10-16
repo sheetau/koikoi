@@ -8,6 +8,16 @@ Keep the pinned [Guan et al. KoiKoi-AI](https://github.com/guansanghai/KoiKoi-AI
 
 Beating this opponent would satisfy the named minimum baseline, not establish universal superiority over every Koi-Koi implementation. Preserve independent-model validation, untouched final deals and disclosure of development selection.
 
+## Original-paper result interpretation
+
+Inspected the repository PDF `TAI.2023.3240674.pdf`, SHA256 `5dc8d28f72bf5c1906003255f1c2f86e9c00999c4ab2d8ef3b25f15f4164a2fc`; extracted pages6-8 and visually checked complete page7/TableII. [Pinned source](https://github.com/guansanghai/KoiKoi-AI/blob/89d789565c7c36c84b74662e43001d960bf80901/TAI.2023.3240674.pdf).
+
+TableII reports RL-WP versus RL-Point at51.5% over2,000 games, with point statistic-2.88. Human comparisons comprise only50 games per agent. The table gives the Author52% against RL-WP, while the prose gives RL-WP47% against humans; retain this discrepancy rather than silently reconciling it. RL-Point's reported human result is53%, not RL-WP's.
+
+The paper defines its point statistic as final points minus initial30. Our `evaluate.duel` reports final candidate-minus-opponent points. Because the total remains60, our statistic is twice the paper's scale. Divide our point means and interval endpoints by2 when presenting the paper's convention; do not relabel historical reports or mix scales.
+
+Decision: retain assisted RL-WP as the primary match-win comparator. Once a method is fixed, include assisted RL-Point as a secondary final comparator. Beating one policy does not imply beating the other, and neither establishes human superiority. This interpretation does not change the ongoing fixed endpoint.
+
 ## Open Hanafuda AI
 
 Pinned snapshot: `suzukiplan/open-hanafuda-ai` at `01b4e484ac3d223f4ae8198d2a399f69078174d2`; remote HEAD and local checkout agree. Its [README](https://github.com/suzukiplan/open-hanafuda-ai/blob/01b4e484ac3d223f4ae8198d2a399f69078174d2/README.md) describes simulation, observable-information inference and heuristics, with MIT-licensed code.

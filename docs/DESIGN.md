@@ -51,6 +51,8 @@ The motivation is the prior replicated MLP koi-substitution diagnostic and small
 
 Seeded deals are indexed by match and round, independent of actions. A pair repeats the same seat-assigned deals and initial dealer with agent identities swapped. Confidence intervals resample independent pairs, not individual games. Final test seeds are disjoint from training and development seeds. Report draw-adjusted match win rate, point difference, latency and training budget. Match rewards are +1/0/-1 for win/draw/loss; optional round-point warmup must be labeled and disabled for final win-rate training.
 
+Point difference in our reports means final candidate points minus final opponent points. With conserved total60 and initial30 each, this is twice the original paper's final-minus-initial statistic. Preserve report units; divide both means and interval endpoints by2 only when explicitly presenting the paper's convention. See COMPARATORS.md for the verified source and final secondary RL-Point comparison.
+
 The original upstream model is evaluated on its eight-round, bankruptcy-ending rules. Its historical feature quirks must be preserved in the adapter, never silently repaired for published weights. Twelve-round transfer is a separate result.
 
 Large deterministic checkpoint duels also run in native batches: duplicate the complete initial state, exchange agent seats, and freeze finished rows. No redealt episodes enter an evaluation pair. Check both devices/profiles against sequential reference duels and record batch shape/device, since floating-point near-ties can differ across execution paths. The native endgame guard reads only captured cards, scores, phase and public match context.
