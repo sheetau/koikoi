@@ -14,8 +14,14 @@ from .model import PolicyValue, sample_action
 from .train import Config, Trainer, provenance, signed_gae
 
 
-def benchmark_training(config, steps):
+def benchmark_training(config, steps, frozen_opponent=None):
+    if bool(config.opponent_fraction) != (frozen_opponent is not None):
+        raise ValueError(
+            "Positive opponent_fraction and --frozen-opponent are required together"
+        )
     trainer = Trainer(config)
+    if frozen_opponent is not None:
+        trainer.set_frozen_opponent(frozen_opponent)
     for _ in range(5):
         trainer.update()
     if trainer.env.device.type == "cuda":
@@ -28,6 +34,7 @@ def benchmark_training(config, steps):
         torch.cuda.synchronize(trainer.env.device)
     elapsed = time.perf_counter() - start
     counts = {key: value - initial[key] for key, value in trainer.counters.items()}
+    counts.setdefault("learner_decisions", counts["decisions"])
     return {
         "kind": "self_play_learning",
         "includes_learning": True,
@@ -36,6 +43,7 @@ def benchmark_training(config, steps):
         **counts,
         "config": asdict(config),
         "decisions_per_second": counts["decisions"] / elapsed,
+        "learner_decisions_per_second": counts["learner_decisions"] / elapsed,
         "matches_per_second": counts["matches"] / elapsed,
         "provenance": trainer.provenance,
     }
@@ -113,6 +121,11 @@ def main():
         action="store_true",
         help="Enable captured rollout/returns for --training-config",
     )
+    p.add_argument(
+        "--frozen-opponent",
+        type=Path,
+        help="Include fixed-opponent inference for --training-config",
+    )
     p.add_argument("--profile", default="research12")
     args = p.parse_args()
     if min(args.steps, args.horizon, args.envs) < 1:
@@ -123,13 +136,21 @@ def main():
         p.error("--cuda-graph requires --training-config")
     if args.cuda_rollout and not args.training_config:
         p.error("--cuda-rollout requires --training-config")
+    if args.frozen_opponent and not args.training_config:
+        p.error("--frozen-opponent requires --training-config")
     if args.training_config:
         config = json.loads(args.training_config.read_text(encoding="utf-8"))
         if args.cuda_graph:
             config["cuda_graph"] = True
         if args.cuda_rollout:
             config["cuda_rollout"] = True
-        print(json.dumps(benchmark_training(Config(**config), args.steps), indent=2))
+        try:
+            result = benchmark_training(
+                Config(**config), args.steps, args.frozen_opponent
+            )
+        except ValueError as error:
+            p.error(str(error))
+        print(json.dumps(result, indent=2))
         return
     torch.set_num_threads(4)
     env = BatchEnv(args.envs, args.device, args.profile)
