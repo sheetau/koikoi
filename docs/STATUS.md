@@ -18,8 +18,9 @@ Hardware: RTX 5070 Ti 16 GB, Ryzen 9 9900X, about 62 GiB RAM; local Python 3.12 
 
 | Run | Target | Last observed updates / matches | Source |
 | --- | --- | ---: | --- |
-| ppo12_scale_seed30001_captured | 100M cumulative new research12 matches | 11,211 / 16,182,130 | 142c265 |
-| relational8_fullgraph_seed50001 | 3,000 updates after initialization | 2,379 / 2,698,654 | 5dc3025 |
+| ppo12_scale_seed30001_captured | 100M cumulative new research12 matches | 11,434 / 16,504,178 | 142c265 |
+| relational8_fullgraph_seed50001 | 3,000 updates after initialization | 2,462 / 2,792,467 | 5dc3025 |
+| relational8_entropy005_seed50001 | 1,000 updates, entropy 0.005 | 51 / 57,225 | e626ac1 |
 
 Counts above are cumulative within each run's resume lineage. Scale counters exclude initialization (1,000,464 research12 and 11,141,556 paper8 matches); relational counters exclude 2,245,436 paper8 pretraining matches. Final-test seeds (100,000,000+) remain unused.
 
@@ -66,3 +67,7 @@ Replica completed in runs/ppo8_seed10001_captured with update_00005000.pt SHA ed
 Next controlled screen: configs/relational8_entropy005.json lowers entropy weight 0.02 -> 0.005 only. Resolved config checked against the relational control; same initialization runs/relational8_v2/update_00002000.pt, training seed 50,001, fresh optimizer/RNG/counters, lambda 0.95 and full capture. Hypothesis: weaker exploration regularization may refine the already learned policy; no gain is presumed. Target 1,000 new updates / 131,072,000 decisions, snapshots every 250, run runs/relational8_entropy005_seed50001. Primary comparisons: matched control update 1,000 on 10,000 direct pairs and 300 shared development pairs against assisted RL-WP. This is a paired training-seed screen, not independent replication; positive findings require a new training seed and untouched final evaluation. Do not extend or adopt based solely on an intermediate snapshot. Pretraining 2,245,436 paper8 matches stays separate from new counters and research12 budget.
 
 Initialized three-update smoke in runs/relational_entropy005_smoke completed 393,216 decisions / 3,065 matches with finite losses and gradients. This validates execution only; duplicated smoke learning is excluded from the controlled run.
+
+Entropy screen is live from committed e626ac1; trainer PID 25956 (parent 44560), session 66727. Command: `python -m koikoi.train --config configs/relational8_entropy005.json --initialize runs/relational8_v2/update_00002000.pt --run runs/relational8_entropy005_seed50001 --updates 1000 --checkpoint-every 250`. Process and advancing finite metrics verified.
+
+Pending final-evaluation watchers (do not duplicate): session 29416 guards entropy trainer PID 25956, waits for update_00001000.pt, then runs direct 10,000-pair comparison, 300-pair assisted RL-WP evaluation and paired control difference. Outputs ab_1000.json, eval_1000_wp.json and difference_vs_control.json in its run; logs runs/entropy005_final_*.log. Session 68401 guards relational trainer PID 57396, waits for update_00003000.pt, then runs 10,000 direct pairs against initialization, 1,000 public pairs and paired difference versus update 1,500. Outputs eval_3000_vs_parent.json, eval_3000_wp.json and difference_3000_vs_1500.json; logs runs/relational3000_*.log. Both fail if the trainer exits without the expected snapshot.
