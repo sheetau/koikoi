@@ -48,8 +48,13 @@ class Config:
     critic_epochs: int = 3
     precision: str = "float32"
     returns_backend: str = "native"
+    endgame: bool = False
 
     def __post_init__(self):
+        if self.endgame and self.reward != "match":
+            raise ValueError(
+                "Endgame dominance applies to match outcome, not point rewards"
+            )
         if self.returns_backend not in ("native", "torch"):
             raise ValueError("Expected native or torch returns_backend")
         if self.precision not in ("float32", "bf16"):
@@ -139,6 +144,16 @@ class Trainer:
         self.counters = {"updates": 0, "decisions": 0, "rounds": 0, "matches": 0}
         self.provenance = provenance()
 
+    def observe(self, labels=False):
+        result = self.env.observe(labels=labels)
+        if self.config.endgame:
+            solved = self.env.solved_actions()
+            result[1].logical_and_(
+                (solved[:, None] < 0)
+                | (torch.arange(50, device=self.env.device)[None] == solved[:, None])
+            )
+        return result
+
     def initialize_weights(self, path):
         """Start a new experiment from actor weights, with fresh state and counters."""
         if any(self.counters.values()) or self.optimizer.state:
@@ -198,7 +213,7 @@ class Trainer:
             buffers.update({"critic_obs": [], "q": [], "probs": []})
         totals = torch.zeros(2, dtype=torch.int64, device=self.config.device)
         for _ in range(self.config.horizon):
-            obs, mask, target = self.env.observe(labels=True)
+            obs, mask, target = self.observe(labels=True)
             player = self.env.state[:, PLAYER].clone()
             logits, value, _ = self.actor(obs, mask)
             action, logp = sample_action(logits)
@@ -232,7 +247,7 @@ class Trainer:
             totals += result[:, 1:3].sum(0)
             self.env.reset_done()
         batch = {k: torch.stack(v) for k, v in buffers.items()}
-        obs, mask = self.env.observe()
+        obs, mask = self.observe()
         _, next_value, _ = self.actor(obs, mask)
         if self.critic:
             next_q = self.central_critic(critic_input(obs, self.env.state))

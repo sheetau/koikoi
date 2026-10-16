@@ -49,6 +49,8 @@ Additional comparison configs: `vrpo8.json` selects a separate centralized Q cri
 
 `relational8.json` scores candidate cards with shared weights, their same-month hand/field aggregates and a public global context. Its BF16 training configuration is an architectural experiment; current evidence does not establish a strength advantage.
 
+`ppo8_endgame.json` trains with public match-outcome dominance rules enabled in the policy mask before sampling. Checkpoints retain this behavior automatically during inference and search; reports show the actual assistance settings for each agent. `ppo8_control.json` is identical except for this flag, for controlled weight-initialized comparisons. This option requires match-outcome rewards; point difference is not its objective.
+
 ## Evaluate
 
 ```powershell

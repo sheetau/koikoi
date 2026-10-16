@@ -53,6 +53,7 @@ class NeuralAgent:
         self.training_counters = payload["counters"]
         self.training_provenance = payload["provenance"]
         config = payload["config"]
+        self.training_config = config
         self.model = (
             PolicyValue(config["kind"], config["width"], config["layers"])
             .to(device)
@@ -62,9 +63,16 @@ class NeuralAgent:
         self.device, self.deterministic = device, deterministic
         self.profile = config["profile"]
         self.belief_trained = config["belief_weight"] > 0
+        self.requires_endgame = config.get("endgame", False)
+        self.solved_decisions = 0
 
     @torch.no_grad()
     def act(self, env):
+        if self.requires_endgame:
+            action = solved_koi_action(env)
+            if action is not None:
+                self.solved_decisions += 1
+                return action
         obs = torch.from_numpy(env.observe()).to(self.device).unsqueeze(0)
         mask = torch.from_numpy(env.legal()).to(self.device).unsqueeze(0)
         logits, _, _ = self.model(obs, mask)

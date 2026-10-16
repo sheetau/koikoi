@@ -157,10 +157,21 @@ def main():
     evaluation_provenance = provenance()
     a = make_agent(args.agent, args.seed + 101, args.deterministic, args.device)
     b = make_agent(args.opponent, args.seed + 202, args.deterministic, args.device)
+    candidate_guard = (
+        args.endgame
+        or isinstance(a, EndgameAgent)
+        or getattr(a, "requires_endgame", False)
+    )
+    opponent_guard = (
+        args.opponent_endgame
+        or isinstance(b, EndgameAgent)
+        or getattr(b, "requires_endgame", False)
+    )
     checkpoint_metadata = {
         name: {
             "sha256": agent.checkpoint_sha256,
             "training_counters": agent.training_counters,
+            "training_config": agent.training_config,
             "training_provenance": agent.training_provenance,
         }
         for name, agent in ((args.agent, a), (args.opponent, b))
@@ -182,6 +193,7 @@ def main():
             args.search == "belief",
             koi_only=not args.search_all,
             confidence=args.search_confidence,
+            endgame=candidate_guard,
         )
     search_agent = a
     if args.endgame:
@@ -243,8 +255,8 @@ def main():
         "searched_decisions": getattr(search_agent, "searched_decisions", 0),
         "changed_decisions": getattr(search_agent, "changed_decisions", 0),
         "search_confidence": args.search_confidence if args.search != "none" else None,
-        "endgame": args.endgame,
-        "opponent_endgame": isinstance(b, EndgameAgent),
+        "endgame": candidate_guard,
+        "opponent_endgame": opponent_guard,
         "solved_decisions": getattr(a, "solved_decisions", 0),
         "agent_decisions": agent_stats,
         "opponent_decisions": opponent_stats,

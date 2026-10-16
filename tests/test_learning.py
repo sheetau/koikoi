@@ -53,10 +53,19 @@ def test_both_models_and_legal_sampling():
 @pytest.mark.parametrize(
     "device", ["cpu", pytest.param("cuda", marks=pytest.mark.cuda)]
 )
-def test_checkpoint_resumes_exactly(tmp_path, device):
+@pytest.mark.parametrize("assisted", [False, True])
+def test_checkpoint_resumes_exactly(tmp_path, device, assisted):
     if device == "cuda" and not torch.cuda.is_available():
         pytest.skip("CUDA unavailable")
-    cfg = Config(device=device, envs=8, horizon=8, width=32, epochs=1, minibatch=64)
+    cfg = Config(
+        device=device,
+        envs=8,
+        horizon=8,
+        width=32,
+        epochs=1,
+        minibatch=64,
+        endgame=assisted,
+    )
     original = Trainer(cfg)
     original.update()
     path = tmp_path / "state.pt"

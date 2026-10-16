@@ -3,6 +3,7 @@
 import numpy as np
 import torch
 
+from .agents import solved_koi_action
 from .env import BatchEnv
 from .layout import BANKRUPT, DEALER, HISTORY, KOI, PHASE, PLAYER, SEED, STOCK
 from .model import sample_action
@@ -62,6 +63,7 @@ class SearchAgent:
         use_belief=True,
         koi_only=True,
         confidence=2.5,
+        endgame=False,
     ):
         if particles < 1 or horizon < 1:
             raise ValueError("Search budgets must be positive")
@@ -81,9 +83,16 @@ class SearchAgent:
         self.searched_decisions = 0
         self.changed_decisions = 0
         self.cache = {}
+        self.requires_endgame = endgame or getattr(neural, "requires_endgame", False)
+        self.solved_decisions = 0
 
     @torch.no_grad()
     def act(self, reference):
+        if self.requires_endgame:
+            action = solved_koi_action(reference)
+            if action is not None:
+                self.solved_decisions += 1
+                return action
         legal = np.flatnonzero(reference.legal())
         if len(legal) == 1 or (self.koi_only and reference.state[PHASE] != KOI):
             return self.neural.act(reference)
@@ -129,6 +138,9 @@ class SearchAgent:
                     cdf = logits.softmax(-1).cumsum(-1)
                     cdf = cdf / cdf[:, -1:]
                     actions = (cdf <= uniforms[:, None]).sum(-1)
+            if self.requires_endgame:
+                solved = env.solved_actions()
+                actions = torch.where(solved >= 0, solved, actions)
             result = env.step(actions)
             ended = result[:, 2].bool()
             values = torch.where(

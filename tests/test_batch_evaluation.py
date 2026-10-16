@@ -34,10 +34,13 @@ def test_batched_duels_match_reference_and_chunking(device, profile):
     torch.set_num_threads(2)
     torch.manual_seed(17)
     a, b = (PolicyValue(width=32).eval() for _ in range(2))
-    for guard in (False, True):
+    for guard in (False, True, (True, False), (False, True)):
         first, second = ModelAgent(a), ModelAgent(b)
-        if guard:
-            first, second = EndgameAgent(first), EndgameAgent(second)
+        flags = (guard, guard) if isinstance(guard, bool) else guard
+        if flags[0]:
+            first = EndgameAgent(first)
+        if flags[1]:
+            second = EndgameAgent(second)
         expected, decisions = [], 0
         for seed in range(100, 103):
             one = duel(first, second, seed, profile)

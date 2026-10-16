@@ -19,6 +19,7 @@ from .train import provenance
 def paired_batch(first, second, seed, pairs, profile, device="cpu", endgame=False):
     """One complete pair per seed; terminal rows are frozen, never redealt."""
     env = BatchEnv(2 * pairs, device=device, profile=profile, seed=seed, debug=True)
+    guards = (endgame, endgame) if isinstance(endgame, bool) else endgame
     env.state[pairs:].copy_(env.state[:pairs])
     candidate_seat = torch.cat(
         [torch.zeros(pairs, device=device), torch.ones(pairs, device=device)]
@@ -37,9 +38,10 @@ def paired_batch(first, second, seed, pairs, profile, device="cpu", endgame=Fals
             first(obs, mask)[0].argmax(-1),
             second(obs, mask)[0].argmax(-1),
         )
-        if endgame:
+        if any(guards):
             solved = env.solved_actions()
-            action = torch.where(solved >= 0, solved, action)
+            assisted_turn = (candidate_turn & guards[0]) | (~candidate_turn & guards[1])
+            action = torch.where((solved >= 0) & assisted_turn, solved, action)
         result = env.step(action, freeze_done=True)
         totals[0] += alive.sum()
         totals[1:] += result[:, 1:3].sum(0)
@@ -98,6 +100,7 @@ def main():
     ]
     if any(agent.profile != args.profile for agent in agents):
         parser.error("Checkpoint rule profiles must match the evaluation profile")
+    guards = tuple(args.endgame or agent.requires_endgame for agent in agents)
     records, totals = [], {"decisions": 0, "rounds": 0, "matches": 0}
     start = time.perf_counter()
     for offset in range(0, args.pairs, args.batch_pairs):
@@ -109,7 +112,7 @@ def main():
             n,
             args.profile,
             args.device,
-            args.endgame,
+            guards,
         )
         records.extend(rows)
         for key in totals:
@@ -144,13 +147,14 @@ def main():
         "device": args.device,
         "batch_pairs": args.batch_pairs,
         "deterministic": True,
-        "endgame": args.endgame,
-        "opponent_endgame": args.endgame,
+        "endgame": guards[0],
+        "opponent_endgame": guards[1],
         "provenance": run_provenance,
         "checkpoints": {
             str(path): {
                 "sha256": agent.checkpoint_sha256,
                 "training_counters": agent.training_counters,
+                "training_config": agent.training_config,
                 "training_provenance": agent.training_provenance,
             }
             for path, agent in zip((args.agent, args.opponent), agents)
