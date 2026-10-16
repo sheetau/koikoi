@@ -1,4 +1,4 @@
-"""Restartable current-policy self-play PPO; returns span complete matches."""
+"""Restartable self-play PPO with optional frozen opponents and match returns."""
 
 from __future__ import annotations
 
@@ -22,6 +22,7 @@ from .env import BatchEnv
 from .estimators import CentralQ, critic_input, native_gae, q_boost
 from .layout import PLAYER
 from .model import PolicyValue, sample_action
+from .opponents import FrozenOpponent, OpponentValue, learner_turn
 
 
 @dataclass
@@ -52,8 +53,17 @@ class Config:
     endgame: bool = False
     cuda_graph: bool = False
     cuda_rollout: bool = False
+    opponent_fraction: float = 0.0
 
     def __post_init__(self):
+        if not 0 <= self.opponent_fraction <= 1:
+            raise ValueError("opponent_fraction must be between zero and one")
+        if self.opponent_fraction and (
+            self.algorithm != "ppo" or int(self.envs * self.opponent_fraction) < 1
+        ):
+            raise ValueError(
+                "Frozen opponents require PPO and at least one environment"
+            )
         if self.endgame and self.reward != "match":
             raise ValueError(
                 "Endgame dominance applies to match outcome, not point rewards"
@@ -141,8 +151,23 @@ class Trainer:
         self.model = PolicyValue(config.kind, config.width, config.layers).to(
             config.device
         )
+        self.opponent_value = (
+            OpponentValue(config.width).to(config.device)
+            if config.opponent_fraction
+            else None
+        )
+        self.trainable = (
+            torch.nn.ModuleDict(
+                {"actor": self.model, "opponent_value": self.opponent_value}
+            )
+            if self.opponent_value is not None
+            else self.model
+        )
+        self.frozen = None
+        self.frozen_envs = int(config.envs * config.opponent_fraction)
+        self.rows = torch.arange(config.envs, device=config.device)
         self.optimizer = torch.optim.Adam(
-            self.model.parameters(),
+            self.trainable.parameters(),
             lr=config.lr,
             eps=1e-5,
             capturable=config.cuda_graph,
@@ -160,7 +185,54 @@ class Trainer:
             else None
         )
         self.counters = {"updates": 0, "decisions": 0, "rounds": 0, "matches": 0}
+        if config.opponent_fraction:
+            self.counters["learner_decisions"] = 0
         self.provenance = provenance()
+
+    def set_frozen_opponent(self, path):
+        """Load a fixed opponent for a new experiment, not an in-flight match."""
+        if not self.config.opponent_fraction:
+            raise ValueError("Set opponent_fraction before loading a frozen opponent")
+        if (
+            any(self.counters.values())
+            or self.optimizer.state
+            or self.frozen is not None
+        ):
+            raise ValueError("Frozen opponent loading requires a fresh trainer")
+        content = Path(path).read_bytes()
+        payload = torch.load(
+            io.BytesIO(content), map_location="cpu", weights_only=False
+        )
+        if payload["format"] != 1:
+            raise ValueError("Unsupported checkpoint format")
+        self._load_frozen(payload["config"], payload["model"])
+        self.provenance["frozen_opponent"] = {
+            "sha256": hashlib.sha256(content).hexdigest(),
+            "config": payload["config"],
+            "counters": payload["counters"],
+            "provenance": payload["provenance"],
+            "frozen_envs": self.frozen_envs,
+        }
+
+    def _load_frozen(self, config, weights):
+        if config["profile"] != self.config.profile:
+            raise ValueError("Frozen opponent profile mismatch")
+        if config.get("endgame", False) != self.config.endgame:
+            raise ValueError("Frozen opponent endgame setting must match training")
+        self.frozen = FrozenOpponent(config, weights, self.config.device)
+
+    def learner_rows(self):
+        return learner_turn(self.env.state, self.rows, self.frozen_envs)
+
+    def role_value(self, obs):
+        with torch.autocast(
+            device_type=self.env.device.type,
+            dtype=torch.bfloat16,
+            enabled=self.config.precision == "bf16",
+            cache_enabled=not (self.config.cuda_graph or self.config.cuda_rollout),
+        ):
+            value = self.opponent_value(obs)
+        return value.float()
 
     def observe(self, labels=False):
         result = self.env.observe(labels=labels)
@@ -234,6 +306,8 @@ class Trainer:
         else:
             batch, totals = self.collect_device()
         rounds, matches = totals.cpu().tolist()
+        if self.config.opponent_fraction:
+            self.counters["learner_decisions"] += int(batch["learner"].sum())
         self.counters["rounds"] += rounds
         self.counters["matches"] += matches
         self.counters["decisions"] += self.config.envs * self.config.horizon
@@ -242,6 +316,8 @@ class Trainer:
     @torch.no_grad()
     def collect_device(self):
         """Tensor-only collection; Python counters stay outside graph replay."""
+        if self.config.opponent_fraction and self.frozen is None:
+            raise ValueError("Load a frozen opponent before collection")
         buffers = {
             k: []
             for k in (
@@ -256,6 +332,8 @@ class Trainer:
                 "player",
             )
         }
+        if self.frozen is not None:
+            buffers["learner"] = []
         if self.critic:
             buffers.update({"critic_obs": [], "q": [], "probs": []})
         totals = torch.zeros(2, dtype=torch.int64, device=self.config.device)
@@ -264,6 +342,18 @@ class Trainer:
             player = self.env.state[:, PLAYER].clone()
             logits, value, _ = self.actor(obs, mask)
             action, logp = sample_action(logits)
+            if self.frozen is not None:
+                learner = self.learner_rows()
+                n = self.frozen_envs
+                opponent_action, _ = sample_action(
+                    self.frozen.logits(obs[:n], mask[:n])
+                )
+                action[:n] = torch.where(learner[:n], action[:n], opponent_action)
+                # Frozen rows are excluded from PPO. Store a finite learner
+                # log probability for the executed action on every row.
+                logp = logits.log_softmax(-1).gather(1, action[:, None]).squeeze(-1)
+                value = torch.where(learner, value, self.role_value(obs))
+                buffers["learner"].append(learner.float())
             if self.critic:
                 features = critic_input(obs, self.env.state)
                 buffers["critic_obs"].append(features)
@@ -296,6 +386,10 @@ class Trainer:
         batch = {k: torch.stack(v) for k, v in buffers.items()}
         obs, mask = self.observe()
         _, next_value, _ = self.actor(obs, mask)
+        if self.frozen is not None:
+            next_value = torch.where(
+                self.learner_rows(), next_value, self.role_value(obs)
+            )
         if self.critic:
             next_q = self.central_critic(critic_input(obs, self.env.state))
             self.bootstrap = (obs, mask, next_q, self.env.state[:, PLAYER].clone())
@@ -368,14 +462,28 @@ class Trainer:
         logits, value, belief = self.actor(obs, mask)
         logprobs = logits.log_softmax(-1)
         logp = logprobs.gather(1, data["action"][:, None]).squeeze(-1)
-        ratio = (logp - data["old_logp"]).exp()
+        delta = logp - data["old_logp"]
+        learner = data.get("learner")
+        if learner is not None:
+            delta = torch.where(learner.bool(), delta, 0.0)
+        ratio = delta.exp()
         adv = data["advantage"]
-        policy_loss = -torch.minimum(
+        policy_terms = -torch.minimum(
             ratio * adv, ratio.clamp(1 - c.clip, 1 + c.clip) * adv
-        ).mean()
+        )
+        entropy_terms = -(logprobs.exp() * logprobs).sum(-1)
+        if learner is None:
+            policy_loss = policy_terms.mean()
+            entropy = entropy_terms.mean()
+        else:
+            count = learner.sum().clamp_min(1)
+            policy_loss = (policy_terms * learner).sum() / count
+            entropy = (entropy_terms * learner).sum() / count
+            value = torch.where(learner.bool(), value, self.role_value(obs))
         value_loss = F.mse_loss(value, data["return"])
-        entropy = -(logprobs.exp() * logprobs).sum(-1).mean()
         unknown = obs[:, :528].reshape(-1, 48, 11)[:, :, 4]
+        if learner is not None:
+            unknown = unknown * learner[:, None]
         belief_loss = (
             F.binary_cross_entropy_with_logits(belief, data["target"], reduction="none")
             * unknown
@@ -388,10 +496,15 @@ class Trainer:
         )
         self.optimizer.zero_grad(set_to_none=True)
         loss.backward()
-        grad = torch.nn.utils.clip_grad_norm_(self.model.parameters(), 0.5)
+        grad = torch.nn.utils.clip_grad_norm_(self.trainable.parameters(), 0.5)
         self.optimizer.step()
         with torch.no_grad():
-            kl = ((ratio - 1) - (logp - data["old_logp"])).mean()
+            kl_terms = (ratio - 1) - delta
+            kl = (
+                kl_terms.mean()
+                if learner is None
+                else (kl_terms * learner).sum() / learner.sum().clamp_min(1)
+            )
             return torch.stack(
                 [policy_loss, value_loss, entropy, belief_loss, kl, grad]
             )
@@ -400,9 +513,18 @@ class Trainer:
         batch = self.collect()
         c = self.config
         advantage = batch["advantage"]
-        batch["advantage"] = (advantage - advantage.mean()) / (
-            advantage.std(unbiased=False) + 1e-8
-        )
+        if "learner" in batch:
+            learner = batch["learner"]
+            count = learner.sum().clamp_min(1)
+            mean = (advantage * learner).sum() / count
+            variance = ((advantage - mean).square() * learner).sum() / count
+            batch["advantage"] = torch.where(
+                learner.bool(), (advantage - mean) / (variance.sqrt() + 1e-8), 0.0
+            )
+        else:
+            batch["advantage"] = (advantage - advantage.mean()) / (
+                advantage.std(unbiased=False) + 1e-8
+            )
         n = len(advantage)
         metrics = torch.zeros(6, device=c.device)
         count = 0
@@ -423,10 +545,12 @@ class Trainer:
                         "target",
                     )
                 }
+                if "learner" in batch:
+                    data["learner"] = batch["learner"][indices]
                 if c.cuda_graph:
                     if self.captured_minibatch is None:
                         self.captured_minibatch = CapturedMinibatch(
-                            self.minibatch_step, self.model, self.optimizer, data
+                            self.minibatch_step, self.trainable, self.optimizer, data
                         )
                     metrics += self.captured_minibatch(data)
                 else:
@@ -483,6 +607,14 @@ class Trainer:
             "python_rng": random.getstate(),
             "numpy_rng": np.random.get_state(),
         }
+        if self.opponent_value is not None:
+            if self.frozen is None:
+                raise ValueError("Cannot save without the configured frozen opponent")
+            payload.update(
+                opponent_value=self.opponent_value.state_dict(),
+                frozen_config=self.frozen.config,
+                frozen_model=self.frozen.model.state_dict(),
+            )
         if self.critic:
             payload.update(
                 critic=self.critic.state_dict(),
@@ -508,7 +640,7 @@ class Trainer:
             "source_sha256": payload["provenance"]["source_sha256"],
             "revision": payload["provenance"]["revision"],
         }
-        for key in ("initialized_from", "execution_change"):
+        for key in ("initialized_from", "execution_change", "frozen_opponent"):
             if key in payload["provenance"]:
                 obj.provenance[key] = payload["provenance"][key]
         if (
@@ -519,6 +651,9 @@ class Trainer:
                 "Source changed since checkpoint; use --allow-code-change for a labeled continuation"
             )
         obj.model.load_state_dict(payload["model"])
+        if obj.opponent_value is not None:
+            obj.opponent_value.load_state_dict(payload["opponent_value"])
+            obj._load_frozen(payload["frozen_config"], payload["frozen_model"])
         obj.optimizer.load_state_dict(payload["optimizer"])
         if obj.critic:
             obj.critic.load_state_dict(payload["critic"])
@@ -546,6 +681,11 @@ def main():
     )
     parser.add_argument("--allow-code-change", action="store_true")
     parser.add_argument(
+        "--frozen-opponent",
+        type=Path,
+        help="Fixed opponent for a new PPO experiment with opponent_fraction > 0",
+    )
+    parser.add_argument(
         "--enable-cuda-rollout",
         action="store_true",
         help="Explicitly enable rollout capture on resume, retaining all training state",
@@ -564,6 +704,8 @@ def main():
         parser.error("Invalid update or checkpoint interval")
     if args.max_seconds < 0:
         parser.error("max-seconds must be nonnegative")
+    if args.resume and args.frozen_opponent:
+        parser.error("--resume restores its embedded frozen opponent")
     if args.resume and args.config:
         parser.error(
             "--resume restores its config; use --initialize for a new experiment"
@@ -584,6 +726,10 @@ def main():
         )
         if args.initialize:
             trainer.initialize_weights(args.initialize)
+        if args.frozen_opponent:
+            trainer.set_frozen_opponent(args.frozen_opponent)
+        elif trainer.config.opponent_fraction:
+            parser.error("opponent_fraction requires --frozen-opponent for a new run")
     args.run.mkdir(parents=True, exist_ok=True)
     (args.run / "config.json").write_text(
         json.dumps(asdict(trainer.config), indent=2) + "\n", encoding="utf-8"

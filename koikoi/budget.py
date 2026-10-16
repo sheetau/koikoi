@@ -21,15 +21,34 @@ def lineage_budget(payload, digest):
         if stage["sha256"] in seen:
             raise ValueError("Repeated initialization ancestor")
         seen.add(stage["sha256"])
-        counters = stage["counters"]
+        counters = stage["counters"].copy()
+        counters.setdefault("learner_decisions", counters["decisions"])
         if any(
             type(counters[key]) is not int or counters[key] < 0
-            for key in ("matches", "rounds", "decisions", "updates")
+            for key in (
+                "matches",
+                "rounds",
+                "decisions",
+                "updates",
+                "learner_decisions",
+            )
         ):
             raise ValueError("Learning counters must be nonnegative integers")
+        if counters["learner_decisions"] > counters["decisions"]:
+            raise ValueError("Learner decisions cannot exceed simulator decisions")
         profile = stage["profile"]
         bucket = totals.setdefault(
-            profile, {key: 0 for key in ("matches", "rounds", "decisions", "updates")}
+            profile,
+            {
+                key: 0
+                for key in (
+                    "matches",
+                    "rounds",
+                    "decisions",
+                    "updates",
+                    "learner_decisions",
+                )
+            },
         )
         for key in bucket:
             bucket[key] += counters[key]
