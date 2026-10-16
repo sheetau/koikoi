@@ -14,7 +14,7 @@ Use the original seed-10,001 MLP runs/ppo8_seed10001_captured/update_00005000.pt
 
 Compare with existing same-prefix CUDA no-search 43.25% and koi-only 45% reports. Outputs under the MLP run: eval_5000_all_search192_captured100.json, difference_all_search192_vs_control100.json, difference_all_search192_vs_koi100.json, all_search192_100_audit.json. Log runs/all_search192_evaluate.log; manifest runs/all_search192_process.json. No interim tuning or final-test seeds. A positive small screen still needs larger assessment, independent-model validation and untouched final testing.
 
-Execution validation passed all card legal-action counts 2-8: eager/captured/replay actions, full simulator states and proposal/CPU/CUDA RNG agree. Actual128/horizon 192 settings and original model; replay 0.0540-0.0613 seconds under concurrent CPU evaluations, not an isolated benchmark. Audit runs/full_action_search_production_equivalence.json. No package changes; source SHA be4b1cd035affa520c8716620f14a0d62d95ac094a468c2c01cba870d0a26bd0.
+Execution validation passed all card legal-action counts 2-8: eager/captured/replay actions, full simulator states and proposal/CPU/CUDA RNG agree. Actual128/horizon 192 settings and original model; replay 0.0540-0.0613 seconds under concurrent CPU evaluations, not an isolated benchmark. Audit runs/full_action_search_production_equivalence.json. The live evaluation retains its original loaded package be4b1cd035affa520c8716620f14a0d62d95ac094a468c2c01cba870d0a26bd0; it was not restarted during the separate sampler optimization below.
 
 ## Latest completed evidence
 
@@ -33,7 +33,9 @@ Independent Python rules oracle and shared allocation-free C++/CUDA engine; GPU 
 
 Optional policy_scope=koi freezes card/shared/belief tensors and learns koi/value heads plus optional zero-initialized residual. Policy losses/entropy/KL/advantage normalization use koi rows; values/GAE cover all phases. deterministic_cards=true additionally makes fixed card decisions legal argmax while koi remains sampled. Requires pure self-play match PPO, observation critic and no belief loss. Defaults preserve earlier behavior; neither option has established strength improvement.
 
-Full 139 tests passed without skips; two expected upstream Transformer warnings; Ruff passed. Exact default behavior against actual old-source MLP/FP32 and relational/BF16 results, CPU/CUDA restart, frozen parameters and production-shape eager/captured equality verified. Artifacts koi_detcards_default_equivalence.json and koi_detcards_production_equivalence.json. Smoke/diagnostic/search work is excluded from training budgets.
+Full 144 tests passed without skips; two expected upstream Transformer warnings; Ruff passed. Exact default behavior against actual old-source MLP/FP32 and relational/BF16 results, CPU/CUDA restart, frozen parameters and production-shape eager/captured equality verified. Artifacts koi_detcards_default_equivalence.json and koi_detcards_production_equivalence.json. Smoke/diagnostic/search work is excluded from training budgets.
+
+Hidden proposals now share public preprocessing once per root, retaining the exact sequential RNG/rejection/shuffle order and no cross-root cache. Actual old-source comparison: 6,144 identical worlds across both profiles/uniform/weighted modes, including 36 rejection draws; production128/horizon192 full-action root comparisons preserve actions, simulator states, proposal RNG and counters. Audit runs/batched_proposal_equivalence.json. Proposal-only timing improved approximately fivefold; whole-search timing is workload-dependent and does not inherit that ratio. New package SHA20e9d7c361d17f37a1fccca269ea01dcc34ad3a49b60c057f60a0ff1d2bc76d1. Full-suite session64198 completed; no training or rule changes. The running100-pair evaluator continues using the pre-optimization package.
 
 ## Completed 100M scale requirement
 

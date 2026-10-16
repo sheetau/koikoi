@@ -1,10 +1,11 @@
 import numpy as np
+import pytest
 
 from koikoi.agents import GreedyAgent
 from koikoi.evaluate import duel, paired_interval, seed_agents
-from koikoi.layout import STOCK
+from koikoi.layout import PHASE, STOCK, TERMINAL
 from koikoi.reference import ReferenceEnv, valid_deal
-from koikoi.search import SearchAgent, sample_hidden
+from koikoi.search import SearchAgent, sample_hidden, sample_hidden_batch
 
 
 def test_sampling_preserves_observation_and_deck():
@@ -80,3 +81,41 @@ def test_search_is_legal_and_hidden_world_independent():
         assert search.simulated_decisions == env.legal().sum() * 16
         actions.append(action)
     assert actions[0] == actions[1]
+
+
+@pytest.mark.parametrize("profile", ["paper8", "research12"])
+@pytest.mark.parametrize("weighted", [False, True])
+def test_batched_proposals_preserve_scalar_stream_and_hidden_independence(
+    profile, weighted
+):
+    env = ReferenceEnv(1234, profile)
+    play_rng = np.random.default_rng(123)
+    logits = np.linspace(-2, 2, 48) if weighted else None
+    for step in range(48):
+        before = env.state.copy()
+        first, second = np.random.default_rng(step), np.random.default_rng(step)
+        worlds = sample_hidden_batch(env, first, 16, logits)
+        singles = np.stack([sample_hidden(env, second, logits) for _ in range(16)])
+        np.testing.assert_array_equal(worlds, singles)
+        assert first.bit_generator.state == second.bit_generator.state
+        np.testing.assert_array_equal(env.state, before)
+        alternate = env.clone()
+        alternate.state = sample_hidden(env, np.random.default_rng(step + 100))
+        hidden_changed = sample_hidden_batch(
+            alternate, np.random.default_rng(step), 16, logits
+        )
+        np.testing.assert_array_equal(worlds, hidden_changed)
+        for state in worlds:
+            world = env.clone()
+            world.state = state
+            np.testing.assert_array_equal(env.observe(), world.observe())
+            assert valid_deal(state[48:96])
+            assert sorted(state[48:96]) == list(range(48))
+        env.step(play_rng.choice(np.flatnonzero(env.legal())))
+        if env.state[PHASE] == TERMINAL:
+            env = ReferenceEnv(1235 + step, profile)
+
+
+def test_batched_proposals_reject_empty_request():
+    with pytest.raises(ValueError, match="At least one"):
+        sample_hidden_batch(ReferenceEnv(1), np.random.default_rng(1), 0)

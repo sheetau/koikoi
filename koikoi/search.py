@@ -11,47 +11,56 @@ from .model import sample_action
 
 
 def sample_hidden(reference, rng, logits=None):
-    """Cardinality-constrained weighted proposal, conditioned on valid initial hand.
+    """Draw one hidden world using the same proposal as batched search."""
+    return sample_hidden_batch(reference, rng, 1, logits)[0]
+
+
+def sample_hidden_batch(reference, rng, particles, logits=None):
+    """Share public root preprocessing, preserving sequential proposal RNG draws.
 
     Learned weights define a Plackett-Luce proposal, not an exact joint posterior.
     Public action likelihoods beyond the network's prediction are not reweighted.
     """
-    s = reference.state.copy()
-    p, dealer = int(s[PLAYER]), int(s[DEALER])
-    obs = reference.observe()[:528].reshape(48, 11)
-    unknown = np.flatnonzero(obs[:, 4])
-    count = round(reference.observe()[528 + 13] * 8)
+    if particles < 1:
+        raise ValueError("At least one hidden-world particle is required")
+    root = reference.state.copy()
+    p, dealer = int(root[PLAYER]), int(root[DEALER])
+    observation = reference.observe()
+    unknown = np.flatnonzero(observation[:528].reshape(48, 11)[:, 4])
+    count = round(observation[528 + 13] * 8)
     played = [
-        int(s[HISTORY + t * 5]) - 1
+        int(root[HISTORY + t * 5]) - 1
         for t in range(16)
-        if (dealer + t) % 2 != p and s[HISTORY + t * 5] > 0
+        if (dealer + t) % 2 != p and root[HISTORY + t * 5] > 0
     ]
     weights = None
     if logits is not None:
         weights = np.exp(np.clip(np.asarray(logits)[unknown], -12, 12))
         weights /= weights.sum()
-    for _ in range(10000):
-        hand = rng.choice(unknown, size=count, replace=False, p=weights)
-        initial_hand = played + hand.tolist()
-        if max(np.bincount(np.asarray(initial_hand, dtype=int) // 4, minlength=12)) < 4:
-            break
-    else:
-        raise RuntimeError(
-            "Hidden-hand sampler could not satisfy initial deal constraints"
-        )
-    s[unknown] = -1
-    s[hand] = 1 - p
-    stock = np.array(
-        [c for c in unknown if c not in set(hand.tolist())], dtype=np.int32
-    )
-    rng.shuffle(stock)
-    s[72 : 49 + s[STOCK]] = stock
-    # Initial hand order is irrelevant, but initial hidden contents must also be replaced.
-    start = 48 + 8 * (1 - p)
-    s[start : start + 8] = sorted(initial_hand)
-    # Future round deals must not depend on the real world's hidden RNG seed.
-    s[SEED] = rng.integers(0, 2**31 - 1)
-    return s
+    worlds = np.repeat(root[None], particles, axis=0)
+    for s in worlds:
+        for _ in range(10000):
+            hand = rng.choice(unknown, size=count, replace=False, p=weights)
+            initial_hand = played + hand.tolist()
+            months = np.bincount(np.asarray(initial_hand, dtype=int) // 4, minlength=12)
+            if max(months) < 4:
+                break
+        else:
+            raise RuntimeError(
+                "Hidden-hand sampler could not satisfy initial deal constraints"
+            )
+        s[unknown] = -1
+        s[hand] = 1 - p
+        chosen = set(hand.tolist())
+        stock = np.array([c for c in unknown if c not in chosen], dtype=np.int32)
+        rng.shuffle(stock)
+        s[72 : 49 + s[STOCK]] = stock
+        # Replace the opponent's initial hidden contents as well as its current hand.
+        start = 48 + 8 * (1 - p)
+        s[start : start + 8] = sorted(initial_hand)
+        # Future deals must not depend on the real world's hidden RNG seed.
+        s[SEED] = rng.integers(0, 2**31 - 1)
+    return worlds
 
 
 class SearchAgent:
@@ -117,9 +126,7 @@ class SearchAgent:
         belief = None
         if self.use_belief:
             belief = root_belief[0].cpu().numpy()
-        worlds = np.stack(
-            [sample_hidden(reference, self.rng, belief) for _ in range(self.particles)]
-        )
+        worlds = sample_hidden_batch(reference, self.rng, self.particles, belief)
         n = len(legal) * self.particles
         profile = "paper8" if reference.state[BANKRUPT] else "research12"
         key = (n, profile)
