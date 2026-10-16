@@ -18,9 +18,9 @@ Hardware: RTX 5070 Ti 16 GB, Ryzen 9 9900X, about 62 GiB RAM; local Python 3.12 
 
 | Run | Target | Last observed updates / matches | Source |
 | --- | --- | ---: | --- |
-| ppo12_scale_seed30001_captured | 100M cumulative new research12 matches | 11,434 / 16,504,178 | 142c265 |
-| relational8_fullgraph_seed50001 | 3,000 updates after initialization | 2,462 / 2,792,467 | 5dc3025 |
-| relational8_entropy005_seed50001 | 1,000 updates, entropy 0.005 | 51 / 57,225 | e626ac1 |
+| ppo12_scale_seed30001_captured | 100M cumulative new research12 matches | 12,159 / 17,554,335 | 142c265 |
+| relational8_fullgraph_seed50001 | 3,000 updates after initialization | 2,774 / 3,145,345 | 5dc3025 |
+| relational8_entropy005_seed50001 | 1,000 updates, entropy 0.005 | 364 / 411,949 | e626ac1 |
 
 Counts above are cumulative within each run's resume lineage. Scale counters exclude initialization (1,000,464 research12 and 11,141,556 paper8 matches); relational counters exclude 2,245,436 paper8 pretraining matches. Final-test seeds (100,000,000+) remain unused.
 
@@ -39,7 +39,7 @@ Runs/checkpoints/reports are ignored under runs/. Use immutable numbered snapsho
 - Relational update 2,000, 2,245,436 matches: 49.25% vs assisted RL-WP, CI 45.9167-52.6687%, 300 pairs. Improvement over update 500 on the same deals: +5.0 percentage points, CI +0.9167 to +8.9167. At matched 262,144,000 training decisions it beats small MLP at 55.035%, CI 54.4699-55.625%, 10,000 pairs. Prioritize relational learning.
 - Relational next-stage update 1,500: 48.55% vs assisted RL-WP, CI 46.75-50.325%, +0.807 points, 1,000 pairs. Difference from small MLP update 5,000 on the same pairs: +0.725 percentage points, CI -1.75 to +3.125. Difference from initialization on 300 shared pairs: +0.6667 points, CI -3.6667 to +4.8354. No established superiority. Earlier sampled deployment did not improve; retain deterministic comparisons.
 - Width-512 MLP screening completed 500 updates / 1,108,105 matches: 41.75% vs assisted RL-WP. At matched decisions it beats small MLP (53.0025%) but loses to relational (46.7625%), both 10,000 pairs with CIs excluding 50%. Defer width-only extension. These are candidate screens, not isolated architecture effects.
-- Endgame-training A/B completed: 49.125% assisted vs 49.175% control, 1,000 shared pairs; difference -0.05 points, CI -2.35 to +2.225. Keep training assistance off. Diagnostic MLP-card/published-koi hybrid scored 52.0833%, CI 49-55.1667%, 300 pairs; no established gain, no default change.
+- Endgame-training A/B completed: 49.125% assisted vs 49.175% control, 1,000 shared pairs; difference -0.05 points, CI -2.35 to +2.225. Keep training assistance off. Larger two-seed koi-substitution comparisons establish improvement over each original MLP, but not yet superiority to assisted RL-WP; see the latest screen below. No default change.
 - Research12 transfer pilot beat initialization at 52.073%, CI 51.515-52.633%, 10,000 pairs. Scale update 7,000 beats that pilot at 51.2175%, CI 50.6275-51.7825%, +1.2146 points, 10,000 pairs. This is a small development gain against the parent, not superiority to the paper8 published baseline.
 - Search, Q-boosting and explicit features have not demonstrated improvement. Keep search off. Positive point difference alone does not meet the win-rate objective.
 
@@ -71,3 +71,10 @@ Initialized three-update smoke in runs/relational_entropy005_smoke completed 393
 Entropy screen is live from committed e626ac1; trainer PID 25956 (parent 44560), session 66727. Command: `python -m koikoi.train --config configs/relational8_entropy005.json --initialize runs/relational8_v2/update_00002000.pt --run runs/relational8_entropy005_seed50001 --updates 1000 --checkpoint-every 250`. Process and advancing finite metrics verified.
 
 Pending final-evaluation watchers (do not duplicate): session 29416 guards entropy trainer PID 25956, waits for update_00001000.pt, then runs direct 10,000-pair comparison, 300-pair assisted RL-WP evaluation and paired control difference. Outputs ab_1000.json, eval_1000_wp.json and difference_vs_control.json in its run; logs runs/entropy005_final_*.log. Session 68401 guards relational trainer PID 57396, waits for update_00003000.pt, then runs 10,000 direct pairs against initialization, 1,000 public pairs and paired difference versus update 1,500. Outputs eval_3000_vs_parent.json, eval_3000_wp.json and difference_3000_vs_1500.json; logs runs/relational3000_*.log. Both fail if the trainer exits without the expected snapshot.
+
+
+## Koi-substitution evidence across two training seeds
+
+On the same 1,000 development pairs, replacing only MLP koi decisions with published RL-WP yields 50.825% (CI 49.075-52.65%, +1.481 points) for training seed 1 and 51.175% (CI 49.375-53.025%, +0.794 points) for independent seed 10,001. Shared-pair improvement over each full MLP is +3.0 percentage points (CI +1.5 to +4.55) and +1.8 points (CI +0.3 to +3.375), respectively. Both indicate this substitution improves the tested MLPs; neither establishes superiority to RL-WP itself. Point-difference improvements are inconclusive. The seed-1 evaluation's first 300 records reproduce the prior pilot exactly. Reports eval_5000_wp_koi_1000.json and difference_wp_koi_1000.json under each respective MLP run. Both card policies retain their original training budgets; the published koi component is an explicit dependency, not new learned strength attributed to the MLP alone.
+
+Larger disjoint-public-comparison development evaluation is running: 3,000 pairs per hybrid, seed range 1,001,000-1,003,999, same assisted RL-WP opponent and deterministic/endgame settings. This range has appeared in native checkpoint duels, so it is not untouched final data. Keep the full prespecified endpoint; do not select by interim scores. Session 33995 / child PID 55120 evaluates seed 1; session 93839 / child PID 21536 evaluates seed 10,001. Each writes eval_5000_wp_koi_new3000.json in its run, logs runs/hybrid_seed1_new3000.log and runs/hybrid_seed10001_new3000.log. Both processes and advancing pair counts verified; do not duplicate. Final-test seeds remain unused.
