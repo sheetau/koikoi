@@ -2,7 +2,7 @@
 
 ## Objective
 
-Build a reproducible Koi-Koi research system; exceed the published RL-WP baseline under its original rules, then evaluate a separately identified twelve-round variant. A minimum of 100 million complete twelve-round-format matches is the eventual scale target, not a claim about completed work. Search simulations do not count toward that target.
+Build a reproducible Koi-Koi research system; exceed the published RL-WP baseline under its original rules, then evaluate a separately identified twelve-round variant. The scale requirement is at least 100 million complete twelve-round-format matches; its audited completion status is tracked in STATUS.md. Search simulations do not count toward that target.
 
 ## Architecture
 
@@ -35,7 +35,7 @@ Current support is pure-self-play PPO; combining the option with Q-boosting or f
 
 ## Optional koi-only adaptation
 
-`policy_scope=all` and `koi_width=0` preserve the original actor and update path. With `policy_scope=koi`, freeze all actor parameters except the two-output koi head, observation-only value head and optional koi residual branch. The fixed card policy is still sampled on card actions for both players during self-play. Its action distribution at a given observation is unchanged; trajectories can change because koi decisions change. The value head continues to fit returns on all decision phases, using its frozen shared representation.
+`policy_scope=all` and `koi_width=0` preserve the original actor and update path. With `policy_scope=koi`, freeze all actor parameters except the two-output koi head, observation-only value head and optional koi residual branch. By default, the fixed card policy is sampled on card actions for both players during self-play. Optional `deterministic_cards=true` executes its legal argmax for both players instead; koi actions remain sampled. This flag requires koi-only optimization so there is no policy-gradient update from deterministic card actions. For either fixed card-selection setting, subsequent updates do not change the card action distribution at a given observation; trajectories can change because koi decisions change. The value head continues to fit returns on all decision phases, using its frozen shared representation.
 
 This mode requires pure-self-play match PPO with a separate observation-only return critic and no belief loss. Reject fixed-opponent, Q-boosting, privileged-critic and round-reward combinations. The separate critic remains trainable on every decision and supplies GAE/tail values. Signed returns include all card decisions and all rounds; neither phase filtering nor koi decisions introduce new termination boundaries. Policy loss, entropy and approximate KL are averaged over koi rows only, and advantage normalization uses those rows' statistics. Empty koi minibatches contribute zero policy/entropy/KL terms with finite normalization; the ordinary Adam schedule still applies, including any existing momentum. Values share the optimizer and clipping with koi parameters.
 
@@ -43,7 +43,9 @@ This mode requires pure-self-play match PPO with a separate observation-only ret
 
 Record `policy_decisions` for koi-only runs alongside all simulator decisions. All actions still belong to the learner's self-play policy, but only koi actions receive policy-gradient updates. The lineage budget continues to count all learner/simulator decisions; it does not invent missing historical phase counts. Comparisons hold simulator updates fixed, not the number of policy-gradient decisions. Full continuation versus head-only adaptation changes parameter freezing and policy normalization together; head-only versus residual adaptation tests added capacity under the same phase restriction. All three proposed controls use a fresh observation critic, so none is identical to ordinary shared-critic continuation.
 
-The motivation is the prior replicated MLP koi-substitution diagnostic and small positive koi-search development result. Neither proves that parameter sharing causes the observed deficit or that specialized self-play will improve public-baseline strength. The teacher's outputs are not training targets, no private observations enter inference, and the experiment does not alter the concurrently running fixed search replication or scale run.
+For deterministic frozen cards, collection retains the usual random draw before replacing only card actions, and records behavior log-probability zero on those rows. Koi rows retain their sampled actions and original log probabilities. Card rows are already excluded from the PPO ratio, policy loss, entropy, KL and advantage normalization. All value targets and signed GAE still follow the actual full trajectories; no new termination or off-policy correction is introduced. Checkpoints retain the training flag and exact restart state. Inference action-selection flags remain separate, and default training remains sampled.
+
+The motivation is the prior replicated MLP koi-substitution diagnostic and small positive koi-search development result. Neither proves that parameter sharing causes the observed deficit or that specialized self-play will improve public-baseline strength. The teacher's outputs are not training targets, no private observations enter inference, and the experiment does not alter the fixed search-replication or scale-training protocols.
 
 ## Evaluation
 

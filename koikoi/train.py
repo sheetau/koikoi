@@ -64,8 +64,11 @@ class Config:
     ppo_value: str = "shared"
     policy_scope: str = "all"
     koi_width: int = 0
+    deterministic_cards: bool = False
 
     def __post_init__(self):
+        if self.deterministic_cards and self.policy_scope != "koi":
+            raise ValueError("Deterministic training cards require a frozen koi-only policy")
         if self.policy_scope not in ("all", "koi") or self.koi_width < 0:
             raise ValueError("Invalid policy scope or koi width")
         if self.policy_scope == "koi" and (
@@ -411,6 +414,12 @@ class Trainer:
             player = self.env.state[:, PLAYER].clone()
             logits, value, _ = self.actor(obs, mask)
             action, logp = sample_action(logits)
+            if self.config.deterministic_cards:
+                koi = mask[:, 48:].any(-1)
+                action = torch.where(koi, action, logits.argmax(-1))
+                # Frozen card actions have probability one under this behavior.
+                # Their rows never contribute to the PPO policy objective.
+                logp = torch.where(koi, logp, 0.0)
             if self.ppo_critic is not None:
                 features = ppo_value_input(obs, self.env.state, self.config.ppo_value)
                 buffers["ppo_value_obs"].append(features)

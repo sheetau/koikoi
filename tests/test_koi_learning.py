@@ -49,12 +49,15 @@ def same(a, b):
 
 
 @pytest.mark.parametrize("kind", ["mlp", "relational"])
-def test_initialization_freezes_cards_but_learns_koi_and_values(tmp_path, kind):
+@pytest.mark.parametrize("deterministic_cards", [False, True])
+def test_initialization_freezes_cards_but_learns_koi_and_values(
+    tmp_path, kind, deterministic_cards
+):
     parent = Trainer(config(kind=kind, policy_scope="all", koi_width=0))
     parent.update()
     checkpoint = tmp_path / "parent.pt"
     parent.save(checkpoint)
-    trainer = Trainer(config(kind=kind))
+    trainer = Trainer(config(kind=kind, deterministic_cards=deterministic_cards))
     rng = torch.get_rng_state().clone()
     simulator = trainer.env.state.clone()
     trainer.initialize_weights(checkpoint)
@@ -173,6 +176,7 @@ def test_policy_loss_entropy_and_normalization_use_only_koi_rows(monkeypatch):
 
 
 @pytest.mark.parametrize("koi_width", [0, 32])
+@pytest.mark.parametrize("deterministic_cards", [False, True])
 @pytest.mark.parametrize(
     "device,precision",
     [
@@ -181,12 +185,15 @@ def test_policy_loss_entropy_and_normalization_use_only_koi_rows(monkeypatch):
         pytest.param("cuda", "bf16", marks=pytest.mark.cuda),
     ],
 )
-def test_exact_resume_counters_and_freeze_state(tmp_path, koi_width, device, precision):
+def test_exact_resume_counters_and_freeze_state(
+    tmp_path, koi_width, device, precision, deterministic_cards
+):
     if device == "cuda" and not torch.cuda.is_available():
         pytest.skip("CUDA unavailable")
     trainer = Trainer(
         config(
             koi_width=koi_width,
+            deterministic_cards=deterministic_cards,
             device=device,
             precision=precision,
             cuda_graph=device == "cuda",
@@ -220,13 +227,15 @@ def test_exact_resume_counters_and_freeze_state(tmp_path, koi_width, device, pre
 
 @pytest.mark.cuda
 @pytest.mark.parametrize("koi_width", [0, 32])
-def test_capture_matches_eager_with_frozen_card_parameters(koi_width):
+@pytest.mark.parametrize("deterministic_cards", [False, True])
+def test_capture_matches_eager_with_frozen_card_parameters(koi_width, deterministic_cards):
     if not torch.cuda.is_available():
         pytest.skip("CUDA unavailable")
     c = config(
         device="cuda",
         precision="bf16",
         koi_width=koi_width,
+        deterministic_cards=deterministic_cards,
         horizon=32,
         cuda_graph=True,
     )
@@ -275,3 +284,29 @@ def test_capture_matches_eager_with_frozen_card_parameters(koi_width):
 def test_reject_incompatible_koi_learning(fields):
     with pytest.raises(ValueError):
         config(**fields)
+
+
+@pytest.mark.parametrize("device", ["cpu", pytest.param("cuda", marks=pytest.mark.cuda)])
+def test_deterministic_cards_leave_koi_sampling_and_returns_intact(device):
+    if device == "cuda" and not torch.cuda.is_available():
+        pytest.skip("CUDA unavailable")
+    trainer = Trainer(config(device=device, deterministic_cards=True, envs=32))
+    batch = trainer.collect()
+    with torch.no_grad():
+        logits = trainer.actor(batch["obs"], batch["mask"])[0]
+    koi = batch["mask"][:, 48:].any(-1)
+    assert koi.any() and (~koi).any()
+    same(batch["action"][~koi], logits.argmax(-1)[~koi])
+    assert torch.count_nonzero(batch["old_logp"][~koi]) == 0
+    expected = logits.log_softmax(-1).gather(1, batch["action"][:, None]).squeeze(-1)
+    torch.testing.assert_close(batch["old_logp"][koi], expected[koi])
+    assert (batch["action"][koi] != logits.argmax(-1)[koi]).any()
+    assert torch.isfinite(batch["advantage"]).all()
+    assert torch.isfinite(batch["return"]).all()
+    assert trainer.counters["policy_decisions"] == int(koi.sum())
+    assert trainer.counters["decisions"] == len(koi)
+
+
+def test_deterministic_cards_reject_trainable_card_policy():
+    with pytest.raises(ValueError, match="frozen koi-only"):
+        config(policy_scope="all", deterministic_cards=True)
