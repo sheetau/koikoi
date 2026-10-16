@@ -41,15 +41,19 @@ Measure full learning, excluding five warmup updates, with `python -m koikoi.ben
 
 `--initialize runs/<source>/update_XXXXXXXX.pt` starts a new experiment from actor weights with the architecture specified in `--config`. It resets optimizer, simulator, RNG and counters, recording the source checkpoint hash and its training budget separately. This supports changing rewards or transferring from paper8 to research12 without counting eight-round pretraining toward twelve-round matches. `--resume` instead restores the entire experiment and cannot be combined with `--config`.
 
-The eventual scale target, after selecting a validated method:
+Audit an immutable local checkpoint with `python -m koikoi.budget runs/<run>/update_XXXXXXXX.pt --output budget.json`. Totals group completed learning by rule profile and add weight-initialization ancestry without double-counting resumed counters. This is one model lineage; reports with shared ancestors must not be summed.
+
+A verified twelve-round baseline scale run is now active alongside method selection (see STATUS.md). Its command is:
 
 ```powershell
-./.venv/Scripts/python.exe -m koikoi.train --config configs/ppo12.json --run runs/selected12 --target-matches 100000000 --checkpoint-every 100
+./.venv/Scripts/python.exe -m koikoi.train --config configs/ppo12_graph.json --initialize runs/ppo12_transfer_v1/update_00000693.pt --run runs/ppo12_scale_seed30001 --target-matches 100000000 --checkpoint-every 1000
 ```
 
-This command is a capability, not evidence that the run has been performed. `paper8` and `research12` are different versioned protocols. Do not compare published eight-round weights on a twelve-round match. Config `reward=round` is a separately labeled point-reward experiment, not the default win-rate objective. `kind=transformer` selects card-token attention; `belief_weight>0` trains the hidden-card auxiliary predictor. Policy inputs never receive its ground-truth labels.
+The target is not complete; consult recorded counters rather than inferring progress from the command. `paper8` and `research12` are different versioned protocols. Do not compare published eight-round weights on a twelve-round match. Config `reward=round` is a separately labeled point-reward experiment, not the default win-rate objective. `kind=transformer` selects card-token attention; `belief_weight>0` trains the hidden-card auxiliary predictor. Policy inputs never receive its ground-truth labels.
 
 Additional comparison configs: `vrpo8.json` selects a separate centralized Q critic ([implementation scope and deviations](docs/VRPO.md)); `features8.json` adds public role/month counts to the MLP; `transformer8_bf16.json` uses mixed precision with float32 loss calculations. The Q-boosting option is experimental, not a proven improvement. Compare by both decision budget and wall time, with multiple independent training seeds.
+
+`ppo8_wide_bf16.json` screens a width-512 MLP with BF16 and CUDA Graph updates. Match its decision budget to smaller-policy checkpoints; it is not yet a demonstrated strength improvement.
 
 `relational8.json` scores candidate cards with shared weights, their same-month hand/field aggregates and a public global context. Its BF16 training configuration is an architectural experiment; current evidence does not establish a strength advantage.
 
