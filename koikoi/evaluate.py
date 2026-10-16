@@ -117,6 +117,11 @@ def main():
         help="Apply exact outcome-dominance rules to the candidate",
     )
     parser.add_argument(
+        "--opponent-endgame",
+        action="store_true",
+        help="Apply the same endgame guard to a checkpoint opponent",
+    )
+    parser.add_argument(
         "--search", choices=("none", "uniform", "belief"), default="none"
     )
     parser.add_argument("--particles", type=int, default=32)
@@ -181,6 +186,8 @@ def main():
     search_agent = a
     if args.endgame:
         a = EndgameAgent(a)
+    if args.opponent_endgame and not isinstance(b, EndgameAgent):
+        b = EndgameAgent(b)
     pairs, differences, records, timings = [], [], [], []
     total_decisions = 0
     agent_stats, opponent_stats = {}, {}

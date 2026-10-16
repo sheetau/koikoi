@@ -76,4 +76,6 @@ For large checkpoint-versus-checkpoint comparisons, `batch_evaluate` runs indepe
 
 This path is deterministic and applies `--endgame` to both agents. It freezes completed rows instead of redealing, and reports actual match/round/decision counts plus batch throughput. Throughput is not single-decision latency. Published baselines and stochastic/search policies continue to use `koikoi.evaluate`. Native batched results are checked against the independent sequential reference for both rule profiles and both devices. Floating-point near-ties can still make different devices or batch shapes choose different actions; execution device and batch size are recorded. Development evaluation rejects seeds in the reserved final-test range.
 
+In the sequential evaluator, add `--opponent-endgame` to apply the guard to a checkpoint opponent as well. Reports explicitly record whether the opponent receives assistance; comparisons reject a mismatch.
+
 Original models retain their historical input quirks. The loader adapts an obsolete PyTorch class name and loads the original parameter tensors into the same architecture on modern PyTorch. Fetch source with `python -m koikoi.upstream --fetch`; the pin and license are in [third-party notices](THIRD_PARTY_NOTICES.md). Load only trusted local training checkpoints: PyTorch pickle deserialization is used.
