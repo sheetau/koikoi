@@ -19,11 +19,11 @@ Hardware: RTX 5070 Ti 16 GB, Ryzen 9 9900X, about 62 GiB RAM; local Python 3.12 
 
 | Run | Target | Last observed completed progress | Source |
 | --- | --- | --- | --- |
-| ppo12_scale_seed30001 | 100,000,000 additional research12 matches | update 3,214 / 4,637,529 matches | 5ddd893 |
-| ppo8_seed10001 | 5,000 updates | update 3,935 / 8,765,882 matches | 2f3a366 |
-| relational8_v2 | 2,000 cumulative updates | update 1,856 / 2,082,470 matches | b9393cb |
+| ppo12_scale_seed30001 | 100,000,000 additional research12 matches | update 4,485 / 6,471,309 matches | 5ddd893 |
+| ppo8_seed10001 | 5,000 updates | update 4,269 / 9,510,574 matches | 2f3a366 |
+| relational8_v2 | 2,000 cumulative updates (complete) | 2,245,436 matches / 262,144,000 decisions | b9393cb |
 
-Wider-MLP screening is also live in runs/ppo8_wide_seed40001 from committed a6b9bb6, target 500 updates, snapshots every 100; last checked update 108 / 236,639 matches. Command: `python -m koikoi.train --config configs/ppo8_wide_bf16.json --run runs/ppo8_wide_seed40001 --updates 500 --checkpoint-every 100`.
+Wider-MLP screening completed in runs/ppo8_wide_seed40001: 500 updates / 131,072,000 decisions / 1,108,105 matches, source a6b9bb6. It beats the matched-budget small MLP but loses to the relational candidate; further width-only training is deferred.
 
 The scale run is live, not complete. Its fresh counters exclude 1,000,464 research12 and 11,141,556 paper8 pretraining matches, recorded separately. Runs and checkpoints live under ignored runs/. Do not restart live jobs. A run-local STOP requests a clean completed-update snapshot.
 
@@ -42,10 +42,14 @@ The scale run is live, not complete. Its fresh counters exclude 1,000,464 resear
 
 ## Next actions and completion gates
 
-Finish final-checkpoint evaluations for replication and relational jobs. Screen a wider MLP with BF16/CUDA Graph at matched decision budgets; this joint capacity/precision candidate is not an isolated architecture ablation. Keep the verified twelve-round scale baseline running alongside method selection.
+Finish the independent replication evaluation. Prioritize more relational-policy learning following its matched-budget gains. Config relational8_graph.json enables verified CUDA Graph updates, seed 50,001; initialize from relational8_v2/update_00002000.pt and train 3,000 new updates. This resets optimizer/RNG/counters and records the 2,245,436-match pretraining separately; it is not an exact continuation or an isolated capture ablation. Keep the verified twelve-round scale baseline running alongside method selection.
 
 Before claiming success: exceed assisted RL-WP on paper8, replicate training results, evaluate chosen methods on untouched final-test deals, verify at least 100M completed twelve-round training matches, and prepare the research manuscript. Final-test seeds (100,000,000+) remain unused. Method/ablation selection, belief calibration, archived opponents and reduced-game exploitability are research options, not established results. Submission is a later decision.
 
-Wider candidate config: configs/ppo8_wide_bf16.json (MLP width 512, seed 40,001, BF16, CUDA Graph). Five measured full learning updates after five warmups completed in 3.871 seconds / 10,468 matches while other jobs ran (runs/wide_bf16_benchmark.json). This checks feasibility, not playing strength or isolated throughput. Initial screening target is 500 updates / 131,072,000 decisions, then evaluate against the 500-update width-128 checkpoint and assisted RL-WP before extending.
+## Latest screening results
 
-Koi-decision substitution is now available as `evaluate --koi-agent`: independently choose the card and koi policies, with explicit component metadata, retained pair replay and guard settings. Full-match routing, nested RNG replay and invalid protocol rejection passed; composing RL-WP with itself reproduced the assisted reference on a two-pair identity smoke check. Use this diagnostic to localize the remaining strength gap; no hybrid strength result exists yet.
+- Relational update 2,000 beats matched-decision MLP update 1,000: 55.035%, CI 54.4699-55.625%, +4.0791 points, 10,000 pairs. Its final public-baseline evaluation is in progress.
+- Wider MLP update 500 versus matched-decision MLP update 500: 53.0025%, CI 52.4375-53.5775%. Versus matched-decision relational update 1,000: 46.7625%, CI 46.1625-47.35%. Both use 10,000 pairs. Against assisted RL-WP on 300 pairs: 41.75%, CI 38.25-45.25%. These candidate screens vary precision/architecture/seed, not isolated architecture effects.
+- MLP update 5,000 cards + published koi: 52.0833%, CI 49-55.1667%, 300 pairs against assisted RL-WP. Difference from the complete MLP on the same seeds: +2.0833 percentage points, CI -0.4167 to +4.5833. Reverse hybrid: 47.75%, CI 45.3333-50.25%. Koi substitution is suggestive but inconclusive; no default-policy change.
+- `evaluate --koi-agent` records both components and their checkpoint metadata, resets nested RNG streams for pair replay, and rejects published twelve-round use or search combinations. Full-match routing and identity smoke checks passed.
+- Relational CUDA Graph feasibility: five measured full updates after five warmups took 6.541 seconds under concurrent jobs (runs/relational_graph_benchmark.json), not an isolated performance claim.
