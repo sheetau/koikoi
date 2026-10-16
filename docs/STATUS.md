@@ -19,8 +19,8 @@ Hardware: RTX 5070 Ti 16 GB, Ryzen 9 9900X, about 62 GiB RAM; local Python 3.12 
 
 | Run | Target | Last observed completed progress | Source |
 | --- | --- | --- | --- |
-| ppo12_scale_seed30001 | 100,000,000 additional research12 matches | update 4,485 / 6,471,309 matches | 5ddd893 |
-| ppo8_seed10001 | 5,000 updates | update 4,269 / 9,510,574 matches | 2f3a366 |
+| ppo12_scale_seed30001 | 100,000,000 additional research12 matches | update 4,834 / 6,974,028 matches | 5ddd893 |
+| ppo8_seed10001 | 5,000 updates | update 4,361 / 9,715,493 matches | 2f3a366 |
 | relational8_v2 | 2,000 cumulative updates (complete) | 2,245,436 matches / 262,144,000 decisions | b9393cb |
 
 Wider-MLP screening completed in runs/ppo8_wide_seed40001: 500 updates / 131,072,000 decisions / 1,108,105 matches, source a6b9bb6. It beats the matched-budget small MLP but loses to the relational candidate; further width-only training is deferred.
@@ -48,8 +48,12 @@ Before claiming success: exceed assisted RL-WP on paper8, replicate training res
 
 ## Latest screening results
 
-- Relational update 2,000 beats matched-decision MLP update 1,000: 55.035%, CI 54.4699-55.625%, +4.0791 points, 10,000 pairs. Its final public-baseline evaluation is in progress.
+- Relational update 2,000 beats matched-decision MLP update 1,000: 55.035%, CI 54.4699-55.625%, +4.0791 points, 10,000 pairs. Against assisted RL-WP on 300 pairs: 49.25%, CI 45.9167-52.6687%, +0.1567 points. Against its update-500 result on the same deals, improvement is +5.0 percentage points, CI +0.9167 to +8.9167. Still no superiority to RL-WP.
 - Wider MLP update 500 versus matched-decision MLP update 500: 53.0025%, CI 52.4375-53.5775%. Versus matched-decision relational update 1,000: 46.7625%, CI 46.1625-47.35%. Both use 10,000 pairs. Against assisted RL-WP on 300 pairs: 41.75%, CI 38.25-45.25%. These candidate screens vary precision/architecture/seed, not isolated architecture effects.
 - MLP update 5,000 cards + published koi: 52.0833%, CI 49-55.1667%, 300 pairs against assisted RL-WP. Difference from the complete MLP on the same seeds: +2.0833 percentage points, CI -0.4167 to +4.5833. Reverse hybrid: 47.75%, CI 45.3333-50.25%. Koi substitution is suggestive but inconclusive; no default-policy change.
 - `evaluate --koi-agent` records both components and their checkpoint metadata, resets nested RNG streams for pair replay, and rejects published twelve-round use or search combinations. Full-match routing and identity smoke checks passed.
 - Relational CUDA Graph feasibility: five measured full updates after five warmups took 6.541 seconds under concurrent jobs (runs/relational_graph_benchmark.json), not an isolated performance claim.
+
+Relational graph training is live in runs/relational8_graph_seed50001, committed b9651ff; last checked update 118 / 132,756 new matches. Command: `python -m koikoi.train --config configs/relational8_graph.json --initialize runs/relational8_v2/update_00002000.pt --run runs/relational8_graph_seed50001 --updates 3000 --checkpoint-every 500`. Original relational and wide pilot jobs are verified complete.
+
+Timing diagnosis (10 full scale-config updates after warmup, concurrent jobs): 7.178 seconds total, 5.178 seconds collection plus returns, 2.000 seconds remaining update. Report runs/scale_update_timing.json. Investigate capture of rollout/return generation next; this timing does not prove CPU dispatch is the cause, and running scale experiments remain unchanged. Any new capture path must preserve counters, hidden-information boundaries, RNG replay and exact checkpoint continuation.
