@@ -6,7 +6,7 @@ Research is active. The 100M-new-research12 requirement is achieved and audited.
 
 All training and prior evaluation pipelines are complete. Most recent runner session 59159 (deterministic-card comparison), trainer PIDs 23128/2892, public evaluators34448/44676 and runner 26416 are terminal success. Earlier scale57088/final watcher51102, seed-1 search95279 and koi extension63774 are also complete. Never resume completed learners unchanged. Old migration directories with STOP remain closed.
 
-The full-action 100-pair screen (session 41603, runner 61488/evaluator 11808) is complete and independently audited. Next extension runner runs/run_all_search192_extension.py is prepared but not launched; launch once after committing the fixed protocol below. No new training is selected. Never duplicate live work or infer process termination from a polling timeout.
+The full-action 100-pair screen (session 41603, runner 61488/evaluator 11808) is complete and independently audited. Live extension: session 17341, actual runner PID 47200 (parent 65592), evaluator PID 45000 (parent 28136), `python -m runs.run_all_search192_extension`. Started from committed protocol b1f7012, package20e9d7c3.... Actual commands and first10 completed additional pairs verified in runs/all_search192_new900.log. Keep the fixed additional900 and combined1,000 endpoint; do not restart or select from intermediate scores. No new training is selected. Never duplicate live work or infer process termination from a polling timeout.
 
 ## Immediate next experiment
 
