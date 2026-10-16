@@ -19,7 +19,14 @@ from torch.nn import functional as F
 
 from .capture import CapturedMinibatch, CapturedRollout
 from .env import BatchEnv
-from .estimators import CentralQ, critic_input, native_gae, q_boost
+from .estimators import (
+    CentralQ,
+    PPOValue,
+    critic_input,
+    native_gae,
+    ppo_value_input,
+    q_boost,
+)
 from .layout import PLAYER
 from .model import PolicyValue, sample_action
 from .opponents import FrozenOpponent, OpponentValue, learner_turn
@@ -54,8 +61,15 @@ class Config:
     cuda_graph: bool = False
     cuda_rollout: bool = False
     opponent_fraction: float = 0.0
+    ppo_value: str = "shared"
 
     def __post_init__(self):
+        if self.ppo_value not in ("shared", "observation", "privileged"):
+            raise ValueError("Unknown PPO value mode")
+        if self.ppo_value != "shared" and (
+            self.algorithm != "ppo" or self.opponent_fraction
+        ):
+            raise ValueError("Separate PPO value currently requires pure self-play PPO")
         if not 0 <= self.opponent_fraction <= 1:
             raise ValueError("opponent_fraction must be between zero and one")
         if self.opponent_fraction and (
@@ -86,6 +100,7 @@ class Config:
                 self.minibatch,
                 self.cpu_threads,
                 self.critic_epochs,
+                self.critic_width,
             )
             < 1
         ):
@@ -163,6 +178,14 @@ class Trainer:
             if self.opponent_value is not None
             else self.model
         )
+        self.ppo_critic = None
+        if config.ppo_value != "shared":
+            # New critic initialization must not shift actor sampling RNG.
+            with torch.random.fork_rng(devices=[]):
+                self.ppo_critic = PPOValue(config.critic_width).to(config.device)
+            self.trainable = torch.nn.ModuleDict(
+                {"actor": self.model, "ppo_critic": self.ppo_critic}
+            )
         self.frozen = None
         self.frozen_envs = int(config.envs * config.opponent_fraction)
         self.rows = torch.arange(config.envs, device=config.device)
@@ -295,6 +318,16 @@ class Trainer:
             result = self.critic(features)
         return result.float()
 
+    def ppo_critic_value(self, features):
+        with torch.autocast(
+            device_type=self.env.device.type,
+            dtype=torch.bfloat16,
+            enabled=self.config.precision == "bf16",
+            cache_enabled=not (self.config.cuda_graph or self.config.cuda_rollout),
+        ):
+            value = self.ppo_critic(features)
+        return value.float()
+
     @torch.no_grad()
     def collect(self):
         if self.config.cuda_rollout:
@@ -336,12 +369,18 @@ class Trainer:
             buffers["learner"] = []
         if self.critic:
             buffers.update({"critic_obs": [], "q": [], "probs": []})
+        if self.ppo_critic is not None:
+            buffers["ppo_value_obs"] = []
         totals = torch.zeros(2, dtype=torch.int64, device=self.config.device)
         for _ in range(self.config.horizon):
             obs, mask, target = self.observe(labels=True)
             player = self.env.state[:, PLAYER].clone()
             logits, value, _ = self.actor(obs, mask)
             action, logp = sample_action(logits)
+            if self.ppo_critic is not None:
+                features = ppo_value_input(obs, self.env.state, self.config.ppo_value)
+                buffers["ppo_value_obs"].append(features)
+                value = self.ppo_critic_value(features)
             if self.frozen is not None:
                 learner = self.learner_rows()
                 n = self.frozen_envs
@@ -386,6 +425,10 @@ class Trainer:
         batch = {k: torch.stack(v) for k, v in buffers.items()}
         obs, mask = self.observe()
         _, next_value, _ = self.actor(obs, mask)
+        if self.ppo_critic is not None:
+            next_value = self.ppo_critic_value(
+                ppo_value_input(obs, self.env.state, self.config.ppo_value)
+            )
         if self.frozen is not None:
             next_value = torch.where(
                 self.learner_rows(), next_value, self.role_value(obs)
@@ -494,6 +537,13 @@ class Trainer:
             - c.entropy * entropy
             + c.belief_weight * belief_loss
         )
+        if self.ppo_critic is not None:
+            ppo_critic_loss = F.mse_loss(
+                self.ppo_critic_value(data["ppo_value_obs"]), data["return"]
+            )
+            # Retain the actor's observation-only value head for deployment/search.
+            # Each value loss has value_weight; the two critics share no parameters.
+            loss = loss + c.value_weight * ppo_critic_loss
         self.optimizer.zero_grad(set_to_none=True)
         loss.backward()
         grad = torch.nn.utils.clip_grad_norm_(self.trainable.parameters(), 0.5)
@@ -505,9 +555,10 @@ class Trainer:
                 if learner is None
                 else (kl_terms * learner).sum() / learner.sum().clamp_min(1)
             )
-            return torch.stack(
-                [policy_loss, value_loss, entropy, belief_loss, kl, grad]
-            )
+            metrics = [policy_loss, value_loss, entropy, belief_loss, kl, grad]
+            if self.ppo_critic is not None:
+                metrics.append(ppo_critic_loss)
+            return torch.stack(metrics)
 
     def update(self):
         batch = self.collect()
@@ -526,7 +577,7 @@ class Trainer:
                 advantage.std(unbiased=False) + 1e-8
             )
         n = len(advantage)
-        metrics = torch.zeros(6, device=c.device)
+        metrics = torch.zeros(6 + (self.ppo_critic is not None), device=c.device)
         count = 0
         for _ in range(c.epochs):
             if self.critic:
@@ -547,6 +598,8 @@ class Trainer:
                 }
                 if "learner" in batch:
                     data["learner"] = batch["learner"][indices]
+                if self.ppo_critic is not None:
+                    data["ppo_value_obs"] = batch["ppo_value_obs"][indices]
                 if c.cuda_graph:
                     if self.captured_minibatch is None:
                         self.captured_minibatch = CapturedMinibatch(
@@ -572,6 +625,8 @@ class Trainer:
             critic_loss_mean = float(torch.stack(losses).mean())
         self.counters["updates"] += 1
         values = (metrics / count).detach().cpu().tolist()
+        if self.ppo_critic is not None:
+            critic_loss_mean = values.pop()
         if not all(np.isfinite(values + [critic_loss_mean])):
             raise FloatingPointError("Non-finite training metrics")
         return dict(
@@ -620,6 +675,8 @@ class Trainer:
                 critic=self.critic.state_dict(),
                 critic_optimizer=self.critic_optimizer.state_dict(),
             )
+        if self.ppo_critic is not None:
+            payload["ppo_critic"] = self.ppo_critic.state_dict()
         tmp = path.with_suffix(path.suffix + ".tmp")
         torch.save(payload, tmp)
         os.replace(tmp, path)
@@ -651,6 +708,8 @@ class Trainer:
                 "Source changed since checkpoint; use --allow-code-change for a labeled continuation"
             )
         obj.model.load_state_dict(payload["model"])
+        if obj.ppo_critic is not None:
+            obj.ppo_critic.load_state_dict(payload["ppo_critic"])
         if obj.opponent_value is not None:
             obj.opponent_value.load_state_dict(payload["opponent_value"])
             obj._load_frozen(payload["frozen_config"], payload["frozen_model"])

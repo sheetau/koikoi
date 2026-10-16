@@ -1,4 +1,4 @@
-"""Player-relative Expected-SARSA Q-boosting (Fan & Farina, 2026, eqs. 3.2–3.3)."""
+"""Signed returns, training-only critics and Expected-SARSA Q-boosting."""
 
 import torch
 from torch import nn
@@ -57,6 +57,35 @@ class CentralQ(nn.Module):
 
     def forward(self, features):
         return self.network(features)
+
+
+def ppo_value_input(obs, state, mode):
+    """Same-sized critic inputs; the observation control has no private features."""
+    if mode == "privileged":
+        return critic_input(obs, state)
+    if mode == "observation":
+        return torch.cat([obs, obs.new_zeros((len(obs), 96))], dim=-1)
+    raise ValueError("Separate PPO critic requires observation or privileged mode")
+
+
+class PPOValue(nn.Module):
+    """Training-only scalar critic, independent of the deployed actor/value model."""
+
+    def __init__(self, width=256):
+        super().__init__()
+        self.network = nn.Sequential(
+            nn.Linear(656, width),
+            nn.Tanh(),
+            nn.Linear(width, width),
+            nn.Tanh(),
+            nn.Linear(width, 1),
+        )
+        # Both controls start with zero bootstraps, not arbitrary hidden-state values.
+        nn.init.zeros_(self.network[-1].weight)
+        nn.init.zeros_(self.network[-1].bias)
+
+    def forward(self, features):
+        return self.network(features).squeeze(-1)
 
 
 def q_boost(

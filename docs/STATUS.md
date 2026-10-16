@@ -8,7 +8,7 @@ Independent Python oracle plus shared C++/CUDA core; paper8 and research12 profi
 
 Captured PPO minibatches and collection are independently optional. Warmup restores state/model/Adam/RNG, and replay reads current weights. FP32/BF16 collection, full updates and resume agree with eager execution, including real scale/relational migrations. Capturable versus old non-capturable Adam can round differently; do not silently switch optimizer execution.
 
-Validation: full 89-test suite passed without skips after the frozen-opponent implementation, including CUDA and upstream checks; two expected upstream Transformer warnings. Two targeted full-update cases also passed after extending coverage to relational/BF16 frozen opponents. Ruff passed. No native game rules changed.
+Validation: full 101-test suite passed without skips after adding the separate PPO return critic, including CUDA and upstream checks; only two expected upstream Transformer warnings. Ruff passed. No native game rules changed.
 
 Against actual old source 499990c, two ordinary self-play updates remain bit-identical for MLP/FP32 and relational/BF16: model, Adam, simulator, counters, CPU/CUDA/Python/NumPy RNG and metrics. Report runs/frozen_default_equivalence.json. The ongoing scale process still runs source 142c265; it was not restarted.
 
@@ -16,7 +16,7 @@ Use .venv/Scripts/python.exe: Python 3.12, Torch 2.12.0+cu130, NumPy 2.5.4. Hard
 
 ## Live training jobs (revalidate before acting)
 
-runs/ppo12_scale_seed30001_captured: 28,102 updates / 40,584,234 cumulative new research12 matches last observed. Source 142c265, child PID 57432 (parent 6624), session 57088. Target 100,000,000 new completed matches. Process and advancing finite metrics verified.
+runs/ppo12_scale_seed30001_captured: 32,248 updates / 46,571,808 cumulative new research12 matches last observed. Source 142c265, child PID 57432 (parent 6624), session 57088. Target 100,000,000 new completed matches. Process and advancing finite metrics verified.
 
 ```powershell
 ./.venv/Scripts/python.exe -m koikoi.train --resume runs/ppo12_scale_seed30001/update_00005800.pt --allow-code-change --enable-cuda-rollout --run runs/ppo12_scale_seed30001_captured --target-matches 100000000 --checkpoint-every 1000
@@ -68,4 +68,8 @@ Optional fixed-history PPO is implemented, default off. Config opponent_fraction
 
 Keep the scale baseline running. Success still requires beating assisted RL-WP, independent training validation of selected improvements, untouched final-test evaluation, at least 100M complete research12 training matches, and a manuscript. Submission is a later decision. Do not mark complete based on implementation, parent wins or throughput alone.
 
-Next method investigation: assess a separate scalar PPO critic with optional privileged training features. Compare an observation-only auxiliary critic with the same critic plus hidden features to separate network separation from information effects. Actor and search inputs must remain unchanged. This is not implemented or selected as a superior method; compact-history features, finite-horizon bootstrapping and clipped PPO preclude importing an unbiasedness guarantee directly. See the rationale in EXPERIMENTS.md before implementation.
+Separate scalar PPO return critics are implemented, default off: ppo_value=observation pads 96 zeros after the observation, while privileged adds opponent-hand indicators and remaining-stock ranks. Same dimensions, initialization and RNG. The critic supplies GAE/tail values; the original observation-only actor value head remains trained for inference/search. Both value losses have value_weight, share Adam/clipping but no parameters. This changes more than critic input relative to the shared baseline; the two new controls isolate access to private features. No unbiasedness or strength claim. Unsupported fixed-opponent/Q-boosting combinations are rejected.
+
+Default old-source equivalence passed for MLP/FP32 and relational/BF16; report runs/ppo_value_default_equivalence.json. Both production-shape three-update smokes passed (3,075/3,074 matches, 393,216 decisions each). Exact captured-versus-ordinary fourth updates, including both networks/Adam/games/counters/all RNG, passed in runs/ppo_value_production_equivalence.json. Diagnostics are excluded from experiment budgets. Package SHA 2cddf9bbe6d644872310f54383d715950da565725c81cb4523b6aadf09e2ff73.
+
+Next controlled screen: configs/relational8_value_observation.json and configs/relational8_value_privileged.json, same relational initialization runs/relational8_v2/update_00002000.pt and seed 50,001, new critics/optimizer/RNG/games/counters. Each targets 1,000 updates / 131,072,000 decisions with snapshots every 250. Run directories runs/relational8_value_observation_seed50001 and runs/relational8_value_privileged_seed50001. Compare each endpoint with shared-critic control on 10,000 direct pairs and assisted RL-WP on 300 shared development pairs, then privileged versus observation on 10,000 pairs. Full protocol is recorded in EXPERIMENTS.md. This screen is ready to start from the committed implementation; no strength result yet.
