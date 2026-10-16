@@ -154,3 +154,18 @@ KK_HD void observe(const int *s,float *o,bool *mask,float *target) {
     g[12]=(s[STOCK]-23)/24.f;g[13]=oppn/8.f;g[14]=s[BEFORE]/32.f;g[15]=(float)s[BANK];
     for(int a=0;a<AS;++a)mask[a]=legal(s,a);
 }
+KK_HD void gae_column(const float *rewards,const float *values,const bool *dones,
+        const int *players,const float *bootstrap,const int *next_players,
+        float *advantages,float *returns,int horizon,int n,float lam,int i) {
+    float next=bootstrap[i],carry=0;
+    int next_player=next_players[i];
+    for(int t=horizon-1;t>=0;--t){
+        int j=t*n+i;
+        float sign=players[j]==next_player?1.f:-1.f;
+        float live=dones[j]?0.f:1.f;
+        float delta=(rewards[j]+((live*sign)*next))-values[j];
+        carry=delta+(((live*sign)*lam)*carry);
+        advantages[j]=carry;returns[j]=carry+values[j];
+        next=values[j];next_player=players[j];
+    }
+}

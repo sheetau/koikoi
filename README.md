@@ -31,6 +31,8 @@ Tests compare independent Python rules with C++ and CUDA, scoring and full match
 
 `--updates` is an absolute cumulative update target. `--target-matches` instead trains until the cumulative completed-match counter reaches the specified number (possibly overshooting by a rollout). `--checkpoint-every` controls completed-update snapshots. Ctrl+C retains the last completed snapshot, never a partial update. Resuming modified source requires explicit `--allow-code-change` and creates a new provenance record; it is not an exact continuation experiment.
 
+PPO uses the native C++/CUDA signed-return scan by default. Set `returns_backend` to `torch` to use the independent PyTorch recurrence. Tests verify bit-identical float32 returns and full PPO updates; `python -m koikoi.benchmark --returns --envs 2048 --horizon 128 --steps 50` measures this component separately from learning.
+
 `--max-seconds` sets a wall-time limit checked between completed updates. Creating `runs/<run>/STOP` also requests a clean checkpoint and exit; remove that file before resuming. Starting a new training run in a directory with existing metrics is rejected. Checkpoints record the parent checkpoint hash when continued.
 
 `--initialize runs/<source>/update_XXXXXXXX.pt` starts a new experiment from actor weights with the architecture specified in `--config`. It resets optimizer, simulator, RNG and counters, recording the source checkpoint hash and its training budget separately. This supports changing rewards or transferring from paper8 to research12 without counting eight-round pretraining toward twelve-round matches. `--resume` instead restores the entire experiment and cannot be combined with `--config`.

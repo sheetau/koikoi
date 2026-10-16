@@ -81,6 +81,7 @@ class CPU:
             "kk_solved": [C.c_void_p, C.c_void_p, C.c_int],
             "kk_observe": [C.c_void_p] * 4 + [C.c_int],
             "kk_reset": [C.c_void_p, C.c_int],
+            "kk_gae": [C.c_void_p] * 8 + [C.c_int, C.c_int, C.c_float],
         }.items():
             fn = getattr(self.lib, name)
             fn.argtypes, fn.restype = signature, None
@@ -133,11 +134,13 @@ class CUDA:
             "nvrtcCreateProgram",
         )
         major, minor = torch.cuda.get_device_capability(self.device)
-        options = (C.c_char_p * 2)(
-            f"--gpu-architecture=compute_{major}{minor}".encode(), b"--std=c++17"
+        options = (C.c_char_p * 3)(
+            f"--gpu-architecture=compute_{major}{minor}".encode(),
+            b"--std=c++17",
+            b"--fmad=false",
         )
         try:
-            error = self.nvrtc.nvrtcCompileProgram(program, 2, options)
+            error = self.nvrtc.nvrtcCompileProgram(program, 3, options)
             if error:
                 size = C.c_size_t()
                 self.nvrtc.nvrtcGetProgramLogSize(program, C.byref(size))
@@ -162,6 +165,7 @@ class CUDA:
             "kk_solved",
             "kk_observe",
             "kk_reset",
+            "kk_gae",
         ):
             fn = C.c_void_p()
             self.check(
@@ -208,7 +212,11 @@ class CUDA:
     def call(self, name, n, *args):
         with torch.cuda.device(self.device):
             values = [
-                C.c_void_p(x.data_ptr()) if isinstance(x, torch.Tensor) else C.c_int(x)
+                C.c_void_p(x.data_ptr())
+                if isinstance(x, torch.Tensor)
+                else C.c_float(x)
+                if isinstance(x, float)
+                else C.c_int(x)
                 for x in args
             ]
             params = (C.c_void_p * len(values))(

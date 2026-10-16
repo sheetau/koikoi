@@ -19,3 +19,8 @@ extern "C" __global__ void kk_reset(int *s,int n){
     int i=blockIdx.x*blockDim.x+threadIdx.x;
     if(i<n){int *v=s+i*SS;if(v[PH]==4)init(v,v[SEED],v[EP]+1,v[ROUNDS],v[BANK]);}
 }
+extern "C" __global__ void kk_gae(const float *r,const float *v,const bool *d,const int *p,
+        const float *next_v,const int *next_p,float *a,float *ret,int h,int n,float lam){
+    int i=blockIdx.x*blockDim.x+threadIdx.x;
+    if(i<n)gae_column(r,v,d,p,next_v,next_p,a,ret,h,n,lam,i);
+}

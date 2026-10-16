@@ -23,3 +23,7 @@ EXPORT void kk_reset(int *s,int n){
     for(int i=0;i<n;++i){int *v=s+i*SS;if(v[PH]==4)init(v,v[SEED],v[EP]+1,v[ROUNDS],v[BANK]);}
 }
 EXPORT int kk_score(unsigned long long b,int k){return score_bits(b,k);}
+EXPORT void kk_gae(const float *r,const float *v,const bool *d,const int *p,
+        const float *next_v,const int *next_p,float *a,float *ret,int h,int n,float lam){
+    for(int i=0;i<n;++i)gae_column(r,v,d,p,next_v,next_p,a,ret,h,n,lam,i);
+}

@@ -18,7 +18,7 @@ import torch
 from torch.nn import functional as F
 
 from .env import BatchEnv
-from .estimators import CentralQ, critic_input, q_boost
+from .estimators import CentralQ, critic_input, native_gae, q_boost
 from .layout import PLAYER
 from .model import PolicyValue, sample_action
 
@@ -47,8 +47,11 @@ class Config:
     critic_width: int = 256
     critic_epochs: int = 3
     precision: str = "float32"
+    returns_backend: str = "native"
 
     def __post_init__(self):
+        if self.returns_backend not in ("native", "torch"):
+            raise ValueError("Expected native or torch returns_backend")
         if self.precision not in ("float32", "bf16"):
             raise ValueError("Expected float32 or bf16 precision")
         if self.algorithm not in ("ppo", "vrpo") or self.reward not in (
@@ -248,7 +251,7 @@ class Trainer:
                 self.config.gae_lambda,
             )
         else:
-            advantages, returns = signed_gae(
+            arguments = (
                 batch["reward"],
                 batch["value"],
                 batch["done"],
@@ -256,6 +259,11 @@ class Trainer:
                 next_value,
                 self.env.state[:, PLAYER],
                 self.config.gae_lambda,
+            )
+            advantages, returns = (
+                native_gae(self.env.backend, *arguments)
+                if self.config.returns_backend == "native"
+                else signed_gae(*arguments)
             )
         batch["advantage"], batch["return"] = advantages, returns
         rounds, matches = totals.cpu().tolist()

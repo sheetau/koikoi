@@ -15,7 +15,7 @@ Hardware: RTX 5070 Ti (16 GB), Ryzen 9 9900X, about 62 GiB RAM. Project-local Py
 - Public endgame outcome guard and corresponding assisted published opponents; shared-seed report comparisons with paired difference intervals.
 - Seeded independent round deals use 64-bit SplitMix-based generation with unbiased bounded draws.
 
-`./.venv/Scripts/python.exe -m pytest -q`: 45 passed on this host, including CUDA and pinned upstream (no skips). Includes 2,000 scoring comparisons, 12 full upstream matches, replayed feature equality, CPU/CUDA/reference trajectory equality, hidden-state invariance (including original model inputs and search actions), sampler constraints, signed GAE, exact CPU/CUDA restart for both estimators, matching-pennies Q-boosting, pair replay, BF16 training, transfer budget/lineage, paired report compatibility and assisted baseline equality with upstream AgentForTest. Native batched duels match sequential reference results on both devices/profiles, with/without endgame assistance, and across chunk sizes; terminal rows remain frozen and evaluation split ranges are enforced. Ruff also passed. The upstream Transformer performance warning is expected.
+`./.venv/Scripts/python.exe -m pytest -q`: 49 passed on this host, including CUDA and pinned upstream (no skips). Includes 2,000 scoring comparisons, 12 full upstream matches, replayed feature equality, CPU/CUDA/reference trajectory equality, hidden-state invariance (including original model inputs and search actions), sampler constraints, signed GAE, exact CPU/CUDA restart for both estimators, matching-pennies Q-boosting, pair replay, BF16 training, transfer budget/lineage, paired report compatibility and assisted baseline equality with upstream AgentForTest. Native batched duels match sequential reference results on both devices/profiles, with/without endgame assistance, and across chunk sizes; terminal rows remain frozen and evaluation split ranges are enforced. Native returns and complete PPO updates are bit-identical to their PyTorch counterparts on CPU/CUDA. Ruff also passed. The upstream Transformer performance warning is expected.
 
 ## Initial measurements (development only)
 
@@ -40,12 +40,13 @@ Transformer smoke: 5 updates / 327,680 decisions worked in float32 and BF16; BF1
 
 ## Later development evaluations (protocol 2, 2026-10-16)
 
-All rows below use paper8 and deterministic action selection, with the public endgame guard applied to both candidate and RL-WP. The assisted opponent matches upstream's AgentForTest endgame rules; earlier raw-network rows above are a different comparison. Each row uses 300 paired seeds / 600 matches, seeds 1,000,000–1,000,299, except the explicitly noted 100-pair early relational check.
+All rows below use paper8 and deterministic action selection, with the public endgame guard applied to both candidate and RL-WP. The assisted opponent matches upstream's AgentForTest endgame rules; earlier raw-network rows above are a different comparison. Each row uses 300 paired seeds / 600 matches, seeds 1,000,000–1,000,299, except PPO update 5,000 (1,000 pairs / 2,000 matches, seeds 1,000,000–1,000,999) and the explicitly noted 100-pair early relational check.
 
 | Model / update | Cumulative training matches | Score vs assisted RL-WP | 95% pair-bootstrap CI | Mean point difference |
 | --- | ---: | ---: | --- | ---: |
 | MLP PPO / 2,000 | 4,443,788 | 45.833% | 42.665–49.167% | -1.220 |
 | MLP PPO / 3,000 | 6,675,832 | 49.250% | 45.917–52.583% | +0.750 |
+| MLP PPO / 5,000 | 11,141,556 | 47.825% | 46.050–49.650% | +0.975 |
 | Relational PPO / 500 | 554,063 | 44.250% | 40.917–47.585% | -2.817 |
 
 Immutable evaluated checkpoints and reports: `runs/ppo8_v2/update_00002000.pt` / `eval_2000_guarded.json`; `runs/ppo8_v3/update_00003000.pt` / `eval_3000_guarded.json`; `runs/relational8_v1/update_00000500.pt` / `eval_500_guarded.json`. Reports contain checkpoint SHA-256, training counters, source hashes and every pair result. For example, the 3,000-update checkpoint hash is `d6a9b15bddabc3da9a3711c92c24cffb5dd4966d50cdaa5d8162f34ab2e22f8c`.
@@ -71,7 +72,9 @@ The new batched checkpoint evaluator compared MLP update 3,000 against update 2,
 
 The same trained checkpoints were additionally replayed through the CPU sequential reference on the first ten pairs (`reference_3000_vs_2000.json`): both seat scores and point differences agree with the GPU batched report. Independent replication is running from scratch in `runs/ppo8_seed10001`, with `configs/ppo8_seed10001.json`, target 5,000 updates and snapshots every 1,000. Seed 10,001 also gives a disjoint block of initial simulator seeds from the first run's 1–2,048, while remaining separate from development and final-test seeds. It started from committed source 2f3a366, unlike the earlier development continuations.
 
-`runs/ppo8_v2`, `runs/features8_v1`, and `runs/relational8_v1` have completed their pilot targets. `runs/ppo8_v3` continues MLP PPO from update 2,000 to 5,000, snapshots every 500 updates:
+Update 5,000 beat update 3,000 directly on 10,000 pairs: 51.068%, CI 50.525–51.608%, +0.8763 points (`batch_5000_vs_3000.json`). Against assisted RL-WP, its larger 1,000-pair test remains below 50% (`eval_5000_guarded.json`). On the 300 seeds shared with the earlier 3,000-update evaluation, the score difference is +0.75 percentage points, CI -3.417–+5.0; do not compare the unpaired headline rates as if they used identical seeds. Replica seed 10,001 at update 1,000 scored 50.675%, CI 50.103–51.218%, against seed 1 at the same update on 10,000 pairs; this does not yet establish multi-seed superiority to RL-WP.
+
+`runs/ppo8_v2`, `runs/features8_v1`, `runs/relational8_v1`, and `runs/ppo8_v3` have completed their pilot targets. The latter continued MLP PPO from update 2,000 to 5,000, snapshots every 500 updates:
 
 ```powershell
 ./.venv/Scripts/python.exe -m koikoi.train --resume runs/ppo8_v2/update_00002000.pt --allow-code-change --run runs/ppo8_v3 --updates 5000 --checkpoint-every 500
@@ -79,8 +82,20 @@ The same trained checkpoints were additionally replayed through the CPU sequenti
 
 Source changes were explicitly allowed and parent lineage is recorded. These development pilots began during code changes and are not publication-quality fixed-revision experiments. Do not treat their concurrent throughput as isolated measurements. Check `metrics.jsonl` / immutable snapshots for actual counters. A run-local STOP file requests a clean completed-update checkpoint. No 100M-match job has started.
 
+### Twelve-round transfer
+
+`runs/ppo12_transfer_v1` initialized actor weights from the 5,000-update paper8 model using `configs/ppo12.json`, then trained from fresh optimizer/deals/counters to 1,000,464 completed research12 matches (693 updates / 181,665,792 decisions / 12,016,762 completed rounds including rounds in still-running matches). The 11,141,556 paper8 pretraining matches are recorded separately and do not count toward the twelve-round target. Initial weights are in `initial.pt`, completed pilot weights in `update_00000693.pt`; source revision 42e7ade.
+
+Against the initialization checkpoint on 10,000 paired seeds / 20,000 complete twelve-round matches, the pilot scored 52.073%, CI 51.515–52.633%, point difference +4.083. Both agents use deterministic actions and endgame assistance; report `eval_1m_vs_initial.json`. This supports adaptation to research12, not a comparison against the eight-round published model.
+
+### Return-estimation optimization
+
+Signed GAE now has a C++/CUDA reverse scan, one thread per environment, with PyTorch retained as the reference/optional backend (`returns_backend= torch`). CUDA compilation disables multiply-add contraction to preserve the reference's float32 operation order. Randomized returns for lambda 0/0.95/1 and entire PPO updates agree bit-for-bit on CPU and CUDA.
+
+`python -m koikoi.benchmark --returns --envs 2048 --horizon 128 --steps 50` measured 40.510 ms for the PyTorch recurrence and 0.0336 ms for the native scan on this host (`runs/gae_benchmark_verified.json`). This is the return calculation alone, with another training job running, not overall training acceleration. The prior profiled loop spent about 10% of end-to-end time in the recurrence; broader throughput must be measured separately.
+
 ## Next work
 
-Evaluate the 5,000-update PPO checkpoint against assisted RL-WP with fixed development seeds. Current evidence favors continuing the cheap MLP baseline; neither Q-boosting, explicit features, relational scoring nor search has demonstrated superiority. Once a policy exceeds the baseline, validate across independent training seeds and test hidden-card prediction/search at matched budgets. Weight-only initialization now supports a separately counted research12 experiment. Centralized-V controls for Q-boosting, archived-opponent training, exact reduced-game exploitability, multi-seed strength experiments, 100M-match selected twelve-round training, and manuscript remain pending. Do not describe the rollout heuristic as equilibrium search.
+Complete the independent seed-10,001 replication and improve beyond the still-unbeaten RL-WP baseline. The cheap MLP improves against past snapshots but has not met the public-baseline gate; larger relational training and aligning training with deployed endgame assistance are reasonable next controlled experiments. Neither Q-boosting, explicit features, relational scoring nor search has demonstrated superiority. Centralized-V controls for Q-boosting, archived-opponent training, exact reduced-game exploitability, multi-seed strength experiments, 100M-match twelve-round training, and manuscript remain pending. Do not describe the rollout heuristic as equilibrium search.
 
 No superiority result, 100M-match run, or publication is complete.

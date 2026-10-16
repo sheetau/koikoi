@@ -6,6 +6,35 @@ from torch import nn
 from .layout import PLAYER, STOCK
 
 
+def native_gae(
+    backend, rewards, values, dones, players, next_value, next_player, lam=0.95
+):
+    """One independent reverse recurrence per environment, on CPU or CUDA."""
+    h, n = rewards.shape
+    if min(h, n) < 1 or rewards.device != getattr(
+        backend, "device", torch.device("cpu")
+    ):
+        raise ValueError("GAE needs nonempty inputs on the backend device")
+    specs = (
+        (rewards, torch.float32),
+        (values, torch.float32),
+        (dones, torch.bool),
+        (players, torch.int32),
+        (next_value, torch.float32),
+        (next_player, torch.int32),
+    )
+    inputs = [tensor.to(dtype=dtype).contiguous() for tensor, dtype in specs]
+    if any(tensor.device != rewards.device for tensor in inputs):
+        raise ValueError("GAE inputs must share a device")
+    if any(tensor.shape != (h, n) for tensor in inputs[:4]) or any(
+        tensor.shape != (n,) for tensor in inputs[4:]
+    ):
+        raise ValueError("GAE input shapes must agree")
+    advantages, returns = torch.empty_like(inputs[0]), torch.empty_like(inputs[0])
+    backend.call("kk_gae", n, *inputs, advantages, returns, h, n, float(lam))
+    return advantages, returns
+
+
 def critic_input(obs, state):
     """Training-only private extension. Never passed to PolicyValue.forward."""
     opponent = (state[:, :48] == (1 - state[:, PLAYER, None])).float()
