@@ -11,7 +11,7 @@ Implementation and research in progress; the published RL-WP strength gate is st
 - CUDA Graph minibatch updates with rollback of warmup parameters, optimizer and RNG; FP32/BF16 restart verified.
 - Checkpoint budget audit separates rule profiles and pretraining; resume counters are not counted twice. It audits one model ancestry, not the union of all project experiments.
 
-Validation: the full 74-test suite passed on this host, no skips, including CUDA and pinned upstream; after preserving execution-change metadata across resumes, all four targeted resume cases passed (including two newly added cases). Two expected upstream Transformer performance warnings. Ruff passed. Details of independent correctness/restart checks are in EXPERIMENTS.md.
+Validation: the full 74-test suite passed on this host, no skips, including CUDA and pinned upstream; after preserving execution-change metadata across resumes, all four targeted resume cases passed (including two newly added cases); an additional Transformer BF16 eager/captured full-update comparison also passed. Two expected upstream Transformer performance warnings. Ruff passed. Details of independent correctness/restart checks are in EXPERIMENTS.md.
 
 Hardware: RTX 5070 Ti 16 GB, Ryzen 9 9900X, about 62 GiB RAM; local Python 3.12 / PyTorch 2.12.0+cu130 / NumPy 2.5.4. Use .venv/Scripts/python.exe.
 
@@ -19,9 +19,9 @@ Hardware: RTX 5070 Ti 16 GB, Ryzen 9 9900X, about 62 GiB RAM; local Python 3.12 
 
 | Run | Target | Last observed completed progress | Source |
 | --- | --- | --- | --- |
-| ppo12_scale_seed30001_captured | 100,000,000 cumulative additional research12 matches | update 6,116 / 8,823,978 matches | 142c265 |
-| ppo8_seed10001 | 5,000 updates | update 4,361 / 9,715,493 matches | 2f3a366 |
-| relational8_v2 | 2,000 cumulative updates (complete) | 2,245,436 matches / 262,144,000 decisions | b9393cb |
+| ppo12_scale_seed30001_captured | 100,000,000 cumulative additional research12 matches | update 7,078 / 10,214,039 matches | 142c265 |
+| ppo8_seed10001 | 5,000 updates | update 4,720 / 10,517,014 matches | 2f3a366 |
+| relational8_fullgraph_seed50001 | 3,000 cumulative updates after initialization | update 784 / 888,766 matches, plus 2,245,436 pretraining | 5dc3025 |
 
 Wider-MLP screening completed in runs/ppo8_wide_seed40001: 500 updates / 131,072,000 decisions / 1,108,105 matches, source a6b9bb6. It beats the matched-budget small MLP but loses to the relational candidate; further width-only training is deferred.
 
@@ -54,10 +54,16 @@ Before claiming success: exceed assisted RL-WP on paper8, replicate training res
 - `evaluate --koi-agent` records both components and their checkpoint metadata, resets nested RNG streams for pair replay, and rejects published twelve-round use or search combinations. Full-match routing and identity smoke checks passed.
 - Relational CUDA Graph feasibility: five measured full updates after five warmups took 6.541 seconds under concurrent jobs (runs/relational_graph_benchmark.json), not an isolated performance claim.
 
-Relational graph training is live in runs/relational8_graph_seed50001, committed b9651ff; last checked update 118 / 132,756 new matches. Command: `python -m koikoi.train --config configs/relational8_graph.json --initialize runs/relational8_v2/update_00002000.pt --run runs/relational8_graph_seed50001 --updates 3000 --checkpoint-every 500`. Original relational and wide pilot jobs are verified complete.
+Relational collection capture is live in runs/relational8_fullgraph_seed50001, source 5dc3025 (same package code as 142c265). The old graph run stopped cleanly at update 647 / 733,156 new matches; snapshot update_00000647.pt SHA 17676e08d07a256fefb47143dd429783e733800a32186db50ea1445a805f03d7 matched final metrics. Command: `python -m koikoi.train --resume runs/relational8_graph_seed50001/update_00000647.pt --allow-code-change --enable-cuda-rollout --run runs/relational8_fullgraph_seed50001 --updates 3000 --checkpoint-every 500`. Counter/optimizer/RNG continuity verified; old run is terminal and retains STOP.
 
 Timing diagnosis (10 full scale-config updates after warmup, concurrent jobs): 7.178 seconds total, 5.178 seconds collection plus returns, 2.000 seconds remaining update. Report runs/scale_update_timing.json. Investigate capture of rollout/return generation next; this timing does not prove CPU dispatch is the cause, and running scale experiments remain unchanged. Any new capture path must preserve counters, hidden-information boundaries, RNG replay and exact checkpoint continuation.
 
 Rollout capture is implemented as optional cuda_rollout=true, independent of minibatch capture. Long eager/captured trajectories, changed BF16 policy weights, entire PPO updates, RNG/counters and checkpoint continuation agree exactly. Actual scale-size validation (2,048 environments, horizon 128) matched all weights, optimizer tensors, simulator state, RNG and metrics over three updates; migration of the real update-5,000 scale checkpoint also matched its exact next update (runs/rollout_production_validation.json, rollout_scale_migration_validation.json). Preparation does not count matches or alter live training state.
 
 Twenty full learning updates after five warmups: ordinary collection 15.211 seconds, captured collection 5.707 seconds, identical 27,254 matches / 328,568 rounds / 5,242,880 decisions. Reports runs/rollout_eager_benchmark.json and rollout_captured_benchmark.json. About 2.66x in this concurrent-job setting, not an isolated hardware claim. The old scale process exited cleanly at update 5,800 / 8,367,810 matches. Its immutable snapshot update_00005800.pt (SHA ae2c5358eaee93ed98f9d0e00b264e9f9e2f758a1def7a32682a76cd66de18ad) was verified against final metrics. New run ppo12_scale_seed30001_captured resumed with all optimizer/game/RNG/counter state, retaining the cumulative 100M target and initialization lineage. Live process and advancing metrics verified. Old run is terminal and retains STOP; do not restart it.
+
+Relational update 500 after weight initialization (566,585 new matches) scores 48.3333%, CI 44.9167-51.8333%, against assisted RL-WP on 300 pairs. Difference from the pre-initialization parent: -0.9167 percentage points, CI -5.0 to +3.1667. Sampled inference scores 46.8333%, CI 43.5-50.1667%; sampled minus deterministic -1.5 points, CI -5.5833 to +2.5854. No demonstrated gain from either early continuation or sampled deployment. Keep planned learning and deterministic comparison settings. Reports in runs/relational8_graph_seed50001: eval_500_wp.json, eval_500_wp_sampled.json, difference_vs_parent.json, difference_sampled.json.
+
+Relational capture benchmark: five updates after five warmups, 13.971 seconds ordinary versus 6.570 captured, identical 5,225 matches / 41,583 rounds / 655,360 decisions. Actual trained update-500 checkpoint also gave an exactly identical next update, including Adam, weights, environment and RNG (runs/rollout_relational_migration_validation.json). Both timing runs had concurrent training; not isolated performance claims.
+
+Budget audit at resumed scale update 6,000: 8,656,699 current research12 matches + 1,000,464 research12 pretraining = 9,657,163; paper8 pretraining 11,141,556 stays separate. Resume parent is not added again. Report runs/ppo12_scale_seed30001_captured/budget_6000.json. The live 100M target continues to exclude all pretraining.

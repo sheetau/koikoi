@@ -145,7 +145,10 @@ def test_rollout_capture_preserves_games_rng_and_observes_changed_weights(
 
 
 @pytest.mark.cuda
-@pytest.mark.parametrize("kind,precision", [("mlp", "float32"), ("relational", "bf16")])
+@pytest.mark.parametrize(
+    "kind,precision",
+    [("mlp", "float32"), ("relational", "bf16"), ("transformer", "bf16")],
+)
 def test_complete_updates_match_with_and_without_rollout_capture(kind, precision):
     if not torch.cuda.is_available():
         pytest.skip("CUDA unavailable")
