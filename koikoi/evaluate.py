@@ -96,7 +96,9 @@ def seed_agents(a, b, seed):
             reset(agent.cards, agent_seed)
             reset(agent.koi, agent_seed + 100003)
             return
-        if hasattr(agent, "rng"):
+        if isinstance(agent, SearchAgent):
+            agent.reset_seed(agent_seed)
+        elif hasattr(agent, "rng"):
             agent.rng = np.random.default_rng(agent_seed)
 
     for offset, agent in enumerate((a, b)):
@@ -139,6 +141,12 @@ def main():
     parser.add_argument("--particles", type=int, default=32)
     parser.add_argument("--search-horizon", type=int, default=32)
     parser.add_argument(
+        "--search-confirm-particles",
+        type=int,
+        default=0,
+        help="Confirm a proposed change on N independent worlds; deterministic search only (0 disables)",
+    )
+    parser.add_argument(
         "--search-cuda-graph",
         action="store_true",
         help="Capture fixed-shape policy rollouts; requires search and --device cuda",
@@ -166,6 +174,17 @@ def main():
         help="Search every nontrivial decision, not only koi/stop",
     )
     args = parser.parse_args()
+    if args.search_confirm_particles < 0 or (
+        args.search_confirm_particles
+        and (
+            args.search == "none"
+            or not args.deterministic
+            or (args.search_confirm_particles < 2 and args.search_confidence > 0)
+        )
+    ):
+        parser.error(
+            "--search-confirm-particles requires deterministic search and enough particles for the margin"
+        )
     if args.search_cuda_graph and (
         args.search == "none" or torch.device(args.device).type != "cuda"
     ):
@@ -240,6 +259,7 @@ def main():
             endgame=candidate_guard,
             cuda_graph=args.search_cuda_graph,
             chunk_size=args.search_chunk_size,
+            confirmation_particles=args.search_confirm_particles,
         )
     search_agent = a
     if args.endgame:
@@ -305,6 +325,11 @@ def main():
         ),
         "searched_decisions": getattr(search_agent, "searched_decisions", 0),
         "changed_decisions": getattr(search_agent, "changed_decisions", 0),
+        "search_proposed_decisions": getattr(search_agent, "proposed_decisions", 0),
+        "search_confirmation_decisions": getattr(
+            search_agent, "confirmation_decisions", 0
+        ),
+        "search_confirmation_particles": args.search_confirm_particles,
         "search_confidence": args.search_confidence if args.search != "none" else None,
         "endgame": candidate_guard,
         "opponent_endgame": opponent_guard,
@@ -324,6 +349,12 @@ def main():
         "records": records,
     }
     report["checkpoints"] = checkpoint_metadata
+    for work in ("simulated_decisions", "executed_decisions", "preparation_decisions"):
+        confirmation = getattr(search_agent, "confirmation_" + work, 0)
+        report["search_confirmation_" + work] = confirmation
+        report["search_proposal_" + work] = (
+            getattr(search_agent, work, 0) - confirmation
+        )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     print(

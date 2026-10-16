@@ -77,6 +77,7 @@ class SearchAgent:
         endgame=False,
         cuda_graph=False,
         chunk_size=0,
+        confirmation_particles=0,
     ):
         if particles < 1 or horizon < 1:
             raise ValueError("Search budgets must be positive")
@@ -94,7 +95,18 @@ class SearchAgent:
         self.chunk_size = chunk_size
         self.cuda_graph = cuda_graph
         self.graph_cache = {}
-        self.rng = np.random.default_rng(seed)
+        if not isinstance(confirmation_particles, int) or confirmation_particles < 0:
+            raise ValueError(
+                "Confirmation particle count must be a nonnegative integer"
+            )
+        if confirmation_particles and (
+            not getattr(neural, "deterministic", False) or neural.model.training
+        ):
+            raise ValueError("Confirmation requires a deterministic evaluation policy")
+        if confirmation_particles == 1 and confidence > 0:
+            raise ValueError("Confirmation margin requires at least two particles")
+        self.confirmation_particles = confirmation_particles
+        self.reset_seed(seed)
         self.use_belief, self.koi_only = use_belief, koi_only
         if confidence < 0 or (confidence > 0 and particles < 2):
             raise ValueError(
@@ -110,9 +122,19 @@ class SearchAgent:
         self.preparation_decisions = 0
         self.searched_decisions = 0
         self.changed_decisions = 0
+        self.proposed_decisions = 0
+        self.confirmation_decisions = 0
+        self.confirmation_simulated_decisions = 0
+        self.confirmation_executed_decisions = 0
+        self.confirmation_preparation_decisions = 0
         self.cache = {}
         self.requires_endgame = endgame or getattr(neural, "requires_endgame", False)
         self.solved_decisions = 0
+
+    def reset_seed(self, seed):
+        """Reset both streams for independent duplicate-deal replay."""
+        self.rng = np.random.default_rng(seed)
+        self.confirmation_rng = np.random.default_rng(np.random.SeedSequence([seed, 1]))
 
     @torch.no_grad()
     def act(self, reference):
@@ -139,14 +161,60 @@ class SearchAgent:
         if self.use_belief:
             belief = root_belief[0].cpu().numpy()
         worlds = sample_hidden_batch(reference, self.rng, self.particles, belief)
-        n = len(legal) * self.particles
+        values = self._evaluate_candidates(reference, legal, worlds)
+        differences = values - values[base_index : base_index + 1]
+        lower = self._lower(differences)
+        index = int(lower.argmax())
+        if float(lower[index]) <= 0:
+            index = base_index
+        self.searched_decisions += 1
+        self.proposed_decisions += index != base_index
+        if index != base_index and self.confirmation_particles:
+            worlds = sample_hidden_batch(
+                reference, self.confirmation_rng, self.confirmation_particles, belief
+            )
+            before = (
+                self.simulated_decisions,
+                self.executed_decisions,
+                self.preparation_decisions,
+            )
+            confirmation = self._evaluate_candidates(
+                reference, legal[[base_index, index]], worlds
+            )
+            self.confirmation_decisions += 1
+            self.confirmation_simulated_decisions += (
+                self.simulated_decisions - before[0]
+            )
+            self.confirmation_executed_decisions += self.executed_decisions - before[1]
+            self.confirmation_preparation_decisions += (
+                self.preparation_decisions - before[2]
+            )
+            # Only confirm the selected deviation; never select another action here.
+            if not float(self._lower(confirmation[1:] - confirmation[:1])[0]) > 0:
+                index = base_index
+        self.changed_decisions += index != base_index
+        return int(legal[index])
+
+    def _lower(self, differences):
+        lower = differences.mean(1)
+        if self.confidence:
+            lower -= (
+                self.confidence * differences.std(dim=1) / differences.shape[1] ** 0.5
+            )
+        return lower
+
+    def _evaluate_candidates(self, reference, legal, worlds):
+        """Paired candidate returns on supplied worlds, with total work accounting."""
+        device, model = self.neural.device, self.neural.model
+        particles = len(worlds)
+        n = len(legal) * particles
         profile = "paper8" if reference.state[BANKRUPT] else "research12"
         key = (n, profile)
         if key not in self.cache:
             self.cache[key] = BatchEnv(n, device, profile)
         env = self.cache[key]
         env.state.copy_(torch.from_numpy(np.tile(worlds, (len(legal), 1))).to(device))
-        actions = torch.from_numpy(np.repeat(legal, self.particles)).to(device)
+        actions = torch.from_numpy(np.repeat(legal, particles)).to(device)
         root_sign = 1 - 2 * int(reference.state[PLAYER])
         executed_steps = self.horizon
         if self.cuda_graph:
@@ -187,17 +255,7 @@ class SearchAgent:
             values = self.rollout(env, actions, root_sign)
         self.simulated_decisions += n * self.horizon
         self.executed_decisions += n * executed_steps
-        values = values.reshape(len(legal), self.particles)
-        differences = values - values[base_index : base_index + 1]
-        lower = differences.mean(1)
-        if self.confidence:
-            lower -= self.confidence * differences.std(dim=1) / self.particles**0.5
-        index = int(lower.argmax())
-        if float(lower[index]) <= 0:
-            index = base_index
-        self.searched_decisions += 1
-        self.changed_decisions += index != base_index
-        return int(legal[index])
+        return values.reshape(len(legal), particles)
 
     @torch.no_grad()
     def rollout(self, env, actions, root_sign):
