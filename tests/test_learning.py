@@ -38,7 +38,7 @@ def test_bootstrap_and_no_round_reset():
 
 
 def test_both_models_and_legal_sampling():
-    for kind in ("mlp", "features", "transformer"):
+    for kind in ("mlp", "features", "relational", "transformer"):
         model = PolicyValue(kind, width=32, layers=1)
         obs = torch.randn(4, 560)
         mask = torch.zeros(4, 50, dtype=torch.bool)
@@ -70,3 +70,47 @@ def test_checkpoint_resumes_exactly(tmp_path, device):
     assert torch.equal(state, resumed.env.state)
     for key, val in weights.items():
         assert torch.equal(val, resumed.model.state_dict()[key])
+
+
+def test_transfer_resets_training_budget_and_preserves_lineage(tmp_path):
+    cfg = {
+        "device": "cpu",
+        "envs": 8,
+        "horizon": 8,
+        "width": 32,
+        "epochs": 1,
+        "minibatch": 64,
+    }
+    original = Trainer(Config(**cfg, profile="paper8"))
+    original.update()
+    path = tmp_path / "paper8.pt"
+    original.save(path)
+    fresh = Trainer(Config(**cfg, profile="research12", seed=13))
+    state = fresh.env.state.clone()
+    rng = torch.get_rng_state().clone()
+    fresh.initialize_weights(path)
+    assert not any(fresh.counters.values())
+    assert not fresh.optimizer.state
+    assert torch.equal(state, fresh.env.state)
+    assert torch.equal(rng, torch.get_rng_state())
+    for key, value in original.model.state_dict().items():
+        assert torch.equal(value, fresh.model.state_dict()[key])
+    lineage = fresh.provenance["initialized_from"]
+    assert lineage["profile"] == "paper8"
+    assert lineage["counters"] == original.counters
+    fresh.update()
+    transferred = tmp_path / "research12.pt"
+    fresh.save(transferred)
+    resumed = Trainer.restore(transferred)
+    assert resumed.provenance["initialized_from"] == lineage
+    assert resumed.counters["updates"] == 1
+    with pytest.raises(ValueError, match="fresh trainer"):
+        resumed.initialize_weights(path)
+
+
+def test_transfer_rejects_incompatible_model(tmp_path):
+    path = tmp_path / "mlp.pt"
+    Trainer(Config(device="cpu", envs=2, width=32)).save(path)
+    target = Trainer(Config(device="cpu", envs=2, kind="relational", width=32))
+    with pytest.raises(ValueError, match="architecture mismatch"):
+        target.initialize_weights(path)

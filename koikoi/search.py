@@ -54,18 +54,32 @@ def sample_hidden(reference, rng, logits=None):
 
 class SearchAgent:
     def __init__(
-        self, neural, particles=32, horizon=32, seed=123, use_belief=True, koi_only=True
+        self,
+        neural,
+        particles=32,
+        horizon=32,
+        seed=123,
+        use_belief=True,
+        koi_only=True,
+        confidence=2.5,
     ):
         if particles < 1 or horizon < 1:
             raise ValueError("Search budgets must be positive")
         self.neural, self.particles, self.horizon = neural, particles, horizon
         self.rng = np.random.default_rng(seed)
         self.use_belief, self.koi_only = use_belief, koi_only
+        if confidence < 0 or (confidence > 0 and particles < 2):
+            raise ValueError(
+                "Confidence guard needs at least two particles and a nonnegative multiplier"
+            )
+        self.confidence = confidence
         if use_belief and not neural.belief_trained:
             raise ValueError(
                 "Checkpoint has no trained belief head; select uniform search"
             )
         self.simulated_decisions = 0
+        self.searched_decisions = 0
+        self.changed_decisions = 0
         self.cache = {}
 
     @torch.no_grad()
@@ -74,11 +88,19 @@ class SearchAgent:
         if len(legal) == 1 or (self.koi_only and reference.state[PHASE] != KOI):
             return self.neural.act(reference)
         device, model = self.neural.device, self.neural.model
+        obs = torch.from_numpy(reference.observe()).to(device)[None]
+        mask = torch.from_numpy(reference.legal()).to(device)[None]
+        root_logits, _, root_belief = model(obs, mask)
+        deterministic = getattr(self.neural, "deterministic", True)
+        base_action = (
+            int(root_logits.argmax(-1))
+            if deterministic
+            else int(sample_action(root_logits)[0])
+        )
+        base_index = int(np.flatnonzero(legal == base_action)[0])
         belief = None
         if self.use_belief:
-            obs = torch.from_numpy(reference.observe()).to(device)[None]
-            mask = torch.from_numpy(reference.legal()).to(device)[None]
-            belief = model(obs, mask)[2][0].cpu().numpy()
+            belief = root_belief[0].cpu().numpy()
         worlds = np.stack(
             [sample_hidden(reference, self.rng, belief) for _ in range(self.particles)]
         )
@@ -96,7 +118,17 @@ class SearchAgent:
         for depth in range(self.horizon):
             if depth:
                 obs, mask = env.observe()
-                actions, _ = sample_action(model(obs, mask)[0])
+                logits = model(obs, mask)[0]
+                if deterministic:
+                    actions = logits.argmax(-1)
+                else:
+                    # Common policy randomness reduces candidate-comparison noise.
+                    uniforms = torch.rand(self.particles, device=device).repeat(
+                        len(legal)
+                    )
+                    cdf = logits.softmax(-1).cumsum(-1)
+                    cdf = cdf / cdf[:, -1:]
+                    actions = (cdf <= uniforms[:, None]).sum(-1)
             result = env.step(actions)
             ended = result[:, 2].bool()
             values = torch.where(
@@ -108,5 +140,14 @@ class SearchAgent:
         estimate = model(obs, mask)[1] * (1 - 2 * env.state[:, PLAYER]) * root_sign
         values = torch.where(alive, estimate, values)
         self.simulated_decisions += n * self.horizon
-        mean = values.reshape(len(legal), self.particles).mean(1)
-        return int(legal[int(mean.argmax())])
+        values = values.reshape(len(legal), self.particles)
+        differences = values - values[base_index : base_index + 1]
+        lower = differences.mean(1)
+        if self.confidence:
+            lower -= self.confidence * differences.std(dim=1) / self.particles**0.5
+        index = int(lower.argmax())
+        if float(lower[index]) <= 0:
+            index = base_index
+        self.searched_decisions += 1
+        self.changed_decisions += index != base_index
+        return int(legal[index])

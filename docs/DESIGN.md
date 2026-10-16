@@ -13,6 +13,9 @@ Build a reproducible Koi-Koi research system; exceed the published RL-WP baselin
 - PPO with signed, player-relative returns is the initial training baseline. Multiple decisions by one player must NOT flip value signs. Round boundaries do not terminate match returns.
 - PPO versus Q-boosting, flat versus explicit public features versus card-token networks, current versus archived opponents, belief versus uniform sampling, and search versus no search are separate experiments. The VRPO-inspired option and its deviations are documented in docs/VRPO.md; no improvement or equilibrium guarantee is presumed.
 - Search samples consistent hidden states, then calls observation-only policies for both seats. No perfect-information optimization of sampled hidden states.
+- The relational policy scores each card using shared weights over its encoding, same-month hand/field aggregates, and public global context. Compare it against the flat and Transformer policies; do not assume an architecture advantage.
+- Public match-outcome dominance rules are an explicit inference wrapper, also applied to the published comparison opponent. They do not change simulator rules or training rewards.
+- Search compares paired particle returns against the deployment policy's base action. The standard-error margin can reduce noisy action changes but does not remove critic bias or establish equilibrium or strength guarantees. Search remains disabled unless measured improvement justifies its cost.
 
 ## Evaluation
 
@@ -23,6 +26,8 @@ The original upstream model is evaluated on its eight-round, bankruptcy-ending r
 ## Reproducibility
 
 Checkpoint model, optimizer, RNG, simulator state, config, counters, code revision and source hashes. Atomic checkpoint replacement and JSONL metrics permit restart. Store generated artifacts under ignored runs/. Pin external sources and retain license notices. Code and experiment protocols are tracked; local agent instructions are ignored.
+
+Exact resume preserves the experiment config and counters. Weight-only initialization creates fresh optimizer, RNG, simulator and counters and records the pretraining source separately. Paper8 pretraining never counts toward the research12 match requirement. Initialization lineage survives subsequent resumes.
 
 ## Research gates
 

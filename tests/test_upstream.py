@@ -1,8 +1,21 @@
+import importlib
+
 import numpy as np
 import pytest
 import torch
 
-from koikoi.layout import DEALER, KOI, PHASE, PLAYER, POINTS, STOCK, TERMINAL, TURN
+from koikoi.agents import EndgameAgent
+from koikoi.layout import (
+    DEALER,
+    KOI,
+    PHASE,
+    PLAYER,
+    POINTS,
+    ROUND,
+    STOCK,
+    TERMINAL,
+    TURN,
+)
 from koikoi.reference import ReferenceEnv, score
 from koikoi.search import sample_hidden
 from koikoi.upstream import (
@@ -110,3 +123,25 @@ def test_original_features_do_not_reveal_hidden_world():
             atol=0,
         )
         ref.step(int(rng.choice(np.flatnonzero(ref.legal()))))
+
+
+def test_assisted_baseline_matches_original_test_agent():
+    torch.set_num_threads(2)
+    base = PublishedAgent()
+    assisted = EndgameAgent(base)
+    original = importlib.import_module("koikoilearn").AgentForTest(
+        base.models[0], base.models[1], base.models[3]
+    )
+    env = ReferenceEnv(44)
+    rng = np.random.default_rng(24)
+    while env.state[PHASE] != KOI:
+        env.step(int(rng.choice(np.flatnonzero(env.legal()))))
+    player = int(env.state[PLAYER])
+    for round_index in (0, 7):
+        for own_points in (10, 25, 30, 57):
+            env.state[ROUND] = round_index
+            env.state[POINTS + player] = own_points
+            env.state[POINTS + 1 - player] = 60 - own_points
+            with torch.no_grad():
+                expected = original.auto_action(reconstruct(env))
+            assert original_action(KOI, assisted.act(env)) == expected

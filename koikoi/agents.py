@@ -7,6 +7,7 @@ from pathlib import Path
 import numpy as np
 import torch
 
+from .layout import BANKRUPT, CONTINUE, KOI, PHASE, PLAYER, POINTS, ROUND, ROUNDS, STOP
 from .model import PolicyValue
 from .reference import LIGHTS, RIBBONS, TANE
 
@@ -72,3 +73,35 @@ class NeuralAgent:
             if self.deterministic
             else torch.multinomial(logits.softmax(-1), 1)
         )
+
+
+def solved_koi_action(env):
+    """Weakly dominant decisions for match-outcome utility, using public data only."""
+    s = env.state
+    if s[PHASE] != KOI:
+        return None
+    p = int(s[PLAYER])
+    points = env.yaku(p)
+    own_after = int(s[POINTS + p]) + points
+    opponent_after = int(s[POINTS + 1 - p]) - points
+    if s[BANKRUPT] and opponent_after <= 0:
+        return STOP
+    if s[ROUND] + 1 == s[ROUNDS]:
+        if own_after > opponent_after:
+            return STOP
+        if own_after < opponent_after:
+            return CONTINUE
+    return None
+
+
+class EndgameAgent:
+    def __init__(self, agent):
+        self.agent = agent
+        self.solved_decisions = 0
+
+    def act(self, env):
+        action = solved_koi_action(env)
+        if action is not None:
+            self.solved_decisions += 1
+            return action
+        return self.agent.act(env)

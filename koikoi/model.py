@@ -12,9 +12,9 @@ class PolicyValue(nn.Module):
         super().__init__()
         self.config = {"kind": kind, "width": width, "layers": layers}
         self.kind = kind
-        if kind in ("mlp", "features"):
+        if kind in ("mlp", "features", "relational"):
             extra = 0
-            if kind == "features":
+            if kind in ("features", "relational"):
                 groups = (
                     {0},
                     {8},
@@ -44,6 +44,24 @@ class PolicyValue(nn.Module):
             self.discard = nn.Linear(width, 48)
             self.pick = nn.Linear(width, 48)
             self.belief = nn.Linear(width, 48)
+            if kind == "relational":
+                attributes = torch.zeros(48, 20)
+                attributes[torch.arange(48), torch.arange(48) // 4] = 1
+                for column, members in enumerate(
+                    (LIGHTS, TANE, RIBBONS, KASU, {8}, {28}, {40}, {32}), 12
+                ):
+                    attributes[list(members), column] = 1
+                self.register_buffer("attributes", attributes)
+                self.card = nn.Sequential(
+                    nn.Linear(CARD_FEATURES + 20, width),
+                    nn.SiLU(),
+                    nn.Linear(width, width),
+                    nn.SiLU(),
+                )
+                self.relation = nn.Sequential(nn.Linear(width * 4, width), nn.SiLU())
+                self.discard, self.pick, self.belief = (
+                    nn.Linear(width, 1) for _ in range(3)
+                )
         elif kind == "transformer":
             if width % 4:
                 raise ValueError("Transformer width must be divisible by four")
@@ -74,19 +92,47 @@ class PolicyValue(nn.Module):
             nn.init.zeros_(head.bias)
 
     def forward(self, obs, mask):
-        if self.kind in ("mlp", "features"):
+        if self.kind in ("mlp", "features", "relational"):
             inputs = obs
-            if self.kind == "features":
+            if self.kind in ("features", "relational"):
                 cards = obs[:, :528].reshape(-1, 48, CARD_FEATURES)
                 counts = (cards[:, :, :5].transpose(1, 2) @ self.roles).flatten(1)
                 months = cards[:, :, :2].reshape(-1, 12, 4, 2).sum(2).flatten(1) / 4
                 inputs = torch.cat([obs, counts, months], dim=-1)
             pooled = self.body(inputs)
-            discard, pick, belief = (
-                self.discard(pooled),
-                self.pick(pooled),
-                self.belief(pooled),
-            )
+            if self.kind == "relational":
+                attributes = self.attributes.unsqueeze(0).expand(cards.shape[0], -1, -1)
+                encoded = self.card(torch.cat([cards, attributes], dim=-1))
+                width = encoded.shape[-1]
+                # Shared scoring per candidate, with exact same-month aggregates.
+                own = (
+                    (encoded * cards[:, :, 0:1])
+                    .reshape(-1, 12, 4, width)
+                    .sum(2)
+                    .repeat_interleave(4, dim=1)
+                )
+                field = (
+                    (encoded * cards[:, :, 1:2])
+                    .reshape(-1, 12, 4, width)
+                    .sum(2)
+                    .repeat_interleave(4, dim=1)
+                )
+                relation = self.relation(
+                    torch.cat(
+                        [encoded, own, field, pooled[:, None].expand(-1, 48, -1)],
+                        dim=-1,
+                    )
+                )
+                discard, pick, belief = (
+                    head(relation).squeeze(-1)
+                    for head in (self.discard, self.pick, self.belief)
+                )
+            else:
+                discard, pick, belief = (
+                    self.discard(pooled),
+                    self.pick(pooled),
+                    self.belief(pooled),
+                )
         else:
             cards = obs[:, :528].reshape(-1, 48, CARD_FEATURES)
             attributes = self.attributes.unsqueeze(0).expand(cards.shape[0], -1, -1)

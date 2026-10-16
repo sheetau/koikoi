@@ -8,22 +8,26 @@ from pathlib import Path
 import numpy as np
 import torch
 
-from .agents import GreedyAgent, NeuralAgent, RandomAgent
-from .layout import PHASE, PLAYER, POINTS, TERMINAL
+from .agents import EndgameAgent, GreedyAgent, NeuralAgent, RandomAgent
+from .layout import CONTINUE, KOI, PHASE, PLAYER, POINTS, TERMINAL
 from .reference import ReferenceEnv
 from .search import SearchAgent
 from .train import provenance
 from .upstream import UPSTREAM_REV, PublishedAgent
 
 
-def make_agent(name, seed, deterministic=False):
+def make_agent(name, seed, deterministic=False, device="cpu"):
     if name == "random":
         return RandomAgent(seed)
     if name == "greedy":
         return GreedyAgent()
     if name in ("rl-wp", "rl-point"):
         return PublishedAgent("wp" if name == "rl-wp" else "point")
-    return NeuralAgent(name, deterministic=deterministic)
+    if name in ("rl-wp-assisted", "rl-point-assisted"):
+        return EndgameAgent(
+            PublishedAgent("wp" if name == "rl-wp-assisted" else "point")
+        )
+    return NeuralAgent(name, device=device, deterministic=deterministic)
 
 
 def paired_interval(samples, seed=99, replicates=5000):
@@ -42,23 +46,40 @@ def paired_interval(samples, seed=99, replicates=5000):
 def duel(a, b, seed, profile):
     env = ReferenceEnv(seed, profile)
     agents, timings = (a, b), [[], []]
+    stats = [
+        {
+            "discard": 0,
+            "pick_hand": 0,
+            "pick_draw": 0,
+            "koi": 0,
+            "continued": 0,
+            "stopped": 0,
+        }
+        for _ in range(2)
+    ]
     decisions = 0
     while env.state[PHASE] != TERMINAL:
         player = int(env.state[PLAYER])
+        phase = int(env.state[PHASE])
         start = time.perf_counter()
         action = agents[player].act(env)
         timings[player].append(time.perf_counter() - start)
+        stats[player][("discard", "pick_hand", "pick_draw", "koi")[phase]] += 1
+        if phase == KOI:
+            stats[player]["continued" if action == CONTINUE else "stopped"] += 1
         env.step(action)
         decisions += 1
     difference = int(env.state[POINTS] - env.state[POINTS + 1])
     result = 1.0 if difference > 0 else 0.0 if difference < 0 else 0.5
-    return result, difference, timings, decisions
+    return result, difference, timings, decisions, stats
 
 
 def seed_agents(a, b, seed):
     """Each duplicate deal is replayable independently of earlier pair lengths."""
     torch.manual_seed(seed)
     for offset, agent in enumerate((a, b)):
+        while isinstance(agent, EndgameAgent):
+            agent = agent.agent
         if hasattr(agent, "rng"):
             agent.rng = np.random.default_rng(seed + 101 * (offset + 1))
 
@@ -80,15 +101,37 @@ def main():
     parser.add_argument("--output", type=Path, default=Path("runs/evaluation.json"))
     parser.add_argument("--deterministic", action="store_true")
     parser.add_argument(
+        "--endgame",
+        action="store_true",
+        help="Apply exact outcome-dominance rules to the candidate",
+    )
+    parser.add_argument(
         "--search", choices=("none", "uniform", "belief"), default="none"
     )
     parser.add_argument("--particles", type=int, default=32)
     parser.add_argument("--search-horizon", type=int, default=32)
+    parser.add_argument(
+        "--search-confidence",
+        type=float,
+        default=2.5,
+        help="Paired standard-error margin before changing the base action; not a strength guarantee",
+    )
+    parser.add_argument(
+        "--device",
+        default="cpu",
+        help="Device for candidate/checkpoint inference; published models stay on CPU",
+    )
+    parser.add_argument(
+        "--search-all",
+        action="store_true",
+        help="Search every nontrivial decision, not only koi/stop",
+    )
     args = parser.parse_args()
     if args.pairs < 1:
         parser.error("pairs must be positive")
     if args.profile != "paper8" and any(
-        x in ("rl-wp", "rl-point") for x in (args.agent, args.opponent)
+        x in ("rl-wp", "rl-point", "rl-wp-assisted", "rl-point-assisted")
+        for x in (args.agent, args.opponent)
     ):
         parser.error("Published baselines require paper8")
     if args.split == "test" and args.seed < 100_000_000:
@@ -96,8 +139,8 @@ def main():
     torch.set_num_threads(2)
     torch.manual_seed(args.seed)
     evaluation_provenance = provenance()
-    a = make_agent(args.agent, args.seed + 101, args.deterministic)
-    b = make_agent(args.opponent, args.seed + 202, args.deterministic)
+    a = make_agent(args.agent, args.seed + 101, args.deterministic, args.device)
+    b = make_agent(args.opponent, args.seed + 202, args.deterministic, args.device)
     checkpoint_metadata = {
         name: {
             "sha256": agent.checkpoint_sha256,
@@ -121,9 +164,15 @@ def main():
             args.search_horizon,
             args.seed + 303,
             args.search == "belief",
+            koi_only=not args.search_all,
+            confidence=args.search_confidence,
         )
+    search_agent = a
+    if args.endgame:
+        a = EndgameAgent(a)
     pairs, differences, records, timings = [], [], [], []
     total_decisions = 0
+    agent_stats, opponent_stats = {}, {}
     for pair in range(args.pairs):
         seed = args.seed + pair
         seed_agents(a, b, seed)
@@ -145,6 +194,12 @@ def main():
         )
         timings.extend(first[2][0] + second[2][1])
         total_decisions += first[3] + second[3]
+        for target, lhs, rhs in (
+            (agent_stats, first[4][0], second[4][1]),
+            (opponent_stats, first[4][1], second[4][0]),
+        ):
+            for key in lhs:
+                target[key] = target.get(key, 0) + lhs[key] + rhs[key]
         if (pair + 1) % 10 == 0:
             print(
                 json.dumps({"pairs": pair + 1, "score": float(np.mean(pairs))}),
@@ -166,8 +221,19 @@ def main():
         "mean_decision_ms": 1000 * float(np.mean(timings)),
         "p95_decision_ms": 1000 * float(np.quantile(timings, 0.95)),
         "decisions": total_decisions,
-        "search_simulated_decisions": getattr(a, "simulated_decisions", 0),
+        "search_simulated_decisions": getattr(search_agent, "simulated_decisions", 0),
+        "searched_decisions": getattr(search_agent, "searched_decisions", 0),
+        "changed_decisions": getattr(search_agent, "changed_decisions", 0),
+        "search_confidence": args.search_confidence if args.search != "none" else None,
+        "endgame": args.endgame,
+        "solved_decisions": getattr(a, "solved_decisions", 0),
+        "agent_decisions": agent_stats,
+        "opponent_decisions": opponent_stats,
         "search": args.search,
+        "search_all": args.search_all,
+        "device": args.device,
+        "search_particles": args.particles if args.search != "none" else 0,
+        "search_horizon": args.search_horizon if args.search != "none" else 0,
         "deterministic": args.deterministic,
         "upstream_revision": UPSTREAM_REV,
         "provenance": evaluation_provenance,

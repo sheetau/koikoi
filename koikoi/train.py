@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import io
 import json
 import os
 import random
@@ -134,6 +135,27 @@ class Trainer:
         )
         self.counters = {"updates": 0, "decisions": 0, "rounds": 0, "matches": 0}
         self.provenance = provenance()
+
+    def initialize_weights(self, path):
+        """Start a new experiment from actor weights, with fresh state and counters."""
+        if any(self.counters.values()) or self.optimizer.state:
+            raise ValueError("Weight initialization requires a fresh trainer")
+        content = Path(path).read_bytes()
+        payload = torch.load(
+            io.BytesIO(content), map_location="cpu", weights_only=False
+        )
+        if payload["format"] != 1:
+            raise ValueError("Unsupported checkpoint format")
+        for field in ("kind", "width", "layers"):
+            if payload["config"][field] != getattr(self.config, field):
+                raise ValueError(f"Initialization architecture mismatch: {field}")
+        self.model.load_state_dict(payload["model"])
+        self.provenance["initialized_from"] = {
+            "sha256": hashlib.sha256(content).hexdigest(),
+            "profile": payload["config"]["profile"],
+            "counters": payload["counters"].copy(),
+            "provenance": payload["provenance"],
+        }
 
     def actor(self, obs, mask):
         with torch.autocast(
@@ -386,16 +408,23 @@ class Trainer:
     @classmethod
     def restore(cls, path, allow_code_change=False):
         # Only load checkpoints produced locally by this project.
-        payload = torch.load(path, map_location="cpu", weights_only=False)
+        content = Path(path).read_bytes()
+        payload = torch.load(
+            io.BytesIO(content), map_location="cpu", weights_only=False
+        )
         if payload["format"] != 1:
             raise ValueError("Unsupported checkpoint format")
         obj = cls(Config(**payload["config"]))
         obj.provenance["parent_checkpoint"] = {
-            "sha256": hashlib.sha256(Path(path).read_bytes()).hexdigest(),
+            "sha256": hashlib.sha256(content).hexdigest(),
             "counters": payload["counters"].copy(),
             "source_sha256": payload["provenance"]["source_sha256"],
             "revision": payload["provenance"]["revision"],
         }
+        if "initialized_from" in payload["provenance"]:
+            obj.provenance["initialized_from"] = payload["provenance"][
+                "initialized_from"
+            ]
         if (
             payload["provenance"]["source_sha256"] != obj.provenance["source_sha256"]
             and not allow_code_change
@@ -422,7 +451,13 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", type=Path)
     parser.add_argument("--run", type=Path, default=Path("runs/ppo"))
-    parser.add_argument("--resume", type=Path)
+    start = parser.add_mutually_exclusive_group()
+    start.add_argument("--resume", type=Path)
+    start.add_argument(
+        "--initialize",
+        type=Path,
+        help="Load actor weights only; reset optimizer, deals, RNG and all counters",
+    )
     parser.add_argument("--allow-code-change", action="store_true")
     parser.add_argument("--updates", type=int, default=10)
     parser.add_argument("--target-matches", type=int, default=0)
@@ -438,6 +473,10 @@ def main():
         parser.error("Invalid update or checkpoint interval")
     if args.max_seconds < 0:
         parser.error("max-seconds must be nonnegative")
+    if args.resume and args.config:
+        parser.error(
+            "--resume restores its config; use --initialize for a new experiment"
+        )
     if not args.resume and (args.run / "metrics.jsonl").exists():
         parser.error("Run already has metrics; use --resume or a new run directory")
     if args.resume:
@@ -448,6 +487,8 @@ def main():
             if args.config
             else Config()
         )
+        if args.initialize:
+            trainer.initialize_weights(args.initialize)
     args.run.mkdir(parents=True, exist_ok=True)
     (args.run / "config.json").write_text(
         json.dumps(asdict(trainer.config), indent=2) + "\n", encoding="utf-8"
