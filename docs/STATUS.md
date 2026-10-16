@@ -18,10 +18,10 @@ Hardware: RTX 5070 Ti 16 GB, Ryzen 9 9900X, about 62 GiB RAM; local Python 3.12 
 
 | Run | Target | Last observed updates / matches | Source |
 | --- | --- | ---: | --- |
-| ppo12_scale_seed30001_captured | 100M cumulative new research12 matches | 8,199 / 11,832,745 | 142c265 |
-| ppo8_seed10001 | 5,000 updates | 4,798 / 10,691,320 | 2f3a366 |
-| relational8_fullgraph_seed50001 | 3,000 updates after initialization | 1,200 / 1,360,744 | 5dc3025 |
-| relational8_lambda99_seed50001 | 1,000 new updates, lambda 0.99 | 33 / 36,991 | bedd9c3 |
+| ppo12_scale_seed30001_captured | 100M cumulative new research12 matches | 9,036 / 13,039,517 | 142c265 |
+| ppo8_seed10001_captured | 5,000 updates | 4,865 / 10,840,600 | f3eeba1 |
+| relational8_fullgraph_seed50001 | 3,000 updates after initialization | 1,532 / 1,737,210 | 5dc3025 |
+| relational8_lambda99_seed50001 | 1,000 new updates, lambda 0.99 | 363 / 410,078 | bedd9c3 |
 
 Counts above are cumulative within each run's resume lineage. Scale counters exclude initialization (1,000,464 research12 and 11,141,556 paper8 matches); relational counters exclude 2,245,436 paper8 pretraining matches. Final-test seeds (100,000,000+) remain unused.
 
@@ -63,3 +63,7 @@ A controlled longer-return experiment is live from committed bedd9c3, using conf
 Control relational update 1,000 beats its initialization on 10,000 development pairs: 50.9825%, CI 50.4299-51.535%, +0.6298 points (runs/relational8_fullgraph_seed50001/eval_1000_vs_parent.json). Against assisted RL-WP on the same 300 development pairs: 49.5%, CI 46.25-52.75%, +1.3567 points. Difference from its initialization: +0.25 percentage points, CI -3.8333 to +4.25. No public-baseline superiority. Reports eval_1000_wp.json and difference_1000_vs_parent.json in the same directory.
 
 Lambda-0.99 live command: `python -m koikoi.train --config configs/relational8_lambda99.json --initialize runs/relational8_v2/update_00002000.pt --run runs/relational8_lambda99_seed50001 --updates 1000 --checkpoint-every 250`. Process and advancing finite metrics verified. This arm also excludes the same 2,245,436 pretraining matches from its new counters.
+
+Replica source migration is verified against actual old revision 2f3a366 in ignored build/compat2f3a366: same source hash as the running old job, then two updates from immutable update 4,000. Current captured collection produced exactly identical model, Adam, simulator, all RNG states, counters and metrics (runs/replica_old_revision_migration.json). Original non-capturable Adam is retained; native returns replace the exactly matched old PyTorch recurrence. Old training exited cleanly at update 4,822 / 10,744,859 matches. Snapshot update_00004822.pt SHA a381af634fd4c07f3457998abbbb2aa7c8a853a46dd093fc31b247575b5455e8 matched final metrics. New ppo8_seed10001_captured resumes from that snapshot with --allow-code-change --enable-cuda-rollout --updates 5000 --checkpoint-every 1000. Live process/advancing metrics verified; old ppo8_seed10001 retains STOP and is terminal. This is still an independent training seed but its final execution uses a verified source migration, not one fixed revision throughout.
+
+Already launched evaluation watchers: replica update 5,000 -> eval_5000_wp.json (1,000 pairs, assisted RL-WP), difference_vs_seed1.json, and eval_5000_vs_seed1.json (10,000 direct checkpoint pairs), all in runs/ppo8_seed10001_captured. Watchers fail if training PID 42216 exits without the snapshot. Tool sessions 72912 (published + paired difference) and 18505 (direct). Relational update 1,500 is already saved and its 1,000-pair public evaluation is running (session 46769; eval_1500_wp.json and difference_1500_vs_parent.json under runs/relational8_fullgraph_seed50001). Check existing processes/handles before starting duplicates. Logs: runs/replica5000_wp.log, replica5000_vs_seed1.log, relational1500_wp.log.
