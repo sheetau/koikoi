@@ -19,9 +19,11 @@ Hardware: RTX 5070 Ti 16 GB, Ryzen 9 9900X, about 62 GiB RAM; local Python 3.12 
 
 | Run | Target | Last observed completed progress | Source |
 | --- | --- | --- | --- |
-| ppo12_scale_seed30001 | 100,000,000 additional research12 matches | update 2,684 / 3,874,361 matches | 5ddd893 |
-| ppo8_seed10001 | 5,000 updates | update 3,797 / 8,458,227 matches | 2f3a366 |
-| relational8_v2 | 2,000 cumulative updates | update 1,754 / 1,967,249 matches | b9393cb |
+| ppo12_scale_seed30001 | 100,000,000 additional research12 matches | update 3,214 / 4,637,529 matches | 5ddd893 |
+| ppo8_seed10001 | 5,000 updates | update 3,935 / 8,765,882 matches | 2f3a366 |
+| relational8_v2 | 2,000 cumulative updates | update 1,856 / 2,082,470 matches | b9393cb |
+
+Wider-MLP screening is also live in runs/ppo8_wide_seed40001 from committed a6b9bb6, target 500 updates, snapshots every 100; last checked update 108 / 236,639 matches. Command: `python -m koikoi.train --config configs/ppo8_wide_bf16.json --run runs/ppo8_wide_seed40001 --updates 500 --checkpoint-every 100`.
 
 The scale run is live, not complete. Its fresh counters exclude 1,000,464 research12 and 11,141,556 paper8 pretraining matches, recorded separately. Runs and checkpoints live under ignored runs/. Do not restart live jobs. A run-local STOP requests a clean completed-update snapshot.
 
@@ -34,9 +36,9 @@ The scale run is live, not complete. Its fresh counters exclude 1,000,464 resear
 - Paper8 MLP seed 1, update 5,000: 11,141,556 training matches; 47.825% vs assisted RL-WP over 1,000 pairs, CI 46.05-49.65%. Still below baseline. runs/ppo8_v3/eval_5000_guarded.json.
 - Seed 10,001 update 3,000: 46.4167%, CI 43.0833-49.5833%, against assisted RL-WP over 300 pairs. Final replication pending.
 - Assisted-training A/B completed 1,000 new updates each. Against RL-WP on 1,000 identical pairs: 49.125% assisted vs 49.175% control; difference -0.05 percentage points, CI -2.35 to +2.225. Direct 10,000-pair duel also inconclusive. Keep endgame training off by default.
-- Relational update 1,000 loses to MLP update 5,000: 47.648%, CI 47.080-48.220%, 10,000 pairs. Await matched-budget and final-checkpoint checks.
-- Research12 transfer pilot completed 1,000,464 matches and beat its initialization: 52.073%, CI 51.515-52.633%, 10,000 pairs. Scale update 1,000 versus that pilot: 50.02%, CI 49.4674-50.5626%; no established further gain yet.
-- Search, Q-boosting, explicit features and relational policy have not demonstrated superiority. Keep search off. Positive point difference alone does not satisfy a match-win objective.
+- Relational update 1,000 beats MLP update 500 at the same 131,072,000 training decisions: 56.1075%, CI 55.5374-56.6575%, 10,000 pairs. It loses to the much longer-trained MLP update 5,000: 47.648%, CI 47.080-48.220%. This supports further screening, not an isolated architecture effect or superiority to RL-WP.
+- Research12 transfer pilot completed 1,000,464 matches and beat its initialization: 52.073%, CI 51.515-52.633%, 10,000 pairs. Scale update 3,000 versus that pilot: 50.6225%, CI 50.0725-51.1901%, +0.8892 points, 10,000 pairs. This is a small development gain; repeated checkpoint selection still requires untouched final-test validation.
+- Search, Q-boosting and explicit features have not demonstrated improvement. No candidate has established superiority to RL-WP. Keep search off. Positive point difference alone does not satisfy a match-win objective.
 
 ## Next actions and completion gates
 

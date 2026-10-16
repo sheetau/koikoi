@@ -130,3 +130,11 @@ Each uses 1,000 development pairs / 2,000 matches. Paired assisted-minus-control
 The additional 100M-match research12 run started from committed source 5ddd893 in runs/ppo12_scale_seed30001, config ppo12_graph.json, seed 30,001, initialized from runs/ppo12_transfer_v1/update_00000693.pt. Command is recorded in STATUS.md. At update 1,000 it had 1,443,851 new matches; lineage adds 1,000,464 research12 and 11,141,556 paper8 pretraining matches separately. Against its twelve-round initialization on 10,000 pairs: 50.02%, CI 49.4674-50.5626%, +0.5784 points (eval_1000_vs_parent.json). No match-score improvement is established at this checkpoint.
 
 Independent seed 10,001 at update 3,000 scored 46.4167%, CI 43.0833-49.5833%, -1.5567 points against assisted RL-WP on 300 development pairs (runs/ppo8_seed10001/eval_3000_guarded.json).
+
+## Matched-decision relational comparison and later scale checkpoint
+
+Relational update 1,000 (131,072,000 decisions) versus MLP update 500 (same decisions), both with inference endgame guard: 56.1075%, CI 55.5374-56.6575%, +4.1103 points over 10,000 development pairs. Report: runs/relational8_v2/eval_1000_matched_budget.json. This is a positive candidate screen at matched decisions, unlike the earlier comparison against MLP update 5,000. Architectures also differ in precision, rollout environment count and minibatch size; a single seed does not isolate an architectural effect.
+
+Scale research12 update 3,000 versus its initialization: 50.6225%, CI 50.0725-51.1901%, +0.8892 points over 10,000 development pairs, both guarded. Report: runs/ppo12_scale_seed30001/eval_3000_vs_parent.json. Repeated development checkpoint evaluation is selection evidence, not a held-out superiority claim.
+
+Wider MLP screening started from committed a6b9bb6 in runs/ppo8_wide_seed40001, target 500 updates (131,072,000 decisions). Config ppo8_wide_bf16.json changes width to 512 and uses BF16/CUDA Graph with independent seed 40,001. No playing-strength evidence exists yet for this candidate.
