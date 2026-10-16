@@ -1,6 +1,6 @@
 # Current status
 
-Research is active. The 100M-new-research12 requirement is achieved and audited. Public assisted-RL-WP superiority, independent validation of selected improvements, untouched final testing and manuscript remain unfinished. Submission is a later decision. Full commands, hashes and historical evidence: [EXPERIMENTS.md](EXPERIMENTS.md). Consult DESIGN.md for architecture, RULES.md for game logic.
+Research is active. The 100M-new-research12 requirement is achieved and audited. Public assisted-RL-WP superiority, independent validation of selected improvements, untouched final testing and manuscript remain unfinished. Submission is a later decision. Pinned public comparator compatibility review: [COMPARATORS.md](COMPARATORS.md). Full commands, hashes and historical evidence: [EXPERIMENTS.md](EXPERIMENTS.md). Consult DESIGN.md for architecture, RULES.md for game logic.
 
 ## Execution: verify actual handles before acting
 
