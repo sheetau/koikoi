@@ -33,6 +33,10 @@ Tests compare independent Python rules with C++ and CUDA, scoring and full match
 
 PPO uses the native C++/CUDA signed-return scan by default. Set `returns_backend` to `torch` to use the independent PyTorch recurrence. Tests verify bit-identical float32 returns and full PPO updates; `python -m koikoi.benchmark --returns --envs 2048 --horizon 128 --steps 50` measures this component separately from learning.
 
+`cuda_graph=true` captures fixed-size PPO minibatch updates on CUDA. Warmup/recording updates are rolled back, including Adam moments and step counters, so they do not add hidden training steps. Graph checkpoints resume their exact next update; tests also compare graph steps with eager steps using the same capturable Adam settings. Capturable Adam can round differently from the older non-capturable optimizer, so switching modes is a distinct experiment, not a bit-identical continuation. `configs/ppo12_graph.json` enables this path. Dynamic minibatch sizes and CPU/Q-boosting capture are rejected.
+
+Measure full learning, excluding five warmup updates, with `python -m koikoi.benchmark --training-config configs/ppo12.json --steps 20`; add `--cuda-graph` for captured updates. Unlike simulator-only throughput, this includes rollout, return estimation and gradient updates. Configuration comes from the supplied file.
+
 `--max-seconds` sets a wall-time limit checked between completed updates. Creating `runs/<run>/STOP` also requests a clean checkpoint and exit; remove that file before resuming. Starting a new training run in a directory with existing metrics is rejected. Checkpoints record the parent checkpoint hash when continued.
 
 `--initialize runs/<source>/update_XXXXXXXX.pt` starts a new experiment from actor weights with the architecture specified in `--config`. It resets optimizer, simulator, RNG and counters, recording the source checkpoint hash and its training budget separately. This supports changing rewards or transferring from paper8 to research12 without counting eight-round pretraining toward twelve-round matches. `--resume` instead restores the entire experiment and cannot be combined with `--config`.

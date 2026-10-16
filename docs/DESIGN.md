@@ -31,11 +31,13 @@ Checkpoint model, optimizer, RNG, simulator state, config, counters, code revisi
 
 Exact resume preserves the experiment config and counters. Weight-only initialization creates fresh optimizer, RNG, simulator and counters and records the pretraining source separately. Paper8 pretraining never counts toward the research12 match requirement. Initialization lineage survives subsequent resumes.
 
+Optional CUDA graphs capture only the fixed-size PPO minibatch update. Rollout, sampling and counter bookkeeping stay eager. Warmup and capture effects on parameters, optimizer tensors and RNG are restored in place before the first real replay. Static tensor addresses and optimizer hyperparameters must stay fixed after capture. Graph-mode Adam uses capturable device-side counters; comparisons against eager execution use identical optimizer settings, while the older non-capturable mode can differ through rounding. See the [PyTorch 2.12 capture guidance](https://docs.pytorch.org/docs/2.12/notes/cuda.html#cuda-graphs).
+
 ## Research gates
 
 1. Rule fixtures and independent upstream differential tests.
 2. Python/CPU/CUDA equality and observation noninterference.
 3. End-to-end throughput and restartable PPO smoke run.
 4. Baseline evaluation and multi-seed controlled comparisons.
-5. Belief/search experiments and selected 100M-match training.
+5. Belief/search experiments and at least 100M complete twelve-round training matches. Once correctness and positive learning are verified, a clearly labeled baseline scale run can proceed alongside method selection; it does not waive the strength or held-out evaluation gates.
 6. Held-out results, ablations and manuscript. Submission venue and actual submission are later decisions.

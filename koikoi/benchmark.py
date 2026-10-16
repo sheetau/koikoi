@@ -3,13 +3,42 @@
 import argparse
 import json
 import time
+from dataclasses import asdict
+from pathlib import Path
 
 import torch
 
 from .env import BatchEnv
 from .estimators import native_gae
 from .model import PolicyValue, sample_action
-from .train import provenance, signed_gae
+from .train import Config, Trainer, provenance, signed_gae
+
+
+def benchmark_training(config, steps):
+    trainer = Trainer(config)
+    for _ in range(5):
+        trainer.update()
+    if trainer.env.device.type == "cuda":
+        torch.cuda.synchronize(trainer.env.device)
+    initial = trainer.counters.copy()
+    start = time.perf_counter()
+    for _ in range(steps):
+        trainer.update()
+    if trainer.env.device.type == "cuda":
+        torch.cuda.synchronize(trainer.env.device)
+    elapsed = time.perf_counter() - start
+    counts = {key: value - initial[key] for key, value in trainer.counters.items()}
+    return {
+        "kind": "self_play_learning",
+        "includes_learning": True,
+        "warmup_updates": 5,
+        "seconds": elapsed,
+        **counts,
+        "config": asdict(config),
+        "decisions_per_second": counts["decisions"] / elapsed,
+        "matches_per_second": counts["matches"] / elapsed,
+        "provenance": trainer.provenance,
+    }
 
 
 def benchmark_returns(env, horizon, repeats):
@@ -69,12 +98,30 @@ def main():
         help="Compare native and PyTorch signed GAE only",
     )
     p.add_argument("--horizon", type=int, default=128)
+    p.add_argument(
+        "--training-config",
+        type=Path,
+        help="Benchmark full learning from this config instead of simulation",
+    )
+    p.add_argument(
+        "--cuda-graph",
+        action="store_true",
+        help="Enable captured minibatches for --training-config",
+    )
     p.add_argument("--profile", default="research12")
     args = p.parse_args()
     if min(args.steps, args.horizon, args.envs) < 1:
         p.error("Benchmark sizes must be positive")
-    if args.returns and args.policy:
-        p.error("Select returns or policy throughput, not both")
+    if sum((args.returns, args.policy, args.training_config is not None)) > 1:
+        p.error("Select returns, policy, or full training throughput")
+    if args.cuda_graph and not args.training_config:
+        p.error("--cuda-graph requires --training-config")
+    if args.training_config:
+        config = json.loads(args.training_config.read_text(encoding="utf-8"))
+        if args.cuda_graph:
+            config["cuda_graph"] = True
+        print(json.dumps(benchmark_training(Config(**config), args.steps), indent=2))
+        return
     torch.set_num_threads(4)
     env = BatchEnv(args.envs, args.device, args.profile)
     if args.returns:

@@ -17,6 +17,7 @@ import numpy as np
 import torch
 from torch.nn import functional as F
 
+from .capture import CapturedMinibatch
 from .env import BatchEnv
 from .estimators import CentralQ, critic_input, native_gae, q_boost
 from .layout import PLAYER
@@ -49,6 +50,7 @@ class Config:
     precision: str = "float32"
     returns_backend: str = "native"
     endgame: bool = False
+    cuda_graph: bool = False
 
     def __post_init__(self):
         if self.endgame and self.reward != "match":
@@ -79,6 +81,12 @@ class Config:
             raise ValueError("Training sizes must be positive")
         if not 0 <= self.gae_lambda <= 1 or self.belief_weight < 0:
             raise ValueError("Invalid loss/trace configuration")
+        if self.cuda_graph:
+            if not self.device.startswith("cuda") or self.algorithm != "ppo":
+                raise ValueError("CUDA graphs currently support CUDA PPO only")
+            size = self.envs * self.horizon
+            if size % min(size, self.minibatch):
+                raise ValueError("CUDA graph minibatches must all have the same size")
 
 
 def signed_gae(rewards, values, dones, players, next_value, next_player, lam=0.95):
@@ -129,8 +137,12 @@ class Trainer:
             config.device
         )
         self.optimizer = torch.optim.Adam(
-            self.model.parameters(), lr=config.lr, eps=1e-5
+            self.model.parameters(),
+            lr=config.lr,
+            eps=1e-5,
+            capturable=config.cuda_graph,
         )
+        self.captured_minibatch = None
         self.critic = (
             CentralQ(config.critic_width).to(config.device)
             if config.algorithm == "vrpo"
@@ -180,6 +192,7 @@ class Trainer:
             device_type=self.env.device.type,
             dtype=torch.bfloat16,
             enabled=self.config.precision == "bf16",
+            cache_enabled=not self.config.cuda_graph,
         ):
             result = self.model(obs, mask)
         return tuple(value.float() for value in result)
@@ -319,6 +332,40 @@ class Trainer:
             advantage.std(unbiased=False) + 1e-8
         )
 
+    def minibatch_step(self, data):
+        c = self.config
+        obs, mask = data["obs"], data["mask"]
+        logits, value, belief = self.actor(obs, mask)
+        logprobs = logits.log_softmax(-1)
+        logp = logprobs.gather(1, data["action"][:, None]).squeeze(-1)
+        ratio = (logp - data["old_logp"]).exp()
+        adv = data["advantage"]
+        policy_loss = -torch.minimum(
+            ratio * adv, ratio.clamp(1 - c.clip, 1 + c.clip) * adv
+        ).mean()
+        value_loss = F.mse_loss(value, data["return"])
+        entropy = -(logprobs.exp() * logprobs).sum(-1).mean()
+        unknown = obs[:, :528].reshape(-1, 48, 11)[:, :, 4]
+        belief_loss = (
+            F.binary_cross_entropy_with_logits(belief, data["target"], reduction="none")
+            * unknown
+        ).sum() / unknown.sum().clamp_min(1)
+        loss = (
+            policy_loss
+            + c.value_weight * value_loss
+            - c.entropy * entropy
+            + c.belief_weight * belief_loss
+        )
+        self.optimizer.zero_grad(set_to_none=True)
+        loss.backward()
+        grad = torch.nn.utils.clip_grad_norm_(self.model.parameters(), 0.5)
+        self.optimizer.step()
+        with torch.no_grad():
+            kl = ((ratio - 1) - (logp - data["old_logp"])).mean()
+            return torch.stack(
+                [policy_loss, value_loss, entropy, belief_loss, kl, grad]
+            )
+
     def update(self):
         batch = self.collect()
         c = self.config
@@ -334,39 +381,26 @@ class Trainer:
                 self.refresh_q_advantages(batch)
             order = torch.randperm(n, device=c.device)
             for indices in order.split(c.minibatch):
-                obs, mask = batch["obs"][indices], batch["mask"][indices]
-                logits, value, belief = self.actor(obs, mask)
-                logprobs = logits.log_softmax(-1)
-                logp = logprobs.gather(1, batch["action"][indices, None]).squeeze(-1)
-                ratio = (logp - batch["old_logp"][indices]).exp()
-                adv = batch["advantage"][indices]
-                policy_loss = -torch.minimum(
-                    ratio * adv, ratio.clamp(1 - c.clip, 1 + c.clip) * adv
-                ).mean()
-                value_loss = F.mse_loss(value, batch["return"][indices])
-                entropy = -(logprobs.exp() * logprobs).sum(-1).mean()
-                unknown = obs[:, :528].reshape(-1, 48, 11)[:, :, 4]
-                belief_loss = (
-                    F.binary_cross_entropy_with_logits(
-                        belief, batch["target"][indices], reduction="none"
+                data = {
+                    key: batch[key][indices]
+                    for key in (
+                        "obs",
+                        "mask",
+                        "action",
+                        "old_logp",
+                        "advantage",
+                        "return",
+                        "target",
                     )
-                    * unknown
-                ).sum() / unknown.sum().clamp_min(1)
-                loss = (
-                    policy_loss
-                    + c.value_weight * value_loss
-                    - c.entropy * entropy
-                    + c.belief_weight * belief_loss
-                )
-                self.optimizer.zero_grad(set_to_none=True)
-                loss.backward()
-                grad = torch.nn.utils.clip_grad_norm_(self.model.parameters(), 0.5)
-                self.optimizer.step()
-                with torch.no_grad():
-                    kl = ((ratio - 1) - (logp - batch["old_logp"][indices])).mean()
-                    metrics += torch.stack(
-                        [policy_loss, value_loss, entropy, belief_loss, kl, grad]
-                    )
+                }
+                if c.cuda_graph:
+                    if self.captured_minibatch is None:
+                        self.captured_minibatch = CapturedMinibatch(
+                            self.minibatch_step, self.model, self.optimizer, data
+                        )
+                    metrics += self.captured_minibatch(data)
+                else:
+                    metrics += self.minibatch_step(data)
                 count += 1
         critic_loss_mean = 0.0
         if self.critic:
