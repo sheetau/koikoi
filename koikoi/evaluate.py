@@ -43,6 +43,17 @@ def paired_interval(samples, seed=99, replicates=5000):
     return np.quantile(means, [0.025, 0.975]).tolist()
 
 
+def validate_split(seed, pairs, split):
+    if pairs < 1 or seed < 0 or seed + 2 * pairs >= 2**31:
+        raise ValueError("Invalid evaluation seed range or pair count")
+    if split == "test" and seed < 100_000_000:
+        raise ValueError(
+            "Final test seeds start at 100000000; do not tune on that split"
+        )
+    if split == "development" and seed + pairs > 100_000_000:
+        raise ValueError("Development seeds must stay below the reserved test range")
+
+
 def duel(a, b, seed, profile):
     env = ReferenceEnv(seed, profile)
     agents, timings = (a, b), [[], []]
@@ -127,15 +138,15 @@ def main():
         help="Search every nontrivial decision, not only koi/stop",
     )
     args = parser.parse_args()
-    if args.pairs < 1:
-        parser.error("pairs must be positive")
+    try:
+        validate_split(args.seed, args.pairs, args.split)
+    except ValueError as error:
+        parser.error(str(error))
     if args.profile != "paper8" and any(
         x in ("rl-wp", "rl-point", "rl-wp-assisted", "rl-point-assisted")
         for x in (args.agent, args.opponent)
     ):
         parser.error("Published baselines require paper8")
-    if args.split == "test" and args.seed < 100_000_000:
-        parser.error("Final test seeds start at 100000000; do not tune on that split")
     torch.set_num_threads(2)
     torch.manual_seed(args.seed)
     evaluation_provenance = provenance()
@@ -226,6 +237,7 @@ def main():
         "changed_decisions": getattr(search_agent, "changed_decisions", 0),
         "search_confidence": args.search_confidence if args.search != "none" else None,
         "endgame": args.endgame,
+        "opponent_endgame": isinstance(b, EndgameAgent),
         "solved_decisions": getattr(a, "solved_decisions", 0),
         "agent_decisions": agent_stats,
         "opponent_decisions": opponent_stats,

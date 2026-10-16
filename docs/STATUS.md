@@ -15,7 +15,7 @@ Hardware: RTX 5070 Ti (16 GB), Ryzen 9 9900X, about 62 GiB RAM. Project-local Py
 - Public endgame outcome guard and corresponding assisted published opponents; shared-seed report comparisons with paired difference intervals.
 - Seeded independent round deals use 64-bit SplitMix-based generation with unbiased bounded draws.
 
-`./.venv/Scripts/python.exe -m pytest -q`: 38 passed on this host, including CUDA and pinned upstream (no skips). Includes 2,000 scoring comparisons, 12 full upstream matches, replayed feature equality, CPU/CUDA/reference trajectory equality, hidden-state invariance (including original model inputs and search actions), sampler constraints, signed GAE, exact CPU/CUDA restart for both estimators, matching-pennies Q-boosting, pair replay, BF16 training, transfer budget/lineage, paired report compatibility and assisted baseline equality with upstream AgentForTest. Ruff also passed. The upstream Transformer performance warning is expected.
+`./.venv/Scripts/python.exe -m pytest -q`: 45 passed on this host, including CUDA and pinned upstream (no skips). Includes 2,000 scoring comparisons, 12 full upstream matches, replayed feature equality, CPU/CUDA/reference trajectory equality, hidden-state invariance (including original model inputs and search actions), sampler constraints, signed GAE, exact CPU/CUDA restart for both estimators, matching-pennies Q-boosting, pair replay, BF16 training, transfer budget/lineage, paired report compatibility and assisted baseline equality with upstream AgentForTest. Native batched duels match sequential reference results on both devices/profiles, with/without endgame assistance, and across chunk sizes; terminal rows remain frozen and evaluation split ranges are enforced. Ruff also passed. The upstream Transformer performance warning is expected.
 
 ## Initial measurements (development only)
 
@@ -66,6 +66,8 @@ Reproduce evaluation and paired comparison:
 ```
 
 ### Active work
+
+The new batched checkpoint evaluator compared MLP update 3,000 against update 2,000 on 10,000 development pairs / 20,000 matches: 50.815% (95% CI 50.243–51.375%), mean point difference +0.7107. Report: `runs/ppo8_v3/batch_3000_vs_2000.json`. Both policies used deterministic actions and endgame assistance. The measured 2.825 seconds covers batched simulation/inference and native startup, excluding model loading and report bootstrap, with training running concurrently; it is not a controlled throughput benchmark. This is evidence of a small gain against an earlier snapshot, not superiority to RL-WP.
 
 `runs/ppo8_v2`, `runs/features8_v1`, and `runs/relational8_v1` have completed their pilot targets. `runs/ppo8_v3` continues MLP PPO from update 2,000 to 5,000, snapshots every 500 updates:
 

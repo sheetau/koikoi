@@ -23,6 +23,8 @@ Seeded deals are indexed by match and round, independent of actions. A pair repe
 
 The original upstream model is evaluated on its eight-round, bankruptcy-ending rules. Its historical feature quirks must be preserved in the adapter, never silently repaired for published weights. Twelve-round transfer is a separate result.
 
+Large deterministic checkpoint duels also run in native batches: duplicate the complete initial state, exchange agent seats, and freeze finished rows. No redealt episodes enter an evaluation pair. Check both devices/profiles against sequential reference duels and record batch shape/device, since floating-point near-ties can differ across execution paths. The native endgame guard reads only captured cards, scores, phase and public match context.
+
 ## Reproducibility
 
 Checkpoint model, optimizer, RNG, simulator state, config, counters, code revision and source hashes. Atomic checkpoint replacement and JSONL metrics permit restart. Store generated artifacts under ignored runs/. Pin external sources and retain license notices. Code and experiment protocols are tracked; local agent instructions are ignored.

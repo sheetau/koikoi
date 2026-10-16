@@ -77,6 +77,8 @@ class CPU:
         for name, signature in {
             "kk_init": [C.c_void_p, C.c_void_p, C.c_int, C.c_int, C.c_int],
             "kk_step": [C.c_void_p, C.c_void_p, C.c_void_p, C.c_int],
+            "kk_step_frozen": [C.c_void_p, C.c_void_p, C.c_void_p, C.c_int],
+            "kk_solved": [C.c_void_p, C.c_void_p, C.c_int],
             "kk_observe": [C.c_void_p] * 4 + [C.c_int],
             "kk_reset": [C.c_void_p, C.c_int],
         }.items():
@@ -153,7 +155,14 @@ class CUDA:
             self.driver.cuModuleLoadData(C.byref(self.module), ptx), "cuModuleLoadData"
         )
         self.functions = {}
-        for name in ("kk_init", "kk_step", "kk_observe", "kk_reset"):
+        for name in (
+            "kk_init",
+            "kk_step",
+            "kk_step_frozen",
+            "kk_solved",
+            "kk_observe",
+            "kk_reset",
+        ):
             fn = C.c_void_p()
             self.check(
                 self.driver.cuModuleGetFunction(

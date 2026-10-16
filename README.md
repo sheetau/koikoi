@@ -68,4 +68,12 @@ Evaluation protocol version 2 independently seeds each pair and repeats policy R
 
 Compare two version-2 reports on their shared pairs with `python -m koikoi.compare first.json second.json --output difference.json`. This reports first-minus-second score and point differences with paired confidence intervals, checking opponent identity and checkpoint hashes. Reports also count decisions by phase and search-induced action changes.
 
+For large checkpoint-versus-checkpoint comparisons, `batch_evaluate` runs independent paired matches on the native CPU/CUDA simulator:
+
+```powershell
+./.venv/Scripts/python.exe -m koikoi.batch_evaluate --agent runs/new/latest.pt --opponent runs/old/latest.pt --profile research12 --pairs 10000 --endgame --output runs/new_vs_old.json
+```
+
+This path is deterministic and applies `--endgame` to both agents. It freezes completed rows instead of redealing, and reports actual match/round/decision counts plus batch throughput. Throughput is not single-decision latency. Published baselines and stochastic/search policies continue to use `koikoi.evaluate`. Native batched results are checked against the independent sequential reference for both rule profiles and both devices. Floating-point near-ties can still make different devices or batch shapes choose different actions; execution device and batch size are recorded. Development evaluation rejects seeds in the reserved final-test range.
+
 Original models retain their historical input quirks. The loader adapts an obsolete PyTorch class name and loads the original parameter tensors into the same architecture on modern PyTorch. Fetch source with `python -m koikoi.upstream --fetch`; the pin and license are in [third-party notices](THIRD_PARTY_NOTICES.md). Load only trusted local training checkpoints: PyTorch pickle deserialization is used.

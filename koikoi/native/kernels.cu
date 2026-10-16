@@ -6,6 +6,12 @@ extern "C" __global__ void kk_init(int *s,const int *seeds,int n,int rounds,int 
 extern "C" __global__ void kk_step(int *s,const int *a,int *r,int n){
     int i=blockIdx.x*blockDim.x+threadIdx.x;if(i<n)step(s+i*SS,a[i],r+i*4);
 }
+extern "C" __global__ void kk_step_frozen(int *s,const int *a,int *r,int n){
+    int i=blockIdx.x*blockDim.x+threadIdx.x;if(i<n)step_frozen(s+i*SS,a[i],r+i*4);
+}
+extern "C" __global__ void kk_solved(const int *s,int *a,int n){
+    int i=blockIdx.x*blockDim.x+threadIdx.x;if(i<n)a[i]=solved_action(s+i*SS);
+}
 extern "C" __global__ void kk_observe(const int *s,float *o,bool *mask,float *target,int n){
     int i=blockIdx.x*blockDim.x+threadIdx.x;if(i<n)observe(s+i*SS,o+i*OS,mask+i*AS,target+i*48);
 }

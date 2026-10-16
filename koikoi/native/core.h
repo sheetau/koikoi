@@ -116,6 +116,21 @@ KK_HD void step(int *s,int action,int *r) {
         else{s[KOIS+s[P]]++;end_turn(s,r);}
     }
 }
+KK_HD int solved_action(const int *s) {
+    if(s[PH]!=3)return -1;
+    int p=s[P],points=score_player(s,p);
+    int own=s[PT+p]+points,other=s[PT+1-p]-points;
+    if(s[BANK]&&other<=0)return 48;
+    if(s[ROUND]+1==s[ROUNDS]){
+        if(own>other)return 48;
+        if(own<other)return 49;
+    }
+    return -1;
+}
+KK_HD void step_frozen(int *s,int action,int *r) {
+    if(s[PH]==4){for(int j=0;j<4;++j)r[j]=0;return;}
+    step(s,action,r);
+}
 KK_HD void observe(const int *s,float *o,bool *mask,float *target) {
     for(int i=0;i<OS;++i)o[i]=0;
     int p=s[P],oppn=0;

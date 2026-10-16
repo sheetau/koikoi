@@ -10,18 +10,26 @@ from .evaluate import paired_interval
 
 
 def compare_reports(first, second):
-    for field in ("profile", "opponent", "split", "protocol_version"):
+    for field in ("profile", "split", "protocol_version"):
         if first.get(field) != second.get(field):
             raise ValueError(f"Incompatible evaluation field: {field}")
     if first.get("protocol_version") != 2:
         raise ValueError("Pair-independent RNG protocol version 2 required")
     opponent = first["opponent"]
+    guards = [
+        report.get("opponent_endgame", opponent.endswith("-assisted"))
+        for report in (first, second)
+    ]
+    if guards[0] != guards[1]:
+        raise ValueError("Opponent endgame assistance differs")
     hashes = [
-        report.get("checkpoints", {}).get(opponent, {}).get("sha256")
+        report.get("checkpoints", {}).get(report["opponent"], {}).get("sha256")
         for report in (first, second)
     ]
     if hashes[0] != hashes[1]:
         raise ValueError("Opponent checkpoint bytes differ")
+    if opponent != second["opponent"] and not hashes[0]:
+        raise ValueError("Incompatible evaluation field: opponent")
     if hashes[0] and first.get("deterministic") != second.get("deterministic"):
         raise ValueError("Opponent action-selection settings differ")
     if opponent.startswith("rl-") and first.get("upstream_revision") != second.get(

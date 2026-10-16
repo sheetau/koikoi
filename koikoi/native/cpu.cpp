@@ -10,6 +10,12 @@ EXPORT void kk_init(int *s,const int *seeds,int n,int rounds,int bank){
 EXPORT void kk_step(int *s,const int *a,int *r,int n){
     for(int i=0;i<n;++i)step(s+i*SS,a[i],r+i*4);
 }
+EXPORT void kk_step_frozen(int *s,const int *a,int *r,int n){
+    for(int i=0;i<n;++i)step_frozen(s+i*SS,a[i],r+i*4);
+}
+EXPORT void kk_solved(const int *s,int *a,int n){
+    for(int i=0;i<n;++i)a[i]=solved_action(s+i*SS);
+}
 EXPORT void kk_observe(const int *s,float *o,bool *mask,float *target,int n){
     for(int i=0;i<n;++i)observe(s+i*SS,o+i*OS,mask+i*AS,target+i*48);
 }

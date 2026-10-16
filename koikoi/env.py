@@ -33,17 +33,28 @@ class BatchEnv:
         )
         return (obs, mask, target) if labels else (obs, mask)
 
-    def step(self, actions):
+    def step(self, actions, freeze_done=False):
         if actions.shape != (self.count,):
             raise ValueError("Expected one action per environment")
         actions = actions.to(device=self.device, dtype=torch.int32).contiguous()
         result = torch.empty((self.count, 4), dtype=torch.int32, device=self.device)
         self.backend.call(
-            "kk_step", self.count, self.state, actions, result, self.count
+            "kk_step_frozen" if freeze_done else "kk_step",
+            self.count,
+            self.state,
+            actions,
+            result,
+            self.count,
         )
         if self.debug and (result[:, 0] == 99).any():
             raise ValueError("Illegal action; affected states were not changed")
         return result
+
+    def solved_actions(self):
+        """Public match-outcome dominance: 48/49, or -1 when unresolved."""
+        actions = torch.empty(self.count, dtype=torch.int32, device=self.device)
+        self.backend.call("kk_solved", self.count, self.state, actions, self.count)
+        return actions
 
     def reset_done(self):
         self.backend.call("kk_reset", self.count, self.state, self.count)
