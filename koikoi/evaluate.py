@@ -139,6 +139,11 @@ def main():
     parser.add_argument("--particles", type=int, default=32)
     parser.add_argument("--search-horizon", type=int, default=32)
     parser.add_argument(
+        "--search-cuda-graph",
+        action="store_true",
+        help="Capture fixed-shape policy rollouts; requires search and --device cuda",
+    )
+    parser.add_argument(
         "--search-confidence",
         type=float,
         default=2.5,
@@ -155,6 +160,10 @@ def main():
         help="Search every nontrivial decision, not only koi/stop",
     )
     args = parser.parse_args()
+    if args.search_cuda_graph and (
+        args.search == "none" or torch.device(args.device).type != "cuda"
+    ):
+        parser.error("--search-cuda-graph requires search and --device cuda")
     try:
         validate_split(args.seed, args.pairs, args.split)
     except ValueError as error:
@@ -216,6 +225,7 @@ def main():
             koi_only=not args.search_all,
             confidence=args.search_confidence,
             endgame=candidate_guard,
+            cuda_graph=args.search_cuda_graph,
         )
     search_agent = a
     if args.endgame:
@@ -275,6 +285,9 @@ def main():
         "p95_decision_ms": 1000 * float(np.quantile(timings, 0.95)),
         "decisions": total_decisions,
         "search_simulated_decisions": getattr(search_agent, "simulated_decisions", 0),
+        "search_preparation_decisions": getattr(
+            search_agent, "preparation_decisions", 0
+        ),
         "searched_decisions": getattr(search_agent, "searched_decisions", 0),
         "changed_decisions": getattr(search_agent, "changed_decisions", 0),
         "search_confidence": args.search_confidence if args.search != "none" else None,
@@ -284,6 +297,7 @@ def main():
         "agent_decisions": agent_stats,
         "opponent_decisions": opponent_stats,
         "search": args.search,
+        "search_cuda_graph": args.search_cuda_graph,
         "search_all": args.search_all,
         "device": args.device,
         "search_particles": args.particles if args.search != "none" else 0,

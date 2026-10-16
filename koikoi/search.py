@@ -4,6 +4,7 @@ import numpy as np
 import torch
 
 from .agents import solved_koi_action
+from .capture import CapturedRollout
 from .env import BatchEnv
 from .layout import BANKRUPT, DEALER, HISTORY, KOI, PHASE, PLAYER, SEED, STOCK
 from .model import sample_action
@@ -64,10 +65,15 @@ class SearchAgent:
         koi_only=True,
         confidence=2.5,
         endgame=False,
+        cuda_graph=False,
     ):
         if particles < 1 or horizon < 1:
             raise ValueError("Search budgets must be positive")
         self.neural, self.particles, self.horizon = neural, particles, horizon
+        if cuda_graph and torch.device(neural.device).type != "cuda":
+            raise ValueError("Captured search requires a CUDA inference device")
+        self.cuda_graph = cuda_graph
+        self.graph_cache = {}
         self.rng = np.random.default_rng(seed)
         self.use_belief, self.koi_only = use_belief, koi_only
         if confidence < 0 or (confidence > 0 and particles < 2):
@@ -80,6 +86,7 @@ class SearchAgent:
                 "Checkpoint has no trained belief head; select uniform search"
             )
         self.simulated_decisions = 0
+        self.preparation_decisions = 0
         self.searched_decisions = 0
         self.changed_decisions = 0
         self.cache = {}
@@ -121,9 +128,51 @@ class SearchAgent:
         env = self.cache[key]
         env.state.copy_(torch.from_numpy(np.tile(worlds, (len(legal), 1))).to(device))
         actions = torch.from_numpy(np.repeat(legal, self.particles)).to(device)
+        root_sign = 1 - 2 * int(reference.state[PLAYER])
+        if self.cuda_graph:
+            if key not in self.graph_cache:
+                static_actions = actions.clone()
+                static_sign = torch.tensor(
+                    root_sign, dtype=torch.float32, device=device
+                )
+                graph = CapturedRollout(
+                    lambda: (
+                        {"values": self.rollout(env, static_actions, static_sign)},
+                        None,
+                    ),
+                    env.state,
+                )
+                # CapturedRollout executes three warmups before recording.
+                # Their simulator/RNG effects are rolled back, but count the work.
+                self.preparation_decisions += 3 * n * self.horizon
+                self.graph_cache[key] = graph, static_actions, static_sign
+            graph, static_actions, static_sign = self.graph_cache[key]
+            static_actions.copy_(actions)
+            static_sign.fill_(root_sign)
+            values = graph()[0]["values"]
+        else:
+            values = self.rollout(env, actions, root_sign)
+        self.simulated_decisions += n * self.horizon
+        values = values.reshape(len(legal), self.particles)
+        differences = values - values[base_index : base_index + 1]
+        lower = differences.mean(1)
+        if self.confidence:
+            lower -= self.confidence * differences.std(dim=1) / self.particles**0.5
+        index = int(lower.argmax())
+        if float(lower[index]) <= 0:
+            index = base_index
+        self.searched_decisions += 1
+        self.changed_decisions += index != base_index
+        return int(legal[index])
+
+    @torch.no_grad()
+    def rollout(self, env, actions, root_sign):
+        """Tensor-only policy evaluation; root actions/sign can be graph inputs."""
+        device, model = self.neural.device, self.neural.model
+        deterministic = getattr(self.neural, "deterministic", True)
+        n = len(env.state)
         alive = torch.ones(n, dtype=torch.bool, device=device)
         values = torch.zeros(n, device=device)
-        root_sign = 1 - 2 * int(reference.state[PLAYER])
         for depth in range(self.horizon):
             if depth:
                 obs, mask = env.observe()
@@ -133,7 +182,7 @@ class SearchAgent:
                 else:
                     # Common policy randomness reduces candidate-comparison noise.
                     uniforms = torch.rand(self.particles, device=device).repeat(
-                        len(legal)
+                        n // self.particles
                     )
                     cdf = logits.softmax(-1).cumsum(-1)
                     cdf = cdf / cdf[:, -1:]
@@ -150,16 +199,4 @@ class SearchAgent:
             env.reset_done()
         obs, mask = env.observe()
         estimate = model(obs, mask)[1] * (1 - 2 * env.state[:, PLAYER]) * root_sign
-        values = torch.where(alive, estimate, values)
-        self.simulated_decisions += n * self.horizon
-        values = values.reshape(len(legal), self.particles)
-        differences = values - values[base_index : base_index + 1]
-        lower = differences.mean(1)
-        if self.confidence:
-            lower -= self.confidence * differences.std(dim=1) / self.particles**0.5
-        index = int(lower.argmax())
-        if float(lower[index]) <= 0:
-            index = base_index
-        self.searched_decisions += 1
-        self.changed_decisions += index != base_index
-        return int(legal[index])
+        return torch.where(alive, estimate, values)
