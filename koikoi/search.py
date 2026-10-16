@@ -8,6 +8,7 @@ from .capture import CapturedRollout
 from .env import BatchEnv
 from .layout import BANKRUPT, DEALER, HISTORY, KOI, PHASE, PLAYER, SEED, STOCK
 from .model import sample_action
+from .search_capture import CapturedSearchRollout
 
 
 def sample_hidden(reference, rng, logits=None):
@@ -75,12 +76,22 @@ class SearchAgent:
         confidence=2.5,
         endgame=False,
         cuda_graph=False,
+        chunk_size=0,
     ):
         if particles < 1 or horizon < 1:
             raise ValueError("Search budgets must be positive")
         self.neural, self.particles, self.horizon = neural, particles, horizon
         if cuda_graph and torch.device(neural.device).type != "cuda":
             raise ValueError("Captured search requires a CUDA inference device")
+        if not isinstance(chunk_size, int) or chunk_size < 0:
+            raise ValueError("Search chunk size must be a nonnegative integer")
+        if chunk_size and (
+            not cuda_graph or not getattr(neural, "deterministic", False)
+        ):
+            raise ValueError("Chunked search requires deterministic CUDA capture")
+        if chunk_size and neural.model.training:
+            raise ValueError("Chunked search requires an evaluation-mode model")
+        self.chunk_size = chunk_size
         self.cuda_graph = cuda_graph
         self.graph_cache = {}
         self.rng = np.random.default_rng(seed)
@@ -95,6 +106,7 @@ class SearchAgent:
                 "Checkpoint has no trained belief head; select uniform search"
             )
         self.simulated_decisions = 0
+        self.executed_decisions = 0
         self.preparation_decisions = 0
         self.searched_decisions = 0
         self.changed_decisions = 0
@@ -136,30 +148,45 @@ class SearchAgent:
         env.state.copy_(torch.from_numpy(np.tile(worlds, (len(legal), 1))).to(device))
         actions = torch.from_numpy(np.repeat(legal, self.particles)).to(device)
         root_sign = 1 - 2 * int(reference.state[PLAYER])
+        executed_steps = self.horizon
         if self.cuda_graph:
             if key not in self.graph_cache:
                 static_actions = actions.clone()
                 static_sign = torch.tensor(
                     root_sign, dtype=torch.float32, device=device
                 )
-                graph = CapturedRollout(
-                    lambda: (
-                        {"values": self.rollout(env, static_actions, static_sign)},
-                        None,
-                    ),
-                    env.state,
-                )
-                # CapturedRollout executes three warmups before recording.
-                # Their simulator/RNG effects are rolled back, but count the work.
-                self.preparation_decisions += 3 * n * self.horizon
+                if self.chunk_size:
+                    graph = CapturedSearchRollout(
+                        model,
+                        env,
+                        static_actions,
+                        static_sign,
+                        self.horizon,
+                        self.chunk_size,
+                        self.requires_endgame,
+                    )
+                    self.preparation_decisions += graph.preparation_decisions
+                else:
+                    graph = CapturedRollout(
+                        lambda: (
+                            {"values": self.rollout(env, static_actions, static_sign)},
+                            None,
+                        ),
+                        env.state,
+                    )
+                    # Three warmups are rolled back but still count as work.
+                    self.preparation_decisions += 3 * n * self.horizon
                 self.graph_cache[key] = graph, static_actions, static_sign
             graph, static_actions, static_sign = self.graph_cache[key]
             static_actions.copy_(actions)
             static_sign.fill_(root_sign)
             values = graph()[0]["values"]
+            if self.chunk_size:
+                executed_steps = graph.last_steps
         else:
             values = self.rollout(env, actions, root_sign)
         self.simulated_decisions += n * self.horizon
+        self.executed_decisions += n * executed_steps
         values = values.reshape(len(legal), self.particles)
         differences = values - values[base_index : base_index + 1]
         lower = differences.mean(1)

@@ -144,6 +144,12 @@ def main():
         help="Capture fixed-shape policy rollouts; requires search and --device cuda",
     )
     parser.add_argument(
+        "--search-chunk-size",
+        type=int,
+        default=0,
+        help="Check for completed particles every N steps; requires deterministic captured search (0 disables)",
+    )
+    parser.add_argument(
         "--search-confidence",
         type=float,
         default=2.5,
@@ -164,6 +170,13 @@ def main():
         args.search == "none" or torch.device(args.device).type != "cuda"
     ):
         parser.error("--search-cuda-graph requires search and --device cuda")
+    if args.search_chunk_size < 0 or (
+        args.search_chunk_size
+        and (not args.search_cuda_graph or not args.deterministic)
+    ):
+        parser.error(
+            "--search-chunk-size requires deterministic captured search and N >= 0"
+        )
     try:
         validate_split(args.seed, args.pairs, args.split)
     except ValueError as error:
@@ -226,6 +239,7 @@ def main():
             confidence=args.search_confidence,
             endgame=candidate_guard,
             cuda_graph=args.search_cuda_graph,
+            chunk_size=args.search_chunk_size,
         )
     search_agent = a
     if args.endgame:
@@ -285,6 +299,7 @@ def main():
         "p95_decision_ms": 1000 * float(np.quantile(timings, 0.95)),
         "decisions": total_decisions,
         "search_simulated_decisions": getattr(search_agent, "simulated_decisions", 0),
+        "search_executed_decisions": getattr(search_agent, "executed_decisions", 0),
         "search_preparation_decisions": getattr(
             search_agent, "preparation_decisions", 0
         ),
@@ -298,6 +313,7 @@ def main():
         "opponent_decisions": opponent_stats,
         "search": args.search,
         "search_cuda_graph": args.search_cuda_graph,
+        "search_chunk_size": args.search_chunk_size,
         "search_all": args.search_all,
         "device": args.device,
         "search_particles": args.particles if args.search != "none" else 0,
