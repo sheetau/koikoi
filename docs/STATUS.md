@@ -18,9 +18,10 @@ Hardware: RTX 5070 Ti 16 GB, Ryzen 9 9900X, about 62 GiB RAM; local Python 3.12 
 
 | Run | Target | Last observed updates / matches | Source |
 | --- | --- | ---: | --- |
-| ppo12_scale_seed30001_captured | 100M cumulative new research12 matches | 7,481 / 10,795,279 | 142c265 |
-| ppo8_seed10001 | 5,000 updates | 4,748 / 10,579,658 | 2f3a366 |
-| relational8_fullgraph_seed50001 | 3,000 updates after initialization | 932 / 1,056,638 | 5dc3025 |
+| ppo12_scale_seed30001_captured | 100M cumulative new research12 matches | 8,199 / 11,832,745 | 142c265 |
+| ppo8_seed10001 | 5,000 updates | 4,798 / 10,691,320 | 2f3a366 |
+| relational8_fullgraph_seed50001 | 3,000 updates after initialization | 1,200 / 1,360,744 | 5dc3025 |
+| relational8_lambda99_seed50001 | 1,000 new updates, lambda 0.99 | 33 / 36,991 | bedd9c3 |
 
 Counts above are cumulative within each run's resume lineage. Scale counters exclude initialization (1,000,464 research12 and 11,141,556 paper8 matches); relational counters exclude 2,245,436 paper8 pretraining matches. Final-test seeds (100,000,000+) remain unused.
 
@@ -57,6 +58,8 @@ Finish seed-10,001 update-5,000 evaluation against assisted RL-WP and independen
 
 Success still requires: exceed assisted RL-WP on paper8, replicate training gains, evaluate chosen policies on untouched final-test deals, verify at least 100M complete twelve-round training matches, and prepare the manuscript. Submission is a later decision. Do not mark the goal complete based on implementation, throughput or parent-model wins alone.
 
-A controlled longer-return experiment is prepared in configs/relational8_lambda99.json: same relational update-2,000 initialization, seed 50,001, optimizer reset and full-capture setup as the current control; only gae_lambda changes from 0.95 to 0.99 in the resolved configs. Target 1,000 new updates / 131,072,000 decisions, snapshots every 250, runs/relational8_lambda99_seed50001. Compare with control update 1,000 on native 10,000-pair duels and assisted RL-WP on the same development deals. This deliberately shares the training seed for a controlled screen, not independent replication. Three-update initialized smoke completed with finite metrics; no strength claim.
+A controlled longer-return experiment is live from committed bedd9c3, using configs/relational8_lambda99.json: same relational update-2,000 initialization, seed 50,001, optimizer reset and full-capture setup as the current control; only gae_lambda changes from 0.95 to 0.99 in the resolved configs. Target 1,000 new updates / 131,072,000 decisions, snapshots every 250, runs/relational8_lambda99_seed50001. Compare with control update 1,000 on native 10,000-pair duels and assisted RL-WP on the same development deals. This deliberately shares the training seed for a controlled screen, not independent replication. Three-update initialized smoke completed with finite metrics; no strength claim.
 
-Control relational update 1,000 beats its initialization on 10,000 development pairs: 50.9825%, CI 50.4299-51.535%, +0.6298 points (runs/relational8_fullgraph_seed50001/eval_1000_vs_parent.json). Its public-baseline evaluation is running.
+Control relational update 1,000 beats its initialization on 10,000 development pairs: 50.9825%, CI 50.4299-51.535%, +0.6298 points (runs/relational8_fullgraph_seed50001/eval_1000_vs_parent.json). Against assisted RL-WP on the same 300 development pairs: 49.5%, CI 46.25-52.75%, +1.3567 points. Difference from its initialization: +0.25 percentage points, CI -3.8333 to +4.25. No public-baseline superiority. Reports eval_1000_wp.json and difference_1000_vs_parent.json in the same directory.
+
+Lambda-0.99 live command: `python -m koikoi.train --config configs/relational8_lambda99.json --initialize runs/relational8_v2/update_00002000.pt --run runs/relational8_lambda99_seed50001 --updates 1000 --checkpoint-every 250`. Process and advancing finite metrics verified. This arm also excludes the same 2,245,436 pretraining matches from its new counters.

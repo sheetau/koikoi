@@ -180,3 +180,7 @@ configs/relational8_lambda99.json changes gae_lambda from 0.95 to 0.99, otherwis
 Initialized functionality check in runs/relational_lambda99_smoke completed three updates / 393,216 decisions / 3,064 matches with finite metrics. These duplicated pilot updates are not counted toward the controlled experiment's target or the research12 budget. No new algorithm code was needed.
 
 The lambda-0.95 control at new update 1,000 beat its initialization on 10,000 development pairs: 50.9825%, CI 50.4299-51.535%, +0.6298 points (runs/relational8_fullgraph_seed50001/eval_1000_vs_parent.json). This is a small parent-relative improvement; public-baseline superiority remains unproven.
+
+The lambda-0.99 experiment started from committed bedd9c3 in runs/relational8_lambda99_seed50001 with the planned initialization/seed/1,000-update target. Live process and advancing finite metrics were verified. The first three updates reproduce the functionality pilot; duplicated pilot learning is excluded from experiment counters.
+
+Control new update 1,000 against assisted RL-WP: 49.5%, CI 46.25-52.75%, +1.3567 points, 300 shared development pairs. Report runs/relational8_fullgraph_seed50001/eval_1000_wp.json; paired comparison with its initialization in difference_1000_vs_parent.json. Public-baseline superiority remains unestablished.
