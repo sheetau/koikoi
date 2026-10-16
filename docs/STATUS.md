@@ -16,7 +16,7 @@ Use .venv/Scripts/python.exe: Python 3.12, Torch 2.12.0+cu130, NumPy 2.5.4. Hard
 
 ## Live training jobs (revalidate before acting)
 
-runs/ppo12_scale_seed30001_captured: 53,570 updates / 77,351,906 cumulative new research12 matches last observed. Source 142c265, child PID 57432 (parent 6624), session 57088. Target 100,000,000 new completed matches. Process and advancing finite metrics verified.
+runs/ppo12_scale_seed30001_captured: 55,193 updates / 79,696,869 cumulative new research12 matches last observed. Source 142c265, child PID 57432 (parent 6624), session 57088. Target 100,000,000 new completed matches. Process and advancing finite metrics verified.
 
 ```powershell
 ./.venv/Scripts/python.exe -m koikoi.train --resume runs/ppo12_scale_seed30001/update_00005800.pt --allow-code-change --enable-cuda-rollout --run runs/ppo12_scale_seed30001_captured --target-matches 100000000 --checkpoint-every 1000
@@ -98,3 +98,5 @@ Independent-model search-validation runner launched from committed c3f6671: sess
 Prepared final scale endpoint: runs/watch_scale100m.py waits on the existing trainer process until exit, requires successful exit and at least 100M new completed research12 matches in latest.pt, verifies first target-crossing update, then preserves its bytes as final_100m.pt using exclusive creation. Audit also checks match count against simulator episode sum, round count against 12 * completed matches plus current-round indices, update/decision arithmetic, finite model/Adam, last metrics and profile-separated initialization budgets. This accounting passed actual updates 35,000 and 52,000; inconsistent counters and nonfinite weights were rejected. Report runs/scale_episode_accounting_audit.json.
 
 After successful final preservation, evaluate 10,000 deterministic guarded research12 development pairs versus transfer initialization and compare with update 52,000. Outputs budget_100m.json, eval_100m_vs_parent.json, difference_100m_vs_52000.json, audit_100m.json under the scale run. No final-test seeds or paper8 public-superiority claim. This watcher must never restart a stopped trainer or accept a below-target exit as completion. Launch once after committing the protocol.
+
+Final-scale watcher started from committed protocol 298d59c: session 51102, child PID 19092 (parent 49408), command `python -m runs.watch_scale100m`. It is live waiting on the retained handle to trainer 57432. Do not duplicate, restart, or treat it as a completed target. Independent-model search-validation runner 95279 remains live in the control stage, with 250 pairs observed.
