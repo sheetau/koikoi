@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "koikoi-research"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = ["numpy>=2.0", "torch>=2.9"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.9"]
+
+[tool.setuptools.packages.find]
+include = ["koikoi*"]
+
+[tool.setuptools.package-data]
+koikoi = ["native/*.h", "native/*.cpp", "native/*.cu"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["cuda: requires CUDA-enabled PyTorch", "upstream: requires fetched pinned upstream"]
