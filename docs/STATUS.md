@@ -1,80 +1,61 @@
 # Current status
 
-Research is active. The published RL-WP strength gate and 100M-match scale target remain unmet; no strongest-AI or publication claim is established. Historical details, hashes and comparisons are in [EXPERIMENTS.md](EXPERIMENTS.md), to consult only when relevant.
+Research is active. Published assisted-RL-WP superiority, the 100M twelve-round match target, final held-out validation and the manuscript remain incomplete. Full history, hashes and commands are in [EXPERIMENTS.md](EXPERIMENTS.md); read it only for the relevant experiment.
 
-## Verified implementation
+## Implementation and validation
 
-- Independent Python oracle and shared C++/CUDA core; versioned paper8 and research12 rules. See RULES.md for game logic, DESIGN.md for architecture.
-- GPU self-play PPO, native signed returns, MLP/features/relational/Transformer policies, optional belief loss and experimental Q-boosting.
-- Exact checkpoint continuation, source hashes, separate weight-initialization ancestry and budget audit without duplicate resume counts.
-- Published-model adapter, paired confidence intervals, GPU checkpoint duels, guarded observation-only rollout search, on-policy endgame masks and diagnostic koi-policy substitution.
-- CUDA Graph minibatches and optional captured collection/returns. Warmup restores state/RNG; current weights are read each replay. FP32/BF16 eager/captured trajectories, complete updates and restart agree exactly, including real scale and relational checkpoint migrations.
+Independent Python oracle plus shared C++/CUDA core; paper8 and research12 profiles; GPU PPO with signed match returns; MLP/features/relational/Transformer policies; experimental belief/Q-boosting/search; pinned published-model adapter; paired sequential/native evaluation; koi-policy substitution; exact checkpoints and initialization-lineage budget audit. Actor inputs never include hidden information. Search remains off by default. See DESIGN.md for architecture and RULES.md for game logic.
 
-Validation: full 74-test suite passed with no skips, including CUDA/upstream. Subsequent changes passed four resume cases and one additional Transformer full-update case; 77 cases now collected. Ruff passed. Two expected upstream Transformer performance warnings. No native rules changed in this milestone.
+Captured PPO minibatches and collection are independently optional. Warmup restores state/model/Adam/RNG, and replay reads current weights. FP32/BF16 collection, full updates and resume agree with eager execution, including real scale/relational migrations. Capturable versus old non-capturable Adam can round differently; do not silently switch optimizer execution.
 
-Hardware: RTX 5070 Ti 16 GB, Ryzen 9 9900X, about 62 GiB RAM; local Python 3.12 / PyTorch 2.12.0+cu130 / NumPy 2.5.4. Use .venv/Scripts/python.exe.
+Validation: full 74 tests passed without skips, followed by four targeted resume cases and one new Transformer full-update case; 77 cases collected. Ruff passed. Two expected upstream warnings. Package source unchanged since 142c265 (SHA 2bfd85f83056c95d8593b4bca41ece74981e9d903ab77f171a5ecf8732c7da37). Later milestones changed configs/docs/tests, not learning arithmetic.
 
-## Live jobs (recheck process command lines and advancing metrics)
+Use .venv/Scripts/python.exe: Python 3.12, Torch 2.12.0+cu130, NumPy 2.5.4. Hardware RTX 5070 Ti 16 GB, Ryzen 9900X, about 62 GiB RAM. Preserve UTF-8 and existing line endings.
 
-| Run | Target | Last observed updates / matches | Source |
-| --- | --- | ---: | --- |
-| ppo12_scale_seed30001_captured | 100M cumulative new research12 matches | 12,159 / 17,554,335 | 142c265 |
-| relational8_fullgraph_seed50001 | 3,000 updates after initialization | 2,774 / 3,145,345 | 5dc3025 |
-| relational8_entropy005_seed50001 | 1,000 updates, entropy 0.005 | 364 / 411,949 | e626ac1 |
+## Only live training job (revalidate before acting)
 
-Counts above are cumulative within each run's resume lineage. Scale counters exclude initialization (1,000,464 research12 and 11,141,556 paper8 matches); relational counters exclude 2,245,436 paper8 pretraining matches. Final-test seeds (100,000,000+) remain unused.
-
-Scale migrated cleanly at update 5,800 / 8,367,810 matches; relational at update 647 / 733,156 new matches. Source/model/optimizer/game/RNG/counter checks passed. Old directories ppo12_scale_seed30001 and relational8_graph_seed50001 are terminal and retain STOP; do not restart them. New process/advancing metrics verified. Their active commands are:
+runs/ppo12_scale_seed30001_captured: 15,831 updates / 22,862,759 cumulative new research12 matches last observed. Source 142c265, child PID 57432 (parent 6624), session 57088. Target 100,000,000 new completed matches. Process and advancing finite metrics verified.
 
 ```powershell
 ./.venv/Scripts/python.exe -m koikoi.train --resume runs/ppo12_scale_seed30001/update_00005800.pt --allow-code-change --enable-cuda-rollout --run runs/ppo12_scale_seed30001_captured --target-matches 100000000 --checkpoint-every 1000
-./.venv/Scripts/python.exe -m koikoi.train --resume runs/relational8_graph_seed50001/update_00000647.pt --allow-code-change --enable-cuda-rollout --run runs/relational8_fullgraph_seed50001 --updates 3000 --checkpoint-every 500
 ```
 
-Runs/checkpoints/reports are ignored under runs/. Use immutable numbered snapshots. Never relaunch a live job. A run-local STOP requests completed-update save/exit. Source 5dc3025 has the same package code as 142c265.
+These counters exclude 1,000,464 research12 and 11,141,556 paper8 initialization matches. Never relaunch a live job. Use immutable numbered snapshots. A run-local STOP requests clean exit after a completed update. Old ppo12_scale_seed30001, relational8_graph_seed50001 and ppo8_seed10001 are terminal migration directories with STOP; do not restart them.
 
-## Decision evidence (development only)
+All other trainers and evaluation watchers completed, including sessions 29416, 68401, 33995 and 93839. No pending public/hybrid/entropy evaluations remain. The finished relational and entropy runs must not be resumed merely because their process is absent.
 
-- Small MLP seed 1 update 5,000, 11,141,556 matches: 47.825% vs assisted RL-WP, CI 46.05-49.65%, 1,000 pairs. Still below baseline. Independent seed 10,001 completed update 5,000 / 11,141,428 matches: 49.375%, CI 47.6-51.1256%, +0.49 points, 1,000 pairs. Shared-pair difference from seed 1: +1.55 percentage points, CI -0.75 to +3.9; direct 10,000-pair duel: 49.975%, CI 49.4025-50.5225%. No established strength difference or public-baseline superiority.
-- Relational update 2,000, 2,245,436 matches: 49.25% vs assisted RL-WP, CI 45.9167-52.6687%, 300 pairs. Improvement over update 500 on the same deals: +5.0 percentage points, CI +0.9167 to +8.9167. At matched 262,144,000 training decisions it beats small MLP at 55.035%, CI 54.4699-55.625%, 10,000 pairs. Prioritize relational learning.
-- Relational next-stage update 1,500: 48.55% vs assisted RL-WP, CI 46.75-50.325%, +0.807 points, 1,000 pairs. Difference from small MLP update 5,000 on the same pairs: +0.725 percentage points, CI -1.75 to +3.125. Difference from initialization on 300 shared pairs: +0.6667 points, CI -3.6667 to +4.8354. No established superiority. Earlier sampled deployment did not improve; retain deterministic comparisons.
-- Width-512 MLP screening completed 500 updates / 1,108,105 matches: 41.75% vs assisted RL-WP. At matched decisions it beats small MLP (53.0025%) but loses to relational (46.7625%), both 10,000 pairs with CIs excluding 50%. Defer width-only extension. These are candidate screens, not isolated architecture effects.
-- Endgame-training A/B completed: 49.125% assisted vs 49.175% control, 1,000 shared pairs; difference -0.05 points, CI -2.35 to +2.225. Keep training assistance off. Larger two-seed koi-substitution comparisons establish improvement over each original MLP, but not yet superiority to assisted RL-WP; see the latest screen below. No default change.
-- Research12 transfer pilot beat initialization at 52.073%, CI 51.515-52.633%, 10,000 pairs. Scale update 7,000 beats that pilot at 51.2175%, CI 50.6275-51.7825%, +1.2146 points, 10,000 pairs. This is a small development gain against the parent, not superiority to the paper8 published baseline.
-- Search, Q-boosting and explicit features have not demonstrated improvement. Keep search off. Positive point difference alone does not meet the win-rate objective.
+## Completed evidence and decisions (development only)
 
-## Performance and budget evidence
+| Candidate | Evidence | Decision |
+| --- | --- | --- |
+| Small MLP, seeds 1 and 10,001, 5,000 updates each | About 11.14M paper8 matches each. Assisted RL-WP: 47.825% (CI 46.05-49.65%) and 49.375% (47.6-51.1256%), 1,000 pairs each. Direct duel 49.975% (49.4025-50.5225%), 10,000 pairs. | No superiority; independent replication complete. |
+| Relational continuation, seed 50,001, 3,000 new updates | 3,401,171 new matches + 2,245,436 pretraining. Parent duel 51.27% (50.72-51.825%), 10,000 pairs. Assisted RL-WP 47.875% (46.075-49.625%), 1,000 pairs. | Parent-relative improvement does not generalize to the baseline. Do not extend unchanged. |
+| Return trace lambda 0.99 versus 0.95 | Matched 1,000 new updates: 48.12% (47.5699-48.6725%) in 10,000 direct pairs; public baseline 48.75%, 300 pairs. | Reject extension; retain 0.95. |
+| Entropy weight 0.005 versus 0.02 | Matched 1,000 new updates: 49.2925% (48.745-49.8375%) in 10,000 direct pairs; public baseline 48.0833% (44.75-51.3333%), 300 pairs. | Reject extension; retain 0.02. |
+| MLP cards + published RL-WP koi, two training seeds | First 1,000 pairs improve over each full MLP by +3.0 pp (CI +1.5 to +4.55) / +1.8 pp (+0.3 to +3.375). Additional 3,000 pairs: 49.9417% (48.9083-50.9669%) / 50.6833% (49.6667-51.6919%) versus RL-WP. | Diagnostic improvement, no established public-baseline superiority; no default change. |
 
-Twenty scale-config updates after warmup: 15.211 seconds ordinary collection versus 5.707 captured; identical 27,254 matches / 328,568 rounds / 5,242,880 decisions. Relational five-update comparison: 13.971 versus 6.570 seconds with identical counts. Concurrent jobs were active; these are not isolated hardware claims. Reports: rollout_*_benchmark.json and relational_rollout_*_benchmark.json under runs/.
+All intervals are 95% paired-bootstrap intervals. Shared evaluation deals across training seeds are not independent extra pairs. Additional hybrid seeds 1,001,000-1,003,999 are disjoint from earlier public comparisons but were used in native checkpoint duels. Final-test seeds 100,000,000+ remain unused.
 
-Real checkpoint next-update equivalence: runs/rollout_scale_migration_validation.json and rollout_relational_migration_validation.json. Three fresh full-size updates also matched all weights, Adam tensors, simulator, RNG and metrics (rollout_production_validation.json). Diagnostic updates do not count toward scale learning.
+Relational update 3,000 versus 1,500 on 1,000 shared public pairs: -0.675 pp (CI -2.825 to +1.475), so no established win-rate decline either; point difference declines -1.538 (CI -2.8551 to -0.2640). Entropy-screen versus control on 300 shared public pairs: -1.4167 pp (CI -5.5833 to +2.75). Positive point differences alone do not meet the win-rate objective.
 
-Budget audit at resumed scale update 6,000: 8,656,699 current research12 + 1,000,464 research12 initialization = 9,657,163; paper8 initialization 11,141,556 separately. Resume parent counts are not added again. runs/ppo12_scale_seed30001_captured/budget_6000.json. Audits cover one ancestry, not a sum across models with shared ancestors.
+Earlier screens: relational beats matched-decision MLP; width-512 MLP loses to relational; on-policy endgame training did not improve; sampled deployment, Q-boosting, explicit features and rollout search have no established advantage. Keep those changes off by default. Details in EXPERIMENTS.md.
 
-## Next actions and completion gates
+## Artifact locations
 
-Independent-seed final evaluation is complete. Evaluate relational saved checkpoints as training progresses; maintain the committed 3,000-update target unless evidence warrants a change. Keep the captured twelve-round scale baseline running. Further hyperparameter/curriculum/population/belief experiments require measured benefit; no default advantage is assumed.
+- Completed relational: runs/relational8_fullgraph_seed50001/update_00003000.pt, SHA 2d4d50a489230ec0080515baf3338957acc6708f839bd92fb4f96df41d971eae. Reports eval_3000_vs_parent.json, eval_3000_wp.json, difference_3000_vs_1500.json. Final checkpoint hash and counters match final metrics.
+- Completed entropy screen: runs/relational8_entropy005_seed50001/update_00001000.pt, SHA 03490c82b1ffe5cc56a44f4fc573fabb927bbb0a03ff87c04cc4ca7930d7f51f. 1,136,109 new matches / 131,072,000 decisions; reports ab_1000.json, eval_1000_wp.json, difference_vs_control.json. Hash/counters verified.
+- Hybrid reports eval_5000_wp_koi_1000.json, difference_wp_koi_1000.json and eval_5000_wp_koi_new3000.json under runs/ppo8_v3 and runs/ppo8_seed10001_captured. The published koi component is an explicit dependency, not learned strength attributable to the card network alone.
+- Prior controlled initialization: runs/relational8_v2/update_00002000.pt. Matched control endpoint: runs/relational8_fullgraph_seed50001/update_00001000.pt. Controlled screens use seed 50,001, fresh optimizer/RNG/counters and same initialization; this is not independent training replication.
+- Independent MLP checkpoint runs/ppo8_seed10001_captured/update_00005000.pt, SHA edc44213bc5c5c840297afc33ee64a57b91e9dee48c202535906fc916cde109d. Its historical-source migration was verified bit-identical; report runs/replica_old_revision_migration.json. Do not label it fixed-revision execution throughout.
 
-Success still requires: exceed assisted RL-WP on paper8, replicate training gains, evaluate chosen policies on untouched final-test deals, verify at least 100M complete twelve-round training matches, and prepare the manuscript. Submission is a later decision. Do not mark the goal complete based on implementation, throughput or parent-model wins alone.
+## Scale strength and budget
 
+Scale update 12,000 versus transfer initialization: 51.42% (CI 50.87-51.97%), +1.3174 points, 10,000 development pairs. Shared-pair score improvement versus update 7,000 is +0.2025 pp (CI -0.5226 to +0.985), so later improvement remains unproven. Reports eval_12000_vs_parent.json and difference_12000_vs_7000.json in the scale run. These research12 results do not establish superiority to the paper8 published baseline.
 
-## Latest completed screens and next controlled experiment
+Immutable update-12,000 audit: 17,324,780 new research12 + 1,000,464 research12 initialization = 18,325,244 twelve-round matches; paper8 initialization 11,141,556 separate. SHA 8fb7bcaf7c64717c451a16878e008693506aab64468eaf3f1916bc3bf8bae14e. Report budget_12000.json. Resume parent counters are not added again. This is one model lineage, not a project-wide sum.
 
-The longer-return experiment (configs/relational8_lambda99.json, source bedd9c3) completed 1,000 updates / 131,072,000 decisions / 1,127,084 new paper8 matches. Versus lambda-0.95 control at matched decisions: 48.12%, CI 47.5699-48.6725%, -1.9771 points, 10,000 development pairs. Against assisted RL-WP: 48.75%, CI 45.3333-52.0833%, -1.27 points, 300 pairs. Shared-pair win-rate difference from control: -0.75 percentage points, CI -5.1667 to +3.5. Reject this candidate; retain lambda 0.95. Reports ab_1000.json, eval_1000_wp.json and difference_vs_control.json in runs/relational8_lambda99_seed50001. All final replica/lambda evaluation watchers completed; do not relaunch them.
+## Next work and completion gates
 
-Replica completed in runs/ppo8_seed10001_captured with update_00005000.pt SHA edc44213bc5c5c840297afc33ee64a57b91e9dee48c202535906fc916cde109d. Original non-capturable Adam retained; two-update exact migration validation against historical source 2f3a366 is in runs/replica_old_revision_migration.json. Old ppo8_seed10001 is terminal with STOP. Report this as independent training seed with verified execution migration, not one fixed source revision. Final reports: eval_5000_wp.json, difference_vs_seed1.json and eval_5000_vs_seed1.json.
+Implement and validate an optional mixed-current/frozen-history opponent experiment before further unchanged paper8 extensions. Motivation: parent-relative gains repeatedly fail to establish public-baseline superiority; this is a hypothesis about improving opponent diversity, not a demonstrated cure or equilibrium guarantee. Frozen-opponent actions must never enter the learner PPO policy/entropy/belief objectives as its own on-policy actions. Handle player-relative value targets correctly, keep opponent identity/seat fixed within a match, count learner decisions separately from simulator decisions, embed frozen weights/provenance in checkpoints, and verify exact ordinary/captured restart. Keep default current self-play unchanged. No historical-opponent implementation exists yet.
 
-Next controlled screen: configs/relational8_entropy005.json lowers entropy weight 0.02 -> 0.005 only. Resolved config checked against the relational control; same initialization runs/relational8_v2/update_00002000.pt, training seed 50,001, fresh optimizer/RNG/counters, lambda 0.95 and full capture. Hypothesis: weaker exploration regularization may refine the already learned policy; no gain is presumed. Target 1,000 new updates / 131,072,000 decisions, snapshots every 250, run runs/relational8_entropy005_seed50001. Primary comparisons: matched control update 1,000 on 10,000 direct pairs and 300 shared development pairs against assisted RL-WP. This is a paired training-seed screen, not independent replication; positive findings require a new training seed and untouched final evaluation. Do not extend or adopt based solely on an intermediate snapshot. Pretraining 2,245,436 paper8 matches stays separate from new counters and research12 budget.
-
-Initialized three-update smoke in runs/relational_entropy005_smoke completed 393,216 decisions / 3,065 matches with finite losses and gradients. This validates execution only; duplicated smoke learning is excluded from the controlled run.
-
-Entropy screen is live from committed e626ac1; trainer PID 25956 (parent 44560), session 66727. Command: `python -m koikoi.train --config configs/relational8_entropy005.json --initialize runs/relational8_v2/update_00002000.pt --run runs/relational8_entropy005_seed50001 --updates 1000 --checkpoint-every 250`. Process and advancing finite metrics verified.
-
-Pending final-evaluation watchers (do not duplicate): session 29416 guards entropy trainer PID 25956, waits for update_00001000.pt, then runs direct 10,000-pair comparison, 300-pair assisted RL-WP evaluation and paired control difference. Outputs ab_1000.json, eval_1000_wp.json and difference_vs_control.json in its run; logs runs/entropy005_final_*.log. Session 68401 guards relational trainer PID 57396, waits for update_00003000.pt, then runs 10,000 direct pairs against initialization, 1,000 public pairs and paired difference versus update 1,500. Outputs eval_3000_vs_parent.json, eval_3000_wp.json and difference_3000_vs_1500.json; logs runs/relational3000_*.log. Both fail if the trainer exits without the expected snapshot.
-
-
-## Koi-substitution evidence across two training seeds
-
-On the same 1,000 development pairs, replacing only MLP koi decisions with published RL-WP yields 50.825% (CI 49.075-52.65%, +1.481 points) for training seed 1 and 51.175% (CI 49.375-53.025%, +0.794 points) for independent seed 10,001. Shared-pair improvement over each full MLP is +3.0 percentage points (CI +1.5 to +4.55) and +1.8 points (CI +0.3 to +3.375), respectively. Both indicate this substitution improves the tested MLPs; neither establishes superiority to RL-WP itself. Point-difference improvements are inconclusive. The seed-1 evaluation's first 300 records reproduce the prior pilot exactly. Reports eval_5000_wp_koi_1000.json and difference_wp_koi_1000.json under each respective MLP run. Both card policies retain their original training budgets; the published koi component is an explicit dependency, not new learned strength attributed to the MLP alone.
-
-Larger disjoint-public-comparison development evaluation is running: 3,000 pairs per hybrid, seed range 1,001,000-1,003,999, same assisted RL-WP opponent and deterministic/endgame settings. This range has appeared in native checkpoint duels, so it is not untouched final data. Keep the full prespecified endpoint; do not select by interim scores. Session 33995 / child PID 55120 evaluates seed 1; session 93839 / child PID 21536 evaluates seed 10,001. Each writes eval_5000_wp_koi_new3000.json in its run, logs runs/hybrid_seed1_new3000.log and runs/hybrid_seed10001_new3000.log. Both processes and advancing pair counts verified; do not duplicate. Final-test seeds remain unused.
+Keep the scale baseline running. Success still requires beating assisted RL-WP, independent training validation of selected improvements, untouched final-test evaluation, at least 100M complete research12 training matches, and a manuscript. Submission is a later decision. Do not mark complete based on implementation, parent wins or throughput alone.
