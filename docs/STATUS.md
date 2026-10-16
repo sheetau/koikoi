@@ -19,7 +19,7 @@ Hardware: RTX 5070 Ti 16 GB, Ryzen 9 9900X, about 62 GiB RAM; local Python 3.12 
 
 | Run | Target | Last observed completed progress | Source |
 | --- | --- | --- | --- |
-| ppo12_scale_seed30001 | 100,000,000 additional research12 matches | update 4,834 / 6,974,028 matches | 5ddd893 |
+| ppo12_scale_seed30001_captured | 100,000,000 cumulative additional research12 matches | update 6,116 / 8,823,978 matches | 142c265 |
 | ppo8_seed10001 | 5,000 updates | update 4,361 / 9,715,493 matches | 2f3a366 |
 | relational8_v2 | 2,000 cumulative updates (complete) | 2,245,436 matches / 262,144,000 decisions | b9393cb |
 
@@ -28,7 +28,7 @@ Wider-MLP screening completed in runs/ppo8_wide_seed40001: 500 updates / 131,072
 The scale run is live, not complete. Its fresh counters exclude 1,000,464 research12 and 11,141,556 paper8 pretraining matches, recorded separately. Runs and checkpoints live under ignored runs/. Do not restart live jobs. A run-local STOP requests a clean completed-update snapshot.
 
 ```powershell
-./.venv/Scripts/python.exe -m koikoi.train --config configs/ppo12_graph.json --initialize runs/ppo12_transfer_v1/update_00000693.pt --run runs/ppo12_scale_seed30001 --target-matches 100000000 --checkpoint-every 1000
+./.venv/Scripts/python.exe -m koikoi.train --resume runs/ppo12_scale_seed30001/update_00005800.pt --allow-code-change --enable-cuda-rollout --run runs/ppo12_scale_seed30001_captured --target-matches 100000000 --checkpoint-every 1000
 ```
 
 ## Decision evidence (development only)
@@ -60,4 +60,4 @@ Timing diagnosis (10 full scale-config updates after warmup, concurrent jobs): 7
 
 Rollout capture is implemented as optional cuda_rollout=true, independent of minibatch capture. Long eager/captured trajectories, changed BF16 policy weights, entire PPO updates, RNG/counters and checkpoint continuation agree exactly. Actual scale-size validation (2,048 environments, horizon 128) matched all weights, optimizer tensors, simulator state, RNG and metrics over three updates; migration of the real update-5,000 scale checkpoint also matched its exact next update (runs/rollout_production_validation.json, rollout_scale_migration_validation.json). Preparation does not count matches or alter live training state.
 
-Twenty full learning updates after five warmups: ordinary collection 15.211 seconds, captured collection 5.707 seconds, identical 27,254 matches / 328,568 rounds / 5,242,880 decisions. Reports runs/rollout_eager_benchmark.json and rollout_captured_benchmark.json. About 2.66x in this concurrent-job setting, not an isolated hardware claim. Next: cleanly stop the old scale process and resume its completed snapshot into runs/ppo12_scale_seed30001_captured with --allow-code-change --enable-cuda-rollout, preserving cumulative 100M target and all optimizer/game state. Verify exit and checkpoint before launching replacement.
+Twenty full learning updates after five warmups: ordinary collection 15.211 seconds, captured collection 5.707 seconds, identical 27,254 matches / 328,568 rounds / 5,242,880 decisions. Reports runs/rollout_eager_benchmark.json and rollout_captured_benchmark.json. About 2.66x in this concurrent-job setting, not an isolated hardware claim. The old scale process exited cleanly at update 5,800 / 8,367,810 matches. Its immutable snapshot update_00005800.pt (SHA ae2c5358eaee93ed98f9d0e00b264e9f9e2f758a1def7a32682a76cd66de18ad) was verified against final metrics. New run ppo12_scale_seed30001_captured resumed with all optimizer/game/RNG/counter state, retaining the cumulative 100M target and initialization lineage. Live process and advancing metrics verified. Old run is terminal and retains STOP; do not restart it.
