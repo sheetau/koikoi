@@ -2735,3 +2735,43 @@ table/proof pages11/13 checked at full size. All19 fonts embed,22 references
 resolve,Abstract is202 whitespace words,andConclusion begins on12. All prior
 numeric tokens,six evidence ledgers and page/glyph/TeX checks pass. The51 live
 learner-study inputs remain unchanged; its actual launcher handle is live.
+
+
+## First lambda1 control complete; second learner arm starts (2026-10-18)
+
+Parent1_lambda1 exits0 after520 updates (20 value warmup,500 policy). It records
+8,519,680 decisions /569,058 round endings /73,731 matches. Warmup327,680
+/21,926 /2,782. Learner4,214,681 andopponent4,304,999 decisions. WP contributes
+2,149,053 opponent decisions /287,624 whole-match rounds /36,864 matches;
+Point2,155,946 /281,434 /36,867. Endpoint SHA
+91f5f7d03436674771f479b3153c2ffbf99421745a0d0177918002048fd04529.
+These are training counts,not evaluation wins. The first two new endpoints total
+17,039,360 decisions /1,137,594 rounds /147,110 matches.
+
+Full runner audit passes,including exact initial actor/value/environment against
+its archived original response control. Both CPU and CUDA RNG states match for
+thislambda1 initialization. Subsequent trajectories are not asserted identical.
+The fixed protocol and source identities remain unchanged.
+
+A separate read-only optimizer companion now supports thelambda1 arm explicitly,
+leaving the original bound optimizer checker unchanged. Command:
+.venv/Scripts/python.exe -m scripts.audit_lambda1_optimizer --case parent1_lambda1
+--output runs/learner_return_optimizer_audits/parent1_lambda1.json.
+Actual run and Ruff pass. Audit SHAfd68f366579dc34d5f3cf4c45c3a5d1cd0ef5d99788568589f92b59d2b640611.
+All102 parameter states are finite and match the budget derived from the frozen
+update/minibatch/epoch settings:90 actor tensors48,000 steps,and each6-tensor
+value block49,920 steps. Changed tensors29/30 in each actor block and6/6 in each
+critic. L2 movements:discard1.065544,pick0.763670,koi0.599053,value7.421758,
+opponent value10.808631. Movement and optimizer accounting do not establish
+playing strength or an isolated return-information effect.
+
+The scheduler starts parent2_learner only afterlambda1 exits. Actual trainer
+57276/wrapper23300 is confirmed live; runner18512 and launcher23277 continue.
+Direct comparison of the saved new/original parent2 initial checkpoints verifies
+identical actor,value and environment tensors,fresh optimizers and zero initial
+counters. CUDA RNG matches;CPU RNG differs,as inparent1_learner.
+Initial checkpoint SHA784e860bea05c2be6690c1fe20f3cd8e962ee95bb488eb6b33a93100b19d62f3.
+Audit runs/learner_return_initial_audits/parent2.json SHA
+eac8ac2dbfccad0c862d6054fd746be8230c904e3cc32789edcb95a6f4a3aee4. The comparison is initial-state only.
+Three fresh24M evaluation workers remain active; no partial outcome ranking or
+strength qualification is performed. All51 live protocol inputs are unchanged.
