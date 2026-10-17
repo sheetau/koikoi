@@ -253,3 +253,18 @@ not calibrated absolute win probabilities or absolute expected margins; adding
 a common offset to both scores leaves the loss unchanged. Both objectives retain
 the same public input/architecture/initialization/shuffle and20-epoch budget as
 the corresponding scalar marginal heads. They change no frozen expert or rule.
+
+
+## Opponent-preserving paired-target control
+
+The experimental scripts layer can sample learner-only disagreements against a
+fixed crossed WP/Point opponent mixture, then compare parent-only and original-
+opponent continuation on identical roots. This adds no production agent inputs
+or rule changes. Simulator worlds remain transient training workspaces. Exported
+inputs are the existing public observations/proposals and frozen expert features;
+opponent IDs are grouping/analysis metadata only. Each target condition retains
+its own outcome labels and branch counters. Source trajectories and inline feature
+extraction are shared, counted once, and validated before fitting. The existing
+fitter accepts explicit at_collection caches with zero replay work; old replay
+cache semantics and numerical defaults remain unchanged. No deployment promotion
+follows from the new data path alone.

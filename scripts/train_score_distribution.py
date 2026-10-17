@@ -180,11 +180,16 @@ def fit(
         from scripts.feature_score_selector import FeatureScoreSelector, pack_features
 
         cache, cache_digest = read_checkpoint(feature_cache)
+        inline = cache.get("extraction") == "at_collection"
+        expected_replay = (
+            dict.fromkeys(data["source_work"], 0) if inline else data["source_work"]
+        )
         if (
             cache.get("format") != "paired_public_expert_features_v1"
             or cache["dataset_sha256"] != digest
             or cache["verified_roots"] != len(public)
-            or cache["new_source_replay_work"] != data["source_work"]
+            or cache["new_source_replay_work"] != expected_replay
+            or (inline and cache.get("aligned_source_work") != data["source_work"])
             or cache["new_branch_decisions"] != 0
         ):
             raise ValueError("Feature cache does not match paired dataset")
@@ -199,6 +204,11 @@ def fit(
             "feature_batch": cache["feature_batch"],
             "feature_device": cache["device"],
         }
+        if inline:
+            cache_info.update(
+                extraction="at_collection",
+                aligned_source_work=cache["aligned_source_work"],
+            )
     initial_body_digest = hashlib.sha256(
         b"".join(p.detach().cpu().numpy().tobytes() for p in model.body.parameters())
     ).hexdigest()

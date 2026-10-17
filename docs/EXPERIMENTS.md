@@ -1775,3 +1775,30 @@ independent reference outcomes, point signs, decisions/round accounting and real
 expert collection/public reconstruction. Initial CUDA device-alias comparison
 failure was fixed by comparing actual tensor devices; final run4 passed,0 skipped.
 No new large collection or fitting has been launched for this hypothesis.
+
+
+## Opponent-continuation study runner verified
+
+Implemented scripts.collect_opponent_paired_targets and
+scripts.run_opponent_target_study for the fixed two-parent/two-continuation design.
+Collection exports no hidden worlds. Both conditions share exact public roots,
+source-match IDs, opponent metadata and frozen feature tensors; source is counted
+once and each condition's two branches separately. Public features are extracted
+before branch outcomes from the original root states. Explicit at_collection cache
+receipts report zero replay work; the original replay-cache path is preserved.
+
+The runner binds all input identities, audits both caches and shared roots, fits
+four final20-epoch feature/paired-win endpoints and cross-evaluates both models on
+both label sets. Main target is opponent-preserving held-out outcomes. It checks
+matching initialization/order, fixed budgets and independent CPU validation loss.
+It performs no full-match evaluation or automatic model promotion.
+
+Combined actual collection/fit/cache/old-scorer tests passed25,0 skipped, with10
+expected upstream warnings (93.35s). A separate complete reduced-budget study,
+including both label conditions, actual fits, cross-evaluation, fresh-directory
+and bound-input rejection, passed1 with2 expected warnings (55.57s). The initial
+runner smoke exposed tensor-valued opponent metadata in the JSON protocol; this
+was corrected to the existing parameter/model hashes before the passing rerun.
+Ruff and diff checks pass. Production and active static/watcher dependencies are
+unchanged. Launch uses the fixed PAIRED_ROLLOUTS protocol, fresh source seeds
+19710001/19720001 and65,536 roots each; these tests are correctness evidence only.

@@ -34,10 +34,15 @@ def inspect(dataset, cache_path):
     for path, expected in data["script_hashes"].items():
         if sha(path) != expected:
             raise ValueError(f"Collection helper changed: {path}")
+    inline = cache.get("extraction") == "at_collection"
     producer = (
-        "scripts/replay_reusable_paired_features.py"
-        if "workspace" in cache
-        else "scripts/cache_paired_expert_features.py"
+        "scripts/collect_opponent_paired_targets.py"
+        if inline
+        else (
+            "scripts/replay_reusable_paired_features.py"
+            if "workspace" in cache
+            else "scripts/cache_paired_expert_features.py"
+        )
     )
     if sha(producer) != cache["script_sha256"]:
         raise ValueError("Feature producer changed")
@@ -53,7 +58,9 @@ def inspect(dataset, cache_path):
     ):
         raise ValueError("Replay shape/device metadata mismatch")
     if (
-        cache["new_source_replay_work"] != data["source_work"]
+        cache["new_source_replay_work"]
+        != (dict.fromkeys(data["source_work"], 0) if inline else data["source_work"])
+        or (inline and cache.get("aligned_source_work") != data["source_work"])
         or cache["reused_branch_work"] != data["branch_work"]
         or cache["new_branch_decisions"] != 0
     ):
@@ -105,6 +112,7 @@ def inspect(dataset, cache_path):
         "roots": count,
         "cache_bytes": Path(cache_path).stat().st_size,
         "source_replay_work": cache["new_source_replay_work"],
+        "extraction": "at_collection" if inline else "source_replay",
         "new_branch_decisions": 0,
         "elapsed_seconds": cache["elapsed_seconds"],
         "max_cpu_head_reconstruction_error": maximum,

@@ -456,9 +456,26 @@ matches identically for both conditions. Retain all endpoints and report paired
 outcome differences and actual source/branch counters separately. The two target
 conditions share roots/features and do not constitute independent datasets.
 
-The implemented scripts.opponent_paired_roots helper passes CPU/CUDA reference
-checks. Dataset runner, cache receipts and four-case audit still need completion
-before launch. Full repeated-policy development comparisons, if justified, will
+The collection/fit runner is scripts.run_opponent_target_study. Its protocol
+binds production, parents, both published opponents and all helper identities
+before collection. Both target datasets share exact public roots/groups/features;
+the audit checks those equalities, inline extraction accounting, every cached
+head score and independent CPU validation MSE. Both endpoints are evaluated on
+both held-out target sets, with opponent-preserving labels designated as the
+main diagnostic. CPU/CUDA collection, fitting and corruption checks pass, as does
+a complete reduced-budget runner with actual data/models. No full trajectory
+replay is claimed by the stored-artifact audit. Full repeated-policy development comparisons, if justified, will
 follow the currently running static controls; consumed validation/deal sets cannot
 serve as untouched final confirmation. This is a standard rollout-policy-control
 experiment, not a claim that opponent-aware training or paired rollouts are new.
+
+
+```powershell
+.venv/Scripts/python.exe -m scripts.run_opponent_target_study --base runs/opponent_target_study
+```
+
+Inline caches use extraction=at_collection, aligned_source_work equal to the
+shared source counters and new_source_replay_work all zero. The existing fitter
+and feature auditor accept this explicit variant while preserving the original
+replay-cache path. Source completion counts are also separated by WP and Point;
+root proportions and held-out opponent proportions are reported independently.

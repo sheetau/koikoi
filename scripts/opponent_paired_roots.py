@@ -69,6 +69,8 @@ def collect_roots(env, bank, wp, count, generator, max_steps=10000):
             "opponent_decisions",
             "completed_matches",
             "round_endings",
+            "wp_completed_matches",
+            "point_completed_matches",
         ),
         0,
     )
@@ -102,6 +104,8 @@ def collect_roots(env, bank, wp, count, generator, max_steps=10000):
         work["opponent_decisions"] += int((~learner).sum())
         work["round_endings"] += int(result[:, 1].sum())
         work["completed_matches"] += int(result[:, 2].sum())
+        work["wp_completed_matches"] += int(result[opponent_ids == 0, 2].sum())
+        work["point_completed_matches"] += int(result[opponent_ids == 1, 2].sum())
         env.reset_done()
         if total == count:
             return (
