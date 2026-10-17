@@ -128,3 +128,47 @@ at one state nor establishes how accurately their identities can be inferred
 from public play. It also leaves finer state-dependent interactions open.
 Implementation and raw identities: scripts/diagnose_opponent_conditioning.py and
 runs/opponent_conditioning_diagnostic.json. Full counts and units are in EXPERIMENTS.
+
+
+Pretrained-policy search: remaining capability gap
+-------------------------------------------------
+
+Inspection on18 October2026 finds a specific untested combination. Production
+SearchAgent explicitly rejects NeuralAgent.published_env, so its recorded
+MLP search comparisons did not evaluate search over the retained pretrained
+Transformer parents. The older two-model confirmation study gains0.45pp
+[-0.25,1.15] and1.775pp [1.075,2.475] over its respective MLP controls against
+WP; it fails replication. Those findings neither establish nor exclude a gain
+with the stronger pretrained continuation policies.
+
+The paired-target implementation already supplies PublishedActor continuations
+and reusable terminal-complete branch environments. PublicContinuation consumes
+acting-player features and legal masks. PairedWorkspace shares a starting world
+across the two forced root actions and records actual decisions,round endings
+and terminal branches. These are usable components,not a deployable search
+wrapper: collection starts from the actual sampled training world. Deployment
+must instead generate hidden worlds from the root player's available information,
+with independent future deal seeds; actual hidden hands or future stock cannot
+be used as particles. Existing sample_hidden_batch supplies a uniform proposal,
+whose lack of conditioning on observed opponent actions remains a model error.
+
+The archived65536-root collection per parent took818.605/851.054seconds through
+its final progress row,including shared source collection,feature extraction and
+both continuation conditions. It records15,426,020/15,450,634 branch decisions
+and262,144 terminal branches per parent. This establishes that batched pretrained
+rollouts already execute;it is not an isolated search latency measurement and
+must not be extrapolated into a promised per-move response time.
+
+If the fixed learner-return comparison does not provide the required strength
+gain,the next justified capability check is pretrained root search with sampled
+worlds,strict unchanged fallback actions,and actual terminal outcomes. First
+measure bounded-root latency,hidden-world invariance and independent reference
+trajectories before committing a full-match budget. GPU/batched continuation
+rounding must be reported;it is not identical to strict singleton inference.
+Monte Carlo improvement itself is established methodology. A positive result
+would need paired parent-relative match evidence and measured inference cost;
+this implementation gap alone is neither novelty nor stronger play.
+
+The current learner-return protocol remains fixed. No new search implementation,
+simulation,screening result,model selection or deployment change accompanies
+this source inspection.
