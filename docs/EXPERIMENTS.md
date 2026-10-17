@@ -2402,3 +2402,14 @@ run the actual CUDA exact-restart test, then three production-size GPU updates.
 Only a successful checkpoint-bound audit enables the prepared research runner.
 Failure stops the sequence and retains logs; no retry or test waiver. This gate
 has been prepared but its CUDA checks have not yet run.
+
+Guarded launcher started from commit7c6c470 with
+.venv/Scripts/python.exe -m scripts.check_learner_gpu --wait --launch-study
+Session23277 is live; wrapper55528/actual5680 verified through process inventory
+and handle polling. runs/learner_response_capability_cuda/process.json records
+waiting_for_training_slot, seven frozen verification inputs and the original
+protocol2342e1e80ebc79fc917891ebbf30acd7ef5dd0b4a21413d9d78e297feed57ffb.
+At this observation the original parent2_selfplay is at261/520 updates. No second
+GPU training job or new research evaluation has started. Keep the seven captured
+files unchanged while waiting and during the follow-on study. Progress records
+remain in STATUS/EXPERIMENTS, outside those frozen inputs.
