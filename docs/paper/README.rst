@@ -249,3 +249,29 @@ all17 pages reviewed, equations on8/12 inspected at full size,20 fonts embedded,
 numeric tokens and generated outcome tables remain,all5 evidence ledgers verify,
 and no TeX box,missing-glyph or page-bound errors remain. The live original study
 and seven guarded-launcher verification inputs were rechecked unchanged.
+
+
+Shared-parameter descent revision
+--------------------------------
+
+The Abstract,Introduction,main theory section and conclusion now state the
+stronger exact shared-parameter result:the expected signed-return update is a
+strict local descent direction in the specified scalar policy family. AppendixB
+retains the original independent-logit example and derives the scalar gradient,
+negative directional derivative andlambda threshold. Existing empirical numbers
+and cited prior work are retained. New Koi-Koi strength results are still pending.
+
+The updated exporter verifies the retained scalar report, its source identities
+and an independent Fraction projection of the original two-coordinate gradients.
+It binds fresh CPU verification and the previously recorded CUDA calculation
+without claiming a new CUDA run. Updated generated/observer_evidence.json SHA
+f7472951c106e3a069e09ad89628fba75d85f82351738f92c64306a411338b6d.
+
+PDF SHA6d7406c923befcf78d5d6a89b3351f0e51ed63d1ca0540cdc037a2fa62f4ca6b.
+QA runs/manuscript_shared_observer_qa.json SHA
+3c97e47e27e60ff86a2e90a3610234938119591dc1d58502c60070eb0d200dc5:all18 pages visually reviewed,
+with pages1/8/12/13 inspected in detail;19 fonts embedded,22 references resolved,
+199 abstract whitespace words,conclusion on11. Numeric tokens and all5 evidence
+ledgers verify. Final build has no TeX box,reference,glyph or page-bound defects.
+The preceding17-page PDF remains as output/pdf/manuscript_observer_eeff7b6d.pdf.
+Both live experiment protocols and their29/51 bound inputs are unchanged.

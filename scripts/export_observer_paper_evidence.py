@@ -69,6 +69,34 @@ def export():
                     case[key], [float(x) for x in expected], atol=tolerance, rtol=0
                 )
         reports[device] = report
+    shared_path = "runs/shared_observer_bootstrap_cpu.json"
+    shared_sha = "f6e500b64ecd8505ad0a2ccf52438df9df9c7efed4dadd65fdb7b799d082536e"
+    assert sha(shared_path) == shared_sha
+    shared = read(shared_path)
+    assert shared["status"] == "passed"
+    assert shared["production_source_sha256"] == provenance()["source_sha256"]
+    assert all(sha(p) == h for p, h in shared["inputs"].items())
+    inputs[shared_path] = shared_sha
+    inputs.update(shared["inputs"])
+    alpha = Fraction(1, 100)
+    shared_truth = truth[0] - alpha * truth[1]
+    shared_signed = signed[0] - alpha * signed[1]
+    shared_threshold = 199 * (1 - alpha) / (201 * (1 + alpha))
+    derivative = shared_truth * shared_signed
+    assert shared_truth == Fraction(3, 800)
+    assert shared_signed == Fraction(-8301, 3200000)
+    assert derivative == Fraction(-24903, 2560000000) < 0
+    assert shared["policy_logits"] == ["theta", "-theta/100"] and shared["theta"] == 0
+    assert Fraction(shared["true_gradient"]) == shared_truth
+    assert Fraction(shared["lambda_positive_gradient_threshold"]) == shared_threshold
+    assert Fraction(shared["true_objective_directional_derivative"]) == derivative
+    assert abs(shared["direct_autograd_gradient"] - float(shared_truth)) < 1e-15
+    for name, case in shared["cases"].items():
+        expected = (
+            shared_signed if name == "opponent_observation_lambda095" else shared_truth
+        )
+        assert Fraction(case["gradient"]) == expected
+    assert shared["cases"].keys() == reports["cpu"]["result"]["cases"].keys()
     destination = Path("docs/paper/generated/observer_evidence.json")
     write(
         destination,
@@ -80,7 +108,14 @@ def export():
             "exact_signed_lambda095_gradient": [str(x) for x in signed],
             "lambda_threshold_strict": str(threshold),
             "evidence": reports,
-            "scope": "Exact finite-game expectation, before PPO clipping/empirical normalization. One reversed coordinate, not an opposite full gradient. Zero sampled games or training. No Koi-Koi improvement claim.",
+            "shared_parameter_evidence": shared,
+            "shared_parameter_exact": {
+                "true_gradient": str(shared_truth),
+                "signed_lambda095_gradient": str(shared_signed),
+                "lambda_threshold_strict": str(shared_threshold),
+                "objective_directional_derivative": str(derivative),
+            },
+            "scope": "Exact finite-game expectations before PPO clipping/empirical normalization. One reversed coordinate for independent logits; a strict local descent direction for logits(theta,-theta/100). Three controls restore the expectation. Zero sampled games or training; no Koi-Koi improvement claim.",
         },
     )
     print({"status": "passed", "output": str(destination), "sha256": sha(destination)})

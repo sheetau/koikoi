@@ -1,13 +1,16 @@
 {
   "status": "passed",
-  "exporter_sha256": "336f1e1947d8403aefd5486eb47185ecab5c2a3b82239ac1d702280d03600b04",
+  "exporter_sha256": "1ae51baf49ad85a59b18f3d80bf7e8bf518e07d8aa7937c14bb5e4e1c966fe4a",
   "inputs": {
     "runs/observer_bootstrap_verified_cpu.json": "4e3e05b73b4e019bf9e68cf2b90afe0d61a2829b0e821dc303d1224b6a13aeab",
     "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\scripts\\diagnose_observer_bootstrap.py": "c8ec4c57f9b215aca1d26b3bf5df318d875b65da4a2634574036b0b08a3e432b",
     "koikoi\\train.py": "4b37cc872a1e334c191d2dc31708f1430103d15e22317d0fb216bec2ccd3ceea",
     "koikoi\\estimators.py": "d820083ef6c15eed8212544ab3dbf0b94f0b7480f7b2a8daa26e526082e2947a",
     "koikoi\\native\\core.h": "820333d57e060e8705e2fe1a45544d0553d396980c0d25a23b00a92aeaee5dc3",
-    "runs/observer_bootstrap_verified_cuda.json": "50ecb0247856ed6ddd19b91fb1db841fc52f0783682ea6fc59780fbb4306de7b"
+    "runs/observer_bootstrap_verified_cuda.json": "50ecb0247856ed6ddd19b91fb1db841fc52f0783682ea6fc59780fbb4306de7b",
+    "runs/shared_observer_bootstrap_cpu.json": "f6e500b64ecd8505ad0a2ccf52438df9df9c7efed4dadd65fdb7b799d082536e",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\scripts\\diagnose_shared_observer_bootstrap.py": "18db77b4901dd4d7891f62c66fd0afb4476d9854f54aebde61488a85a25bd28a",
+    "scripts\\diagnose_observer_bootstrap.py": "c8ec4c57f9b215aca1d26b3bf5df318d875b65da4a2634574036b0b08a3e432b"
   },
   "exact_true_gradient": [
     "1/800",
@@ -258,5 +261,49 @@
       "scope": "Exact enumeration of an abstract two-step game, with no sampled matches or policy fitting. The existing signed-GAE implementation and native backend agree. Removing the intermediate opponent observation bootstrap repairs this example; no claim of unbiased finite-observation PPO in general or stronger Koi-Koi play follows."
     }
   },
-  "scope": "Exact finite-game expectation, before PPO clipping/empirical normalization. One reversed coordinate, not an opposite full gradient. Zero sampled games or training. No Koi-Koi improvement claim."
+  "shared_parameter_evidence": {
+    "status": "passed",
+    "inputs": {
+      "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\scripts\\diagnose_shared_observer_bootstrap.py": "18db77b4901dd4d7891f62c66fd0afb4476d9854f54aebde61488a85a25bd28a",
+      "scripts\\diagnose_observer_bootstrap.py": "c8ec4c57f9b215aca1d26b3bf5df318d875b65da4a2634574036b0b08a3e432b",
+      "runs/observer_bootstrap_verified_cpu.json": "4e3e05b73b4e019bf9e68cf2b90afe0d61a2829b0e821dc303d1224b6a13aeab",
+      "runs/observer_bootstrap_verified_cuda.json": "50ecb0247856ed6ddd19b91fb1db841fc52f0783682ea6fc59780fbb4306de7b"
+    },
+    "production_source_sha256": "2b718198a4f7bc640f457c9fc12311dcb9a8689fba1ffcb09411234ba0920cdb",
+    "policy_logits": [
+      "theta",
+      "-theta/100"
+    ],
+    "theta": 0,
+    "true_gradient": "3/800",
+    "direct_autograd_gradient": 0.0037499999999999977,
+    "lambda_positive_gradient_threshold": "6567/6767",
+    "cases": {
+      "opponent_observation_lambda095": {
+        "gradient": "-8301/3200000",
+        "variance": "1107228625563/10240000000000"
+      },
+      "opponent_observation_lambda1": {
+        "gradient": "3/800",
+        "variance": "76637/640000"
+      },
+      "learner_to_terminal_lambda095": {
+        "gradient": "3/800",
+        "variance": "76637/640000"
+      },
+      "joint_information_lambda095": {
+        "gradient": "3/800",
+        "variance": "6916499/64000000"
+      }
+    },
+    "true_objective_directional_derivative": "-24903/2560000000",
+    "scope": "Exact rational enumeration and scalar autograd; fresh Python/native CPU checks and chain-rule projection of pinned prior CPU/CUDA results. No fresh CUDA computation, sampled games, policy fitting or Koi-Koi strength claim. Expected score-function gradient before PPO clipping and empirical normalization."
+  },
+  "shared_parameter_exact": {
+    "true_gradient": "3/800",
+    "signed_lambda095_gradient": "-8301/3200000",
+    "lambda_threshold_strict": "6567/6767",
+    "objective_directional_derivative": "-24903/2560000000"
+  },
+  "scope": "Exact finite-game expectations before PPO clipping/empirical normalization. One reversed coordinate for independent logits; a strict local descent direction for logits(theta,-theta/100). Three controls restore the expectation. Zero sampled games or training; no Koi-Koi improvement claim."
 }

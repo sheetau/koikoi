@@ -2591,3 +2591,34 @@ proceeds to parent1_lambda1, actual trainer52576/wrapper30572 under existing
 runner18512/wrapper65160 and launcher session23277. Live processes were checked.
 Original CPU evaluation remains active, so new CPU evaluation remains gated.
 The two study protocols, their29/51 bound inputs and production stay unchanged.
+
+
+## Shared-policy descent result integrated into manuscript (2026-10-18)
+
+The Abstract and Introduction now state the shared-parameter example's local
+payoff decrease directly. Section7 uses logits(theta,-theta/100); AppendixB
+retains the independent-logit coordinate reversal and derives the scalar update,
+threshold6567/6767 and negative directional derivative-24903/2560000000. The
+conclusion identifies learner-decision returns as the example's correction and
+an empirical method to test. It does not claim stronger Koi-Koi play from the
+mathematical calculation. Related Work retains the established conditioning
+literature. All previous empirical numbers,tables and22 citation keys remain.
+
+The updated evidence exporter independently projects the exact original rational
+gradients and verifies the scalar diagnostic/report sources. Ledger SHA
+f7472951c106e3a069e09ad89628fba75d85f82351738f92c64306a411338b6d. No new matches or CUDA
+training/validation were run for this paper revision. The current studies keep
+all29/51 bound inputs unchanged; both actual launcher handles remain live.
+Original evaluation has10 finished cells; the new study is trainingparent1_lambda1.
+
+Build: external/tectonic/tectonic.exe --keep-logs --outdir output/pdf
+ docs/paper/manuscript.tex. An overlong inline rational product was reformatted
+as a displayed directional derivative; final build has no TeX box warnings.
+PDF SHA6d7406c923befcf78d5d6a89b3351f0e51ed63d1ca0540cdc037a2fa62f4ca6b.
+The prior17-page PDF is retained as output/pdf/manuscript_observer_eeff7b6d.pdf.
+QA runs/manuscript_shared_observer_qa.json SHA
+3c97e47e27e60ff86a2e90a3610234938119591dc1d58502c60070eb0d200dc5. All18 pages were visually
+reviewed through rendered contact sheets; pages1/8/12/13 were checked at full
+size. All19 fonts embed correctly,22 references resolve,Abstract is199 whitespace
+words,andConclusion starts on11. All prior numeric tokens,all5 evidence ledgers,
+page bounds and glyph checks pass. Ruff and the actual evidence export pass.

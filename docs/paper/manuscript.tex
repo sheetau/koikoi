@@ -32,11 +32,11 @@ and expected points favor the point-oriented agent. Using RL-Point only for
 stop/continue decisions improves expected point margin at both adapted models
 against both public opponents; learned expert selection gives no replicated
 match-win gain. A separate exact analysis exhibits an estimator failure:
-perfect observation-conditioned critics can reverse one policy-gradient
-coordinate when a return bootstraps through the opponent's information.
-We derive the counterexample and verify it with the Python, native CPU and
-CUDA return implementations. It motivates evaluating returns between learner
-decisions. The canonical agent uses no search and averages 1.585 ms per CPU
+perfect observation-conditioned critics can make the expected policy update
+decrease true expected payoff when a return bootstraps through the opponent's
+information. We derive an exact counterexample, verify its return calculation
+across Python, native CPU and CUDA, and obtain the correct gradient by using
+returns between learner decisions. The canonical agent uses no search and averages 1.585 ms per CPU
 decision.
 \end{abstract}
 
@@ -79,10 +79,11 @@ experiments reproducible within a common game protocol.
 
 We also examine what information a return estimator passes between players.
 An exactly enumerable two-step game shows that correct payoff signs and exact
-conditional critics can still reverse one policy-gradient coordinate. The
-example isolates the loss of the learner's private information when a target
-uses the opponent's observation (Section~\ref{sec:observer}). It motivates
-bootstrapping at the learner's own decision times, with explicit handling of
+conditional critics can still produce an expected update that reduces true
+expected payoff. A shared policy parameter exposes this failure when a target
+uses the opponent's observation and loses the learner's private information
+(Section~\ref{sec:observer}). Using returns between learner decisions corrects
+the example and motivates a Koi-Koi implementation with explicit handling of
 unfinished rollout tails.
 
 The result against RL-Point motivates a second question: can a small public-state
@@ -134,8 +135,9 @@ Lyu et al. show that state-based multi-agent critics can bias policy gradients
 and, even when unbiased, can increase their variance \cite{lyu2022critics}.
 Our example studies a specific instance of this conditioning problem: a
 player-relative return crosses between two players' observations. It makes the
-failure explicit with exact conditional values, then checks the same recurrence
-in all three simulator backends. Learner-decision returns are a decision-time
+failure explicit with exact conditional values and a policy update that reduces
+true expected payoff. Its return recurrence is checked in all three simulator
+backends. Learner-decision returns are a decision-time
 reduction motivated by that example, rather than a new general gradient theorem.
 
 \subsection{Search and rollout-based improvement}
@@ -396,38 +398,40 @@ contains the information needed by the current learner's target. The following
 finite game isolates this issue without critic fitting or sampled trajectories.
 
 A learner privately observes a uniform bit $X$ and takes a public binary action
-$A$, with $\pi(A=1\mid X=x)=\sigma(\theta_x)$. The opponent sees $A$, takes one
-forced action, and the game ends with learner payoff $R\in\{-1,+1\}$.
+$A$, with $\pi(A=1\mid X=x)=\sigma(c_x\theta)$, where $c_0=1$ and
+$c_1=-1/100$. Both signal-dependent policies share the scalar parameter $\theta$.
+The opponent sees $A$, takes one forced action, and the game ends with learner
+payoff $R\in\{-1,+1\}$.
 Define $\Pr(R=+1\mid X=x,A=a)=(1+\mu_{xa})/2$, where
 \begin{equation}
  (\mu_{xa})=\begin{pmatrix}0.20&0.21\\1&-1\end{pmatrix}.
 \end{equation}
-At $\theta_0=\theta_1=0$, the exact learner values are
+At $\theta=0$, the exact learner values are
 $v_0=0.205,v_1=0$. The opponent's exact own-payoff value is $-m_A$, with
 $m_0=0.60,m_1=-0.395$. Signed GAE at the learner action therefore gives
 \begin{equation}
  \widehat A=\lambda R+(1-\lambda)m_A-v_X.
  \label{eq:observer-advantage}
 \end{equation}
-For the objective $J=\mathbb E[R]$ and $\lambda=0.95$, the first expected
-score-function gradient component is
-\begin{equation}
- \frac{\partial J}{\partial\theta_0}=\frac{1}{800}=0.00125,
- \qquad
- \mathbb E[\widehat A\,\partial_{\theta_0}\log\pi(A\mid X)]
- =-\frac{161}{32000}=-0.00503125.
-\end{equation}
-Thus even perfect observation-conditioned critics can reverse this coordinate.
-The opponent critic averages over $X$, changing the relative targets for the
-two actions when the learner knows $X=0$. The other gradient coordinate retains
-its sign; the claim concerns one component, before PPO clipping or empirical
-advantage normalization.
+For the objective $J=\mathbb E[R]$ and $\lambda=0.95$, direct differentiation
+and exact enumeration give
+\begin{align}
+ J'(0)&=\frac{3}{800}=0.00375,\\
+ \mathbb E[\widehat A\,\partial_\theta\log\pi(A\mid X)]
+ &=-\frac{8301}{3200000}=-0.0025940625.
+\end{align}
+Their product is negative. A sufficiently small positive step in the expected
+update direction therefore reduces true expected payoff. The opponent critic
+averages over $X$, changing the relative targets for the two actions when the
+learner knows $X=0$. This result concerns the population score-function update
+before PPO clipping and empirical advantage normalization.
 
 Three controls recover the true expectation in this game: $\lambda=1$, a
 single learner-to-terminal transition, and an intermediate critic conditioned
-on both $X$ and $A$. Exact enumeration reproduces these results in the Python,
-native CPU and CUDA return implementations. Appendix~\ref{app:observer} gives
-the calculation and a learner-decision implementation with explicit tail masks.
+on both $X$ and $A$. The Python, native CPU and CUDA implementations reproduce
+the return calculation. The scalar expectation also agrees with direct objective
+differentiation. Appendix~\ref{app:observer} gives the derivation and a
+learner-decision implementation with explicit tail masks.
 The Koi-Koi match results above use the original signed estimator; the new
 implementation's strength comparison is ongoing.
 
@@ -572,8 +576,9 @@ points at both adapted models against both opponents. The next challenge is
 to retain that scoring benefit while improving terminal match wins. The exact
 critic-conditioning example identifies a separate estimator issue: changing
 payoff signs cannot recover private information absent from the next observer's
-value. Returns between learner decisions provide a concrete way to avoid that
-intermediate opponent bootstrap for further evaluation.
+value. In a shared-parameter policy, this loss makes the expected update reduce
+true expected payoff. Returns between learner decisions correct that example
+and provide a concrete method for further Koi-Koi evaluation.
 
 \appendix
 \section{Reproduction and evidence}
@@ -645,20 +650,40 @@ is $m_A-R$. Applying the negative player-transition sign yields
 $(m_A-v_X)-\lambda(m_A-R)$, proving
 Equation~\ref{eq:observer-advantage}.
 
+First parameterize the two logits independently as $\theta_0,\theta_1$.
 Critic targets are detached in the policy update. The score for parameter $\theta_x$ is
 $\mathbf1\{X=x\}(A-1/2)$. Since $X$ is uniform,
 \begin{equation}
  g_x(\lambda)=\frac{\lambda(\mu_{x1}-\mu_{x0})
  +(1-\lambda)(m_1-m_0)}{8}.
 \end{equation}
-The true gradient is $(1/800,-1/4)$. Signed GAE at $\lambda=0.95$ gives
-$g_0=-161/32000$ and $g_1=-0.24371875$. The first component is positive exactly
+The true gradient is $(1/800,-1/4)$, with first component $0.00125$.
+Signed GAE at $\lambda=0.95$ gives $g_0=-161/32000=-0.00503125$ and
+$g_1=-0.24371875$. The first component is positive exactly
 when $\lambda>199/201$. These are exact expectations over the finite game,
 not estimated confidence intervals. The single-transition and $\lambda=1$
 controls use $R-v_X$; conditioning the intermediate critic on $(X,A)$ also
 restores the expectation. The first-component sample variance is about
 0.1197453 for the single transition versus 0.1080973 for signed GAE at $\lambda=0.95$.
 The correction therefore changes variance as well as bias.
+
+Now restrict the logits to $(\theta,-\alpha\theta)$ for fixed $\alpha$.
+The scalar score is $(A-1/2)c_X$ with $c=(1,-\alpha)$. The chain rule gives
+\begin{align}
+ J'(0)&=\frac{1+200\alpha}{800},\\
+ g_{\rm shared}(\lambda)&=g_0(\lambda)-\alpha g_1(\lambda)
+ =\frac{201(1+\alpha)\lambda-199(1-\alpha)}{1600}.
+\end{align}
+For $\alpha=1/100$ and $\lambda=19/20$, these are $3/800$ and
+$-8301/3200000$. The true objective's directional derivative along the expected
+update is their product:
+\begin{equation}
+ J'(0)\,g_{\rm shared}(19/20)=-\frac{24903}{2560000000}<0.
+\end{equation}
+The positive-sign threshold
+is $\lambda>6567/6767$. All three controls recover $3/800$. This establishes
+local descent in the stated shared-parameter family; the independently
+parameterized policy above has only one reversed coordinate.
 
 The executable diagnostic is \path{scripts/diagnose_observer_bootstrap.py}.
 It enumerates all signal/action/payoff combinations, including zero-probability
@@ -667,6 +692,11 @@ with the return implementations to a gradient tolerance of $3\times10^{-8}$.
 The evidence exporter verifies both retained
 CPU/CUDA reports, their source identities and the rational calculation. No
 Koi-Koi matches or policy updates contribute to this example.
+The shared-parameter extension, \path{scripts/diagnose_shared_observer_bootstrap.py},
+uses rational outcome enumeration and direct scalar autograd. It reruns the
+Python/native CPU calculation and projects the pinned earlier CPU/CUDA gradients
+by $(1,-1/100)$; it performs no additional CUDA computation. The evidence ledger
+binds both calculations and their exact source files.
 
 The companion \path{scripts/learner_returns.py} accumulates fixed-opponent
 transitions from a learner action to its next observation or match termination.
