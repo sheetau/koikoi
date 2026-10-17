@@ -2032,3 +2032,59 @@ These describe correlated source roots and noisy one-action branch outcomes,
 not a public-information oracle, causal horizon effect or repeated-policy gain.
 The result does not support assuming the last two rounds automatically yield
 denser supervision. No stage-selected model or change to response-study conditions.
+
+## Public turn-win certificate capability and coverage screen
+
+Added scripts/public_win_certificate.py and an independent reference-tree test.
+The public unknown-card set overapproximates next draws. Hand capture precedes
+universal draw enumeration; draw capture follows the reveal. The wrapper changes
+an action only when a continuation ends the match with a win in the same turn.
+Continuous use at subsequent decisions supplies the first-deviation coupling
+argument for weak match-win nonregression. This is an algorithm argument, not a
+machine-checked implementation proof; it does not imply point-margin improvement.
+The method note relates it to established observation-based synthesis and
+shielding, without claiming these general principles as new. Production, human
+play, dealer choice and active study sources are unchanged.
+
+Validation command: .venv/Scripts/python.exe -m pytest
+ tests/test_public_win_certificate.py -q
+ --junitxml=runs/public_win_certificate_tests_final.xml
+Result: 5 passed, 0 skipped, 4.41 seconds. Tests compare 120 phase/context fixtures
+against independently expanded ReferenceEnv trees, check public legal-mask
+reconstruction, run 256 complete test matches across both profiles and base/guard
+arms, and verify hidden reassignment and public-only access. These are correctness
+tests, not learned-policy strength estimates. Initial test failures were fixture
+issues: KOI was incorrectly placed on an automatic-stop turn, and a random policy
+against greedy had no override in the small research12 sample. Fixtures now keep
+KOI on valid turns and use seeded random opponents for the coupling check.
+Ruff passes after import formatting; git diff checks pass.
+
+Command: .venv/Scripts/python.exe -m scripts.diagnose_win_certificates
+ --output runs/win_certificate_diagnostic_final.json
+The source-match TRAINING splits of the two completed opponent-preserving target
+datasets contain 52,522 and 52,687 expert-disagreement roots. Certificates occur
+at 157 and 149 roots: discard 138/138, hand capture 4/2, draw capture 15/9, koi 0/0.
+The parent proposal is uncertified at 12 roots per parent. Point is uncertified
+at 102/97 roots; neither proposal is certified at zero roots. Every stored parent
+continuation at a certified root already wins in its sampled hidden world.
+Thus this screen identifies no recovered parent loss or draw and does not justify
+launching a new full-match study or promotion. The biased correlated root sample
+is not an estimate of ordinary-game prevalence or an independent strength test.
+
+The screen performs 574,272 symbolic draw cases and 621,402 leaf checks, with
+zero new simulator matches, rounds, decisions or rollout decisions. Input hashes
+were checked before and after. Final report SHA
+49c56dcaf3644e92d03796a41875f5d7b044355784882d3d606479a3d00f077a.
+An earlier pre-format report is retained separately as
+runs/win_certificate_diagnostic.json; the final report binds the final script.
+
+The live response update240 snapshot is independently preserved at
+runs/response_snapshot_checks/parent1_response_update00000240.pt, SHA
+f921f8e3234c8b60a4f6c355ed67074c636701fa5c9c17e5722c9a2d94b85649.
+Audit report SHA475d7dcd50131c077e22a53182920927d51debe4c5b57b9c10e00f4f8c202fce.
+Checks cover parent initialization, frozen opponents, actual episode totals,
+source/protocol identities, parameter digests, finite model/Adam tensors and all
+102 optimizer parameter step counts. It records 3,932,160 decisions /262,547 round
+endings /33,869 matches, split into 1,958,692 learner and 1,973,468 opponent actions.
+This snapshot is neither an evaluated endpoint nor a model-selection decision.
+The live protocol and all 29 bound inputs were reverified after the new work.
