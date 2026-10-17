@@ -2335,3 +2335,70 @@ critic information alone as the cause. Tail exclusion is also boundary-dependent
 General partial-observation critic theory is prior work. Neither this capability
 nor the counterexample proves stronger Koi-Koi play. The existing response study
 continues unaltered; all29 bound inputs rechecked before/after capability work.
+
+
+## Third response endpoint and learner-return comparison preparation (2026-10-18)
+
+The original parent2_response worker58580 (actual46240) exited0. It completes
+520 updates /8,519,680 simulator decisions /569,090 round endings /73,432 matches.
+Learner4,242,171;opponent4,277,509. WP2,130,999 opponent decisions /287,006 rounds
+/36,710 matches; Point2,146,510 /282,084 /36,722. Warmup327,680 decisions /21,771
+rounds /2,765 matches. Endpoint SHA
+406800e63f3a740d557309edadf18a76a9e6c8abf33374fe38b071e95cf107bf.
+Both original training_audit and the separate actual-Adam-budget check pass.
+Optimizer audit runs/response_optimizer_audits/parent2_response.json SHA
+43dfa40190b91554893fc2f5958f020f87bac97c744c85a2229685ed9c2b382d.
+All102 parameter states checked:actor48,000;both critics49,920steps. Parameter
+changes are30/30 discard,29/30 pick,29/30 koi,6/6 learner value,6/6 opponent value;
+actor-block L2 changes0.887236/0.670185/0.578468. These are implementation checks,
+not strength. The three completed conditions together record25,559,040 decisions,
+1,708,559 rounds and219,942 matches. The final original self-play condition runs
+as actual PID48292/wrapper50264; original evaluation and input identities remain
+unchanged. No interim win contrasts or model ranking have been inspected.
+
+LEARNER_RETURN_STUDY.rst fixes the next comparison before the original full result:
+learner-time lambda0.95 and ordinary ResponseTrainer lambda1, two retained parents,
+original paired training seeds and fixed520-update budget. The two completed
+signed-lambda0.95 response endpoints and unchanged parents are retained controls.
+All eight players face WP/Point on new24M development deals,5,000 duplicate pairs
+per cell:160,000 matches on5,000 shared streams. Four fresh training conditions
+add34,078,720 decisions; reused response training is separately17,039,360. Eight
+positive paired win-change lower95 bounds are required (learner over parent and
+over response for both parents/opponents). Lambda1 and points remain secondary.
+No intermediate endpoint selection, extensions or automatic deployment.
+
+scripts/run_learner_return_study.py implements frozen input checks, per-condition
+training/accounting audits, all16 matchups, complete-pair statistics/contrasts,
+owned-worker cleanup and cross-study scheduling. The lambda1 arm retains the
+original opponent critic and finite-tail bootstrap. Learner-time loss scaling,
+critic removal, clipping and omitted tails are explicit full-intervention changes.
+The runner verifies the original training receipts before using the GPU and waits
+for the original terminal analysis before launching new CPU evaluations.
+
+Final verification command:
+.venv/Scripts/python.exe -m pytest tests/test_learner_return_study.py tests/test_learner_response.py -m "not cuda" -q
+Result9 passed,2 CUDA tests deselected,5 upstream Transformer warnings in59.81s.
+The reduced real CPU pipeline has10 subprocess jobs,2 trained conditions with256
+simulator decisions and8 evaluation cells totaling32 matches /3,640 decisions.
+It reports no strength qualification. Tests cover receipts/protocols, evaluation
+opponent identity, separate upstream GPU/CPU gates and launch-failure records.
+Updated CPU restart test also checks all CUDA RNG states without training on GPU.
+No production/current-study inputs changed; Ruff and whitespace checks pass.
+
+The final-source smoke data were independently re-read through the frozen input,
+training, scheduling and raw-statistic checks. Pipeline audit
+runs/learner_return_pipeline_audit.json SHA
+b25d92871a89397fe29b79698b029acc5cfa7845f03c8cdd5abfdee50d70d428.
+The exact39-file smoke directory is retained as
+runs/learner_return_pipeline_evidence.zip (237,143,656 bytes), SHA
+07f2d0e5e2a5aefb42f9f7620f8bcf41efec137d187242cdf47643ac6eb25e26;
+every member SHA and ZIP CRC verified. Historical absolute candidate paths inside
+the reports are preserved; the archive prevents pytest temporary-directory cleanup
+from discarding this evidence.
+
+scripts/check_learner_gpu.py supports a single guarded transition: wait for the
+existing GPU training jobs to exit successfully, check frozen verification files,
+run the actual CUDA exact-restart test, then three production-size GPU updates.
+Only a successful checkpoint-bound audit enables the prepared research runner.
+Failure stops the sequence and retains logs; no retry or test waiver. This gate
+has been prepared but its CUDA checks have not yet run.

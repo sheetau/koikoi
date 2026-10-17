@@ -149,8 +149,13 @@ def test_collector_reference_actions_rewards_returns_counters(device, monkeypatc
     assert len(trainer.optimizer.param_groups) == 2
 
 
-def test_cpu_warmup_restart_and_frozen_weights(tmp_path):
-    trainer = LearnerTrainer(config())
+@pytest.mark.parametrize(
+    "device", ["cpu", pytest.param("cuda", marks=pytest.mark.cuda)]
+)
+def test_warmup_restart_and_frozen_weights(tmp_path, device):
+    if device == "cuda" and not torch.cuda.is_available():
+        pytest.skip("CUDA unavailable")
+    trainer = LearnerTrainer(config(device=device))
     original = trainer.model.actor.checkpoint()["current"]["parameters_sha256"]
     opponents = copy.deepcopy(trainer.frozen.checkpoint())
     assert trainer.update()["critic_only"]
@@ -163,12 +168,15 @@ def test_cpu_warmup_restart_and_frozen_weights(tmp_path):
     model = copy.deepcopy(trainer.model.state_dict())
     optimizer = copy.deepcopy(trainer.optimizer.state_dict())
     state, rng = trainer.env.state.clone(), torch.get_rng_state().clone()
+    cuda_rng = torch.cuda.get_rng_state_all()
     restored = LearnerTrainer.restore(checkpoint)
     assert restored.update() == metrics
     assert trainer.counters == restored.counters
     assert trainer.opponent_work == restored.opponent_work
     assert torch.equal(state, restored.env.state)
     assert torch.equal(rng, torch.get_rng_state())
+    for expected, actual in zip(cuda_rng, torch.cuda.get_rng_state_all(), strict=True):
+        assert torch.equal(expected, actual)
     for name, value in model.items():
         assert torch.equal(value, restored.model.state_dict()[name])
     equal_optimizer(optimizer, restored.optimizer.state_dict())
