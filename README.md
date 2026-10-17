@@ -143,3 +143,19 @@ This path is deterministic and applies `--endgame` to both agents. It freezes co
 In the sequential evaluator, add `--opponent-endgame` to apply the guard to a checkpoint opponent as well. Reports explicitly record whether the opponent receives assistance; comparisons reject a mismatch.
 
 Original models retain their historical input quirks. The loader adapts an obsolete PyTorch class name and loads the original parameter tensors into the same architecture on modern PyTorch. Fetch source with `python -m koikoi.upstream --fetch`; the pin and license are in [third-party notices](THIRD_PARTY_NOTICES.md). Load only trusted local training checkpoints: PyTorch pickle deserialization is used.
+
+## Experimental pretrained-policy PPO
+
+`koikoi.published_train` initializes three differentiable phase networks from the pinned original WP weights and trains them with the existing match-reward, signed-GAE PPO. Legal action probabilities are explicitly `softmax(original_scores / score_temperature)`, with temperature 0.05 by default. These Q scores are not calibrated probabilities; stochastic training differs from the original greedy policy. A separate public-observation value network learns without shared actor parameters. The first 20 updates train only that critic by default, then all three actor networks are unfrozen. These are experimental settings, not a demonstrated improvement.
+
+```powershell
+./.venv/Scripts/python.exe -m koikoi.published_train --run runs/pretrained_trial --updates 100
+./.venv/Scripts/python.exe -m koikoi.published_train --run runs/pretrained_trial --resume runs/pretrained_trial/latest.pt --updates 200
+./.venv/Scripts/python.exe -m koikoi.evaluate --agent runs/pretrained_trial/latest.pt --opponent rl-wp-assisted --profile paper8 --pairs 1000 --deterministic --endgame --output runs/pretrained_trial/evaluation.json
+```
+
+Use `--config path.json` for overrides to `PublishedConfig`. Defaults use paper8, 128 environments, horizon128, minibatch512, three epochs, actor LR3e-6 and value LR1e-4. `critic_width` controls the new value network; inherited `width`/`layers` do not resize the fixed upstream256-wide/two-layer actors. Dropout stays disabled with gradients enabled. This mode requires eager float32 self-play; search, batched evaluation, belief learning, frozen opponents and captured execution are currently unsupported. Use the sequential evaluator shown above.
+
+Checkpoints embed trained actor/value weights, original-weight identities, Adam, environment and RNG state, and runtime settings. Resume requires the pinned source classes but does not reread original weight files; runtime/source changes are checked. `--updates` is the total update target, including critic warmup. Counters distinguish policy updates, critic-only updates, actual terminal matches/rounds/decisions and phase-specific optimizer steps. A match may span the end of warmup; warmup match counters count terminations during that period.
+
+Run `python -m scripts.benchmark_published_ppo --output runs/new_benchmark_directory` for the fixed feasibility measurement: three critic-only updates followed by five full actor/value updates. It records full-learning throughput and allocator memory separately from initialization, warmup and checkpoint IO. This diagnostic is not strength evidence and contributes nothing to the completed100M research12 scale claim.

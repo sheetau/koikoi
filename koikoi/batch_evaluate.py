@@ -98,6 +98,8 @@ def main():
         NeuralAgent(p, device=args.device, deterministic=True)
         for p in (args.agent, args.opponent)
     ]
+    if any(agent.published_env is not None for agent in agents):
+        parser.error("Pretrained published actors require koikoi.evaluate")
     if any(agent.profile != args.profile for agent in agents):
         parser.error("Checkpoint rule profiles must match the evaluation profile")
     guards = tuple(args.endgame or agent.requires_endgame for agent in agents)

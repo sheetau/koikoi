@@ -79,6 +79,8 @@ class SearchAgent:
         chunk_size=0,
         confirmation_particles=0,
     ):
+        if getattr(neural, "published_env", None) is not None:
+            raise ValueError("Search does not yet support pretrained published actors")
         if particles < 1 or horizon < 1:
             raise ValueError("Search budgets must be positive")
         self.neural, self.particles, self.horizon = neural, particles, horizon

@@ -54,14 +54,37 @@ class NeuralAgent:
         self.training_provenance = payload["provenance"]
         config = payload["config"]
         self.training_config = config
-        self.model = (
-            PolicyValue(
-                config["kind"], config["width"], config["layers"], config.get("koi_width", 0)
+        self.published_env = None
+        if payload.get("format") == "published_ppo_v1":
+            from .env import BatchEnv
+            from .published_train import PublishedConfig, PublishedPolicyValue
+
+            if (
+                payload["provenance"]["published_initialization"]
+                != payload["actor"]["initialization"]
+            ):
+                raise ValueError("Published PPO initialization identity mismatch")
+            torch.backends.cuda.matmul.allow_tf32 = False
+            torch.backends.cudnn.allow_tf32 = False
+            torch.backends.cudnn.benchmark = False
+            torch.backends.cudnn.deterministic = True
+            self.model = PublishedPolicyValue(
+                PublishedConfig(**config), payload["actor"], device
+            ).eval()
+            self.model.value.load_state_dict(payload["value"])
+            self.published_env = BatchEnv(1, device, "paper8")
+        else:
+            self.model = (
+                PolicyValue(
+                    config["kind"],
+                    config["width"],
+                    config["layers"],
+                    config.get("koi_width", 0),
+                )
+                .to(device)
+                .eval()
             )
-            .to(device)
-            .eval()
-        )
-        self.model.load_state_dict(payload["model"])
+            self.model.load_state_dict(payload["model"])
         self.device, self.deterministic = device, deterministic
         self.profile = config["profile"]
         self.belief_trained = config["belief_weight"] > 0
@@ -75,8 +98,16 @@ class NeuralAgent:
             if action is not None:
                 self.solved_decisions += 1
                 return action
-        obs = torch.from_numpy(env.observe()).to(self.device).unsqueeze(0)
-        mask = torch.from_numpy(env.legal()).to(self.device).unsqueeze(0)
+        if self.published_env is not None:
+            from .published_train import packed_observation
+
+            self.published_env.state.copy_(
+                torch.from_numpy(env.state).to(self.device).unsqueeze(0)
+            )
+            obs, mask = packed_observation(self.published_env)
+        else:
+            obs = torch.from_numpy(env.observe()).to(self.device).unsqueeze(0)
+            mask = torch.from_numpy(env.legal()).to(self.device).unsqueeze(0)
         logits, _, _ = self.model(obs, mask)
         return int(
             logits.argmax(-1)
