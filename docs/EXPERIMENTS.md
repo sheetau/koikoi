@@ -1838,3 +1838,44 @@ receipt and was correctly rejected; a fresh completed_paired name was used.
 Previous clarity PDF preserved as output/pdf/manuscript_clarity_a6538307.pdf.
 Original evidence archive remains unchanged. Opponent-target59220 and static48159
 continue with bound code untouched; no new strength improvement is established.
+
+
+## Static controls complete; fixed switch-budget diagnostic prepared
+
+Sessions48159 and98461 exited0. All8 static matchups and the automatic watcher
+completed successfully. Static audit SHA256
+ebd960ce36e97ab51a20f14be9360c5eab0313bf5d6d31faf374e99f39319ad8.
+Supplemental all-hybrid versus unchanged-parent comparison, independently checked
+from raw records, is runs/static_expert_controls/parent_comparisons.json SHA256
+1bbfaad279a585cc82dfa0bc045c5086511a0be3daf3010c196adb0aadb9a4f5.
+Actual static work:16,000 matches /1,855,405 decisions on the reused1,000 unique
+22M development streams. No new independent deal population is implied.
+
+Point-only koi substitution increases expected point margin over the parent in
+all four comparisons: parent1 WP+1.723 [0.921,2.532025], Point+1.956
+[1.152,2.758025]; parent2 WP+0.926 [0.128975,1.723], Point+2.086
+[1.23595,2.902]. Corresponding win changes are-0.800pp [-2.125,0.550],+0.900pp
+[-0.425625,2.225],-0.850pp [-2.225,0.500],+0.900pp [-0.500,2.275]. All8
+hybrid-versus-parent win intervals include zero. Learned full/no_match selection
+does not establish replicated win improvement over these static controls either.
+No deployment promotion.
+
+The opponent-target study59220 completed first-parent collection, cache audits,
+both fits and cross-evaluation, then began parent2 collection. First-parent
+source:601,728 decisions /301,419 learner /300,309 opponent decisions;
+40,283 round endings /5,129 matches (2,571 WP /2,558 Point). Opponent-preserving
+minus parent-only fitted model on opponent-preserving labels: win+0.046104pp
+[-0.215089,0.302850]; points-0.052559 [-0.197653,0.086176]. This partial result
+does not establish target-construction benefit; parent2 and the full audit remain
+pending. Both first-parent scorers choose Point at roughly49--53% of held-out
+source disagreements, versus10% in source behavior.
+
+A separate fixed10% training-score-quantile diagnostic is implemented in
+scripts.diagnose_switch_budget; its first application covers only the two existing
+larger-data feature/paired_win endpoints. It retains ties with the parent and
+reports unrestricted/expert/same-rate-randomized expected-outcome controls on the
+same consumed held-out roots. Two tests pass,0 skipped, including actual
+collection, fitting and diagnosis; one expected upstream warning. No neural
+uncertainty guarantee or match-strength claim. POLICY_IMPROVEMENT.rst documents
+the exact design and verified primary DAgger/AggreVaTe/SPIBB positioning. All
+18 active opponent-target dependencies remain unchanged.
