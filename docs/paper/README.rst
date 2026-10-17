@@ -50,3 +50,35 @@ records were verified against https://arxiv.org/abs/1707.06347 and
 https://arxiv.org/abs/1506.02438 on 2026-10-17. Development, earlier-screen,
 feature-compatibility, unsuccessful-search, diagnostic and scale evidence
 remain distinct in generated/evidence.json.
+
+Prepared latency measurement
+----------------------------
+
+scripts/benchmark_final_latency.py has a frozen local protocol at
+runs/final_latency/protocol.json (SHA256
+ddec2df361cc2e206ab4759ac6f8a477fbf712003ff56dfac8f8887bfdc4083f).
+It is prepared, not measured. After the original final study has exited and
+passed its complete independent audit, run::
+
+    .venv/Scripts/python.exe -m scripts.benchmark_final_latency --run
+    .venv/Scripts/python.exe -m scripts.audit_final_latency
+
+The measured operation is the same CPU agent.act call used by the final
+evaluation, including its public endgame wrappers, feature construction and
+inference. Agent loading, reference construction, simulator transitions,
+correctness checks and process inventories are excluded from call timing.
+The four agents use the same 1,287 cached development states, with two warmup
+passes and eight measured passes. Agent order rotates so each agent occupies
+each ordering position twice. Reports separate a 1,024-state mixed sample,
+64 unguarded states from each of four phases, and 32 guarded states. These
+groups overlap; repeated timings are descriptive, not independent confidence
+samples or a deployment-policy state distribution.
+
+The runner rejects a live/unaudited final study and checks for project training
+or evaluation workers at measured-pass boundaries. It never terminates other
+processes and refuses to overwrite an existing timing run. Unrelated operating
+system activity is not controlled. The independent auditor verifies cached
+sampling, identities, legality, repeated action stability, phase/guard groups,
+work counts and raw timing summaries; it does not independently remeasure the
+wall clock or rerun inference. This task simulates no matches and consumes no
+additional final deals.
