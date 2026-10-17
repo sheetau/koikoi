@@ -2224,3 +2224,70 @@ wrapper58580). First-parent response evaluation continues on both fixed public
 opponents; its self-play control is queued for evaluator capacity. No partial
 candidate result is ranked or used to alter this study. The remaining conditions
 and full raw-outcome/contrast audit are still required before a strength claim.
+
+## Six response-study evaluation cells complete
+
+The parent2/Point baseline and both parent1_response evaluations exited0, each
+at exactly 5,000 paired deals. Recomputed raw means and bootstrap intervals,
+seat-score consistency, seed order, decision sums, endpoint identity and job
+receipts all pass. The response endpoints additionally match their passed
+training-audit receipt. New report:
+runs/response_completed_evaluation_audits/second_three.json, SHA
+b22d5bbf241b04d8b2f1b21a91d9c1b2cdde36736242097adee7337443c4fa3a.
+These three cells add 30,000 matches /3,497,403 decisions. Together with the first
+three audited cells: 60,000 matches /6,973,303 decisions on the same 5,000 unique
+deal streams. All four baselines and the first response model's two matchups are
+complete; remaining self-play and second-parent conditions still preclude the
+fixed replication decision. No inter-arm contrast or ranking was performed.
+The scheduler started both parent1_selfplay evaluations and continues the second
+response trainer. Source identities remain fixed.
+
+## Exact observer-switching bootstrap counterexample
+
+The next methodological investigation concerns the information used to bootstrap
+an actor's return, rather than another action-selection threshold. A uniform
+private signal X and public binary action A lead to a fixed exposed opponent move
+and terminal Bernoulli signed payoff. Conditional payoff means by X/action are
+[[0.20,0.21],[1.0,-1.0]], and the initial learner policy is uniform in both states.
+Both critics are exact conditional expectations of their own observations.
+The opponent observes A but not X. Full derivation and prior-work positioning
+are in docs/OBSERVER_RETURNS.rst.
+
+With lambda0.95, the signed recurrence gives lambda*R+(1-lambda)*E[R|A]-V(X).
+For the policy parameter at X=0, the true unconditional gradient is +1/800;
+the surrogate expectation is -161/32000. This reverses that coordinate, not the
+entire gradient vector. Correct signs and exact conditional-value fitting alone
+do not resolve this information mismatch. This is a finite counterexample to a
+general unbiasedness assumption, not evidence that it caused the observed Koi-Koi
+results. The design already disclaims unbiased finite-observation PPO.
+
+scripts/diagnose_observer_bootstrap.py enumerates all eight signal/action/reward
+combinations, including zero-probability outcomes, and checks analytic fractions,
+a direct objective derivative, Python signed GAE and native returns. Four cases
+are checked on both CPU and CUDA: the example, lambda1, a learner-to-terminal
+transition, and an intermediate joint-information critic. The latter three
+restore the true expectation in this example. The compressed transition has
+higher single-sample gradient variance (0.1197453 versus0.1080973 for theta_0),
+so this result alone does not predict stronger finite-budget learning.
+
+Commands: python -m scripts.diagnose_observer_bootstrap
+ --output runs/observer_bootstrap_verified_cpu.json
+and the same with --device cuda
+ --output runs/observer_bootstrap_verified_cuda.json.
+Both pass. CPU report SHA
+4e3e05b73b4e019bf9e68cf2b90afe0d61a2829b0e821dc303d1224b6a13aeab;
+CUDA report SHA
+50ecb0247856ed6ddd19b91fb1db841fc52f0783682ea6fc59780fbb4306de7b.
+Both bind the diagnostic and full production source identity. Initial assertions
+incorrectly demanded double-precision equality from a recurrence whose sign/live
+multiplication uses float32; the observed 1.50e-9 discrepancy was numerical.
+Final checks separate the analytic value from Python/native values and use
+3e-8 gradient /3e-7 advantage tolerance. Earlier pre-identity reports are retained.
+There is no new simulation, fitting or Koi-Koi evaluation in this calculation.
+
+The concrete next capability is to accumulate fixed-opponent transitions until
+the next learner observation or terminal outcome, retaining primitive-step
+accounting and explicit unfinished-tail masking. It has not yet been implemented
+or adopted. It is a decision-time reduction with known theoretical relatives,
+not a new general policy-gradient theorem. The existing response study remains
+unaltered and must finish under its original protocol.
