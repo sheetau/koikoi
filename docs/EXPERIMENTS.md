@@ -1054,3 +1054,45 @@ Totals4,096,000 NEW complete paper8 matches,32,021,692 rounds,481,797,030 actual
 Second-parent MC final update_00000500.pt SHA76ffcc078b31fbbbbb07299205357a0835f4c638d451c4d83dae1a9a342f0938; complete metrics SHA f8dd1e7c5ebbd94f3e10babd9fa8ef3819b107ab7d1ab4dbbe63abecf2eb66cd. Second-parent control final SHAb43d7f06be6a8214bc90a1eeea93811257f8bd81e56fc13c71072f98baa28955; metrics SHAd6de00d561280acfb26d9c34f27b40c49bd84caac95add09edfcd1b08b9885d7. First-parent immutable hashes remain as recorded above.
 
 All-four checkpoint audit passes: runs/complete_mc_screen/checkpoint_audit_4.json SHA8d76df23b2f8b497d911f0c8416c52ff27e2c1fb1994de446770daabf5396c06, auditorc40aa7b8.... All8,192 final reset states exactly reconstruct in the Python reference at episode500; saved episode counts, configurations, parent ancestry, metric bounds/partitions, finite tensors and actual variable-batch Adam steps agree. Earlier two-case snapshot remains preserved. This is checkpoint_checks_only with paired_outcomes_checked=false, not independent replay of every training trajectory or strength evidence. Complete all four original evaluations and full raw-outcome audit before any method decision. Final seeds remain unused.
+
+
+## Complete-MC screen: final outcomes and rejection
+
+All four1,000-pair fixed endpoint evaluations completed with exit0; the entire eight-job session32904 exited0, runner47352 and last shim62224 absent. No process was restarted or protocol changed. Manifest remains complete_awaiting_audit, denoting the runner's terminal stage. Full command .venv/Scripts/python.exe -m scripts.audit_complete_screen passed. Audit runs/complete_mc_screen/independent_audit.json SHA2fea1ce2c6ffabaec75c9a90b7546d6c214844cedfddeba420e10e46c3822c07; summary SHAc69ebdb5051c689bfc2d94b78680d19ca8a76be9eab491e48d59d9284fa40912. Auditorc40aa7b8..., production005484ab..., runner6085505e..., protocolb397ad22... remain fixed. Scope includes all stored checkpoint/configuration/ancestry/Adam/budget/identity checks, Python reconstruction of final reset states, and independent raw paired arithmetic/criteria; not independent replay of every training/evaluation trajectory.
+
+All endpoints: same1,000 development duplicate pairs seeds1,000,000-1,000,999, paper8/deterministic/endgame/no-search against strict CPU assisted RL-WP, protocol2. Win scores count draws as one half;5,000 pair bootstrap replicates with default_rng99. Multiple previously explored endpoints and shared deals limit these to development evidence.
+
+| Parent/arm | Win score % (95% CI) | Mean point difference (95% CI) |
+| --- | ---: | ---: |
+| seed1 MC | 46.475 (44.650,48.275) | -0.430 (-1.529050,0.670025) |
+| seed1 control | 51.075 (49.275,52.900) | 2.175 (1.037975,3.329000) |
+| seed10001 MC | 46.725 (44.875,48.475) | -0.741 (-1.928025,0.422150) |
+| seed10001 control | 49.775 (48.050,51.525) | 1.984 (0.884000,3.095125) |
+
+Paired differences, win score in percentage points:
+
+| Parent/comparison | Win-score difference (95% CI) | Point difference (95% CI) |
+| --- | ---: | ---: |
+| seed1 MC-control | -4.600 (-6.950,-2.425) | -2.605 (-4.032075,-1.248800) |
+| seed1 MC-parent | -1.350 (-3.550,0.825625) | -1.405 (-2.770025,-0.121900) |
+| seed1 control-parent | 3.250 (1.125,5.400) | 1.200 (0.021950,2.420075) |
+| seed10001 MC-control | -3.050 (-5.325625,-0.799375) | -2.725 (-4.137000,-1.337975) |
+| seed10001 MC-parent | -2.650 (-4.900,-0.350) | -1.231 (-2.681025,0.181025) |
+| seed10001 control-parent | 0.400 (-1.675,2.475) | 1.494 (0.331000,2.675000) |
+
+Report evaluation.json SHA256 values under runs/complete_mc_screen:
+
+- seed1_mc:ac55fbf8a0a025a247fa809117dc07b60d980cee0a23819f2f411bbea3953605.
+- seed1_control:fecef17d273b873b68441bd5b7f18b1ac3129f4a95a12ac88fea8ecaa805a57a.
+- seed10001_mc:df19413587f757b11c3e57b1705c06a12aae2718c2bc9a9eebe8e8f4dd6851b5.
+- seed10001_control:fe5543e2a806c1204cd8ecccb6483db03cd92707dd1ea0b650a1bf83d33e6d68.
+
+Decision: paired_eligibility=false and replicated_absolute_development_signal=false. Both MC-minus-control score intervals are wholly negative; both MC absolute win-rate upper bounds are below50%. Reject this complete-MC intervention and unchanged extension. Retain optional complete collection for explicitly identified research; default fixed-horizon/lambda0.95 remains. No intermediate checkpoint selection, automatic promotion of the descriptive control, new final-test seeds or public-superiority claim. The control's seed1 gain does not replicate on seed10001. Higher-variance full returns, shared value targets, multi-epoch PPO and variable decisions/Adam counts are simultaneous features of the intervention; these outcomes do not isolate a causal mechanism. No experiment remains live.
+
+## Source inspection informing the next research decision
+
+After completing the fixed screen, inspected the pinned upstream89d789565c7c36c84b74662e43001d960bf80901 training sources. The WP branch in rl_train.py uses a round-ending target: next round index, resulting player points and whether that player will be dealer index win_prob_mat; terminal or bankrupt outcomes use exact draw/win/loss probabilities. It multiplies this probability by10 and assigns it to sampled actions in that round (TraceSimulator discount defaults1), then regresses selected-action Q values. This is a different estimator from our full-match PPO lambda1 target. The script's checked-in task_name defaults to point; inspecting the WP branch is not a reproduction of the published weight-training run.
+
+rl_wp_reward_simulate.py describes per-score/per-round continuation simulations; rl_wp_reward_regress.py fits a logistic point-to-win model per round and obtains the opposite dealer role by symmetry. Their table is policy-dependent and not automatically valid for our sampled actors. No script was executed or external weights/data imported. The checked-in simulation call/signature also needs verification before claiming reproducibility. get_master_net loads SL agents for the comparison master; this does not by itself establish SL initialization of the RL actors, whose main path creates new action networks. Preserve this distinction.
+
+Next research priority: inspect/calibrate a public round-boundary continuation estimator under our current policies, using only round/points/dealer context and separately held-out complete trajectories before choosing a new bounded training intervention. The current diagnostic corpus may supply calibration evidence, but its reused trajectories are not independent strength confirmation. Do not substitute round termination for true match termination or assume upstream-style targets preserve optimality without specifying the estimator and validating its use. No next training protocol has yet been selected.
