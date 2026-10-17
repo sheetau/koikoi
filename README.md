@@ -2,6 +2,32 @@
 
 GPU-parallel Koi-Koi simulation, self-play PPO and Q-boosting, published-baseline evaluation, and belief-sampled inference rollouts. This is a research implementation; no strongest-AI or equilibrium claim has been established. See [current evidence](docs/STATUS.md), [rules](docs/RULES.md), and [architecture](docs/DESIGN.md).
 
+## 人とAIの対戦
+
+Windowsではルートの **`play.cmd` をダブルクリック**すると対戦画面が開きます。PowerShellからは、このプロジェクトのフォルダーで次を実行できます。
+
+```powershell
+./.venv/Scripts/python.exe -m koikoi.play
+```
+
+標準の対戦相手は、最終評価に採用した追加学習済みモデル `seed6710001_warm` です。CPUの2スレッド、決定的な行動選択、公開情報の終盤補助あり、探索なしで動作します。GPUやPySimpleGUIの追加インストールは不要です。ゲームはこのPC上で動作し、通信・追加学習・棋譜保存は行いません。
+
+- 金色の枠の手札をクリックして出します。同じ月の場札が2枚あるときは、取る札をクリックします。
+- 山札は自動でめくられます。役が増えたら **「上がり」／「こいこい」** を選びます。
+- 局の終了後は **「次の局へ」** で続けます。8局、各30点、0点以下で早期終了する論文準拠のルールです。独自の加点方式は画面の **「遊び方・役」** と [ルール](docs/RULES.md) を参照してください。
+- 上部の一覧で対戦相手を選び、**「最初から」** で切り替えます。原論文のRL-WP、RL-Point、練習用AIも選べます。
+- AIの手札は裏向きです。ウィンドウを閉じると終了し、次の起動は新しい対戦になります。
+
+原論文のモデルを直接指定することもできます。
+
+```powershell
+./.venv/Scripts/python.exe -m koikoi.play --opponent rl-wp
+./.venv/Scripts/python.exe -m koikoi.play --opponent rl-point
+./.venv/Scripts/python.exe -m koikoi.play --opponent greedy
+```
+
+この作業環境には必要なファイルが揃っています。別のPCでは、下記SetupのPython環境、固定版の `external/KoiKoi-AI`（画像とモデルの依存コード）、[復元手順](docs/ARTIFACTS.rst)にある採用チェックポイントが必要です。モデルがない場合、別のAIへ無断で切り替えずエラーを表示します。`play.cmd` で問題が出たときは上のPowerShellコマンドでエラー内容を確認してください。画像は既存の外部チェックアウトから読み込み、再配布していません。
+
 ## Audited model and final results
 
 The fixed warm pretrained-PPO method passed the two-model final win criterion against the pinned assisted RL-WP policy: draw-adjusted scores **51.480% [50.970, 51.975]** and **51.445% [50.945, 51.953]**, with 95% pair-bootstrap intervals. Each model/opponent comparison used 10,000 duplicate pairs; the four comparisons share 10,000 deal streams and total 80,000 matches. The separate RL-Point win criterion did not replicate, and both models lost expected points to RL-Point. These results concern the pinned eight-round rules and policies, not universal or human superiority.
