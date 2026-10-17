@@ -1,4 +1,6 @@
+#include <math.h>
 #include "core.h"
+#include "published.h"
 #ifdef _WIN32
 #define EXPORT extern "C" __declspec(dllexport)
 #else
@@ -18,6 +20,9 @@ EXPORT void kk_solved(const int *s,int *a,int n){
 }
 EXPORT void kk_observe(const int *s,float *o,bool *mask,float *target,int n){
     for(int i=0;i<n;++i)observe(s+i*SS,o+i*OS,mask+i*AS,target+i*48);
+}
+EXPORT void kk_published(const int *s,float *o,bool *mask,int n){
+    for(int i=0;i<n;++i)published_observe(s+i*SS,o+i*PUB_SIZE,mask+i*AS);
 }
 EXPORT void kk_reset(int *s,int n){
     for(int i=0;i<n;++i){int *v=s+i*SS;if(v[PH]==4)init(v,v[SEED],v[EP]+1,v[ROUNDS],v[BANK]);}

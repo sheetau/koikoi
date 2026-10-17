@@ -50,6 +50,23 @@ class BatchEnv:
             raise ValueError("Illegal action; affected states were not changed")
         return result
 
+    def published_observe(self):
+        """Pinned upstream inputs, padded to 300x50, and native 50-action masks.
+
+        Card decisions use the first 48 columns; koi decisions use all 50.
+        Terminal rows are all zero with no legal action. No state is changed.
+        """
+        if self.profile != "paper8":
+            raise ValueError("Published features require the paper8 profile")
+        features = torch.empty(
+            (self.count, 300, 50), dtype=torch.float32, device=self.device
+        )
+        mask = torch.empty((self.count, 50), dtype=torch.bool, device=self.device)
+        self.backend.call(
+            "kk_published", self.count, self.state, features, mask, self.count
+        )
+        return features, mask
+
     def solved_actions(self):
         """Public match-outcome dominance: 48/49, or -1 when unresolved."""
         actions = torch.empty(self.count, dtype=torch.int32, device=self.device)

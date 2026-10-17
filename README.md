@@ -21,6 +21,21 @@ The first native CPU build is cached under ignored `build/`; kernels compile at 
 
 Tests compare independent Python rules with C++ and CUDA, scoring and full matches with the pinned original implementation, model inputs with replayed original inputs, hidden-information invariance, sampling constraints, signed returns, and exact CPU checkpoint continuation. CUDA tests skip explicitly on CPU-only hosts. Upstream tests skip unless fetched.
 
+## Batched published-model inference
+
+After fetching the pinned upstream checkout, the optional paper8 adapter runs its original weights against native300-feature inputs on CPU or CUDA:
+
+```python
+from koikoi.env import BatchEnv
+from koikoi.upstream_batch import BatchPublishedAgent
+
+env = BatchEnv(256, "cuda", profile="paper8")
+agent = BatchPublishedAgent("wp", "cuda", endgame=True)
+actions = agent.act(env)  # int32(B,), native card IDs or STOP48/CONTINUE49
+```
+
+The adapter supports `wp` and `point`; `env.published_observe()` exposes the padded features and legal mask. Terminal actions are-1. Batch/device arithmetic can differ from singleton CPU inference; record batch sizes and TF32 settings for experiments. The strict published opponent in `koikoi.evaluate` stays unchanged. This API is not yet integrated into training or history-support certification. Compatibility/numerical/latency evidence is in [EXPERIMENTS.md](docs/EXPERIMENTS.md).
+
 ## Train
 
 ```powershell

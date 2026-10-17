@@ -18,7 +18,9 @@ BUILD = Path(__file__).resolve().parents[1] / "build"
 def build_cpu():
     BUILD.mkdir(exist_ok=True)
     digest = hashlib.sha256(
-        (SOURCE / "core.h").read_bytes() + (SOURCE / "cpu.cpp").read_bytes()
+        (SOURCE / "core.h").read_bytes()
+        + (SOURCE / "published.h").read_bytes()
+        + (SOURCE / "cpu.cpp").read_bytes()
     ).hexdigest()[:16]
     out = BUILD / (f"koikoi_{digest}.dll" if os.name == "nt" else f"koikoi_{digest}.so")
     if out.exists():
@@ -80,6 +82,7 @@ class CPU:
             "kk_step_frozen": [C.c_void_p, C.c_void_p, C.c_void_p, C.c_int],
             "kk_solved": [C.c_void_p, C.c_void_p, C.c_int],
             "kk_observe": [C.c_void_p] * 4 + [C.c_int],
+            "kk_published": [C.c_void_p] * 3 + [C.c_int],
             "kk_reset": [C.c_void_p, C.c_int],
             "kk_gae": [C.c_void_p] * 8 + [C.c_int, C.c_int, C.c_float],
         }.items():
@@ -125,6 +128,7 @@ class CUDA:
         source = "#define KK_HD __device__ __forceinline__\n" + (
             SOURCE / "core.h"
         ).read_text(encoding="utf-8")
+        source += (SOURCE / "published.h").read_text(encoding="utf-8")
         source += (SOURCE / "kernels.cu").read_text(encoding="utf-8")
         program = C.c_void_p()
         self.check(
@@ -164,6 +168,7 @@ class CUDA:
             "kk_step_frozen",
             "kk_solved",
             "kk_observe",
+            "kk_published",
             "kk_reset",
             "kk_gae",
         ):
@@ -226,7 +231,7 @@ class CUDA:
             self.check(
                 self.driver.cuLaunchKernel(
                     self.functions[name],
-                    (n + 127) // 128,
+                    n if name == "kk_published" else (n + 127) // 128,
                     1,
                     1,
                     128,
