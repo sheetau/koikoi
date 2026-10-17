@@ -1,10 +1,17 @@
 """Prespecified selection, resource/dependency gates and failed-worker cleanup."""
 
+import copy
 import json
 
 import pytest
 
 import scripts.run_cold_ppo_screen as screen
+from scripts.audit_cold_ppo_screen import (
+    independent_decision,
+    metrics,
+    raw_pairs,
+    validate_schedule,
+)
 
 
 @pytest.mark.parametrize(
@@ -18,8 +25,9 @@ import scripts.run_cold_ppo_screen as screen
         ((0.49, 0.49), (0.49, 0.49), (-0.01, -0.01), None),
     ],
 )
+@pytest.mark.parametrize("audit", [False, True])
 def test_fixed_selection_requires_replication_and_uses_canonical_seed(
-    warm, cold, paired, expected
+    warm, cold, paired, expected, audit
 ):
     endpoints = {
         f"seed{seed}_{arm}": {"win_ci95": [values[i], 0.6]}
@@ -30,7 +38,16 @@ def test_fixed_selection_requires_replication_and_uses_canonical_seed(
         str(seed): {"score_difference_ci95": [paired[i], 0.1]}
         for i, seed in enumerate(screen.SEEDS)
     }
-    result = screen.decision(endpoints, differences)
+    if audit:
+        result = independent_decision(
+            {k: {"score_ci95": v["win_ci95"]} for k, v in endpoints.items()},
+            {
+                k: {"score_ci95": v["score_difference_ci95"]}
+                for k, v in differences.items()
+            },
+        )
+    else:
+        result = screen.decision(endpoints, differences)
     assert result["selected_arm"] == expected
     assert result["canonical_case"] == (
         None if expected is None else "seed6710001_" + expected
@@ -145,3 +162,87 @@ def test_initial_gate_rejects_deal_range_and_asymmetric_pairs():
     rows[1]["seat1_point_difference"] = 0
     with pytest.raises(AssertionError):
         screen.initial_gate(report)
+
+
+@pytest.mark.parametrize(
+    "fault", [None, "duplicate", "missing", "wrong_score", "odd_points", "nonfinite"]
+)
+def test_independent_raw_pair_fixture(fault):
+    rows = [
+        {
+            "seed": 20,
+            "seat0_score": 1,
+            "seat1_score": 0,
+            "seat0_point_difference": 2,
+            "seat1_point_difference": -2,
+        },
+        {
+            "seed": 21,
+            "seat0_score": 1,
+            "seat1_score": 0.5,
+            "seat0_point_difference": 2,
+            "seat1_point_difference": 0,
+        },
+    ]
+    report = {"pairs": 2, "records": rows}
+    if fault is None:
+        scores, points = raw_pairs(report, first=20, count=2)
+        assert scores.tolist() == [0.5, 0.75] and points.tolist() == [0, 1]
+        return
+    if fault == "duplicate":
+        rows[1]["seed"] = 20
+    elif fault == "missing":
+        rows.pop()
+    elif fault == "wrong_score":
+        rows[1]["seat1_score"] = 1
+    elif fault == "odd_points":
+        rows[0]["seat0_point_difference"] = 3
+    else:
+        rows[0]["seat0_point_difference"] = float("nan")
+    with pytest.raises(AssertionError):
+        raw_pairs(report, first=20, count=2)
+
+
+def test_live_metric_tail_is_not_mistaken_for_a_completed_update(tmp_path):
+    path = tmp_path / "metrics.jsonl"
+    path.write_bytes(b'{"updates":1}\n{"updates":2')
+    assert metrics(path) == [{"updates": 1}]
+    with pytest.raises(AssertionError):
+        metrics(path, final=True)
+
+
+def schedule_fixture():
+    times = {
+        "evaluate:initial": (0, 1),
+        "train:a": (0, 2),
+        "train:b": (2, 4),
+        "train:c": (4, 6),
+        "evaluate:a": (2, 8),
+        "evaluate:b": (4, 9),
+        "evaluate:c": (8, 11),
+    }
+    jobs = {}
+    for job in screen.job_plan(["a", "b", "c"]):
+        start, end = times[job["id"]]
+        jobs[job["id"]] = job | {
+            "started": start,
+            "finished": end,
+            "status": "complete",
+            "returncode": 0,
+        }
+    return jobs
+
+
+def test_independent_schedule_fixture_and_invalid_overlaps():
+    jobs = schedule_fixture()
+    validate_schedule(jobs, ["a", "b", "c"], {"cpu": 2, "gpu": 1})
+    for job, field, value in [
+        ("train:b", "started", 1),
+        ("evaluate:c", "started", 6),
+        ("evaluate:a", "started", 1),
+        ("train:a", "returncode", 1),
+    ]:
+        bad = copy.deepcopy(jobs)
+        bad[job][field] = value
+        with pytest.raises(AssertionError):
+            validate_schedule(bad, ["a", "b", "c"], {"cpu": 2, "gpu": 1})
