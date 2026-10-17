@@ -2503,3 +2503,25 @@ CPU RNG differs. Report runs/learner_return_initial_audits/parent1.json SHA
 This validates initialization matching, not equal subsequent trajectories or
 learner sample counts. Production, all old/new bound sources, public comparison
 agents, dealer choice and the playable canonical model remain unchanged.
+
+
+## Response evaluation: nine completed cells independently checked (2026-10-18)
+
+Both parent1_selfplay cells and parent2_response versus WP have now exited0.
+The independent script runs/response_completed_evaluation_audits/audit_third_three.py
+checks all original protocol inputs, endpoint/receipt/raw identities, exact seed
+coverage, seat-score/point consistency, match/decision accounting and recomputes
+both mean outcomes and5,000-bootstrap percentile intervals directly from raw
+records, without importing the production analysis helpers. All checks pass.
+These three cells total30,000 matches /3,484,172 decisions on5,000 shared23M deal
+streams. With the previous six audited cells, the total is90,000 matches
+/10,457,475 decisions; shared streams remain5,000, not45,000 independent deals.
+Round endings are not recorded in this evaluation format.
+
+Report runs/response_completed_evaluation_audits/third_three.json SHA
+3f37607c7f48b22a0152ef9f935f14f33ec343353310e02a53f222010ff1bc06 binds the
+checking script and exact closed-cell artifacts. This verifies stored statistics,
+not an independent replay of policy inference. No intermediate ranking, strength
+qualification, model selection or protocol change was made. The original study
+still has three active evaluation jobs; the new learner-return study continues
+its first training condition. Both live launcher handles were polled successfully.
