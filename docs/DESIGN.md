@@ -203,3 +203,24 @@ supervision. New checkpoint format paired_score_selector_v1 embeds expert/model
 weights, source/dataset identities and reused generation counts. The prototype
 adds no simulator or production-rule changes, and is not integrated into human
 play. See PAIRED_ROLLOUTS for assumptions, tests and launch status.
+
+
+## Public feature replay for paired datasets
+
+`scripts.cache_paired_expert_features` is an unlaunched feature-cache helper.
+It recreates the recorded source environment stream and generator on the original
+collection device, using embedded frozen experts and unchanged collection code.
+Every batch must exactly match stored562 public inputs and source-match IDs;
+aggregate source work must match too. It does not rerun branch outcomes or fit
+models. It separately records newly repeated source decisions and reused branch
+work. Packed states never leave the simulator/cache routine.
+
+The pure expert_features interface takes only native public300x50 features,
+public phase/legal masks and two proposal IDs. It exports per-proposal256-wide
+encoder representations and raw action scores from each expert. Koi actions use
+the original special tokens0/1. The cache additionally retains the public absolute
+dealer bit needed by the pinned representation. Outputs bind dataset, source,
+script, device and batch identities; they contain neither private states nor
+new outcome labels. Batch-dependent floating-point variation is retained as a
+limitation, not silently treated as universal score identity. This helper is
+available for future feature-learning controls; it changes no active experiment.

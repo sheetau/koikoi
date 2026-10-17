@@ -216,3 +216,18 @@ a seat-averaged representation would instead be a new method to evaluate.
 The current score-distribution prototype operates directly on the saved public
 inputs and requires no such reconstruction. Existing frozen experiments and
 deployment remain unchanged.
+
+
+Exact public features can instead be recovered by replaying the source stream,
+using its recorded seed, device, embedded experts and dedicated behavior RNG.
+`scripts.cache_paired_expert_features` verifies every root's public observation,
+proposals and source-match ID before exporting features. It adds source-replay
+work and records it separately; branch outcomes are reused. It exports the public
+absolute dealer bit, two experts'256-wide encoder vectors for both proposals and
+their raw scores. It never exports packed states or private card labels.
+
+Only small CPU/CUDA replay tests have run:32 roots each, exact source alignment,
+checkpoint reload, overwrite/misalignment rejection, and original-head equality
+across all four action phases. Four tests pass with no skips. No full dataset
+cache, feature-based fit or strength comparison has been launched. The helper
+provides a precise alternative to guessing missing public seat metadata.
