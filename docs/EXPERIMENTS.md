@@ -1165,3 +1165,41 @@ Independent checkpoint audit passed for all four endpoints: runs/round_continuat
 |seed10001_control|120,047,069|7,994,202|151,439,360|45,000|3ff4af1078bd5f39e5bd344d7677525d9559141f32fa6085fc1e9120e6d1e34c|
 
 Session72335 / actual runner6008 remains live. Initial evaluation evaluate:seed1_round shim65820/actual worker41940 confirmed via Win32_Process; progress650/1,000 duplicate pairs at this checkpoint. Only progress counts were inspected, not interim win rates. The next three fixed evaluations follow automatically. All four final reports and raw paired-outcome audit remain pending; do not promote a model or change the protocol from these training/budget checks. Production/source/runner stay unchanged through the live screen. No final-test seeds used. Previous goal turn was progress (implementation/launch); this turn adds completed-training/budget evidence while verifying the live evaluation wait.
+
+
+### Round-continuation screen: final independently audited result
+
+All four training and four evaluation jobs exited0. Session72335 exited0; actual runner6008 and last evaluator27404/shim64632 absent in Win32_Process. process.json retains the runner terminal state complete_awaiting_audit; the separate full audit supplies final verification. Production28cb54aa... and runner e3f3e755... stayed fixed through all jobs; no refit, intermediate selection, final seeds or budget changes.
+
+Full independent audit PASSED: runs/round_continuation_screen/independent_audit.json SHA5a2f51f7c959c57d2fed374ba1c70101293eb4fcb34b50e2d135040b98cc67fb; auditor SHA3fb4e53cd19d208283ff97cad259acd2f6ba70bdf163500fad6159050b73e145; protocol SHA1c335d678b0b94a15b7a1e2b40391381826140aa2fbad771344d8f884d119f21; summary SHA69cddadaa056f706f12d350e6d23f6028a7e673f9f1dd43cc7109d1e6c749134. All model/table/config/parent/comparator identities, counts/variable-batch Adam, final reset states, raw pair outcomes, endpoint/paired means and bootstrap intervals, summary entries and both prespecified criteria checked independently. Scope is stored-state/budget and raw-outcome arithmetic; not replay of all training/evaluation trajectories. Earlier checkpoint-only snapshots remain preserved. No additional code/tests were needed after the already verified auditor; the full audit executed successfully on all final artifacts.
+
+Each endpoint:1,000 shared development duplicate pairs, strict CPU assisted RL-WP, paper8/deterministic/endgame/no search/protocol2. Win score is draw-adjusted; points use final candidate-minus-opponent difference.
+
+|Case|Win %|95% CI %|Mean point difference|95% point CI|
+|---|---:|---|---:|---|
+|seed1_round|50.925|49.100000 to 52.775000|2.445|1.346950 to 3.555075|
+|seed1_control|50.575|48.750000 to 52.400000|1.526|0.379000 to 2.714025|
+|seed10001_round|49.700|47.825000 to 51.500000|1.510|0.320000 to 2.665000|
+|seed10001_control|49.725|47.974375 to 51.450000|1.441|0.326950 to 2.551000|
+
+|Parent|Comparison|Win difference, pp|95% CI, pp|Point difference|95% point CI|
+|---|---|---:|---|---:|---|
+|seed1|round_vs_control|+0.350|-1.800000 to +2.450000|+0.919|-0.376150 to +2.188000|
+|seed1|round_vs_parent|+3.100|+0.875000 to +5.275000|+1.470|+0.182975 to +2.753025|
+|seed1|control_vs_parent|+2.750|+0.600000 to +4.925000|+0.551|-0.699000 to +1.786125|
+|seed10001|round_vs_control|-0.025|-2.125000 to +2.050000|+0.069|-1.224025 to +1.334125|
+|seed10001|round_vs_parent|+0.325|-1.825000 to +2.450000|+1.020|-0.204050 to +2.257075|
+|seed10001|control_vs_parent|+0.350|-1.750000 to +2.425000|+0.951|-0.289100 to +2.195025|
+
+Evaluation report SHA256 identities:
+
+- seed1_round: 6aee366a4be969b2fd7eab189fcb1bf691b749dd9de0f5d1f0051b61646c1b73.
+- seed1_control: 31ff46b33de702d4a243136e4c5613498cb8606f071e34de5aab673779f86306.
+- seed10001_round: 0f97b5a608c338fbfca079b338b9a1c97f38534ff65194b4d25f4f7ae09190b9.
+- seed10001_control: 9d7c1b78b4666dddeeac87606626b62361eaccecf169ed00186f77770b46f5bf.
+
+Decision: BOTH-parent paired eligibility FAILED and replicated absolute public-superiority criterion FAILED. Round-target versus control differences are+0.35pp [-1.8,+2.45] and-0.025pp [-2.125,+2.05]; neither proves an improvement or harm. Both treatment absolute win intervals include50%. Seed1 improves over its original parent, but its matched control does too; seed10001 does not reproduce a positive lower-bound improvement. Positive point means do not replace the win criterion. No default adoption, unchanged extension, table refit, intermediate checkpoint reranking or final-test launch. The shared repeatedly explored deals are not2,000 independent parent samples. This result does not isolate table bias/drift, variance, value interference or representation as a cause.
+
+The full experiment contributed4,096,000 new complete paper8 matches/31,992,099 rounds/481,431,397 active decisions/606,203,904 collection rows; immutable checkpoint identities and per-arm counts are above. Do not add this work to the completed research12 scale gate. The screen is terminal and no experiment is live. Public superiority, independent selected-method confirmation, final evaluation and manuscript remain outstanding; goal active.
+
+Next direction: assess initialization from the published trained policy, rather than repeat another unsupported adjustment of these MLP return targets. This is a proposed capability diagnostic, not yet an adopted method or strength claim. The source review confirms BatchPublishedAgent already embeds three frozen original models and consumes native public/own-only300-feature tensors. Pinned koikoinet2L.py uses separate discard/pick/koi Transformer encoders (256 embedding,512 feedforward,4 heads,2 layers) with ordinary differentiable modules. Current logits() is explicitly no_grad and construction freezes parameters; it is not already a learner. Outputs are action-value scores, not calibrated action probabilities. Before any new strength protocol, verify gradient-enabled/eval-mode forward compatibility, exact parameter initialization, masks/phase routing, dropout behavior and memory/throughput on saved states; then explicitly define any stochastic policy distribution. Keep strict CPU comparator unchanged and disclose published-weight dependency. No assumption that its RL actors were initialized from supervised models: inspected upstream main creates initial action networks afresh. This direction builds on an existing validated native feature/adapter capability; no public model modification or policy training was performed in this review.
