@@ -66,8 +66,22 @@ class Config:
     policy_scope: str = "all"
     koi_width: int = 0
     deterministic_cards: bool = False
+    complete_matches: bool = False
 
     def __post_init__(self):
+        if self.complete_matches and (
+            self.algorithm != "ppo"
+            or self.reward != "match"
+            or self.opponent_fraction
+            or self.ppo_value != "shared"
+            or self.policy_scope != "all"
+            or self.cuda_graph
+            or self.cuda_rollout
+        ):
+            raise ValueError(
+                "Complete matches require eager pure-self-play match PPO "
+                "with shared value and all-action policy"
+            )
         if self.published_opponent not in ("", "wp", "point"):
             raise ValueError("published_opponent must be empty, wp or point")
         if self.published_opponent and (
@@ -246,6 +260,8 @@ class Trainer:
             else None
         )
         self.counters = {"updates": 0, "decisions": 0, "rounds": 0, "matches": 0}
+        if config.complete_matches:
+            self.counters["collection_rows"] = 0
         if config.opponent_fraction:
             self.counters["learner_decisions"] = 0
         if config.published_opponent:
@@ -399,6 +415,16 @@ class Trainer:
 
     @torch.no_grad()
     def collect(self):
+        if self.config.complete_matches:
+            from .complete_matches import collect_complete_matches
+
+            batch, totals, rows = collect_complete_matches(self)
+            rounds, matches = totals.cpu().tolist()
+            self.counters["rounds"] += rounds
+            self.counters["matches"] += matches
+            self.counters["decisions"] += len(batch["action"])
+            self.counters["collection_rows"] += rows
+            return batch
         if self.config.cuda_rollout:
             if self.captured_rollout is None:
                 self.captured_rollout = CapturedRollout(

@@ -1,5 +1,6 @@
 """Compare real archived Trainer source with unchanged default execution modes."""
 
+import argparse
 import hashlib
 import json
 import subprocess
@@ -23,6 +24,13 @@ def tensors(first, second):
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--output",
+        type=Path,
+        default=Path("runs/published_training_default_equivalence.json"),
+    )
+    args = parser.parse_args()
     source = subprocess.check_output(["git", "show", f"{REVISION}:koikoi/train.py"])
     name = "koikoi._archived_training_defaults"
     old = types.ModuleType(name)
@@ -59,6 +67,7 @@ def main():
             )
             old_config = asdict(config)
             del old_config["published_opponent"]
+            del old_config["complete_matches"]
             first = old.Trainer(old.Config(**old_config))
             second = Trainer(config)
             if fraction:
@@ -106,7 +115,7 @@ def main():
         "cases": results,
         "scope": "Actual archived Trainer versus current: metrics, model/critic/Adam, simulator, counters and CPU/CUDA RNG equal after two updates in each fixed mode; no strength evidence.",
     }
-    path = Path("runs/published_training_default_equivalence.json")
+    path = args.output
     path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8", newline="\n")
     print(json.dumps({"passed": True, "cases": len(results), "output": str(path)}))
 
