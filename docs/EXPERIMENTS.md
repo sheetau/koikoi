@@ -1016,3 +1016,23 @@ Each endpoint evaluates exactly1,000 duplicate pairs seeds1,000,000-1,000,999 wi
 
 
 Fixed complete-MC screen launched after implementation/protocol commita09e5f9 was pushed. Protocol runs/complete_mc_screen/protocol.json SHAb397ad2258f189b39265e83f88957d5a4ab66a44cddcf48d0adc78dd883b664b. Tool session32904, runner47352; first train:seed1_mc shim29252/actual Python5396 verified live. Initial observed95 updates/194,560 complete matches/1,517,769 rounds/22,945,115 active decisions/28,907,520 executed collection rows; finite policy/value/entropy/KL/gradient metrics. These are progress counters only. Source005484ab... and runner6085505e... fixed. Keep the existing pipeline; monitor atomic process.json and worker logs, without restarting on observation timeouts. Independent endpoint/checkpoint audit remains required. Adam-step expectation for each arm is three times sum over500 updates of ceil(delta active decisions/8192), because the final minibatch varies; verify exact complete matches from saved episode counters, active/padded partitions, final fresh-match states and monotonic logs before interpreting endpoints.
+
+
+## Complete-MC screen: first parent finished, independent audit prepared
+
+Existing session32904/runner47352 completed train:seed1_mc and train:seed1_control with returncode0 and automatically advanced to train:seed10001_mc, shim47864/actual Python20988 verified live. Last observed109 updates/223,232 matches with finite metrics. No endpoint strength evaluation, intermediate model selection or source/protocol change. Production005484ab... and runner6085505e... remain fixed.
+
+Added scripts/audit_complete_screen.py SHAc40aa7b872a01c53d41dc92703e9c7afe1d5ed22a2af41079543eaf1eb1440f6. It imports no runner/trainer/evaluator/comparison helpers. Checks immutable protocol and actual production/runner/config/parent/comparator hashes, final checkpoint identity/configuration/ancestry,500 monotonic metric records, valid/padded row bounds and exact match counts from saved episode IDs. Reconstructs all2,048 final reset states per completed arm using the independent Python ReferenceEnv. Derives Adam steps as epochs times the sum of per-update ceil(valid decisions/minibatch); verifies every parameter/moment shape, finite tensor and step counter. Raw full mode independently recomputes paired means/bootstrap intervals and all summary differences and prespecified criteria. Does not replay every training or evaluation trajectory; final-state reconstruction is not full training replay.
+
+14 CPU-only tests pass in1.67s: known pair-bootstrap fixtures, malformed pair scores/seeds, per-update partial minibatch rounding (8,9,2 rows require2+3+1 minibatches rather than ceil(19/4)), missing updates/match counts/padding quantum/padding lower bounds/horizon limits/nonfinite data/final-count mismatch. Both existing full parent baseline means and CIs reproduce exactly. Ruff lint/format and diff checks pass. No extra GPU workload or full-suite rerun was introduced during training.
+
+Completed first-parent budgets and hashes:
+
+| Arm | Updates | Complete matches | Active decisions | Rounds | Executed collection rows | Adam steps |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| MC lambda1 | 500 | 1,024,000 | 120,818,216 | 8,007,768 | 151,640,064 | 45,000 |
+| Control lambda0.95 | 500 | 1,024,000 | 120,029,550 | 7,997,797 | 151,255,040 | 45,000 |
+
+MC final update_00000500.pt SHAa564589ac034894ac90fca8bf6942f11d383f209a03b10d3752e9e7602a33e9a; metrics SHAa9880104651d6b48285b792d1e22fb932d46dd529302fe90f5f55e13ef7ce63f. Control final SHA2294639540030ce4740a48e5db2868055f1e5f472580550fabe0224c2448044d; metrics SHAbc62cece6ffd22a901c775bbb28b0bc408afb06be024b1f8430cd47d69445941. Active decisions differ despite identical matches; both happen to require45,000 Adam steps, verified from their actual batch sizes rather than assumed.
+
+Both checkpoint audits pass: runs/complete_mc_screen/checkpoint_audit_2.json SHA39686d93b0940fe2c7873c05d29daba4306bd02c04d6f8e1fccbed8e7afb5d0e. Earlier first-case snapshot checkpoint_audit_1.json SHAc2296e437b329917c6b7c56de74b994012e56a3633f9cd0ac119aa5dcc9a5b1d is preserved. Reports explicitly mark paired_outcomes_checked=false. No win-rate/strength inference, adoption or final-seed use; finish the original four training/four evaluation jobs, then run full independent audit before any method decision.
