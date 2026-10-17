@@ -191,7 +191,7 @@ The completed development comparison selects warm pretrained-score PPO (T0.05, a
 
 ## Experimental score-distribution expert selector
 
-The unlaunched `scripts.train_score_distribution` prototype reuses public paired
+The `scripts.train_score_distribution` prototype reuses public paired
 rollout datasets and frozen neural experts. A shared610-input action scorer
 predicts a distribution of remaining score-margin increments; paper8's active
 score bounds permit65 even bins with outcome-preserving tail classes. A fixed
@@ -207,7 +207,7 @@ play. See PAIRED_ROLLOUTS for assumptions, tests and launch status.
 
 ## Public feature replay for paired datasets
 
-`scripts.cache_paired_expert_features` is an unlaunched feature-cache helper.
+`scripts.cache_paired_expert_features` is a feature-cache helper.
 It recreates the recorded source environment stream and generator on the original
 collection device, using embedded frozen experts and unchanged collection code.
 Every batch must exactly match stored562 public inputs and source-match IDs;

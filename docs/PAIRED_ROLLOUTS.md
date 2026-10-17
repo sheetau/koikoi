@@ -151,7 +151,7 @@ The manuscript now cites these direct domain antecedents in addition to general
 policy switching, rollout policy iteration and common-random-number work.
 
 
-## Score-distribution prototype (not a launched strength study)
+## Score-distribution method (no full-match strength study yet)
 
 The completed PPO selectors did not establish replicated win gains over their
 parents. `scripts/train_score_distribution.py` prepares a separate follow-up
@@ -190,7 +190,7 @@ establishes the broader distributional-value perspective. This prototype fits
 complete Monte Carlo returns under a frozen continuation, not their distributional
 Bellman algorithm. The research question is whether score-distribution supervision
 and explicit win-threshold decoding improve public neural expert selection.
-No full-scale fit or matchup has been launched. The ongoing paired regression
+At initial implementation no full-scale fit or matchup had been launched. The paired regression
 and static controls finish first; their evidence will determine whether to run
 this follow-up. It is not included as a measured contribution in the manuscript.
 
@@ -226,7 +226,7 @@ work and records it separately; branch outcomes are reused. It exports the publi
 absolute dealer bit, two experts'256-wide encoder vectors for both proposals and
 their raw scores. It never exports packed states or private card labels.
 
-Only small CPU/CUDA replay tests have run:32 roots each, exact source alignment,
+Initial small CPU/CUDA replay tests used32 roots each, exact source alignment,
 checkpoint reload, overwrite/misalignment rejection, and original-head equality
 across all four action phases. Four tests pass with no skips. No full dataset
 cache, feature-based fit or strength comparison has been launched. The helper
