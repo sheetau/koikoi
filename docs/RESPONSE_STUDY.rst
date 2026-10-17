@@ -76,3 +76,9 @@ opponents, per-opponent work, checkpoint receipts and recomputed raw match
 statistics/contrasts. It does not independently replay every training trajectory.
 The reduced --smoke path uses one parent,two updates,two pairs and a separate seed
 range. It reports no strength qualification and is used only for pipeline tests.
+
+A post-training companion check, scripts/audit_response_optimizer.py, derives
+actor and critic Adam budgets directly from these fixed settings and verifies
+the actual optimizer state for every parameter. It also reports parameter
+movement from the initialization. This supplements the runner's audit; neither
+parameter movement nor successful training accounting is a strength result.

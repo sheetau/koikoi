@@ -2088,3 +2088,59 @@ source/protocol identities, parameter digests, finite model/Adam tensors and all
 endings /33,869 matches, split into 1,958,692 learner and 1,973,468 opponent actions.
 This snapshot is neither an evaluated endpoint nor a model-selection decision.
 The live protocol and all 29 bound inputs were reverified after the new work.
+
+## First direct-response endpoint and independent Adam-budget check
+
+The parent1_response trainer exited0 after the fixed 520 updates (20 critic-only,
+500 policy updates). Its scheduler recorded completion before starting the
+parent1_selfplay control. Endpoint SHA
+ae7afccd9d39e18bb102d264d2b0c4d4384cddfe83fe3d47ed85bee626c82db5.
+The runner's training audit passes initialization, frozen opponents, provenance,
+metrics, receipts, actual episode totals, tensor finiteness and accounting.
+
+Actual work: 8,519,680 decisions /569,437 round endings /73,491 matches.
+Learner decisions: 4,241,242; opponent decisions: 4,278,438.
+WP lanes: 2,131,812 opponent decisions /287,159 round endings /36,751 matches.
+Point lanes: 2,146,626 opponent decisions /282,278 round endings /36,740 matches.
+The source proportions are measured lane activity, not exact equal-duration
+samples. Warmup contributes 327,680 decisions /21,926 rounds /2,782 matches.
+
+Added scripts/audit_response_optimizer.py as a separate post-training check.
+It derives expected Adam steps directly from the frozen updates, warmup,
+minibatches and epochs rather than trusting the saved actor step counters.
+It does not call the runner's training auditor. Existing checked() is used only
+for protocol/source identity validation before and after the read-only check.
+All 102 actual Adam states have the expected shapes, finite values and steps:
+48,000 for every actor tensor and 49,920 for every critic tensor.
+
+The actor changes 29 of 30 parameter tensors in each of discard/pick/koi. The
+unchanged tensor in each is out.bias, a common scalar shift of action scores.
+Initial-to-final L2 movement is 0.926381 /0.660436 /0.590032 respectively; these
+norms are descriptive implementation facts, not a behavioral or strength metric.
+Both six-tensor critics change all their parameters. This check does not replay
+training and supplies no evidence of a higher win rate.
+
+Command: .venv/Scripts/python.exe -m scripts.audit_response_optimizer
+ --case parent1_response --output runs/response_optimizer_audits/parent1_response.json
+Result: passed. Report SHA
+71cbcb1d77fc058cbc8b86f2d0ab8c27028281f4bfb3aaf2b687dc1e006d3c32.
+Ruff passes. The live protocol remains unchanged and all bound inputs verify.
+No endpoint ranking, additional training, promotion or final-test use occurred.
+
+A negative check modified the loaded endpoint in memory only: discard's saved
+step counter and all corresponding Adam step tensors were increased together.
+The independently derived budget rejected this mutually consistent false claim;
+no checkpoint file changed and no success report was created.
+
+Three completed baseline jobs (parent1 versus WP/Point, parent2 versus WP) have
+exit0 receipts. Recomputed raw means/intervals, exact 5,000-deal ranges, seat-score
+consistency, model identities and decision sums all pass using the existing
+outcome auditor. Total: 30,000 matches /3,475,900 decisions on 5,000 shared unique
+deal streams. No round count is inferred from this evaluation format. Report:
+runs/response_baseline_audits/first_three.json, SHA
+bdcc01c61c8cd3e41e45b261673ecc7eac34e608cde9b18ac445395571c222ed.
+The scheduler started parent2/Point and both parent1_response matchups. Actual
+processes and completed pair rows in the open raw files were confirmed. Windows
+file metadata temporarily reported zero length while direct reads showed rows;
+this was not a stalled evaluator and no restart was attempted. No partial
+candidate outcomes were ranked or used to change the study.
