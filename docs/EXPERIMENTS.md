@@ -2291,3 +2291,47 @@ accounting and explicit unfinished-tail masking. It has not yet been implemented
 or adopted. It is a decision-time reduction with known theoretical relatives,
 not a new general policy-gradient theorem. The existing response study remains
 unaltered and must finish under its original protocol.
+
+
+## Learner-decision return implementation and CPU capability (2026-10-18)
+
+Following the exact observer-bootstrap counterexample, two isolated scripts now
+implement learner-time GAE and pretrained PPO against the fixed public WP/Point
+mixture. No production or live-study input changes. Returns use next learner
+observations, lambda**primitive_gap and terminal learner payoff; an unfinished
+final learner action is omitted, while its initial value still bootstraps the
+preceding complete transition. Match reset blocks future reward leakage.
+
+Nine return tests pass in6.46s and six integration tests pass in22.41s, zero
+skipped. The latter has six benign upstream Transformer nested-tensor warnings.
+The independent forward TD expansion, real Python/native CPU/CUDA traces, role
+reward conversion, frozen opponent routing, initial retained-parent inference,
+CPU exact restart, optimizer momentum exclusion and source tamper rejection all
+pass. Ruff and whitespace checks pass. No GPU optimizer update was tested while
+the fixed response study occupies the training GPU.
+
+CPU production-size capability session94836 exited0. Config128env x128horizon,
+minibatch512,epochs3,width256,seed20295001,one warmup then two policy updates.
+Actual49,152 decisions /3,219 round endings /375 match endings; learner24,521,
+valid learner24,315,omitted tails206,opponent24,631. No empty minibatches. All96
+parameter optimizer states finite and correctly counted:90 actor tensors192steps,
+6 value tensors288steps. Warmup preserves actor and both later updates change it.
+WP12,403 opponent actions /1,644 rounds /188 matches; Point12,228 /1,575 /187.
+Training-only capability, no new win-rate evaluation or deployment promotion.
+
+Audit runs/learner_response_capability_cpu/audit.json SHA
+216cc2ef25fead9f58b22ccb0ed66d54169fa6c958ee6cf664b2fdb361b3a1de;
+checkpoint SHA94c19d41adada8b421d11685086a3bf64bfffbc86c8a139f457b219a1eeedcde;
+metrics SHAd5341d1a7e8f9e2e081a811b895b3c94e372bc3bb393bdac5f8642f832f3f910.
+Full config, source/runtime/parent identities and actual parameter-step mapping
+are embedded in the audit. See OBSERVER_RETURNS.rst for method, commands and
+reproduction. The exported learner_response_v1 actor keeps the same public input
+and greedy inference. The retained human-play model and dealer rule stay intact.
+
+This intervention additionally removes the opponent critic, rescales learner
+value loss, filters minibatches and skips empty Adam updates. A future comparison
+must disclose these changes and actual valid sample counts; it cannot identify
+critic information alone as the cause. Tail exclusion is also boundary-dependent.
+General partial-observation critic theory is prior work. Neither this capability
+nor the counterexample proves stronger Koi-Koi play. The existing response study
+continues unaltered; all29 bound inputs rechecked before/after capability work.

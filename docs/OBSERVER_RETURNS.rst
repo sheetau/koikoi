@@ -93,8 +93,8 @@ Each binds the diagnostic and full production source identity. No existing
 production file, rule, checkpoint or live response-study input was changed.
 The response study continues with its original estimator and full protocol.
 
-Next capability to test
------------------------
+Learner-decision implementation
+-------------------------------
 
 For a fixed opponent, collect returns between successive learner decisions.
 Opponent actions remain part of the simulated environment; their outcomes and
@@ -115,8 +115,92 @@ opponent critic also changes optimization and clipping, so a comparison must
 identify these choices and actual learner sample counts. It cannot be called an
 isolated information effect merely because simulator budgets match.
 
-This capability has not yet been implemented or evaluated in Koi-Koi. The example
-motivates it; it does not establish that observer switching caused earlier weak
-results, that finite current observations suffice for unbiased PPO, or that the
-new method will produce a stronger player. Those questions require a new bounded
-comparison after implementation and validation, preserving the current study.
+``scripts/learner_returns.py`` implements the return scan at discount1. It accepts
+primitive [time,lane] arrays, learner-relative rewards and explicit learner-role
+indicators. It returns advantages, value targets and a valid-loss mask in the
+same layout. Invalid rows have zero targets as well as zero advantages. No input
+is mutated and no RNG is consumed; opponent value entries are never used.
+
+``scripts/learner_response.py`` connects it to pretrained published-actor PPO.
+All lanes face the fixed whole-match WP/Point mixture. Rewards use the learner
+seat before the environment reset. The actor and public value inputs remain
+unchanged, and inference needs only the learner actor. The exported format is
+``learner_response_v1``; the human-play model is not replaced. Checkpoints include
+frozen opponents, exact optimizer/environment/RNG state and implementation hashes.
+
+All primitive actions remain in the collection and permutation budget. PPO
+advantage normalization uses the valid-loss mask. Each minibatch then removes
+opponent and unfinished learner rows before both policy and value losses. An
+empty minibatch skips Adam entirely, including momentum and step counters.
+Diagnostics retain separate simulator, learner, valid learner and omitted-tail
+counts, plus actual per-opponent work. Minibatch metrics use the inherited mean
+across attempted minibatches; an empty attempted minibatch contributes zero.
+
+This full intervention removes the opponent critic and normalizes value loss
+over valid learner rows instead of all primitive rows. It consequently changes
+value-loss scale, joint clipping, effective minibatch sizes and potentially Adam
+step counts. Equal simulator work is not equal learner samples or an isolated
+critic-information experiment. Tail exclusion also depends on which role is
+active at the boundary; it is not a general claim of unbiased sampling.
+
+Validation
+----------
+
+Nine return tests pass on CPU/CUDA, zero skipped. An independent forward expansion
+of learner-time TD residuals checks randomized mixed lanes, terminals, lambda0,
+0.37,0.95,1 and both tail roles. Opponent values may be replaced by NaNs without
+changing an output. Fixtures cover opponent termination, reset isolation,
+consecutive learner phases, primitive-gap eligibility and an unfinished last
+learner action whose starting value still bootstraps its predecessor. All-learner
+traces agree with ordinary GAE. Actual native game traces agree with the Python
+reference before return comparison; gradients are detached and inputs unchanged.
+
+Six integration tests pass, zero skipped. CPU/CUDA collection agrees with the
+reference transitions, actual pinned opponent actions, pre-reset reward signs
+and separate work counts. CPU tests verify warmup, actual actor learning, exact
+restart, frozen opponent parameters, invalid-row NaN exclusion and no Adam drift
+on an empty minibatch with existing momentum. Initial deployment actions match
+the retained parent in all four phases. Source tampering on restore is rejected.
+The integration suite does not yet exercise a CUDA optimizer update/restart.
+Commands::
+
+    .venv/Scripts/python.exe -m pytest tests/test_learner_returns.py -q
+    .venv/Scripts/python.exe -m pytest tests/test_learner_response.py -q
+
+No full-match strength comparison has been run for this method. The example and
+implementation motivate a bounded comparison; they do not establish that observer
+switching caused the earlier weak results or that current finite observations
+suffice for unbiased PPO. The existing response study keeps its original sources,
+return estimator and protocol throughout.
+
+Production-size CPU capability
+------------------------------
+
+Session94836 exited0. The retained first parent initialized LearnerConfig with
+CPU2 threads,128 environments,128-step horizon,512 primitive rows per minibatch,
+3 epochs,critic width256,seed20295001 and1 warmup update. Three updates (one value
+warmup plus two policy updates) finish49,152 simulator decisions,3,219 round ends
+and375 match ends. These are capability-training counts, not evaluation matches.
+There are24,521 learner actions,24,315 valid loss rows,206 omitted tails and24,631
+opponent actions. No attempted minibatch is empty. All96 parameter Adam states
+are finite:90 actor tensors have192 steps and6 value tensors have288 steps.
+The actor stays unchanged during warmup and changes during both policy updates.
+
+WP accounts for12,403 opponent decisions,1,644 round ends and188 match ends;
+Point accounts for12,228 opponent decisions,1,575 round ends and187 match ends.
+Round/match endings count entire assigned matches, not only opponent actions.
+
+* Audit: ``runs/learner_response_capability_cpu/audit.json``;
+  SHA216cc2ef25fead9f58b22ccb0ed66d54169fa6c958ee6cf664b2fdb361b3a1de.
+* Checkpoint: ``runs/learner_response_capability_cpu/final.pt``;
+  SHA94c19d41adada8b421d11685086a3bf64bfffbc86c8a139f457b219a1eeedcde.
+* Per-update metrics SHA
+  d5341d1a7e8f9e2e081a811b895b3c94e372bc3bb393bdac5f8642f832f3f910.
+
+The audit contains the complete config, parent/source/runtime identities, actual
+optimizer steps and counts. To reproduce the learning computation, construct
+``LearnerTrainer.from_parent`` with that config and the bound parent, and call
+``update()`` three times. Source checks verify all29 live-study inputs both before
+and after this CPU capability run. No second GPU trainer was started. CUDA
+optimizer/restart validation and a fixed strength-comparison protocol are the
+remaining gates before a new research run.
