@@ -70,7 +70,14 @@ def decode_returns(logits, current_lead):
 class ScoreSelector(nn.Module):
     def __init__(self, kind="categorical", width=128):
         super().__init__()
-        if kind not in ("categorical", "mean", "win", "paired_win", "paired_mean"):
+        if kind not in (
+            "categorical",
+            "mean",
+            "win",
+            "paired_win",
+            "paired_mean",
+            "preference",
+        ):
             raise ValueError("Unknown target type")
         self.kind = kind
         self.body = nn.Sequential(
@@ -112,6 +119,15 @@ class ScoreSelector(nn.Module):
 
 def loss_for(model, public, indices, increments):
     outputs = model.branch_outputs(public)
+    if model.kind == "preference":
+        outcomes = (increments + lead(public)[:, None]).sign()
+        delta = outcomes[:, 1] - outcomes[:, 0]
+        logits = outputs[:, 1, 0] - outputs[:, 0, 0]
+        # Average over all roots: ties have zero data gradient, draws half weight.
+        losses = F.binary_cross_entropy_with_logits(
+            logits, (delta > 0).to(logits.dtype), reduction="none"
+        )
+        return (losses * delta.abs() / 2).mean()
     if model.kind in ("paired_win", "paired_mean"):
         target = (
             (increments + lead(public)[:, None]).sign()
@@ -241,6 +257,7 @@ def fit(
                 "categorical": "cross entropy",
                 "mean": "MSE of increment/64",
                 "win": "binary cross entropy with half credit for draws",
+                "preference": "pairwise BCE weighted by absolute win-score change; mean over all roots",
                 "paired_win": "MSE of paired signed-win difference",
                 "paired_mean": "MSE of paired remaining-margin difference/64",
             }[kind],
@@ -296,7 +313,14 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument(
         "--kind",
-        choices=("categorical", "mean", "win", "paired_win", "paired_mean"),
+        choices=(
+            "categorical",
+            "mean",
+            "win",
+            "paired_win",
+            "paired_mean",
+            "preference",
+        ),
         default="categorical",
     )
     parser.add_argument("--seed", type=int, default=19410001)

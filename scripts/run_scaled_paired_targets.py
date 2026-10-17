@@ -8,13 +8,14 @@ from koikoi.published_actor import PublishedActor
 from koikoi.train import provenance
 from scripts.analyze_paired_arbitration_study import data_report
 from scripts.cache_paired_expert_features import replay
+from scripts.collect_reusable_paired_targets import collect
 from scripts.run_arbitration_study import PARENTS, sha, write
-from scripts.train_paired_arbitration import collect
 
 
 def make_plan():
     paths = [
         Path(__file__),
+        Path("scripts/collect_reusable_paired_targets.py"),
         Path("scripts/train_paired_arbitration.py"),
         Path("scripts/paired_rollout_targets.py"),
         Path("scripts/cache_paired_expert_features.py"),
@@ -46,6 +47,7 @@ def make_plan():
             "continuation": "greedy parent both seats",
         },
         "scope": "Fixed fourfold target-data scale experiment. Fresh source streams; same parents/behavior/coupled frozen continuation as the smaller study. Count collection, branch and feature-replay work separately. No fitting, match evaluation or automatic model selection.",
+        "resource_revision": "Reuse one branch environment; original run failed on Windows duplicate DLL-directory registrations. Same seeds and target protocol, fresh output directory; abandoned generation counted separately.",
         "rationale": "Small-data paired and marginal targets have not established replicated one-action gains. Only about9.6% of paired roots change win outcome. Test whether larger source coverage provides a more learnable signal; improvement is not assumed.",
     }
 
@@ -114,7 +116,9 @@ def run(base):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--base", type=Path, default=Path("runs/scaled_paired_targets"))
+    parser.add_argument(
+        "--base", type=Path, default=Path("runs/scaled_paired_targets_reusable")
+    )
     args = parser.parse_args()
     run(args.base)
 

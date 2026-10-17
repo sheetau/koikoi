@@ -75,6 +75,66 @@ def test_win_decoder_changes_risk_preference_at_score_threshold():
     assert values[0].argmax() == 0 and values[1].argmax() == 1
 
 
+def test_preference_loss_draw_weights_ties_and_common_offsets():
+    from scripts.train_score_distribution import loss_for
+
+    class FixedScores:
+        kind = "preference"
+
+        def __init__(self, scores):
+            self.scores = scores
+
+        def branch_outputs(self, public):
+            return self.scores.unsqueeze(-1)
+
+    public = roots(torch.tensor([0, 4, -8, 2, -2]))
+    indices, increments = target_indices(
+        public, torch.tensor([[-2, 2], [0, 6], [4, -6], [2, 0], [8, 4]])
+    )
+    scores = torch.zeros(5, 2, requires_grad=True)
+    loss = loss_for(FixedScores(scores), public, indices, increments)
+    # Win-loss changes weigh1; draw transitions weigh1/2; equal outcomes weigh0.
+    assert loss.item() == pytest.approx(3 * np.log(2) / 5)
+    loss.backward()
+    expected = torch.tensor(
+        [[0.1, -0.1], [0.05, -0.05], [-0.1, 0.1], [-0.05, 0.05], [0, 0]]
+    )
+    torch.testing.assert_close(scores.grad, expected)
+    shifted = scores.detach() + torch.tensor([4, -3, 2, 1, -1])[:, None]
+    torch.testing.assert_close(
+        loss_for(FixedScores(shifted), public, indices, increments), loss
+    )
+    equal_indices, equal_increments = target_indices(public, torch.full((5, 2), 2))
+    tied = torch.randn(5, 2, requires_grad=True)
+    zero = loss_for(FixedScores(tied), public, equal_indices, equal_increments)
+    zero.backward()
+    assert zero.item() == 0 and torch.count_nonzero(tied.grad) == 0
+
+
+def test_preference_weights_recover_expected_win_choice_not_majority_label():
+    from scripts.train_score_distribution import loss_for
+
+    class ConstantDifference:
+        kind = "preference"
+
+        def __init__(self, value):
+            self.value = value
+
+        def branch_outputs(self, public):
+            return torch.stack((self.value * 0, self.value)).expand(10, 2)[..., None]
+
+    public = roots(torch.zeros(10))
+    final = torch.tensor([[0, 2]] * 6 + [[2, -2]] * 4)
+    indices, increments = target_indices(public, final)
+    # Point wins six labels, but its expected win-score change is negative.
+    assert (final.sign()[:, 1] - final.sign()[:, 0]).float().mean() < 0
+    optimum = torch.tensor(np.log(3 / 4), dtype=torch.float64, requires_grad=True)
+    loss = loss_for(ConstantDifference(optimum), public, indices, increments)
+    loss.backward()
+    assert abs(optimum.grad.item()) < 1e-8
+    assert optimum.item() < 0
+
+
 @pytest.mark.parametrize("kind", ["paired_win", "paired_mean"])
 def test_paired_loss_signs_scaling_and_common_offset(kind):
     from scripts.train_score_distribution import loss_for
@@ -137,7 +197,14 @@ def test_real_paired_data_fit_reload_and_hidden_invariance(tmp_path):
     )
     split = match_split(data["match_groups"])
     initial_bodies, order_seeds = set(), set()
-    for kind in ("categorical", "mean", "win", "paired_win", "paired_mean"):
+    for kind in (
+        "categorical",
+        "mean",
+        "win",
+        "paired_win",
+        "paired_mean",
+        "preference",
+    ):
         target = tmp_path / (kind + ".pt")
         payload = fit(dataset, target, kind=kind, seed=18970001, epochs=2)
         initial_bodies.add(payload["training_config"]["initial_shared_body_sha256"])
@@ -174,7 +241,14 @@ def test_cpu_cuda_shared_scorer_losses_and_gradients():
     indices, increments = target_indices(
         public, torch.tensor([[6, -4], [-2, 10], [0, -80]])
     )
-    for kind in ("categorical", "mean", "win", "paired_win", "paired_mean"):
+    for kind in (
+        "categorical",
+        "mean",
+        "win",
+        "paired_win",
+        "paired_mean",
+        "preference",
+    ):
         cpu = ScoreSelector(kind, width=16)
         torch.nn.init.normal_(cpu.head.weight, std=0.1)
         gpu = ScoreSelector(kind, width=16).cuda()

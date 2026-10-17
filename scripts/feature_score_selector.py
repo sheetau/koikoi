@@ -29,7 +29,14 @@ def pack_features(public, embeddings, scores):
 class FeatureScoreSelector(ScoreSelector):
     def __init__(self, kind="categorical", width=128):
         nn.Module.__init__(self)
-        if kind not in ("categorical", "mean", "win", "paired_win", "paired_mean"):
+        if kind not in (
+            "categorical",
+            "mean",
+            "win",
+            "paired_win",
+            "paired_mean",
+            "preference",
+        ):
             raise ValueError("Unknown target type")
         self.kind = kind
         # Both experts describe the same proposed action; scorer weights are shared.

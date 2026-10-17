@@ -84,7 +84,7 @@ def diagnose(dataset, checkpoint, output):
                 chosen[active], outcomes[active], points[active], groups[active]
             ),
         }
-        if config["kind"] not in ("mean", "paired_mean"):
+        if config["kind"] in ("categorical", "win", "paired_win"):
             delta = predicted[active, 1] - predicted[active, 0]
             target = outcomes[active, 1] - outcomes[active, 0]
             section["win_delta_mse"] = float(np.mean((delta - target) ** 2))

@@ -21,7 +21,7 @@ def make_plan(kinds=("categorical", "win", "mean")):
         not kinds
         or len(set(kinds)) != len(kinds)
         or not set(kinds).issubset(
-            {"categorical", "win", "mean", "paired_win", "paired_mean"}
+            {"categorical", "win", "mean", "paired_win", "paired_mean", "preference"}
         )
     ):
         raise ValueError("Expected distinct supported supervision kinds")

@@ -55,7 +55,14 @@ def test_exact_root_replay_and_reject_misalignment(tmp_path, device):
         from scripts.train_score_distribution import fit
 
         initial_bodies, order_seeds = set(), set()
-        for kind in ("categorical", "mean", "win", "paired_win", "paired_mean"):
+        for kind in (
+            "categorical",
+            "mean",
+            "win",
+            "paired_win",
+            "paired_mean",
+            "preference",
+        ):
             target = tmp_path / f"{kind}.pt"
             trained = fit(dataset, target, kind=kind, epochs=2, feature_cache=output)
             initial_bodies.add(trained["training_config"]["initial_shared_body_sha256"])

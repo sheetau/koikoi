@@ -304,3 +304,47 @@ Parents, Point weight identities, source and all collection dependencies are
 fixed before collection. Current strength evaluation and its seeds remain intact.
 This tests a data-coverage hypothesis after the65,536-root screens, without
 assuming that more data will yield stronger play.
+
+
+## Outcome-weighted preference follow-up
+
+A separate fixed4-case screen adds raw/frozen-feature preference classifiers at
+both parents. For paired signed outcomes, let delta=G_Point-G_parent and let
+z=f_Point-f_parent. Minimize mean[abs(delta)/2 * BCEWithLogits(z, delta>0)] over
+all roots. Equal outcomes contribute zero data gradient; a draw transition has
+half the weight of a loss-to-win transition. The fixed normalization retains
+zero-label roots in the denominator. Adam weight decay still acts independently.
+
+At a given public input, the unrestricted optimum has sigmoid(z)=E[delta+]/
+E[abs(delta)] when the denominator is positive. Thus z>0 exactly when E[delta]>0;
+a majority of positive labels alone need not maximize expected win score. The
+scalar output is a preference logit, not a calibrated return difference. This
+cost-sensitive classification principle is established methodology, not a new
+loss claim. The experiment tests whether decision-oriented supervision of coupled
+outcomes helps these public Koi-Koi selectors. Finite data, shared function
+approximation and frozen continuation still require actual deployment evaluation.
+Seeds, shared-body initialization, scalar head, minibatch order and20 epochs
+match the preceding screens. All4 endpoints are retained; no automatic selection.
+
+```powershell
+.venv/Scripts/python.exe -m scripts.run_score_fit_screen --base runs/preference_fit_screen --kinds preference
+```
+
+## Windows resource correction for scaled collection
+
+The first scaled collection stopped before saving a dataset. Repeated native
+backend construction retains Windows DLL search-directory registrations; a
+separate reproduction failed after334 unclosed registrations of the same97-
+character path, while1,500 explicitly closed cycles passed. The last logged
+complete batch had83,968 roots. Its source/branch work is a lower bound on
+abandoned computation, retained in runs/scaled_paired_targets/failure_receipt.json.
+It must not be counted as additional independent data when the seeds are repeated.
+
+`scripts.collect_reusable_paired_targets` allocates a single branch environment
+and overwrites its complete packed state for each batch. It preserves the original
+sampling, branch transitions, labels and accounting. The separate collector avoids
+changing any production/helper file bound to ongoing paired/static evaluations.
+The replacement runner uses fresh runs/scaled_paired_targets_reusable, keeps the
+same planned seeds/budget and binds the new collector identity. Original failed
+artifacts remain intact. CPU/CUDA equality against original collection, exact
+feature replay, and repeated terminal-state reuse are checked before launch.
