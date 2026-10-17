@@ -1488,3 +1488,16 @@ Added `scripts.diagnose_paired_targets`: validation-only source matches, predict
 Primary-source literature check found a particularly relevant antecedent: Nagamine and Suzuki2021, IPSJ83rd National Convention2:317--318, construct Monte Carlo fast-finishing/blocking strategies and explicitly propose switching scoring/fast-finishing strategies across a match as future work. Their simplified game disables koi-koi continuation. Original PDF retrieved from https://ipsj.ixsq.nii.ac.jp/record/214960/files/IPSJ-Z83-6P-07.pdf and read locally after web-tool throttling. Sato and Ikeda2017, Game Programming Workshop:64--71, compare neural policy gradients and NFQ using268 features. Primary repository https://dspace.jaist.ac.jp/dspace/handle/10119/16089. The manuscript now places both before Guan2023; it does not claim inventing objective switching. Rollout policy iteration (Dimitrakakis/Lagoudakis2008) and common-random-number planning (Yadav et al.2026) are also cited directly. Their verified arXiv entries are0805.2027 and2605.04732.
 
 Added the implemented paired complete-match regression method, grouped validation and fixed-hybrid controls to the manuscript, with results still pending. Latest12-page PDF SHA256 `5fd4e21fc6e32e8c80a4590b2f25f012bab46013f91fc89e201e36ae41016de6`; QA `runs/manuscript_paired_revision_qa.json`. All12 rendered pages inspected,15 embedded fonts,16 citation keys resolved, no box/glyph/bounds defects,26 historical evidence input hashes retained. Previous goal turn made progress; current turn adds tested diagnostic capability and substantively improves research positioning. All three existing experiment handles75964/28640/48159 were re-polled live; no restart or endpoint selection.
+
+
+### Completed first-parent ordinary-PPO control
+
+The continued actor passed checkpoint/config/counter accounting at8,519,680 additional decisions. All three completed1,000-pair outcomes were independently recomputed, including paired contrasts on shared21,000,000--21,000,999 streams. Record `runs/arbitration_study/parent1_ppo/completed_comparisons.json` binds the fixed protocol. This is the complete first-parent comparison, not a selected intermediate checkpoint; second-parent replication remains pending.
+
+| Opponent | Continued PPO win score,95% CI | Point difference,95% CI | Full gate minus PPO win difference,pp,95% CI | Full gate minus PPO point difference,95% CI |
+| --- | --- | --- | --- | --- |
+| RL-WP | 53.375% [51.800,54.925] | 3.565 [2.592,4.556] | -0.775 [-2.725,1.300] | -0.284 [-1.459025,0.91315] |
+| RL-Point | 51.425% [49.650,53.225] | -1.154 [-2.297025,0.017025] | 0.650 [-1.375,2.575] | 1.064 [-0.12305,2.25105] |
+| Own parent | 50.850% [49.400,52.375] | 0.711 [-0.145,1.56805] | not applicable | not applicable |
+
+Continued PPO minus unchanged parent: against WP,+0.875pp [-0.875,2.600],+1.019points [0.056925,1.991075]; against Point,-0.150pp [-1.925,1.625],+0.449points [-0.551025,1.448025]. Thus the first-parent full selector has no established advantage over ordinary additional PPO in either win score or points. Retain the complete uncertainty and all endpoints; do not infer superiority from its better Point point estimate. The queued paired-regression study and static controls remain fixed and live.
