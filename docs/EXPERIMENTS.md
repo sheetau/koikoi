@@ -1543,3 +1543,10 @@ The differing WP pair is seed21000109, seat0, where the phase wrapper finishes+7
 ```
 
 The generalized command was run successfully with a fresh explicit output; Ruff passes. Bound study/analysis scripts and production remain untouched. All four live handles75964/28640/48159/98461 were revalidated. Remaining ordinary PPO training is still running; no restart, selection or deployment change.
+
+
+## 2026-10-17: all arbitration training finished; paired generation started
+
+Parent2 ordinary PPO completed its fixed520 updates /8,519,680 decisions /568,049 round endings /73,045 matches in1701.6233375s. CheckpointSHA `e210cae056ee71254e2519bb1c602a5427a6349dc85a2738ed9e37e8ddbee03d`; independent checkpoint/config/optimizer/counter/metric audit passed (`runs/arbitration_study/parent2_ppo/training_audit_completed.json`). All six training arms are now complete and checked. Last three ordinary-PPO evaluations are running; no strength conclusion before their completion. The audit watcher retains ownership of the whole-study final analysis.
+
+Queued paired study28640 transitioned from waiting_for_previous_training to training without a restart. Parent1 generation is live: first2,048 disagreement roots produced4,096 branch endpoints /318,917 branch decisions /23,156 branch round endings in9.201281s; source trajectory work9,728 decisions /7 completed matches /596 round endings. At16,384 roots,32,768 branches /1,961,151 branch decisions /147,125 round endings, source77,440 decisions /616 matches /5,176 rounds, elapsed63.118635s. These are rollout/data-generation work counts, not strength estimates or independent complete-match sample counts. All remaining fits, matchups and static controls retain their frozen protocols. Main and paired handles were re-polled live at the transition.
