@@ -2,6 +2,22 @@
 
 GPU-parallel Koi-Koi simulation, self-play PPO and Q-boosting, published-baseline evaluation, and belief-sampled inference rollouts. This is a research implementation; no strongest-AI or equilibrium claim has been established. See [current evidence](docs/STATUS.md), [rules](docs/RULES.md), and [architecture](docs/DESIGN.md).
 
+## Audited model and final results
+
+The fixed warm pretrained-PPO method passed the two-model final win criterion against the pinned assisted RL-WP policy: draw-adjusted scores **51.480% [50.970, 51.975]** and **51.445% [50.945, 51.953]**, with 95% pair-bootstrap intervals. Each model/opponent comparison used 10,000 duplicate pairs; the four comparisons share 10,000 deal streams and total 80,000 matches. The separate RL-Point win criterion did not replicate, and both models lost expected points to RL-Point. These results concern the pinned eight-round rules and policies, not universal or human superiority.
+
+The canonical model is `runs/cold_ppo_screen/seed6710001_warm/update_00000520.pt`, SHA256 `37d06849261e0c1f0c31a9d2f228388fa1f391b670ce6772093a1c276091cc36`. It was fixed before final testing; the second seed is not substituted based on its results. Mean CPU decision latency is 1.585 ms on the fixed mixed-state benchmark with two threads. The separate twelve-round scale experiment completed 100,001,204 new matches; that count is not the pretrained model's budget.
+
+Models and raw run files are local ignored artifacts. See [archive/reproduction instructions](docs/ARTIFACTS.rst) to restore them and the clean pinned upstream dependency. The [research manuscript](docs/paper/manuscript.tex), [build instructions](docs/paper/README.rst), and [audited evidence](docs/paper/generated/evidence.json) are tracked. The verified local PDF is `output/pdf/manuscript.pdf`; no journal submission or external artifact release has occurred.
+
+After setup and restoring the model, this small check reuses development deals to demonstrate the sequential evaluator. It is not a new strength estimate; choose an unused output filename to retain earlier reports.
+
+```powershell
+./.venv/Scripts/python.exe -m koikoi.evaluate --agent runs/cold_ppo_screen/seed6710001_warm/update_00000520.pt --opponent rl-wp-assisted --profile paper8 --pairs 10 --seed 7200000 --split development --device cpu --deterministic --endgame --output runs/local_warm_demo.json
+```
+
+The selected model uses greedy CPU inference with public endgame assistance and no search. Preserve those settings when interpreting the audited results. The original final deal range is consumed; do not overwrite, extend, or tune against the completed final study.
+
 ## Setup (Windows / NVIDIA)
 
 Requires Python 3.12, a recent NVIDIA driver, Git, and Visual Studio C++ build tools. The project-local environment leaves system Python unchanged. NVRTC is loaded from the CUDA PyTorch wheel; a system CUDA toolkit is unnecessary.
@@ -67,7 +83,7 @@ Optional `complete_matches=true` collects exactly one full match per environment
 
 Optional `round_continuation` embeds eight `[score_slope, dealer_effect]` coefficient pairs and calibration source SHA256 identities in a complete-match paper8 config with `gae_lambda=1`. At each nonterminal round end it supplies a frozen public continuation value; actual match ends use the true win/draw/loss. Learning traces end at round boundaries, while game termination and match counters retain their original meaning. It requires weight initialization from the calibrated parent and checks table identity on resume. The table is training-only and may become inaccurate as the policy changes. This is an experimental learning target, not an established improvement. The fixed two-parent protocol is in `scripts/run_round_continuation_screen.py`.
 
-`koikoi.published_actor.PublishedActor` is an experimental differentiable copy of the pinned published score networks. It consumes native public/own-only features and keeps dropout disabled; snapshots retain original initialization identities and current weights. It is currently separate from the PPO trainer and returns raw Q scores, so it supplies neither an implicit action distribution nor a demonstrated strength improvement. The original frozen comparison adapters are unchanged.
+`koikoi.published_actor.PublishedActor` is a differentiable copy of the pinned published score networks. It consumes native public/own-only features and keeps dropout disabled; snapshots retain original initialization identities and current weights. It returns raw Q scores rather than probabilities. The explicit `koikoi.published_train` integration described below supplies the stochastic policy and separate public critic used by the audited warm method. The ordinary PPO trainer and frozen comparison adapters retain their separate paths.
 
 PPO uses the native C++/CUDA signed-return scan by default. Set `returns_backend` to `torch` to use the independent PyTorch recurrence. Tests verify bit-identical float32 returns and full PPO updates; `python -m koikoi.benchmark --returns --envs 2048 --horizon 128 --steps 50` measures this component separately from learning.
 
@@ -85,7 +101,7 @@ Measure full learning, excluding five warmup updates, with `python -m koikoi.ben
 
 Audit an immutable local checkpoint with `python -m koikoi.budget runs/<run>/update_XXXXXXXX.pt --output budget.json`. Totals group completed learning by rule profile and add weight-initialization ancestry without double-counting resumed counters. This is one model lineage; reports with shared ancestors must not be summed.
 
-The baseline scale run completed 100,001,204 new twelve-round matches. Its audited final snapshot is `runs/ppo12_scale_seed30001_captured/final_100m.pt`; see [STATUS.md](docs/STATUS.md) for counters, initialization lineage and strength results. Do not restart the completed run from an older directory. This meets the computation target; public-baseline superiority and final validation remain unproven.
+The baseline scale run completed 100,001,204 new twelve-round matches. Its audited final snapshot is `runs/ppo12_scale_seed30001_captured/final_100m.pt`; see [STATUS.md](docs/STATUS.md) for counters, initialization lineage and strength results. Do not restart the completed run from an older directory. This meets the computation target. The eight-round public-baseline result above comes from separate pretrained-policy adaptation and is not attributed to this scale checkpoint.
 
 `paper8` and `research12` are different versioned protocols. Do not compare published eight-round weights on a twelve-round match. Config `reward=round` is a separately labeled point-reward experiment, not the default win-rate objective. `kind=transformer` selects card-token attention; `belief_weight>0` trains the hidden-card auxiliary predictor. Policy inputs never receive its ground-truth labels.
 
@@ -144,9 +160,9 @@ In the sequential evaluator, add `--opponent-endgame` to apply the guard to a ch
 
 Original models retain their historical input quirks. The loader adapts an obsolete PyTorch class name and loads the original parameter tensors into the same architecture on modern PyTorch. Fetch source with `python -m koikoi.upstream --fetch`; the pin and license are in [third-party notices](THIRD_PARTY_NOTICES.md). Load only trusted local training checkpoints: PyTorch pickle deserialization is used.
 
-## Experimental pretrained-policy PPO
+## Pretrained-policy PPO
 
-`koikoi.published_train` initializes three differentiable phase networks from the pinned original WP weights and trains them with the existing match-reward, signed-GAE PPO. Legal action probabilities are explicitly `softmax(original_scores / score_temperature)`, with temperature 0.05 by default. These Q scores are not calibrated probabilities; stochastic training differs from the original greedy policy. A separate public-observation value network learns without shared actor parameters. The first 20 updates train only that critic by default, then all three actor networks are unfrozen. These are experimental settings, not a demonstrated improvement.
+`koikoi.published_train` initializes three differentiable phase networks from the pinned original WP weights and trains them with the existing match-reward, signed-GAE PPO. Legal action probabilities are explicitly `softmax(original_scores / score_temperature)`, with temperature 0.05 by default. These Q scores are not calibrated probabilities; stochastic training differs from the original greedy policy. A separate public-observation value network learns without shared actor parameters. The first 20 updates train only that critic by default, then all three actor networks are unfrozen. The audited warm recipe uses 520 total updates at two fixed seeds; the shorter commands below illustrate training/resume and do not establish strength.
 
 ```powershell
 ./.venv/Scripts/python.exe -m koikoi.published_train --run runs/pretrained_trial --updates 100
