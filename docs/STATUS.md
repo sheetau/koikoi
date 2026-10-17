@@ -1,8 +1,16 @@
 # Current status
 
-Measured project deliverables are complete: GPU-native implementation,100M research12 computation, two-model final evaluation, isolated latency, final-results manuscript and verified local evidence archive. Both selected models beat pinned assisted RL-WP on the fixed primary criterion. The separate RL-Point criterion does NOT replicate; both models lose expected points to RL-Point. This is a comparator/rule-specific result, not proof of universal strongest play. Submission and external artifact publication remain later decisions.
+The previous research phase completed its measured deliverables: GPU-native implementation,100M research12 computation, two-model final evaluation, isolated latency, final-results manuscript and verified local evidence archive. Both selected models beat pinned assisted RL-WP on the fixed primary criterion. The separate RL-Point criterion does NOT replicate; both models lose expected points to RL-Point. This is a comparator/rule-specific result, not proof of universal strongest play. Submission and external artifact publication remain later decisions.
 
 Read this snapshot first. Detailed measurements, negative studies and historical commands are in [EXPERIMENTS.md](EXPERIMENTS.md). The prior full STATUS history remains available at [commit26aeb37](https://github.com/sheetau/koikoi/blob/26aeb37/docs/STATUS.md). Update this snapshot at milestones; append experimental details to EXPERIMENTS instead of duplicating the full history here.
+
+## Active extension: public expert arbitration
+
+The user requested stronger play, a clearer research contribution and a substantial manuscript revision. Initial dealer selection remains unchanged. The previous final evaluation and archive below are completed historical results; this extension has not yet established a new strength claim.
+
+Implemented a public-observation controller over frozen adapted-win and original-point expert proposals, with duplicate actions collapsed. Full-context and phase-only controllers will be compared with ordinary continued PPO at both existing parent checkpoints, using identical additional decision budgets and fresh development deals. See [ARBITRATION.md](ARBITRATION.md). Source/parent-bound machine protocol is written before the study starts. The playable canonical model remains unchanged.
+
+Validation:47 tests passed across arbitration, published training and published PPO, including CPU/CUDA trajectory equivalence, hidden-state invariance, duplicate-action zero gradients, frozen experts, critic warmup and exact resumed updates. Feasibility only: five updates/81,920 decisions at seed18990001,653 complete matches,7.35 seconds for updates; no strength evaluation. Ruff passes. Study command: `.venv/Scripts/python.exe -m scripts.run_arbitration_study` (fresh `runs/arbitration_study`). Manuscript restructuring and primary-source Related Work expansion are in progress.
 
 ## Local human-play delivery
 
