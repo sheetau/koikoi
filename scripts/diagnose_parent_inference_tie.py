@@ -1,6 +1,8 @@
 """Trace a completed development mismatch without changing models or rules."""
 
 import argparse
+import json
+from pathlib import Path
 
 import torch
 
@@ -10,14 +12,20 @@ from koikoi.evaluate import make_agent
 from koikoi.layout import PHASE, PLAYER, POINTS, ROUND, TERMINAL
 from koikoi.published_train import packed_observation
 from koikoi.reference import ReferenceEnv
-from scripts.run_arbitration_study import PARENTS, write
+from scripts.run_arbitration_study import PARENTS, sha, write
 
 
-def diagnose(seed=21000447, seat=1):
+def diagnose(
+    seed=21000447,
+    seat=1,
+    controller="runs/arbitration_study/parent1_phase/final.pt",
+    parent_path=PARENTS[0][0],
+    opponent_name="rl-point-assisted",
+):
     torch.set_num_threads(2)
-    gate = ArbitrationAgent("runs/arbitration_study/parent1_phase/final.pt")
-    parent = NeuralAgent(PARENTS[0][0], deterministic=True)
-    opponent = make_agent("rl-point-assisted", 0, True)
+    gate = ArbitrationAgent(controller)
+    parent = NeuralAgent(parent_path, deterministic=True)
+    opponent = make_agent(opponent_name, 0, True)
     env = ReferenceEnv(seed, "paper8")
     decision = 0
     while env.state[PHASE] != TERMINAL:
@@ -31,6 +39,10 @@ def diagnose(seed=21000447, seat=1):
                 frozen = gate.bank.experts[0]
                 source = parent.model.actor
                 report = {
+                    "diagnostic_script_sha256": sha(__file__),
+                    "controller": str(controller),
+                    "parent": str(parent_path),
+                    "opponent": opponent_name,
                     "seed": seed,
                     "candidate_seat": seat,
                     "decision": decision,
@@ -99,13 +111,19 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--seed", type=int, default=21000447)
     parser.add_argument("--seat", type=int, choices=(0, 1), default=1)
-    args = parser.parse_args()
-    report = diagnose(args.seed, args.seat)
-    write(
-        "runs/arbitration_diagnostic_parent1/parent_inference_path_difference.json",
-        report,
+    parser.add_argument(
+        "--controller", default="runs/arbitration_study/parent1_phase/final.pt"
     )
-    print(report)
+    parser.add_argument("--parent", default=PARENTS[0][0])
+    parser.add_argument("--opponent", default="rl-point-assisted")
+    parser.add_argument("--output", type=Path)
+    args = parser.parse_args()
+    if args.output is not None and args.output.exists():
+        raise ValueError("Use a fresh diagnostic output path")
+    report = diagnose(args.seed, args.seat, args.controller, args.parent, args.opponent)
+    if args.output is not None:
+        write(args.output, report)
+    print(json.dumps(report, indent=2))
 
 
 if __name__ == "__main__":
