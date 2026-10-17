@@ -1,6 +1,6 @@
 # Third-party sources
 
-The Koi-Koi rule specification, card classifications and compatible native300-feature extraction were derived from guansanghai/KoiKoi-AI, revision 89d789565c7c36c84b74662e43001d960bf80901, https://github.com/guansanghai/KoiKoi-AI. The optional adapter imports its unmodified code and published weights from an ignored external checkout. The following license is retained for these sources and derived rule/feature implementations.
+The Koi-Koi rule specification, card classifications and compatible native300-feature extraction were derived from guansanghai/KoiKoi-AI, revision 89d789565c7c36c84b74662e43001d960bf80901, https://github.com/guansanghai/KoiKoi-AI. The optional adapter imports its unmodified code and published weights from an ignored external checkout. The experimental differentiable PublishedActor also reconstructs these original modules and records the published weights as its initialization dependency. The following license is retained for these sources and derived rule/feature implementations.
 
 MIT License
 
