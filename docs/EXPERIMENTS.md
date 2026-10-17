@@ -2820,3 +2820,43 @@ creates no output. Ruff passes. Full execution awaits all16 cells and the final
 training endpoint;the routine has not yet established any strength result.
 All51 live protocol inputs and production remain unchanged. No deployment
 promotion,additional experiment or manuscript change at this milestone.
+
+
+## All four learner-return study training endpoints complete (2026-10-18)
+
+The final parent2_lambda1 job exits0 after520 updates (20 critic warmup,500
+policy),8,519,680 decisions /567,462 round endings /73,775 matches. Warmup
+327,680 /21,771 /2,765. Learner4,205,471 andopponent4,314,209 decisions. WP
+contributes2,153,194 opponent decisions /286,965 whole-match round endings
+/36,885 matches;Point2,161,015 /280,497 /36,890. Final checkpoint SHA
+9e09ae504832c19194b58bf85c0604ad8e703d646efa78f6fedd770a82cd7370.
+Full runner audit passes,including initial actor/value/environment equality
+and matching CPU/CUDA RNG against the archived original response initialization.
+
+Independent actual optimizer command:
+.venv/Scripts/python.exe -m scripts.audit_lambda1_optimizer
+--case parent2_lambda1
+--output runs/learner_return_optimizer_audits/parent2_lambda1.json.
+Audit SHA324571f25cf1724fee15098245024acd4cc2fe591c681f796904bc6e16dea39f.
+All102 parameter Adam states are finite:90 actor tensors48,000 steps,6 learner
+value and6 opponent-value tensors49,920 steps each. Changed29/30 tensors in
+all three actor blocks and6/6 in each critic. L2 movement:discard1.043662,
+pick0.748878,koi0.571401,learner value7.374919,opponent value10.772649.
+
+All four new endpoints now total34,078,720 decisions /2,274,630 round endings
+/294,469 matches. Warmup is1,310,720 /87,394 /11,094;learner decisions16,891,481,
+opponent17,187,239. These are new-study training counters. The archived two
+response endpoints'17,039,360 training decisions remain separate dependencies;
+none of these counts is fresh strength evaluation or search work.
+
+All four full runner audits and separate stored-Adam audits pass. Actual hashes
+of every optimizer receipt input and final checkpoint are reverified. All four
+training jobs exit0 with non-overlapping intervals;Win32_Process confirms the
+final52764/wrapper50552 trainer is gone. Runner18512/wrapper65160 and three
+CPU2 evaluators remain live under launcher23277. All51 protocol-bound inputs
+and production SHA2b718198a4f7bc640f457c9fc12311dcb9a8689fba1ffcb09411234ba0920cdb are unchanged.
+
+The fixed160,000-match evaluation continues. No partial outcome selection,
+training extension or deployment promotion is performed. The complete-study
+independent auditor is prepared but awaits all16 cells;no new method strength
+conclusion or manuscript revision is made at this training milestone.
