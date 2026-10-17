@@ -2553,3 +2553,41 @@ OBSERVER_RETURNS records the derivation and its scope. This adds a concrete
 population-descent example to the established critic-conditioning issue, without
 asserting new general theory or improved Koi-Koi strength. The current17-page
 paper is unchanged pending incorporation with the completed strength study.
+
+
+## First learner-return research endpoint complete (2026-10-18)
+
+Parent1_learner exits0 after520 updates:20 critic warmup and500 policy updates.
+It records8,519,680 simulator decisions /568,536 rounds /73,379 matches.
+Warmup327,680 decisions /21,926 rounds /2,782 matches. Learner4,234,808;
+valid learner4,201,750;omitted unfinished tails33,058;opponent4,284,872.
+No attempted minibatch is empty. WP contributes2,137,156 opponent decisions
+/286,788 whole-match round endings /36,693 matches;Point2,147,716 /281,748
+/36,686. These are training counts, not evaluation wins.
+
+Final checkpoint SHA7374420f849f134c30cc22347df907e2fd913849e4dacd74782a02d093384849.
+The full runner audit passes, including exact parent initialization, frozen
+opponents, complete logged budgets, environment episode counts and actual Adam
+state. Initial actor/value/environment match the original response control;
+CUDA RNG matches and CPU RNG differs, as previously recorded.
+
+The existing read-only optimizer companion also runs successfully against this
+learner endpoint, without modifying it or the runner:
+.venv/Scripts/python.exe -m scripts.audit_response_optimizer --base
+runs/learner_return_study --case parent1_learner --output
+runs/learner_return_optimizer_audits/parent1_learner.json.
+Report SHA1b0dbe1eda888a03924829a9cb62801a73990ce913525ea9cd8ee89b28fef75b.
+This particular run attains the full fixed schedule:all90 actor parameter states
+have48,000 steps and all6 value states have49,920. The independent check derives
+these maxima from updates,warmup,epochs and primitive minibatch counts and checks
+actual stored Adam state. Learner filtering can legitimately omit phases or
+whole minibatches in other runs; attaining these maxima is an observed fact here,
+not a general requirement for learner-time returns.
+
+Changed tensor counts are30/30 discard,29/30 pick,29/30 koi and6/6 value.
+L2 changes are0.932972/0.696705/0.599001/7.295458 respectively. These establish
+parameter movement and finite optimizer state, not stronger play. The scheduler
+proceeds to parent1_lambda1, actual trainer52576/wrapper30572 under existing
+runner18512/wrapper65160 and launcher session23277. Live processes were checked.
+Original CPU evaluation remains active, so new CPU evaluation remains gated.
+The two study protocols, their29/51 bound inputs and production stay unchanged.
