@@ -395,3 +395,29 @@ new validation set is consumed by this comparison, not reserved final evidence.
 ```powershell
 .venv/Scripts/python.exe -m scripts.run_score_fit_screen --base runs/score_update_budget_control --kinds paired_win preference --epochs 80
 ```
+
+
+## Fixed weight-decay control after preference collapse
+
+The completed larger-data preference endpoints assign exactly equal float32
+scores to both proposals at every held-out root, for both representations and
+parents. The first body layer has subnormal weights (maximum about2e-40 to5e-40);
+not all parameters are literally zero. Native action-index tie-breaking therefore
+determines these endpoints' choices. Preserve these endpoints and their results.
+At zero score difference, the weighted preference data gradient is eight times
+smaller than signed-win MSE's gradient. Equal Adam weight_decay values thus do
+not imply equal relative regularization. This motivates a controlled experiment;
+it does not yet establish the cause of collapse.
+
+Run exactly8 additional endpoints: paired_win/preference x raw/features x both
+parents, using the same262,144-root datasets, initialization, minibatch order,
+learning rate and20 epochs, changing only Adam weight_decay from1e-4 to0. The
+original default remains1e-4. Retain all final endpoints without early stopping.
+Compare the two regularization settings on the same held-out source matches,
+including exact tied-score counts, score-difference magnitude, independent CPU
+loss and paired one-action outcome changes. Removing collapse is an optimization
+result; stronger play still requires repeated-policy full-match evidence.
+
+```powershell
+.venv/Scripts/python.exe -m scripts.run_score_fit_screen --base runs/score_zero_decay_control --dataset-base runs/scaled_paired_targets_recovered/data --feature-base runs/scaled_paired_targets_recovered/features --kinds paired_win preference --epochs 20 --weight-decay 0
+```

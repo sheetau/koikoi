@@ -1700,3 +1700,39 @@ Retrospective read-only diagnostics on the existing65,536-root datasets, using t
 Point-cards/parent-koi one-action win gains over always-parent: first+0.455099pp [0.021918,0.881474], second+0.405750pp [-0.031592,0.850268]; over always-Point+0.082420pp [-0.075084,0.238545] and+0.154571pp [-0.015235,0.325701]. Opposite-role hybrid changes are the corresponding negatives. Neither hybrid establishes replicated superiority over both experts on these source-match diagnostics. Frozen-parent continuation and held-out-root uncertainty apply; full repeated-policy matches remain in the original queued static study. Report runs/static_paired_target_diagnostic.json SHAeb9dd3c35b3d94bb228c4c1502cb681906746720b6c537efc985a078c1edfb50. No fitting or new simulation.
 
 All five active handles were directly re-polled live after the manuscript revision: recovery4899, data-scale follow-up71402, paired28640, static48159 and watcher98461. Parent2 scaled generation reached253,952 roots at878.347770s; fitting still waits for completed data/replay. Goal remains active: manuscript clarity improved, but further verified strength and final integration remain open.
+
+
+## Completed data-scale comparison and preference-collapse control
+
+Recovery4899 and follow-up71402 exited0. Both262,144-root datasets and exact
+feature caches passed the full stored-score audit (SHA256
+1fa7a22cac0c17f403c0b5aa19b66e3d9e4e3234c584b13787ad9ca42ef52f48).
+Parent2 dataset SHA637040e53c9150c45ecbc5b6322c517b128823c406122da3b6bd8875fbb9afaa;
+its source work is1,251,456 decisions /83,824 round endings /10,708 matches;
+branch work30,690,157 decisions /2,281,272 round endings /524,288 endpoints.
+Parent1 data was reused byte-identically, not generated again.
+
+All8 large-data20-epoch fits passed the independent endpoint audit
+(SHA44cd498ec413820a85edba7a33dd26e86fae781c373cebec6d62c7d1422d26c8).
+The24-endpoint common-cohort comparison completed with all47 bound follow-up
+inputs verified before subsequent source edits. Report
+runs/score_scale_followup/comparison.json has SHA256
+b90db78726ae8c6a511f1f6462c685594d927b1164d65dce6cd7f249b6138653.
+No condition establishes one-action gain over both fixed experts at both parents.
+All8 large20-minus-small80 win-change intervals include zero. Validation uses
+52,090 roots /2,160 source matches for parent1 and52,055 /2,142 for parent2.
+These cohorts are now consumed development evidence. The previous small-cohort
+static-hybrid pattern also does not replicate on this cohort; diagnostic SHA
+ a0167471123a32e3e78b18091c6477ce34cd7520c8a338059db4aa93a013bea2.
+
+Further inspection found all4 large-data preference endpoints produce exact ties
+at every held-out root; choices are consequently native action-index tie-breaks.
+The first body-layer weight maxima are about2e-40 to5e-40. Some parameters remain
+nonzero, so describe exact score collapse, not literally zero parameters.
+Diagnostic runs/scaled_preference_collapse_diagnostic.json SHA256
+2300e85e9903ea88663c8ba9ff90002ee1b4b9a8d70d289e09f8f65a0c1ed2ea.
+This finding warrants the fixed zero-decay control specified in PAIRED_ROLLOUTS.
+The fitting CLI now accepts finite nonnegative weight decay; its default remains
+numerically identical. Actual CPU fitting verifies default equivalence and that
+zero decay reaches the optimizer. Combined score/cache/screen tests pass20,
+with0 skips and5 expected upstream warnings. No deployment promotion.

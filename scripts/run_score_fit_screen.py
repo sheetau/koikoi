@@ -3,6 +3,7 @@
 import argparse
 import contextlib
 import json
+import math
 import time
 from pathlib import Path
 
@@ -21,6 +22,7 @@ def make_plan(
     dataset_base=Path("runs/paired_arbitration_study"),
     feature_base=Path("runs/paired_public_features"),
     epochs=20,
+    weight_decay=1e-4,
 ):
     if (
         not kinds
@@ -32,6 +34,8 @@ def make_plan(
         raise ValueError("Expected distinct supported supervision kinds")
     if epochs < 1:
         raise ValueError("Expected positive epoch budget")
+    if not math.isfinite(weight_decay) or weight_decay < 0:
+        raise ValueError("Expected finite nonnegative weight decay")
     cache_audit = feature_base / "audit.json"
     audit = json.loads(cache_audit.read_text(encoding="utf-8"))
     if audit["status"] != "passed":
@@ -77,6 +81,7 @@ def make_plan(
         "source": provenance(),
         "inputs": {str(path): sha(path) for path in paths},
         "epochs": epochs,
+        "weight_decay": weight_decay,
         "device": "cuda",
         "cases": cases,
         "accounting": "Zero new simulation during fitting. Original branch data and public feature replay are shared across heads, not multiplied into independent samples.",
@@ -90,10 +95,11 @@ def run(
     dataset_base=Path("runs/paired_arbitration_study"),
     feature_base=Path("runs/paired_public_features"),
     epochs=20,
+    weight_decay=1e-4,
 ):
     if base.exists():
         raise ValueError("Use a fresh screen directory")
-    plan = make_plan(kinds, dataset_base, feature_base, epochs)
+    plan = make_plan(kinds, dataset_base, feature_base, epochs, weight_decay)
     base.mkdir(parents=True)
     write(base / "plan.json", plan)
     reports = {}
@@ -120,6 +126,7 @@ def run(
                     device=plan["device"],
                     epochs=plan["epochs"],
                     feature_cache=case["feature_cache"],
+                    weight_decay=plan["weight_decay"],
                 )
             receipt = {
                 "checkpoint_sha256": sha(folder / "final.pt"),
@@ -156,8 +163,16 @@ def main():
         "--feature-base", type=Path, default=Path("runs/paired_public_features")
     )
     parser.add_argument("--epochs", type=int, default=20)
+    parser.add_argument("--weight-decay", type=float, default=1e-4)
     args = parser.parse_args()
-    run(args.base, args.kinds, args.dataset_base, args.feature_base, args.epochs)
+    run(
+        args.base,
+        args.kinds,
+        args.dataset_base,
+        args.feature_base,
+        args.epochs,
+        args.weight_decay,
+    )
 
 
 if __name__ == "__main__":

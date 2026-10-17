@@ -57,6 +57,9 @@ def audit(base, output):
         assert tensor_equal(data["parent"], fitted["parent"])
         valid = match_split(data["match_groups"])
         counts, epochs = fitted["counters"], plan["epochs"]
+        assert fitted["training_config"]["weight_decay"] == plan.get(
+            "weight_decay", 1e-4
+        )
         assert counts == receipt["counters"]
         assert counts["training_roots"] == int((~valid).sum())
         assert counts["validation_roots"] == int(valid.sum())
@@ -116,6 +119,7 @@ def audit(base, output):
             "recomputed_validation_loss": loss,
             "initialization_and_order_match_20_epochs": True,
             "optimizer_steps": counts["optimizer_steps"],
+            "weight_decay": fitted["training_config"]["weight_decay"],
             "fit_seconds": receipt["elapsed_fit_seconds"],
             "all": diagnostic["sections"]["all"],
         }

@@ -80,6 +80,20 @@ def diagnose(dataset, checkpoint, output):
             "roots": int(active.sum()),
             "source_matches": len(np.unique(groups[active], axis=0)),
             "point_choice_fraction": float(chosen[active].mean()),
+            "exact_branch_score_ties": int(
+                (predicted[active, 1] == predicted[active, 0]).sum()
+            ),
+            "score_difference_rms": float(
+                np.sqrt(
+                    np.mean(
+                        (
+                            predicted[active, 1].astype(float)
+                            - predicted[active, 0].astype(float)
+                        )
+                        ** 2
+                    )
+                )
+            ),
             "single_action_comparisons": decision_summary(
                 chosen[active], outcomes[active], points[active], groups[active]
             ),

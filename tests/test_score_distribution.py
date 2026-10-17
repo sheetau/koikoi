@@ -228,6 +228,31 @@ def test_real_paired_data_fit_reload_and_hidden_invariance(tmp_path):
         with pytest.raises(ValueError, match="fresh"):
             fit(dataset, target, kind=kind, epochs=2)
     assert len(initial_bodies) == len(order_seeds) == 1
+    explicit_default = fit(
+        dataset,
+        tmp_path / "explicit_default.pt",
+        kind="preference",
+        seed=18970001,
+        epochs=2,
+        weight_decay=1e-4,
+    )
+    assert all(
+        torch.equal(value, explicit_default["model"][name])
+        for name, value in payload["model"].items()
+    )
+    unregularized = fit(
+        dataset,
+        tmp_path / "unregularized.pt",
+        kind="preference",
+        seed=18970001,
+        epochs=2,
+        weight_decay=0,
+    )
+    assert unregularized["training_config"]["weight_decay"] == 0
+    assert any(
+        not torch.equal(value, unregularized["model"][name])
+        for name, value in explicit_default["model"].items()
+    )
 
 
 @pytest.mark.cuda

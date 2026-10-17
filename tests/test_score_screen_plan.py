@@ -29,6 +29,13 @@ def test_custom_data_budget_and_audit_binding(tmp_path):
     assert len(plan["cases"]) == 8 and plan["epochs"] == 80
     assert all(str(data) in case["dataset"] for case in plan["cases"])
     assert {case["seed"] for case in plan["cases"]} == {19410001, 19420001}
+    assert plan["weight_decay"] == 1e-4
+    assert (
+        make_plan(("preference",), data, features, weight_decay=0)["weight_decay"] == 0
+    )
+    for bad_decay in (-1, float("nan"), float("inf")):
+        with pytest.raises(ValueError, match="weight decay"):
+            make_plan(("preference",), data, features, weight_decay=bad_decay)
     with pytest.raises(ValueError, match="positive"):
         make_plan(("preference",), data, features, 0)
     (features / "parent1.pt").write_bytes(b"changed")

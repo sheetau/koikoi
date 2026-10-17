@@ -7,6 +7,7 @@ This prototype does not launch or alter any fixed comparative study.
 
 import argparse
 import hashlib
+import math
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -153,9 +154,12 @@ def fit(
     device="cpu",
     epochs=20,
     feature_cache=None,
+    weight_decay=1e-4,
 ):
     if Path(target).exists() or epochs < 1:
         raise ValueError("Use a fresh output and positive fitting budget")
+    if not math.isfinite(weight_decay) or weight_decay < 0:
+        raise ValueError("Expected finite nonnegative weight decay")
     setup(seed)
     data, digest = read_checkpoint(dataset)
     if data["format"] != "paired_expert_targets_v1":
@@ -200,7 +204,7 @@ def fit(
     ).hexdigest()
     order_seed = seed ^ 0x5A5A5A
     order_generator = torch.Generator(device=device).manual_seed(order_seed)
-    optimizer = torch.optim.Adam(model.parameters(), lr=3e-4, weight_decay=1e-4)
+    optimizer = torch.optim.Adam(model.parameters(), lr=3e-4, weight_decay=weight_decay)
     history, steps = [], 0
     for epoch in range(epochs):
         total = 0.0
@@ -246,7 +250,7 @@ def fit(
             "device": str(torch.device(device)),
             "epochs": epochs,
             "lr": 3e-4,
-            "weight_decay": 1e-4,
+            "weight_decay": weight_decay,
             "minibatch_roots": 1024,
             "selection": "fixed final epoch",
             "minibatch_order_seed": order_seed,
@@ -327,6 +331,7 @@ def main():
     parser.add_argument("--device", default="cpu")
     parser.add_argument("--epochs", type=int, default=20)
     parser.add_argument("--feature-cache", type=Path)
+    parser.add_argument("--weight-decay", type=float, default=1e-4)
     args = parser.parse_args()
     fit(
         args.dataset,
@@ -336,6 +341,7 @@ def main():
         args.device,
         args.epochs,
         feature_cache=args.feature_cache,
+        weight_decay=args.weight_decay,
     )
 
 
