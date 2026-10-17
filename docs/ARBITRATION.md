@@ -108,3 +108,22 @@ selection of its frozen expert proposal is exact; universal action identity
 with the older deployed wrapper is not claimed. Active studies retain their
 frozen paths. Full and phase controllers use the same expert path, allowing
 comparison of learned selection without changing this numerical convention.
+
+
+### Paired-change figures
+
+`scripts.plot_extension_results` renders win-score and expected-point changes
+relative to each unchanged parent, with the original5,000-resample pair-bootstrap
+intervals. It rereads and verifies raw completed outcomes and binds all figure
+inputs/outputs by SHA256. Both-parent figures require a passing full-study audit
+and exact agreement with its outcome records. A clearly titled first-parent-only
+preview can be produced with `--parents 1`; it is not replicated evidence.
+
+```powershell
+.venv/Scripts/python.exe -m scripts.plot_extension_results --base runs/arbitration_study --study arbitration --output output/figures/arbitration_changes
+.venv/Scripts/python.exe -m scripts.plot_extension_results --base runs/paired_arbitration_study --study paired --output output/figures/paired_changes
+```
+
+The completed first-parent preview is `output/figures/arbitration_parent1_changes`
+in PNG, SVG and PDF formats, with a JSON receipt. The image was visually checked;
+full replication is still pending. Final paper figures will use all fixed endpoints.
