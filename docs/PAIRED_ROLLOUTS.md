@@ -421,3 +421,44 @@ result; stronger play still requires repeated-policy full-match evidence.
 ```powershell
 .venv/Scripts/python.exe -m scripts.run_score_fit_screen --base runs/score_zero_decay_control --dataset-base runs/scaled_paired_targets_recovered/data --feature-base runs/scaled_paired_targets_recovered/features --kinds paired_win preference --epochs 20 --weight-decay 0
 ```
+
+
+## Opponent-preserving target control: next fixed design
+
+The regularization control removed score collapse without establishing useful
+win selection. Current paired labels always continue both seats with the parent,
+whereas deployment faces distinct WP and Point policies. Test this mismatch on
+identical roots rather than changing the source and labels simultaneously.
+
+Collect65,536 learner disagreement roots per parent using fresh source seeds
+19710001/19720001,128 source environments and256-root batches. Learner behavior
+remains90% parent /10% Point. For each environment lane and completed-match episode,
+learner seat=(lane+episode) mod2 and opponent=(floor(lane/2)+floor(episode/2)) mod2,
+with0=WP and1=Point. Thus each lane crosses both seats and opponents in four
+matches; actual root/match proportions need reporting and are not exactly50/50.
+Opponent identity and learner-seat metadata are not policy inputs.
+
+For every root, force both expert proposals under two continuations:
+(1) parent on both seats, and(2) parent on the original learner seat with that
+match's original WP/Point opponent on the other. All four branches begin from the
+same training simulator state and deal stream. This isolates continuation-target
+effects conditional on the common source distribution. It does not isolate source
+coverage versus the previous self-play datasets. Hidden state instantiates training
+worlds only; every actor and fitted selector receives its usual public inputs.
+
+Fit exactly four final endpoints: two parents x two target continuations. Keep the
+existing frozen-feature paired_win scorer,20 epochs, Adam3e-4, weight_decay1e-4,
+minibatch1024 and fitting seeds19410001/19420001. This retains the stable existing
+regression configuration and adds no architecture/loss/threshold search. Cache
+public expert features at collection, shared by both target conditions; validate
+head reconstruction and root alignment before fitting. Hold out whole source
+matches identically for both conditions. Retain all endpoints and report paired
+outcome differences and actual source/branch counters separately. The two target
+conditions share roots/features and do not constitute independent datasets.
+
+The implemented scripts.opponent_paired_roots helper passes CPU/CUDA reference
+checks. Dataset runner, cache receipts and four-case audit still need completion
+before launch. Full repeated-policy development comparisons, if justified, will
+follow the currently running static controls; consumed validation/deal sets cannot
+serve as untouched final confirmation. This is a standard rollout-policy-control
+experiment, not a claim that opponent-aware training or paired rollouts are new.

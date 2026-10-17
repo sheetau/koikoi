@@ -1736,3 +1736,42 @@ The fitting CLI now accepts finite nonnegative weight decay; its default remains
 numerically identical. Actual CPU fitting verifies default equivalence and that
 zero decay reaches the optimizer. Combined score/cache/screen tests pass20,
 with0 skips and5 expected upstream warnings. No deployment promotion.
+
+
+## Completed paired full-match and regularization controls
+
+Paired session28640 exited0. Automatic watcher98461 completed the whole24-matchup
+analysis and both held-out diagnostics, then waited for static controls. Audit
+runs/paired_arbitration_study/analysis.json SHA256
+d5709d50e51101240d0d9df7cc47a569d55da8fa32f7f3dd5b3304b597c286ff.
+Evaluation totals48,000 matches /5,551,259 decisions on1,000 shared unique deal
+streams, not24,000 independent streams. Full selector minus parent win changes
+are parent1 WP+0.350pp [-1.550,2.300], Point+0.125pp [-1.950625,2.175]; parent2
+WP-1.500pp [-3.600,0.650], Point+0.225pp [-1.825,2.150]. Corresponding point gains
+are+1.260 [0.159875,2.43005],+0.444 [-0.798125,1.714025],-0.168
+[-1.4341,1.060025],+1.660 [0.411975,2.863025]. Full/no_match win-difference
+intervals include zero against both public opponents at both parents. Neither
+full nor no_match establishes replicated win gain. Static controls48159 started
+following paired completion; no checkpoint promoted.
+
+Zero-decay screen16265 exited0 with8/8 complete. Audit19572 and matched-comparison
+9981 exited0. Fit audit SHA c69a4e5b4e8ab0f420e2342400a34e53ecd6e754d101ca903cc2d1fb778dee60;
+comparison SHA ed9f5d7bbd8ab9dc7cb09499e41e339dc084a3995d26ece5b399678e8b6faddf.
+Every endpoint now has zero exact proposal-score ties. Preference score-difference
+RMS is2.691388/0.195728 for parent1 raw/features and0.962448/0.202594 for parent2.
+Changing only weight decay prevents the observed collapse under this fixed setup,
+but none establishes win gain over both expert choices at both parents. All8
+zero-minus-default win-change intervals include zero. The comparator checks
+identical dataset, cache, network, counters and training settings except decay;
+actual-endpoint matching and learning-rate/decay tampering checks pass. No new
+simulation is charged to these fits. Default training weight_decay remains1e-4.
+
+Prepared a separate source/continuation helper for the next opponent-distribution
+control. It collects only learner disagreement roots, alternates learner seats,
+and crosses fixed WP/Point opponents across four-match cycles. Metadata never
+enters scorer inputs. The continuation retains the original learner seat and
+opponent throughout all remaining rounds. Four CPU/CUDA tests pass, including
+independent reference outcomes, point signs, decisions/round accounting and real
+expert collection/public reconstruction. Initial CUDA device-alias comparison
+failure was fixed by comparing actual tensor devices; final run4 passed,0 skipped.
+No new large collection or fitting has been launched for this hypothesis.
