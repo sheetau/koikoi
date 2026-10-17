@@ -2185,3 +2185,42 @@ Validation: input hashes rechecked; direct NumPy aggregation from both datasets
 matches reported weighted means; phase and koi-direction partitions sum exactly;
 opponent identities are constant within every source match. Ruff and diff checks
 pass. The live response study continues with all original bound inputs unchanged.
+
+## First parent's matched training conditions complete
+
+The parent1_selfplay trainer exited0 after all 520 updates, and the scheduler
+started parent2_response. The live handle remained session26076 throughout;
+progress was observed without restarting or selecting intermediate checkpoints.
+Self-play endpoint SHA
+e9c9bdb8936a0b01759c670dcef1e190fb2adc0536408d26df37a4054af8abfd.
+Its full runner audit passes. Actual work is 8,519,680 decisions /570,032 round
+endings /73,019 matches, including warmup 327,680 decisions /22,107 rounds /2,770
+matches. Together with parent1_response, the two completed conditions total
+17,039,360 decisions /1,139,469 round endings /146,510 matches.
+
+Command: .venv/Scripts/python.exe -m scripts.audit_response_optimizer
+ --case parent1_selfplay --output runs/response_optimizer_audits/parent1_selfplay.json
+The companion check passes all 96 Adam parameter states: 48,000 steps for each
+actor tensor and 49,920 for each critic tensor, derived from the fixed budget.
+Each actor phase changes 29/30 tensors; all six value tensors change. Actor L2
+movement is 0.926705 /0.686848 /0.594241 for discard/pick/koi. Parameter movement
+is not a behavioral or strength estimate. Audit SHA
+e73818f9350cd606e7ae21611cad673fdc9631acb2322cdb131f6ad831427b03.
+
+An additional comparison directly loads both initial checkpoints. Actor and
+learner-value tensors and complete initial environments are exactly equal.
+Both optimizers have empty initial state. The only config differences are
+opponent_fraction (0 to1) and published_opponent (empty towp_point).
+Initial CUDA RNG states are equal; CPU torch RNG states differ. Matching seed
+settings therefore must not be described as equality of all RNG states or fully
+coupled training trajectories. The response arm also has its separate opponent
+critic and excludes opponent turns from actor loss, as the original protocol
+already discloses. The simulator budgets match; learner sample counts do not.
+Report runs/response_optimizer_audits/parent1_matched_initialization.json SHA
+74a9e33b051d0afcce28196f101af0371585e5a3d3856d8902bd9cb66074ab6e.
+
+The second parent's response trainer is confirmed live (actual46240 under
+wrapper58580). First-parent response evaluation continues on both fixed public
+opponents; its self-play control is queued for evaluator capacity. No partial
+candidate result is ranked or used to alter this study. The remaining conditions
+and full raw-outcome/contrast audit are still required before a strength claim.
