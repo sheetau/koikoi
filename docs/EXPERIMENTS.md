@@ -2002,3 +2002,33 @@ verified, including newly bound datasets/caches/checkpoints and completed audits
 New followup_evidence.json SHAa72b8ebd49b69d6bed3bb7c78b519e864c5cc36de68880377522b12511b6967d.
 PriorPDF output/pdf/manuscript_paired_075411f5.pdf and original archive preserved.
 Live response26076 remains bound to its unchanged29 inputs and production source.
+
+
+## Manuscript structure and existing-target stage diagnostics
+
+Editorial revision keeps15 total pages/20 cited references but moves the conclusion
+from page12 to10. Main-source whitespace tokens decrease4,925 to3,775 (23.35%).
+All prior numeric tokens, generated table inputs, citation keys and equations
+are retained; implementation/timing and controller details move to appendices.
+This is not a new strength result. QA runs/manuscript_structure_qa.json SHA
+9b817ce74800e74fd1dfed42995038fabb47a33b8127d3d19fbd7e6510122e0f verifies all4
+ledgers,18 embedded fonts, clean TeX/bounds and all changed pages1--14 visually;
+page15 equals its prior reviewed render. PDF SHA90f9d9f812f7e5656ec981664f50abb8edcc14d5af554edfd09fb7321587f17c.
+Prior follow-up PDF/archive preserved. Active response results remain excluded.
+
+scripts.diagnose_target_stages inspects only the training source-match splits of
+the completed opponent-preserving datasets. Fixed descriptive partitions: card
+versus koi, rounds1--6 versus7--8. Counts/sign units and complete partition checked;
+dataset identities match the completed study. No fitting or simulator work.
+Report runs/opponent_target_stage_diagnostic.json SHA
+b0168490793960b9ee4d1ceff64c864242fc633d07debd78f484630d6982a259.
+
+Parent1: early cards3,691 differing win outcomes/37,636 roots (9.81%); late
+cards793/12,128 (6.54%); early koi511/2,134 (23.95%); late koi98/624 (15.71%).
+Parent2: early cards3,443/37,457 (9.19%); late cards739/12,184 (6.07%);
+early koi485/2,458 (19.73%); late koi93/588 (15.82%). Each group retains its
+Point-minus-parent signed mean and positive/negative realized-label counts.
+These describe correlated source roots and noisy one-action branch outcomes,
+not a public-information oracle, causal horizon effect or repeated-policy gain.
+The result does not support assuming the last two rounds automatically yield
+denser supervision. No stage-selected model or change to response-study conditions.

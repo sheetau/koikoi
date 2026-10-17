@@ -7,7 +7,7 @@ Current revision:15 pages,20 cited references. Abstract/Introduction state the
 measured adaptation gain and completed static-composition result. The manuscript
 includes all completed arbitration, paired-supervision, static-hybrid and
 continuation-target studies. Direct-response training is still running and is
-excluded from reported results. Latest QA: runs/manuscript_followup_qa.json.
+excluded from reported results. Latest QA: runs/manuscript_structure_qa.json.
 The original9-page final-results manuscript/archive and intermediate PDFs remain
 preserved; later sections below record the revision history.
 The final two-model/two-comparator evaluation and isolated latency measurement
@@ -192,3 +192,22 @@ New primary records checked18 October2026:
 https://proceedings.mlr.press/v15/ross11a.html and
 https://arxiv.org/abs/1406.5979. They position iterative data collection and
 cost-to-go learning relative to this project's fixed-source regression.
+
+
+Main-text structure revision
+----------------------------
+
+The current PDF retains15 pages overall and20 references, but the conclusion
+moves from page12 to10. Main-source whitespace tokens decrease4,925 to3,775
+(about23%); this count includes TeX tokens and is an editorial measure, not an
+experimental metric. Dedicated appendices now contain simulation/timing detail
+and controller derivations. Repeated explanations are removed while every prior
+numeric token, generated table input, equation and citation key remains present.
+
+PDF SHA90f9d9f812f7e5656ec981664f50abb8edcc14d5af554edfd09fb7321587f17c.
+QA runs/manuscript_structure_qa.json SHA9b817ce74800e74fd1dfed42995038fabb47a33b8127d3d19fbd7e6510122e0f:
+changed pages1--14 visually reviewed; page15 is byte-identical to its prior
+reviewed render;18 embedded fonts; all4 evidence ledgers and numeric/input/
+reference preservation checks pass. No TeX box, missing-reference/glyph or
+page-bound defects. Previous version: output/pdf/manuscript_followup_c5d7c215.pdf.
+The active response study is still excluded from the reported outcomes.

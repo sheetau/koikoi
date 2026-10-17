@@ -31,8 +31,8 @@ configuration gains 0.935--1.050 percentage points over the colder configuration
 in paired development comparisons. Against RL-Point, win-rate improvement is
 inconsistent across models and expected points favor the point-oriented agent.
 Using RL-Point only for stop/continue decisions improves expected point margin
-at both adapted models against both public opponents, without a corresponding
-win gain. Learned expert selection also fails to establish a replicated win gain.
+at both adapted models against both public opponents; win changes remain
+inconclusive. Learned expert selection also fails to establish a replicated win gain.
 These controls separate the benefit of stronger scoring decisions from the
 remaining problem of converting them into more match wins.
 The canonical agent uses no search and averages 1.585 ms per CPU decision.
@@ -87,110 +87,73 @@ match-win objective unresolved.
 
 \section{Related work}
 \subsection{Learning to play Koi-Koi}
-Early Koi-Koi learning systems already compared policy gradients with value
-learning. Sato and Ikeda trained neural policies and Neural Fitted Q Iteration
-from 268 game features against a rule-based opponent \cite{sato2017koikoi}.
-Their experiments used a simplified scoring variant, so those reported scores
-are not a common benchmark for the present eight-round game.
-Nagamine and Suzuki constructed fast-finishing and blocking strategies by
-changing Monte Carlo rollout rewards \cite{nagamine2021strategy}. Their setup
-disabled koi-koi continuation, and they proposed switching scoring and
-fast-finishing strategies across a match as future work. This anticipates
-the strategic motivation for combining objectives. Our extension studies a
-learned selector over released neural experts with complete-match supervision
-and fixed hybrid controls, including both card play and continuation decisions.
+Sato and Ikeda compared policy gradients with Neural Fitted Q Iteration using
+268 game features and a rule-based opponent \cite{sato2017koikoi}. Their
+simplified scoring variant differs from the eight-round protocol used here.
+Nagamine and Suzuki changed Monte Carlo rollout rewards to construct
+fast-finishing and blocking strategies \cite{nagamine2021strategy}. With
+koi-koi continuation disabled, they proposed switching scoring and
+fast-finishing strategies across a match as future work. This anticipates the
+motivation for combining objectives; our experiments include continuation
+decisions and compare learned selection with fixed card/koi roles.
 
-Guan et al. use phase-specific Transformers to represent card relations and
-learn action preferences through reinforcement learning
-\cite{guan2023koikoi}. Their two reward objectives produce the RL-WP and
-RL-Point agents used here. We reuse their published actors and input conventions,
-then optimize an explicit sampling policy with terminal match rewards. In
-the released RL-WP training code, sampled actions receive a round-ending target
-from a continuation-win table indexed by the next round, resulting score and
-dealer role \cite{pinnedkoikoi}. Our targets retain the actual terminal match
-outcome across round boundaries. This
-makes the comparison an adaptation study: the inherited representations are a
-shared dependency, while the additional optimization and its measured effects
-are the subject of our experiments. Evaluating both published objectives is
-essential because an improvement against RL-WP need not transfer to RL-Point.
+Guan et al. introduced the phase-specific Transformers and reward objectives
+that produce RL-WP and RL-Point \cite{guan2023koikoi}. We retain their released
+representations and input conventions, then adapt an explicit sampling policy.
+Their released RL-WP training code assigns round-ending targets from a
+continuation-win table indexed by next round, score and dealer
+\cite{pinnedkoikoi}. Our PPO targets retain actual terminal-match returns across
+round boundaries. The experiments measure the effect of this additional
+optimization and its transfer across the two published opponents.
 
-\subsection{Self-play and equilibrium-oriented learning}
-Self-play methods differ in the policies they train against and the guarantees
-they seek. Neural Fictitious Self-Play combines reinforcement learning of
-best responses with supervised learning of average strategies
-\cite{heinrich2016nfsp}. Policy-Space Response Oracles maintain a population
-and compute responses to mixtures selected through an empirical game
-\cite{lanctot2017psro}. Both approaches address the strategic interaction among
-policies beyond simply training against the latest self.
+\subsection{Self-play and strategic interaction}
+Neural Fictitious Self-Play combines learned best responses with supervised
+learning of average strategies \cite{heinrich2016nfsp}. Policy-Space Response
+Oracles compute responses to population mixtures selected through an empirical
+game \cite{lanctot2017psro}. Counterfactual regret minimization connects local
+regret reduction to approximate equilibrium in two-player zero-sum games with
+perfect recall \cite{zinkevich2007cfr}. Our current-policy self-play instead
+optimizes an inherited actor and measures its head-to-head performance against
+fixed opponents. Those measurements characterize matchups; exploitability
+requires a separate analysis.
 
-Our adaptation instead uses current-policy self-play and measures performance
-against fixed external opponents. The distinction matters in imperfect-information
-games: counterfactual regret minimization connects local regret reduction to
-approximate equilibrium in two-player zero-sum games with perfect recall \cite{zinkevich2007cfr},
-whereas improved head-to-head win rates characterize the particular matchups
-measured here. Population training and exploitability estimation are therefore
-separate extensions, not consequences of the present PPO result.
-
-\subsection{Search and policy improvement}
+\subsection{Search and rollout-based improvement}
 Information Set Monte Carlo Tree Search organizes search around information
-sets rather than individual hidden states \cite{cowling2012ismcts}.
-ReBeL combines reinforcement learning and search using public belief states
-in imperfect-information games \cite{brown2020rebel}. These approaches make
-information handling part of the algorithm: a simulated hidden world cannot
-simply be treated as information available to the acting policy.
+sets \cite{cowling2012ismcts}; ReBeL combines learning and search through public
+belief states \cite{brown2020rebel}. Expert Iteration alternates search-based
+improvement with learning a policy that generalizes its decisions
+\cite{anthony2017expert}. Our retained rollout-search experiments use
+observation-only policies inside sampled worlds. They did not replicate a
+match-level benefit, motivating the search-free adaptations studied here.
 
-Lagoudakis and Parr formulate policy iteration as classification, learning
-preferred actions from rollout comparisons \cite{lagoudakis2003classification}.
-Dimitrakakis and Lagoudakis improve the allocation of rollout samples within
-this framework \cite{dimitrakakis2008rollout}. Langford and Zadrozny relate
-policy performance to reward-sensitive classification performance
-\cite{langford2005classification}. Together, these works establish the basis
-for learning action choices from simulated outcomes.
+Learning action choices from rollout outcomes is also established. Lagoudakis
+and Parr formulate policy iteration as classification
+\cite{lagoudakis2003classification}; Dimitrakakis and Lagoudakis improve rollout
+sample allocation \cite{dimitrakakis2008rollout}. Langford and Zadrozny relate
+policy performance to reward-sensitive classification
+\cite{langford2005classification}. DAgger collects observations influenced by the
+learner's actions \cite{ross2011dagger}, and AggreVaTe incorporates expert
+cost-to-go information in interactive learning \cite{ross2014aggrevate}.
+These iterative methods address the distribution induced by policy updates.
+Our fixed-source regression tests one fitting stage before complete-match
+evaluation. At each expert disagreement, both proposals share hidden cards
+and future deals. Common random numbers can reduce relative-utility variance
+under suitable coupling \cite{yadav2026common}; the generated data records the
+resulting covariance.
 
-Iterative imitation learning also addresses which states provide the training
-data. DAgger collects observations influenced by the learner's own actions
-\cite{ross2011dagger}; AggreVaTe adds expert cost-to-go information to this
-interactive approach \cite{ross2014aggrevate}. These methods connect successive
-policy updates to the observation distributions they induce. Our fixed-source
-regression instead tests a single fitting stage, followed by complete-match
-evaluation of the resulting policy.
+\subsection{Policy composition and evaluation}
+Comanici and Precup learn policy switching through option termination conditions
+\cite{comanici2010switching}. We select between expert action proposals at each
+decision, using phase-only selectors and fixed card/koi hybrids as controls.
+The domain question is whether point-oriented and win-oriented policies supply
+useful alternatives for match optimization.
 
-Our paired extension applies this approach to disagreements between win-oriented
-and point-oriented Koi-Koi experts. Both proposed actions are followed to match
-termination under the same frozen continuation. Common random numbers can
-reduce the variance of relative utilities under suitable coupling conditions
-\cite{yadav2026common}; we measure the resulting covariance in the generated
-data. The empirical question is whether these coupled targets produce stronger
-public-state selectors in complete matches.
-
-Expert Iteration alternates search-based policy improvement with learning a
-policy that generalizes its decisions \cite{anthony2017expert}. This provides
-another route to improving an existing actor, with search cost paid during
-training or decision making. Our retained rollout experiments evaluate a
-simpler alternative, using observation-only policies inside sampled worlds.
-Their failure to replicate a match-level benefit motivates the search-free
-adaptation and expert-composition experiments studied here.
-
-\subsection{Policy composition and empirical evaluation}
-Learning when to switch among existing policies predates this study.
-Comanici and Precup formulate switching through options and learn termination
-conditions by policy gradients \cite{comanici2010switching}. Our proposed
-extension selects between expert action proposals at each decision rather
-than learning durations of temporally extended options. Its specific question
-is whether differences between point-oriented and win-oriented Koi-Koi policies
-provide a useful restricted exploration space for match optimization.
-Phase-only selectors and fixed card/koi hybrids provide controls for measuring
-the value of learned, state-dependent selection.
-
-Reliable reinforcement-learning evaluation also requires separating uncertainty
-in sampled tasks or episodes from variation across training runs.
-Agarwal et al. document the instability of conclusions based on a few runs
-and advocate uncertainty-aware reporting \cite{agarwal2021precipice}.
-We report each trained model separately, exchange player seats on the same
-deals, and bootstrap whole deal pairs. Development comparisons and held-out
-confirmation use distinct deals. The resulting intervals quantify deal
-variation for each fixed model; two training seeds provide limited evidence
-about variation across future training runs.
+Agarwal et al. show why few-run reinforcement-learning results need careful
+uncertainty reporting \cite{agarwal2021precipice}. We retain both trained
+models, exchange seats on common deals and bootstrap complete deal pairs.
+Development and held-out confirmation use distinct deals. These intervals
+measure deal variation; two model seeds offer limited evidence about future
+training-run variation.
 
 \section{Rules, observations, and comparator}
 \subsection{Versioned game protocols}
@@ -296,6 +259,16 @@ with TF32 disabled. The GPU is an
 NVIDIA GeForce RTX 5070 Ti; the runtime records PyTorch 2.12.0+cu130 and NumPy
 2.5.4. Evaluation is kept separate from training.
 
+\subsection{Implementation and inference cost}
+A shared C++/CUDA transition core runs the same rules on CPU and GPU. Differential
+checks compare transitions and public features with the Python reference and
+published model inputs; checkpoints retain the complete state for exact restart.
+The adapted actor retains greedy, search-free deployment. On a Ryzen 9 9900X
+with two CPU threads, the canonical model averages 1.585 ms per cached-state
+decision, including feature construction and public assistance. The original
+RL-WP agent averages 1.974 ms on the same corpus. Appendix~\ref{app:systems}
+reports the validation corpus, separate training budgets and timing procedure.
+
 \section{Evaluation and selection}
 \subsection{Duplicate deals and uncertainty}
 For each seed we play two matches with candidate/opponent seats exchanged,
@@ -395,124 +368,21 @@ Moreover, both point-difference intervals are negative: -1.8918
 match wins and expected points is part of the result. Seed 6710001 remains
 the canonical model, regardless of the second seed's RL-Point result.
 
-\section{Systems, budgets, and negative evidence}
-\subsection{Native simulation and validation}
-Python reference rules and shared C++/CUDA transitions implement the same
-versioned profiles. Differential tests exercise CPU/GPU transitions, public
-observations, legal masks, and player-relative signs. Native public features
-are checked against the pinned model inputs. A recorded compatibility corpus
-contains 12,861 decisions from 100 complete random matches, 40 cached decision
-states, and 128 hidden-state variants, totaling 13,029 active states. On this
-finite corpus native CPU/CUDA features agree with the original inputs and
-both original policies have zero observed assisted-action disagreements at
-the tested batch shape. CPU inference is used for the reported strength comparisons.
-
-Checkpoints retain model weights, optimizer state, environment state, random
-states, configuration, counters, and source identities. Resume checks cover
-the exact next update on CPU and CUDA. Independent experiment auditors
-recompute artifact digests, optimizer-step accounting, raw pair statistics,
-and selection arithmetic. Reproduction details are collected in the appendix.
-
-\begin{table}[ht]
-\centering\small
-\input{generated/budget_table.tex}
-\caption{Actual terminal-event counts in the fixed development training.
-Warmup is included; matches can cross the warmup/policy-update boundary.}
-\label{tab:budget}
-\end{table}
-
-The four development jobs total 293,897 completed matches, 2,287,795 round
-endings, and 34,078,720 decisions (Table~\ref{tab:budget}). Separately, a
-\texttt{research12} baseline completes 100,001,204 new twelve-round matches,
-1,200,025,665 round endings, and 18,157,928,448 decisions. This separate baseline demonstrates simulation scale. The selected
-eight-round models use the adaptation budgets in Table~\ref{tab:budget}.
-
-\subsection{Isolated CPU decision latency}
-After the final evaluation processes exited, we timed the exact deployment
-\texttt{agent.act} path on a Ryzen 9 9900X with two PyTorch CPU threads.
-The operation includes feature construction, inference, and the same public
-endgame wrappers used in the final evaluation; the adapted agent's value
-forward pass is also retained. Loading, state construction, simulator
-transitions, correctness checks, and process inventories are excluded.
-
-The fixed corpus uses only the 12,861 random-trajectory states from the earlier
-compatibility study. Uniformly spaced selections produce 1,024 mixed states,
-64 unguarded states in each of four phases, and 32 guarded states. These
-groups overlap, giving 1,287 unique states. Four agents receive two warmup
-passes and eight measured passes, with agent order rotated so each agent
-occupies each position twice. There are 41,184 timed calls, 10,296 warmup
-calls, and 5,148 validation calls; no new matches are simulated.
-
-\begin{table}[ht]
-\centering\small
-\input{generated/latency_table.tex}
-\caption{CPU decision latency on the 1,024-state mixed corpus: 8,192 timed
-calls per agent. Quantiles describe repeated cached calls, not uncertainty
-over independent games or hardware environments.}
-\label{tab:latency}
-\end{table}
-
-The canonical model averages 1.585 ms per mixed-state decision, compared with
-1.974 ms for RL-WP (Table~\ref{tab:latency}). Its phase-specific unguarded
-means range from 1.612 to 1.760 ms, and guarded calls average 0.023 ms.
-Every action is legal, stable across repeats, and consistent with the public
-guard; cached environment states remain unchanged. The timing audit checks
-raw durations, action accounting, group reconstruction, identities, and
-descriptive statistics. It does not independently remeasure inference or
-the clock. No other project training/evaluation workers were observed at pass
-boundaries; unrelated operating-system activity was not controlled.
-
-\subsection{Retained unsuccessful directions}
-The broader development record includes architecture/critic variants,
-koi-focused adaptation, direct published-opponent training, full-match return
-experiments, and search. The repository's \texttt{docs/EXPERIMENTS.md} is the
-chronological ledger; it contains pilot sizes, negative results, and subsequent
-diagnostics. These studies explain the choices leading to the present method.
-
-One fixed full-action rollout search extension improved the first tested model
-but did not replicate on a second: its latter absolute score was 48.000\%
-[46.225, 49.825], with a paired gain of 0.175 percentage points
-[-0.750, 1.150] over no search. Independent confirmation samples for proposed
-action changes also failed the both-model win-gain criterion. Separate
-diagnostics found that selected-world gains shrink on independent samples and
-that opponent-hand support assumptions can materially alter values at chosen
-roots. Those selected-state diagnostics do not establish match-level benefits.
-The final selected policy consequently uses no search.
-
-\section{Learning to select public expert proposals}
+\section{Expert composition experiments}
 \label{sec:arbitration}
-The RL-Point comparison suggests that useful decisions may remain in a
-point-oriented policy even after match-win adaptation. We implement a
-controller over two frozen experts: an adapted RL-WP parent and the original
-RL-Point agent. For public observation $o$, let their legal proposals be
-$a_W(o)$ and $a_P(o)$, after the same public endgame guard. The controller
-acts on the distinct proposal set
-\begin{equation}
- \mathcal C(o)=\{a_W(o),a_P(o)\},\qquad
- \mu_\phi(a\mid o)=\operatorname{softmax}_{a\in\mathcal C(o)}g_\phi(o,a).
-\end{equation}
-If both experts agree, $\mathcal C(o)$ contains one action and the policy
-log-probability has zero gradient. Exploration is concentrated on disagreements.
-This construction preserves agreement decisions and limits trainable choices
-to actions already favored by one of the two experts.
+The RL-Point result motivates combining the adapted win policy with the
+original point policy. At expert disagreements, a public-state controller
+chooses one of their proposed actions; agreement decisions stay unchanged.
+The experts are frozen. We compare the full controller, a phase-only controller
+and continued full-policy PPO at both parent models. Every arm receives the
+same 8.52 million additional simulator decisions.
 
-The full controller receives the 560 public features and one-hot encodings
-of the two proposals, followed by two 128-unit tanh layers. Its initial
-probability of the parent proposal is 0.9 at disagreements, so initial greedy
-play selects the frozen parent expert proposal. Both experts remain frozen; only the controller
-and a public critic are trained with terminal-match PPO. The critic starts
-from the parent's value network.
-
-The fixed-budget study compares this controller with a phase-only
-linear selector and ordinary continued Transformer PPO. Each of two parent
-models initializes all three arms. Every arm receives 20 critic-only and 500
-policy updates, or 8,519,680 additional simulator decisions. Only final
-endpoints are evaluated, on 1,000 new duplicate deals against RL-WP, RL-Point,
-and the corresponding parent. Both unchanged parents also play the published
-opponents on these deals. Full versus phase changes capacity as well as
-information; additional ablations are needed to isolate particular context
-features. The full protocol and implementation are available in
-\path{docs/ARBITRATION.md}.
+All final endpoints face RL-WP, RL-Point and their own parent on 1,000 duplicate
+development deals. Both unchanged parents use those same deals. A second
+study fits action choices from paired complete-match outcomes. These designs
+address two questions: whether learned composition improves on the adapted
+parent, and whether direct outcome targets improve on PPO selection.
+Appendix~\ref{app:controllers} gives the models, targets and fitting protocol.
 
 \subsection{Matched-budget results}
 All six training runs and 22 matchups completed. Learned selection and continued
@@ -544,36 +414,13 @@ the difference between complete-match outcomes after the two proposed actions.
 
 
 \subsection{Paired complete-match supervision}
-A second implementation replaces PPO credit assignment with direct comparisons
-at expert disagreements. Under a fixed behavior mixture (90\% parent, 10\%
-Point), the simulator copies the current world into two branches. Each branch
-executes one expert proposal; both players then follow the frozen parent to
-match termination. Continuation policies see only their own observations.
-The branches share hidden cards and future-round deal streams. For root-player
-returns $G_W,G_P\in\{-1,0,1\}$, the regression target is
-\begin{equation}
-  \delta=G_P-G_W, \qquad
-  \mathcal{L}(\phi)=\mathbb{E}[(h_\phi(o,a_W,a_P)-\delta)^2].
-\end{equation}
-The controller selects the proposal with the higher predicted return, with
-native action-index tie breaking. Conditional on its public input, the target
-averages the difference over hidden worlds encountered by the behavior policy.
-Training exports public inputs and outcomes; simulator state stays outside the
-learned controller.
-
-The fixed study collects 65,536 disagreement roots per parent and fits the
-controller for 20 epochs. A matched ablation removes explicit round and score
-inputs while preserving architecture, data and initialization. Entire source
-matches are held out for validation. Diagnostics report prediction error and
-the observed one-action gain on these held-out roots, with uncertainty clustered
-by source match. Repeated deployment is evaluated separately in full matches.
-Generation decisions, branch completions and fitting work are counted separately;
-this method incurs rollout computation beyond the PPO training budget.
-
-Both fitted controllers, arbitration PPO, continued actor PPO and unchanged
-parents are evaluated on 1,000 duplicate development deals against RL-WP and
-RL-Point; fitted controllers also play their own parents. All 24 matchups are
-complete, totaling 48,000 matches on the same 1,000 unique deal streams.
+Paired supervision compares the complete-match outcomes after the two expert
+proposals at the same root. Each parent supplies 65,536 disagreements, and the
+controller learns the outcome difference from public inputs. The two branches
+share hidden cards and future deals, while their continuation policies see only
+the acting player's observation. A matched ablation removes explicit score and
+round inputs. This adds rollout computation beyond the PPO training budget;
+source matches are kept intact in the validation split.
 
 \begin{table}[ht]
 \centering\small
@@ -583,6 +430,13 @@ parent, in percentage points. Intervals bootstrap 1,000 shared duplicate deals.
 The ablation removes explicit score and round inputs.}
 \label{tab:paired-supervision}
 \end{table}
+
+Both fitted controllers, arbitration PPO, continued actor PPO and unchanged
+parents are evaluated on 1,000 duplicate development deals against RL-WP and
+RL-Point; fitted controllers also play their own parents. All 24 matchups are
+complete, totaling 48,000 matches on the same 1,000 unique deal streams.
+
+
 
 Neither full supervision nor the ablation establishes a win gain at both
 parents against both opponents (Table~\ref{tab:paired-supervision}). The full
@@ -656,6 +510,7 @@ to retain that scoring benefit while improving terminal match wins.
 
 \appendix
 \section{Reproduction and evidence}
+\label{app:reproduction}
 Source code and experiment documentation are available at
 \url{https://github.com/sheetau/koikoi}. The primary comparison uses the
 published implementation at the revision identified in Reference~\cite{pinnedkoikoi}.
@@ -671,11 +526,9 @@ protocols, checkpoints, raw outcomes, audits and numerical tables. It records
 SHA256 digests for each source artifact.
 The completed development runner is \path{scripts.run_cold_ppo_screen};
 the held-out evaluation runner is \path{scripts.run_final_published_test}.
-Their corresponding audit modules verify artifact identities, accounting and
-paired statistics. Checkpoints include weights, optimizer state, simulator
-state, configuration and all random-generator states. Audits recompute stored
-statistics; full trajectory reproduction additionally requires the recorded
-runtime and pinned comparator dependencies.
+Their audit modules verify artifact identities, accounting and paired
+statistics. Full trajectory reproduction uses the recorded runtime and pinned
+comparator dependencies.
 
 Development used deals 7,200,000--7,204,999, while the completed held-out
 comparison used 100,000,000--100,009,999. Those held-out deals remain assigned
@@ -707,19 +560,156 @@ in points; its aggregate win score is unchanged and mean points differ by 0.002.
 Both learned controller arms share the frozen expert path. The diagnostic in
 \path{docs/ARBITRATION.md} records the state and reproducible flag intervention.
 
-The isolated latency benchmark times the deployment call, including features
-and public assistance, on one Ryzen 9 9900X with two PyTorch threads. It uses
-1,287 unique cached states with overlapping phase and mixed groups, two warmup
-passes and eight measured passes. The reported quantiles summarize repeated
-calls. Loading, simulator transitions and correctness checks lie outside the
-timed region. Raw timings and corpus identities are included in the ledger.
-
 Build instructions are in \path{docs/paper/README.rst};
 \path{docs/ARTIFACTS.rst} describes the existing local archive, permitted
 comparator files and verification commands. The archive preserves the completed
 study rather than the ongoing extension. The broader exploratory record,
 including unsuccessful experiments, is retained in \path{docs/EXPERIMENTS.md}.
 
+
+\section{Simulation, budgets, and supporting experiments}
+\label{app:systems}
+\subsection{Native simulation and validation}
+Python reference rules and shared C++/CUDA transitions implement the same
+versioned profiles. Differential tests exercise CPU/GPU transitions, public
+observations, legal masks, and player-relative signs. Native public features
+are checked against the pinned model inputs. A recorded compatibility corpus
+contains 12,861 decisions from 100 complete random matches, 40 cached decision
+states, and 128 hidden-state variants, totaling 13,029 active states. On this
+finite corpus native CPU/CUDA features agree with the original inputs and
+both original policies have zero observed assisted-action disagreements at
+the tested batch shape. CPU inference is used for the reported strength comparisons.
+
+Checkpoints retain model weights, optimizer state, environment state, random
+states, configuration, counters, and source identities. Resume checks cover
+the exact next update on CPU and CUDA. Independent experiment auditors
+recompute artifact digests, optimizer-step accounting, raw pair statistics,
+and selection arithmetic. Appendix~\ref{app:reproduction} lists the reproduction artifacts.
+
+\begin{table}[ht]
+\centering\small
+\input{generated/budget_table.tex}
+\caption{Actual terminal-event counts in the fixed development training.
+Warmup is included; matches can cross the warmup/policy-update boundary.}
+\label{tab:budget}
+\end{table}
+
+The four development jobs total 293,897 completed matches, 2,287,795 round
+endings, and 34,078,720 decisions (Table~\ref{tab:budget}). Separately, a
+\texttt{research12} baseline completes 100,001,204 new twelve-round matches,
+1,200,025,665 round endings, and 18,157,928,448 decisions. This separate baseline demonstrates simulation scale. The selected
+eight-round models use the adaptation budgets in Table~\ref{tab:budget}.
+
+\subsection{Isolated CPU decision latency}
+After the final evaluation processes exited, we timed the exact deployment
+\texttt{agent.act} path on a Ryzen 9 9900X with two PyTorch CPU threads.
+The operation includes feature construction, inference, and the same public
+endgame wrappers used in the final evaluation; the adapted agent's value
+forward pass is also retained. Loading, state construction, simulator
+transitions, correctness checks, and process inventories are excluded.
+
+The fixed corpus uses only the 12,861 random-trajectory states from the earlier
+compatibility study. Uniformly spaced selections produce 1,024 mixed states,
+64 unguarded states in each of four phases, and 32 guarded states. These
+groups overlap, giving 1,287 unique states. Four agents receive two warmup
+passes and eight measured passes, with agent order rotated so each agent
+occupies each position twice. There are 41,184 timed calls, 10,296 warmup
+calls, and 5,148 validation calls; no new matches are simulated.
+
+\begin{table}[ht]
+\centering\small
+\input{generated/latency_table.tex}
+\caption{CPU decision latency on the 1,024-state mixed corpus: 8,192 timed
+calls per agent. Quantiles describe repeated cached calls, not uncertainty
+over independent games or hardware environments.}
+\label{tab:latency}
+\end{table}
+
+The canonical model averages 1.585 ms per mixed-state decision, compared with
+1.974 ms for RL-WP (Table~\ref{tab:latency}). Its phase-specific unguarded
+means range from 1.612 to 1.760 ms, and guarded calls average 0.023 ms.
+Every action is legal, stable across repeats, and consistent with the public
+guard; cached environment states remain unchanged. The timing audit checks
+raw durations, action accounting, group reconstruction, identities, and
+descriptive statistics. It does not independently remeasure inference or
+the clock. No other project training/evaluation workers were observed at pass
+boundaries; unrelated operating-system activity was not controlled.
+
+\subsection{Retained unsuccessful directions}
+The broader development record includes architecture/critic variants,
+koi-focused adaptation, direct published-opponent training, full-match return
+experiments, and search. The repository's \texttt{docs/EXPERIMENTS.md} is the
+chronological ledger; it contains pilot sizes, negative results, and subsequent
+diagnostics. These studies explain the choices leading to the present method.
+
+One fixed full-action rollout search extension improved the first tested model
+but did not replicate on a second: its latter absolute score was 48.000\%
+[46.225, 49.825], with a paired gain of 0.175 percentage points
+[-0.750, 1.150] over no search. Independent confirmation samples for proposed
+action changes also failed the both-model win-gain criterion. Separate
+diagnostics found that selected-world gains shrink on independent samples and
+that opponent-hand support assumptions can materially alter values at chosen
+roots. Those selected-state diagnostics do not establish match-level benefits.
+The final selected policy consequently uses no search.
+
+\section{Expert-controller protocols}
+\label{app:controllers}
+\subsection{PPO controller and matched continuation}
+The controller uses two frozen experts: the adapted RL-WP parent and original
+RL-Point. For public observation $o$, let their legal proposals be
+$a_W(o)$ and $a_P(o)$, after the same public endgame guard. The controller
+acts on the distinct proposal set
+\begin{equation}
+ \mathcal C(o)=\{a_W(o),a_P(o)\},\qquad
+ \mu_\phi(a\mid o)=\operatorname{softmax}_{a\in\mathcal C(o)}g_\phi(o,a).
+\end{equation}
+At agreement states, $\mathcal C(o)$ has one action and the policy
+log-probability has zero gradient. Trainable choices occur only at disagreements.
+
+The full controller receives the 560 public features and one-hot encodings
+of the two proposals, followed by two 128-unit tanh layers. Its initial
+probability of the parent proposal is 0.9 at disagreements, so initial greedy
+play selects the frozen parent expert proposal. Both experts remain frozen; only the controller
+and a public critic are trained with terminal-match PPO. The critic starts
+from the parent's value network.
+
+The fixed-budget study compares this controller with a phase-only
+linear selector and ordinary continued Transformer PPO. Each of two parent
+models initializes all three arms. Every arm receives 20 critic-only and 500
+policy updates, or 8,519,680 additional simulator decisions. Only final
+endpoints are evaluated, on 1,000 new duplicate deals against RL-WP, RL-Point,
+and the corresponding parent. Both unchanged parents also play the published
+opponents on these deals. Full versus phase changes capacity as well as
+information; additional ablations are needed to isolate particular context
+features. The full protocol and implementation are available in
+\path{docs/ARBITRATION.md}.
+
+\subsection{Paired-outcome regression}
+A second implementation replaces PPO credit assignment with direct comparisons
+at expert disagreements. Under a fixed behavior mixture (90\% parent, 10\%
+Point), the simulator copies the current world into two branches. Each branch
+executes one expert proposal; both players then follow the frozen parent to
+match termination. Continuation policies see only their own observations.
+The branches share hidden cards and future-round deal streams. For root-player
+returns $G_W,G_P\in\{-1,0,1\}$, the regression target is
+\begin{equation}
+  \delta=G_P-G_W, \qquad
+  \mathcal{L}(\phi)=\mathbb{E}[(h_\phi(o,a_W,a_P)-\delta)^2].
+\end{equation}
+The controller selects the proposal with the higher predicted return, with
+native action-index tie breaking. Conditional on its public input, the target
+averages the difference over hidden worlds encountered by the behavior policy.
+Training exports public inputs and outcomes; simulator state stays outside the
+learned controller.
+
+The fixed study collects 65,536 disagreement roots per parent and fits the
+controller for 20 epochs. A matched ablation removes explicit round and score
+inputs while preserving architecture, data and initialization. Entire source
+matches are held out for validation. Diagnostics report prediction error and
+the observed one-action gain on these held-out roots, with uncertainty clustered
+by source match. Repeated deployment is evaluated separately in full matches.
+Generation decisions, branch completions and fitting work are counted separately;
+this method incurs rollout computation beyond the PPO training budget.
 
 \section{Selector-fitting diagnostics}
 Subsequent development screens compare raw public inputs with frozen expert
