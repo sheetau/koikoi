@@ -1879,3 +1879,74 @@ collection, fitting and diagnosis; one expected upstream warning. No neural
 uncertainty guarantee or match-strength claim. POLICY_IMPROVEMENT.rst documents
 the exact design and verified primary DAgger/AggreVaTe/SPIBB positioning. All
 18 active opponent-target dependencies remain unchanged.
+
+
+## Fixed switch-budget diagnostic and opponent targets: completed
+
+The fixed10% training-score-quantile diagnostic completed on the two existing
+large-data feature/paired_win endpoints (session7907 exit0). Parent1 threshold
+0.00625252724, held-out Point fraction0.10101747; parent2 threshold0.01129694656,
+fraction0.10233407. Restricted-minus-parent win changes are+0.090228pp
+[0.005733,0.178805] and+0.057631pp [-0.028169,0.140142]. Restricted-minus-greedy
+changes are-0.023997pp [-0.168435,0.134072] and+0.006724pp [-0.159928,0.179072].
+No replicated win benefit. Expected-point gains over parent are+0.112882
+[0.067354,0.159371] and+0.120565 [0.071495,0.170024], but restricted-minus-greedy
+point intervals also include zero. No threshold sweep or full-match promotion.
+Reports runs/switch_budget_diagnostic/parent1.json SHA90bdc85f69c92ad0dc3a0d874293bac11eb94759dab9f00a1f9e3735d13fad46;
+parent2.json SHA70b4ccaf40b4ee96bc1d29f860c03386c5e3d855de3181d57b0d666a91c85f19.
+
+Opponent-target session59220 exited0. All four endpoints, both source/cache audits
+and cross-evaluations completed; all18 protocol input identities reverified after
+completion. Results SHA4187328f8d77757bd51cebdb0cd6be747de43ca3427a678fecf8db6108fa5665.
+Parent1 data audit SHAb0f2e17e7275c9e0b555374219c1fd6ae0533dd1c9b8d8c5130513ecce26f06e;
+parent2 SHAf01acc4f4bc47ab819e914f1616cd5ac475319f9ee950f413a84cff5546537e1.
+Opponent-preserving-minus-parent-only training on opponent-preserving labels:
+parent1 win+0.046104pp [-0.215089,0.302850], points-0.052559
+[-0.197653,0.086176]; parent2 win-0.023348pp [-0.282387,0.246278],
+points+0.069577 [-0.073287,0.217382]. No target-construction benefit is established.
+On parent-only labels parent2 has a point improvement+0.212001
+[0.059409,0.364997], while its win interval includes zero; this is not evidence
+of improvement against the preserved opponents. Retain all labels/endpoints.
+
+Combined shared source:1,211,392 decisions (606,950 learner /604,442 opponent),
+80,859 round endings /10,311 matches (5,165 WP /5,146 Point). Combined forced
+branches:30,876,654 decisions /2,295,860 round endings /524,288 endpoints.
+Four branches per learner disagreement across two parents. Features extracted
+inline; zero additional replay simulation. The runner's per-parent collection,
+CPU fit-loss, initialization and cross-label comparisons are retained in results.
+All previous studies/watchers are now terminal; bound dependencies are released.
+
+## Direct pretrained response capability
+
+Source review confirms the published actor already sees score difference
+(native published.h rows17--19) and round identity (rows26--33). Adding those
+inputs is not a new information capability. The earlier koi residual studies
+used the project's MLP actor; nevertheless, existing published-context features
+and failed selector controls rule out claiming novelty from merely adding context.
+
+scripts/published_response.py instead enables actual on-policy pretrained actor
+updates against fixed WP/Point opponents. Its separate config validates all
+ordinary published-PPO restrictions while explicitly allowing a fixed opponent
+fraction and wp/point/wp_point routing. Across four episodes per lane, the
+learner visits both seats against both opponents; assignment stays fixed across
+rounds. Actor inputs remain unchanged; routing metadata is not given to the actor.
+Existing signed GAE follows all decisions to match termination. Frozen decisions
+are excluded from actor losses/advantage normalization; a public observation-only
+opponent-role critic supplies their values. The joint clipping operation includes
+both critics, and real learner/opponent counts accompany total simulator work.
+
+Seven tests pass,0 skipped,8 expected upstream warnings (15.32s): CPU/CUDA
+reference transitions, independently recomputed seat-zero returns, expert action
+routing and accounting, unchanged frozen experts, exact optimizer/environment/RNG
+restart, all-opponent actor-loss exclusion, partial fixed-opponent lanes, and
+canonical-parent greedy action equality across all four phases. ResponseAgent
+reuses the existing deployment action path and loads no opponent model. This is
+implementation validation, not a strength result or a new PPO algorithm.
+
+Production-size capability session6936 exited0:128 environments x128 horizon,
+three updates (one critic-only),49,152 decisions /3,242 round endings /383 matches.
+Actual learner24,419 /opponent24,733 decisions. Elapsed update time12.094623s;
+peak allocated CUDA memory2316669440 bytes (allocator-reserved3531603968).
+All tensors finite; every actor/value/opponent-value Adam step matches counters;
+per-opponent sums match totals. Report SHAfa356e15be7d4c3f7e9e71889b02269f1ae8007b2bde12ef08dcba7a890fa427.
+No strength inference, checkpoint promotion or production behavior change.

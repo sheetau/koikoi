@@ -268,3 +268,27 @@ extraction are shared, counted once, and validated before fitting. The existing
 fitter accepts explicit at_collection caches with zero replay work; old replay
 cache semantics and numerical defaults remain unchanged. No deployment promotion
 follows from the new data path alone.
+
+
+## Experimental pretrained response learning
+
+scripts/published_response.py combines the unchanged PublishedActor with the
+existing learner-masked PPO and signed match-return collector. It lives outside
+production modules. Fixed public WP/Point opponents alternate by whole match;
+learner seats alternate independently over a four-episode cycle. Opponent
+identity routes frozen inference and accounting only, never actor inputs.
+A separate public560-feature opponent-role value network estimates values on
+frozen turns. Both critics and the learner actor share gradient clipping, while
+policy/entropy/KL and advantage normalization exclude frozen actions. Count
+actual learner/opponent decisions separately from simulator decisions and report
+per-opponent completed matches/rounds. Equal simulator budgets are not equal
+policy-gradient sample budgets.
+
+Response checkpoints embed frozen opponents, both critics, actor, optimizer,
+environment, RNG, counters, runtime, source identities and parent ancestry.
+Exact restart rejects source/runtime/identity changes. ResponseAgent loads only
+the learner model and reuses NeuralAgent's public deterministic inference path;
+it does not alter the playable default. Frozen-model mixture training is an
+established technique, so a new method claim must rest on an identified mechanism
+and measured controls, not this integration alone. No equilibrium guarantee is
+asserted for a fixed two-opponent mixture.

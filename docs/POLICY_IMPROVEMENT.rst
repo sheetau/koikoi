@@ -90,3 +90,24 @@ Implementation: scripts.diagnose_switch_budget. Analytic threshold/tie fixtures
 and an actual collect-fit-diagnose round trip pass. The first application is
 limited to the two existing larger-data feature/paired_win checkpoints; no other
 loss, budget or threshold is selected from held-out outcomes.
+
+
+Completed diagnostics and next intervention
+------------------------------------------
+
+Both the fixed switch-budget diagnostic and opponent-preserving-target study
+are complete. Neither establishes replicated win improvement. Their exact
+outcomes and separate source/branch counts are recorded in EXPERIMENTS.md.
+The existing published features already contain score difference and round
+identity; simply adding such context is not a new observation capability.
+
+The next capability is actual pretrained actor learning against the two fixed
+public opponents, rather than one-shot supervised proposal selection. Existing
+published PPO was restricted to pure self-play; scripts/published_response.py
+extends it experimentally with learner-only policy losses and a separate
+public opponent-role critic. Seven CPU/CUDA/deployment tests and the actual-size
+capability check pass. A fixed mixture is established opponent training, not an
+original RL algorithm. Any study must compare unchanged parents and fresh
+self-play continuation at both parent seeds, report actual learner counts under
+equal simulator budgets, and use separate development deals. No bounded
+strength-study protocol or final-test promotion has yet been launched.
