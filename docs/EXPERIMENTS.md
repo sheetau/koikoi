@@ -1950,3 +1950,27 @@ peak allocated CUDA memory2316669440 bytes (allocator-reserved3531603968).
 All tensors finite; every actor/value/opponent-value Adam step matches counters;
 per-opponent sums match totals. Report SHAfa356e15be7d4c3f7e9e71889b02269f1ae8007b2bde12ef08dcba7a890fa427.
 No strength inference, checkpoint promotion or production behavior change.
+
+
+## Direct response study: fixed protocol and pipeline verified
+
+Added scripts.run_response_study and RESPONSE_STUDY.rst. Two retained parents x
+response/selfplay continuation, fixed520 updates (20 warmup+500 policy),
+8,519,680 simulator decisions each. Fresh training seeds19910001/20010001.
+Four endpoints plus unchanged parents face strict CPU2 assisted WP/Point on
+5,000 common development pairs23,000,000--23,004,999 (12 matchups /120,000 matches,
+5,000 unique deal streams). Existing protocol inventories have no overlapping
+recorded evaluation range. All results retained; qualification requires positive
+paired lower95 bounds over BOTH parent and selfplay for BOTH parents/opponents.
+Point differences secondary; no final-test/deployment promotion.
+
+Three tests pass,0 skipped,17.43s: actual reduced subprocess scheduler through
+both training conditions, six evaluations and full analysis; protocol/receipt/
+opponent identity tampering; matched fixed production settings; owned-worker
+failure cleanup and resource/dependency scheduling. The reduced run performs
+24 matches and has no strength qualification. Ruff/format/diff checks pass.
+Bound production source, helper/runner sources, upstream Python/weights and
+parents are rechecked. Independent raw outcome and checkpoint/accounting checks
+run before results are accepted. Planned maximum concurrency is one GPU trainer
+and three CPU2 evaluators. Equal simulator budgets differ in actual learner
+samples and additional opponent-role critic/clipping; no isolated causal claim.
