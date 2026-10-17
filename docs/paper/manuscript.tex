@@ -14,26 +14,26 @@
 \title{Self-Play Adaptation of Published Koi-Koi Transformers:\\
 GPU Simulation and Paired Evaluation}
 \author{}
-\date{17 October 2026}
+\date{18 October 2026}
 \begin{document}
 \maketitle
 \begin{abstract}
-Additional self-play improves the match-winning performance of published
-Koi-Koi Transformers while preserving their architecture and greedy inference.
-We formulate a stochastic policy over the pretrained action scores, train it
-with player-relative match returns, and implement parallel simulation in a
-shared C++/CUDA engine. Each adapted model uses 8.52 million additional decisions.
-On 10,000 held-out duplicate deals, two independently adapted models achieve
-51.480\% and 51.445\% draw-adjusted wins against the original assisted win-oriented
-RL-WP policy; both 95\% intervals exclude 50\%. A colder exploration setting
-with a reduced learning rate performs worse in paired development comparisons.
-Against the point-oriented RL-Point policy, win-rate improvement is inconsistent
-across the two models, and expected points favor RL-Point. This objective-dependent
-result identifies a remaining challenge: converting strong round-level scoring
-into reliable match-level decisions. The canonical adapted agent averages
-1.585 ms per CPU decision. The study provides a reproducible implementation,
-controlled adaptation results, and retained negative experiments that support
-further work on combining win-oriented and point-oriented play.
+We improve the match-winning performance of published Koi-Koi Transformers
+through additional self-play, retaining their architecture and greedy inference.
+The method turns pretrained action scores into a stochastic policy and optimizes
+player-relative terminal-match returns using a shared C++/CUDA simulator.
+After 8.52 million additional decisions per model, two independently adapted
+models achieve 51.480\% and 51.445\% draw-adjusted wins against the original
+assisted RL-WP policy on 10,000 held-out duplicate deals. Both 95\% intervals
+exclude 50\%. Two adaptation settings start with identical greedy play but
+produce different trained policies: the warmer exploration and learning-rate
+configuration gains 0.935--1.050 percentage points over the colder configuration
+in paired development comparisons. Against RL-Point, win-rate improvement is
+inconsistent across models and expected points favor the point-oriented agent.
+A further matched-budget study finds no replicated win gain from learned expert
+selection or continued full-policy PPO. These results identify both an effective
+adaptation procedure and the limits of further training at the tested budget.
+The canonical agent uses no search and averages 1.585 ms per CPU decision.
 \end{abstract}
 
 \section{Introduction}
@@ -59,15 +59,19 @@ A shared CPU/GPU simulator makes these updates practical while preserving the
 published feature and scoring conventions. Deployment retains greedy action
 selection and requires no search.
 
-The study makes three contributions. First, it establishes a replicated
-improvement over the published win-oriented policy using 8.52 million additional
-decisions per model. Second, a paired comparison of two exploration and
-learning-rate settings identifies a better adaptation setting, while a separate
-opponent comparison exposes the remaining gap between wins and expected points.
-Third, the implementation connects reference rules, native simulation, exact
-training restart, and paired match evaluation in a reusable research system.
-These are contributions in adaptation, empirical analysis, and infrastructure;
-PPO and Transformer architectures are inherited methods.
+The main contribution is a replicated improvement over the published win-oriented
+policy at a fixed additional budget of 8.52 million decisions per model. We
+also show that identical initial greedy behavior can lead to different adaptation
+outcomes: two fixed exploration and learning-rate configurations separate in
+paired development comparisons. Evaluating both published reward objectives
+then reveals where the improvement transfers and where a scoring advantage
+remains with RL-Point.
+
+The accompanying system connects reference rules, native CPU/GPU simulation,
+exact training restart, and paired match evaluation. It preserves the pretrained
+actors' input conventions and tracks simulation, training, and evaluation work
+separately. This makes the measured adaptation and subsequent expert-selection
+experiments reproducible within a common game protocol.
 
 The result against RL-Point motivates a second question: can a small public-state
 controller choose useful actions from differently trained experts more effectively
@@ -130,13 +134,21 @@ in imperfect-information games \cite{brown2020rebel}. These approaches make
 information handling part of the algorithm: a simulated hidden world cannot
 simply be treated as information available to the acting policy.
 
-Rollout-based approximate policy iteration turns simulated action comparisons
-into supervised policy learning \cite{dimitrakakis2008rollout}. Coupling rollouts
-with common random numbers can reduce the variance of relative utilities when
-the coupling satisfies suitable conditions \cite{yadav2026common}. Our paired
-extension uses these established ideas to supervise public expert choices from
-complete-match outcomes. It measures the induced covariance instead of assuming
-that shared randomness always reduces variance.
+Lagoudakis and Parr formulate policy iteration as classification, learning
+preferred actions from rollout comparisons \cite{lagoudakis2003classification}.
+Dimitrakakis and Lagoudakis improve the allocation of rollout samples within
+this framework \cite{dimitrakakis2008rollout}. Langford and Zadrozny relate
+policy performance to reward-sensitive classification performance
+\cite{langford2005classification}. Together, these works establish the basis
+for learning action choices from simulated outcomes.
+
+Our paired extension applies this approach to disagreements between win-oriented
+and point-oriented Koi-Koi experts. Both proposed actions are followed to match
+termination under the same frozen continuation. Common random numbers can
+reduce the variance of relative utilities under suitable coupling conditions
+\cite{yadav2026common}; we measure the resulting covariance in the generated
+data. The empirical question is whether these coupled targets produce stronger
+public-state selectors in complete matches.
 
 Expert Iteration alternates search-based policy improvement with learning a
 policy that generalizes its decisions \cite{anthony2017expert}. This provides
@@ -154,8 +166,8 @@ extension selects between expert action proposals at each decision rather
 than learning durations of temporally extended options. Its specific question
 is whether differences between point-oriented and win-oriented Koi-Koi policies
 provide a useful restricted exploration space for match optimization.
-The comparison must establish the value of that restriction and of public
-context; switching alone is not the claimed innovation.
+Phase-only selectors and fixed card/koi hybrids provide controls for measuring
+the value of learned, state-dependent selection.
 
 Reliable reinforcement-learning evaluation also requires separating uncertainty
 in sampled tasks or episodes from variation across training runs.
@@ -264,11 +276,10 @@ $6\times10^{-7}$. Both settings are trained at seeds 6710001 and 6720001.
 Only the final update-520 checkpoints enter the comparison. Intermediate
 snapshots are retained for accounting and recovery, not strength selection.
 
-This is a comparison of two parameter bundles, not an isolated temperature
-ablation. Although the two settings have the same learning-rate/temperature
-ratio, they can differ in sampled trajectories, entropy, local gradients, and
-adaptive optimizer states. We do not attribute a difference solely to one
-mechanism. Execution is eager float32 with TF32 disabled. The GPU is an
+The comparison measures the joint effect of temperature and actor learning rate,
+with their ratio held fixed. The settings can produce different sampled
+trajectories, entropy and adaptive optimizer states. Execution is eager float32
+with TF32 disabled. The GPU is an
 NVIDIA GeForce RTX 5070 Ti; the runtime records PyTorch 2.12.0+cu130 and NumPy
 2.5.4. Evaluation is kept separate from training.
 
@@ -281,9 +292,8 @@ for inference is $x_i=(w_{i0}+w_{i1})/2$. The reported draw-adjusted win score
 is $\bar x$. We resample whole pairs, not individual match legs, for 5,000
 bootstrap replicates using random seed 99 and linearly interpolated 2.5th and
 97.5th percentiles. Paired method comparisons resample the per-deal differences.
-These intervals describe deal variation conditional on each fixed model;
-they do not measure uncertainty over an arbitrary distribution of training
-seeds or guarantee exact finite-sample coverage.
+The intervals quantify deal variation for each fixed model. Results for the
+two training seeds are reported separately.
 
 Point difference is final candidate points minus opponent points, averaged
 across the two seats. Because total points remain 60, this is twice the
@@ -302,20 +312,19 @@ shows that replicated benefit; otherwise it chooses qualified warm, then
 qualified cold, and otherwise no method. The canonical model always uses
 training seed 6710001 of the selected arm. There is no best-seed ranking.
 
-These rules were fixed before this study's outcomes, but the research program
-had already explored other methods and development deals. Consequently,
-development qualification is not untouched confirmation. In particular, an
-earlier two-seed screen of the warm method at 1,000 pairs was inconclusive.
-We retain that result and use fresh model seeds in the present comparison.
+The selection rules were fixed before this study's outcomes. Earlier development
+explored other methods and included an inconclusive two-seed warm screen at
+1,000 pairs. The present comparison uses fresh training seeds and 5,000 pairs;
+a separate final test provides confirmation after this development process.
 
 The frozen final test evaluates both selected models against assisted RL-WP
 and, separately, assisted RL-Point. Each of four jobs plays 10,000 duplicate
 pairs on seeds 100,000,000--100,009,999: 80,000 matches on 10,000 unique deal
 streams. The primary criterion requires both RL-WP interval lower bounds to
 exceed 0.5. The secondary RL-Point criterion is recorded separately. There is
-no model reranking, training, extension, or early strength stopping after
-accessing these final outcomes. Four two-thread CPU workers run concurrently;
-their recorded times are not an isolated latency benchmark.
+change to the selected checkpoints or comparison budget during this final test.
+All four jobs run to completion. Four two-thread CPU workers run concurrently;
+a separate experiment measures isolated inference latency.
 
 \section{Match results}
 The initialized policy reproduces the comparator's paired outcomes on all
@@ -597,10 +606,8 @@ paired-supervision experiment under evaluation.
 
 The machine-readable evidence ledger,
 \path{docs/paper/generated/evidence.json}, binds the completed studies'
-protocols, checkpoints, raw outcomes, audits and numerical tables. Its SHA256 is
-\begin{quote}\small\ttfamily
-104066c182779b3911fa511269b1dab0f7336e9d02a75e37f261c02c2b22fcb5.
-\end{quote}
+protocols, checkpoints, raw outcomes, audits and numerical tables. It records
+SHA256 digests for each source artifact.
 The completed development runner is \path{scripts.run_cold_ppo_screen};
 the held-out evaluation runner is \path{scripts.run_final_published_test}.
 Their corresponding audit modules verify artifact identities, accounting and

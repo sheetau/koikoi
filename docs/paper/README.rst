@@ -117,5 +117,31 @@ The plot requires the complete passed study audit, independently recomputes raw
 paired outcomes and records input/output hashes. generated/arbitration_evidence.json
 binds the source plot receipt, protocol, raw outcomes, audit and copied figure.
 The historical generated/evidence.json remains unchanged. Current manuscript QA
-is runs/manuscript_arbitration_results_qa.json; paired-regression and static-control
+is runs/manuscript_clarity_revision_qa.json; paired-regression and static-control
 match results remain pending. The historical archive is preserved separately.
+
+
+Clarity and classification-prior-work revision
+--------------------------------------------
+
+The18 October revision keeps13 pages and expands the bibliography to18 cited
+works. Abstract/Introduction lead with the measured adaptation result and the
+identical-initial-greedy-policy comparison; the temperature/learning-rate study
+is described as a joint intervention. The fixed historical final test is
+explicitly separated from later development. Repeated defensive qualifications
+were shortened while preserving opponent, budget and uncertainty scope.
+
+Primary sources checked on18 October2026: Lagoudakis and Parr's ICML2003 paper
+at https://cdn.aaai.org/ICML/2003/ICML03-057.pdf; Langford and Zadrozny's ICML2005
+paper at https://icml.cc/Conferences/2005/proceedings/papers/060_Relating_LangfordZadrozny.pdf;
+and Dimitrakakis and Lagoudakis's journal record at
+https://link.springer.com/article/10.1007/s10994-008-5069-3. The last entry now uses
+Machine Learning72:157--171 rather than an arXiv-only record.
+
+Latest QA is runs/manuscript_clarity_revision_qa.json. PDF SHA256:
+a6538307993938f84291ebe757a12e8dc2cc7f99d74523ac467302fbe548e56a.
+All13 pages were visually inspected;18 fonts are embedded and18 citations resolve.
+The26 historical and34 arbitration evidence hashes remain verified and unchanged.
+The previous PDF is preserved as output/pdf/manuscript_arbitration_16ac69ab.pdf.
+Paired-regression/static-control and data-scale comparisons remain ongoing; this
+revision introduces no unverified stronger-model result.
