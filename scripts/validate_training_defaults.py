@@ -68,6 +68,7 @@ def main():
             old_config = asdict(config)
             del old_config["published_opponent"]
             del old_config["complete_matches"]
+            del old_config["round_continuation"]
             first = old.Trainer(old.Config(**old_config))
             second = Trainer(config)
             if fraction:

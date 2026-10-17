@@ -3,7 +3,7 @@
 import torch
 
 from .estimators import native_gae
-from .layout import PHASE, PLAYER, ROUND, TURN
+from .layout import DEALER, PHASE, PLAYER, POINTS, ROUND, TURN
 from .model import sample_action
 
 
@@ -37,6 +37,8 @@ def collect_complete_matches(trainer):
         )
     }
     active = []
+    if trainer.round_continuation is not None:
+        buffers.update(learning_reward=[], learning_done=[])
     totals = torch.zeros(2, dtype=torch.int64, device=env.device)
     for _ in range(config.horizon):
         valid = env.state[:, PHASE] != 4
@@ -59,6 +61,19 @@ def collect_complete_matches(trainer):
             "done": result[:, 2].bool() | ~valid,
             "player": player,
         }
+        if trainer.round_continuation is not None:
+            continuation = trainer.round_continuation.value(
+                env.state[:, ROUND], env.state[:, POINTS], env.state[:, DEALER]
+            )
+            # Freeze the target at this round's end. True terminal outcomes take
+            # precedence; do not count a learning boundary as a completed match.
+            boundary_reward = torch.where(
+                result[:, 2].bool(), result[:, 0].float(), continuation
+            )
+            row["learning_reward"] = torch.where(
+                result[:, 1].bool(), boundary_reward * (1 - 2 * player), 0
+            )
+            row["learning_done"] = result[:, 1].bool() | ~valid
         for key, tensor in row.items():
             buffers[key].append(tensor)
         totals += result[:, 1:3].sum(0)
@@ -66,9 +81,9 @@ def collect_complete_matches(trainer):
         raise RuntimeError("Complete-match horizon exhausted before all matches ended")
     batch = {key: torch.stack(value) for key, value in buffers.items()}
     arguments = (
-        batch["reward"],
+        batch.get("learning_reward", batch["reward"]),
         batch["value"],
-        batch["done"],
+        batch.get("learning_done", batch["done"]),
         batch["player"],
         torch.zeros(env.count, device=env.device),
         env.state[:, PLAYER],

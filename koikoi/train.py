@@ -67,8 +67,21 @@ class Config:
     koi_width: int = 0
     deterministic_cards: bool = False
     complete_matches: bool = False
+    round_continuation: dict | None = None
 
     def __post_init__(self):
+        if self.round_continuation is not None:
+            if (
+                not self.complete_matches
+                or self.profile != "paper8"
+                or self.gae_lambda != 1
+            ):
+                raise ValueError(
+                    "Round continuation requires complete paper8 matches and lambda1"
+                )
+            from .round_continuation import validate_spec
+
+            validate_spec(self.round_continuation)
         if self.complete_matches and (
             self.algorithm != "ppo"
             or self.reward != "match"
@@ -271,6 +284,16 @@ class Trainer:
         if config.policy_scope == "koi":
             self.counters["policy_decisions"] = 0
         self.provenance = provenance()
+        self.round_continuation = None
+        if config.round_continuation is not None:
+            from .round_continuation import RoundContinuation
+
+            self.round_continuation = RoundContinuation(
+                config.round_continuation, config.device
+            )
+            self.provenance["round_continuation_sha256"] = (
+                self.round_continuation.sha256
+            )
         if config.published_opponent:
             from .published_opponent import PublishedOpponent
 
@@ -345,6 +368,14 @@ class Trainer:
         if any(self.counters.values()) or self.optimizer.state:
             raise ValueError("Weight initialization requires a fresh trainer")
         content = Path(path).read_bytes()
+        if (
+            self.round_continuation is not None
+            and hashlib.sha256(content).hexdigest()
+            != self.round_continuation.parent_sha256
+        ):
+            raise ValueError(
+                "Round continuation requires its calibrated parent checkpoint"
+            )
         payload = torch.load(
             io.BytesIO(content), map_location="cpu", weights_only=False
         )
@@ -415,6 +446,7 @@ class Trainer:
 
     @torch.no_grad()
     def collect(self):
+        self._check_round_continuation()
         if self.config.complete_matches:
             from .complete_matches import collect_complete_matches
 
@@ -775,7 +807,26 @@ class Trainer:
             )
         )
 
+    def _check_round_continuation(self):
+        if self.round_continuation is not None:
+            self.round_continuation.check(self.config.round_continuation)
+            if (
+                self.provenance.get("round_continuation_sha256")
+                != self.round_continuation.sha256
+            ):
+                raise ValueError("Round continuation checkpoint identity mismatch")
+            if (
+                self.provenance.get("initialized_from", {}).get("sha256")
+                != self.round_continuation.parent_sha256
+            ):
+                raise ValueError(
+                    "Round continuation requires initialization from its calibrated parent"
+                )
+        elif self.config.round_continuation is not None:
+            raise ValueError("Round continuation cannot be enabled after construction")
+
     def save(self, path):
+        self._check_round_continuation()
         path = Path(path)
         path.parent.mkdir(parents=True, exist_ok=True)
         payload = {
@@ -831,6 +882,10 @@ class Trainer:
             config,
             published_snapshot=payload.get("published_opponent"),
         )
+        if obj.provenance.get("round_continuation_sha256") != payload["provenance"].get(
+            "round_continuation_sha256"
+        ):
+            raise ValueError("Round continuation checkpoint identity mismatch")
         if obj.config.published_opponent and (
             obj.provenance["frozen_opponent"]
             != payload["provenance"].get("frozen_opponent")
@@ -845,6 +900,7 @@ class Trainer:
         for key in ("initialized_from", "execution_change", "frozen_opponent"):
             if key in payload["provenance"]:
                 obj.provenance[key] = payload["provenance"][key]
+        obj._check_round_continuation()
         if (
             payload["provenance"]["source_sha256"] != obj.provenance["source_sha256"]
             and not allow_code_change
