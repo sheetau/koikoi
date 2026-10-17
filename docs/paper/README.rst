@@ -3,13 +3,13 @@ Manuscript working files
 
 This is an English research manuscript, not a submitted or published paper.
 
-Current revision: Abstract and Introduction now lead with the measured
-contribution; Related Work contains12 primary-source references spanning
-Koi-Koi, self-play, policy composition, information-set search and evaluation.
-The public expert arbitration extension is explicitly marked as under evaluation.
-Its outcomes are not included in the completed adaptation results. The previous
-9-page final-results manuscript and QA remain preserved in the existing archive;
-the current working PDF is a separate revision.
+Current revision:15 pages,20 cited references. Abstract/Introduction state the
+measured adaptation gain and completed static-composition result. The manuscript
+includes all completed arbitration, paired-supervision, static-hybrid and
+continuation-target studies. Direct-response training is still running and is
+excluded from reported results. Latest QA: runs/manuscript_followup_qa.json.
+The original9-page final-results manuscript/archive and intermediate PDFs remain
+preserved; later sections below record the revision history.
 The final two-model/two-comparator evaluation and isolated latency measurement
 are complete and independently audited. Both selected models clear the fixed
 RL-WP win criterion; the separate RL-Point criterion does not replicate, and
@@ -166,3 +166,29 @@ earlier reviewed images byte-for-byte. All18 fonts are embedded,18 citations
 resolve, and numerical/accounting/identity checks pass. The previous clarity PDF
 is retained separately. Static-hybrid and opponent-preserving studies are still
 running; their pending results are excluded from the manuscript's findings.
+
+
+Completed static and continuation-target revision
+------------------------------------------------
+
+The current15-page manuscript adds a four-row static Point-continuation table,
+with all effects recomputed from raw paired outcomes. It integrates completed
+opponent-target/switch-budget diagnostics in the appendix and adds primary
+DAgger/AggreVaTe positioning to Related Work. Regenerate the additional table
+and59-input ledger with::
+
+    .venv/Scripts/python.exe -m scripts.export_followup_paper_evidence
+
+The historical26/34/117-input ledgers remain unchanged. New followup ledger SHA
+is a72b8ebd49b69d6bed3bb7c78b519e864c5cc36de68880377522b12511b6967d.
+Current PDF SHA c5d7c21532e318f11c66fb4932f454e17899f20c3a9970479c99c65eef39a88e.
+All15 pages visually reviewed;18 embedded fonts,20 cited references, no TeX
+box/reference/glyph warnings or page-bound defects. QA SHA
+ e10ea1c7e7c26b294e9b421cdee298d842179429a95b5346c623b7c70efb1e74.
+Previous14-page PDF preserved as output/pdf/manuscript_paired_075411f5.pdf;
+original archive unchanged. Direct-response study outcomes are not yet included.
+
+New primary records checked18 October2026:
+https://proceedings.mlr.press/v15/ross11a.html and
+https://arxiv.org/abs/1406.5979. They position iterative data collection and
+cost-to-go learning relative to this project's fixed-source regression.

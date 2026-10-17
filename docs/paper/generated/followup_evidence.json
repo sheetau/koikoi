@@ -1,0 +1,219 @@
+{
+  "inputs": {
+    "runs\\static_expert_controls\\analysis.json": "ebd960ce36e97ab51a20f14be9360c5eab0313bf5d6d31faf374e99f39319ad8",
+    "runs\\static_expert_controls\\protocol.json": "9fecc62d302d279f154ccd344a44e496d74559e4c84e6770740481eb77924253",
+    "runs\\paired_arbitration_study\\protocol.json": "4aac3da254f3d3286e7a8f6861f7c3a39ba05d70eef783846657f61011fd4130",
+    "runs\\static_expert_controls\\parent1_point_cards\\rl-wp-assisted.json": "8036b06e9d209efaed586c9dabc44e0d8628028479c585e7bdd778264f89a652",
+    "runs\\paired_arbitration_study\\parent1\\rl-wp-assisted.json": "3a1b29e5dbbe8357a28fc202ba0dfef9273b3c5763622cfa392da30a2863e465",
+    "runs\\paired_arbitration_study\\parent1\\rl-wp-assisted.jsonl": "a1916e43eb1d60e7b3b1a7bdd66eda8de7d792f2a1477a2fb15f2bc472f6f8bd",
+    "runs\\static_expert_controls\\parent1_point_cards\\rl-point-assisted.json": "5157fa8162ecf2d0c257fa68023a01987a6e3f27d7d9ed7dc16eee2813e3f3c4",
+    "runs\\paired_arbitration_study\\parent1\\rl-point-assisted.json": "7222d06f1e9a31342ac328a370053b7076391a063f98ef3faf604b61bb786587",
+    "runs\\paired_arbitration_study\\parent1\\rl-point-assisted.jsonl": "d1214409a4b79abd68c61eab498218d28d85ac9ce115cdbbdd773d7f36cbb281",
+    "runs\\static_expert_controls\\parent1_point_koi\\rl-wp-assisted.json": "66b0fc4024af59bf7bc5cac65a1e39cb880dece27e9fd0ff31299eb60d9c451a",
+    "runs\\static_expert_controls\\parent1_point_koi\\rl-point-assisted.json": "80cb8149a450e270c9482d69eea293e682047862539d6e15c9a8eac1922bda15",
+    "runs\\static_expert_controls\\parent2_point_cards\\rl-wp-assisted.json": "fcfed53eb96437cc384068e760dca9e277d0eb836d1b45752f8c67c177d57967",
+    "runs\\paired_arbitration_study\\parent2\\rl-wp-assisted.json": "952187b604a902a9eabe06b36b871c0c56bb28f24be3bcc6f6eee1e63e978f7e",
+    "runs\\paired_arbitration_study\\parent2\\rl-wp-assisted.jsonl": "7a3103db824786235af0fd607f0b1870ba783116cb32aa2c8a65e753a2ef090d",
+    "runs\\static_expert_controls\\parent2_point_cards\\rl-point-assisted.json": "fd3f57d42bb700c99c8d7a1382dd24e390b0b0267acc93dcc4df4f8fdfa28d43",
+    "runs\\paired_arbitration_study\\parent2\\rl-point-assisted.json": "eb9c6e1a4da2ffb10626c7e6e98f401bccdc747012413e4b56ed6134ba69003f",
+    "runs\\paired_arbitration_study\\parent2\\rl-point-assisted.jsonl": "aee629a1c1e92078c7848ee04f0973eaa46a8fc76c9392202e72c2b0525b0823",
+    "runs\\static_expert_controls\\parent2_point_koi\\rl-wp-assisted.json": "2e48b94277fea753c994ca72a5dee337ead327ffd2c53d197d488a9df00a2efd",
+    "runs\\static_expert_controls\\parent2_point_koi\\rl-point-assisted.json": "527a6c488fff77db5fec5ff1e12f747115d2e80bf3228715b5bad52e4d6f34a2",
+    "runs\\static_expert_controls\\parent_comparisons.json": "1bbfaad279a585cc82dfa0bc045c5086511a0be3daf3010c196adb0aadb9a4f5",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\scripts\\run_opponent_target_study.py": "486e375db336268edd965d68aaf091a84cf70014d70c49840741e6daba460640",
+    "scripts\\collect_opponent_paired_targets.py": "98e09cfc3edc343e0022fb8daf4ab26b7a64ab947b2fc62f5fbff4cb0421622a",
+    "scripts\\opponent_paired_roots.py": "a0afa3647b34ef680158933ac40abfcf8d74b321c5aafd2cb16f43164a10db2a",
+    "scripts\\collect_reusable_paired_targets.py": "6f6cc3b3e25775bc255e12de5d5d49905a2c2d17402430106af55ede75b4483f",
+    "scripts\\paired_rollout_targets.py": "1f907cec97e3268994d7cd7e7c750ee03e834d8f1f6741c08e2bfc0d98808c83",
+    "scripts\\cache_paired_expert_features.py": "4b359a9fa3d290e1ca70c63c08cbec9aeddefbdeb2660a47594a51e72cafc8f2",
+    "scripts\\audit_paired_feature_cache.py": "4c8b22f32f72af0a62ea1059e349c6d56dd3e7efa42e4ba6375b7360a2ee2e61",
+    "scripts\\train_paired_arbitration.py": "75f652ff99f92acff0473d157197a4a5caee3461c39bb0845c6b874f21b3c1f3",
+    "scripts\\train_score_distribution.py": "aaed5719249533a1f684bb756d8f01682737de56cb3b14c9dc27415f332e42ec",
+    "scripts\\feature_score_selector.py": "0c7a197ce210873a8ca22e66b4ae54103efb4b6d9e9e3407b594f1352278fe81",
+    "scripts\\diagnose_score_targets.py": "4a4bc26f8fb5e2bc1d406dc21c5bae575cd22833a24f88c3555b567637aa1cbf",
+    "scripts\\diagnose_paired_targets.py": "d4d22510b4495418536bedae0e1abd08b51ce1a16ec7497b2596cb89dfd5d876",
+    "scripts\\diagnose_arbitration.py": "e8d01a99c261f74e6c95c48a9d144de212a84b806b5bed11042049534996013c",
+    "scripts\\compare_score_training_budgets.py": "7208e25f340a6467db8614c4ebba13b2911e3430615e22d0a2dbd4e40b3cb047",
+    "scripts\\analyze_arbitration_study.py": "93159d6a5ab4b9bfaeda8b948718c60266d81dca95e3a5c3d8deb0db373dee71",
+    "scripts\\run_arbitration_study.py": "3b82987651e585e7e220ad628180f5beec0c71da12dc8a40bf9e66530664caf8",
+    "runs\\cold_ppo_screen\\seed6710001_warm\\update_00000520.pt": "37d06849261e0c1f0c31a9d2f228388fa1f391b670ce6772093a1c276091cc36",
+    "runs\\cold_ppo_screen\\seed6720001_warm\\update_00000520.pt": "5e8a123d5fafb6ebae8c1ac8d094c9de65bf364381cc10b78208337051e181cc",
+    "runs\\opponent_target_study\\protocol.json": "54d0a365737022b66e7761d970523aa7d300f3f0dd176c9cd8690e0f5d575b76",
+    "runs\\opponent_target_study\\process.json": "fc32605e67fc5ce49327c05508a3beb947981a9d899800ff6cd8e909988b216e",
+    "runs\\opponent_target_study\\results.json": "4187328f8d77757bd51cebdb0cd6be747de43ca3427a678fecf8db6108fa5665",
+    "runs\\opponent_target_study\\data\\parent1\\audit.json": "b0f2e17e7275c9e0b555374219c1fd6ae0533dd1c9b8d8c5130513ecce26f06e",
+    "runs\\opponent_target_study\\data\\parent1\\parent_only\\targets.pt": "320aa5c7406fd4a123c90eebf9e5bdda0992581227e265e84ac67f2f91af2d54",
+    "runs\\opponent_target_study\\data\\parent1\\parent_only\\features.pt": "300658c1945666fbd7270b630dc8e96f31b3dd18c336bcaa7548d65b04920bc2",
+    "runs\\opponent_target_study\\fits\\parent1\\parent_only\\final.pt": "729fe15defc76d49d78e027ebe1a74cf89c6210895b63d6a63e8d20b04fa6396",
+    "runs\\opponent_target_study\\data\\parent1\\opponent_preserving\\targets.pt": "56c9bd32fcb8fd3ff695c5150ec80535576846996f4c3da91ca738afae9764de",
+    "runs\\opponent_target_study\\data\\parent1\\opponent_preserving\\features.pt": "0290fca87c40514cc920623f5d90e52583f3f76ab7b97727ef0449e0533d1b30",
+    "runs\\opponent_target_study\\fits\\parent1\\opponent_preserving\\final.pt": "4af317e426e08849324f0e7616a4b11f1f8e5375e0a2934cf11b7e83d4e34f6a",
+    "runs\\opponent_target_study\\data\\parent2\\audit.json": "f01acc4f4bc47ab819e914f1616cd5ac475319f9ee950f413a84cff5546537e1",
+    "runs\\opponent_target_study\\data\\parent2\\parent_only\\targets.pt": "9e4a9d7093061155be1f1c47d59287727998dd2c80730cff1b57c2d16f4e34d4",
+    "runs\\opponent_target_study\\data\\parent2\\parent_only\\features.pt": "f0d339e2c5fb211eaddd110006160b28930174a3bef5a94de2bc79217b1e7338",
+    "runs\\opponent_target_study\\fits\\parent2\\parent_only\\final.pt": "2ea1a56bce6109906567c100e0c8c958f56e03b9c63de43fa19de04790086cb4",
+    "runs\\opponent_target_study\\data\\parent2\\opponent_preserving\\targets.pt": "5f73aaa16c95e60cafbabb0ccac2e548c47005a5e1293b12f63521720849278e",
+    "runs\\opponent_target_study\\data\\parent2\\opponent_preserving\\features.pt": "138d20140e8684d7980b5aa817914410f5f89475caf65144cfd846caec883091",
+    "runs\\opponent_target_study\\fits\\parent2\\opponent_preserving\\final.pt": "4c517778c3e985043ce175301b7a616b8b005ebee02f43d38abefc8b6c0a77de",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\scripts\\export_followup_paper_evidence.py": "a22954679f4261a5e233b1df2e1cf76e8937fb6d8ae1efc289f0952d652ef4da",
+    "scripts\\analyze_static_expert_controls.py": "67595be95ae5b3b40d0fba7b20525253dbfc256c7ac728e68c8edf2e70958711",
+    "runs\\switch_budget_diagnostic\\parent1.json": "90bdc85f69c92ad0dc3a0d874293bac11eb94759dab9f00a1f9e3735d13fad46",
+    "runs\\switch_budget_diagnostic\\parent2.json": "70b4ccaf40b4ee96bc1d29f860c03386c5e3d855de3181d57b0d666a91c85f19"
+  },
+  "outputs": {
+    "docs\\paper\\generated\\static_koi_table.tex": "4a320e59ed4e56581258ec68f3b7df763b235283502afb4fae7ff0be9b1a8521"
+  },
+  "static_comparisons": {
+    "parent1_point_cards/rl-wp-assisted": {
+      "win_score_gain": -0.002,
+      "win_ci95": [
+        -0.02475,
+        0.02125
+      ],
+      "point_margin_gain": 1.332,
+      "points_ci95": [
+        -0.008024999999999992,
+        2.6680499999999996
+      ]
+    },
+    "parent1_point_cards/rl-point-assisted": {
+      "win_score_gain": 0.01125,
+      "win_ci95": [
+        -0.0095,
+        0.03275
+      ],
+      "point_margin_gain": 1.248,
+      "points_ci95": [
+        0.021925000000000024,
+        2.505
+      ]
+    },
+    "parent1_point_koi/rl-wp-assisted": {
+      "win_score_gain": -0.008,
+      "win_ci95": [
+        -0.02125,
+        0.0055
+      ],
+      "point_margin_gain": 1.723,
+      "points_ci95": [
+        0.921,
+        2.5320249999999995
+      ]
+    },
+    "parent1_point_koi/rl-point-assisted": {
+      "win_score_gain": 0.009,
+      "win_ci95": [
+        -0.004256249999999998,
+        0.02225
+      ],
+      "point_margin_gain": 1.956,
+      "points_ci95": [
+        1.152,
+        2.7580249999999995
+      ]
+    },
+    "parent2_point_cards/rl-wp-assisted": {
+      "win_score_gain": -0.00325,
+      "win_ci95": [
+        -0.02675,
+        0.02
+      ],
+      "point_margin_gain": 0.327,
+      "points_ci95": [
+        -1.064,
+        1.7150249999999998
+      ]
+    },
+    "parent2_point_cards/rl-point-assisted": {
+      "win_score_gain": 0.0155,
+      "win_ci95": [
+        -0.00625,
+        0.03700624999999991
+      ],
+      "point_margin_gain": 1.527,
+      "points_ci95": [
+        0.186975,
+        2.762074999999999
+      ]
+    },
+    "parent2_point_koi/rl-wp-assisted": {
+      "win_score_gain": -0.0085,
+      "win_ci95": [
+        -0.02225,
+        0.005
+      ],
+      "point_margin_gain": 0.926,
+      "points_ci95": [
+        0.128975,
+        1.723
+      ]
+    },
+    "parent2_point_koi/rl-point-assisted": {
+      "win_score_gain": 0.009,
+      "win_ci95": [
+        -0.005,
+        0.02275
+      ],
+      "point_margin_gain": 2.086,
+      "points_ci95": [
+        1.23595,
+        2.902
+      ]
+    }
+  },
+  "opponent_target_contrasts": {
+    "1": {
+      "parent_only": {
+        "win_score_change": 0.0011141847353428602,
+        "win_source_match_ci95": [
+          -0.0016261930053514794,
+          0.0037941066641916862
+        ],
+        "point_margin_change": 0.03765175964346089,
+        "point_source_match_ci95": [
+          -0.10686848448326751,
+          0.185811596856966
+        ]
+      },
+      "opponent_preserving": {
+        "win_score_change": 0.00046104195644147694,
+        "win_source_match_ci95": [
+          -0.002150887997233554,
+          0.0030285025111113474
+        ],
+        "point_margin_change": -0.05255878284923928,
+        "point_source_match_ci95": [
+          -0.197653495807173,
+          0.08617595087029645
+        ]
+      }
+    },
+    "2": {
+      "parent_only": {
+        "win_score_change": 0.0018289361614733934,
+        "win_source_match_ci95": [
+          -0.0007838600596839839,
+          0.004472077223237195
+        ],
+        "point_margin_change": 0.21200093392481906,
+        "point_source_match_ci95": [
+          0.05940946196757605,
+          0.36499671499390013
+        ]
+      },
+      "opponent_preserving": {
+        "win_score_change": -0.000233481201576069,
+        "win_source_match_ci95": [
+          -0.0028238710374931374,
+          0.0024627799691600573
+        ],
+        "point_margin_change": 0.06957739901937894,
+        "point_source_match_ci95": [
+          -0.07328717149985868,
+          0.21738205471060085
+        ]
+      }
+    }
+  },
+  "scope": "Static effects independently recomputed from raw matches; opponent-target/switch diagnostics bind completed audited results, not new match evaluations. Live direct-response study excluded."
+}

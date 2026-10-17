@@ -30,10 +30,11 @@ produce different trained policies: the warmer exploration and learning-rate
 configuration gains 0.935--1.050 percentage points over the colder configuration
 in paired development comparisons. Against RL-Point, win-rate improvement is
 inconsistent across models and expected points favor the point-oriented agent.
-Further experiments find no replicated win gain from continued full-policy PPO
-or expert selection trained by PPO or paired complete-match outcomes. These
-comparisons establish the adaptation gain and locate the remaining difficulty
-in learning useful departures from the adapted policy.
+Using RL-Point only for stop/continue decisions improves expected point margin
+at both adapted models against both public opponents, without a corresponding
+win gain. Learned expert selection also fails to establish a replicated win gain.
+These controls separate the benefit of stronger scoring decisions from the
+remaining problem of converting them into more match wins.
 The canonical agent uses no search and averages 1.585 ms per CPU decision.
 \end{abstract}
 
@@ -79,8 +80,10 @@ controller choose useful actions from differently trained experts more effective
 than continuing to update the entire policy? A matched-budget experiment
 finds no replicated win gain from either approach (Section~\ref{sec:arbitration}).
 Direct supervision from paired complete-match outcomes also fails to produce
-a replicated gain. Together, these comparisons distinguish improving the
-inherited policy from learning when to substitute a second expert's actions.
+a replicated gain. A simple fixed composition does improve expected points:
+keep the adapted card policy and use RL-Point for stop/continue decisions.
+This result identifies a useful division of decisions while leaving the
+match-win objective unresolved.
 
 \section{Related work}
 \subsection{Learning to play Koi-Koi}
@@ -143,6 +146,14 @@ this framework \cite{dimitrakakis2008rollout}. Langford and Zadrozny relate
 policy performance to reward-sensitive classification performance
 \cite{langford2005classification}. Together, these works establish the basis
 for learning action choices from simulated outcomes.
+
+Iterative imitation learning also addresses which states provide the training
+data. DAgger collects observations influenced by the learner's own actions
+\cite{ross2011dagger}; AggreVaTe adds expert cost-to-go information to this
+interactive approach \cite{ross2014aggrevate}. These methods connect successive
+policy updates to the observation distributions they induce. Our fixed-source
+regression instead tests a single fitting stage, followed by complete-match
+evaluation of the resulting policy.
 
 Our paired extension applies this approach to disagreements between win-oriented
 and point-oriented Koi-Koi experts. Both proposed actions are followed to match
@@ -585,10 +596,31 @@ have different terminal win outcomes for the two proposals. On held-out
 source matches, both full controllers have slightly higher prediction MSE
 than predicting zero. Direct access to paired outcomes therefore does not by
 itself provide a selector that improves repeated match play. Appendix controls
-examine representation, data volume and regularization. Two additional fixed
-card/koi hybrids and an opponent-preserving target study remain in progress;
-their results are excluded here. Protocols are in
-\texttt{docs/PAIRED\_ROLLOUTS.md}.
+examine representation, data volume, regularization and continuation opponents.
+Protocols are in \texttt{docs/PAIRED\_ROLLOUTS.md}.
+
+\subsection{Fixed card and continuation roles}
+Two fixed hybrids test whether learning is necessary to benefit from the second
+expert: Point card play with adapted continuation decisions, and adapted card
+play with Point continuation decisions. Both parents and both public opponents
+use the same 1,000 development deals as the paired-supervision study.
+
+\begin{table}[ht]
+\centering\small
+\input{generated/static_koi_table.tex}
+\caption{Using RL-Point only for stop/continue decisions: paired changes from
+the unchanged adapted parent on 1,000 shared duplicate deals. Point margin is
+final candidate score minus opponent score.}
+\label{tab:static-koi}
+\end{table}
+
+Point continuation improves expected point margin in all four comparisons
+(Table~\ref{tab:static-koi}). The gains range from 0.926 to 2.086 points.
+Every corresponding win interval includes zero, as do all four win intervals
+for the reverse card/continuation assignment. Learned selection therefore has
+a concrete static control to exceed: the experts already provide complementary
+scoring decisions, but selecting between them has not produced a replicated
+match-win improvement.
 
 \section{Limitations and interpretation}
 The strongest supported result is the improvement in match wins against
@@ -597,9 +629,9 @@ wins and superior in expected points. This objective dependence is a useful
 direction for further work: more aggressive scoring may be valuable when
 trailing, while a leading player can favor decisions that preserve a match win.
 Neither terminal-reward PPO selection nor paired-outcome supervision reliably
-exploits this difference in the completed comparisons. The weak prediction
-signal at disagreements motivates examining the continuation policies used
-to construct training targets.
+exploits this difference in the completed comparisons. Fixed Point continuation
+improves expected point margin consistently, providing a more specific target
+for future adaptation than treating every expert disagreement alike.
 
 Two training seeds limit conclusions about robustness across optimization
 runs. The broader development program also includes many unsuccessful
@@ -618,8 +650,9 @@ remaining challenge: match-win improvement is inconsistent across models,
 and expected points still favor the point-oriented agent. A matched-budget
 experiment finds no replicated win gain from PPO expert selection or further
 full-policy PPO. A separate complete-match evaluation reaches the same conclusion
-for paired-outcome supervision. Learning useful changes at expert disagreements
-remains the central challenge for this composition approach.
+for paired-outcome supervision. Fixed Point continuation improves expected
+points at both adapted models against both opponents. The next challenge is
+to retain that scoring benefit while improving terminal match wins.
 
 \appendix
 \section{Reproduction and evidence}
@@ -658,6 +691,12 @@ Its two datasets share 623,232 source decisions across all fitted controllers;
 branch generation adds 15,406,127 decisions and 262,144 branch completions.
 Evaluation adds 5,551,259 decisions. These are distinct computation categories.
 
+The completed fixed-role hybrids and continuation-target diagnostics are bound
+separately in \path{docs/paper/generated/followup_evidence.json}. Static changes
+are recomputed from raw matches. The target-control results retain dataset,
+feature-cache and checkpoint identities. The ongoing direct-response training
+study is outside these reported results.
+
 The new arbitration experiments freeze the inherited actors. A traced
 near-tie shows why this detail belongs to the inference specification: with
 identical weights and public inputs, changing only parameter requires-grad
@@ -687,7 +726,7 @@ Subsequent development screens compare raw public inputs with frozen expert
 representations, marginal score or win targets with paired differences, and
 outcome-weighted preference classification. The classification formulation
 uses the established rollout-policy-improvement approach discussed in Related
-Work; it is not a new loss. Across 48 fixed fitted endpoints, no condition
+Work; it is not a new loss. Across the initial 48 fixed fitted endpoints, no condition
 establishes one-action win gain over both fixed expert choices at both parents.
 These diagnostics change one action and then follow frozen continuation.
 They are separate from the repeated-policy match comparisons above.
@@ -703,6 +742,24 @@ zero-versus-default-decay win-change intervals still include zero. Thus the
 optimization correction restores differentiated scores without establishing
 better action selection. The linked experiment record retains all fitted endpoints and comparisons,
 including abandoned collection work and its failure receipts.
+
+A subsequent four-endpoint control varies the continuation opponent while
+holding roots and features fixed. Each parent supplies 65,536 learner
+disagreements against a WP/Point mixture. Both proposed actions are completed
+either with the parent at both seats or with the original opponent retained.
+On opponent-preserving validation targets, the latter training changes one-action
+win score by $+0.046$ pp [$-0.215$, $0.303$] and $-0.023$ pp
+[$-0.282$, $0.246$] at the two parents. Thus changing this target construction
+does not establish better selection. Source work is shared: 1,211,392 decisions,
+80,859 round endings and 10,311 matches. The four branches per root add
+30,876,654 decisions, 2,295,860 round endings and 524,288 branch completions.
+Inline feature extraction adds no replay simulation.
+
+A fixed training-quantile rule also restricts Point substitutions to at most
+10\% of training disagreements. Its two larger-data paired-win models show
+no replicated one-action win gain over the parent, and both restricted-minus-greedy
+win intervals include zero. These are diagnostics on consumed development roots;
+complete-match improvement remains a separate measurement.
 
 \begingroup
 \raggedright

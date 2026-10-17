@@ -1981,3 +1981,24 @@ with wrappers62440,60200,61212. Protocol SHA2342e1e80ebc79fc917891ebbf30acd7ef5d
 All bound inputs reverified after launch; first two updates completed32,768
 decisions /2,150 round endings /250 matches, finite metrics. Live process command
 lines and progressing records confirmed. No outcome/qualification claim.
+
+
+## Completed follow-up results integrated into the manuscript
+
+The15-page revision includes the static Point-continuation gain in Abstract/
+Introduction and a four-row paired win/point table. Both assignments/all8
+comparisons remain in its59-input evidence ledger; every table effect is
+recomputed from raw results and checked against the completed comparison.
+Completed opponent-target and fixed-switch diagnostics move to the appendix.
+Related Work adds DAgger and AggreVaTe primary references (20 total citations),
+positioning fixed-source fitting against iterative learner-distribution data.
+No result from the active response study is reported as a finding.
+
+PDF SHAc5d7c21532e318f11c66fb4932f454e17899f20c3a9970479c99c65eef39a88e.
+QA runs/manuscript_followup_qa.json SHAe10ea1c7e7c26b294e9b421cdee298d842179429a95b5346c623b7c70efb1e74:
+all15 pages visually reviewed,18 fonts embedded,20 citations resolved, no TeX
+box/glyph/reference or page-bound defects. All26/34/117/59 evidence input ledgers
+verified, including newly bound datasets/caches/checkpoints and completed audits.
+New followup_evidence.json SHAa72b8ebd49b69d6bed3bb7c78b519e864c5cc36de68880377522b12511b6967d.
+PriorPDF output/pdf/manuscript_paired_075411f5.pdf and original archive preserved.
+Live response26076 remains bound to its unchanged29 inputs and production source.
