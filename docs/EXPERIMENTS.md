@@ -2860,3 +2860,28 @@ The fixed160,000-match evaluation continues. No partial outcome selection,
 training extension or deployment promotion is performed. The complete-study
 independent auditor is prepared but awaits all16 cells;no new method strength
 conclusion or manuscript revision is made at this training milestone.
+
+
+## Final-only learner-study paper export prepared (2026-10-18)
+
+scripts/export_learner_paper_evidence.py requires a terminal study and an explicit
+--audit-sha256 matching the final independent audit. It binds the fixed675638eb...
+protocol,verifies every audited input,and checks all16 outcome and24 contrast
+win/point means and intervals against independent recomputation. It recomputes
+the eight-bound primary gate without assuming a positive or negative result.
+New training totals and reused response-control training remain separate.
+
+The intended outputs are learner_primary_table.tex (learner-minus-parent and
+learner-minus-response),learner_lambda1_table.tex (lambda1-minus-parent and
+learner-minus-lambda1),and learner_evidence.json under docs/paper/generated.
+The ledger retains all outcomes/contrasts,including those not displayed in the
+two compact tables. Different existing output bytes are rejected before writing;
+identical regeneration is allowed. The independent audit hash is supplied only
+after the real completed audit exists,not inferred from partial results.
+
+Ruff formatting/checks pass. Calling export with a fresh nonexistent output
+directory against the actual running study raises the expected incomplete-study
+error and creates neither a directory nor evidence files. This validates the
+completion gate only;successful full-data export remains pending. All51 bound
+study inputs remain unchanged. No result table,PDF revision,new simulation,
+training or strength claim is produced by this preparation.
