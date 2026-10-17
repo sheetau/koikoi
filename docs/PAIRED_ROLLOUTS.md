@@ -365,3 +365,33 @@ predecessor to terminate, reuses its completed audited datasets, and finishes wi
 the reusable collector/replay. It never overwrites old run directories or counts
 copied branch outcomes as newly generated work. Failed predecessor replay work is
 explicitly unmeasured overhead. Keep completion-runner inputs frozen once queued.
+
+
+## Fixed data-size and update-budget comparison
+
+The next comparison retains signed-win difference regression (`paired_win`) and
+outcome-weighted preference classification (`preference`), each with raw and
+frozen-feature inputs at both parents. These directly target the candidate choice;
+no new architecture or loss is added after the24 small-data endpoints. Compare:
+
+- Existing65,536-root,20-epoch endpoints.
+- The same65,536 roots and80 epochs, with original seeds/initialization/shuffle.
+- New262,144-root datasets and20 epochs under the same source/continuation policy.
+
+All final endpoints are retained. The80-epoch control tests whether the earlier
+fits were underoptimized; the larger-data condition tests source coverage at a
+similar number of updates. Report exact training-root and optimizer-step counts,
+which differ slightly due to whole-match splitting. The old and new internal
+validation sets differ. Direct condition contrasts must therefore use the same
+new held-out source matches for all three endpoints, checking those groups against
+each endpoint's training groups. New feature caches must pass the full stored-score
+audit before larger-data fitting. Fitting adds no simulator work.
+
+These are development diagnostics for choosing a future frozen candidate. Any
+strength claim still requires full repeated-policy match comparisons on fresh
+deals and a second parent, after the currently bound studies complete. The shared
+new validation set is consumed by this comparison, not reserved final evidence.
+
+```powershell
+.venv/Scripts/python.exe -m scripts.run_score_fit_screen --base runs/score_update_budget_control --kinds paired_win preference --epochs 80
+```

@@ -53,6 +53,20 @@ def test_reused_collection_matches_original_and_replays(tmp_path, device):
         "verified_roots",
     ):
         assert tensor_equal(cache[field], reused_cache[field]), field
+    from scripts.audit_paired_feature_cache import inspect
+
+    inspected = inspect(path, tmp_path / "reused_features.pt")
+    assert inspected["roots"] == 32
+    assert inspected["new_branch_decisions"] == 0
+    reused_cache["scores"][0, 0, 0] += 1
+    corrupt = tmp_path / "bad_scores.pt"
+    torch.save(reused_cache, corrupt)
+    with pytest.raises(AssertionError):
+        inspect(path, corrupt)
+    reused_cache["dataset_sha256"] = "wrong"
+    torch.save(reused_cache, corrupt)
+    with pytest.raises(ValueError, match="identity"):
+        inspect(path, corrupt)
     with pytest.raises(ValueError, match="fresh"):
         collect(PARENTS[0][0], path, **kwargs)
 
