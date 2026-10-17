@@ -3,7 +3,10 @@
 \usepackage[T1]{fontenc}
 \usepackage{lmodern,amsmath,amssymb,booktabs,array}
 \usepackage[hidelinks]{hyperref}
-\usepackage{microtype}
+\usepackage{microtype,graphicx}
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\textfraction}{0.1}
+\renewcommand{\floatpagefraction}{0.8}
 \emergencystretch=1em
 \widowpenalty=10000
 \clubpenalty=10000
@@ -68,9 +71,10 @@ PPO and Transformer architectures are inherited methods.
 
 The result against RL-Point motivates a second question: can a small public-state
 controller choose useful actions from differently trained experts more effectively
-than continuing to update the entire policy? We specify this extension in
-Section~\ref{sec:arbitration}. Its comparative experiment is ongoing; the measured
-results reported here remain those of the completed adaptation study.
+than continuing to update the entire policy? A matched-budget experiment
+finds no replicated win gain from either approach (Section~\ref{sec:arbitration}).
+This result motivates direct supervision from paired complete-match outcomes,
+whose full-match evaluation is in progress.
 
 \section{Related work}
 \subsection{Learning to play Koi-Koi}
@@ -453,7 +457,7 @@ that opponent-hand support assumptions can materially alter values at chosen
 roots. Those selected-state diagnostics do not establish match-level benefits.
 The final selected policy consequently uses no search.
 
-\section{Public expert arbitration: extension under evaluation}
+\section{Learning to select public expert proposals}
 \label{sec:arbitration}
 The RL-Point comparison suggests that useful decisions may remain in a
 point-oriented policy even after match-win adaptation. We implement a
@@ -477,7 +481,7 @@ play selects the frozen parent expert proposal. Both experts remain frozen; only
 and a public critic are trained with terminal-match PPO. The critic starts
 from the parent's value network.
 
-The ongoing fixed-budget study compares this controller with a phase-only
+The fixed-budget study compares this controller with a phase-only
 linear selector and ordinary continued Transformer PPO. Each of two parent
 models initializes all three arms. Every arm receives 20 critic-only and 500
 policy updates, or 8,519,680 additional simulator decisions. Only final
@@ -486,8 +490,35 @@ and the corresponding parent. Both unchanged parents also play the published
 opponents on these deals. Full versus phase changes capacity as well as
 information; additional ablations are needed to isolate particular context
 features. The full protocol and implementation are available in
-\path{docs/ARBITRATION.md}. No performance benefit is attributed to this
-extension before those comparisons finish.
+\path{docs/ARBITRATION.md}.
+
+\subsection{Matched-budget results}
+All six training runs and 22 matchups completed. Learned selection and continued
+PPO show no replicated win gain over their unchanged parents against both
+published opponents (Figure~\ref{fig:arbitration}). For learned selection,
+paired win changes against RL-WP are $+0.100$ and $-0.050$ percentage points;
+against RL-Point they are $+0.500$ and $-0.550$. Every corresponding interval
+includes zero. The first selector gains 1.513 points [0.463, 2.536] against
+RL-Point, but the second gains only 0.238 [-0.622, 1.122]. Both phase-only
+selectors greedily choose the parent in all four phases. Their win outcomes
+match their parents on these deals.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{generated/arbitration_changes.pdf}
+\caption{Changes from each unchanged parent on 1,000 shared duplicate
+development deals. Win score gives draws half credit. Intervals resample
+whole duplicate pairs; they describe deal uncertainty conditional on each
+trained endpoint. Training-seed variation is represented by the two separate
+models.}
+\label{fig:arbitration}
+\end{figure}
+
+These results distinguish access to complementary experts from learning when
+to use them. The full selectors sometimes choose Point and improve some
+point outcomes, yet terminal-reward PPO does not produce consistent match-win
+gains at this budget. We therefore next test a more direct training signal:
+the difference between complete-match outcomes after the two proposed actions.
 
 
 \subsection{Paired complete-match supervision}
@@ -530,8 +561,9 @@ assisted RL-WP at both adapted model seeds. RL-Point remains competitive in
 wins and superior in expected points. This objective dependence is a useful
 direction for further work: more aggressive scoring may be valuable when
 trailing, while a leading player can favor decisions that preserve a match win.
-The arbitration study tests whether learned public-state decisions can use
-this difference.
+The completed arbitration experiment shows that simply learning a small
+selector with terminal-reward PPO does not reliably exploit this difference.
+Paired-outcome supervision is the next controlled comparison.
 
 Two training seeds limit conclusions about robustness across optimization
 runs. The broader development program also includes many unsuccessful
@@ -547,9 +579,10 @@ Koi-Koi Transformers. Both adapted models beat assisted RL-WP on held-out
 deals after 8.52 million additional decisions each, with search-free CPU
 inference averaging 1.585 ms for the canonical model. RL-Point exposes the
 remaining challenge: match-win improvement is inconsistent across models,
-and expected points still favor the point-oriented agent. The public expert
-arbitration experiment tests whether those different strengths can be combined
-through learned decisions at expert disagreements.
+and expected points still favor the point-oriented agent. A matched-budget
+experiment finds no replicated win gain from PPO expert selection or further
+full-policy PPO. Paired complete-match supervision now tests whether more direct
+action comparisons can improve selection at expert disagreements.
 
 \appendix
 \section{Reproduction and evidence}
@@ -559,7 +592,8 @@ published implementation at the revision identified in Reference~\cite{pinnedkoi
 The completed adaptation
 study and its earlier manuscript are preserved in a local evidence archive
 from project snapshot \texttt{f5cf955}. The present manuscript revision adds
-related work and the separately identified arbitration extension.
+related work and the completed arbitration comparison, followed by the
+paired-supervision experiment under evaluation.
 
 The machine-readable evidence ledger,
 \path{docs/paper/generated/evidence.json}, binds the completed studies'
@@ -580,6 +614,8 @@ comparison used 100,000,000--100,009,999. Those held-out deals remain assigned
 to the completed study. The new arbitration protocol records fresh training
 and development ranges in \path{runs/arbitration_study/protocol.json}.
 \path{docs/ARBITRATION.md} describes the arms, budgets and evaluation criteria.
+\path{docs/paper/generated/arbitration_evidence.json} separately binds the
+completed extension's audit, raw paired outcomes and figure.
 
 The new arbitration experiments freeze the inherited actors. A traced
 near-tie shows why this detail belongs to the inference specification: with

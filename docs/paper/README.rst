@@ -103,3 +103,19 @@ The outcome audit SHA256 is
 the timing audit SHA256 is
 e3b48a44568597f3cc528396c3a700407054137af4c540e2983a3486434f34cc.
 Never rerun these commands into the completed original directories.
+
+
+Completed arbitration figure
+----------------------------
+
+The13-page extension revision includes the completed arbitration PPO comparison.
+Its tracked generated/arbitration_changes.pdf is copied from the audited plot::
+
+    .venv/Scripts/python.exe -m scripts.plot_extension_results --base runs/arbitration_study --study arbitration --output output/figures/arbitration_changes
+
+The plot requires the complete passed study audit, independently recomputes raw
+paired outcomes and records input/output hashes. generated/arbitration_evidence.json
+binds the source plot receipt, protocol, raw outcomes, audit and copied figure.
+The historical generated/evidence.json remains unchanged. Current manuscript QA
+is runs/manuscript_arbitration_results_qa.json; paired-regression and static-control
+match results remain pending. The historical archive is preserved separately.
