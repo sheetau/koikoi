@@ -284,3 +284,23 @@ names without changing those earlier loss definitions. Run into a fresh director
 
 This is further development on the same held-out source matches. No automatic
 model selection or new full-match evaluation is part of this fitting command.
+
+
+The8 paired-difference fits completed without replicated one-action benefit over
+both fixed expert choices. Their audit also verifies that initialization and
+shuffle order match the previous marginal scalar heads. The win comparison changes
+the loss and output link together (BCE/sigmoid versus unbounded difference MSE);
+it is not an isolated intervention on coupling. The point comparison retains the
+unbounded scalar link and compares marginal versus difference MSE.
+
+## Fourfold target-data collection
+
+`scripts.run_scaled_paired_targets` prepares262,144 roots per parent on fresh
+source seeds19610001/19620001, with the same128 environments,256-root batches,
+90/10 parent/Point behavior and frozen-parent continuation. It collects complete
+paired outcomes and then exactly replays public expert features. Source, branch
+and feature-replay work remain separate; no model is fitted by this runner.
+Parents, Point weight identities, source and all collection dependencies are
+fixed before collection. Current strength evaluation and its seeds remain intact.
+This tests a data-coverage hypothesis after the65,536-root screens, without
+assuming that more data will yield stronger play.
