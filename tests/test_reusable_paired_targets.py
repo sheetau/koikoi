@@ -8,6 +8,7 @@ from scripts.analyze_arbitration_study import tensor_equal
 from scripts.analyze_paired_arbitration_study import data_report
 from scripts.cache_paired_expert_features import replay
 from scripts.collect_reusable_paired_targets import PairedWorkspace, collect
+from scripts.replay_reusable_paired_features import replay as reusable_replay
 from scripts.run_arbitration_study import PARENTS
 from scripts.train_paired_arbitration import collect as original_collect
 
@@ -42,6 +43,16 @@ def test_reused_collection_matches_original_and_replays(tmp_path, device):
     cache = replay(path, tmp_path / "features.pt")
     assert cache["verified_roots"] == 32
     assert cache["new_source_replay_work"] == new["source_work"]
+    reused_cache = reusable_replay(path, tmp_path / "reused_features.pt")
+    for field in (
+        "embeddings",
+        "scores",
+        "public_dealer",
+        "new_source_replay_work",
+        "reused_branch_work",
+        "verified_roots",
+    ):
+        assert tensor_equal(cache[field], reused_cache[field]), field
     with pytest.raises(ValueError, match="fresh"):
         collect(PARENTS[0][0], path, **kwargs)
 
@@ -76,3 +87,67 @@ def test_workspace_reuses_backend_and_overwrites_terminal_state(device):
     assert np.array_equal(states.cpu().numpy()[0], before)
     with pytest.raises(ValueError, match="root count"):
         workspace(states.repeat(2, 1), proposals.repeat(2, 1), unexpected_continuation)
+
+
+def test_recovery_reuses_completed_dataset_and_finishes_other_parent(
+    tmp_path, monkeypatch
+):
+    import copy
+    import json
+
+    from scripts import complete_scaled_paired_targets as recovery
+    from scripts.run_arbitration_study import write
+
+    predecessor, target = tmp_path / "previous", tmp_path / "recovered"
+    plan = recovery.make_plan()
+    plan["collection"]["roots_per_parent"] = 32
+    plan["collection"]["batch"] = 16
+    plan["collection"]["device"] = "cpu"
+    monkeypatch.setattr(recovery, "make_plan", lambda: copy.deepcopy(plan))
+    write(predecessor / "protocol.json", plan)
+    first = predecessor / "data" / "parent1" / "targets.pt"
+    collect(
+        PARENTS[0][0],
+        first,
+        plan["collection"]["seeds"][0],
+        roots=32,
+        batch=16,
+        device="cpu",
+    )
+    _, report = data_report(predecessor / "data", 1, plan)
+    write(first.parent / "dataset_audit.json", {"status": "passed", **report})
+    write(
+        predecessor / "process.json",
+        {
+            "status": "failed",
+            "error": "FileNotFoundError(2, 'The filename or extension is too long')",
+        },
+    )
+    calls = []
+
+    def cpu_collect(parent, output, **kwargs):
+        calls.append(parent)
+        kwargs["device"] = "cpu"
+        return collect(parent, output, **kwargs)
+
+    monkeypatch.setattr(recovery, "collect", cpu_collect)
+    recovery.run(target, predecessor)
+    assert calls == [PARENTS[1][0]]
+    assert (
+        first.read_bytes() == (target / "data" / "parent1" / "targets.pt").read_bytes()
+    )
+    summary = json.loads((target / "summary.json").read_text(encoding="utf-8"))
+    assert summary["1"]["reused_predecessor_dataset"]
+    assert summary["1"]["new_collection_branch_work"] is None
+    assert not summary["2"]["reused_predecessor_dataset"]
+    assert summary["2"]["new_collection_branch_work"]["completed_branches"] == 64
+    assert all(row["verified_replay_roots"] == 32 for row in summary.values())
+    assert (
+        json.loads((target / "process.json").read_text(encoding="utf-8"))["status"]
+        == "complete"
+    )
+    with pytest.raises(ValueError, match="fresh"):
+        recovery.run(target, predecessor)
+    plan["collection"]["roots_per_parent"] = 64
+    with pytest.raises(ValueError, match="protocol mismatch"):
+        recovery.recovery_plan(predecessor)

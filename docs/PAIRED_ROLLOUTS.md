@@ -348,3 +348,20 @@ The replacement runner uses fresh runs/scaled_paired_targets_reusable, keeps the
 same planned seeds/budget and binds the new collector identity. Original failed
 artifacts remain intact. CPU/CUDA equality against original collection, exact
 feature replay, and repeated terminal-state reuse are checked before launch.
+
+
+The4 preference endpoints completed without replicated one-action gains over both
+fixed experts. Preserve this negative screen alongside the preceding20 endpoints.
+The next data-scale comparison can use `--dataset-base`, `--feature-base` and
+`--epochs` on the fit runner. Its feature audit must bind the exact selected files.
+An80-epoch small-data control separates additional fitting from increased source
+coverage approximately; exact optimizer-step counts and distinct validation
+populations must still be reported, not treated as perfectly matched budgets.
+
+The original feature replay also creates one environment per batch. Its bounded
+replacement is `scripts.replay_reusable_paired_features`, verified exactly against
+the original on CPU/CUDA. A separate completion runner waits for the live bound
+predecessor to terminate, reuses its completed audited datasets, and finishes with
+the reusable collector/replay. It never overwrites old run directories or counts
+copied branch outcomes as newly generated work. Failed predecessor replay work is
+explicitly unmeasured overhead. Keep completion-runner inputs frozen once queued.

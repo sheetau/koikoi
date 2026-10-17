@@ -16,7 +16,12 @@ def write(path, value):
     path.write_text(json.dumps(value, indent=2) + "\n", encoding="utf-8")
 
 
-def make_plan(kinds=("categorical", "win", "mean")):
+def make_plan(
+    kinds=("categorical", "win", "mean"),
+    dataset_base=Path("runs/paired_arbitration_study"),
+    feature_base=Path("runs/paired_public_features"),
+    epochs=20,
+):
     if (
         not kinds
         or len(set(kinds)) != len(kinds)
@@ -25,8 +30,11 @@ def make_plan(kinds=("categorical", "win", "mean")):
         )
     ):
         raise ValueError("Expected distinct supported supervision kinds")
-    cache_audit = Path("runs/paired_public_features/audit.json")
-    if json.loads(cache_audit.read_text(encoding="utf-8"))["status"] != "passed":
+    if epochs < 1:
+        raise ValueError("Expected positive epoch budget")
+    cache_audit = feature_base / "audit.json"
+    audit = json.loads(cache_audit.read_text(encoding="utf-8"))
+    if audit["status"] != "passed":
         raise ValueError("Feature cache audit must pass")
     paths = [
         Path(__file__),
@@ -43,8 +51,12 @@ def make_plan(kinds=("categorical", "win", "mean")):
     ]
     cases = []
     for parent in (1, 2):
-        dataset = Path(f"runs/paired_arbitration_study/parent{parent}/targets.pt")
-        cache = Path(f"runs/paired_public_features/parent{parent}.pt")
+        dataset = dataset_base / f"parent{parent}" / "targets.pt"
+        cache = feature_base / f"parent{parent}.pt"
+        if audit["parents"][str(parent)]["dataset_sha256"] != sha(dataset) or audit[
+            "parents"
+        ][str(parent)]["cache_sha256"] != sha(cache):
+            raise ValueError("Feature audit does not bind selected dataset/cache")
         paths.extend((dataset, cache))
         for representation in ("raw", "features"):
             for kind in kinds:
@@ -64,7 +76,7 @@ def make_plan(kinds=("categorical", "win", "mean")):
         "supervision_kinds": list(kinds),
         "source": provenance(),
         "inputs": {str(path): sha(path) for path in paths},
-        "epochs": 20,
+        "epochs": epochs,
         "device": "cuda",
         "cases": cases,
         "accounting": "Zero new simulation during fitting. Original branch data and public feature replay are shared across heads, not multiplied into independent samples.",
@@ -72,10 +84,16 @@ def make_plan(kinds=("categorical", "win", "mean")):
     }
 
 
-def run(base, kinds=("categorical", "win", "mean")):
+def run(
+    base,
+    kinds=("categorical", "win", "mean"),
+    dataset_base=Path("runs/paired_arbitration_study"),
+    feature_base=Path("runs/paired_public_features"),
+    epochs=20,
+):
     if base.exists():
         raise ValueError("Use a fresh screen directory")
-    plan = make_plan(kinds)
+    plan = make_plan(kinds, dataset_base, feature_base, epochs)
     base.mkdir(parents=True)
     write(base / "plan.json", plan)
     reports = {}
@@ -131,8 +149,15 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--base", type=Path, default=Path("runs/score_fit_screen"))
     parser.add_argument("--kinds", nargs="+", default=["categorical", "win", "mean"])
+    parser.add_argument(
+        "--dataset-base", type=Path, default=Path("runs/paired_arbitration_study")
+    )
+    parser.add_argument(
+        "--feature-base", type=Path, default=Path("runs/paired_public_features")
+    )
+    parser.add_argument("--epochs", type=int, default=20)
     args = parser.parse_args()
-    run(args.base, args.kinds)
+    run(args.base, args.kinds, args.dataset_base, args.feature_base, args.epochs)
 
 
 if __name__ == "__main__":
