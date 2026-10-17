@@ -145,3 +145,24 @@ The26 historical and34 arbitration evidence hashes remain verified and unchanged
 The previous PDF is preserved as output/pdf/manuscript_arbitration_16ac69ab.pdf.
 Paired-regression/static-control and data-scale comparisons remain ongoing; this
 revision introduces no unverified stronger-model result.
+
+
+Completed paired-supervision results revision
+--------------------------------------------
+
+The latest14-page manuscript includes the completed paired full-match comparison
+and moves48-endpoint fitting diagnostics to an appendix. Regenerate its table and
+identity ledger with::
+
+    .venv/Scripts/python.exe -m scripts.export_paired_paper_evidence
+
+The exporter recomputes raw paired outcomes and checks the completed audit, then
+binds117 inputs including48 fitting checkpoints. The original26-input evidence
+and34-input arbitration ledgers are retained. Latest QA is
+runs/manuscript_completed_paired_qa.json. PDF SHA256:
+075411f59901a0418417dc8608d5d6c23aa729051ec324ea0eeb315e0bfefd1f.
+Seven changed pages were visually reviewed; the remaining seven renders match
+earlier reviewed images byte-for-byte. All18 fonts are embedded,18 citations
+resolve, and numerical/accounting/identity checks pass. The previous clarity PDF
+is retained separately. Static-hybrid and opponent-preserving studies are still
+running; their pending results are excluded from the manuscript's findings.

@@ -30,9 +30,10 @@ produce different trained policies: the warmer exploration and learning-rate
 configuration gains 0.935--1.050 percentage points over the colder configuration
 in paired development comparisons. Against RL-Point, win-rate improvement is
 inconsistent across models and expected points favor the point-oriented agent.
-A further matched-budget study finds no replicated win gain from learned expert
-selection or continued full-policy PPO. These results identify both an effective
-adaptation procedure and the limits of further training at the tested budget.
+Further experiments find no replicated win gain from continued full-policy PPO
+or expert selection trained by PPO or paired complete-match outcomes. These
+comparisons establish the adaptation gain and locate the remaining difficulty
+in learning useful departures from the adapted policy.
 The canonical agent uses no search and averages 1.585 ms per CPU decision.
 \end{abstract}
 
@@ -77,8 +78,9 @@ The result against RL-Point motivates a second question: can a small public-stat
 controller choose useful actions from differently trained experts more effectively
 than continuing to update the entire policy? A matched-budget experiment
 finds no replicated win gain from either approach (Section~\ref{sec:arbitration}).
-This result motivates direct supervision from paired complete-match outcomes,
-whose full-match evaluation is in progress.
+Direct supervision from paired complete-match outcomes also fails to produce
+a replicated gain. Together, these comparisons distinguish improving the
+inherited policy from learning when to substitute a second expert's actions.
 
 \section{Related work}
 \subsection{Learning to play Koi-Koi}
@@ -322,7 +324,7 @@ and, separately, assisted RL-Point. Each of four jobs plays 10,000 duplicate
 pairs on seeds 100,000,000--100,009,999: 80,000 matches on 10,000 unique deal
 streams. The primary criterion requires both RL-WP interval lower bounds to
 exceed 0.5. The secondary RL-Point criterion is recorded separately. There is
-change to the selected checkpoints or comparison budget during this final test.
+no change to the selected checkpoints or comparison budget during this final test.
 All four jobs run to completion. Four two-thread CPU workers run concurrently;
 a separate experiment measures isolated inference latency.
 
@@ -559,10 +561,34 @@ this method incurs rollout computation beyond the PPO training budget.
 
 Both fitted controllers, arbitration PPO, continued actor PPO and unchanged
 parents are evaluated on 1,000 duplicate development deals against RL-WP and
-RL-Point. Two fixed hybrids assign card play to one expert and koi-koi decisions
-to the other. These controls test whether learning adds value beyond simple
-role substitution. The protocol and implementation are recorded in
-\texttt{docs/PAIRED\_ROLLOUTS.md}; comparative results are pending.
+RL-Point; fitted controllers also play their own parents. All 24 matchups are
+complete, totaling 48,000 matches on the same 1,000 unique deal streams.
+
+\begin{table}[ht]
+\centering\small
+\input{generated/paired_supervision_table.tex}
+\caption{Paired-supervision win-score changes relative to each unchanged
+parent, in percentage points. Intervals bootstrap 1,000 shared duplicate deals.
+The ablation removes explicit score and round inputs.}
+\label{tab:paired-supervision}
+\end{table}
+
+Neither full supervision nor the ablation establishes a win gain at both
+parents against both opponents (Table~\ref{tab:paired-supervision}). The full
+first-parent controller gains 1.260 expected points [0.160, 2.430] against WP,
+while the second gains 1.660 [0.412, 2.863] against Point. These point gains
+occur in different matchups and do not translate into replicated win gains.
+Full-versus-ablation win intervals include zero in all four comparisons.
+
+The targets also expose a learning difficulty: only about 9.6\% of roots
+have different terminal win outcomes for the two proposals. On held-out
+source matches, both full controllers have slightly higher prediction MSE
+than predicting zero. Direct access to paired outcomes therefore does not by
+itself provide a selector that improves repeated match play. Appendix controls
+examine representation, data volume and regularization. Two additional fixed
+card/koi hybrids and an opponent-preserving target study remain in progress;
+their results are excluded here. Protocols are in
+\texttt{docs/PAIRED\_ROLLOUTS.md}.
 
 \section{Limitations and interpretation}
 The strongest supported result is the improvement in match wins against
@@ -570,9 +596,10 @@ assisted RL-WP at both adapted model seeds. RL-Point remains competitive in
 wins and superior in expected points. This objective dependence is a useful
 direction for further work: more aggressive scoring may be valuable when
 trailing, while a leading player can favor decisions that preserve a match win.
-The completed arbitration experiment shows that simply learning a small
-selector with terminal-reward PPO does not reliably exploit this difference.
-Paired-outcome supervision is the next controlled comparison.
+Neither terminal-reward PPO selection nor paired-outcome supervision reliably
+exploits this difference in the completed comparisons. The weak prediction
+signal at disagreements motivates examining the continuation policies used
+to construct training targets.
 
 Two training seeds limit conclusions about robustness across optimization
 runs. The broader development program also includes many unsuccessful
@@ -590,8 +617,9 @@ inference averaging 1.585 ms for the canonical model. RL-Point exposes the
 remaining challenge: match-win improvement is inconsistent across models,
 and expected points still favor the point-oriented agent. A matched-budget
 experiment finds no replicated win gain from PPO expert selection or further
-full-policy PPO. Paired complete-match supervision now tests whether more direct
-action comparisons can improve selection at expert disagreements.
+full-policy PPO. A separate complete-match evaluation reaches the same conclusion
+for paired-outcome supervision. Learning useful changes at expert disagreements
+remains the central challenge for this composition approach.
 
 \appendix
 \section{Reproduction and evidence}
@@ -601,8 +629,8 @@ published implementation at the revision identified in Reference~\cite{pinnedkoi
 The completed adaptation
 study and its earlier manuscript are preserved in a local evidence archive
 from project snapshot \texttt{f5cf955}. The present manuscript revision adds
-related work and the completed arbitration comparison, followed by the
-paired-supervision experiment under evaluation.
+related work, completed PPO and paired-supervision comparisons, and the
+subsequent fitting diagnostics.
 
 The machine-readable evidence ledger,
 \path{docs/paper/generated/evidence.json}, binds the completed studies'
@@ -622,7 +650,13 @@ to the completed study. The new arbitration protocol records fresh training
 and development ranges in \path{runs/arbitration_study/protocol.json}.
 \path{docs/ARBITRATION.md} describes the arms, budgets and evaluation criteria.
 \path{docs/paper/generated/arbitration_evidence.json} separately binds the
-completed extension's audit, raw paired outcomes and figure.
+completed PPO extension's audit, raw paired outcomes and figure.
+\path{docs/paper/generated/paired_evidence.json} binds the paired-supervision
+table, recomputed raw match comparisons, datasets, fitted models and diagnostic
+reports. The paired study uses development deals 22,000,000--22,000,999.
+Its two datasets share 623,232 source decisions across all fitted controllers;
+branch generation adds 15,406,127 decisions and 262,144 branch completions.
+Evaluation adds 5,551,259 decisions. These are distinct computation categories.
 
 The new arbitration experiments freeze the inherited actors. A traced
 near-tie shows why this detail belongs to the inference specification: with
@@ -646,6 +680,29 @@ Build instructions are in \path{docs/paper/README.rst};
 comparator files and verification commands. The archive preserves the completed
 study rather than the ongoing extension. The broader exploratory record,
 including unsuccessful experiments, is retained in \path{docs/EXPERIMENTS.md}.
+
+
+\section{Selector-fitting diagnostics}
+Subsequent development screens compare raw public inputs with frozen expert
+representations, marginal score or win targets with paired differences, and
+outcome-weighted preference classification. The classification formulation
+uses the established rollout-policy-improvement approach discussed in Related
+Work; it is not a new loss. Across 48 fixed fitted endpoints, no condition
+establishes one-action win gain over both fixed expert choices at both parents.
+These diagnostics change one action and then follow frozen continuation.
+They are separate from the repeated-policy match comparisons above.
+
+A controlled data study compares 65,536 roots for 20 or 80 epochs with
+262,144 roots for 20 epochs. All endpoints are evaluated on the same new
+held-out source matches: 52,090 roots from 2,160 matches for the first parent,
+and 52,055 roots from 2,142 for the second. All larger-data versus longer-fit
+win-change intervals include zero. Inspection finds that all four larger-data
+preference models assign exactly tied proposal scores. Removing Adam weight
+decay prevents this collapse under otherwise matched conditions, but all eight
+zero-versus-default-decay win-change intervals still include zero. Thus the
+optimization correction restores differentiated scores without establishing
+better action selection. The linked experiment record retains all fitted endpoints and comparisons,
+including abandoned collection work and its failure receipts.
 
 \begingroup
 \raggedright

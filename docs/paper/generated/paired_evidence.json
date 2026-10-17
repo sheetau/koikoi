@@ -1,0 +1,322 @@
+{
+  "scope": "Completed paired full-match study, table recomputed from raw pair outcomes; completed score-fitting reports retained as historical diagnostic evidence, not new match-strength estimates. No pending opponent-target/static result included.",
+  "inputs": {
+    "runs\\paired_arbitration_study\\protocol.json": "4aac3da254f3d3286e7a8f6861f7c3a39ba05d70eef783846657f61011fd4130",
+    "runs\\paired_arbitration_study\\parent1\\rl-wp-assisted.json": "3a1b29e5dbbe8357a28fc202ba0dfef9273b3c5763622cfa392da30a2863e465",
+    "runs\\paired_arbitration_study\\parent1\\rl-wp-assisted.jsonl": "a1916e43eb1d60e7b3b1a7bdd66eda8de7d792f2a1477a2fb15f2bc472f6f8bd",
+    "runs\\paired_arbitration_study\\parent1_full\\rl-wp-assisted.json": "d4e7c87d5d2a57ee526cb55e978511a2a450005568dddeaa471eed7979ffa591",
+    "runs\\paired_arbitration_study\\parent1_full\\rl-wp-assisted.jsonl": "aef29bad51e7e3556d8c065e15e162951684b3857d3b27f9034f0b942e4a958a",
+    "runs\\paired_arbitration_study\\parent1_no_match\\rl-wp-assisted.json": "e4dfc7595fef58b74d418337c4b65cdb8d2e4b8603763fd6cd3a2ead63feb84a",
+    "runs\\paired_arbitration_study\\parent1_no_match\\rl-wp-assisted.jsonl": "4d3c39f0ffbcccb87eb8517f28dfc033262f0f41271887022889095d864b2c65",
+    "runs\\paired_arbitration_study\\parent1_ppo_gate\\rl-wp-assisted.json": "4e1ed69e5909b9b35830a39fbf46e859ed9259347a7e65d83ef7f631f73be972",
+    "runs\\paired_arbitration_study\\parent1_ppo_gate\\rl-wp-assisted.jsonl": "1062c203554e60763bcc5eec0e2a8cb9cda26a7e2ee8dc62e65d80b6b30976dd",
+    "runs\\paired_arbitration_study\\parent1_ppo_actor\\rl-wp-assisted.json": "26fe2078e67f547d325fe9727a2dd8bb4abd96554e2e318eeead4cee39ba5dc0",
+    "runs\\paired_arbitration_study\\parent1_ppo_actor\\rl-wp-assisted.jsonl": "9bb8ab365a166fcd5cca0329b61a9a7603866e0cac9adbd4ee7a2bac4a761fd8",
+    "runs\\paired_arbitration_study\\parent1\\rl-point-assisted.json": "7222d06f1e9a31342ac328a370053b7076391a063f98ef3faf604b61bb786587",
+    "runs\\paired_arbitration_study\\parent1\\rl-point-assisted.jsonl": "d1214409a4b79abd68c61eab498218d28d85ac9ce115cdbbdd773d7f36cbb281",
+    "runs\\paired_arbitration_study\\parent1_full\\rl-point-assisted.json": "118471b63a1ad5a5a8951295c2cea33726bd6068708e47b92fbd78aa2d94d22f",
+    "runs\\paired_arbitration_study\\parent1_full\\rl-point-assisted.jsonl": "fe9d331ba7cd72b8c30def8af6137d3b9dc2d71a8d2eb387a4dc67cf81c46516",
+    "runs\\paired_arbitration_study\\parent1_no_match\\rl-point-assisted.json": "8e79d85d8016e850e9d3c1edc98b31d78211fb7fd260d8b76e13eef1409c4564",
+    "runs\\paired_arbitration_study\\parent1_no_match\\rl-point-assisted.jsonl": "377b4a5c1956f96b095219505ae2a6cc0134d72432108b3b0117b31032ed3188",
+    "runs\\paired_arbitration_study\\parent1_ppo_gate\\rl-point-assisted.json": "d87a2cb84dbf10bedd51736a0a7d7579354eb410d67a77d8d07839d6991a97c9",
+    "runs\\paired_arbitration_study\\parent1_ppo_gate\\rl-point-assisted.jsonl": "78228873b724a29cb17604fa0ae856389f191da570c59a00728444466768a22f",
+    "runs\\paired_arbitration_study\\parent1_ppo_actor\\rl-point-assisted.json": "f1cfd278f4e14f61368e1d1b31f1f2c3df553572d14750389b0a4bd5720e2344",
+    "runs\\paired_arbitration_study\\parent1_ppo_actor\\rl-point-assisted.jsonl": "fb519d4e1225c3e82a0e8d9f5847aa61fb3908a32d82ca57a9a755b71c7af185",
+    "runs\\paired_arbitration_study\\parent2\\rl-wp-assisted.json": "952187b604a902a9eabe06b36b871c0c56bb28f24be3bcc6f6eee1e63e978f7e",
+    "runs\\paired_arbitration_study\\parent2\\rl-wp-assisted.jsonl": "7a3103db824786235af0fd607f0b1870ba783116cb32aa2c8a65e753a2ef090d",
+    "runs\\paired_arbitration_study\\parent2_full\\rl-wp-assisted.json": "57b48e0c82766313f965745c0c90792bda2c78cc363b388bcdd1a101a035cf49",
+    "runs\\paired_arbitration_study\\parent2_full\\rl-wp-assisted.jsonl": "ff937523ac82f77df400f898befe9d88a5980369549aa1705f4081cf3efb1072",
+    "runs\\paired_arbitration_study\\parent2_no_match\\rl-wp-assisted.json": "659207561bd6524b29ee21991de7d2c69a5a3278e59a1dbb941211f7347f78aa",
+    "runs\\paired_arbitration_study\\parent2_no_match\\rl-wp-assisted.jsonl": "6c11675be4f5281a455b526592e7879d83ba58156d77094a799a275c01b77b07",
+    "runs\\paired_arbitration_study\\parent2_ppo_gate\\rl-wp-assisted.json": "d183ba7a5f993a54fb988f2811fb105419b4c048e86582dac906c22918580f13",
+    "runs\\paired_arbitration_study\\parent2_ppo_gate\\rl-wp-assisted.jsonl": "8ffda3bf89083aad4777a8b530de45efbeed028d11725f3549fe57d6864bee16",
+    "runs\\paired_arbitration_study\\parent2_ppo_actor\\rl-wp-assisted.json": "85e366b2ecb1bcf703d26872e065955b0a445f409561baf05978446614b3edc7",
+    "runs\\paired_arbitration_study\\parent2_ppo_actor\\rl-wp-assisted.jsonl": "f6a9495d8a3cbfa7cdaac8ebbcd81a03b7ed593bdb511a588735724efbd61652",
+    "runs\\paired_arbitration_study\\parent2\\rl-point-assisted.json": "eb9c6e1a4da2ffb10626c7e6e98f401bccdc747012413e4b56ed6134ba69003f",
+    "runs\\paired_arbitration_study\\parent2\\rl-point-assisted.jsonl": "aee629a1c1e92078c7848ee04f0973eaa46a8fc76c9392202e72c2b0525b0823",
+    "runs\\paired_arbitration_study\\parent2_full\\rl-point-assisted.json": "1f1141267da83f2068fd94b78e8d4604d0ff69b4bd7c7249dcc8a282b20e88ba",
+    "runs\\paired_arbitration_study\\parent2_full\\rl-point-assisted.jsonl": "3ea6a23cc3f3a327aa4d38c0976620cc367192fbabf1411f6d76d5aeddb6ce39",
+    "runs\\paired_arbitration_study\\parent2_no_match\\rl-point-assisted.json": "a97463a47924e791c5f4f6b0c9eba0bac4f6413ed0ddeba025a1e5b6271e0755",
+    "runs\\paired_arbitration_study\\parent2_no_match\\rl-point-assisted.jsonl": "bb3714ed2cd9e31e85cafaacc454fdebd5b58433511fdbe51fca86a11a143897",
+    "runs\\paired_arbitration_study\\parent2_ppo_gate\\rl-point-assisted.json": "26b6e9caf7146227dd7a53a4fbf90a7e2d0336c7305c58e7daf31b388dcc5e88",
+    "runs\\paired_arbitration_study\\parent2_ppo_gate\\rl-point-assisted.jsonl": "0f8b61beb0e73c05eb538dda0d81f4ba4e381b12119f78e47c0c6c5b1dc044e5",
+    "runs\\paired_arbitration_study\\parent2_ppo_actor\\rl-point-assisted.json": "225fd3c05d7be2851d588179984f4c2ca66c55f61338047f0f51063a92a53262",
+    "runs\\paired_arbitration_study\\parent2_ppo_actor\\rl-point-assisted.jsonl": "4704ef1f0c2ae392599ce4baff451413e4a2585412408de21837cecd1b25c310",
+    "runs\\paired_arbitration_study\\analysis.json": "d5709d50e51101240d0d9df7cc47a569d55da8fa32f7f3dd5b3304b597c286ff",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\scripts\\export_paired_paper_evidence.py": "8cd2d0fb569f831fe047263b2234242788778af065605512d0ff37e0de0122b9",
+    "scripts\\plot_extension_results.py": "4d23712eba50de2259c9ccf8917958cb51b44edb0522ddc36b7fa06d46e5d75e",
+    "runs\\paired_arbitration_study\\parent1\\targets.pt": "f7ac8557f77af28f6569ef6f4c655b8f8ef15e024c9a73dac592aff8d4d68415",
+    "runs\\paired_arbitration_study\\parent1\\held_out_diagnostic.json": "40ea3533ecf6bde92235ba3faed58acca9bf0dcde2fe159f1350696ee0f71459",
+    "runs\\paired_arbitration_study\\parent1_full\\final.pt": "b2a21d0ce288f0b21f6022cfb26ce56a52f8f05957f237beb5b3d0e53e15f09d",
+    "runs\\paired_arbitration_study\\parent1_no_match\\final.pt": "e4b24c16cd1402c181fde9599dd78362e9aed6a5c9ae1c450a811282998813b7",
+    "runs\\paired_arbitration_study\\parent2\\targets.pt": "7e48fac140a044e5187244f858056e3bbbadc9d3f7e1bb18117f6844cfa91401",
+    "runs\\paired_arbitration_study\\parent2\\held_out_diagnostic.json": "7c93547ce07da44b20bb12b5a85aa01eafd7df6ef684a8e735aecef94a658b4a",
+    "runs\\paired_arbitration_study\\parent2_full\\final.pt": "b6280b20409db75f6b19598d7b446bdd5cfcac0a33a1675eb37c9b10b365576c",
+    "runs\\paired_arbitration_study\\parent2_no_match\\final.pt": "9ca448073a09bd9c356dfe746c27db63922c3a3928155ceb728c6629f3783c0f",
+    "runs\\score_fit_screen\\fit_audit.json": "35a5b2012b7ab15ce4bfaf10f80852cceac1e13fa5b6170deede3653ab72a30e",
+    "runs\\score_fit_screen\\plan.json": "174a6091df7f76c15040d3eff38c632433a8e48305df418aaa381ff3bae1a089",
+    "runs\\score_fit_screen\\parent1_raw_categorical\\final.pt": "c9df87c9aed87dd334496904d43acf00806edc0f6354652dce4a8fa88f0ec93d",
+    "runs\\score_fit_screen\\parent1_raw_win\\final.pt": "0abe9335c1cb959c939362521db3d9f77324baee8126bf4c3aa25a385dce3693",
+    "runs\\score_fit_screen\\parent1_raw_mean\\final.pt": "07d720c02c1d9be943a9dd5c7016b6a58510b907625e6e898f4e7b88d33f236f",
+    "runs\\score_fit_screen\\parent1_features_categorical\\final.pt": "08921e4a1ba06ba3fe70ab7eac90b8c3b6d3757eaf70f00ce018dededededa94",
+    "runs\\score_fit_screen\\parent1_features_win\\final.pt": "fb70ce686fa2fb1e48afb5b12401b73504d9c6b3d84bb23b4f0059217121b2b5",
+    "runs\\score_fit_screen\\parent1_features_mean\\final.pt": "c670c65d5b193088ec93b49508927d76b0dc4bc84582ee876c48af74c19b8c4a",
+    "runs\\score_fit_screen\\parent2_raw_categorical\\final.pt": "3f73804eb927d5dafb6e07a143fb79f0fd7f216b77c1be256840fecf59ded91f",
+    "runs\\score_fit_screen\\parent2_raw_win\\final.pt": "3fd4620d7d97ff38839e5a6f1ea1415402fe9a42be964c68d323019c68376ea7",
+    "runs\\score_fit_screen\\parent2_raw_mean\\final.pt": "30c44885a922e5363a873da74de0ae7fd03940aca2673e9c3b2e5df430b6d1a1",
+    "runs\\score_fit_screen\\parent2_features_categorical\\final.pt": "7a9fe03277c417c7d0c1ed3095157d4d700b5200b5169ebc7788c2c3a328572b",
+    "runs\\score_fit_screen\\parent2_features_win\\final.pt": "ee3300284b33aa6f2dab984dddc5416151bf7aedbaa86fbc06b356de2b322930",
+    "runs\\score_fit_screen\\parent2_features_mean\\final.pt": "76ba252995088c28f12299002af8ff42d35b67379cdd26700da0ec0293814091",
+    "runs\\paired_difference_fit_screen\\fit_audit.json": "856a5e6c667285d65a149205f291c5e0828fa026a1edf45f49c559e2d572e957",
+    "runs\\paired_difference_fit_screen\\plan.json": "735b3ebbf2fc5579e675e5d26a4b11b66bb9a205dffd46ae55f27092338cd9a4",
+    "runs\\paired_difference_fit_screen\\parent1_raw_paired_win\\final.pt": "47312b11c2e4e10f7026b7f847fbfb466c10060e6b1a79817f06d134df49935f",
+    "runs\\paired_difference_fit_screen\\parent1_raw_paired_mean\\final.pt": "1cfd44c4aa825af0b59d00643f8cdc8ca6572fa8d8091b9c0faa180d1f165f48",
+    "runs\\paired_difference_fit_screen\\parent1_features_paired_win\\final.pt": "9f0e74789182c904757ec887202db84323ffdd6478124440cd36a75f65a590f6",
+    "runs\\paired_difference_fit_screen\\parent1_features_paired_mean\\final.pt": "6909aa9609bd07765b8478a63964398f939f43129542b3efc58175273f139ddd",
+    "runs\\paired_difference_fit_screen\\parent2_raw_paired_win\\final.pt": "4df7c0b69b3f53fc34d954d6b193a2aed9b313126f7f0ff610099a48c92d1573",
+    "runs\\paired_difference_fit_screen\\parent2_raw_paired_mean\\final.pt": "17631826edf4a7b1b4aacf903366b2d9d8b41aedfc27a9ed1a059b4374ee21ed",
+    "runs\\paired_difference_fit_screen\\parent2_features_paired_win\\final.pt": "434734e1f5e03637fb457bff9e00dc55b17be6a00e7624c55f582663462f13d2",
+    "runs\\paired_difference_fit_screen\\parent2_features_paired_mean\\final.pt": "cf0b4c7707803bec0952204bad64b1e4537576e4161f0d2eb52a29bcc90d7771",
+    "runs\\preference_fit_screen\\fit_audit.json": "47d169a62fc1b8f462638a956e1d2a69f2b1039acd9c075b0541a2c1580bfe87",
+    "runs\\preference_fit_screen\\plan.json": "37e75d2cab33f148f21a1c7cf4d8d463d375bfc56c6a3e9399127e405c9addab",
+    "runs\\preference_fit_screen\\parent1_raw_preference\\final.pt": "fe30a89535704fcdb54f3b9266e5c889a6b7835df05e3a6c6a688907c5666b8e",
+    "runs\\preference_fit_screen\\parent1_features_preference\\final.pt": "d9d91cd6119b457053a800e321375718588619b19cc5cae1529ba5002e7d64f8",
+    "runs\\preference_fit_screen\\parent2_raw_preference\\final.pt": "0ad0079ca1538912cd99be0b6aa37206e185571c550cdc2871367579f824496f",
+    "runs\\preference_fit_screen\\parent2_features_preference\\final.pt": "4802ac0994fa73a202e7bf6f55d3ec21b50f1185bec9697a252056f771a656b0",
+    "runs\\score_update_budget_control\\fit_audit.json": "cd240a440794ac221fb5804396f96831901bb90d32e01b60996d543e0a168792",
+    "runs\\score_update_budget_control\\plan.json": "48451cd6ad0d0b5462169721f4dae8b9325323b7b93c2bed0a4b956af9a4be28",
+    "runs\\score_update_budget_control\\parent1_raw_paired_win\\final.pt": "ed4be0ebac86e1596a6c1abed4d97a7c0c5ac21e2e26437913a62121e05c01bb",
+    "runs\\score_update_budget_control\\parent1_raw_preference\\final.pt": "026fe0611d5cc213c7f6e469e904d47ae54326bac7dac97da81f5734fd8bbd48",
+    "runs\\score_update_budget_control\\parent1_features_paired_win\\final.pt": "5ed9367d2d4cf98a36cf623f73bc839cd3cee604a2b45afdbae41e23d5ef4fc9",
+    "runs\\score_update_budget_control\\parent1_features_preference\\final.pt": "32d52ab9287366c29763813d4d8694eede854cd50f56df0f79a94f9069092424",
+    "runs\\score_update_budget_control\\parent2_raw_paired_win\\final.pt": "621b3a101aa357aa0ff70c4bbe51572a2cf46f91074944dee168228673a535e1",
+    "runs\\score_update_budget_control\\parent2_raw_preference\\final.pt": "0855a0307396b2061d32938597cdbd6c1a11e08053645c5a371d40df655c8068",
+    "runs\\score_update_budget_control\\parent2_features_paired_win\\final.pt": "4179f2b2f1e436afd8a855602f6174ef7aefc09368bf88fb81b0a6c5dab4dd4c",
+    "runs\\score_update_budget_control\\parent2_features_preference\\final.pt": "b2964e230fcf05efe8152b3335d8d4c83282f5133605fe5d9f4fba788ea3c2ea",
+    "runs\\score_scaled_fit_screen\\fit_audit.json": "44cd498ec413820a85edba7a33dd26e86fae781c373cebec6d62c7d1422d26c8",
+    "runs\\score_scaled_fit_screen\\plan.json": "f14b9d2dd3f43a49745ac7bec84d947ec45a03fffcf91f537daf892dd83e0643",
+    "runs\\score_scaled_fit_screen\\parent1_raw_paired_win\\final.pt": "2010aab74c75b406c22b7c27ecfd6855a847ff605ed7e9ef523fb88a9185a766",
+    "runs\\score_scaled_fit_screen\\parent1_raw_preference\\final.pt": "c3ac387d530e250e1b4eb8b2095ecb5c57e2c6e43a7821907692472cd35e14c8",
+    "runs\\score_scaled_fit_screen\\parent1_features_paired_win\\final.pt": "0c2a8b0b66eab397e957cb9c91c32e3c5d6e7ecedb80494d36d0146966eb0bf6",
+    "runs\\score_scaled_fit_screen\\parent1_features_preference\\final.pt": "7e0207ad0ccd64089af56170cfe27fc0f254f17569351862a7d012eff87cc247",
+    "runs\\score_scaled_fit_screen\\parent2_raw_paired_win\\final.pt": "c448da1c4b0e2ccba81cfed28b3b6ccc85733e566e13187a74d3b77fc818ec88",
+    "runs\\score_scaled_fit_screen\\parent2_raw_preference\\final.pt": "eb18dbb7768619c628d693aa91b01aebb40419b69446ff6ffe6aa9611f4c3450",
+    "runs\\score_scaled_fit_screen\\parent2_features_paired_win\\final.pt": "9edb80e4b126a64a8bcf3a7d9bb97c91e4d1ed05698072808500612f33a34f60",
+    "runs\\score_scaled_fit_screen\\parent2_features_preference\\final.pt": "daae2188b20cd936c06c04564ab3a95ef07d075c7574f17827bee25bed0fa92d",
+    "runs\\score_scale_followup\\comparison.json": "b90db78726ae8c6a511f1f6462c685594d927b1164d65dce6cd7f249b6138653",
+    "runs\\scaled_preference_collapse_diagnostic.json": "2300e85e9903ea88663c8ba9ff90002ee1b4b9a8d70d289e09f8f65a0c1ed2ea",
+    "runs\\score_zero_decay_control\\fit_audit.json": "c69a4e5b4e8ab0f420e2342400a34e53ecd6e754d101ca903cc2d1fb778dee60",
+    "runs\\score_zero_decay_control\\plan.json": "10fbdd48df6d4a4b2aa6e731bd9596c8511a2d47dd60344e67b06e60f06734d8",
+    "runs\\score_zero_decay_control\\parent1_raw_paired_win\\final.pt": "c7bf26bcfb69743838cb5994a864cb09451714f37fc35f8cf4ad5cecb50a5b7b",
+    "runs\\score_zero_decay_control\\parent1_raw_preference\\final.pt": "ebcf9ca471144b55908c88e2c193d7ad83c58f01e0d2fdcd1eedb72b13d4cdab",
+    "runs\\score_zero_decay_control\\parent1_features_paired_win\\final.pt": "c87497abbf446ba58ff3e69ca92597549f76137d5be9810c731b787ec0603320",
+    "runs\\score_zero_decay_control\\parent1_features_preference\\final.pt": "82224bad789c1ef6a746131399381c0d9e538e1b684fb2586918a35595331485",
+    "runs\\score_zero_decay_control\\parent2_raw_paired_win\\final.pt": "8f6456136c285ffd1cc9c34ba266d855ca72721d2914a85772ba3097a94fc851",
+    "runs\\score_zero_decay_control\\parent2_raw_preference\\final.pt": "b18a17c859722eda91df88fa1420852a472662e93801e16b8fb9f2042c242d38",
+    "runs\\score_zero_decay_control\\parent2_features_paired_win\\final.pt": "f964763ae869bebb1329eee508bf3eaf76ec7abd1d97e44636f0a98b63b6d5e8",
+    "runs\\score_zero_decay_control\\parent2_features_preference\\final.pt": "8d93f3d94fbe0ba050451900569a94c1ba68a2670d191886f38b9b51c625cb8e",
+    "runs\\score_zero_decay_control\\comparison.json": "ed9f5d7bbd8ab9dc7cb09499e41e339dc084a3995d26ece5b399678e8b6faddf",
+    "runs\\scaled_paired_targets_recovered\\data\\parent1\\targets.pt": "dc4389c863af6699f5be30222ccfd96e8b63bb6acb3a36157465199bc521811a",
+    "runs\\scaled_paired_targets_recovered\\data\\parent2\\targets.pt": "637040e53c9150c45ecbc5b6322c517b128823c406122da3b6bd8875fbb9afaa"
+  },
+  "outputs": {
+    "docs\\paper\\generated\\paired_supervision_table.tex": "a312eb5008c2d652b0db236f827c21022fe975ea3678ad78b29b9c1d2de4d3e0"
+  },
+  "pair_count": 1000,
+  "evaluation_matches": 48000,
+  "evaluation_decisions": 5551259,
+  "changes": {
+    "1/full/rl-wp-assisted": {
+      "wins": [
+        0.35000000000000003,
+        -1.55,
+        2.3
+      ],
+      "points": [
+        1.26,
+        0.15987500000000004,
+        2.4300499999999996
+      ]
+    },
+    "1/no_match/rl-wp-assisted": {
+      "wins": [
+        0.575,
+        -1.35,
+        2.5250000000000004
+      ],
+      "points": [
+        1.447,
+        0.313975,
+        2.6021499999999977
+      ]
+    },
+    "1/ppo_gate/rl-wp-assisted": {
+      "wins": [
+        -0.025,
+        -1.95,
+        1.95
+      ],
+      "points": [
+        1.218,
+        0.08297500000000001,
+        2.335074999999999
+      ]
+    },
+    "1/ppo_actor/rl-wp-assisted": {
+      "wins": [
+        1.125,
+        -0.5,
+        2.825
+      ],
+      "points": [
+        1.064,
+        0.11597500000000001,
+        2.0350499999999996
+      ]
+    },
+    "1/full/rl-point-assisted": {
+      "wins": [
+        0.125,
+        -1.9506249999999998,
+        2.175
+      ],
+      "points": [
+        0.444,
+        -0.798125,
+        1.7140249999999997
+      ]
+    },
+    "1/no_match/rl-point-assisted": {
+      "wins": [
+        -0.35000000000000003,
+        -2.35,
+        1.7000000000000002
+      ],
+      "points": [
+        0.411,
+        -0.8450749999999999,
+        1.6780249999999997
+      ]
+    },
+    "1/ppo_gate/rl-point-assisted": {
+      "wins": [
+        0.675,
+        -1.25,
+        2.625
+      ],
+      "points": [
+        0.772,
+        -0.401025,
+        1.9341499999999978
+      ]
+    },
+    "1/ppo_actor/rl-point-assisted": {
+      "wins": [
+        1.175,
+        -0.575,
+        2.9499999999999997
+      ],
+      "points": [
+        0.746,
+        -0.28204999999999997,
+        1.708
+      ]
+    },
+    "2/full/rl-wp-assisted": {
+      "wins": [
+        -1.5,
+        -3.5999999999999996,
+        0.65
+      ],
+      "points": [
+        -0.168,
+        -1.4341,
+        1.0600249999999998
+      ]
+    },
+    "2/no_match/rl-wp-assisted": {
+      "wins": [
+        -1.7999999999999998,
+        -3.925,
+        0.3256249999999909
+      ],
+      "points": [
+        -0.35,
+        -1.596125,
+        0.8721249999999982
+      ]
+    },
+    "2/ppo_gate/rl-wp-assisted": {
+      "wins": [
+        -0.35000000000000003,
+        -1.8499999999999999,
+        1.15
+      ],
+      "points": [
+        -0.022,
+        -0.8571,
+        0.7990249999999997
+      ]
+    },
+    "2/ppo_actor/rl-wp-assisted": {
+      "wins": [
+        -0.25,
+        -2.15,
+        1.675
+      ],
+      "points": [
+        -0.831,
+        -1.9380499999999998,
+        0.257
+      ]
+    },
+    "2/full/rl-point-assisted": {
+      "wins": [
+        0.22499999999999998,
+        -1.825,
+        2.15
+      ],
+      "points": [
+        1.66,
+        0.411975,
+        2.8630249999999995
+      ]
+    },
+    "2/no_match/rl-point-assisted": {
+      "wins": [
+        0.17500000000000002,
+        -1.875,
+        2.075
+      ],
+      "points": [
+        1.684,
+        0.4499,
+        2.860074999999999
+      ]
+    },
+    "2/ppo_gate/rl-point-assisted": {
+      "wins": [
+        1.375,
+        -0.075,
+        2.850624999999991
+      ],
+      "points": [
+        1.225,
+        0.29287500000000005,
+        2.1900499999999994
+      ]
+    },
+    "2/ppo_actor/rl-point-assisted": {
+      "wins": [
+        2.35,
+        0.475,
+        4.175
+      ],
+      "points": [
+        0.945,
+        -0.225,
+        2.0921249999999985
+      ]
+    }
+  }
+}

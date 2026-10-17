@@ -1805,3 +1805,36 @@ unchanged. Launch uses the fixed PAIRED_ROLLOUTS protocol, fresh source seeds
 
 
 Launch receipt: The fixed study launched from9013980 in exec session59220 (actualPID5940, wrapper42868), collecting parent1. Protocol SHA54d0a365737022b66e7761d970523aa7d300f3f0dd176c9cd8690e0f5d575b76; all18 listed inputs and unchanged production SHA were verified after launch. Keep these dependencies frozen until terminal. First2,048 roots completed with19,200 source decisions /1,226 round endings /128 matches; parent-only and opponent-preserving branches completed4,096 endpoints each. Static48159 and watcher98461 were re-polled live. No strength result yet.
+
+
+## Completed paired-results paper revision
+
+The manuscript now includes the completed24-matchup paired-supervision study.
+New scripts.export_paired_paper_evidence independently reloads raw pair outcomes,
+checks them against the passed audit and exports the four-row full/no_match table.
+The paired evidence ledger binds117 inputs, including all48 score-screen fitted
+checkpoints and their fixed plans/audits. Its SHA256 is
+99b1d46189c69932587779b94f66c49906c209dfc4f194cd389fa9facbeb556d;
+table SHAa312eb5008c2d652b0db236f827c21022fe975ea3678ad78b29b9c1d2de4d3e0.
+
+Abstract/Introduction retain the verified adaptation gain and now state the
+completed negative paired-selection result. A compact results table preserves
+both parents and the context ablation. Data-size, fitting-budget and collapse
+controls move to a separate appendix rather than crowding the main argument.
+The missing "no" in the historical unchanged-final-test statement was corrected.
+Static/opponent-preserving results remain pending and are not reported as findings.
+
+PDF output/pdf/manuscript.pdf has14 pages and SHA256
+075411f59901a0418417dc8608d5d6c23aa729051ec324ea0eeb315e0bfefd1f.
+QA runs/manuscript_completed_paired_qa.json SHA256
+6e0d3d9df741a8925e5e20bb2f6bff6a5423655abe1136178b0495a946d376cf passes:
+changed pages1,2,6,11--14 visually reviewed; remaining7 renders byte-identical
+to earlier reviewed pages;18 embedded fonts and18 citations; no TeX box/glyph/
+reference or page-bound defects; all26 historical/34 arbitration/117 paired input
+entries verified. Independently checked48-endpoint qualification claims, all8
+large20-minus-small80 and all8 zero-minus-default intervals, and source/branch/
+evaluation accounting. First QA output name collided with an older preserved
+receipt and was correctly rejected; a fresh completed_paired name was used.
+Previous clarity PDF preserved as output/pdf/manuscript_clarity_a6538307.pdf.
+Original evidence archive remains unchanged. Opponent-target59220 and static48159
+continue with bound code untouched; no new strength improvement is established.
