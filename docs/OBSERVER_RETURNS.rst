@@ -72,6 +72,46 @@ The second control needs no opponent-private feature. Its single-sample variance
 for the theta_0 gradient is 0.1197453, versus 0.1080973 for the biased recurrence.
 Removing bias does not automatically improve finite-budget learning.
 
+A shared-parameter policy with a descent direction
+-------------------------------------------------
+
+The same game also admits a one-parameter policy whose entire expected update
+is a strict local descent direction. Set the two logits to theta and -alpha*theta,
+where alpha=1/100 is fixed. Both private-signal policies now depend on the same
+scalar theta. At theta=0 the action distribution and both exact critics are
+unchanged. The chain rule projects the previous two-coordinate gradient with
+(1,-alpha); this changes the policy family, not the reward table or the critic
+information. It does not assert full-gradient reversal in the original
+independently parameterized policy.
+
+For general fixed alpha, direct differentiation and the exact signed-GAE target
+give the following expectations at theta=0::
+
+    true dJ/dtheta = (1 + 200*alpha) / 800
+    E[estimated gradient] =
+        [201*(1+alpha)*lambda - 199*(1-alpha)] / 1600.
+
+At alpha=1/100 and lambda=19/20, these become 3/800=0.00375 and
+-8301/3200000=-0.0025940625. Their product is
+-24903/2560000000. This negative directional derivative proves that a sufficiently
+small positive step in the expected estimator direction reduces the true
+expected payoff. The correct positive sign requires lambda>6567/6767 in this
+policy family. The lambda=1, learner-to-terminal and joint-information controls
+all recover 3/800. These statements concern the population score-function update
+at theta=0, before PPO clipping and empirical advantage normalization.
+
+The script scripts/diagnose_shared_observer_bootstrap.py enumerates the eight
+outcomes with rational arithmetic, independently differentiates the scalar
+objective with autograd, reruns the Python/native CPU recurrence, and checks the
+chain-rule projections of the pinned earlier CPU/CUDA results. It performs no
+new CUDA computation, sampled games or policy fitting. Report
+runs/shared_observer_bootstrap_cpu.json SHA
+f6e500b64ecd8505ad0a2ccf52438df9df9c7efed4dadd65fdb7b799d082536e binds the
+script, original diagnostic and earlier reports. This strengthens the explicit
+counterexample; critic-conditioning bias remains established prior work. The
+current manuscript still presents the earlier two-coordinate version; this
+extension is retained for the final experimental revision.
+
 Executable evidence
 -------------------
 

@@ -2525,3 +2525,31 @@ not an independent replay of policy inference. No intermediate ranking, strength
 qualification, model selection or protocol change was made. The original study
 still has three active evaluation jobs; the new learner-return study continues
 its first training condition. Both live launcher handles were polled successfully.
+
+
+## Shared-parameter observer counterexample (2026-10-18)
+
+The exact two-step game now has an additional scalar-policy calculation using
+logits(theta,-theta/100). At theta=0 both original critics remain exact and
+both private-signal policies depend on theta. The true gradient is3/800; the
+expected signed-lambda0.95 gradient is-8301/3200000. The negative directional
+derivative -24903/2560000000 establishes strict local descent for a sufficiently
+small positive population update. This is a different, explicitly restricted
+policy family; the original two-coordinate example remains a one-coordinate
+reversal. Lambda1, learner-to-terminal and joint-information controls all recover
+the exact scalar gradient. The positive-sign threshold is lambda>6567/6767.
+
+Command: .venv/Scripts/python.exe -m scripts.diagnose_shared_observer_bootstrap
+--output runs/shared_observer_bootstrap_cpu.json. The final run passes rational
+outcome enumeration, direct scalar-objective autograd, fresh Python/native CPU
+checks and projection of the already pinned CPU/CUDA records. It makes no new
+CUDA calls, samples no games and fits no policies. Report SHA
+f6e500b64ecd8505ad0a2ccf52438df9df9c7efed4dadd65fdb7b799d082536e.
+An initial run caught a mistyped pinned CUDA-report hash before computation;
+comparison with the unchanged file corrected the literal. No report was written
+by that failed run. The source was formatted before the successful evidence run.
+
+OBSERVER_RETURNS records the derivation and its scope. This adds a concrete
+population-descent example to the established critic-conditioning issue, without
+asserting new general theory or improved Koi-Koi strength. The current17-page
+paper is unchanged pending incorporation with the completed strength study.
