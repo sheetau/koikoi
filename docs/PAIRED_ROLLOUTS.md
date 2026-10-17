@@ -231,3 +231,36 @@ checkpoint reload, overwrite/misalignment rejection, and original-head equality
 across all four action phases. Four tests pass with no skips. No full dataset
 cache, feature-based fit or strength comparison has been launched. The helper
 provides a precise alternative to guessing missing public seat metadata.
+
+
+## Full feature caches and fixed fitting screen
+
+Both full65,536-root feature replays now completed. Each root's public inputs,
+proposals and source group exactly matched the original stream. GPU replay took
+33.7605/34.7620 seconds, adding311,552/311,680 source decisions and zero branch
+simulation decisions. `runs/paired_public_features/audit.json` checks retained
+identities, sizes, finite values and reconstruction of every cached raw score
+from its256-wide expert vector. The CPU check differs from stored GPU head scores
+by at most3.43e-5/2.67e-5, within relative1e-5 plus absolute1e-5 tolerance. This is
+not a second replay of all source trajectories.
+
+The feature-based shared action scorer takes512 latent features, two expert
+scores scaled by1/16, and32 public context features. Categorical, mean-margin and
+direct-win heads share the same encoder initialization and minibatch order within
+a representation. The one-pass inference adapter matches the original expert
+heads and cached feature path across all four phases on CPU/CUDA; hidden-world
+perturbations preserve its inputs. Proposal permutation and duplicate consistency,
+actual fits/reloads, cache identity rejection and held-out diagnostics are tested.
+Raw and feature models differ in input dimension/parameter count; comparisons do
+not assert equal capacity.
+
+Sequence revision: the first paired-regression full-match endpoint and both
+held-out prediction diagnostics are now available, without a consistent win gain.
+While the remaining paired/static CPU experiments continue unchanged, prepare
+fixed final-epoch supervised fits on the idle GPU. `scripts.run_score_fit_screen`
+freezes12 cases:2 parents x2 representations x3 losses,20 epochs, seeds19410001 /
+19420001. Every endpoint is retained; source-match validation is development data
+and may inform a future method choice. There is no early stopping or automatic
+selection. New score-selector match evaluation still waits for the current
+paired/static comparisons to finish. This revises the earlier plan to delay all
+full-scale fitting, not any bound current-study protocol or confirmation set.

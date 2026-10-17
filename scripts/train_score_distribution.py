@@ -98,7 +98,7 @@ class ScoreSelector(nn.Module):
 
     def forward(self, public, mask):
         values = self.values(public)
-        proposals = public[:, 560:].long()
+        proposals = public[:, 560:562].long()
         logits = public.new_full((len(public), 50), -1e9)
         # Duplicate actions receive exactly the same shared-scorer value.
         logits = logits.scatter(1, proposals, values).masked_fill(~mask, -1e9)
@@ -119,7 +119,15 @@ def loss_for(model, public, indices, increments):
     return F.mse_loss(outputs.squeeze(-1), increments / 64)
 
 
-def fit(dataset, target, kind="categorical", seed=19410001, device="cpu", epochs=20):
+def fit(
+    dataset,
+    target,
+    kind="categorical",
+    seed=19410001,
+    device="cpu",
+    epochs=20,
+    feature_cache=None,
+):
     if Path(target).exists() or epochs < 1:
         raise ValueError("Use a fresh output and positive fitting budget")
     setup(seed)
@@ -135,7 +143,32 @@ def fit(dataset, target, kind="categorical", seed=19410001, device="cpu", epochs
     train_ids, valid_ids = torch.where(~validation)[0], torch.where(validation)[0]
     if not len(train_ids) or not len(valid_ids):
         raise ValueError("Need separate training and validation source matches")
-    model = ScoreSelector(kind).to(device)
+    cache_info = None
+    if feature_cache is None:
+        model = ScoreSelector(kind).to(device)
+    else:
+        from scripts.feature_score_selector import FeatureScoreSelector, pack_features
+
+        cache, cache_digest = read_checkpoint(feature_cache)
+        if (
+            cache.get("format") != "paired_public_expert_features_v1"
+            or cache["dataset_sha256"] != digest
+            or cache["verified_roots"] != len(public)
+            or cache["new_source_replay_work"] != data["source_work"]
+            or cache["new_branch_decisions"] != 0
+        ):
+            raise ValueError("Feature cache does not match paired dataset")
+        public = pack_features(
+            public, cache["embeddings"].to(device), cache["scores"].to(device)
+        )
+        model = FeatureScoreSelector(kind).to(device)
+        cache_info = {
+            "path": str(feature_cache),
+            "sha256": cache_digest,
+            "source_replay_work": cache["new_source_replay_work"],
+            "feature_batch": cache["feature_batch"],
+            "feature_device": cache["device"],
+        }
     initial_body_digest = hashlib.sha256(
         b"".join(p.detach().cpu().numpy().tobytes() for p in model.body.parameters())
     ).hexdigest()
@@ -175,7 +208,9 @@ def fit(dataset, target, kind="categorical", seed=19410001, device="cpu", epochs
         )
         print(history[-1], flush=True)
     payload = {
-        "format": "paired_score_selector_v1",
+        "format": "paired_feature_score_selector_v1"
+        if cache_info
+        else "paired_score_selector_v1",
         "network_config": {"kind": kind, "width": 128, "seed": seed},
         "model": {k: v.cpu() for k, v in model.state_dict().items()},
         "experts": data["experts"],
@@ -211,6 +246,11 @@ def fit(dataset, target, kind="categorical", seed=19410001, device="cpu", epochs
         "provenance": provenance(),
         "script_sha256": sha(__file__),
     }
+    if cache_info is not None:
+        payload["feature_cache"] = cache_info
+        payload["feature_model_script_sha256"] = sha(
+            "scripts/feature_score_selector.py"
+        )
     target = Path(target)
     target.parent.mkdir(parents=True, exist_ok=True)
     torch.save(payload, target)
@@ -248,8 +288,17 @@ def main():
     parser.add_argument("--seed", type=int, default=19410001)
     parser.add_argument("--device", default="cpu")
     parser.add_argument("--epochs", type=int, default=20)
+    parser.add_argument("--feature-cache", type=Path)
     args = parser.parse_args()
-    fit(args.dataset, args.output, args.kind, args.seed, args.device, args.epochs)
+    fit(
+        args.dataset,
+        args.output,
+        args.kind,
+        args.seed,
+        args.device,
+        args.epochs,
+        feature_cache=args.feature_cache,
+    )
 
 
 if __name__ == "__main__":

@@ -224,3 +224,23 @@ script, device and batch identities; they contain neither private states nor
 new outcome labels. Batch-dependent floating-point variation is retained as a
 limitation, not silently treated as universal score identity. This helper is
 available for future feature-learning controls; it changes no active experiment.
+
+
+## Frozen-feature score selector
+
+The new experimental FeatureScoreSelector shares one546->128->128 scorer across
+both proposed actions. Its inputs are the two frozen256-wide action embeddings,
+two raw expert scores divided by16, and32 public global context values. It uses
+the same categorical remaining-margin, scalar expected-margin and scalar direct-win
+heads as the raw-public prototype. The inference adapter computes each expert
+encoder only once per relevant phase and reuses its outputs for proposals and
+features. Agreement yields identical branch inputs. Inputs contain no hidden
+cards, stock order, future events or source grouping IDs.
+
+`train_score_distribution --feature-cache` selects the representation explicitly.
+The checkpoint format paired_feature_score_selector_v1 binds the cache and stores
+frozen expert/model weights; the cache's source replay counts remain distinct from
+fitting, which adds zero simulation. The raw-public checkpoint path is preserved.
+The fixed fitting screen crosses both representations and three supervision types
+for both parents. Whole-source-match validation diagnoses one-action improvement;
+a later full-match study is required before deployment.
