@@ -30,8 +30,8 @@ exclude 50\%. A warmer exploration and learning-rate configuration gains
 greedy play. Against RL-Point, win-rate improvement is inconsistent across models
 and expected points favor the point-oriented agent. Using RL-Point only for
 stop/continue decisions improves expected point margin at both adapted models
-against both public opponents; learned expert selection gives no replicated
-match-win gain. A separate exact analysis exhibits an estimator failure:
+against both public opponents; learned selection and direct opponent training
+give no replicated match-win gain. A separate exact analysis exhibits an estimator failure:
 perfect observation-conditioned critics can make the expected policy update
 decrease true expected payoff when a return bootstraps through the opponent's
 information. We derive an exact counterexample, verify its return calculation
@@ -57,7 +57,7 @@ such adaptation still falls short.
 
 Our method converts the pretrained action scores into a stochastic policy and
 optimizes it by self-play with PPO \cite{schulman2017ppo}. A separate critic
-estimates match returns from the acting player's public observation. Returns
+estimates match returns from the acting player's observation. Returns
 retain future-round value and change sign only when the acting player changes.
 A shared CPU/GPU simulator makes these updates practical while preserving the
 published feature and scoring conventions. Deployment retains greedy action
@@ -86,12 +86,14 @@ uses the opponent's observation and loses the learner's private information
 the example and motivates a Koi-Koi implementation with explicit handling of
 unfinished rollout tails.
 
-The result against RL-Point motivates a second question: can a small public-state
-controller choose useful actions from differently trained experts more effectively
+The result against RL-Point motivates a second question: can a small controller
+use its own observation to choose useful actions from differently trained experts more effectively
 than continuing to update the entire policy? A matched-budget experiment
 finds no replicated win gain from either approach (Section~\ref{sec:arbitration}).
 Direct supervision from paired complete-match outcomes also fails to produce
-a replicated gain. A simple fixed composition does improve expected points:
+a replicated gain. Direct PPO against a fixed mixture of the two published
+opponents likewise gives no replicated win gain in a separate 120,000-match
+comparison. A simple fixed composition does improve expected points:
 keep the adapted card policy and use RL-Point for stop/continue decisions.
 This result identifies a useful division of decisions while leaving the
 match-win objective unresolved.
@@ -221,7 +223,7 @@ compatibility but do not establish universal floating-point action identity.
 \subsection{Policy and value functions}
 We initialize the three phase networks from the original RL-WP weights.
 Their inherited raw action scores $q_\theta(o,a)$ are not probabilities.
-For the publicly legal action set $\mathcal A(o)$, training samples from
+For the legal action set $\mathcal A(o)$, training samples from
 \begin{equation}
  \pi_{\theta,T}(a\mid o)=
  \frac{\exp(q_\theta(o,a)/T)}
@@ -237,7 +239,8 @@ policy for stored log probabilities.
 The inherited actors retain the upstream 256-wide, two-layer Transformer
 architecture. Native features reproduce the original 300-by-50 representation,
 including its historical input conventions. A separate value network receives
-a 560-dimensional public/own observation and uses two 256-unit tanh hidden
+a 560-dimensional observation of its own hand and public state, using two
+256-unit tanh hidden
 layers followed by a scalar output. Its output layer is initialized to zero;
 it shares no actor parameters. Both actor and critic use only information available to the acting player.
 
@@ -284,7 +287,7 @@ NVIDIA GeForce RTX 5070 Ti; the runtime records PyTorch 2.12.0+cu130 and NumPy
 
 \subsection{Implementation and inference cost}
 A shared C++/CUDA transition core runs the same rules on CPU and GPU. Differential
-checks compare transitions and public features with the Python reference and
+checks compare transitions and observation features with the Python reference and
 published model inputs; checkpoints retain the complete state for exact restart.
 The adapted actor retains greedy, search-free deployment. On a Ryzen 9 9900X
 with two CPU threads, the canonical model averages 1.585 ms per cached-state
@@ -435,10 +438,10 @@ learner-decision implementation with explicit tail masks.
 The Koi-Koi match results above use the original signed estimator; the new
 implementation's strength comparison is ongoing.
 
-\section{Expert composition experiments}
+\section{Further policy improvement}
 \label{sec:arbitration}
 The RL-Point result motivates combining the adapted win policy with the
-original point policy. At expert disagreements, a public-state controller
+original point policy. At expert disagreements, an observation-based controller
 chooses one of their proposed actions; agreement decisions stay unchanged.
 The experts are frozen. We compare the full controller, a phase-only controller
 and continued full-policy PPO at both parent models. Every arm receives the
@@ -483,7 +486,7 @@ the difference between complete-match outcomes after the two proposed actions.
 \subsection{Paired complete-match supervision}
 Paired supervision compares the complete-match outcomes after the two expert
 proposals at the same root. Each parent supplies 65,536 disagreements, and the
-controller learns the outcome difference from public inputs. The two branches
+controller learns the outcome difference from its own observations. The two branches
 share hidden cards and future deals, while their continuation policies see only
 the acting player's observation. A matched ablation removes explicit score and
 round inputs. This adds rollout computation beyond the PPO training budget;
@@ -543,6 +546,41 @@ a concrete static control to exceed: the experts already provide complementary
 scoring decisions, but selecting between them has not produced a replicated
 match-win improvement.
 
+\subsection{Direct training against the published opponents}
+\label{sec:response}
+We next test full-policy PPO against the published opponents themselves.
+Each retained parent initializes two continuations: a response learner facing
+RL-WP and RL-Point on a balanced whole-match schedule, and ordinary self-play.
+Both use the warm configuration and 8,519,680 additional simulator decisions,
+including 20 critic-only and 500 policy updates. The response actor learns only
+from its own actions, with separate observation critics for the two acting roles.
+The budget counts both players' actions; equal simulator work therefore gives
+different learner sample counts across the two regimes.
+
+The four final endpoints and two unchanged parents each face WP and Point on
+5,000 fresh shared duplicate deals, giving 120,000 matches. The primary criterion
+requires a positive lower 95\% paired win-change bound for response versus both
+its parent and its self-play control, at both initial models against both
+opponents. No comparison passes (Table~\ref{tab:response}).
+
+\begin{table}[ht]
+\centering\small
+\input{generated/response_table.tex}
+\caption{Direct opponent training: paired win-score changes in percentage
+points, with 95\% intervals, on 5,000 shared development deals. Both trained
+arms receive the same simulator budget.}
+\label{tab:response}
+\end{table}
+
+All four response-minus-parent win intervals include zero. Against WP,
+parent 1's response loses 0.975 percentage points to its self-play continuation
+[\(-1.830,-0.110\)]. Three of the four response-minus-self-play point-margin intervals lie
+below zero. The self-play continuations themselves have
+parent-relative win intervals containing zero in all four matchups. Thus
+training directly against these opponents does not establish an improvement
+at this budget. The learner-decision study in Appendix~\ref{app:observer} uses
+these response endpoints as fixed controls; that comparison remains ongoing.
+
 \section{Limitations and interpretation}
 The strongest supported result is the improvement in match wins against
 assisted RL-WP at both adapted model seeds. RL-Point remains competitive in
@@ -571,7 +609,8 @@ remaining challenge: match-win improvement is inconsistent across models,
 and expected points still favor the point-oriented agent. A matched-budget
 experiment finds no replicated win gain from PPO expert selection or further
 full-policy PPO. A separate complete-match evaluation reaches the same conclusion
-for paired-outcome supervision. Fixed Point continuation improves expected
+for paired-outcome supervision. Direct PPO against the published opponent
+mixture also gives no replicated win gain. Fixed Point continuation improves expected
 points at both adapted models against both opponents. The next challenge is
 to retain that scoring benefit while improving terminal match wins. The exact
 critic-conditioning example identifies a separate estimator issue: changing
@@ -590,7 +629,8 @@ The completed adaptation
 study and its earlier manuscript are preserved in a local evidence archive
 from project snapshot \texttt{f5cf955}. The present manuscript revision adds
 related work, completed PPO and paired-supervision comparisons, and the
-subsequent fitting diagnostics. It also adds the exact critic-conditioning
+subsequent fitting diagnostics, followed by the completed direct-response
+comparison. It also adds the exact critic-conditioning
 analysis and its CPU/CUDA verification, bound in
 \path{docs/paper/generated/observer_evidence.json}.
 
@@ -621,12 +661,14 @@ Evaluation adds 5,551,259 decisions. These are distinct computation categories.
 The completed fixed-role hybrids and continuation-target diagnostics are bound
 separately in \path{docs/paper/generated/followup_evidence.json}. Static changes
 are recomputed from raw matches. The target-control results retain dataset,
-feature-cache and checkpoint identities. The ongoing direct-response training
-study is outside these reported results.
+feature-cache and checkpoint identities. The completed direct-response comparison is bound in
+\path{docs/paper/generated/response_evidence.json}. It uses 34,078,720 training
+decisions and 13,947,308 evaluation decisions, with all 120,000 evaluation
+matches on 5,000 shared deals. The learner-decision comparison remains ongoing.
 
 The new arbitration experiments freeze the inherited actors. A traced
 near-tie shows why this detail belongs to the inference specification: with
-identical weights and public inputs, changing only parameter requires-grad
+identical weights and observations, changing only parameter requires-grad
 flags changes a stop/continue score by about $10^{-6}$ and breaks a tie.
 The first parent's phase-only controller always selects its frozen parent
 proposal, yet one of 1,000 Point pairs differs from the older deployed wrapper
@@ -721,8 +763,8 @@ nor a cause for the earlier Koi-Koi composition results.
 \label{app:systems}
 \subsection{Native simulation and validation}
 Python reference rules and shared C++/CUDA transitions implement the same
-versioned profiles. Differential tests exercise CPU/GPU transitions, public
-observations, legal masks, and player-relative signs. Native public features
+versioned profiles. Differential tests exercise CPU/GPU transitions, acting-player
+observations, legal masks, and player-relative signs. Native observation features
 are checked against the pinned model inputs. A recorded compatibility corpus
 contains 12,861 decisions from 100 complete random matches, 40 cached decision
 states, and 128 hidden-state variants, totaling 13,029 active states. On this
@@ -806,7 +848,7 @@ The final selected policy consequently uses no search.
 \label{app:controllers}
 \subsection{PPO controller and matched continuation}
 The controller uses two frozen experts: the adapted RL-WP parent and original
-RL-Point. For public observation $o$, let their legal proposals be
+RL-Point. For acting-player observation $o$, let their legal proposals be
 $a_W(o)$ and $a_P(o)$, after the same public endgame guard. The controller
 acts on the distinct proposal set
 \begin{equation}
@@ -816,11 +858,11 @@ acts on the distinct proposal set
 At agreement states, $\mathcal C(o)$ has one action and the policy
 log-probability has zero gradient. Trainable choices occur only at disagreements.
 
-The full controller receives the 560 public features and one-hot encodings
+The full controller receives the 560 observation features and one-hot encodings
 of the two proposals, followed by two 128-unit tanh layers. Its initial
 probability of the parent proposal is 0.9 at disagreements, so initial greedy
 play selects the frozen parent expert proposal. Both experts remain frozen; only the controller
-and a public critic are trained with terminal-match PPO. The critic starts
+and an observation critic are trained with terminal-match PPO. The critic starts
 from the parent's value network.
 
 The fixed-budget study compares this controller with a phase-only
@@ -847,9 +889,9 @@ returns $G_W,G_P\in\{-1,0,1\}$, the regression target is
   \mathcal{L}(\phi)=\mathbb{E}[(h_\phi(o,a_W,a_P)-\delta)^2].
 \end{equation}
 The controller selects the proposal with the higher predicted return, with
-native action-index tie breaking. Conditional on its public input, the target
+native action-index tie breaking. Conditional on its observation, the target
 averages the difference over hidden worlds encountered by the behavior policy.
-Training exports public inputs and outcomes; simulator state stays outside the
+Training exports observations and outcomes; simulator state stays outside the
 learned controller.
 
 The fixed study collects 65,536 disagreement roots per parent and fits the
@@ -862,7 +904,7 @@ Generation decisions, branch completions and fitting work are counted separately
 this method incurs rollout computation beyond the PPO training budget.
 
 \section{Selector-fitting diagnostics}
-Subsequent development screens compare raw public inputs with frozen expert
+Subsequent development screens compare raw observations with frozen expert
 representations, marginal score or win targets with paired differences, and
 outcome-weighted preference classification. The classification formulation
 uses the established rollout-policy-improvement approach discussed in Related

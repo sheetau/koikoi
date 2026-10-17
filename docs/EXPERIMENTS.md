@@ -2700,3 +2700,38 @@ versusWP. Parent1_lambda1 GPU training continues under52576/wrapper30572.
 All51 bound learner-study inputs remain unchanged. The complete response
 results now need integration into the manuscript; the new learner-return
 strength comparison remains pending.
+
+
+## Completed response comparison added to manuscript (2026-10-18)
+
+Section8 is now Further policy improvement,including a new Section8.4 for the
+closed response study. Its four-row generated table includes all eight primary
+paired win contrasts (response versus unchanged parent and continued selfplay
+for two parents against two opponents). The text reports the failed primary gate,
+the parent1/WP response-versus-selfplay win loss,and the three negative point
+intervals. It distinguishes the completed response study from the ongoing
+learner-return comparison and preserves the original final-study results.
+Abstract,Introduction,conclusion and reproduction/accounting text are updated.
+
+The new scripts/export_response_paper_evidence.py verifies the pinned independent
+audit and all input identities,checks displayed contrasts against independent
+raw-record recomputations,and writes the evidence/table. Actual export and Ruff
+pass. Ledger SHAdc4a0d1e42ce10285b4d53b55ceac0b9660fb25af4b2711395dcc4b3d972d106;table SHA
+7232486aa5e80203c1c044cfb7587dee15ea3f2a8e3827405c45b43f1f0932c3.
+
+Terminology correction:reference.observe sets card feature0 from the acting
+player's hand; native observe agrees,PublishedPolicyValue consumes the first560
+features,and the controller receives the same observation. Manuscript references
+to public inputs/features/critic now say acting-player observations,observation
+features or observation critic as appropriate. Public state,endgame assistance
+and released opponents keep their distinct meanings. No bound source changed.
+
+Build: external/tectonic/tectonic.exe --keep-logs --outdir output/pdf
+ docs/paper/manuscript.tex. Final PDF SHA
+99db5ce08838111024016e8800bcdfced949cb3f1e752dd14a80b5449042787b. Prior18-page PDF retained as
+output/pdf/manuscript_shared_6d7406c9.pdf. QA runs/manuscript_response_qa.json SHA
+8b84da1e3e4b48017dd32e6e464f19a5406bc23f32e1eb28d101a4294690ee1b. All19 pages visually reviewed;
+table/proof pages11/13 checked at full size. All19 fonts embed,22 references
+resolve,Abstract is202 whitespace words,andConclusion begins on12. All prior
+numeric tokens,six evidence ledgers and page/glyph/TeX checks pass. The51 live
+learner-study inputs remain unchanged; its actual launcher handle is live.

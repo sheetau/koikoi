@@ -109,7 +109,7 @@ runs/shared_observer_bootstrap_cpu.json SHA
 f6e500b64ecd8505ad0a2ccf52438df9df9c7efed4dadd65fdb7b799d082536e binds the
 script, original diagnostic and earlier reports. This strengthens the explicit
 counterexample; critic-conditioning bias remains established prior work. The
-current18-page manuscript presents the shared-parameter descent result in its
+current19-page manuscript presents the shared-parameter descent result in its
 main theory section and retains both calculations in AppendixB. Its evidence
 exporter independently verifies the scalar projection and binds this report;
 the empirical Koi-Koi strength comparison remains ongoing.

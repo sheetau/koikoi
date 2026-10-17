@@ -1,0 +1,508 @@
+{
+  "status": "passed",
+  "inputs": {
+    "runs\\response_study\\protocol.json": "2342e1e80ebc79fc917891ebbf30acd7ef5dd0b4a21413d9d78e297feed57ffb",
+    "runs\\response_study\\process.json": "6e94f763ecd0d1013337afdb28044d11d12970404181b829ce57a320a2399479",
+    "runs\\response_study\\analysis.json": "2c148cff866dad57baeb60302c86a7b213fb3337ad9502e2240772ab6cf0babe",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\scripts\\audit_response_study.py": "302c3923a0f5e51880466bd416246081cc3c96549305865c61ae8a500dd5e085",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\scripts\\run_response_study.py": "9b8d148f4655f34b43ec3ff7058e1a73db776a7c4b2b0e51a0e1792ffb6d8723",
+    "scripts\\published_response.py": "a35b13d9485319ff32352b38ea27ae611a426bf42e81be2ab371f30bba26172b",
+    "scripts\\run_arbitration_study.py": "3b82987651e585e7e220ad628180f5beec0c71da12dc8a40bf9e66530664caf8",
+    "scripts\\analyze_arbitration_study.py": "93159d6a5ab4b9bfaeda8b948718c60266d81dca95e3a5c3d8deb0db373dee71",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\ai_vs_ai_test.py": "f5024f6439fc169d143bdc2d166e76cf0f9b020a8b5b5e7de10029b972b619f8",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\gamerecord_replay.py": "ea11adebd332c53bcf76dc6a3abd1d8542e9c01038c53a621372426dc4a7c064",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\gamerecord_replay_func.py": "4702dd50f882a2064d5d27240de7ae2a53c1303aba61b6a0d8dbc01dc385e5f1",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\gamerecord_replay_gui.py": "9606a24e35f5632b96d378acbf7d810f4e93bb2f8269440aa24e9469e4a5bb0f",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\koikoigame.py": "17ade09c4424e346fee3526c5d2daaccbd9b7d2580c1c56c7e491baf20f7866e",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\koikoigui.py": "bd64f60f46358d28db83f5a7fc6b48aea67d4c75f28253ca0e94dd4e96492b78",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\koikoilearn.py": "bb93bdc99b70a589d0bdf42fc1cfe98f481566e1f9d98663a8a9a1936329c370",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\koikoinet2L.py": "608d91c36875afc929a5470f3c86f787455537cd7213eb3c1bcda12a004d4862",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\play_vs_ai.py": "6f1988e5f7e7bac2f4e0c6f1b808da40b48618ed409a37ae83b0e9c5448658da",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\plot_attention.py": "f2f9ec565a480e789201cbefd7120b87dca58480bb8444128a5229ef30f4d79c",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\rl_train.py": "4b1ecbcf71bdf779c010e861e5758004db74f1939e85a64ed41dc3b9dad01046",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\rl_wp_reward_regress.py": "6e34eb825c10f963c73fb2e9e981e431976ab38f40282da3492332def80c0004",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\rl_wp_reward_simulate.py": "8b08bba55d7791cf4ebd4848d44dc720b50ca22d78e88bf6d054995f249e0b51",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\sl_acc_stat.py": "d24be9cd4d95eead807c750b34a654bf87754101d77483fc18c968cc3dd6ec5c",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\sl_record_to_dataset.py": "ec08a01972632a7895f8e41f7cd94b9a0e7c5a7bccbe7c470a0f5b33798b2b13",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\sl_train.py": "294205b25b378ea3e16cd72c78352df8409fa5915bf745a84ecbb603e5880844",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\torch_text_mha.py": "9e13095004b86b6feef157eaf130ad17a5660fee175d5e7bb3c2126c8b60dc36",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\model_agent\\discard_rl_wp.pt": "31197cbd4b4fc17da6dbd6a6ae946f25000968aa941757028db92d480d548fdd",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\model_agent\\discard_rl_point.pt": "4f314359ae9d2b3780726a1b0d297e293cc3429d6d9c0ccf309574b4e35dc9b9",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\model_agent\\pick_rl_wp.pt": "4064b54356f1cda3baedcd6b94187effb51a2fac381f07dcfdb1649d8bf01e64",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\model_agent\\pick_rl_point.pt": "7439379f9e23137b3fdcb12fdcd421d4b22574222fe544de2ba1eb6f31d93f49",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\model_agent\\koikoi_rl_wp.pt": "408f931abafd7127648f9b933fbb8be7cc137a15d0b23b182090a9a83a70e3e4",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\model_agent\\koikoi_rl_point.pt": "79c7b83ba4ea41d6115000128c410d104447ba517cb975cc32f4d25b7bc6c266",
+    "runs\\cold_ppo_screen\\seed6710001_warm\\update_00000520.pt": "37d06849261e0c1f0c31a9d2f228388fa1f391b670ce6772093a1c276091cc36",
+    "runs\\cold_ppo_screen\\seed6720001_warm\\update_00000520.pt": "5e8a123d5fafb6ebae8c1ac8d094c9de65bf364381cc10b78208337051e181cc",
+    "runs\\response_study\\parent1_response\\initial.pt": "72c227d2ae7efc13958679404bf870f74ffcff5586891aef8ea6c3ef171ac5e7",
+    "runs\\response_study\\parent1_response\\final.pt": "ae7afccd9d39e18bb102d264d2b0c4d4384cddfe83fe3d47ed85bee626c82db5",
+    "runs\\response_study\\parent1_response\\training_complete.json": "334d8c38237cd3a68da663f21b5225774ee6cdfe8dc53667e84eeb48aacf39d3",
+    "runs\\response_study\\parent1_response\\training_audit.json": "d2ab8c0533ee8d32d2a0cd475d74bdc3f405e19b68f3dd7296a8e0ac142daff8",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\scripts\\audit_response_optimizer.py": "64c185fd3f7aff3b73603475b283f7396b0bb2858df4c1c09fa15bb79b04e1f5",
+    "runs\\response_optimizer_audits\\parent1_response.json": "71cbcb1d77fc058cbc8b86f2d0ab8c27028281f4bfb3aaf2b687dc1e006d3c32",
+    "runs\\response_study\\parent1_selfplay\\initial.pt": "2666361d6984a280f90996e169eb8a1a153d5bef75f66b848cc46fb7154b3f1d",
+    "runs\\response_study\\parent1_selfplay\\final.pt": "e9c9bdb8936a0b01759c670dcef1e190fb2adc0536408d26df37a4054af8abfd",
+    "runs\\response_study\\parent1_selfplay\\training_complete.json": "8c38ea62a0a691f8ad8f2aa1eae49a5d273f24170884ce322e211d172f7e8635",
+    "runs\\response_study\\parent1_selfplay\\training_audit.json": "d70869719b782437ddb4aa334420b88a82c7cecf6bb0703cd0a1e73c012cfd5d",
+    "runs\\response_optimizer_audits\\parent1_selfplay.json": "e73818f9350cd606e7ae21611cad673fdc9631acb2322cdb131f6ad831427b03",
+    "runs\\response_study\\parent2_response\\initial.pt": "94d5e2c90e4cbbb7b535c63a8c9412745485ef7d64eb00eca0df82a7ddef153d",
+    "runs\\response_study\\parent2_response\\final.pt": "406800e63f3a740d557309edadf18a76a9e6c8abf33374fe38b071e95cf107bf",
+    "runs\\response_study\\parent2_response\\training_complete.json": "a15906b33e2f273f967698b68c95dc37dc961ee376ce4a39c1d472ddd984af4a",
+    "runs\\response_study\\parent2_response\\training_audit.json": "307f16b71d2e8644bb6aca94ff99e81b33352a871af83e639a8919b4bf417ca5",
+    "runs\\response_optimizer_audits\\parent2_response.json": "43dfa40190b91554893fc2f5958f020f87bac97c744c85a2229685ed9c2b382d",
+    "runs\\response_study\\parent2_selfplay\\initial.pt": "bed21b1850f6a1eed728cf19f97da6d96a9fe36aafc815d065b0c0118d26dec6",
+    "runs\\response_study\\parent2_selfplay\\final.pt": "e805e9840e16453df26e407242a4e331bd65bf93c8cd8f95e8592fe9a0c3f564",
+    "runs\\response_study\\parent2_selfplay\\training_complete.json": "3babfdf37aa73f2a71dba756c7ccc8bd9320d29867fc3b3e180f446c82feeeae",
+    "runs\\response_study\\parent2_selfplay\\training_audit.json": "0d4219c5394804a6fed01dd34bac954779d920103564f8c337248c4a833e07b0",
+    "runs\\response_optimizer_audits\\parent2_selfplay.json": "48a052fe90085d9295931f67ce855fc7a0ff4007535d029197a48d1956897a97",
+    "runs\\response_study\\parent1\\rl-wp-assisted.json": "b720473541fa8a35254b185536ea7038049c8b5fb5c679524e381db3ee19c173",
+    "runs\\response_study\\parent1\\rl-wp-assisted.jsonl": "998b6fe6b04d2969ff31ed2c34021acc3a1c7a60a2a0c7ea0d3b83a143c951f7",
+    "runs\\response_study\\parent1\\rl-point-assisted.json": "efb4809d566e66a473ddd3aee3c7d9e99d5fff6149a49576513ff2ac05cbe468",
+    "runs\\response_study\\parent1\\rl-point-assisted.jsonl": "55c04131c1375f7d4ddd3c30ea0e688785c4284f8236f1aeb381a3a63fb19122",
+    "runs\\response_study\\parent2\\rl-wp-assisted.json": "4d473e644c35864d1c1b80095f82171f59e949da6252904fa816cf7793852275",
+    "runs\\response_study\\parent2\\rl-wp-assisted.jsonl": "5b23ea63479469514560248fe42d35fde931a487df2c0f48efc3388836ca01ee",
+    "runs\\response_study\\parent2\\rl-point-assisted.json": "977bee60430dcda94865c5054011ba143d55e2a22e133abc2d21fa6e8388e4d6",
+    "runs\\response_study\\parent2\\rl-point-assisted.jsonl": "d168a0bc3e72c4ce4650b57003a94ed5a86e394ddfa7db3fb679f54424814f69",
+    "runs\\response_study\\parent1_response\\rl-wp-assisted.json": "a04ef664f990fa11a02492bf1aec8493aa73a59d301f6ab55fc3457c7381bbd9",
+    "runs\\response_study\\parent1_response\\rl-wp-assisted.jsonl": "bdbb6fac7a81acf749da908c41111501ad8bce87c8e3c6ef5bdbaf49ed702f25",
+    "runs\\response_study\\parent1_response\\rl-point-assisted.json": "abb4c660c3dcd56888edf0b3b5bb5153b96fe0eec5222e49e474243950b54963",
+    "runs\\response_study\\parent1_response\\rl-point-assisted.jsonl": "eaf657a259f5dd0fc89a3fc79b4eeaca37abf00462b3a46751a68a16095ccae0",
+    "runs\\response_study\\parent1_selfplay\\rl-wp-assisted.json": "15209673e899a7c77df4835100a0a528b032b932faa053aab6efd1104d70ebe7",
+    "runs\\response_study\\parent1_selfplay\\rl-wp-assisted.jsonl": "120658b58871cf014112998ea1e2c33005847b5cf6dad6aeac88cb0a6edae2a1",
+    "runs\\response_study\\parent1_selfplay\\rl-point-assisted.json": "24ac9b8270400c16cff001733ddbc233b0eb1ccfab617c6bb936c70366cc72fb",
+    "runs\\response_study\\parent1_selfplay\\rl-point-assisted.jsonl": "83782d56ce32cf2be7478d30536398c85d9284f12357f581478c4ac54e0033e9",
+    "runs\\response_study\\parent2_response\\rl-wp-assisted.json": "9845450b10a9e585b3d7e086111c90f747a5dc6602cf727836713577913e5139",
+    "runs\\response_study\\parent2_response\\rl-wp-assisted.jsonl": "42bf70b0a84d6ee6f881da0d26bf866c7a589160016f9802209f154373039468",
+    "runs\\response_study\\parent2_response\\rl-point-assisted.json": "150a9c94bc25385e7c61bf9ea404a2af3b47b78539b0c54f03bb4029e87fdb72",
+    "runs\\response_study\\parent2_response\\rl-point-assisted.jsonl": "6b07f6fba7898c19b59d3a1f34cdcebc66dd0712e56fb37ddc5a315c7b0b2295",
+    "runs\\response_study\\parent2_selfplay\\rl-wp-assisted.json": "0aff3b7e9e5bb7fbb214ed10d3bf3a408dd7065853dc7043b046c76dcb6a06fe",
+    "runs\\response_study\\parent2_selfplay\\rl-wp-assisted.jsonl": "556645f6ea343666f69ca2a45c7fcc3e4d7040701cf3520d135eaf48b3b50b98",
+    "runs\\response_study\\parent2_selfplay\\rl-point-assisted.json": "b8be18f357846aaeb9c55f147e79974d6578c89fd111f957c5d5c049b0be016c",
+    "runs\\response_study\\parent2_selfplay\\rl-point-assisted.jsonl": "3c77b981a15ba1f51bc768d81b9f1effc19b1fc40894ab141c47ddd67dff8f63",
+    "runs\\response_study\\independent_audit.json": "ff6677bcb24ffac367b5003301be4a04236a913785d725cdd2672b2d09a3f79c",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\scripts\\export_response_paper_evidence.py": "52d551d4d3ca1fb03f5e7b0741dd19f0a5ef4c422efa29a374f6d6adb1a4df60"
+  },
+  "outputs": {
+    "docs\\paper\\generated\\response_table.tex": "7232486aa5e80203c1c044cfb7587dee15ea3f2a8e3827405c45b43f1f0932c3"
+  },
+  "training_totals": {
+    "decisions": 34078720,
+    "rounds": 2279818,
+    "matches": 293310
+  },
+  "evaluation_matches": 120000,
+  "evaluation_decisions": 13947308,
+  "shared_unique_deal_streams": 5000,
+  "outcomes": {
+    "parent1/rl-wp-assisted": {
+      "case": "parent1",
+      "candidate": "runs\\cold_ppo_screen\\seed6710001_warm\\update_00000520.pt",
+      "checkpoint_sha256": "37d06849261e0c1f0c31a9d2f228388fa1f391b670ce6772093a1c276091cc36",
+      "opponent": "rl-wp-assisted",
+      "pairs": 5000,
+      "matches": 10000,
+      "win_score": 0.5173,
+      "win_ci95": [
+        0.51009875,
+        0.52425
+      ],
+      "point_difference": 2.4626,
+      "points_ci95": [
+        2.0375199999999998,
+        2.8764049999999997
+      ],
+      "decisions": 1150645,
+      "raw_sha256": "998b6fe6b04d2969ff31ed2c34021acc3a1c7a60a2a0c7ea0d3b83a143c951f7",
+      "elapsed_seconds": 2722.716268200078
+    },
+    "parent1/rl-point-assisted": {
+      "case": "parent1",
+      "candidate": "runs\\cold_ppo_screen\\seed6710001_warm\\update_00000520.pt",
+      "checkpoint_sha256": "37d06849261e0c1f0c31a9d2f228388fa1f391b670ce6772093a1c276091cc36",
+      "opponent": "rl-point-assisted",
+      "pairs": 5000,
+      "matches": 10000,
+      "win_score": 0.5049,
+      "win_ci95": [
+        0.49665,
+        0.51295
+      ],
+      "point_difference": -2.0162,
+      "points_ci95": [
+        -2.510205,
+        -1.5158
+      ],
+      "decisions": 1166902,
+      "raw_sha256": "55c04131c1375f7d4ddd3c30ea0e688785c4284f8236f1aeb381a3a63fb19122",
+      "elapsed_seconds": 2752.593192600063
+    },
+    "parent2/rl-wp-assisted": {
+      "case": "parent2",
+      "candidate": "runs\\cold_ppo_screen\\seed6720001_warm\\update_00000520.pt",
+      "checkpoint_sha256": "5e8a123d5fafb6ebae8c1ac8d094c9de65bf364381cc10b78208337051e181cc",
+      "opponent": "rl-wp-assisted",
+      "pairs": 5000,
+      "matches": 10000,
+      "win_score": 0.51255,
+      "win_ci95": [
+        0.50505,
+        0.5196
+      ],
+      "point_difference": 1.9636,
+      "points_ci95": [
+        1.538195,
+        2.3680049999999997
+      ],
+      "decisions": 1158353,
+      "raw_sha256": "5b23ea63479469514560248fe42d35fde931a487df2c0f48efc3388836ca01ee",
+      "elapsed_seconds": 2734.7546354000224
+    },
+    "parent2/rl-point-assisted": {
+      "case": "parent2",
+      "candidate": "runs\\cold_ppo_screen\\seed6720001_warm\\update_00000520.pt",
+      "checkpoint_sha256": "5e8a123d5fafb6ebae8c1ac8d094c9de65bf364381cc10b78208337051e181cc",
+      "opponent": "rl-point-assisted",
+      "pairs": 5000,
+      "matches": 10000,
+      "win_score": 0.50065,
+      "win_ci95": [
+        0.4927,
+        0.5085
+      ],
+      "point_difference": -2.4892,
+      "points_ci95": [
+        -3.00941,
+        -1.9853850000000002
+      ],
+      "decisions": 1171618,
+      "raw_sha256": "d168a0bc3e72c4ce4650b57003a94ed5a86e394ddfa7db3fb679f54424814f69",
+      "elapsed_seconds": 2749.5611546
+    },
+    "parent1_response/rl-wp-assisted": {
+      "case": "parent1_response",
+      "candidate": "runs\\response_study\\parent1_response\\final.pt",
+      "checkpoint_sha256": "ae7afccd9d39e18bb102d264d2b0c4d4384cddfe83fe3d47ed85bee626c82db5",
+      "opponent": "rl-wp-assisted",
+      "pairs": 5000,
+      "matches": 10000,
+      "win_score": 0.51005,
+      "win_ci95": [
+        0.5025,
+        0.51735
+      ],
+      "point_difference": 1.9938,
+      "points_ci95": [
+        1.5524,
+        2.4172249999999993
+      ],
+      "decisions": 1155553,
+      "raw_sha256": "bdbb6fac7a81acf749da908c41111501ad8bce87c8e3c6ef5bdbaf49ed702f25",
+      "elapsed_seconds": 2693.3649650000734
+    },
+    "parent1_response/rl-point-assisted": {
+      "case": "parent1_response",
+      "candidate": "runs\\response_study\\parent1_response\\final.pt",
+      "checkpoint_sha256": "ae7afccd9d39e18bb102d264d2b0c4d4384cddfe83fe3d47ed85bee626c82db5",
+      "opponent": "rl-point-assisted",
+      "pairs": 5000,
+      "matches": 10000,
+      "win_score": 0.5013,
+      "win_ci95": [
+        0.4932,
+        0.5095012499999999
+      ],
+      "point_difference": -2.244,
+      "points_ci95": [
+        -2.734615,
+        -1.7481900000000001
+      ],
+      "decisions": 1170232,
+      "raw_sha256": "eaf657a259f5dd0fc89a3fc79b4eeaca37abf00462b3a46751a68a16095ccae0",
+      "elapsed_seconds": 2657.5242369000334
+    },
+    "parent1_selfplay/rl-wp-assisted": {
+      "case": "parent1_selfplay",
+      "candidate": "runs\\response_study\\parent1_selfplay\\final.pt",
+      "checkpoint_sha256": "e9c9bdb8936a0b01759c670dcef1e190fb2adc0536408d26df37a4054af8abfd",
+      "opponent": "rl-wp-assisted",
+      "pairs": 5000,
+      "matches": 10000,
+      "win_score": 0.5198,
+      "win_ci95": [
+        0.51214875,
+        0.5271
+      ],
+      "point_difference": 2.8984,
+      "points_ci95": [
+        2.441385,
+        3.33621
+      ],
+      "decisions": 1158245,
+      "raw_sha256": "120658b58871cf014112998ea1e2c33005847b5cf6dad6aeac88cb0a6edae2a1",
+      "elapsed_seconds": 2706.661675499985
+    },
+    "parent1_selfplay/rl-point-assisted": {
+      "case": "parent1_selfplay",
+      "candidate": "runs\\response_study\\parent1_selfplay\\final.pt",
+      "checkpoint_sha256": "e9c9bdb8936a0b01759c670dcef1e190fb2adc0536408d26df37a4054af8abfd",
+      "opponent": "rl-point-assisted",
+      "pairs": 5000,
+      "matches": 10000,
+      "win_score": 0.50225,
+      "win_ci95": [
+        0.49415,
+        0.5103
+      ],
+      "point_difference": -1.8262,
+      "points_ci95": [
+        -2.342615,
+        -1.322395
+      ],
+      "decisions": 1174682,
+      "raw_sha256": "83782d56ce32cf2be7478d30536398c85d9284f12357f581478c4ac54e0033e9",
+      "elapsed_seconds": 2760.345893999911
+    },
+    "parent2_response/rl-wp-assisted": {
+      "case": "parent2_response",
+      "candidate": "runs\\response_study\\parent2_response\\final.pt",
+      "checkpoint_sha256": "406800e63f3a740d557309edadf18a76a9e6c8abf33374fe38b071e95cf107bf",
+      "opponent": "rl-wp-assisted",
+      "pairs": 5000,
+      "matches": 10000,
+      "win_score": 0.5176,
+      "win_ci95": [
+        0.51034875,
+        0.52490125
+      ],
+      "point_difference": 2.0454,
+      "points_ci95": [
+        1.62096,
+        2.462415
+      ],
+      "decisions": 1151245,
+      "raw_sha256": "42bf70b0a84d6ee6f881da0d26bf866c7a589160016f9802209f154373039468",
+      "elapsed_seconds": 2667.246669899905
+    },
+    "parent2_response/rl-point-assisted": {
+      "case": "parent2_response",
+      "candidate": "runs\\response_study\\parent2_response\\final.pt",
+      "checkpoint_sha256": "406800e63f3a740d557309edadf18a76a9e6c8abf33374fe38b071e95cf107bf",
+      "opponent": "rl-point-assisted",
+      "pairs": 5000,
+      "matches": 10000,
+      "win_score": 0.50125,
+      "win_ci95": [
+        0.49325,
+        0.50925
+      ],
+      "point_difference": -2.5868,
+      "points_ci95": [
+        -3.09681,
+        -2.0769550000000008
+      ],
+      "decisions": 1167574,
+      "raw_sha256": "6b07f6fba7898c19b59d3a1f34cdcebc66dd0712e56fb37ddc5a315c7b0b2295",
+      "elapsed_seconds": 2617.5719207999064
+    },
+    "parent2_selfplay/rl-wp-assisted": {
+      "case": "parent2_selfplay",
+      "candidate": "runs\\response_study\\parent2_selfplay\\final.pt",
+      "checkpoint_sha256": "e805e9840e16453df26e407242a4e331bd65bf93c8cd8f95e8592fe9a0c3f564",
+      "opponent": "rl-wp-assisted",
+      "pairs": 5000,
+      "matches": 10000,
+      "win_score": 0.5158,
+      "win_ci95": [
+        0.50835,
+        0.5234
+      ],
+      "point_difference": 2.7396,
+      "points_ci95": [
+        2.298195,
+        3.1744049999999997
+      ],
+      "decisions": 1153389,
+      "raw_sha256": "556645f6ea343666f69ca2a45c7fcc3e4d7040701cf3520d135eaf48b3b50b98",
+      "elapsed_seconds": 2579.0149469999596
+    },
+    "parent2_selfplay/rl-point-assisted": {
+      "case": "parent2_selfplay",
+      "candidate": "runs\\response_study\\parent2_selfplay\\final.pt",
+      "checkpoint_sha256": "e805e9840e16453df26e407242a4e331bd65bf93c8cd8f95e8592fe9a0c3f564",
+      "opponent": "rl-point-assisted",
+      "pairs": 5000,
+      "matches": 10000,
+      "win_score": 0.50885,
+      "win_ci95": [
+        0.5005,
+        0.51715
+      ],
+      "point_difference": -1.4118,
+      "points_ci95": [
+        -1.920205,
+        -0.9203950000000001
+      ],
+      "decisions": 1168870,
+      "raw_sha256": "3c77b981a15ba1f51bc768d81b9f1effc19b1fc40894ab141c47ddd67dff8f63",
+      "elapsed_seconds": 2511.6600413999986
+    }
+  },
+  "contrasts": {
+    "parent1_response-parent1/rl-wp-assisted": {
+      "win_change": -0.00725,
+      "win_ci95": [
+        -0.01575,
+        0.0016
+      ],
+      "point_change": -0.4688,
+      "point_ci95": [
+        -0.956635,
+        -0.0002
+      ]
+    },
+    "parent1_selfplay-parent1/rl-wp-assisted": {
+      "win_change": 0.0025,
+      "win_ci95": [
+        -0.0057,
+        0.0108
+      ],
+      "point_change": 0.4358,
+      "point_ci95": [
+        -0.04361999999999999,
+        0.907
+      ]
+    },
+    "parent1_response-parent1_selfplay/rl-wp-assisted": {
+      "win_change": -0.00975,
+      "win_ci95": [
+        -0.0183,
+        -0.0011
+      ],
+      "point_change": -0.9046,
+      "point_ci95": [
+        -1.3930150000000001,
+        -0.42259000000000013
+      ]
+    },
+    "parent1_response-parent1/rl-point-assisted": {
+      "win_change": -0.0036,
+      "win_ci95": [
+        -0.01205,
+        0.005
+      ],
+      "point_change": -0.2278,
+      "point_ci95": [
+        -0.6992200000000001,
+        0.23802499999999963
+      ]
+    },
+    "parent1_selfplay-parent1/rl-point-assisted": {
+      "win_change": -0.00265,
+      "win_ci95": [
+        -0.011,
+        0.0059
+      ],
+      "point_change": 0.19,
+      "point_ci95": [
+        -0.279025,
+        0.6646
+      ]
+    },
+    "parent1_response-parent1_selfplay/rl-point-assisted": {
+      "win_change": -0.00095,
+      "win_ci95": [
+        -0.009251249999999999,
+        0.00765
+      ],
+      "point_change": -0.4178,
+      "point_ci95": [
+        -0.88983,
+        0.055424999999999634
+      ]
+    },
+    "parent2_response-parent2/rl-wp-assisted": {
+      "win_change": 0.00505,
+      "win_ci95": [
+        -0.0031,
+        0.0133
+      ],
+      "point_change": 0.0818,
+      "point_ci95": [
+        -0.36702,
+        0.5326849999999987
+      ]
+    },
+    "parent2_selfplay-parent2/rl-wp-assisted": {
+      "win_change": 0.00325,
+      "win_ci95": [
+        -0.00515125,
+        0.0116
+      ],
+      "point_change": 0.776,
+      "point_ci95": [
+        0.324595,
+        1.2446149999999998
+      ]
+    },
+    "parent2_response-parent2_selfplay/rl-wp-assisted": {
+      "win_change": 0.0018,
+      "win_ci95": [
+        -0.006951249999999999,
+        0.0106
+      ],
+      "point_change": -0.6942,
+      "point_ci95": [
+        -1.1686050000000001,
+        -0.2229400000000009
+      ]
+    },
+    "parent2_response-parent2/rl-point-assisted": {
+      "win_change": 0.0006,
+      "win_ci95": [
+        -0.00755,
+        0.00855
+      ],
+      "point_change": -0.0976,
+      "point_ci95": [
+        -0.56341,
+        0.3656049999999999
+      ]
+    },
+    "parent2_selfplay-parent2/rl-point-assisted": {
+      "win_change": 0.0082,
+      "win_ci95": [
+        -5e-05,
+        0.0166
+      ],
+      "point_change": 1.0774,
+      "point_ci95": [
+        0.59398,
+        1.5386149999999998
+      ]
+    },
+    "parent2_response-parent2_selfplay/rl-point-assisted": {
+      "win_change": -0.0076,
+      "win_ci95": [
+        -0.01595125,
+        0.0010512499999999817
+      ],
+      "point_change": -1.175,
+      "point_ci95": [
+        -1.675,
+        -0.6617900000000002
+      ]
+    }
+  },
+  "primary_positive_lower_bounds": {
+    "parent1_response-parent1/rl-wp-assisted": false,
+    "parent1_response-parent1/rl-point-assisted": false,
+    "parent1_response-parent1_selfplay/rl-wp-assisted": false,
+    "parent1_response-parent1_selfplay/rl-point-assisted": false,
+    "parent2_response-parent2/rl-wp-assisted": false,
+    "parent2_response-parent2/rl-point-assisted": false,
+    "parent2_response-parent2_selfplay/rl-wp-assisted": false,
+    "parent2_response-parent2_selfplay/rl-point-assisted": false
+  },
+  "replicated_response_gain": false,
+  "scope": "Completed development comparison on shared 23M deal streams; exact artifact bindings and independent raw-pair audit. Equal simulator budgets, not equal learner samples. No fresh final confirmation, new simulation or training-seed uncertainty claim."
+}

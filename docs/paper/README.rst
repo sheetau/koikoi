@@ -275,3 +275,38 @@ with pages1/8/12/13 inspected in detail;19 fonts embedded,22 references resolved
 ledgers verify. Final build has no TeX box,reference,glyph or page-bound defects.
 The preceding17-page PDF remains as output/pdf/manuscript_observer_eeff7b6d.pdf.
 Both live experiment protocols and their29/51 bound inputs are unchanged.
+
+
+Completed response comparison and observation terminology
+--------------------------------------------------------
+
+Section8.4 now reports the completed fixed-opponent response study:four trained
+endpoints plus two parents,twelve matchups,120,000 matches on5,000 shared fresh
+23M deal streams. The generated table shows response-minus-parent and
+response-minus-selfplay win changes with95% intervals. None has a positive lower
+bound; the main text also identifies the negative parent1/WP response-versus-
+selfplay interval and the three negative point-margin intervals. All underlying
+outcomes and contrasts remain in the bound evidence. No learner-return strength
+result is claimed while that study continues.
+
+The new exporter verifies the pinned independent audit and every source/input
+identity,then checks the displayed contrasts against its independently
+recomputed values. Regenerate with::
+
+    .venv/Scripts/python.exe -m scripts.export_response_paper_evidence
+
+Ledger generated/response_evidence.json SHA
+dc4a0d1e42ce10285b4d53b55ceac0b9660fb25af4b2711395dcc4b3d972d106.
+The observation terminology now consistently includes the acting player's own
+hand and public state; it does not call the private own hand public information.
+This follows reference.observe,native observe and the560-feature value input.
+Public endgame assistance and publicly released opponents retain those terms.
+
+PDF SHA99db5ce08838111024016e8800bcdfced949cb3f1e752dd14a80b5449042787b.
+QA runs/manuscript_response_qa.json SHA
+8b84da1e3e4b48017dd32e6e464f19a5406bc23f32e1eb28d101a4294690ee1b:all19 pages reviewed,
+with table/proof pages11/13 inspected in detail;19 embedded fonts,22 references,
+202 abstract whitespace words,conclusion on12. All prior numeric tokens and
+all6 evidence ledgers verify; no TeX box,glyph,reference or page-bound defects.
+Prior18-page PDF:output/pdf/manuscript_shared_6d7406c9.pdf. All51 live learner-study
+inputs remain unchanged; the actual launcher session23277 remains live.
