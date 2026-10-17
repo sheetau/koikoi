@@ -264,3 +264,23 @@ and may inform a future method choice. There is no early stopping or automatic
 selection. New score-selector match evaluation still waits for the current
 paired/static comparisons to finish. This revises the earlier plan to delay all
 full-scale fitting, not any bound current-study protocol or confirmation set.
+
+
+## Paired-difference follow-up
+
+After the completed12-case marginal-target screen, a separate fixed8-case screen
+crosses raw/frozen-feature inputs and signed-win/normalized-point difference
+regression at both parents. The target and prediction are both Point minus parent;
+point differences are divided by64. These objectives exploit the paired branch
+coupling directly and leave absolute scalar score offsets unidentified. They use
+the same seeds19410001/19420001, initial encoder, scalar output shape, minibatch
+order, optimizer and20 epochs as the earlier scalar heads. The old screen remains
+preserved at sourceee19fe0 with its passed audit; new code adds explicit objective
+names without changing those earlier loss definitions. Run into a fresh directory:
+
+```powershell
+.venv/Scripts/python.exe -m scripts.run_score_fit_screen --base runs/paired_difference_fit_screen --kinds paired_win paired_mean
+```
+
+This is further development on the same held-out source matches. No automatic
+model selection or new full-match evaluation is part of this fitting command.

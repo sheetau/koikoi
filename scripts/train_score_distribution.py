@@ -70,7 +70,7 @@ def decode_returns(logits, current_lead):
 class ScoreSelector(nn.Module):
     def __init__(self, kind="categorical", width=128):
         super().__init__()
-        if kind not in ("categorical", "mean", "win"):
+        if kind not in ("categorical", "mean", "win", "paired_win", "paired_mean"):
             raise ValueError("Unknown target type")
         self.kind = kind
         self.body = nn.Sequential(
@@ -94,7 +94,8 @@ class ScoreSelector(nn.Module):
             return decode_returns(outputs, lead(public))
         if self.kind == "win":
             return 2 * outputs.squeeze(-1).sigmoid() - 1
-        return outputs.squeeze(-1)  # Normalized mean increment; same root lead.
+        # Pairwise objectives identify only score differences, not absolute values.
+        return outputs.squeeze(-1)
 
     def forward(self, public, mask):
         values = self.values(public)
@@ -111,6 +112,15 @@ class ScoreSelector(nn.Module):
 
 def loss_for(model, public, indices, increments):
     outputs = model.branch_outputs(public)
+    if model.kind in ("paired_win", "paired_mean"):
+        target = (
+            (increments + lead(public)[:, None]).sign()
+            if model.kind == "paired_win"
+            else increments / 64
+        )
+        return F.mse_loss(
+            outputs[:, 1, 0] - outputs[:, 0, 0], target[:, 1] - target[:, 0]
+        )
     if model.kind == "categorical":
         return F.cross_entropy(outputs.flatten(0, 1), indices.flatten())
     if model.kind == "win":
@@ -231,6 +241,8 @@ def fit(
                 "categorical": "cross entropy",
                 "mean": "MSE of increment/64",
                 "win": "binary cross entropy with half credit for draws",
+                "paired_win": "MSE of paired signed-win difference",
+                "paired_mean": "MSE of paired remaining-margin difference/64",
             }[kind],
         },
         "counters": {
@@ -283,7 +295,9 @@ def main():
     parser.add_argument("--dataset", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument(
-        "--kind", choices=("categorical", "mean", "win"), default="categorical"
+        "--kind",
+        choices=("categorical", "mean", "win", "paired_win", "paired_mean"),
+        default="categorical",
     )
     parser.add_argument("--seed", type=int, default=19410001)
     parser.add_argument("--device", default="cpu")

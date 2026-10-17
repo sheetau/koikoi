@@ -244,3 +244,12 @@ fitting, which adds zero simulation. The raw-public checkpoint path is preserved
 The fixed fitting screen crosses both representations and three supervision types
 for both parents. Whole-source-match validation diagnoses one-action improvement;
 a later full-match study is required before deployment.
+
+
+The score selector also supports direct paired objectives. For branch scores
+f_W,f_P, paired_win minimizes((f_P-f_W)-(G_P-G_W))^2. paired_mean replaces the
+signed-win difference by(D_P-D_W)/64. These scalar scores identify a ranking,
+not calibrated absolute win probabilities or absolute expected margins; adding
+a common offset to both scores leaves the loss unchanged. Both objectives retain
+the same public input/architecture/initialization/shuffle and20-epoch budget as
+the corresponding scalar marginal heads. They change no frozen expert or rule.

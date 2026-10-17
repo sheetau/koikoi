@@ -16,7 +16,15 @@ def write(path, value):
     path.write_text(json.dumps(value, indent=2) + "\n", encoding="utf-8")
 
 
-def make_plan():
+def make_plan(kinds=("categorical", "win", "mean")):
+    if (
+        not kinds
+        or len(set(kinds)) != len(kinds)
+        or not set(kinds).issubset(
+            {"categorical", "win", "mean", "paired_win", "paired_mean"}
+        )
+    ):
+        raise ValueError("Expected distinct supported supervision kinds")
     cache_audit = Path("runs/paired_public_features/audit.json")
     if json.loads(cache_audit.read_text(encoding="utf-8"))["status"] != "passed":
         raise ValueError("Feature cache audit must pass")
@@ -39,7 +47,7 @@ def make_plan():
         cache = Path(f"runs/paired_public_features/parent{parent}.pt")
         paths.extend((dataset, cache))
         for representation in ("raw", "features"):
-            for kind in ("categorical", "win", "mean"):
+            for kind in kinds:
                 cases.append(
                     {
                         "name": f"parent{parent}_{representation}_{kind}",
@@ -52,7 +60,8 @@ def make_plan():
                     }
                 )
     return {
-        "scope": "Exploratory supervised learning screen on existing paired targets. All12 final endpoints are retained and diagnosed; no early stopping, no match evaluation and no automatic selection. Held-out source-match diagnostics are development evidence, not fresh confirmation of a chosen method.",
+        "scope": f"Exploratory supervised learning screen on existing paired targets. All{len(cases)} final endpoints are retained and diagnosed; no early stopping, no match evaluation and no automatic selection. Held-out source-match diagnostics are development evidence, not fresh confirmation of a chosen method.",
+        "supervision_kinds": list(kinds),
         "source": provenance(),
         "inputs": {str(path): sha(path) for path in paths},
         "epochs": 20,
@@ -63,10 +72,10 @@ def make_plan():
     }
 
 
-def run(base):
+def run(base, kinds=("categorical", "win", "mean")):
     if base.exists():
         raise ValueError("Use a fresh screen directory")
-    plan = make_plan()
+    plan = make_plan(kinds)
     base.mkdir(parents=True)
     write(base / "plan.json", plan)
     reports = {}
@@ -121,8 +130,9 @@ def run(base):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--base", type=Path, default=Path("runs/score_fit_screen"))
+    parser.add_argument("--kinds", nargs="+", default=["categorical", "win", "mean"])
     args = parser.parse_args()
-    run(args.base)
+    run(args.base, args.kinds)
 
 
 if __name__ == "__main__":
