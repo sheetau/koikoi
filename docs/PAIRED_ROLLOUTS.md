@@ -110,3 +110,42 @@ arbitration PPO and continued full-policy PPO, counts all branch work, holds out
 entire source matches, and tests explicit match context. Dataset size, fitting
 budget and endpoints are fixed before any new-controller strength results are
 inspected.
+
+
+## Held-out decision diagnostics
+
+After both fixed fits finish, run, for example:
+
+```powershell
+.venv/Scripts/python.exe -m scripts.diagnose_paired_targets --dataset runs/paired_arbitration_study/parent1/targets.pt --checkpoints runs/paired_arbitration_study/parent1_full/final.pt runs/paired_arbitration_study/parent1_no_match/final.pt --output runs/paired_arbitration_study/parent1/held_out_diagnostic.json
+```
+
+The diagnostic uses only source matches excluded from fitting. It reports MSE
+against zero and training-mean predictors, fixed calibration bins, actual native
+action choices (including ties), and the observed selected-branch win-score gain
+relative to each always-expert choice. It resamples whole source matches5,000
+times, retaining root weighting instead of counting correlated roots as independent.
+It also reports the four action phases separately. A single source match has no
+estimated confidence interval. This measures changing one action before frozen
+continuation, not repeatedly deploying the new selector throughout a match.
+It selects no epoch, threshold or model; full-match comparisons remain decisive.
+
+Four analytical fixtures check signs, win-score scaling, unequal match root counts,
+source grouping and native action tie breaking. The actual tiny collection/fit
+pipeline also runs the diagnostic and checks held-out counts and independently
+recomputed prediction loss. Combined diagnostic/pipeline tests:5 passed.
+
+## Koi-Koi-specific antecedents
+
+[Sato and Ikeda (2017)](https://dspace.jaist.ac.jp/dspace/handle/10119/16089)
+compare policy gradients and Neural Fitted Q Iteration with268 input features
+against a rule-based opponent under simplified scoring.
+[Nagamine and Suzuki (2021)](https://www.ipsj.or.jp/event/taikai/83/ipsj_web2021/data/pdf/6P-07.html)
+construct fast-finishing and blocking play through Monte Carlo reward changes.
+Their two-page paper disables koi-koi continuation and proposes switching
+scoring/fast-finishing strategies across a match as future work. Thus, the broad
+motivation for switching objectives is prior work. The present question concerns
+learning a selector from complete-match outcomes over frozen neural proposals,
+with both card and continuation decisions and explicit no-learning controls.
+The manuscript now cites these direct domain antecedents in addition to general
+policy switching, rollout policy iteration and common-random-number work.

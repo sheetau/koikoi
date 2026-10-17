@@ -7,6 +7,7 @@ from koikoi.search import sample_hidden_batch
 from scripts import run_paired_arbitration_study as study
 from scripts.analyze_arbitration_study import outcome, tensor_equal
 from scripts.analyze_paired_arbitration_study import data_report, fit_report
+from scripts.diagnose_paired_targets import diagnose
 from scripts.paired_rollout_targets import match_split
 from scripts.run_arbitration_study import PARENTS, sha, write
 from scripts.train_paired_arbitration import (
@@ -96,6 +97,17 @@ def test_public_dataset_fit_and_embedded_deployment(tmp_path, monkeypatch):
         with pytest.raises(ValueError):
             fit(dataset, target, device="cpu", epochs=2)
         if context == "full":
+            diagnostic = tmp_path / "held_out_diagnostic.json"
+            diagnose(dataset, [target], diagnostic)
+            checked_diagnostic = study.read(diagnostic)
+            sections = checked_diagnostic["models"][str(target)]["sections"]
+            assert sections["all"]["roots"] == int(split.sum())
+            assert sections["all"]["source_matches"] == len(
+                torch.unique(raw["match_groups"][split], dim=0)
+            )
+            assert sections["all"]["validation_mse"] == pytest.approx(
+                inspected["validation_mse_recomputed_cpu"], abs=1e-6
+            )
             p = {
                 "cases": {
                     "test": {

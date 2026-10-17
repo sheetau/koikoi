@@ -7,6 +7,7 @@
 \emergencystretch=1em
 \widowpenalty=10000
 \clubpenalty=10000
+\brokenpenalty=10000
 \title{Self-Play Adaptation of Published Koi-Koi Transformers:\\
 GPU Simulation and Paired Evaluation}
 \author{}
@@ -73,6 +74,19 @@ results reported here remain those of the completed adaptation study.
 
 \section{Related work}
 \subsection{Learning to play Koi-Koi}
+Early Koi-Koi learning systems already compared policy gradients with value
+learning. Sato and Ikeda trained neural policies and Neural Fitted Q Iteration
+from 268 game features against a rule-based opponent \cite{sato2017koikoi}.
+Their experiments used a simplified scoring variant, so those reported scores
+are not a common benchmark for the present eight-round game.
+Nagamine and Suzuki constructed fast-finishing and blocking strategies by
+changing Monte Carlo rollout rewards \cite{nagamine2021strategy}. Their setup
+disabled koi-koi continuation, and they proposed switching scoring and
+fast-finishing strategies across a match as future work. This anticipates
+the strategic motivation for combining objectives. Our extension studies a
+learned selector over released neural experts with complete-match supervision
+and fixed hybrid controls, including both card play and continuation decisions.
+
 Guan et al. use phase-specific Transformers to represent card relations and
 learn action preferences through reinforcement learning
 \cite{guan2023koikoi}. Their two reward objectives produce the RL-WP and
@@ -111,6 +125,14 @@ ReBeL combines reinforcement learning and search using public belief states
 in imperfect-information games \cite{brown2020rebel}. These approaches make
 information handling part of the algorithm: a simulated hidden world cannot
 simply be treated as information available to the acting policy.
+
+Rollout-based approximate policy iteration turns simulated action comparisons
+into supervised policy learning \cite{dimitrakakis2008rollout}. Coupling rollouts
+with common random numbers can reduce the variance of relative utilities when
+the coupling satisfies suitable conditions \cite{yadav2026common}. Our paired
+extension uses these established ideas to supervise public expert choices from
+complete-match outcomes. It measures the induced covariance instead of assuming
+that shared randomness always reduces variance.
 
 Expert Iteration alternates search-based policy improvement with learning a
 policy that generalizes its decisions \cite{anthony2017expert}. This provides
@@ -466,6 +488,41 @@ information; additional ablations are needed to isolate particular context
 features. The full protocol and implementation are available in
 \path{docs/ARBITRATION.md}. No performance benefit is attributed to this
 extension before those comparisons finish.
+
+
+\subsection{Paired complete-match supervision}
+A second implementation replaces PPO credit assignment with direct comparisons
+at expert disagreements. Under a fixed behavior mixture (90\% parent, 10\%
+Point), the simulator copies the current world into two branches. Each branch
+executes one expert proposal; both players then follow the frozen parent to
+match termination. Continuation policies see only their own observations.
+The branches share hidden cards and future-round deal streams. For root-player
+returns $G_W,G_P\in\{-1,0,1\}$, the regression target is
+\begin{equation}
+  \delta=G_P-G_W, \qquad
+  \mathcal{L}(\phi)=\mathbb{E}[(h_\phi(o,a_W,a_P)-\delta)^2].
+\end{equation}
+The controller selects the proposal with the higher predicted return, with
+native action-index tie breaking. Conditional on its public input, the target
+averages the difference over hidden worlds encountered by the behavior policy.
+Training exports public inputs and outcomes; simulator state stays outside the
+learned controller.
+
+The fixed study collects 65,536 disagreement roots per parent and fits the
+controller for 20 epochs. A matched ablation removes explicit round and score
+inputs while preserving architecture, data and initialization. Entire source
+matches are held out for validation. Diagnostics report prediction error and
+the observed one-action gain on these held-out roots, with uncertainty clustered
+by source match. Repeated deployment is evaluated separately in full matches.
+Generation decisions, branch completions and fitting work are counted separately;
+this method incurs rollout computation beyond the PPO training budget.
+
+Both fitted controllers, arbitration PPO, continued actor PPO and unchanged
+parents are evaluated on 1,000 duplicate development deals against RL-WP and
+RL-Point. Two fixed hybrids assign card play to one expert and koi-koi decisions
+to the other. These controls test whether learning adds value beyond simple
+role substitution. The protocol and implementation are recorded in
+\texttt{docs/PAIRED\_ROLLOUTS.md}; comparative results are pending.
 
 \section{Limitations and interpretation}
 The strongest supported result is the improvement in match wins against
