@@ -111,3 +111,20 @@ original RL algorithm. Any study must compare unchanged parents and fresh
 self-play continuation at both parent seeds, report actual learner counts under
 equal simulator budgets, and use separate development deals. No bounded
 strength-study protocol or final-test promotion has yet been launched.
+
+Opponent-conditioned switching screen
+-------------------------------------
+
+The existing opponent-preserving TRAINING roots were partitioned by opponent,
+phase and stop/continue disagreement direction. No group has a positive lower
+95% bound for the one-action Point-minus-parent win change across the 28 marginal
+intervals. A coarse opponent-specific static switch therefore lacks a positive
+signal in this screen. The current response study remains the next strength test;
+no opponent classifier or additional selector is trained from these results.
+
+The groups contain different source positions, and identities are experiment
+metadata. This analysis neither measures the causal effect of swapping opponents
+at one state nor establishes how accurately their identities can be inferred
+from public play. It also leaves finer state-dependent interactions open.
+Implementation and raw identities: scripts/diagnose_opponent_conditioning.py and
+runs/opponent_conditioning_diagnostic.json. Full counts and units are in EXPERIMENTS.

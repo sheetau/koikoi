@@ -2144,3 +2144,44 @@ processes and completed pair rows in the open raw files were confirmed. Windows
 file metadata temporarily reported zero length while direct reads showed rows;
 this was not a stalled evaluator and no restart was attempted. No partial
 candidate outcomes were ranked or used to change the study.
+
+## Opponent-conditioned one-action diagnostic on training roots
+
+Question: do coarse opponent/decision groups support preferring Point proposals
+for match wins, motivating an opponent classifier or a conditional static switch?
+The diagnostic uses only TRAINING source matches from the completed
+opponent-preserving datasets; no model fitting or additional simulation occurs.
+Fixed groups are all decisions, four phases, and the two directions of koi
+expert disagreement. Opponent identity is analysis metadata, never a policy input.
+The two opponents induce different source states, so the contrast between their
+groups is not the causal effect of changing opponent at an identical state.
+
+Command: .venv/Scripts/python.exe -m scripts.diagnose_opponent_conditioning
+Report runs/opponent_conditioning_diagnostic.json, SHA
+858fec4688afc7e21e2d7e1238d7cc682f580bdb9048fb6eca8bdb24dbf64082.
+The report binds its script, split/bootstrap helpers, completed-study result and
+both input datasets. Source-match bootstrap uses 5,000 replicates, seed19730001,
+and retains a root-weighted mean. Intervals are marginal and exploratory, with
+no multiple-comparison adjustment. The sample is biased toward expert disagreement.
+
+Training roots: 52,522 across 4,222 source matches for parent1, and 52,687 across
+4,258 source matches for parent2. The overall Point-minus-parent win changes are
+-0.2087pp against WP and +0.2499pp against Point for parent1; -0.1735pp and
+-0.2636pp for parent2. All four intervals include zero. None of the 28 subgroup
+win intervals has a positive lower bound. In particular, the sign reversal
+between opponents is not replicated across parents. This supplies no coarse
+win-improvement signal for the proposed conditional switch; finer interactions
+remain untested, and no classifier or new selector was launched from this screen.
+
+At koi roots where Point stops and the parent continues, against Point opponents,
+point-margin changes are +3.9450 [0.8788,6.9149] (291 roots) and +3.0837
+[0.9319,5.3960] (478 roots). Their win-change intervals still include zero.
+These are one changed action followed by frozen continuation in sampled worlds,
+not repeated execution of a new policy or a fresh full-match strength estimate.
+The previously completed static-hybrid match results remain the relevant evidence
+for repeated-policy expected-point gains.
+
+Validation: input hashes rechecked; direct NumPy aggregation from both datasets
+matches reported weighted means; phase and koi-direction partitions sum exactly;
+opponent identities are constant within every source match. Ruff and diff checks
+pass. The live response study continues with all original bound inputs unchanged.
