@@ -1,24 +1,29 @@
 # Current status
 
-Goal ACTIVE: build the strongest Koi-Koi AI supported by the measured evidence. The new100M research12 computation target is complete. Both selected warm-PPO models qualify on development, but final superiority is NOT established yet. Final evaluation is RUNNING; latency, final manuscript and evidence archive remain unfinished. Submission is a later decision.
+Goal ACTIVE: build the strongest Koi-Koi AI supported by measured evidence. The new100M research12 target, final evaluation, isolated latency and final-results manuscript are complete and audited. Both selected models beat pinned assisted RL-WP on the fixed primary criterion. The separate RL-Point criterion does NOT replicate; both models lose expected points to RL-Point. Local evidence archive and full original-plan completion audit remain unfinished. Submission is a later decision.
 
 Read this snapshot first. Detailed measurements, negative studies and historical commands are in [EXPERIMENTS.md](EXPERIMENTS.md). The prior full STATUS history remains available at [commit26aeb37](https://github.com/sheetau/koikoi/blob/26aeb37/docs/STATUS.md). Update this snapshot at milestones; append experimental details to EXPERIMENTS instead of duplicating the full history here.
 
-## Live final evaluation: preserve the original processes
+## Completed final evaluation
 
-- Unified session **17151**, actual runner **45028** (shim61876).
-- Final directory: `runs/final_published_test`; `process.json` jobs are keyed by name.
-- Actual workers/shims: first warm WP35564/21716; second warm WP64780/58100; first warm Point45896/40536; second warm Point45888/16824.
-- All5 actual processes confirmed live. Last observed completed pairs: first WP3330, second WP3190, first Point3160, second Point3270, each targeting10000. These are progress counts, not outcome conclusions.
-- Four jobs: both selected training seeds6710001/6720001 x assisted RL-WP/RL-Point, strict CPU2 threads each, paper8, deterministic, endgame assistance, no search.
-- Each job10000 duplicate pairs; total80000 played matches on10000 shared unique deal streams, NOT40000 independent deals.
-- Final seeds **100000000-100009999 are now consumed/in use**. Never describe them as unused or silently rerun the jobs.
-- Primary: BOTH model seeds' WP win-score95% CI lower bounds must exceed0.5. Point comparator is secondary and separate; point means cannot replace wins. No reranking, training, extension or early strength stopping on final outcomes.
-- Observation timeout is NOT termination. Poll session17151 or inspect these actual PIDs before any recovery action. Inspect original artifacts on failure; do not launch duplicate workers.
+- Original session17151 exited0; actual runner45028 and workers35564/64780/45896/45888 are gone. All4 jobs completed10000 duplicate pairs. Never restart these original directories.
+- Directory `runs/final_published_test`; process status `complete_awaiting_audit` is retained by design. Full `independent_audit.json` passes; its SHA256 is `891c765dec23edec33538174433d5105dabc443ca2da1a4f91d4273c965eade8`.
+- Summary SHA256 `49a2babbb4e84043ef7101eff683ec7071094261dc2914ee99cb1e51dd7c692f`. Audit independently recomputed raw pair statistics and checked frozen identities/accounting; it does not replay all trajectories/inferences.
+- Both model seeds x assisted RL-WP/RL-Point, strict CPU2 threads each, paper8, greedy, endgame assistance, no search. Total80000 matches/9281432 decisions on10000 shared unique deal streams, NOT40000 independent deals.
+- Final seeds100000000-100009999 are consumed. No outcome-based retraining, reranking, extension or early stopping occurred. Canonical model remains seed6710001_warm.
 
-Frozen final protocol SHA256: `4a69cff95079e2bd4cfcda84241f4096149c05cfe408bd11cbfde154eaa060e4`.
+| Model seed | Opponent | Win score,95% CI | Point difference,95% CI |
+| --- | --- | --- | --- |
+| 6710001 | RL-WP | 51.4800% [50.9700,51.9750] | 2.4203 [2.122395,2.7133025] |
+| 6720001 | RL-WP | 51.4450% [50.9449375,51.9525] | 2.0221 [1.715885,2.317115] |
+| 6710001 | RL-Point | 50.4925% [49.9549375,51.0400625] | -1.8918 [-2.2427125,-1.53859] |
+| 6720001 | RL-Point | 51.2875% [50.7200,51.8525] | -1.9603 [-2.3197125,-1.6088825] |
+
+Primary both-model RL-WP win criterion **passes**. Separate both-model RL-Point criterion **fails**; canonical CI includes50%. Do not describe a replicated win against both opponents or superiority in expected points to RL-Point. No universal strongest/human/exploitability claim follows.
+
+Frozen protocol SHA256: `4a69cff95079e2bd4cfcda84241f4096149c05cfe408bd11cbfde154eaa060e4`.
 Production source SHA256: `4b4360ed783c1d12cb5258e255f4b85f2e30dfa2e111fd8a078cf3439ce612cb`.
-Do not change production, final runner/auditor, bound development/comparator files or selected models through final execution/audit. `scripts.run_final_published_test.validate_frozen()` checks the bindings. Full final independent audit does not exist yet.
+Preserve original production/models, protocols, runner/auditor and bound study/comparator identities for reproducibility.
 
 ## Completed development and selected models
 
@@ -44,21 +49,19 @@ Pinned public comparator revision: `89d789565c7c36c84b74662e43001d960bf80901`. F
 
 `runs/ppo12_scale_seed30001_captured/final_100m.pt`, SHA256 `613ea0d992a54a0a18ab1848f106abe074c5d74640d76c3a86a131448aa29cce`, update69267:100001204 NEW research12 matches/1200025665 rounds/18157928448 decisions. `audit_100m_independent.json` passes stored accounting/statistics. This is separate from paper8 selected-model training and cannot be attributed to those pretrained actors. Do not restart the completed scale run.
 
-## Prepared follow-up work (not completed measurements)
+## Latency, manuscript and archive
 
-**Latency:** `scripts/benchmark_final_latency.py` and independent `scripts/audit_final_latency.py`; frozen `runs/final_latency/protocol.json` SHA256 `ddec2df361cc2e206ab4759ac6f8a477fbf712003ff56dfac8f8887bfdc4083f`. Only protocol exists; no timing run yet. Both models+both opponents, CPU2 threads,1287 cached development states,2 warmup/8 measured passes,41184 timed calls. Mixed1024,64 unguarded per phase,32 guarded groups overlap. Exact final agent.act wrappers/features/inference timed; loading/transitions/checks excluded. No new matches. Actual live-study gate and independent sampling passed; preflight SHA256 `6408908455edec14142eefa15f0a41d4e8b0626f500fb4cc3ce09f8a43181d96`. Keep prepared script/auditor/protocol identities fixed. Project-worker absence checked at pass boundaries; OS noise remains uncontrolled.
+**Latency COMPLETE:** original session77792 exited0 after final workers were gone; runner29440. `runs/final_latency` has protocol/process/report/raw/independent_audit. All41184 measured calls,10296 warmup,5148 validation on1287 unique cached development states completed; no new matches. Protocol SHA256 `ddec2df361cc2e206ab4759ac6f8a477fbf712003ff56dfac8f8887bfdc4083f`; report `24ec5e4d5574e48a92d590f3f757ef701bfad5cd2daf7cf072dfa8a284f84531`; audit `e3b48a44568597f3cc528396c3a700407054137af4c540e2983a3486434f34cc`; raw `d0b4454a18135c3cbfddf6d4d385d2bf657983f57667253d739fbadaea17fc94`. Mixed mean/median/p95/p99 milliseconds: canonical1.585/1.479/2.036/2.302, second1.595/1.504/2.034/2.286, WP1.974/1.911/2.714/2.925, Point1.926/1.834/2.688/2.901. Exact deployment agent.act path, CPU2 threads. Group overlap/repeated calls are descriptive; project absence checked at pass boundaries, OS noise uncontrolled. Audit checks raw accounting/statistics, not an independent clock/inference rerun. Do not rerun into the completed directory.
 
-**Manuscript:** 8-page English DRAFT in `docs/paper/manuscript.tex`, bibliography and generated evidence; [build notes](paper/README.rst). PDF `output/pdf/manuscript.pdf` SHA256 `adafc7993395263739e734c12ff67dd677126c2399d937150c114b98c425d5d7`. All8 rendered pages reviewed, fonts embedded, tables/counts/citations checked; draft QA SHA256 `5593932840d7d1265b35655ae57f505cd0ef516a9687ac32ada9f894bcf10e6b`. Final outcomes excluded. Portable Tectonic0.17.0 and PyMuPDF1.28.2 are in ignored external/. Do not treat draft as submission-ready.
+**Manuscript COMPLETE for final results:** 9-page English manuscript `docs/paper/manuscript.tex`, final and latency tables generated from26 bound artifacts. PDF `output/pdf/manuscript.pdf` SHA256 `506319f6faaa74bd669e80f0e173d1597eea6924e004893ec03640d6b4413177`; source `9cd591877efe88ffe1bf66bc3bbce606fedfc2af27d1c979d89f78cb1a6fa71f`; evidence `104066c182779b3911fa511269b1dab0f7336e9d02a75e37f261c02c2b22fcb5`. Final QA `runs/manuscript_final_qa.json` passes, pending_final_results=false, SHA256 `a63cee06d64828856ab4cff265cb75b954bb78515ad4a6bef61bda82b2e3e0d5`. All9 latest rendered pages reviewed,14 embedded fonts, no TeX boxes/reference/glyph/bounds defects, citation keys and audited numbers checked. Latest edited pages4/5/9 reinspected; other6 PNGs unchanged from reviewed version. Author/venue and submission are later decisions. [Build notes](paper/README.rst).
 
-**Evidence archive:** `scripts/package_research_artifacts.py` implements --plan/--build/--verify; [scope and instructions](ARTIFACTS.rst). Read-only plan371 files/~422MB existing data;11 unfinished inputs missing at last check. No archive built/uploaded. Portable NumPy verifier checks bytes/paths/source/model bindings and independently recomputes final paired statistics; actual development4-endpoint recomputation passes. Full real archive build remains untested pending final inputs. Preflight SHA256 `ae42e6599351e810b913bf4c5263aa080bc5a7be93c63be3b6119bec4e925de1`.
+**Evidence archive:** `scripts/package_research_artifacts.py` implements --plan/--build/--verify; [scope and instructions](ARTIFACTS.rst). All final inputs now exist, including final manuscript QA. No archive built/uploaded yet. Portable NumPy verifier checks bytes/paths/source/model bindings and independently recomputes final paired statistics. Prepared20 artifact tests passed; actual real archive build/verification is the next action after committing this milestone. This is a selected evidence archive, not full replay of every historical experiment.
 
 ## Next actions, in order
 
-1. Wait on the SAME final session/processes until all4 jobs and runner exit successfully. Then run `.venv/Scripts/python.exe -m scripts.audit_final_published_test`. Inspect complete results and fixed primary/secondary criteria. Preserve failure; do not extend/reselect using these deals.
-2. Once final audit passes and original project workers are gone, run `.venv/Scripts/python.exe -m scripts.benchmark_final_latency --run`, then `.venv/Scripts/python.exe -m scripts.audit_final_latency`. No concurrent training/evaluation during measurement.
-3. Run `.venv/Scripts/python.exe -m scripts.export_paper_evidence`; revise abstract/results/conclusion/status with audited final results and timing scope. Compile/render/check final PDF. Create `runs/manuscript_final_qa.json` with status=passed,pending_final_results=false and current manuscript/evidence/PDF hashes. Draft QA does not satisfy this gate.
-4. Commit coherent final source/manuscript state, then `.venv/Scripts/python.exe -m scripts.package_research_artifacts --build`; independently inspect returned final statistics/conclusions and receipt/archive SHA. Follow the selected-archive limits in ARTIFACTS.rst. Record and push milestones.
-5. Audit the original plan's full requirements before any goal-complete claim. If primary superiority fails, retain that result and define genuinely new research with fresh future confirmation; do not relabel existing results as success. Submission requires a later decision.
+1. Commit the final-results/latency/manuscript milestone, then `.venv/Scripts/python.exe -m scripts.package_research_artifacts --build`. Inspect actual archive verification/receipt/SHA; no archive exists yet. Record/push milestone. Keep final PDF/source/evidence hashes matching its final QA.
+2. Audit the original plan's full requirements against current implementation, reports, tests and artifacts before any goal-complete claim. Primary superiority passed; retain the secondary failure and all stated limitations. Do not reselect models or relabel consumed final deals.
+3. Any genuinely new strength research needs new development/fresh future confirmation. Submission or external artifact publication remains a later decision.
 
 ## Operating/verification reminders
 

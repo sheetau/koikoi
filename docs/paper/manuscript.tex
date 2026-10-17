@@ -10,14 +10,13 @@
 \title{Self-Play Adaptation of Published Koi-Koi Transformers:\\
 GPU Simulation and Paired Evaluation}
 \author{}
-\date{Working draft, 17 October 2026}
+\date{17 October 2026}
 \begin{document}
 \maketitle
-\noindent\textbf{Draft status.} Development experiments and their independent
-artifact audits are complete. The frozen final evaluation is running; this
-version contains no final-test results or claim of final superiority. Author
-information, venue formatting, final results, and isolated inference timing
-remain to be completed before submission.
+\noindent\textbf{Research status.} Development, frozen final evaluation, and
+isolated inference timing have completed their independent artifact audits.
+This manuscript has not been submitted. Author information and venue formatting
+remain to be specified before submission.
 
 \begin{abstract}
 We study whether self-play policy optimization can improve an existing Koi-Koi
@@ -27,12 +26,16 @@ from published RL-WP weights, an explicit stochastic policy over the inherited
 action scores, and a separate public-observation value network. A fixed
 development study compares two temperature/learning-rate settings at two fresh
 training seeds. After 20 critic-only and 500 policy updates, the selected
-setting achieves draw-adjusted win scores of 51.805\% and 51.500\% against the
-pinned assisted RL-WP comparator on 5,000 shared duplicate deals; both
-pair-bootstrap 95\% interval lower bounds exceed 50\%. A colder policy with a
-jointly reduced learning rate performs worse on both paired comparisons.
-These are development findings, conditional on the evaluated models and deals.
-We specify a separate frozen final test against both RL-WP and RL-Point.
+setting qualifies against the pinned assisted RL-WP comparator on 5,000 shared
+duplicate development deals. A colder policy with a jointly reduced learning
+rate performs worse on both paired comparisons. On 10,000 untouched duplicate
+deals, the two selected models achieve draw-adjusted win scores of 51.480\%
+[50.970, 51.975] and 51.445\% [50.945, 51.953] against RL-WP, satisfying the
+fixed replicated primary criterion. The separate RL-Point win criterion does
+not replicate, and both models lose expected points to that comparator.
+The canonical model's mean CPU decision latency is 1.585 ms on a fixed cached
+development corpus. These findings are conditional on the evaluated models,
+rules, deal generator, and timing workload.
 A distinct twelve-round experiment completes 100,001,204 training matches;
 that computation is not attributed to the selected eight-round models.
 The study emphasizes rule compatibility, separation of training scale from
@@ -57,7 +60,7 @@ greedy, publicly assisted match performance against these frozen policies?
 The method adapts the existing actors with clipped policy optimization
 \cite{schulman2017ppo}. It uses an explicit temperature to convert their
 scores into a sampling policy, and a freshly initialized critic for
-player-relative match returns. The main empirical contribution under study is
+player-relative match returns. The main empirical contribution is
 an improvement at two separately trained model seeds, followed by an untouched
 test of the fixed method. The systems contribution is an audited simulator
 and experimental pipeline that distinguishes completed matches, round endings,
@@ -218,7 +221,7 @@ no model reranking, training, extension, or early strength stopping after
 accessing these final outcomes. Four two-thread CPU workers run concurrently;
 their recorded times are not an isolated latency benchmark.
 
-\section{Audited development results}
+\section{Audited match results}
 The initial policy obtains exactly 0.5 paired score and zero paired point
 difference on all 5,000 development deals. This passes an outcome-compatibility
 check on that corpus, not a proof that every action or trajectory is identical
@@ -254,13 +257,31 @@ development pairs. Neither cleared the original replicated criterion.
 We do not pool these deals or models with the later study, extend those old
 endpoints, or describe the present selection as a single unselected experiment.
 
-\subsection{Final evaluation status}
-At the time of this draft the final jobs are running. No final outcomes are
-transcribed from live logs or incomplete reports. A completed independent
-audit is required before populating the final results and revising the
-abstract or conclusions. Failure of either model to clear the primary rule
-will be retained as a failed replicated final criterion, regardless of point
-gains or the secondary comparator's outcome.
+\subsection{Untouched final evaluation}
+All four fixed evaluations completed, totaling 80,000 matches on the same
+10,000 unique deal seeds. The independent audit verified frozen identities,
+recorded work, complete paired outcomes, and independently recomputed
+statistics. It confirmed the primary criterion and rejected the replicated
+secondary criterion (Table~\ref{tab:final}). No final outcomes were used to
+extend training, change the method, or select the better-scoring seed.
+
+\begin{table}[ht]
+\centering\small
+\input{generated/final_table.tex}
+\caption{Frozen final results. Each row contains 10,000 duplicate pairs;
+all rows share deal seeds. WP and Point denote assisted RL-WP and RL-Point.}
+\label{tab:final}
+\end{table}
+
+Against RL-WP, both selected models' win-score intervals lie above 50\%.
+Their mean point differences are also positive: 2.4203 [2.1224, 2.7133]
+and 2.0221 [1.7159, 2.3171]. Against RL-Point, the canonical seed's score
+interval includes 50\%, while the second seed's interval excludes it.
+The method therefore fails the predeclared both-model secondary win criterion.
+Moreover, both point-difference intervals are negative: -1.8918
+[-2.2427, -1.5386] and -1.9603 [-2.3197, -1.6089]. This distinction between
+match wins and expected points is part of the result. Seed 6710001 remains
+the canonical model, regardless of the second seed's RL-Point result.
 
 \section{Systems, budgets, and negative evidence}
 \subsection{Native simulation and validation}
@@ -300,6 +321,41 @@ training budget and does not prove public-baseline superiority. We do not
 add shared initialization ancestry more than once or equate search rollouts
 with training matches.
 
+\subsection{Isolated CPU decision latency}
+After the final evaluation processes exited, we timed the exact deployment
+\texttt{agent.act} path on a Ryzen 9 9900X with two PyTorch CPU threads.
+The operation includes feature construction, inference, and the same public
+endgame wrappers used in the final evaluation; the adapted agent's value
+forward pass is also retained. Loading, state construction, simulator
+transitions, correctness checks, and process inventories are excluded.
+
+The fixed corpus uses only the 12,861 random-trajectory states from the earlier
+compatibility study. Uniformly spaced selections produce 1,024 mixed states,
+64 unguarded states in each of four phases, and 32 guarded states. These
+groups overlap, giving 1,287 unique states. Four agents receive two warmup
+passes and eight measured passes, with agent order rotated so each agent
+occupies each position twice. There are 41,184 timed calls, 10,296 warmup
+calls, and 5,148 validation calls; no new matches are simulated.
+
+\begin{table}[ht]
+\centering\small
+\input{generated/latency_table.tex}
+\caption{CPU decision latency on the 1,024-state mixed corpus: 8,192 timed
+calls per agent. Quantiles describe repeated cached calls, not uncertainty
+over independent games or hardware environments.}
+\label{tab:latency}
+\end{table}
+
+The canonical model averages 1.585 ms per mixed-state decision, compared with
+1.974 ms for RL-WP (Table~\ref{tab:latency}). Its phase-specific unguarded
+means range from 1.612 to 1.760 ms, and guarded calls average 0.023 ms.
+Every action is legal, stable across repeats, and consistent with the public
+guard; cached environment states remain unchanged. The timing audit checks
+raw durations, action accounting, group reconstruction, identities, and
+descriptive statistics. It does not independently remeasure inference or
+the clock. No other project training/evaluation workers were observed at pass
+boundaries; unrelated operating-system activity was not controlled.
+
 \subsection{Retained unsuccessful directions}
 The broader development record includes architecture/critic variants,
 koi-focused adaptation, direct published-opponent training, full-match return
@@ -326,10 +382,11 @@ one source of selection bias, but does not erase that history or establish a
 new algorithm's broad superiority. The bootstrap is conditional on each
 evaluated policy and the stated deal generator.
 
-The evaluated opponents and rules are deliberately specific. Beating the
-pinned assisted RL-WP policy would meet the named baseline requirement; it
-would not establish superiority over all public implementations, all scoring
-variants, or humans. We have not measured exploitability or proved an
+The evaluated opponents and rules are deliberately specific. The replicated
+gain against pinned assisted RL-WP does not establish superiority over all
+public implementations, all scoring variants, or humans. In particular,
+the RL-Point win criterion did not replicate, and expected points favored
+RL-Point at both model seeds. We have not measured exploitability or proved an
 equilibrium guarantee. Public assistance is part of the evaluated policies,
 and changing or removing it requires a separately labeled comparison.
 
@@ -338,14 +395,21 @@ temperature. GPU training and CPU evaluation use different arithmetic paths;
 the compatibility corpus and recorded identities bound the claim rather
 than eliminating all numerical uncertainty. The large twelve-round experiment
 and the small pretrained eight-round adaptation answer different questions.
-Finally, isolated decision latency is still pending. Concurrent final-test
-throughput cannot be substituted for it.
+Finally, the latency workload samples cached random-play states rather than
+the selected policy's deployment distribution. Repeated-call quantiles and
+measurements on one machine do not establish hardware-independent speedups.
 
-\section{Current conclusion}
-The audited development study selects warm pretrained-policy PPO at two fresh
-model seeds, and the colder parameter bundle underperforms it in both paired
-comparisons. The method is now frozen for an untouched two-comparator final
-test. A final strength conclusion remains pending that test and its audit.
+\section{Conclusion}
+Warm pretrained-policy PPO improves draw-adjusted match wins against the
+pinned assisted RL-WP comparator at both selected model seeds in the frozen
+final test. The colder development bundle underperforms it in both paired
+comparisons. The result is specific to this adaptation, comparator, and
+eight-round protocol: the separate RL-Point win criterion does not replicate,
+and expected points favor RL-Point. The canonical model makes CPU decisions
+in a mean of 1.585 ms on the fixed mixed-state benchmark. The independent
+100-million-match twelve-round run establishes computation scale separately
+from these strength findings. Further improvements require new development
+work and fresh confirmation deals, while preserving the present outcomes.
 
 \appendix
 \section{Reproduction and artifact identities}
@@ -379,14 +443,33 @@ existing final directory or change the protocol in response to final outcomes.
 Reproduction on a separate machine should use a fresh checkout/workspace and
 preserve exact dependency/model identities and explicit execution settings.
 
-The Git repository currently excludes local checkpoints and run artifacts.
-Consequently, code availability is not yet a complete archival data release.
-A submission package still needs the permitted model artifacts, raw outcomes,
-protocols, audits, dependency instructions, licenses, and attribution records,
-with all identities checked against this ledger. No publication or external
-data upload is implied by this draft.
+The final outcome audit has digest
+\begin{quote}\small\ttfamily
+891c765dec23edec33538174433d5105dabc443ca2da1a4f91d4273c965eade8
+\end{quote}
+and the isolated latency audit has digest
+\begin{quote}\small\ttfamily
+e3b48a44568597f3cc528396c3a700407054137af4c540e2983a3486434f34cc.
+\end{quote}
+The timing modules are \path{scripts.benchmark_final_latency} and
+\path{scripts.audit_final_latency}. The benchmark refuses an existing run
+and requires the final study's terminal state and passed audit.
 
-\clearpage
+The Git repository excludes local checkpoints and run artifacts. The module
+\path{scripts.package_research_artifacts}, with \texttt{--build}, assembles a
+selected local evidence archive only after final manuscript QA and a clean
+committed source snapshot. Its portable \texttt{--verify} mode checks exact
+members, sizes, hashes, model/source bindings, and independently recomputed
+final pair statistics using Python and NumPy. The selected archive includes
+the final/development models, raw outcomes, protocols, audits, timing corpus,
+separate scale checkpoint, permitted comparator files, and license records.
+It does not contain every exploratory checkpoint or all execution dependencies.
+Full replay requires the recorded environment and complete clean pinned
+upstream checkout; byte/statistical verification is not trajectory replay or
+an authenticity signature. \path{docs/ARTIFACTS.rst} specifies this scope.
+Local packaging does not constitute external archival publication or journal
+submission.
+
 \begingroup
 \raggedright
 \bibliographystyle{plain}

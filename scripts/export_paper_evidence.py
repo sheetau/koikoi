@@ -133,9 +133,10 @@ def export(output=OUTPUT):
             path = final_path.parent / name / "evaluation.json"
             assert sha(path) == r["report_sha256"]
             inputs[str(path)] = sha(path)
+            opponent_label = {"wp": "WP", "point": "Point"}[job["variant"]]
             final_rows.append(
-                f"{job['case'].split('_')[0][4:]} & {job['variant']} & "
-                f"{100 * r['score_mean']:.3f} & {interval(r['score_ci95'], 100)} & "
+                f"{job['case'].split('_')[0][4:]} & {opponent_label} & "
+                f"{100 * r['score_mean']:.4f} & {interval(r['score_ci95'], 100)} & "
                 f"{r['point_mean']:.4f} \\\\"
             )
         inputs[str(final_path)] = sha(final_path)
@@ -145,6 +146,42 @@ def export(output=OUTPUT):
         # No live log, provisional summary, or incomplete endpoint is read here.
         evidence["final"] = None
         status = "draft_final_results_pending"
+    latency_path = Path("runs/final_latency/independent_audit.json")
+    latency_rows = []
+    evidence["latency"] = None
+    if latency_path.exists():
+        assert evidence["final"] is not None
+        audit = read(latency_path)
+        report_path = latency_path.with_name("report.json")
+        protocol_path = latency_path.with_name("protocol.json")
+        raw_path = latency_path.with_name("raw.npz")
+        report = read(report_path)
+        assert audit["status"] == "passed"
+        assert audit["auditor_sha256"] == sha("scripts/audit_final_latency.py")
+        assert (
+            audit["protocol_sha256"]
+            == sha(protocol_path)
+            == ("ddec2df361cc2e206ab4759ac6f8a477fbf712003ff56dfac8f8887bfdc4083f")
+        )
+        assert audit["report_sha256"] == sha(report_path)
+        assert report["status"] == "complete_awaiting_audit"
+        assert report["protocol_sha256"] == audit["protocol_sha256"]
+        assert report["final_audit_sha256"] == sha(final_path)
+        assert report["raw_sha256"] == sha(raw_path)
+        for path in (latency_path, report_path, protocol_path, raw_path):
+            inputs[str(path)] = sha(path)
+        for name, label in (
+            ("seed6710001_warm", "Warm 6710001"),
+            ("seed6720001_warm", "Warm 6720001"),
+            ("rl_wp", "RL-WP"),
+            ("rl_point", "RL-Point"),
+        ):
+            r = audit["summaries"][name]["mixed"]
+            latency_rows.append(
+                f"{label} & {r['mean_ms']:.3f} & {r['median_ms']:.3f} & "
+                f"{r['p95_ms']:.3f} & {r['p99_ms']:.3f} " + r"\\"
+            )
+        evidence["latency"] = {"audit": audit, "report": report}
     bundle = {
         "status": status,
         "exporter_sha256": sha(__file__),
@@ -177,6 +214,12 @@ def export(output=OUTPUT):
             final_rows,
             "rlrrr",
             r"Training seed & Opponent & Score (\%) & 95\% interval (\%) & Point diff.",
+        ),
+        (
+            "latency_table.tex",
+            latency_rows,
+            "lrrrr",
+            r"Agent & Mean (ms) & Median (ms) & 95th (ms) & 99th (ms)",
         ),
     ):
         # Include the complete alignment: LaTeX's input hooks between the last
