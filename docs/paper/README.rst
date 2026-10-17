@@ -3,11 +3,14 @@ Manuscript working files
 
 This is an English research manuscript, not a submitted or published paper.
 
-Current revision:15 pages,20 cited references. Abstract/Introduction state the
-measured adaptation gain and completed static-composition result. The manuscript
-includes all completed arbitration, paired-supervision, static-hybrid and
-continuation-target studies. Direct-response training is still running and is
-excluded from reported results. Latest QA: runs/manuscript_structure_qa.json.
+Current revision:17 pages,22 cited references. Abstract/Introduction state the
+measured adaptation gain, completed static-composition result and exact
+critic-conditioning finding. The manuscript includes all completed arbitration,
+paired-supervision, static-hybrid and continuation-target studies, plus an
+exact two-step example with a reversed expected gradient coordinate. Its related
+partial-observation critic literature and scope are explicit. Direct-response
+and learner-return strength comparisons remain ongoing and are excluded from
+completed match findings. Latest QA: runs/manuscript_observer_qa.json.
 The original9-page final-results manuscript/archive and intermediate PDFs remain
 preserved; later sections below record the revision history.
 The final two-model/two-comparator evaluation and isolated latency measurement
@@ -211,3 +214,38 @@ reviewed render;18 embedded fonts; all4 evidence ledgers and numeric/input/
 reference preservation checks pass. No TeX box, missing-reference/glyph or
 page-bound defects. Previous version: output/pdf/manuscript_followup_c5d7c215.pdf.
 The active response study is still excluded from the reported outcomes.
+
+
+Observer-conditioning revision
+------------------------------
+
+The title is now Adapting Published Koi-Koi Transformers: Match Wins and Critic
+Conditioning. Section7 states the finite-game example; AppendixB derives the
+score-function expectation, lambda threshold, controls and learner-decision tail
+handling. The proof concerns one gradient coordinate before PPO clipping and
+empirical normalization. Existing Koi-Koi match results continue to use the
+original signed estimator. The new estimator's strength is not asserted here.
+
+Baisero and Amato (AAMAS2022,44--52) and Lyu et al. (AAAI2022,9396--9404) were
+checked against the primary proceedings/arXiv sources on2026-10-18. They establish
+the related partial-observation critic-conditioning problem. The example is a
+specific alternating-observer construction, not a new general gradient theorem.
+
+Regenerate its tracked evidence with::
+
+    .venv/Scripts/python.exe -m scripts.export_observer_paper_evidence
+
+The exporter verifies pinned CPU/CUDA diagnostics, production/diagnostic source
+identities and an independent Fraction calculation. It adds no simulation or
+training. generated/observer_evidence.json SHA
+5b5419a725ff72e01678b65fbfc273fc813bcea3fec8730cc7d2cb783a780623.
+The preceding15-page PDF remains in
+output/pdf/manuscript_structure_90f9d9f8.pdf. New PDF SHA
+ eeff7b6d9d98595692b32408d3ebae66dc49b6b06b6b8d92baf070dc5a740ef7.
+QA runs/manuscript_observer_qa.json SHA
+7ffb1430d37ce5acd0c1c1063f1e5d5a08af956654d8eda5a56533137595fea1:
+all17 pages reviewed, equations on8/12 inspected at full size,20 fonts embedded,
+22 references resolved,191 abstract whitespace words,conclusion on11. All prior
+numeric tokens and generated outcome tables remain,all5 evidence ledgers verify,
+and no TeX box,missing-glyph or page-bound errors remain. The live original study
+and seven guarded-launcher verification inputs were rechecked unchanged.

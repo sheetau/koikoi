@@ -2413,3 +2413,44 @@ At this observation the original parent2_selfplay is at261/520 updates. No secon
 GPU training job or new research evaluation has started. Keep the seven captured
 files unchanged while waiting and during the follow-on study. Progress records
 remain in STATUS/EXPERIMENTS, outside those frozen inputs.
+
+
+## Critic-conditioning finding integrated into the manuscript (2026-10-18)
+
+The manuscript now states both the completed match-win adaptation and the exact
+observer-bootstrap diagnosis in its title/Abstract/Introduction. Section7 gives
+the binary-private-signal game, payoff matrix, exact conditional critics and
+reversed first expected gradient component. AppendixB derives the formula and
+lambda>199/201 threshold, records all three controls, distinguishes one reversed
+coordinate from the full vector, and describes learner-decision tail semantics.
+The expected update is before PPO clipping/empirical advantage normalization.
+Current Koi-Koi results still use the original estimator; running response and
+learner-return studies are not reported as completed findings.
+
+Related Work adds Baisero--Amato,AAMAS2022,44--52 and Lyu/Baisero/Xiao/Amato,
+AAAI2022,9396--9404. Primary texts/records were checked at
+https://arxiv.org/html/2105.11674v2 and
+https://ojs.aaai.org/index.php/AAAI/article/view/21171;
+the official AAMAS contents and paper confirm its venue/pages. The paper links
+the specific example to known critic-conditioning theory without first-priority
+or generally unbiased-PPO claims.
+
+scripts/export_observer_paper_evidence.py independently derives the two gradient
+coordinates and threshold with Fraction arithmetic, validates both pinned
+CPU/CUDA reports and all bound source identities, and checks analytic/Python/
+native numerical agreement. It produces generated/observer_evidence.json SHA
+5b5419a725ff72e01678b65fbfc273fc813bcea3fec8730cc7d2cb783a780623.
+No sampled games, training updates or new GPU workload were added.
+
+Tectonic builds the17-page PDF with22 cited references and20 embedded fonts.
+Abstract191 whitespace words; main conclusion page11. All previous numeric tokens
+and generated result tables remain. The initial new inline gradient vector made
+one overfull box; splitting its two coordinates removes the warning. All17 final
+pages and enlarged equation pages8/12 were visually checked. Glyph, bounds,
+font embedding, TeX warnings, citation keys and all5 evidence ledgers pass.
+Prior15-page PDF retained as output/pdf/manuscript_structure_90f9d9f8.pdf.
+New PDF SHAeeff7b6d9d98595692b32408d3ebae66dc49b6b06b6b8d92baf070dc5a740ef7.
+QA runs/manuscript_observer_qa.json SHA
+7ffb1430d37ce5acd0c1c1063f1e5d5a08af956654d8eda5a56533137595fea1.
+The running original study and all seven GPU-gate verification inputs remain
+unchanged. This is a manuscript/evidence milestone, not new strength evidence.

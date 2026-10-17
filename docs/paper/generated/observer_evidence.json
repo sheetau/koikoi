@@ -1,0 +1,262 @@
+{
+  "status": "passed",
+  "exporter_sha256": "336f1e1947d8403aefd5486eb47185ecab5c2a3b82239ac1d702280d03600b04",
+  "inputs": {
+    "runs/observer_bootstrap_verified_cpu.json": "4e3e05b73b4e019bf9e68cf2b90afe0d61a2829b0e821dc303d1224b6a13aeab",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\scripts\\diagnose_observer_bootstrap.py": "c8ec4c57f9b215aca1d26b3bf5df318d875b65da4a2634574036b0b08a3e432b",
+    "koikoi\\train.py": "4b37cc872a1e334c191d2dc31708f1430103d15e22317d0fb216bec2ccd3ceea",
+    "koikoi\\estimators.py": "d820083ef6c15eed8212544ab3dbf0b94f0b7480f7b2a8daa26e526082e2947a",
+    "koikoi\\native\\core.h": "820333d57e060e8705e2fe1a45544d0553d396980c0d25a23b00a92aeaee5dc3",
+    "runs/observer_bootstrap_verified_cuda.json": "50ecb0247856ed6ddd19b91fb1db841fc52f0783682ea6fc59780fbb4306de7b"
+  },
+  "exact_true_gradient": [
+    "1/800",
+    "-1/4"
+  ],
+  "exact_signed_lambda095_gradient": [
+    "-161/32000",
+    "-7799/32000"
+  ],
+  "lambda_threshold_strict": "199/201",
+  "evidence": {
+    "cpu": {
+      "status": "passed",
+      "inputs": {
+        "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\scripts\\diagnose_observer_bootstrap.py": "c8ec4c57f9b215aca1d26b3bf5df318d875b65da4a2634574036b0b08a3e432b",
+        "koikoi\\train.py": "4b37cc872a1e334c191d2dc31708f1430103d15e22317d0fb216bec2ccd3ceea",
+        "koikoi\\estimators.py": "d820083ef6c15eed8212544ab3dbf0b94f0b7480f7b2a8daa26e526082e2947a",
+        "koikoi\\native\\core.h": "820333d57e060e8705e2fe1a45544d0553d396980c0d25a23b00a92aeaee5dc3"
+      },
+      "production_source_sha256": "2b718198a4f7bc640f457c9fc12311dcb9a8689fba1ffcb09411234ba0920cdb",
+      "result": {
+        "device": "cpu",
+        "payoff_means": [
+          [
+            0.2,
+            0.21
+          ],
+          [
+            1.0,
+            -1.0
+          ]
+        ],
+        "true_gradient": [
+          0.0012499999999999976,
+          -0.25
+        ],
+        "cases": {
+          "opponent_observation_lambda095": {
+            "analytic_expected_gradient": [
+              -0.005031250000000008,
+              -0.24371874999999998
+            ],
+            "python_expected_gradient": [
+              -0.005031251497566697,
+              -0.2437187485024333
+            ],
+            "native_expected_gradient": [
+              -0.00503126122057438,
+              -0.24371875822544098
+            ],
+            "gradient_bias": [
+              -0.006281251497566694,
+              0.006281251497566698
+            ],
+            "single_sample_gradient_variance": [
+              0.10809732835915453,
+              0.05940211157628289
+            ]
+          },
+          "opponent_observation_lambda1": {
+            "analytic_expected_gradient": [
+              0.0012499999999999976,
+              -0.25
+            ],
+            "python_expected_gradient": [
+              0.0012500000000000011,
+              -0.25
+            ],
+            "native_expected_gradient": [
+              0.0012499895691871696,
+              -0.25
+            ],
+            "gradient_bias": [
+              3.469446951953614e-18,
+              0.0
+            ],
+            "single_sample_gradient_variance": [
+              0.11974531249999999,
+              0.0625
+            ]
+          },
+          "learner_to_terminal_lambda095": {
+            "analytic_expected_gradient": [
+              0.0012499999999999976,
+              -0.25
+            ],
+            "python_expected_gradient": [
+              0.0012500000000000011,
+              -0.25
+            ],
+            "native_expected_gradient": [
+              0.0012500000372529102,
+              -0.25
+            ],
+            "gradient_bias": [
+              3.469446951953614e-18,
+              0.0
+            ],
+            "single_sample_gradient_variance": [
+              0.11974531249999999,
+              0.0625
+            ]
+          },
+          "joint_information_lambda095": {
+            "analytic_expected_gradient": [
+              0.0012499999999999976,
+              -0.25
+            ],
+            "python_expected_gradient": [
+              0.0012499999999999942,
+              -0.25
+            ],
+            "native_expected_gradient": [
+              0.001249999962747099,
+              -0.25
+            ],
+            "gradient_bias": [
+              -3.469446951953614e-18,
+              0.0
+            ],
+            "single_sample_gradient_variance": [
+              0.10807029416283223,
+              0.0625
+            ]
+          }
+        },
+        "lambda_for_correct_first_coordinate_must_exceed": "199/201"
+      },
+      "scope": "Exact enumeration of an abstract two-step game, with no sampled matches or policy fitting. The existing signed-GAE implementation and native backend agree. Removing the intermediate opponent observation bootstrap repairs this example; no claim of unbiased finite-observation PPO in general or stronger Koi-Koi play follows."
+    },
+    "cuda": {
+      "status": "passed",
+      "inputs": {
+        "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\scripts\\diagnose_observer_bootstrap.py": "c8ec4c57f9b215aca1d26b3bf5df318d875b65da4a2634574036b0b08a3e432b",
+        "koikoi\\train.py": "4b37cc872a1e334c191d2dc31708f1430103d15e22317d0fb216bec2ccd3ceea",
+        "koikoi\\estimators.py": "d820083ef6c15eed8212544ab3dbf0b94f0b7480f7b2a8daa26e526082e2947a",
+        "koikoi\\native\\core.h": "820333d57e060e8705e2fe1a45544d0553d396980c0d25a23b00a92aeaee5dc3"
+      },
+      "production_source_sha256": "2b718198a4f7bc640f457c9fc12311dcb9a8689fba1ffcb09411234ba0920cdb",
+      "result": {
+        "device": "cuda",
+        "payoff_means": [
+          [
+            0.2,
+            0.21
+          ],
+          [
+            1.0,
+            -1.0
+          ]
+        ],
+        "true_gradient": [
+          0.0012499999999999976,
+          -0.25
+        ],
+        "cases": {
+          "opponent_observation_lambda095": {
+            "analytic_expected_gradient": [
+              -0.005031250000000008,
+              -0.24371874999999998
+            ],
+            "python_expected_gradient": [
+              -0.005031251497566697,
+              -0.2437187485024333
+            ],
+            "native_expected_gradient": [
+              -0.00503126122057438,
+              -0.24371875822544098
+            ],
+            "gradient_bias": [
+              -0.006281251497566694,
+              0.006281251497566698
+            ],
+            "single_sample_gradient_variance": [
+              0.10809732835915453,
+              0.05940211157628289
+            ]
+          },
+          "opponent_observation_lambda1": {
+            "analytic_expected_gradient": [
+              0.0012499999999999976,
+              -0.25
+            ],
+            "python_expected_gradient": [
+              0.0012500000000000011,
+              -0.25
+            ],
+            "native_expected_gradient": [
+              0.0012499895691871696,
+              -0.25
+            ],
+            "gradient_bias": [
+              3.469446951953614e-18,
+              0.0
+            ],
+            "single_sample_gradient_variance": [
+              0.11974531249999999,
+              0.0625
+            ]
+          },
+          "learner_to_terminal_lambda095": {
+            "analytic_expected_gradient": [
+              0.0012499999999999976,
+              -0.25
+            ],
+            "python_expected_gradient": [
+              0.0012500000000000011,
+              -0.25
+            ],
+            "native_expected_gradient": [
+              0.0012500000372529102,
+              -0.25
+            ],
+            "gradient_bias": [
+              3.469446951953614e-18,
+              0.0
+            ],
+            "single_sample_gradient_variance": [
+              0.11974531249999999,
+              0.0625
+            ]
+          },
+          "joint_information_lambda095": {
+            "analytic_expected_gradient": [
+              0.0012499999999999976,
+              -0.25
+            ],
+            "python_expected_gradient": [
+              0.0012499999999999942,
+              -0.25
+            ],
+            "native_expected_gradient": [
+              0.001249999962747099,
+              -0.25
+            ],
+            "gradient_bias": [
+              -3.469446951953614e-18,
+              0.0
+            ],
+            "single_sample_gradient_variance": [
+              0.10807029416283223,
+              0.0625
+            ]
+          }
+        },
+        "lambda_for_correct_first_coordinate_must_exceed": "199/201"
+      },
+      "scope": "Exact enumeration of an abstract two-step game, with no sampled matches or policy fitting. The existing signed-GAE implementation and native backend agree. Removing the intermediate opponent observation bootstrap repairs this example; no claim of unbiased finite-observation PPO in general or stronger Koi-Koi play follows."
+    }
+  },
+  "scope": "Exact finite-game expectation, before PPO clipping/empirical normalization. One reversed coordinate, not an opposite full gradient. Zero sampled games or training. No Koi-Koi improvement claim."
+}
