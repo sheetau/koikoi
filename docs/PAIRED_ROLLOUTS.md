@@ -1,8 +1,9 @@
 # Paired rollout supervision for expert disagreements
 
 This is a second improvement hypothesis prepared while the fixed arbitration
-PPO study runs. Only target generation and correctness checks are implemented
-so far. No trained-policy strength result is claimed.
+PPO study runs. Target generation, direct advantage regression, embedded deployment and a
+queued comparative runner are implemented. No trained-policy strength result
+is claimed before the new study finishes.
 
 ## Motivation
 
@@ -63,7 +64,36 @@ Input roots remain unchanged. CPU feasibility:64 roots,128 completed branches,
 roots had nonzero outcome differences. This tiny execution check neither
 estimates strength nor establishes a useful prediction signal.
 
-## Prior work and prospective comparison
+## Fixed comparative study
+
+`scripts/run_paired_arbitration_study.py` queues the new study after the current
+PPO work. GPU collection starts only when all six earlier training jobs finish;
+CPU evaluations start only when the earlier study is complete. It writes a
+source-bound protocol before waiting. Do not change its bound scripts while it
+is queued or active.
+
+Each parent supplies65,536 disagreement roots, in batches of256, under collection
+seeds19210001 and19220001. The public controller fits the return difference by
+MSE using Adam with learning rate3e-4, weight decay1e-4, minibatches of1,024,
+and exactly20 epochs. Validation holds out whole source matches using a fixed
+hash partition. The final epoch is always selected. Full and no_match controllers
+share the same dataset, architecture, initialization seed and fitting budget.
+The no_match arm removes only explicit round/score features from the controller;
+its expert proposals still depend on match context.
+
+Fresh deals22,000,000--22,000,999 compare both regression arms, the earlier PPO
+gate, continued Transformer PPO and the unchanged parent against RL-WP and
+RL-Point. Regression endpoints also play their own parent directly. This gives
+24 matchups of1,000 duplicate pairs each. Results remain development evidence;
+any later confirmation needs fresh deals and a new frozen protocol.
+
+The distinct checkpoint format identifies regression explicitly and embeds both
+experts. A tested tiny CPU pipeline covers collection, all three supported
+controller contexts, independent-match validation splitting, checkpoint loading,
+hidden-state invariance and a four-match evaluator/statistics round trip.
+These checks establish execution correctness, not playing strength.
+
+## Prior work and research question
 
 Rollout-based approximate policy iteration already treats policy improvement
 as supervised learning; see [Dimitrakakis and Lagoudakis (2008)](https://arxiv.org/abs/0805.2027).
@@ -75,9 +105,8 @@ and constructions for reducing relative-utility variance.
 The proposed contribution is therefore the particular combination of public
 expert disagreements, actual self-play hidden worlds, complete-match paired
 targets and inexpensive deployment, supported by controlled Koi-Koi evidence.
-The next protocol should compare direct outcome-difference regression with the
-current arbitration PPO and continued full-policy PPO, count all branch work,
-hold out entire source matches, and evaluate fresh duplicate deals. It should
-also test whether explicit match context contributes beyond expert proposals.
-Dataset size, fitting budget, endpoints and comparisons must be fixed before
-strength results are inspected.
+The fixed protocol above compares direct outcome-difference regression with
+arbitration PPO and continued full-policy PPO, counts all branch work, holds out
+entire source matches, and tests explicit match context. Dataset size, fitting
+budget and endpoints are fixed before any new-controller strength results are
+inspected.
