@@ -2622,3 +2622,81 @@ reviewed through rendered contact sheets; pages1/8/12/13 were checked at full
 size. All19 fonts embed correctly,22 references resolve,Abstract is199 whitespace
 words,andConclusion starts on11. All prior numeric tokens,all5 evidence ledgers,
 page bounds and glyph checks pass. Ruff and the actual evidence export pass.
+
+
+## Fixed-opponent response study complete: no replicated win gain (2026-10-18)
+
+Original launcher26076 exits0. All4 training jobs and12 evaluation jobs finish
+with their original budgets,sources,seeds and conditions. Training totals
+34,078,720 simulator decisions /2,279,818 round endings /293,310 matches.
+Evaluation totals120,000 matches /13,947,308 decisions on5,000 shared unique
+23M deal streams. Evaluation round endings are not recorded in this format.
+No new training,checkpoint selection,sample extension or deployment promotion.
+
+All training and actual-optimizer-budget audits pass. The new independent
+checker scripts/audit_response_study.py reads the closed raw pair records and
+recomputes every outcome and all12 paired contrasts using one joint set of5,000
+whole-deal bootstrap resamples with seed99. It does not import the production
+analysis helpers. Closed-job event sweeps verify peak1 GPU trainer /3 CPU2
+evaluators and endpoint-before-evaluation ordering. All protocol inputs and
+training/optimizer receipt identities are rechecked. This is record/statistic
+verification,not an inference replay or a training-seed uncertainty estimate.
+
+Command: .venv/Scripts/python.exe -m scripts.audit_response_study --output
+runs/response_study/independent_audit.json. Actual run passes; Ruff passes.
+The earlier preflight correctly rejected the still-running study without writing
+a result. Independent audit SHAff6677bcb24ffac367b5003301be4a04236a913785d725cdd2672b2d09a3f79c.
+Original final analysis SHA2c148cff866dad57baeb60302c86a7b213fb3337ad9502e2240772ab6cf0babe.
+
+All outcomes (win score is draw-adjusted; intervals are95% paired-deal bootstrap):
+
+| Candidate | Opponent | Win score %,95% CI | Point margin,95% CI |
+| --- | --- | --- | --- |
+| parent1 | WP | 51.7300 [51.00988,52.42500] | +2.4626 [+2.037520,+2.876405] |
+| parent1 | POINT | 50.4900 [49.66500,51.29500] | -2.0162 [-2.510205,-1.515800] |
+| parent2 | WP | 51.2550 [50.50500,51.96000] | +1.9636 [+1.538195,+2.368005] |
+| parent2 | POINT | 50.0650 [49.27000,50.85000] | -2.4892 [-3.009410,-1.985385] |
+| parent1_response | WP | 51.0050 [50.25000,51.73500] | +1.9938 [+1.552400,+2.417225] |
+| parent1_response | POINT | 50.1300 [49.32000,50.95012] | -2.2440 [-2.734615,-1.748190] |
+| parent1_selfplay | WP | 51.9800 [51.21488,52.71000] | +2.8984 [+2.441385,+3.336210] |
+| parent1_selfplay | POINT | 50.2250 [49.41500,51.03000] | -1.8262 [-2.342615,-1.322395] |
+| parent2_response | WP | 51.7600 [51.03487,52.49012] | +2.0454 [+1.620960,+2.462415] |
+| parent2_response | POINT | 50.1250 [49.32500,50.92500] | -2.5868 [-3.096810,-2.076955] |
+| parent2_selfplay | WP | 51.5800 [50.83500,52.34000] | +2.7396 [+2.298195,+3.174405] |
+| parent2_selfplay | POINT | 50.8850 [50.05000,51.71500] | -1.4118 [-1.920205,-0.920395] |
+
+All within-parent paired contrasts; win changes are percentage points:
+
+| Candidate minus control | Opponent | Win change pp,95% CI | Point change,95% CI |
+| --- | --- | --- | --- |
+| parent1_response-parent1 | WP | -0.7250 [-1.57500,+0.16000] | -0.4688 [-0.956635,-0.000200] |
+| parent1_selfplay-parent1 | WP | +0.2500 [-0.57000,+1.08000] | +0.4358 [-0.043620,+0.907000] |
+| parent1_response-parent1_selfplay | WP | -0.9750 [-1.83000,-0.11000] | -0.9046 [-1.393015,-0.422590] |
+| parent1_response-parent1 | POINT | -0.3600 [-1.20500,+0.50000] | -0.2278 [-0.699220,+0.238025] |
+| parent1_selfplay-parent1 | POINT | -0.2650 [-1.10000,+0.59000] | +0.1900 [-0.279025,+0.664600] |
+| parent1_response-parent1_selfplay | POINT | -0.0950 [-0.92512,+0.76500] | -0.4178 [-0.889830,+0.055425] |
+| parent2_response-parent2 | WP | +0.5050 [-0.31000,+1.33000] | +0.0818 [-0.367020,+0.532685] |
+| parent2_selfplay-parent2 | WP | +0.3250 [-0.51512,+1.16000] | +0.7760 [+0.324595,+1.244615] |
+| parent2_response-parent2_selfplay | WP | +0.1800 [-0.69512,+1.06000] | -0.6942 [-1.168605,-0.222940] |
+| parent2_response-parent2 | POINT | +0.0600 [-0.75500,+0.85500] | -0.0976 [-0.563410,+0.365605] |
+| parent2_selfplay-parent2 | POINT | +0.8200 [-0.00500,+1.66000] | +1.0774 [+0.593980,+1.538615] |
+| parent2_response-parent2_selfplay | POINT | -0.7600 [-1.59512,+0.10512] | -1.1750 [-1.675000,-0.661790] |
+
+The fixed primary criterion fails:zero of its eight required lower win-change
+bounds are positive. All four response-minus-parent win intervals include zero.
+Parent1 response loses0.975pp [-1.830,-0.110] to its matched selfplay continuation
+against WP. Response-minus-selfplay point margins have negative intervals for
+both parents against WP and for parent2 against Point. These are comparisons
+of the tested complete implementations,not a causal diagnosis of the return
+estimator. Continued selfplay also has no positive parent-relative win lower
+bound in any of its four matchups; the parent2/Point interval starts at-0.005pp.
+This borderline result does not change the prespecified criterion or budget.
+
+The already running learner-return study remains fixed. Its first fresh24M
+CPU evaluation starts at1792269284.845334,after the last original evaluator
+ended at1792269278.3249133 (6.520 seconds gap). Initial evaluation wrappers
+63508/7976/61196 cover parent1 versusWP/Point and archived parent1_response
+versusWP. Parent1_lambda1 GPU training continues under52576/wrapper30572.
+All51 bound learner-study inputs remain unchanged. The complete response
+results now need integration into the manuscript; the new learner-return
+strength comparison remains pending.
