@@ -6,11 +6,23 @@ may change near-tied actions; this adapter is not an exact CPU policy certificat
 """
 
 import hashlib
+import importlib
 
 import torch
 
 from .layout import DISCARD, KOI, PHASE, PICK_DRAW, PICK_HAND
-from .upstream import UPSTREAM_PATH, UPSTREAM_REV, PublishedAgent
+from .upstream import UPSTREAM_PATH, UPSTREAM_REV, PublishedAgent, load_source
+
+
+def parameter_digest(weights):
+    """Hash tensor names, shapes, types and exact bytes independently of pickle."""
+    digest = hashlib.sha256()
+    for phase, state in sorted(weights.items()):
+        for name, tensor in sorted(state.items()):
+            value = tensor.detach().cpu().contiguous()
+            digest.update(f"{phase}:{name}:{value.dtype}:{tuple(value.shape)}".encode())
+            digest.update(value.numpy().tobytes())
+    return digest.hexdigest()
 
 
 class BatchPublishedAgent:
@@ -37,6 +49,48 @@ class BatchPublishedAgent:
             ).hexdigest()
             for name in ("discard", "pick", "koikoi")
         }
+
+    def checkpoint(self):
+        weights = {phase: model.state_dict() for phase, model in self.models.items()}
+        return {
+            "variant": self.variant,
+            "endgame": self.endgame,
+            "upstream_revision": self.upstream_revision,
+            "model_hashes": self.model_hashes.copy(),
+            "parameters_sha256": parameter_digest(weights),
+            "weights": weights,
+        }
+
+    @classmethod
+    def from_checkpoint(cls, payload, device):
+        """Restore embedded tensors; only pinned upstream source is imported."""
+        if payload["upstream_revision"] != UPSTREAM_REV:
+            raise ValueError("Published source revision mismatch")
+        if payload["variant"] not in ("wp", "point"):
+            raise ValueError("Expected wp or point")
+        if parameter_digest(payload["weights"]) != payload["parameters_sha256"]:
+            raise ValueError("Published parameter digest mismatch")
+        load_source()
+        net = importlib.import_module("koikoinet2L")
+        obj = cls.__new__(cls)
+        obj.device = torch.device(device)
+        if obj.device.type == "cuda" and obj.device.index is None:
+            obj.device = torch.device("cuda", torch.cuda.current_device())
+        devices = [obj.device.index] if obj.device.type == "cuda" else []
+        with torch.random.fork_rng(devices=devices):
+            obj.models = {}
+            for phase, model_type in (
+                (DISCARD, net.DiscardModel),
+                (PICK_HAND, net.PickModel),
+                (KOI, net.KoiKoiModel),
+            ):
+                model = model_type().to(device=obj.device, dtype=torch.float32)
+                model.load_state_dict(payload["weights"][phase])
+                obj.models[phase] = model.eval().requires_grad_(False)
+        obj.variant, obj.endgame = payload["variant"], payload["endgame"]
+        obj.upstream_revision = payload["upstream_revision"]
+        obj.model_hashes = payload["model_hashes"].copy()
+        return obj
 
     @torch.no_grad()
     def logits(self, env):

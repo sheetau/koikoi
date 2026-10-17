@@ -34,7 +34,7 @@ agent = BatchPublishedAgent("wp", "cuda", endgame=True)
 actions = agent.act(env)  # int32(B,), native card IDs or STOP48/CONTINUE49
 ```
 
-The adapter supports `wp` and `point`; `env.published_observe()` exposes the padded features and legal mask. Terminal actions are-1. Batch/device arithmetic can differ from singleton CPU inference; record batch sizes and TF32 settings for experiments. The strict published opponent in `koikoi.evaluate` stays unchanged. This API is not yet integrated into training or history-support certification. Compatibility/numerical/latency evidence is in [EXPERIMENTS.md](docs/EXPERIMENTS.md).
+The adapter supports `wp` and `point`; `env.published_observe()` exposes the padded features and legal mask. Terminal actions are-1. Batch/device arithmetic can differ from singleton CPU inference; record batch sizes and TF32 settings for experiments. The strict published opponent in `koikoi.evaluate` stays unchanged. Training integration is optional as described below; exact CPU history-support certification still uses the strict adapter. Compatibility/numerical/latency evidence is in [EXPERIMENTS.md](docs/EXPERIMENTS.md).
 
 ## Train
 
@@ -47,6 +47,13 @@ The adapter supports `wp` and `point`; `env.published_observe()` exposes the pad
 `--updates` is an absolute cumulative update target. `--target-matches` instead trains until the cumulative completed-match counter reaches the specified number (possibly overshooting by a rollout). `--checkpoint-every` controls completed-update snapshots. Ctrl+C retains the last completed snapshot, never a partial update. Resuming modified source requires explicit `--allow-code-change` and creates a new provenance record; it is not an exact continuation experiment.
 
 For an experimental fixed historical opponent, set `opponent_fraction` in the training config (for example, `0.2`) and pass `--frozen-opponent runs/old/update_00001000.pt` on a new run. This assigns floor(envs * fraction) environments to the frozen opponent and keeps the remaining environments in current-policy self-play. Learner seats alternate between completed matches. The opponent must use the same rule profile and endgame setting. PPO excludes opponent actions from learner policy/entropy/belief updates and uses a separate training-only critic for opponent turns. No strength benefit is assumed.
+
+For an experimental published opponent, set `published_opponent` to `"wp"` or `"point"` with a positive `opponent_fraction`, or use `configs/ppo8_published_wp50.json`. This requires paper8 match-reward PPO and `cuda_rollout=false`; `cuda_graph=true` still captures optimizer minibatches. The teacher uses deterministic argmax and shares the learner's endgame setting. It explicitly disables TF32 and cuDNN benchmarking for this process. Checkpoints embed teacher tensors and record source, original weight hashes, parameters and runtime; resume still requires the pinned upstream source checkout. Do not also pass `--frozen-opponent`. Additional `published_*` counters separate teacher exposure from self-play. The exported learner does not require the teacher. No strength benefit is established.
+
+```powershell
+./.venv/Scripts/python.exe -m koikoi.train --config configs/ppo8_published_wp50.json --run runs/published_smoke --updates 2
+./.venv/Scripts/python.exe -m koikoi.benchmark --training-config configs/ppo8_published_wp50.json --steps 20
+```
 
 To measure full learning throughput with a fixed opponent, use `python -m koikoi.benchmark --training-config configs/relational8_history20.json --frozen-opponent runs/old/update_00001000.pt --steps 20`. The benchmark includes opponent inference and optimizer updates, excludes five warmup updates, and reports both simulator and learner decisions per second. It starts a fresh learner; it is a throughput measurement, not a continuation or strength experiment.
 

@@ -61,14 +61,29 @@ class Config:
     cuda_graph: bool = False
     cuda_rollout: bool = False
     opponent_fraction: float = 0.0
+    published_opponent: str = ""
     ppo_value: str = "shared"
     policy_scope: str = "all"
     koi_width: int = 0
     deterministic_cards: bool = False
 
     def __post_init__(self):
+        if self.published_opponent not in ("", "wp", "point"):
+            raise ValueError("published_opponent must be empty, wp or point")
+        if self.published_opponent and (
+            not self.opponent_fraction
+            or self.profile != "paper8"
+            or self.reward != "match"
+            or self.cuda_rollout
+        ):
+            raise ValueError(
+                "Published opponent requires paper8 match rewards, positive "
+                "opponent_fraction and eager collection (cuda_rollout=false)"
+            )
         if self.deterministic_cards and self.policy_scope != "koi":
-            raise ValueError("Deterministic training cards require a frozen koi-only policy")
+            raise ValueError(
+                "Deterministic training cards require a frozen koi-only policy"
+            )
         if self.policy_scope not in ("all", "koi") or self.koi_width < 0:
             raise ValueError("Invalid policy scope or koi width")
         if self.policy_scope == "koi" and (
@@ -174,7 +189,7 @@ def provenance():
 
 
 class Trainer:
-    def __init__(self, config: Config):
+    def __init__(self, config: Config, published_snapshot=None):
         self.config = config
         torch.set_num_threads(config.cpu_threads)
         random.seed(config.seed)
@@ -233,9 +248,26 @@ class Trainer:
         self.counters = {"updates": 0, "decisions": 0, "rounds": 0, "matches": 0}
         if config.opponent_fraction:
             self.counters["learner_decisions"] = 0
+        if config.published_opponent:
+            self.counters.update(
+                published_decisions=0, published_rounds=0, published_matches=0
+            )
         if config.policy_scope == "koi":
             self.counters["policy_decisions"] = 0
         self.provenance = provenance()
+        if config.published_opponent:
+            from .published_opponent import PublishedOpponent
+
+            self.frozen = PublishedOpponent(
+                config.published_opponent,
+                config.device,
+                config.endgame,
+                published_snapshot,
+            )
+            self.provenance["frozen_opponent"] = {
+                **self.frozen.metadata,
+                "frozen_envs": self.frozen_envs,
+            }
 
     def set_frozen_opponent(self, path):
         """Load a fixed opponent for a new experiment, not an in-flight match."""
@@ -312,7 +344,9 @@ class Trainer:
             initial = self.model.state_dict()
             base_keys = {k for k in initial if not k.startswith("koi_residual.")}
             if set(payload["model"]) != base_keys:
-                raise ValueError("Initialization model keys do not match the base actor")
+                raise ValueError(
+                    "Initialization model keys do not match the base actor"
+                )
             self.model.load_state_dict(initial | payload["model"])
         else:
             raise ValueError("Initialization architecture mismatch: koi_width")
@@ -373,11 +407,18 @@ class Trainer:
             batch, totals = self.captured_rollout()
         else:
             batch, totals = self.collect_device()
-        rounds, matches = totals.cpu().tolist()
+        counts = totals.cpu().tolist()
+        rounds, matches = counts[:2]
         if self.config.opponent_fraction:
             self.counters["learner_decisions"] += int(batch["learner"].sum())
+        if self.config.published_opponent:
+            self.counters["published_decisions"] += int((1 - batch["learner"]).sum())
+            self.counters["published_rounds"] += counts[2]
+            self.counters["published_matches"] += counts[3]
         if self.config.policy_scope == "koi":
-            self.counters["policy_decisions"] += int(batch["mask"][:, 48:].any(-1).sum())
+            self.counters["policy_decisions"] += int(
+                batch["mask"][:, 48:].any(-1).sum()
+            )
         self.counters["rounds"] += rounds
         self.counters["matches"] += matches
         self.counters["decisions"] += self.config.envs * self.config.horizon
@@ -388,6 +429,8 @@ class Trainer:
         """Tensor-only collection; Python counters stay outside graph replay."""
         if self.config.opponent_fraction and self.frozen is None:
             raise ValueError("Load a frozen opponent before collection")
+        if self.config.published_opponent:
+            self.frozen.check_runtime()
         buffers = {
             k: []
             for k in (
@@ -408,7 +451,11 @@ class Trainer:
             buffers.update({"critic_obs": [], "q": [], "probs": []})
         if self.ppo_critic is not None:
             buffers["ppo_value_obs"] = []
-        totals = torch.zeros(2, dtype=torch.int64, device=self.config.device)
+        totals = torch.zeros(
+            4 if self.config.published_opponent else 2,
+            dtype=torch.int64,
+            device=self.config.device,
+        )
         for _ in range(self.config.horizon):
             obs, mask, target = self.observe(labels=True)
             player = self.env.state[:, PLAYER].clone()
@@ -427,10 +474,15 @@ class Trainer:
             if self.frozen is not None:
                 learner = self.learner_rows()
                 n = self.frozen_envs
-                opponent_action, _ = sample_action(
-                    self.frozen.logits(obs[:n], mask[:n])
-                )
-                action[:n] = torch.where(learner[:n], action[:n], opponent_action)
+                if self.config.published_opponent:
+                    action = torch.where(
+                        learner, action, self.frozen.actions(self.env, learner)
+                    )
+                else:
+                    opponent_action, _ = sample_action(
+                        self.frozen.logits(obs[:n], mask[:n])
+                    )
+                    action[:n] = torch.where(learner[:n], action[:n], opponent_action)
                 # Frozen rows are excluded from PPO. Store a finite learner
                 # log probability for the executed action on every row.
                 logp = logits.log_softmax(-1).gather(1, action[:, None]).squeeze(-1)
@@ -463,7 +515,9 @@ class Trainer:
                 ),
             ):
                 buffers[key].append(data)
-            totals += result[:, 1:3].sum(0)
+            totals[:2] += result[:, 1:3].sum(0)
+            if self.config.published_opponent:
+                totals[2:] += result[: self.frozen_envs, 1:3].sum(0)
             self.env.reset_done()
         batch = {k: torch.stack(v) for k, v in buffers.items()}
         obs, mask = self.observe()
@@ -716,11 +770,14 @@ class Trainer:
         if self.opponent_value is not None:
             if self.frozen is None:
                 raise ValueError("Cannot save without the configured frozen opponent")
-            payload.update(
-                opponent_value=self.opponent_value.state_dict(),
-                frozen_config=self.frozen.config,
-                frozen_model=self.frozen.model.state_dict(),
-            )
+            payload["opponent_value"] = self.opponent_value.state_dict()
+            if self.config.published_opponent:
+                payload["published_opponent"] = self.frozen.checkpoint()
+            else:
+                payload.update(
+                    frozen_config=self.frozen.config,
+                    frozen_model=self.frozen.model.state_dict(),
+                )
         if self.critic:
             payload.update(
                 critic=self.critic.state_dict(),
@@ -741,7 +798,18 @@ class Trainer:
         )
         if payload["format"] != 1:
             raise ValueError("Unsupported checkpoint format")
-        obj = cls(Config(**payload["config"]))
+        config = Config(**payload["config"])
+        if config.published_opponent and "published_opponent" not in payload:
+            raise ValueError("Published opponent checkpoint identity missing")
+        obj = cls(
+            config,
+            published_snapshot=payload.get("published_opponent"),
+        )
+        if obj.config.published_opponent and (
+            obj.provenance["frozen_opponent"]
+            != payload["provenance"].get("frozen_opponent")
+        ):
+            raise ValueError("Published opponent checkpoint identity mismatch")
         obj.provenance["parent_checkpoint"] = {
             "sha256": hashlib.sha256(content).hexdigest(),
             "counters": payload["counters"].copy(),
@@ -763,7 +831,8 @@ class Trainer:
             obj.ppo_critic.load_state_dict(payload["ppo_critic"])
         if obj.opponent_value is not None:
             obj.opponent_value.load_state_dict(payload["opponent_value"])
-            obj._load_frozen(payload["frozen_config"], payload["frozen_model"])
+            if not obj.config.published_opponent:
+                obj._load_frozen(payload["frozen_config"], payload["frozen_model"])
         obj.optimizer.load_state_dict(payload["optimizer"])
         if obj.critic:
             obj.critic.load_state_dict(payload["critic"])
@@ -838,7 +907,7 @@ def main():
             trainer.initialize_weights(args.initialize)
         if args.frozen_opponent:
             trainer.set_frozen_opponent(args.frozen_opponent)
-        elif trainer.config.opponent_fraction:
+        elif trainer.config.opponent_fraction and not trainer.config.published_opponent:
             parser.error("opponent_fraction requires --frozen-opponent for a new run")
     args.run.mkdir(parents=True, exist_ok=True)
     (args.run / "config.json").write_text(

@@ -15,7 +15,11 @@ from .train import Config, Trainer, provenance, signed_gae
 
 
 def benchmark_training(config, steps, frozen_opponent=None):
-    if bool(config.opponent_fraction) != (frozen_opponent is not None):
+    if config.published_opponent and frozen_opponent is not None:
+        raise ValueError("Published opponent cannot also use --frozen-opponent")
+    if bool(config.opponent_fraction) != (
+        frozen_opponent is not None or bool(config.published_opponent)
+    ):
         raise ValueError(
             "Positive opponent_fraction and --frozen-opponent are required together"
         )
@@ -36,9 +40,12 @@ def benchmark_training(config, steps, frozen_opponent=None):
     counts = {key: value - initial[key] for key, value in trainer.counters.items()}
     counts.setdefault("learner_decisions", counts["decisions"])
     return {
-        "kind": "self_play_learning",
+        "kind": "mixed_opponent_learning"
+        if config.opponent_fraction
+        else "self_play_learning",
         "includes_learning": True,
         "warmup_updates": 5,
+        "warmup_counters": initial,
         "seconds": elapsed,
         **counts,
         "config": asdict(config),
