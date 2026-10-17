@@ -892,3 +892,23 @@ Added standalone scripts/audit_published_screen.py SHA277e421d661e1da9d8ff4ee2d5
 For completed endpoints, full mode additionally checks exact pair/seat identities, score consistency with point differences, decision-phase accounting, reported means/CIs, paired differences and all stored summary values. Bootstrap draws use an independent scalar-replicate implementation (5,000, seed99) with explicit percentile interpolation. Existing parent endpoint results reproduce exactly: seed1 win0.47825(CI0.4605..0.4965), points0.975(CI-0.132..2.116); seed10001 win0.49375(CI0.476..0.51125625), points0.49(CI-0.660025..1.632). Pinned legacy no-search parents legitimately omit newer executed/preparation counters; new reports must supply them. Six fixtures cover known two-pair/constant/zero-difference results and malformed records; Ruff passes. No GPU test/training workload was added alongside the active experiment.
 
 Partial checkpoint audit passed for BOTH completed seed1 arms: runs/published_wp50_screen/checkpoint_audit_2.json SHA340a99fdb2287f5f3c139baf9b9515a7fb9b88dc336249c957e2d921573dc792. Report explicitly sets paired_outcomes_checked=false and lists remaining cases. Earlier first-case audit artifacts remain separate; they are superseded by this two-case snapshot. Full result audit remains pending until all four evaluations finish. Do not infer superiority, change the prespecified criteria or consume final-test seeds from checkpoint integrity or training losses.
+
+
+## WP50 screen: all training complete and checkpoint integrity verified
+
+All four fixed training jobs exited0 without changing source1c36895f... or runnerc5b7c63a.... Existing session95032/runner44560 automatically entered evaluate:seed1_wp50, shim20608/actual Python52876 verified live. The four1,000-pair strict CPU assisted-WP evaluations remain in the original sequence; no interim checkpoint selection, extension or final-test seed use.
+
+Each arm completes exactly500 updates/131,072,000 simulator decisions and48,000 Adam steps. Final training budgets:
+
+| Parent/arm | Complete paper8 matches | Rounds | Learner decisions | Teacher decisions |
+| --- | ---: | ---: | ---: | ---: |
+| seed1 WP50 | 1,123,348 | 8,788,643 | 98,076,843 | 32,995,157 |
+| seed1 control | 1,119,106 | 8,751,686 | 131,072,000 | 0 |
+| seed10001 WP50 | 1,122,802 | 8,778,789 | 98,077,103 | 32,994,897 |
+| seed10001 control | 1,117,673 | 8,732,113 | 131,072,000 | 0 |
+
+Aggregate4,482,929 NEW complete paper8 matches,35,051,231 rounds,524,288,000 simulator decisions:458,297,946 learner/65,990,054 teacher. The two published-opponent subsets account for1,129,196 complete matches/8,836,407 rounds. These are training-work totals, not independent model-result samples, opponent pretraining or additions to the research12 scale gate. Repeated parent initialization ancestry is not added to this new-work total.
+
+The second parent WP50 final update_00000500.pt SHA094501f8e2fb6129b6ccce0bff42833d683ef52b6df4350ccb49a6ae5fec9f1a; metrics SHAe2d7b87f1013eebfe51ad046bd72aa8fd0a810c5d19418ae7e7f87614be7bc27. Its published subset completes564,538 matches/4,416,726 rounds; recorded training elapsed610.4407seconds. Second parent control final SHA45ade2c287b2dbe0d42ac066e5193ea983691521cf47d5952da111aeeb660878; metrics SHA6ea6ac99763fbd7df8acd2caec0b7741f9307cd68cf7367d410932405403c252. First parent checkpoint/metric hashes remain as recorded above.
+
+All-four checkpoint audit passed: runs/published_wp50_screen/checkpoint_audit_4.json SHA46b4e9aa4416029ba68f101173b717d5882cfedbd2ebd1e7b024f4b59cab56d2, auditor277e421d.... Exact complete-match counters agree with saved episode IDs, metric logs/counters/configurations/ancestry agree, round bounds hold, actors changed from parents, model/Adam tensors are finite and optimizer counts agree. Both embedded published teachers equal the original public parameter tensors and recorded runtime identities. This explicitly remains checkpoint_checks_only with paired_outcomes_checked=false; earlier snapshots are preserved. Full trajectory replay and strength superiority are not claimed. Run the prepared full raw-result audit after all endpoint evaluations and runner summary finish.
