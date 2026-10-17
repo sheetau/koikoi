@@ -149,3 +149,47 @@ learning a selector from complete-match outcomes over frozen neural proposals,
 with both card and continuation decisions and explicit no-learning controls.
 The manuscript now cites these direct domain antecedents in addition to general
 policy switching, rollout policy iteration and common-random-number work.
+
+
+## Score-distribution prototype (not a launched strength study)
+
+The completed PPO selectors did not establish replicated win gains over their
+parents. `scripts/train_score_distribution.py` prepares a separate follow-up
+using the existing paired dataset's final point differences. A shared action
+scorer receives560 public features and one50-way proposal encoding. It evaluates
+each proposed action with the same610->128->128 encoder. This makes equal
+proposals equal-valued and removes dependence on expert ordering.
+
+At a root let L be own points minus opponent points, and D_a the final margin
+after proposal a and frozen continuation. The training target is X_a=D_a-L.
+Active paper8 matches have positive integral scores summing to60, so L is even
+and lies in[-58,58]. Every X_a is even. Map X_a to65 classes at -64,-62,...,64,
+with the two endpoint classes including their respective tails. For every valid
+root, sign(L+clip(X_a,-64,64))=sign(D_a). Thus this tail compression preserves
+all three terminal outcomes without requiring a bound on individual round scores.
+The categorical head learns these classes by cross entropy and evaluates an
+action as sum_x p(x|o,a)*sign(L+x), equivalent to twice win score minus one.
+
+Two controls use the same shared encoder: a scalar head learns the unbounded
+increment/64 by MSE and chooses expected points; a scalar win head uses binary
+cross entropy with half credit for draws. These controls distinguish distributional
+supervision from simply sharing an action-conditioned encoder. Output heads and
+parameter counts differ; they are not equal-capacity architectures. Common seeds
+produce identical initial encoder hashes and a separate fixed shuffle generator
+keeps minibatch order identical despite different output-head sizes.
+
+Fitting reuses source-match train/validation groups, fixed20 epochs, Adam3e-4,
+weight decay1e-4 and1,024 roots/minibatch. Checkpoints embed frozen experts,
+dataset/source identities, initial encoder hash, head size and reused-work counts.
+New simulation decisions are zero. Actors and heads use only own/public inputs.
+The categorical and scalar losses fit marginal branch labels; they do not inherit
+a variance-reduction theorem merely because the dataset uses paired worlds.
+
+[Bellemare, Dabney and Munos (2017)](https://proceedings.mlr.press/v70/bellemare17a.html)
+establishes the broader distributional-value perspective. This prototype fits
+complete Monte Carlo returns under a frozen continuation, not their distributional
+Bellman algorithm. The research question is whether score-distribution supervision
+and explicit win-threshold decoding improve public neural expert selection.
+No full-scale fit or matchup has been launched. The ongoing paired regression
+and static controls finish first; their evidence will determine whether to run
+this follow-up. It is not included as a measured contribution in the manuscript.

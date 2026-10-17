@@ -187,3 +187,19 @@ NeuralAgent recognizes this checkpoint format and builds native public inputs fo
 ## Final measured deployment choice
 
 The completed development comparison selects warm pretrained-score PPO (T0.05, actor LR3e-6),20 critic-only plus500 policy updates, canonical seed6710001. Both selected model seeds pass the frozen final assisted RL-WP match-win criterion on10000 shared duplicate pairs. The separate RL-Point criterion does not replicate, and both models lose expected points to RL-Point. Deployment retains strict CPU greedy actions, public endgame assistance and no search. This is a measured comparator-specific improvement, not an equilibrium, universal-strength or cross-rule claim. Exact results and audit identities are in STATUS.md and the manuscript. The research12 scale run is separately complete and evaluated; its100M matches are not the pretrained method's training budget.
+
+
+## Experimental score-distribution expert selector
+
+The unlaunched `scripts.train_score_distribution` prototype reuses public paired
+rollout datasets and frozen neural experts. A shared610-input action scorer
+predicts a distribution of remaining score-margin increments; paper8's active
+score bounds permit65 even bins with outcome-preserving tail classes. A fixed
+score-threshold decoder converts the distribution to expected win/draw/loss.
+Shared-encoder mean-point and direct-win controls use scalar heads. All heads
+retain source-match validation splits, identical encoder initialization and
+independent identical minibatch-order seeds. They differ in output capacity and
+supervision. New checkpoint format paired_score_selector_v1 embeds expert/model
+weights, source/dataset identities and reused generation counts. The prototype
+adds no simulator or production-rule changes, and is not integrated into human
+play. See PAIRED_ROLLOUTS for assumptions, tests and launch status.
