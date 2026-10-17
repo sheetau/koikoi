@@ -193,3 +193,26 @@ and explicit win-threshold decoding improve public neural expert selection.
 No full-scale fit or matchup has been launched. The ongoing paired regression
 and static controls finish first; their evidence will determine whether to run
 this follow-up. It is not included as a measured contribution in the manuscript.
+
+
+## Stored public inputs and pretrained feature reuse
+
+The stored560-dimensional observation is player-relative. The pinned300x50
+published encoder additionally uses the absolute dealer label in rows50/51.
+Consequently, the original features or Q scores cannot generally be recovered
+exactly from the saved public observation and two proposal IDs alone.
+`scripts.diagnose_public_feature_information` demonstrates this by exchanging
+player labels, initial-hand deck segments, ownership, scores and koi counts in
+2,048 cached states. Relative observations, legal masks and public guards stay
+identical; only published rows50/51 change. Both parent expert models and Point
+change some actions. Even when both proposals stay identical, their scores can
+change. This is public information omitted from the compact representation,
+not privileged information or a simulator-rule error.
+
+Reports: `runs/public_feature_information/parent1.json` and `parent2.json`.
+The diagnostic has no training or new match work. Exact future caching of
+pretrained scores/embeddings must retain the required public seat metadata;
+a seat-averaged representation would instead be a new method to evaluate.
+The current score-distribution prototype operates directly on the saved public
+inputs and requires no such reconstruction. Existing frozen experiments and
+deployment remain unchanged.
