@@ -1802,3 +1802,6 @@ was corrected to the existing parameter/model hashes before the passing rerun.
 Ruff and diff checks pass. Production and active static/watcher dependencies are
 unchanged. Launch uses the fixed PAIRED_ROLLOUTS protocol, fresh source seeds
 19710001/19720001 and65,536 roots each; these tests are correctness evidence only.
+
+
+Launch receipt: The fixed study launched from9013980 in exec session59220 (actualPID5940, wrapper42868), collecting parent1. Protocol SHA54d0a365737022b66e7761d970523aa7d300f3f0dd176c9cd8690e0f5d575b76; all18 listed inputs and unchanged production SHA were verified after launch. Keep these dependencies frozen until terminal. First2,048 roots completed with19,200 source decisions /1,226 round endings /128 matches; parent-only and opponent-preserving branches completed4,096 endpoints each. Static48159 and watcher98461 were re-polled live. No strength result yet.
