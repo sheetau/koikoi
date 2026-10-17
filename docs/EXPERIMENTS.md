@@ -1036,3 +1036,21 @@ Completed first-parent budgets and hashes:
 MC final update_00000500.pt SHAa564589ac034894ac90fca8bf6942f11d383f209a03b10d3752e9e7602a33e9a; metrics SHAa9880104651d6b48285b792d1e22fb932d46dd529302fe90f5f55e13ef7ce63f. Control final SHA2294639540030ce4740a48e5db2868055f1e5f472580550fabe0224c2448044d; metrics SHAbc62cece6ffd22a901c775bbb28b0bc408afb06be024b1f8430cd47d69445941. Active decisions differ despite identical matches; both happen to require45,000 Adam steps, verified from their actual batch sizes rather than assumed.
 
 Both checkpoint audits pass: runs/complete_mc_screen/checkpoint_audit_2.json SHA39686d93b0940fe2c7873c05d29daba4306bd02c04d6f8e1fccbed8e7afb5d0e. Earlier first-case snapshot checkpoint_audit_1.json SHAc2296e437b329917c6b7c56de74b994012e56a3633f9cd0ac119aa5dcc9a5b1d is preserved. Reports explicitly mark paired_outcomes_checked=false. No win-rate/strength inference, adoption or final-seed use; finish the original four training/four evaluation jobs, then run full independent audit before any method decision.
+
+
+## Complete-MC screen: all training complete and audited
+
+All four training workers exited0 at the prespecified500-update endpoint. Existing session32904/runner47352 automatically entered evaluate:seed1_mc, shim56188/actual Python2712 verified live. All four1,000-pair strict CPU assisted-WP evaluations remain in their fixed sequence. No production/runner/protocol change or interim selection. Source005484ab... and runner6085505e... unchanged.
+
+| Parent/arm | Complete matches | Rounds | Active decisions | Executed collection rows | Adam steps |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| seed1 MC | 1,024,000 | 8,007,768 | 120,818,216 | 151,640,064 | 45,000 |
+| seed1 control | 1,024,000 | 7,997,797 | 120,029,550 | 151,255,040 | 45,000 |
+| seed10001 MC | 1,024,000 | 8,020,239 | 121,033,833 | 151,504,896 | 45,006 |
+| seed10001 control | 1,024,000 | 7,995,888 | 119,915,431 | 151,296,000 | 44,988 |
+
+Totals4,096,000 NEW complete paper8 matches,32,021,692 rounds,481,797,030 actual simulator/learner decisions and605,696,000 collection rows including frozen padding. Matched completed-match budgets are not identical active-decision or optimizer-step budgets. All excluded from the separate research12 scale gate; inherited parent ancestry and benchmark/diagnostic work are not added to new training totals.
+
+Second-parent MC final update_00000500.pt SHA76ffcc078b31fbbbbb07299205357a0835f4c638d451c4d83dae1a9a342f0938; complete metrics SHA f8dd1e7c5ebbd94f3e10babd9fa8ef3819b107ab7d1ab4dbbe63abecf2eb66cd. Second-parent control final SHAb43d7f06be6a8214bc90a1eeea93811257f8bd81e56fc13c71072f98baa28955; metrics SHAd6de00d561280acfb26d9c34f27b40c49bd84caac95add09edfcd1b08b9885d7. First-parent immutable hashes remain as recorded above.
+
+All-four checkpoint audit passes: runs/complete_mc_screen/checkpoint_audit_4.json SHA8d76df23b2f8b497d911f0c8416c52ff27e2c1fb1994de446770daabf5396c06, auditorc40aa7b8.... All8,192 final reset states exactly reconstruct in the Python reference at episode500; saved episode counts, configurations, parent ancestry, metric bounds/partitions, finite tensors and actual variable-batch Adam steps agree. Earlier two-case snapshot remains preserved. This is checkpoint_checks_only with paired_outcomes_checked=false, not independent replay of every training trajectory or strength evidence. Complete all four original evaluations and full raw-outcome audit before any method decision. Final seeds remain unused.
