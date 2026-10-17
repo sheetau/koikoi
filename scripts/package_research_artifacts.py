@@ -275,6 +275,24 @@ def paired_statistics(report, count=10000, first=100000000):
     }
 
 
+def source_digest(archive, names, original_root):
+    """Reproduce the originating platform's pathlib ordering, not string order."""
+    path_type = (
+        PureWindowsPath if PureWindowsPath(original_root).drive else PurePosixPath
+    )
+    digest = hashlib.sha256()
+    for name in sorted(names, key=path_type):
+        if name.startswith("koikoi/") and PurePosixPath(name).suffix in (
+            ".py",
+            ".h",
+            ".cpp",
+            ".cu",
+        ):
+            digest.update(name.encode())
+            digest.update(archive.read(name))
+    return digest.hexdigest()
+
+
 def verify(path):
     import numpy as np
 
@@ -335,18 +353,8 @@ def verify(path):
             files["runs/ppo12_scale_seed30001_captured/final_100m.pt"]["sha256"]
             == scale["checkpoint_sha256"]
         )
-        source = hashlib.sha256()
-        for name in sorted(files):
-            if name.startswith("koikoi/") and PurePosixPath(name).suffix in (
-                ".py",
-                ".h",
-                ".cpp",
-                ".cu",
-            ):
-                source.update(name.encode())
-                source.update(archive.read(name))
         assert (
-            source.hexdigest()
+            source_digest(archive, files, manifest["original_root"])
             == manifest["source_sha256"]
             == p["provenance"]["source_sha256"]
         )

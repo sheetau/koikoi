@@ -2,8 +2,9 @@ Local research evidence archive
 ===============================
 
 The archive is prepared by scripts/package_research_artifacts.py. It is a local
-deliverable, not an upload or publication. At present the final comparison and
-latency measurement are unfinished, so no final archive has been built.
+deliverable, not an upload or publication. The final comparison, latency
+measurement and final-results manuscript QA are complete. The commands below
+assemble and verify their selected evidence from a committed source snapshot.
 
 Inspect the required files without loading models or creating an archive::
 
@@ -18,7 +19,7 @@ audits, refreshed final manuscript evidence, a final PDF QA record, and a clean
 committed source snapshot. The final PDF QA record is
 runs/manuscript_final_qa.json and must bind the current PDF, manuscript source,
 and generated evidence hashes with status=passed and pending_final_results=false.
-The current draft QA file does not satisfy this gate.
+A draft QA file does not satisfy this gate.
 
 Contents and boundaries
 -----------------------
@@ -66,6 +67,12 @@ members for verification. Paths outside that root, absolute archive members,
 parent traversal and case-colliding entries are rejected. This mapping does
 not rewrite the experimental record or claim that every original audit CLI
 is relocation-aware.
+
+Production-source identity reproduces the originating platform's pathlib
+component ordering, including Windows case folding. Sorting raw path strings
+is different: koikoi/native/core.h precedes koikoi/native.py in the original
+hash, despite their opposite raw-string order. Archive member ordering is
+independent of that source-digest ordering. Payload bytes are never normalized.
 
 Reproducing execution
 --------------------

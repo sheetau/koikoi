@@ -41,6 +41,49 @@ def test_original_windows_binding_is_portable_and_cannot_escape_its_root():
         package.normalized_path(r"C:\elsewhere\private.txt", root)
 
 
+@pytest.mark.parametrize(
+    "root,ordered_bytes",
+    [
+        (
+            r"C:\workspace",
+            (
+                b"koikoi/a.pyalpha\nkoikoi/native/core.hnested\n"
+                b"koikoi/native.pyflat\nkoikoi/Z.pyzeta\n"
+            ),
+        ),
+        (
+            "/workspace",
+            (
+                b"koikoi/Z.pyzeta\nkoikoi/a.pyalpha\n"
+                b"koikoi/native/core.hnested\nkoikoi/native.pyflat\n"
+            ),
+        ),
+    ],
+)
+def test_source_identity_uses_original_path_component_and_case_order(
+    tmp_path, root, ordered_bytes
+):
+    # native/core.h precedes native.py in pathlib order; raw strings reverse it.
+    # Windows also folds case, whereas POSIX places uppercase Z before a.
+    payload = {
+        "koikoi/native.py": b"flat\n",
+        "koikoi/Z.py": b"zeta\n",
+        "koikoi/native/core.h": b"nested\n",
+        "koikoi/a.py": b"alpha\n",
+        "koikoi/notes.md": b"excluded documentation",
+        "scripts/helper.py": b"excluded tooling",
+    }
+    path = tmp_path / "source.zip"
+    with zipfile.ZipFile(path, "w") as archive:
+        for name, content in payload.items():
+            archive.writestr(name, content)
+    with zipfile.ZipFile(path) as archive:
+        assert (
+            package.source_digest(archive, payload, root)
+            == hashlib.sha256(ordered_bytes).hexdigest()
+        )
+
+
 @pytest.mark.parametrize("fault", [None, "bytes", "digest", "extra", "case_collision"])
 def test_archive_integrity_checks_exact_members_bytes_and_hashes(tmp_path, fault):
     content = b"archived evidence"
