@@ -2775,3 +2775,48 @@ Audit runs/learner_return_initial_audits/parent2.json SHA
 eac8ac2dbfccad0c862d6054fd746be8230c904e3cc32789edcb95a6f4a3aee4. The comparison is initial-state only.
 Three fresh24M evaluation workers remain active; no partial outcome ranking or
 strength qualification is performed. All51 live protocol inputs are unchanged.
+
+
+## Both learner arms complete; final lambda1 control running (2026-10-18)
+
+Parent2_learner exits0 after520 updates (20 value warmup,500 policy),with
+8,519,680 decisions /569,574 round endings /73,584 matches. Warmup327,680
+/21,771 /2,765. Learner4,236,521,valid4,203,388,omitted33,133;opponent4,283,159.
+No empty minibatches. WP accounts for2,134,372 opponent decisions /287,430
+whole-match round endings /36,796 matches;Point2,148,787 /282,144 /36,788.
+Endpoint SHA236e1b5be66257892a389c7de7aeff89299414b0341e744a1a55fb57f0f10cc5.
+The three completed new endpoints total25,559,040 decisions /1,707,168 rounds
+/220,694 matches. These counts establish executed training,not stronger play.
+
+The full runner audit passes,including initial actor/value/environment equality,
+CUDA RNG equality and differing CPU RNG versus the archived original response
+initialization. The existing independent optimizer helper also passes for this
+learner endpoint,whose actual phase counters attain the full derived budgets:
+.venv/Scripts/python.exe -m scripts.audit_response_optimizer
+--base runs/learner_return_study --case parent2_learner
+--output runs/learner_return_optimizer_audits/parent2_learner.json.
+Audit SHAd0616b8825c48c5cacb4fc0527d728ce860abc543204c3d9074d898160ca2113.
+All96 parameter states are finite:90 actor tensors48,000 steps and6 value tensors
+49,920. Changed29/30 tensors in each actor block and6/6 value tensors;L2 movement
+discard0.912137,pick0.681352,koi0.571533,value7.141733. No opponent critic exists
+in this arm. The old helper remains unchanged as a bound source.
+
+Parent2_lambda1 starts after the learner trainer exits;actual process52764,
+wrapper50552 is confirmed. The first three completed evaluation cells cover
+parent1 versusWP/Point and archived parent1_response versusWP. Their30,000
+matches /3,467,481 decisions use5,000 shared24M deal streams. Read-only checks
+verify exact seed coverage,raw/report/checkpoint identities,seat score encoding
+and counts;no partial ranking or paired strength comparison. Receipt
+runs/learner_return_study/first_three_integrity.json SHA
+8876e8bbda52554a31a52fdcef26973ad18801f603f44a6fc861d3f5d4d9db07.
+
+The new scripts/audit_learner_return_study.py prepares the final independent
+raw-record recomputation:16 outcomes,24 paired contrasts,all eight primary
+bounds,and joint5,000-replicate seed99 resampling across80 outcome/contrast
+columns. It verifies complete old/new job schedules,global resource limits,
+fixed candidate/input identities and separate stored-Adam receipts. It requires
+a terminal audited study;the actual running-study rejection check passes and
+creates no output. Ruff passes. Full execution awaits all16 cells and the final
+training endpoint;the routine has not yet established any strength result.
+All51 live protocol inputs and production remain unchanged. No deployment
+promotion,additional experiment or manuscript change at this milestone.
