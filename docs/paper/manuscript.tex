@@ -77,7 +77,11 @@ Guan et al. use phase-specific Transformers to represent card relations and
 learn action preferences through reinforcement learning
 \cite{guan2023koikoi}. Their two reward objectives produce the RL-WP and
 RL-Point agents used here. We reuse their published actors and input conventions,
-then optimize an explicit sampling policy with terminal match rewards. This
+then optimize an explicit sampling policy with terminal match rewards. In
+the released RL-WP training code, sampled actions receive a round-ending target
+from a continuation-win table indexed by the next round, resulting score and
+dealer role \cite{pinnedkoikoi}. Our targets retain the actual terminal match
+outcome across round boundaries. This
 makes the comparison an adaptation study: the inherited representations are a
 shared dependency, while the additional optimization and its measured effects
 are the subject of our experiments. Evaluating both published objectives is
@@ -447,7 +451,7 @@ to actions already favored by one of the two experts.
 The full controller receives the 560 public features and one-hot encodings
 of the two proposals, followed by two 128-unit tanh layers. Its initial
 probability of the parent proposal is 0.9 at disagreements, so initial greedy
-play exactly follows the parent. Both experts remain frozen; only the controller
+play selects the frozen parent expert proposal. Both experts remain frozen; only the controller
 and a public critic are trained with terminal-match PPO. The critic starts
 from the parent's value network.
 
@@ -519,6 +523,16 @@ comparison used 100,000,000--100,009,999. Those held-out deals remain assigned
 to the completed study. The new arbitration protocol records fresh training
 and development ranges in \path{runs/arbitration_study/protocol.json}.
 \path{docs/ARBITRATION.md} describes the arms, budgets and evaluation criteria.
+
+The new arbitration experiments freeze the inherited actors. A traced
+near-tie shows why this detail belongs to the inference specification: with
+identical weights and public inputs, changing only parameter requires-grad
+flags changes a stop/continue score by about $10^{-6}$ and breaks a tie.
+The first parent's phase-only controller always selects its frozen parent
+proposal, yet one of 1,000 Point pairs differs from the older deployed wrapper
+in points; its aggregate win score is unchanged and mean points differ by 0.002.
+Both learned controller arms share the frozen expert path. The diagnostic in
+\path{docs/ARBITRATION.md} records the state and reproducible flag intervention.
 
 The isolated latency benchmark times the deployment call, including features
 and public assistance, on one Ryzen 9 9900X with two PyTorch threads. It uses

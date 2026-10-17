@@ -13,7 +13,7 @@ the published point-oriented Transformer. A small controller receives the usual
 terminal-match-reward PPO on the set of distinct proposals. When the experts
 agree, there is only one action and the controller receives no policy gradient.
 The public outcome-dominance guard applies before both proposals. Initial greedy
-play exactly follows the adapted parent; training initially selects the parent
+play selects the frozen parent expert proposal; training initially selects the parent
 with probability0.9 at disagreements.
 
 Policy switching is established prior work, including Comanici and Precup's
@@ -64,3 +64,47 @@ retains all endpoints, raw paired results and training counters. A failure does
 not authorize overwriting completed cases. Analysis and any later confirmation
 use separately recorded scripts and protocols. The existing playable model and
 dealer determination remain unchanged until a new model is supported by evidence.
+
+## First-parent behavior diagnostics
+
+On2,048 fixed cached random-play states, the full controller selects Point in
+188 of523 expert disagreements. Observed Point-selection fractions are40.6%
+when trailing,37.8% when tied and30.6% when leading. Holding the proposals and
+all other inputs fixed while varying own points over10/20/30/40/50 and round
+index over0/3/6 changes choices in only8 of523 disagreements. The observed
+association does not establish that explicit score inputs caused the point
+improvement. This is an input-sensitivity diagnostic, not a counterfactual game
+or a deployment-distribution estimate. Raw public inputs and actions are in
+`runs/arbitration_diagnostic_parent1`; plotting code produces PNG/SVG figures.
+
+The phase-only controller favors the parent proposal in all four phases. Its
+parent-minus-Point logit margins are0.783/1.157/1.171/1.649. Thus its greedy
+controller does not exercise its learned stochastic Point probabilities. To
+compare learned selection with a useful no-learning alternative, the separate
+`run_static_expert_controls` study fixes two card/koi substitutions at both
+parents and uses the same22,000,000--22,000,999 development deals as paired
+regression. Its8 matchups run after that study, with three CPU workers. These
+shared deals support paired comparisons; they are not independent confirmation.
+
+### A measured inference-path near-tie
+
+The parent expert's frozen inference path and the original deployed parent
+wrapper use identical weights but different requires-grad settings. On the
+completed parent1 Point comparison, one of1,000 pairs differs in recorded points
+and decision count: seed21,000,447, candidate seat1, decision82, round index4,
+koi phase. Both feature tensors, masks, rules/guard decisions and weights agree.
+Under no-grad execution, setting parameters' requires_grad=False produces
+stop/continue scores6.9657087326/6.9657096863, whereas requires_grad=True produces
+6.9657087326/6.9657087326. Swapping only that flag in each in-memory model swaps
+the result, repeatably. The frozen expert chooses continue; the deployed parent
+chooses stop on its tie. The cause is an inference-path rounding difference,
+not a different game rule or hidden input, and is not attributable solely to
+temperature scaling.
+
+The aggregate paired win score is unchanged and the phase-only point difference
+is-1.601 versus the parent's-1.603. `scripts/diagnose_parent_inference_tie.py`
+reproduces the first divergence and factorial flag check. Initial controller
+selection of its frozen expert proposal is exact; universal action identity
+with the older deployed wrapper is not claimed. Active studies retain their
+frozen paths. Full and phase controllers use the same expert path, allowing
+comparison of learned selection without changing this numerical convention.

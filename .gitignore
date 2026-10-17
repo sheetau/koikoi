@@ -20,3 +20,4 @@ runs/
 *.pth
 /output/pdf/
 /tmp/pdfs/
+/output/figures/
