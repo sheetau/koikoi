@@ -1974,3 +1974,10 @@ parents are rechecked. Independent raw outcome and checkpoint/accounting checks
 run before results are accepted. Planned maximum concurrency is one GPU trainer
 and three CPU2 evaluators. Equal simulator budgets differ in actual learner
 samples and additional opponent-role critic/clipping; no isolated causal claim.
+
+Launch from8bfbc05: session26076, actual runnerPID15700/wrapper46640.
+First response trainer60324/wrapper36508; actual CPU evaluators63964,30804,41228
+with wrappers62440,60200,61212. Protocol SHA2342e1e80ebc79fc917891ebbf30acd7ef5dd0b4a21413d9d78e297feed57ffb.
+All bound inputs reverified after launch; first two updates completed32,768
+decisions /2,150 round endings /250 matches, finite metrics. Live process command
+lines and progressing records confirmed. No outcome/qualification claim.
