@@ -6,6 +6,7 @@ from koikoi.reference import ReferenceEnv
 from koikoi.search import sample_hidden_batch
 from scripts import run_paired_arbitration_study as study
 from scripts.analyze_arbitration_study import outcome, tensor_equal
+from scripts.analyze_paired_arbitration_study import data_report, fit_report
 from scripts.paired_rollout_targets import match_split
 from scripts.run_arbitration_study import PARENTS, sha, write
 from scripts.train_paired_arbitration import (
@@ -17,7 +18,7 @@ from scripts.train_paired_arbitration import (
 
 
 def test_public_dataset_fit_and_embedded_deployment(tmp_path, monkeypatch):
-    dataset = tmp_path / "targets.pt"
+    dataset = tmp_path / "parent1" / "targets.pt"
     raw = collect(
         PARENTS[0][0], dataset, seed=18950001, roots=32, batch=16, device="cpu"
     )
@@ -44,8 +45,17 @@ def test_public_dataset_fit_and_embedded_deployment(tmp_path, monkeypatch):
     assert torch.equal(raw["outcomes"], raw["point_differences"].sign().float())
     split = match_split(raw["match_groups"])
     assert split.any() and (~split).any()
+    audit_protocol = {
+        "collection": {"roots_per_parent": 32, "seeds": [18950001]},
+        "parents": [{"sha256": PARENTS[0][1]}],
+        "source": raw["provenance"],
+        "fit": {"epochs": 2},
+    }
+    _, audited_data = data_report(tmp_path, 1, audit_protocol)
+    assert sum(audited_data["target_counts"].values()) == 32
     for context in ("full", "no_match", "phase"):
-        target = tmp_path / (context + ".pt")
+        case = "parent1_" + context
+        target = tmp_path / case / "final.pt"
         payload = fit(
             dataset, target, context=context, seed=18940001, device="cpu", epochs=2
         )
@@ -56,6 +66,17 @@ def test_public_dataset_fit_and_embedded_deployment(tmp_path, monkeypatch):
         )
         assert payload["counters"]["validation_roots"] == int(split.sum())
         assert all(np.isfinite(r["validation_mse"]) for r in payload["history"])
+        write(
+            target.parent / "training_complete.json",
+            {
+                "checkpoint_sha256": sha(target),
+                "dataset_sha256": sha(dataset),
+                "counters": payload["counters"],
+                "history": payload["history"],
+            },
+        )
+        inspected = fit_report(tmp_path, case, raw, audit_protocol)
+        assert np.isfinite(inspected["validation_mse_recomputed_cpu"])
         agent = PairedRolloutAgent(target)
         env = ReferenceEnv(18930001, "paper8")
         action = agent.act(env)
