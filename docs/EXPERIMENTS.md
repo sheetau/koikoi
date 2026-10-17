@@ -2454,3 +2454,52 @@ QA runs/manuscript_observer_qa.json SHA
 7ffb1430d37ce5acd0c1c1063f1e5d5a08af956654d8eda5a56533137595fea1.
 The running original study and all seven GPU-gate verification inputs remain
 unchanged. This is a manuscript/evidence milestone, not new strength evidence.
+
+
+## Original training complete; CUDA gate passes and learner study starts (2026-10-18)
+
+Parent2_selfplay finishes520 updates /8,519,680 decisions /571,259 round endings
+/73,368 matches. Warmup327,680 decisions /21,851 rounds /2,752 matches. Endpoint
+SHAe805e9840e16453df26e407242a4e331bd65bf93c8cd8f95e8592fe9a0c3f564.
+Full training audit passes; separate optimizer audit
+runs/response_optimizer_audits/parent2_selfplay.json SHA
+48a052fe90085d9295931f67ce855fc7a0ff4007535d029197a48d1956897a97.
+All96 parameter states agree:actor48,000,value49,920steps. Actor blocks each
+change29/30 tensors, with L2 deltas0.903499/0.675680/0.586213;value6/6 changes.
+All four original training jobs total34,078,720 decisions /2,279,818 rounds
+/293,310 matches. Eight original evaluation jobs have exited0; the original full
+analysis still waits for the remaining four, with no interim outcome ranking.
+
+The live guarded launcher23277 proceeds only after all original training exits.
+Actual CUDA test test_warmup_restart_and_frozen_weights[cuda] passes:1 passed,
+0 skipped,2 upstream Transformer warnings in6.14s. The CUDA production-size
+capability then finishes3 updates (1 warmup,2 policy),49,152 decisions /3,240
+rounds /386 matches in11.616s of update-loop time. This time is not an isolated
+throughput benchmark. Learner24,599,valid24,406,omitted193,opponent24,553;empty
+minibatches0. All96 finite Adam states match actual phase budgets:actor192,
+value288. WP12,176 opponent decisions /1,631 rounds /193 matches;
+Point12,377 /1,609 /193. Initial actor stays fixed in warmup and changes in both
+policy updates. CPU and CUDA capability runs do not claim identical samples.
+
+CUDA audit runs/learner_response_capability_cuda/audit.json SHA
+c6f9d428bba1d253ea5344994c7ffcab446dc38b99648e120b770ce91060fb17;
+checkpoint SHA5f11e298ac807c65fa52d2dee2734774e0e32fdfb30ea71621dabf72f7e17750;
+metrics SHA371b5b5ab371525203cc75fb51ce0166ed93a3035b8bc5d82f405aa7af0570b7.
+The audit binds its exact-restart log and seven verification sources. Frozen
+source checks pass before research launch; maximum old training exit <= CUDA
+validation start <= capability end <= new training start was checked directly.
+
+The prepared learner-return research runner is now live under session23277:
+actual runner18512/wrapper65160,first trainer46584/wrapper55492 (parent1_learner).
+Protocol SHA675638eb8561f52e2d023c7f8fedc3006eac59a051d32e3b54e8e7cb78e10674
+binds51 inputs. Its first training condition has passed the20-update warmup and
+reached37 updates /606,208 decisions at the recorded check. CPU research evaluation
+waits for the original study's terminal audit. No new strength result is available.
+
+Direct initial-state comparison with original parent1_response verifies exact
+actor,value and environment tensors and fresh Adam states;CUDA RNG matches and
+CPU RNG differs. Report runs/learner_return_initial_audits/parent1.json SHA
+32682c77b9086674a7bcc7a7e3a3d3228855ea630fcb6ba09dbecb45223d9e43.
+This validates initialization matching, not equal subsequent trajectories or
+learner sample counts. Production, all old/new bound sources, public comparison
+agents, dealer choice and the playable canonical model remain unchanged.

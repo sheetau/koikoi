@@ -161,13 +161,13 @@ and separate work counts. CPU tests verify warmup, actual actor learning, exact
 restart, frozen opponent parameters, invalid-row NaN exclusion and no Adam drift
 on an empty minibatch with existing momentum. Initial deployment actions match
 the retained parent in all four phases. Source tampering on restore is rejected.
-The integration suite does not yet exercise a CUDA optimizer update/restart.
+The later guarded CUDA run also passes the exact optimizer/restart test (below).
 Commands::
 
     .venv/Scripts/python.exe -m pytest tests/test_learner_returns.py -q
     .venv/Scripts/python.exe -m pytest tests/test_learner_response.py -q
 
-No full-match strength comparison has been run for this method. The example and
+The fixed full-match strength comparison is now running; it has no completed result yet. The example and
 implementation motivate a bounded comparison; they do not establish that observer
 switching caused the earlier weak results or that current finite observations
 suffice for unbiased PPO. The existing response study keeps its original sources,
@@ -201,6 +201,32 @@ The audit contains the complete config, parent/source/runtime identities, actual
 optimizer steps and counts. To reproduce the learning computation, construct
 ``LearnerTrainer.from_parent`` with that config and the bound parent, and call
 ``update()`` three times. Source checks verify all29 live-study inputs both before
-and after this CPU capability run. No second GPU trainer was started. CUDA
-optimizer/restart validation and a fixed strength-comparison protocol are the
-remaining gates before a new research run.
+and after this CPU capability run. No second GPU trainer was started. The later CUDA gate and fixed research launch are recorded below.
+
+
+CUDA capability and fixed research launch
+----------------------------------------
+
+Guarded launcher23277 waits for all four original training workers to exit0,
+then actually runs the CUDA exact-restart test:1 passed,0 skipped,2 upstream
+warnings in6.14s. Three production-size CUDA updates finish49,152 decisions,
+3,240 round endings and386 matches. Learner24,599,valid24,406,omitted193,
+opponent24,553; no empty minibatches. All96 actual Adam states are finite and
+match their executed budgets:90 actor tensors192steps,6 value tensors288steps.
+WP12,176 opponent decisions /1,631 rounds /193 matches;
+Point12,377 /1,609 /193. These are capability-training counts, not win evidence.
+
+Audit runs/learner_response_capability_cuda/audit.json SHA
+c6f9d428bba1d253ea5344994c7ffcab446dc38b99648e120b770ce91060fb17;
+checkpoint SHA5f11e298ac807c65fa52d2dee2734774e0e32fdfb30ea71621dabf72f7e17750;
+metrics SHA371b5b5ab371525203cc75fb51ce0166ed93a3035b8bc5d82f405aa7af0570b7.
+Its source bindings and the separate exact-restart log are verified before the
+research protocol is created. Old GPU training, capability validation and new
+GPU training have non-overlapping recorded intervals.
+
+The fixed learner-return study now runs under protocol SHA
+675638eb8561f52e2d023c7f8fedc3006eac59a051d32e3b54e8e7cb78e10674,
+with51 frozen inputs. The first new initialization has exact actor/value/environment
+equality with its original response control and fresh optimizer state. CUDA RNG
+is equal;CPU RNG differs. This comparison does not imply identical later samples.
+No outcome-based selection or promotion has occurred.
