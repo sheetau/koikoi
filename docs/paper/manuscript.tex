@@ -1,0 +1,395 @@
+\documentclass[11pt]{article}
+\usepackage[margin=25mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,booktabs,array}
+\usepackage[hidelinks]{hyperref}
+\usepackage{microtype}
+\emergencystretch=1em
+\widowpenalty=10000
+\clubpenalty=10000
+\title{Self-Play Adaptation of Published Koi-Koi Transformers:\\
+GPU Simulation and Paired Evaluation}
+\author{}
+\date{Working draft, 17 October 2026}
+\begin{document}
+\maketitle
+\noindent\textbf{Draft status.} Development experiments and their independent
+artifact audits are complete. The frozen final evaluation is running; this
+version contains no final-test results or claim of final superiority. Author
+information, venue formatting, final results, and isolated inference timing
+remain to be completed before submission.
+
+\begin{abstract}
+We study whether self-play policy optimization can improve an existing Koi-Koi
+Transformer without changing its deployment architecture or adding search.
+Our implementation combines a C++/CUDA simulator with policy initialization
+from published RL-WP weights, an explicit stochastic policy over the inherited
+action scores, and a separate public-observation value network. A fixed
+development study compares two temperature/learning-rate settings at two fresh
+training seeds. After 20 critic-only and 500 policy updates, the selected
+setting achieves draw-adjusted win scores of 51.805\% and 51.500\% against the
+pinned assisted RL-WP comparator on 5,000 shared duplicate deals; both
+pair-bootstrap 95\% interval lower bounds exceed 50\%. A colder policy with a
+jointly reduced learning rate performs worse on both paired comparisons.
+These are development findings, conditional on the evaluated models and deals.
+We specify a separate frozen final test against both RL-WP and RL-Point.
+A distinct twelve-round experiment completes 100,001,204 training matches;
+that computation is not attributed to the selected eight-round models.
+The study emphasizes rule compatibility, separation of training scale from
+strength evidence, retained negative experiments, and auditable model selection.
+\end{abstract}
+
+\section{Introduction}
+Koi-Koi combines hidden hands, a concealed stock, and repeated decisions about
+whether to stop after scoring or continue for a larger gain. Match play adds
+another tradeoff: an action that increases expected round points may reduce
+the probability of finishing the match ahead. This makes the optimization
+objective and the evaluation rules central to an empirical strength claim.
+
+Guan et al. introduced phase-specific Transformer agents and released both
+win-oriented RL-WP and point-oriented RL-Point policies
+\cite{guan2023koikoi,pinnedkoikoi}. We treat the pinned implementation as a
+concrete comparator. We do not infer a universal ranking from its reported
+results or assume that all Koi-Koi implementations use compatible scoring.
+Our question is narrower and measurable: can additional self-play improve
+greedy, publicly assisted match performance against these frozen policies?
+
+The method adapts the existing actors with clipped policy optimization
+\cite{schulman2017ppo}. It uses an explicit temperature to convert their
+scores into a sampling policy, and a freshly initialized critic for
+player-relative match returns. The main empirical contribution under study is
+an improvement at two separately trained model seeds, followed by an untouched
+test of the fixed method. The systems contribution is an audited simulator
+and experimental pipeline that distinguishes completed matches, round endings,
+decisions, and search work. We also retain failures of earlier search and
+training interventions rather than presenting the selected method as the
+only experiment attempted.
+
+\section{Rules, observations, and comparator}
+\subsection{Versioned game protocols}
+The primary protocol, \texttt{paper8}, follows the pinned public implementation:
+at most eight rounds, 30 initial points per player, and termination when either
+player's points reach zero or below. The separate \texttt{research12} protocol
+uses twelve rounds and disables bankruptcy termination. Other round rules
+are shared. Results from these protocols are not interchangeable.
+
+A round deals eight cards to each hand, eight to the field, and leaves 24 in
+the stock. A player discards, resolves a matching capture, reveals a stock
+card, resolves that capture, and may be offered stop/continue after an
+increase in scored combinations. Forced transitions are folded into the
+simulator step. In the pinned scoring convention there is no seven-point
+doubling or opponent-koi doubling. After an exhausted round without a scoring
+stop, the initial dealer receives one point. The repository's versioned
+\texttt{docs/RULES.md} supplies the complete scoring contract, including
+nonstandard combinations inherited from the comparator.
+
+The action space has 48 card actions and two stop/continue actions. Decision
+phases are discard, capture from the hand play, capture from the stock reveal,
+and koi. The two capture phases share an actor. Policies receive their own
+hand and public state/history; the opponent's hand, stock order, random-number
+state, and future events are excluded. A legal-action mask is applied before
+sampling or greedy selection.
+
+\subsection{Pinned opponents and public assistance}
+The comparator revision is
+\texttt{89d789565c7c36c84b74662e43001d960bf80901}. Original RL-WP and RL-Point
+weights are loaded without further training. Source files and all six weight
+files are hashed in the final protocol. The comparison uses the public
+endgame guard corresponding to upstream assistance for both sides. This guard
+restricts actions when a public match-outcome decision is solved, including
+stopping with a winning final-round score. It does not inspect hidden cards.
+
+The primary opponent is assisted RL-WP. Assisted RL-Point is a distinct
+secondary opponent, because point-oriented and win-oriented training need not
+produce the same ordering. All final match evaluations use strict CPU
+inference and greedy actions. GPU feature/inference checks support training
+compatibility but do not establish universal floating-point action identity.
+
+\section{Self-play adaptation}
+\subsection{Policy and value functions}
+We initialize the three phase networks from the original RL-WP weights.
+Their inherited raw action scores $q_\theta(o,a)$ are not probabilities.
+For the publicly legal action set $\mathcal A(o)$, training samples from
+\begin{equation}
+ \pi_{\theta,T}(a\mid o)=
+ \frac{\exp(q_\theta(o,a)/T)}
+ {\sum_{b\in\mathcal A(o)}\exp(q_\theta(o,b)/T)},\qquad a\in\mathcal A(o).
+\end{equation}
+The public endgame guard can further narrow $\mathcal A(o)$. At evaluation,
+the agent chooses a maximizing legal score, so a positive temperature does not
+change the mathematical argmax for fixed scores. Temperature can nevertheless
+change the learned policy through sampling and optimization. Dropout remains
+disabled during both collection and gradient updates, preserving a consistent
+policy for stored log probabilities.
+
+The inherited actors retain the upstream 256-wide, two-layer Transformer
+architecture. Native features reproduce the original 300-by-50 representation,
+including its historical input conventions. A separate value network receives
+a 560-dimensional public/own observation and uses two 256-unit tanh hidden
+layers followed by a scalar output. Its output layer is initialized to zero;
+it shares no actor parameters. The packed training observation has 15,561
+entries: 560 ordinary features, one phase identifier, and 15,000 actor features.
+Neither actor nor this critic receives privileged hidden-state inputs.
+
+\subsection{Player-relative returns}
+Both players use the same current stochastic policy during self-play. Rewards
+are zero until match termination, when the acting player receives $+1$, $0$,
+or $-1$ for a win, draw, or loss. We use an undiscounted, player-relative
+adaptation of generalized advantage estimation \cite{schulman2015gae}.
+Let $d_t$ indicate match termination and let $s_t$ be $+1$ when consecutive
+decision states have the same acting player and $-1$ otherwise. Then
+\begin{align}
+ \delta_t &= r_t+(1-d_t)s_t V(o_{t+1})-V(o_t),\\
+ A_t &= \delta_t+(1-d_t)s_t\lambda A_{t+1},\qquad \lambda=0.95.
+\end{align}
+Rollout truncation bootstraps from the next observation. Round boundaries
+retain continuation value unless the match ends. A terminal transition masks
+the value of the automatically reset next match. The sign follows the actual
+next acting player, which need not alternate at every decision phase.
+
+Advantages are normalized over each rollout batch before optimization.
+We optimize the clipped PPO surrogate with clipping parameter 0.2, add
+one-half the value mean-squared error, and subtract 0.02 times policy entropy.
+The global trainable gradient norm is clipped at 0.5. Adam uses
+$\epsilon=10^{-5}$ and separate actor/value learning-rate groups. The first
+20 updates freeze actor parameters and fit only the critic; the next 500
+updates train both. This warmup is part of the reported budget.
+
+\subsection{Fixed development comparison}
+Each update collects 128 decisions from each of 128 parallel environments and
+uses three minibatch epochs with minibatch size 512. Each model therefore
+receives exactly 8,519,680 simulator decisions in 520 updates. The value
+learning rate is $10^{-4}$. The warm setting uses $T=0.05$ and actor learning
+rate $3\times10^{-6}$; the cold setting uses $T=0.01$ and
+$6\times10^{-7}$. Both settings are trained at seeds 6710001 and 6720001.
+Only the final update-520 checkpoints enter the comparison. Intermediate
+snapshots are retained for accounting and recovery, not strength selection.
+
+This is a comparison of two parameter bundles, not an isolated temperature
+ablation. Although the two settings have the same learning-rate/temperature
+ratio, they can differ in sampled trajectories, entropy, local gradients, and
+adaptive optimizer states. We do not attribute a difference solely to one
+mechanism. Execution is eager float32 with TF32 disabled. The GPU is an
+NVIDIA GeForce RTX 5070 Ti; the runtime records PyTorch 2.12.0+cu130 and NumPy
+2.5.4. Evaluation is kept separate from training.
+
+\section{Evaluation and selection}
+\subsection{Duplicate deals and uncertainty}
+For each seed we play two matches with candidate/opponent seats exchanged,
+retaining the same seat-assigned deal streams and initial dealer. If the
+candidate's two match scores are $w_{i0},w_{i1}\in\{0,1/2,1\}$, the observation
+for inference is $x_i=(w_{i0}+w_{i1})/2$. The reported draw-adjusted win score
+is $\bar x$. We resample whole pairs, not individual match legs, for 5,000
+bootstrap replicates using random seed 99 and linearly interpolated 2.5th and
+97.5th percentiles. Paired method comparisons resample the per-deal differences.
+These intervals describe deal variation conditional on each fixed model;
+they do not measure uncertainty over an arbitrary distribution of training
+seeds or guarantee exact finite-sample coverage.
+
+Point difference is final candidate points minus opponent points, averaged
+across the two seats. Because total points remain 60, this is twice the
+candidate's final-points-minus-initial-30 statistic used in the original paper.
+Positive expected points are reported separately and cannot substitute for a
+win-score criterion. Shared deals across models or opponents do not create
+additional independent deal samples.
+
+\subsection{Development and frozen final rules}
+The development study uses 5,000 duplicate pairs with seeds
+7,200,000--7,204,999 for the initial policy and four trained endpoints. An arm
+qualifies only if both training seeds have an absolute win-score 95\% interval
+lower bound above 0.5. A cold-over-warm benefit requires positive lower bounds
+for both paired score differences. Selection chooses cold if it qualifies and
+shows that replicated benefit; otherwise it chooses qualified warm, then
+qualified cold, and otherwise no method. The canonical model always uses
+training seed 6710001 of the selected arm. There is no best-seed ranking.
+
+These rules were fixed before this study's outcomes, but the research program
+had already explored other methods and development deals. Consequently,
+development qualification is not untouched confirmation. In particular, an
+earlier two-seed screen of the warm method at 1,000 pairs was inconclusive.
+We retain that result and use fresh model seeds in the present comparison.
+
+The frozen final test evaluates both selected models against assisted RL-WP
+and, separately, assisted RL-Point. Each of four jobs plays 10,000 duplicate
+pairs on seeds 100,000,000--100,009,999: 80,000 matches on 10,000 unique deal
+streams. The primary criterion requires both RL-WP interval lower bounds to
+exceed 0.5. The secondary RL-Point criterion is recorded separately. There is
+no model reranking, training, extension, or early strength stopping after
+accessing these final outcomes. Four two-thread CPU workers run concurrently;
+their recorded times are not an isolated latency benchmark.
+
+\section{Audited development results}
+The initial policy obtains exactly 0.5 paired score and zero paired point
+difference on all 5,000 development deals. This passes an outcome-compatibility
+check on that corpus, not a proof that every action or trajectory is identical
+to the comparator. All four training jobs and five evaluations finish before
+the study-level decision is audited.
+
+\begin{table}[ht]
+\centering\small
+\input{generated/development_table.tex}
+\caption{Development results against assisted RL-WP. Every row uses the same
+5,000 duplicate deal seeds. Point differences use candidate-minus-opponent units.}
+\label{tab:development}
+\end{table}
+
+Both warm seeds qualify under the fixed development rule
+(Table~\ref{tab:development}). Cold qualifies only at the first seed, and its
+second interval includes 50\%. The paired differences favor warm on both
+seeds (Table~\ref{tab:paired}); cold does not meet the replicated-benefit
+criterion. The fixed rule therefore selects warm and the first-seed canonical
+checkpoint. These observations support this bundle comparison at the measured
+endpoints, not a general claim that reducing temperature harms self-play.
+
+\begin{table}[ht]
+\centering\small
+\input{generated/paired_table.tex}
+\caption{Paired development differences. Negative values favor warm.}
+\label{tab:paired}
+\end{table}
+
+The earlier warm screen, using training seeds 6681001 and 6691001, produced
+51.275\% [49.725, 52.850] and 51.075\% [49.475, 52.725] on 1,000 shared
+development pairs. Neither cleared the original replicated criterion.
+We do not pool these deals or models with the later study, extend those old
+endpoints, or describe the present selection as a single unselected experiment.
+
+\subsection{Final evaluation status}
+At the time of this draft the final jobs are running. No final outcomes are
+transcribed from live logs or incomplete reports. A completed independent
+audit is required before populating the final results and revising the
+abstract or conclusions. Failure of either model to clear the primary rule
+will be retained as a failed replicated final criterion, regardless of point
+gains or the secondary comparator's outcome.
+
+\section{Systems, budgets, and negative evidence}
+\subsection{Native simulation and validation}
+Python reference rules and shared C++/CUDA transitions implement the same
+versioned profiles. Differential tests exercise CPU/GPU transitions, public
+observations, legal masks, and player-relative signs. Native public features
+are checked against the pinned model inputs. A recorded compatibility corpus
+contains 12,861 decisions from 100 complete random matches, 40 cached decision
+states, and 128 hidden-state variants, totaling 13,029 active states. On this
+finite corpus native CPU/CUDA features agree with the original inputs and
+both original policies have zero observed assisted-action disagreements at
+the tested batch shape. This is finite evidence, not a claim that numerical
+near-ties can never differ elsewhere.
+
+Checkpoints retain model weights, optimizer state, environment state, random
+states, configuration, counters, and source identities. Resume checks cover
+the exact next update on CPU and CUDA. Independent experiment auditors
+recompute artifact digests, optimizer-step accounting, raw pair statistics,
+and selection arithmetic; these audits do not independently replay every
+training trajectory or every neural inference. The distinction matters when
+assessing what a passed audit establishes.
+
+\begin{table}[ht]
+\centering\small
+\input{generated/budget_table.tex}
+\caption{Actual terminal-event counts in the fixed development training.
+Warmup is included; matches can cross the warmup/policy-update boundary.}
+\label{tab:budget}
+\end{table}
+
+The four development jobs total 293,897 completed matches, 2,287,795 round
+endings, and 34,078,720 decisions (Table~\ref{tab:budget}). Separately, a
+\texttt{research12} baseline completes 100,001,204 new twelve-round matches,
+1,200,025,665 round endings, and 18,157,928,448 decisions. That run satisfies a
+computation-scale target, but it is not the selected pretrained policy's
+training budget and does not prove public-baseline superiority. We do not
+add shared initialization ancestry more than once or equate search rollouts
+with training matches.
+
+\subsection{Retained unsuccessful directions}
+The broader development record includes architecture/critic variants,
+koi-focused adaptation, direct published-opponent training, full-match return
+experiments, and search. The repository's \texttt{docs/EXPERIMENTS.md} is the
+chronological ledger; it contains pilot sizes, negative results, and subsequent
+diagnostics. These studies informed method selection and must remain part of
+the disclosure of exploratory work.
+
+One fixed full-action rollout search extension improved the first tested model
+but did not replicate on a second: its latter absolute score was 48.000\%
+[46.225, 49.825], with a paired gain of 0.175 percentage points
+[-0.750, 1.150] over no search. Independent confirmation samples for proposed
+action changes also failed the both-model win-gain criterion. Separate
+diagnostics found that selected-world gains shrink on independent samples and
+that opponent-hand support assumptions can materially alter values at chosen
+roots. Those selected-state diagnostics do not establish match-level benefits.
+The final selected policy consequently uses no search.
+
+\section{Limitations and interpretation}
+Two trained seeds are evidence of replication at two models, not a reliable
+estimate of performance across all training randomness. Model selection has
+used substantial development experimentation. Final deal independence reduces
+one source of selection bias, but does not erase that history or establish a
+new algorithm's broad superiority. The bootstrap is conditional on each
+evaluated policy and the stated deal generator.
+
+The evaluated opponents and rules are deliberately specific. Beating the
+pinned assisted RL-WP policy would meet the named baseline requirement; it
+would not establish superiority over all public implementations, all scoring
+variants, or humans. We have not measured exploitability or proved an
+equilibrium guarantee. Public assistance is part of the evaluated policies,
+and changing or removing it requires a separately labeled comparison.
+
+The temperature study changes learning rate simultaneously and cannot isolate
+temperature. GPU training and CPU evaluation use different arithmetic paths;
+the compatibility corpus and recorded identities bound the claim rather
+than eliminating all numerical uncertainty. The large twelve-round experiment
+and the small pretrained eight-round adaptation answer different questions.
+Finally, isolated decision latency is still pending. Concurrent final-test
+throughput cannot be substituted for it.
+
+\section{Current conclusion}
+The audited development study selects warm pretrained-policy PPO at two fresh
+model seeds, and the colder parameter bundle underperforms it in both paired
+comparisons. The method is now frozen for an untouched two-comparator final
+test. A final strength conclusion remains pending that test and its audit.
+
+\appendix
+\section{Reproduction and artifact identities}
+The repository is \url{https://github.com/sheetau/koikoi}. The production package
+source digest is
+\begin{quote}\small\ttfamily
+4b4360ed783c1d12cb5258e255f4b85f2e30dfa2e111fd8a078cf3439ce612cb
+\end{quote}
+The complete development audit digest is
+\begin{quote}\small\ttfamily
+6b8548605b50226738227ce83dba1a2e946efd282461b0fa8d48132a42cfe9ba
+\end{quote}
+The final protocol was frozen before launch with digest
+\begin{quote}\small\ttfamily
+4a69cff95079e2bd4cfcda84241f4096149c05cfe408bd11cbfde154eaa060e4.
+\end{quote}
+The warm checkpoints' full identities, all source inputs, exact unrounded
+statistics, and separate scale evidence are in
+\path{generated/evidence.json}. Tables are generated by running the module
+\path{scripts.export_paper_evidence} with Python. The exporter verifies pinned
+audit inputs and their report hashes without reading live final scores.
+It transcribes evidence and is not itself an independent statistical audit.
+
+The immutable study is run by \path{scripts.run_cold_ppo_screen} and checked
+by \path{scripts.audit_cold_ppo_screen}. The final runner has separate
+\texttt{--prepare} and \texttt{--run} modes, and refuses to replace an existing
+run. The module \path{scripts.audit_final_published_test}, with the option
+\texttt{--protocol-only}, checks the
+freeze before launch; its full mode checks completed results. Never rerun an
+existing final directory or change the protocol in response to final outcomes.
+Reproduction on a separate machine should use a fresh checkout/workspace and
+preserve exact dependency/model identities and explicit execution settings.
+
+The Git repository currently excludes local checkpoints and run artifacts.
+Consequently, code availability is not yet a complete archival data release.
+A submission package still needs the permitted model artifacts, raw outcomes,
+protocols, audits, dependency instructions, licenses, and attribution records,
+with all identities checked against this ledger. No publication or external
+data upload is implied by this draft.
+
+\clearpage
+\begingroup
+\raggedright
+\bibliographystyle{plain}
+\bibliography{references}
+\endgroup
+\end{document}

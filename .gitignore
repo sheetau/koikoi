@@ -18,3 +18,5 @@ runs/
 *.exp
 *.pt
 *.pth
+/output/pdf/
+/tmp/pdfs/
