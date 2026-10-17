@@ -912,3 +912,41 @@ Aggregate4,482,929 NEW complete paper8 matches,35,051,231 rounds,524,288,000 sim
 The second parent WP50 final update_00000500.pt SHA094501f8e2fb6129b6ccce0bff42833d683ef52b6df4350ccb49a6ae5fec9f1a; metrics SHAe2d7b87f1013eebfe51ad046bd72aa8fd0a810c5d19418ae7e7f87614be7bc27. Its published subset completes564,538 matches/4,416,726 rounds; recorded training elapsed610.4407seconds. Second parent control final SHA45ade2c287b2dbe0d42ac066e5193ea983691521cf47d5952da111aeeb660878; metrics SHA6ea6ac99763fbd7df8acd2caec0b7741f9307cd68cf7367d410932405403c252. First parent checkpoint/metric hashes remain as recorded above.
 
 All-four checkpoint audit passed: runs/published_wp50_screen/checkpoint_audit_4.json SHA46b4e9aa4416029ba68f101173b717d5882cfedbd2ebd1e7b024f4b59cab56d2, auditor277e421d.... Exact complete-match counters agree with saved episode IDs, metric logs/counters/configurations/ancestry agree, round bounds hold, actors changed from parents, model/Adam tensors are finite and optimizer counts agree. Both embedded published teachers equal the original public parameter tensors and recorded runtime identities. This explicitly remains checkpoint_checks_only with paired_outcomes_checked=false; earlier snapshots are preserved. Full trajectory replay and strength superiority are not claimed. Run the prepared full raw-result audit after all endpoint evaluations and runner summary finish.
+
+
+## WP50 screen: all endpoints complete, independent audit and decision
+
+All eight jobs completed with returncode0 under the fixed protocol. process.json records complete_awaiting_audit; runner44560 and last evaluator shim19376 are absent, and session95032 is no longer available. The manifest retains the runner's pre-audit terminal status; the separate audit supplies the final verification. No source changes, intermediate selection, protocol extension or new final seeds occurred during the screen.
+
+Command: .venv/Scripts/python.exe -m scripts.audit_published_screen. Full audit passed for all four cases. Artifact runs/published_wp50_screen/independent_audit.json SHA5dfcd58cdce3f832e50d28cafaaae96a70146efd331b540dec74e7223bd6d8e3; summary SHA9c58ff27770a040adca3ae3bcb3ff9fc3cd835e62f47973949d46d16c1441214. Auditor277e421d..., production1c36895f..., runnerc5b7c63a... and protocol9409200f... remain as fixed above. It rechecks actual checkpoint/configuration/ancestry/teacher tensors/48,000-step Adam/budgets and independently recomputes complete raw paired statistics, score consistency, identities, work counters and summary criteria. It does not independently replay all training or evaluation trajectories.
+
+All endpoints are1,000 duplicate pairs, seeds1,000,000-1,000,999, strict CPU assisted RL-WP, deterministic/endgame/no-search, paper8. Win score counts draws as one half. Confidence intervals use the prespecified5,000 pair bootstrap replicates with seed99.
+
+| Parent/arm | Win score % (95% CI) | Mean point difference (95% CI) |
+| --- | ---: | ---: |
+| seed1 WP50 | 50.700 (48.875,52.575) | 2.023 (0.904975,3.146025) |
+| seed1 control | 50.975 (49.175,52.800) | 2.434 (1.265875,3.628050) |
+| seed10001 WP50 | 48.475 (46.750,50.300) | 0.789 (-0.317000,1.938025) |
+| seed10001 control | 49.525 (47.675,51.325) | 1.747 (0.628900,2.856050) |
+
+Paired differences on the same deals, win score in percentage points:
+
+| Parent/comparison | Win-score difference (95% CI) | Point difference (95% CI) |
+| --- | ---: | ---: |
+| seed1 WP50-control | -0.275 (-2.450,1.950) | -0.411 (-1.646025,0.858000) |
+| seed1 WP50-parent | 2.875 (0.700,5.050) | 1.048 (-0.191025,2.305050) |
+| seed1 control-parent | 3.150 (0.825,5.325625) | 1.459 (0.195825,2.725025) |
+| seed10001 WP50-control | -1.050 (-3.075,1.050625) | -0.958 (-2.158100,0.300050) |
+| seed10001 WP50-parent | -0.900 (-2.925625,1.300) | 0.299 (-0.924025,1.606000) |
+| seed10001 control-parent | 0.150 (-2.025,2.300) | 1.257 (-0.029075,2.541025) |
+
+Endpoint report SHA256 values (each case/evaluation.json under runs/published_wp50_screen):
+
+- seed1_wp50:6b923e24fcfba7c48b182ef047c99dedc414779e6c106c3cc790cd3c5b6d70f8.
+- seed1_control:b1afcb186e48e9700bb0084912a50b5b8a7675b96fd1365e5ba48b3c52c3f903.
+- seed10001_wp50:c9afa2e31fdc05bf355d5ec733f587c9566f60d4cd90a4ebc9ab8e508bbe80ca.
+- seed10001_control:0dd01673cd2136982d2aa5b13ed3dcb071751ee8d485633fcb2fbc09383e78d0.
+
+Decision: paired_eligibility=false and replicated_absolute_development_signal=false. Neither parent establishes WP50 superiority to its matched self-play control; seed10001 also fails improvement over its original parent. The negative point estimates do not establish harm. Seed1 improvement over its parent is shared by the control and does not replicate on seed10001. Do not reinterpret the descriptive control result as success of a newly selected primary endpoint. Positive point means cannot substitute for the win criteria. Repeatedly explored common development deals and multiple comparisons preclude independent confirmation; two parents are not2,000 independent deals.
+
+Keep the verified direct-published opponent capability optional; do not adopt this WP50 method, continue unchanged, evaluate intermediate checkpoints retrospectively or consume final-test seeds. No next experiment is selected by this milestone. The next research decision should reassess learning objectives and optimization evidence before a new bounded protocol. All work remains separate from the completed research12 scale gate. Public superiority and the overall strongest-AI objective remain unfulfilled.
