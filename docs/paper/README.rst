@@ -2,6 +2,14 @@ Manuscript working files
 ========================
 
 This is an English research manuscript, not a submitted or published paper.
+
+Current revision: Abstract and Introduction now lead with the measured
+contribution; Related Work contains12 primary-source references spanning
+Koi-Koi, self-play, policy composition, information-set search and evaluation.
+The public expert arbitration extension is explicitly marked as under evaluation.
+Its outcomes are not included in the completed adaptation results. The previous
+9-page final-results manuscript and QA remain preserved in the existing archive;
+the current working PDF is a separate revision.
 The final two-model/two-comparator evaluation and isolated latency measurement
 are complete and independently audited. Both selected models clear the fixed
 RL-WP win criterion; the separate RL-Point criterion does not replicate, and

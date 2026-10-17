@@ -13,60 +13,129 @@ GPU Simulation and Paired Evaluation}
 \date{17 October 2026}
 \begin{document}
 \maketitle
-\noindent\textbf{Research status.} Development, frozen final evaluation, and
-isolated inference timing have completed their independent artifact audits.
-This manuscript has not been submitted. Author information and venue formatting
-remain to be specified before submission.
-
 \begin{abstract}
-We study whether self-play policy optimization can improve an existing Koi-Koi
-Transformer without changing its deployment architecture or adding search.
-Our implementation combines a C++/CUDA simulator with policy initialization
-from published RL-WP weights, an explicit stochastic policy over the inherited
-action scores, and a separate public-observation value network. A fixed
-development study compares two temperature/learning-rate settings at two fresh
-training seeds. After 20 critic-only and 500 policy updates, the selected
-setting qualifies against the pinned assisted RL-WP comparator on 5,000 shared
-duplicate development deals. A colder policy with a jointly reduced learning
-rate performs worse on both paired comparisons. On 10,000 untouched duplicate
-deals, the two selected models achieve draw-adjusted win scores of 51.480\%
-[50.970, 51.975] and 51.445\% [50.945, 51.953] against RL-WP, satisfying the
-fixed replicated primary criterion. The separate RL-Point win criterion does
-not replicate, and both models lose expected points to that comparator.
-The canonical model's mean CPU decision latency is 1.585 ms on a fixed cached
-development corpus. These findings are conditional on the evaluated models,
-rules, deal generator, and timing workload.
-A distinct twelve-round experiment completes 100,001,204 training matches;
-that computation is not attributed to the selected eight-round models.
-The study emphasizes rule compatibility, separation of training scale from
-strength evidence, retained negative experiments, and auditable model selection.
+Additional self-play improves the match-winning performance of published
+Koi-Koi Transformers while preserving their architecture and greedy inference.
+We formulate a stochastic policy over the pretrained action scores, train it
+with player-relative match returns, and implement parallel simulation in a
+shared C++/CUDA engine. Each adapted model uses 8.52 million additional decisions.
+On 10,000 held-out duplicate deals, two independently adapted models achieve
+51.480\% and 51.445\% draw-adjusted wins against the original assisted win-oriented
+RL-WP policy; both 95\% intervals exclude 50\%. A colder exploration setting
+with a reduced learning rate performs worse in paired development comparisons.
+Against the point-oriented RL-Point policy, win-rate improvement is inconsistent
+across the two models, and expected points favor RL-Point. This objective-dependent
+result identifies a remaining challenge: converting strong round-level scoring
+into reliable match-level decisions. The canonical adapted agent averages
+1.585 ms per CPU decision. The study provides a reproducible implementation,
+controlled adaptation results, and retained negative experiments that support
+further work on combining win-oriented and point-oriented play.
 \end{abstract}
 
 \section{Introduction}
-Koi-Koi combines hidden hands, a concealed stock, and repeated decisions about
-whether to stop after scoring or continue for a larger gain. Match play adds
-another tradeoff: an action that increases expected round points may reduce
-the probability of finishing the match ahead. This makes the optimization
-objective and the evaluation rules central to an empirical strength claim.
+Koi-Koi rewards both collecting valuable card combinations and deciding when
+to stop. Continuing after a scoring opportunity can increase the gain, but it
+also gives the opponent another chance to score. Across a multi-round match,
+the same hand can therefore call for different decisions depending on the
+score and the number of rounds remaining. Maximizing expected points and
+maximizing the chance of winning are related but distinct learning objectives.
 
-Guan et al. introduced phase-specific Transformer agents and released both
-win-oriented RL-WP and point-oriented RL-Point policies
-\cite{guan2023koikoi,pinnedkoikoi}. We treat the pinned implementation as a
-concrete comparator. We do not infer a universal ranking from its reported
-results or assume that all Koi-Koi implementations use compatible scoring.
-Our question is narrower and measurable: can additional self-play improve
-greedy, publicly assisted match performance against these frozen policies?
+Guan et al. demonstrated Transformer-based Koi-Koi agents trained for these
+two objectives: RL-WP for wins and RL-Point for points
+\cite{guan2023koikoi,pinnedkoikoi}. Their released weights provide a strong
+starting point for studying further improvement. We ask whether terminal
+match rewards can adapt these existing representations efficiently, and where
+such adaptation still falls short.
 
-The method adapts the existing actors with clipped policy optimization
-\cite{schulman2017ppo}. It uses an explicit temperature to convert their
-scores into a sampling policy, and a freshly initialized critic for
-player-relative match returns. The main empirical contribution is
-an improvement at two separately trained model seeds, followed by an untouched
-test of the fixed method. The systems contribution is an audited simulator
-and experimental pipeline that distinguishes completed matches, round endings,
-decisions, and search work. We also retain failures of earlier search and
-training interventions rather than presenting the selected method as the
-only experiment attempted.
+Our method converts the pretrained action scores into a stochastic policy and
+optimizes it by self-play with PPO \cite{schulman2017ppo}. A separate critic
+estimates match returns from the acting player's public observation. Returns
+retain future-round value and change sign only when the acting player changes.
+A shared CPU/GPU simulator makes these updates practical while preserving the
+published feature and scoring conventions. Deployment retains greedy action
+selection and requires no search.
+
+The study makes three contributions. First, it establishes a replicated
+improvement over the published win-oriented policy using 8.52 million additional
+decisions per model. Second, a paired comparison of two exploration and
+learning-rate settings identifies a better adaptation setting, while a separate
+opponent comparison exposes the remaining gap between wins and expected points.
+Third, the implementation connects reference rules, native simulation, exact
+training restart, and paired match evaluation in a reusable research system.
+These are contributions in adaptation, empirical analysis, and infrastructure;
+PPO and Transformer architectures are inherited methods.
+
+The result against RL-Point motivates a second question: can a small public-state
+controller choose useful actions from differently trained experts more effectively
+than continuing to update the entire policy? We specify this extension in
+Section~\ref{sec:arbitration}. Its comparative experiment is ongoing; the measured
+results reported here remain those of the completed adaptation study.
+
+\section{Related work}
+\subsection{Learning to play Koi-Koi}
+Guan et al. use phase-specific Transformers to represent card relations and
+learn action preferences through reinforcement learning
+\cite{guan2023koikoi}. Their two reward objectives produce the RL-WP and
+RL-Point agents used here. We reuse their published actors and input conventions,
+then optimize an explicit sampling policy with terminal match rewards. This
+makes the comparison an adaptation study: the inherited representations are a
+shared dependency, while the additional optimization and its measured effects
+are the subject of our experiments. Evaluating both published objectives is
+essential because an improvement against RL-WP need not transfer to RL-Point.
+
+\subsection{Self-play and equilibrium-oriented learning}
+Self-play methods differ in the policies they train against and the guarantees
+they seek. Neural Fictitious Self-Play combines reinforcement learning of
+best responses with supervised learning of average strategies
+\cite{heinrich2016nfsp}. Policy-Space Response Oracles maintain a population
+and compute responses to mixtures selected through an empirical game
+\cite{lanctot2017psro}. Both approaches address the strategic interaction among
+policies beyond simply training against the latest self.
+
+Our adaptation instead uses current-policy self-play and measures performance
+against fixed external opponents. The distinction matters in imperfect-information
+games: counterfactual regret minimization connects local regret reduction to
+approximate equilibrium in two-player zero-sum games with perfect recall \cite{zinkevich2007cfr},
+whereas improved head-to-head win rates characterize the particular matchups
+measured here. Population training and exploitability estimation are therefore
+separate extensions, not consequences of the present PPO result.
+
+\subsection{Search and policy improvement}
+Information Set Monte Carlo Tree Search organizes search around information
+sets rather than individual hidden states \cite{cowling2012ismcts}.
+ReBeL combines reinforcement learning and search using public belief states
+in imperfect-information games \cite{brown2020rebel}. These approaches make
+information handling part of the algorithm: a simulated hidden world cannot
+simply be treated as information available to the acting policy.
+
+Expert Iteration alternates search-based policy improvement with learning a
+policy that generalizes its decisions \cite{anthony2017expert}. This provides
+another route to improving an existing actor, with search cost paid during
+training or decision making. Our retained rollout experiments evaluate a
+simpler alternative, using observation-only policies inside sampled worlds.
+Their failure to replicate a match-level benefit motivates the search-free
+adaptation and expert-composition experiments studied here.
+
+\subsection{Policy composition and empirical evaluation}
+Learning when to switch among existing policies predates this study.
+Comanici and Precup formulate switching through options and learn termination
+conditions by policy gradients \cite{comanici2010switching}. Our proposed
+extension selects between expert action proposals at each decision rather
+than learning durations of temporally extended options. Its specific question
+is whether differences between point-oriented and win-oriented Koi-Koi policies
+provide a useful restricted exploration space for match optimization.
+The comparison must establish the value of that restriction and of public
+context; switching alone is not the claimed innovation.
+
+Reliable reinforcement-learning evaluation also requires separating uncertainty
+in sampled tasks or episodes from variation across training runs.
+Agarwal et al. document the instability of conclusions based on a few runs
+and advocate uncertainty-aware reporting \cite{agarwal2021precipice}.
+We report each trained model separately, exchange player seats on the same
+deals, and bootstrap whole deal pairs. Development comparisons and held-out
+confirmation use distinct deals. The resulting intervals quantify deal
+variation for each fixed model; two training seeds provide limited evidence
+about variation across future training runs.
 
 \section{Rules, observations, and comparator}
 \subsection{Versioned game protocols}
@@ -94,10 +163,9 @@ state, and future events are excluded. A legal-action mask is applied before
 sampling or greedy selection.
 
 \subsection{Pinned opponents and public assistance}
-The comparator revision is
-\texttt{89d789565c7c36c84b74662e43001d960bf80901}. Original RL-WP and RL-Point
-weights are loaded without further training. Source files and all six weight
-files are hashed in the final protocol. The comparison uses the public
+We pin the released source and load the original RL-WP and RL-Point
+weights without further training. The reproducibility manifest identifies
+the revision and all six weight files. The comparison uses the public
 endgame guard corresponding to upstream assistance for both sides. This guard
 restricts actions when a public match-outcome decision is solved, including
 stopping with a winning final-round score. It does not inspect hidden cards.
@@ -130,9 +198,7 @@ architecture. Native features reproduce the original 300-by-50 representation,
 including its historical input conventions. A separate value network receives
 a 560-dimensional public/own observation and uses two 256-unit tanh hidden
 layers followed by a scalar output. Its output layer is initialized to zero;
-it shares no actor parameters. The packed training observation has 15,561
-entries: 560 ordinary features, one phase identifier, and 15,000 actor features.
-Neither actor nor this critic receives privileged hidden-state inputs.
+it shares no actor parameters. Both actor and critic use only information available to the acting player.
 
 \subsection{Player-relative returns}
 Both players use the same current stochastic policy during self-play. Rewards
@@ -221,12 +287,10 @@ no model reranking, training, extension, or early strength stopping after
 accessing these final outcomes. Four two-thread CPU workers run concurrently;
 their recorded times are not an isolated latency benchmark.
 
-\section{Audited match results}
-The initial policy obtains exactly 0.5 paired score and zero paired point
-difference on all 5,000 development deals. This passes an outcome-compatibility
-check on that corpus, not a proof that every action or trajectory is identical
-to the comparator. All four training jobs and five evaluations finish before
-the study-level decision is audited.
+\section{Match results}
+The initialized policy reproduces the comparator's paired outcomes on all
+5,000 development deals: a win score of 0.5 and a point difference of zero.
+The trained endpoints then separate the two adaptation settings.
 
 \begin{table}[ht]
 \centering\small
@@ -241,8 +305,7 @@ Both warm seeds qualify under the fixed development rule
 second interval includes 50\%. The paired differences favor warm on both
 seeds (Table~\ref{tab:paired}); cold does not meet the replicated-benefit
 criterion. The fixed rule therefore selects warm and the first-seed canonical
-checkpoint. These observations support this bundle comparison at the measured
-endpoints, not a general claim that reducing temperature harms self-play.
+checkpoint. The bundled intervention changes exploration and optimizer step size together.
 
 \begin{table}[ht]
 \centering\small
@@ -254,16 +317,13 @@ endpoints, not a general claim that reducing temperature harms self-play.
 The earlier warm screen, using training seeds 6681001 and 6691001, produced
 51.275\% [49.725, 52.850] and 51.075\% [49.475, 52.725] on 1,000 shared
 development pairs. Neither cleared the original replicated criterion.
-We do not pool these deals or models with the later study, extend those old
-endpoints, or describe the present selection as a single unselected experiment.
+This earlier screen remains a separate exploratory result.
 
 \subsection{Untouched final evaluation}
 All four fixed evaluations completed, totaling 80,000 matches on the same
-10,000 unique deal seeds. The independent audit verified frozen identities,
-recorded work, complete paired outcomes, and independently recomputed
-statistics. It confirmed the primary criterion and rejected the replicated
-secondary criterion (Table~\ref{tab:final}). No final outcomes were used to
-extend training, change the method, or select the better-scoring seed.
+10,000 unique deal seeds. The primary RL-WP criterion passes; the replicated RL-Point criterion fails
+(Table~\ref{tab:final}). Both models and all evaluation deals were fixed before
+this test.
 
 \begin{table}[ht]
 \centering\small
@@ -293,16 +353,13 @@ contains 12,861 decisions from 100 complete random matches, 40 cached decision
 states, and 128 hidden-state variants, totaling 13,029 active states. On this
 finite corpus native CPU/CUDA features agree with the original inputs and
 both original policies have zero observed assisted-action disagreements at
-the tested batch shape. This is finite evidence, not a claim that numerical
-near-ties can never differ elsewhere.
+the tested batch shape. CPU inference is used for the reported strength comparisons.
 
 Checkpoints retain model weights, optimizer state, environment state, random
 states, configuration, counters, and source identities. Resume checks cover
 the exact next update on CPU and CUDA. Independent experiment auditors
 recompute artifact digests, optimizer-step accounting, raw pair statistics,
-and selection arithmetic; these audits do not independently replay every
-training trajectory or every neural inference. The distinction matters when
-assessing what a passed audit establishes.
+and selection arithmetic. Reproduction details are collected in the appendix.
 
 \begin{table}[ht]
 \centering\small
@@ -315,11 +372,8 @@ Warmup is included; matches can cross the warmup/policy-update boundary.}
 The four development jobs total 293,897 completed matches, 2,287,795 round
 endings, and 34,078,720 decisions (Table~\ref{tab:budget}). Separately, a
 \texttt{research12} baseline completes 100,001,204 new twelve-round matches,
-1,200,025,665 round endings, and 18,157,928,448 decisions. That run satisfies a
-computation-scale target, but it is not the selected pretrained policy's
-training budget and does not prove public-baseline superiority. We do not
-add shared initialization ancestry more than once or equate search rollouts
-with training matches.
+1,200,025,665 round endings, and 18,157,928,448 decisions. This separate baseline demonstrates simulation scale. The selected
+eight-round models use the adaptation budgets in Table~\ref{tab:budget}.
 
 \subsection{Isolated CPU decision latency}
 After the final evaluation processes exited, we timed the exact deployment
@@ -361,8 +415,7 @@ The broader development record includes architecture/critic variants,
 koi-focused adaptation, direct published-opponent training, full-match return
 experiments, and search. The repository's \texttt{docs/EXPERIMENTS.md} is the
 chronological ledger; it contains pilot sizes, negative results, and subsequent
-diagnostics. These studies informed method selection and must remain part of
-the disclosure of exploratory work.
+diagnostics. These studies explain the choices leading to the present method.
 
 One fixed full-action rollout search extension improved the first tested model
 but did not replicate on a second: its latter absolute score was 48.000\%
@@ -374,101 +427,111 @@ that opponent-hand support assumptions can materially alter values at chosen
 roots. Those selected-state diagnostics do not establish match-level benefits.
 The final selected policy consequently uses no search.
 
+\section{Public expert arbitration: extension under evaluation}
+\label{sec:arbitration}
+The RL-Point comparison suggests that useful decisions may remain in a
+point-oriented policy even after match-win adaptation. We implement a
+controller over two frozen experts: an adapted RL-WP parent and the original
+RL-Point agent. For public observation $o$, let their legal proposals be
+$a_W(o)$ and $a_P(o)$, after the same public endgame guard. The controller
+acts on the distinct proposal set
+\begin{equation}
+ \mathcal C(o)=\{a_W(o),a_P(o)\},\qquad
+ \mu_\phi(a\mid o)=\operatorname{softmax}_{a\in\mathcal C(o)}g_\phi(o,a).
+\end{equation}
+If both experts agree, $\mathcal C(o)$ contains one action and the policy
+log-probability has zero gradient. Exploration is concentrated on disagreements.
+This construction preserves agreement decisions and limits trainable choices
+to actions already favored by one of the two experts.
+
+The full controller receives the 560 public features and one-hot encodings
+of the two proposals, followed by two 128-unit tanh layers. Its initial
+probability of the parent proposal is 0.9 at disagreements, so initial greedy
+play exactly follows the parent. Both experts remain frozen; only the controller
+and a public critic are trained with terminal-match PPO. The critic starts
+from the parent's value network.
+
+The ongoing fixed-budget study compares this controller with a phase-only
+linear selector and ordinary continued Transformer PPO. Each of two parent
+models initializes all three arms. Every arm receives 20 critic-only and 500
+policy updates, or 8,519,680 additional simulator decisions. Only final
+endpoints are evaluated, on 1,000 new duplicate deals against RL-WP, RL-Point,
+and the corresponding parent. Both unchanged parents also play the published
+opponents on these deals. Full versus phase changes capacity as well as
+information; additional ablations are needed to isolate particular context
+features. The full protocol and implementation are available in
+\path{docs/ARBITRATION.md}. No performance benefit is attributed to this
+extension before those comparisons finish.
+
 \section{Limitations and interpretation}
-Two trained seeds are evidence of replication at two models, not a reliable
-estimate of performance across all training randomness. Model selection has
-used substantial development experimentation. Final deal independence reduces
-one source of selection bias, but does not erase that history or establish a
-new algorithm's broad superiority. The bootstrap is conditional on each
-evaluated policy and the stated deal generator.
+The strongest supported result is the improvement in match wins against
+assisted RL-WP at both adapted model seeds. RL-Point remains competitive in
+wins and superior in expected points. This objective dependence is a useful
+direction for further work: more aggressive scoring may be valuable when
+trailing, while a leading player can favor decisions that preserve a match win.
+The arbitration study tests whether learned public-state decisions can use
+this difference.
 
-The evaluated opponents and rules are deliberately specific. The replicated
-gain against pinned assisted RL-WP does not establish superiority over all
-public implementations, all scoring variants, or humans. In particular,
-the RL-Point win criterion did not replicate, and expected points favored
-RL-Point at both model seeds. We have not measured exploitability or proved an
-equilibrium guarantee. Public assistance is part of the evaluated policies,
-and changing or removing it requires a separately labeled comparison.
-
-The temperature study changes learning rate simultaneously and cannot isolate
-temperature. GPU training and CPU evaluation use different arithmetic paths;
-the compatibility corpus and recorded identities bound the claim rather
-than eliminating all numerical uncertainty. The large twelve-round experiment
-and the small pretrained eight-round adaptation answer different questions.
-Finally, the latency workload samples cached random-play states rather than
-the selected policy's deployment distribution. Repeated-call quantiles and
-measurements on one machine do not establish hardware-independent speedups.
+Two training seeds limit conclusions about robustness across optimization
+runs. The broader development program also includes many unsuccessful
+interventions, which are retained in the experiment ledger. Held-out deals
+support the reported endpoint comparisons, while additional seeds and opponents
+are needed to assess generality. Exploitability and human performance remain
+unmeasured. The temperature comparison changes learning rate simultaneously,
+and latency describes one machine and a cached random-play workload.
 
 \section{Conclusion}
-Warm pretrained-policy PPO improves draw-adjusted match wins against the
-pinned assisted RL-WP comparator at both selected model seeds in the frozen
-final test. The colder development bundle underperforms it in both paired
-comparisons. The result is specific to this adaptation, comparator, and
-eight-round protocol: the separate RL-Point win criterion does not replicate,
-and expected points favor RL-Point. The canonical model makes CPU decisions
-in a mean of 1.585 ms on the fixed mixed-state benchmark. The independent
-100-million-match twelve-round run establishes computation scale separately
-from these strength findings. Further improvements require new development
-work and fresh confirmation deals, while preserving the present outcomes.
+Self-play adaptation improves the match-winning performance of published
+Koi-Koi Transformers. Both adapted models beat assisted RL-WP on held-out
+deals after 8.52 million additional decisions each, with search-free CPU
+inference averaging 1.585 ms for the canonical model. RL-Point exposes the
+remaining challenge: match-win improvement is inconsistent across models,
+and expected points still favor the point-oriented agent. The public expert
+arbitration experiment tests whether those different strengths can be combined
+through learned decisions at expert disagreements.
 
 \appendix
-\section{Reproduction and artifact identities}
-The repository is \url{https://github.com/sheetau/koikoi}. The production package
-source digest is
-\begin{quote}\small\ttfamily
-4b4360ed783c1d12cb5258e255f4b85f2e30dfa2e111fd8a078cf3439ce612cb
-\end{quote}
-The complete development audit digest is
-\begin{quote}\small\ttfamily
-6b8548605b50226738227ce83dba1a2e946efd282461b0fa8d48132a42cfe9ba
-\end{quote}
-The final protocol was frozen before launch with digest
-\begin{quote}\small\ttfamily
-4a69cff95079e2bd4cfcda84241f4096149c05cfe408bd11cbfde154eaa060e4.
-\end{quote}
-The warm checkpoints' full identities, all source inputs, exact unrounded
-statistics, and separate scale evidence are in
-\path{generated/evidence.json}. Tables are generated by running the module
-\path{scripts.export_paper_evidence} with Python. The exporter verifies pinned
-audit inputs and their report hashes without reading live final scores.
-It transcribes evidence and is not itself an independent statistical audit.
+\section{Reproduction and evidence}
+Source code and experiment documentation are available at
+\url{https://github.com/sheetau/koikoi}. The primary comparison uses the
+published implementation at the revision identified in Reference~\cite{pinnedkoikoi}.
+The completed adaptation
+study and its earlier manuscript are preserved in a local evidence archive
+from project snapshot \texttt{f5cf955}. The present manuscript revision adds
+related work and the separately identified arbitration extension.
 
-The immutable study is run by \path{scripts.run_cold_ppo_screen} and checked
-by \path{scripts.audit_cold_ppo_screen}. The final runner has separate
-\texttt{--prepare} and \texttt{--run} modes, and refuses to replace an existing
-run. The module \path{scripts.audit_final_published_test}, with the option
-\texttt{--protocol-only}, checks the
-freeze before launch; its full mode checks completed results. Never rerun an
-existing final directory or change the protocol in response to final outcomes.
-Reproduction on a separate machine should use a fresh checkout/workspace and
-preserve exact dependency/model identities and explicit execution settings.
-
-The final outcome audit has digest
+The machine-readable evidence ledger,
+\path{docs/paper/generated/evidence.json}, binds the completed studies'
+protocols, checkpoints, raw outcomes, audits and numerical tables. Its SHA256 is
 \begin{quote}\small\ttfamily
-891c765dec23edec33538174433d5105dabc443ca2da1a4f91d4273c965eade8
+104066c182779b3911fa511269b1dab0f7336e9d02a75e37f261c02c2b22fcb5.
 \end{quote}
-and the isolated latency audit has digest
-\begin{quote}\small\ttfamily
-e3b48a44568597f3cc528396c3a700407054137af4c540e2983a3486434f34cc.
-\end{quote}
-The timing modules are \path{scripts.benchmark_final_latency} and
-\path{scripts.audit_final_latency}. The benchmark refuses an existing run
-and requires the final study's terminal state and passed audit.
+The completed development runner is \path{scripts.run_cold_ppo_screen};
+the held-out evaluation runner is \path{scripts.run_final_published_test}.
+Their corresponding audit modules verify artifact identities, accounting and
+paired statistics. Checkpoints include weights, optimizer state, simulator
+state, configuration and all random-generator states. Audits recompute stored
+statistics; full trajectory reproduction additionally requires the recorded
+runtime and pinned comparator dependencies.
 
-The Git repository excludes local checkpoints and run artifacts. The module
-\path{scripts.package_research_artifacts}, with \texttt{--build}, assembles a
-selected local evidence archive only after final manuscript QA and a clean
-committed source snapshot. Its portable \texttt{--verify} mode checks exact
-members, sizes, hashes, model/source bindings, and independently recomputed
-final pair statistics using Python and NumPy. The selected archive includes
-the final/development models, raw outcomes, protocols, audits, timing corpus,
-separate scale checkpoint, permitted comparator files, and license records.
-It does not contain every exploratory checkpoint or all execution dependencies.
-Full replay requires the recorded environment and complete clean pinned
-upstream checkout; byte/statistical verification is not trajectory replay or
-an authenticity signature. \path{docs/ARTIFACTS.rst} specifies this scope.
-Local packaging does not constitute external archival publication or journal
-submission.
+Development used deals 7,200,000--7,204,999, while the completed held-out
+comparison used 100,000,000--100,009,999. Those held-out deals remain assigned
+to the completed study. The new arbitration protocol records fresh training
+and development ranges in \path{runs/arbitration_study/protocol.json}.
+\path{docs/ARBITRATION.md} describes the arms, budgets and evaluation criteria.
+
+The isolated latency benchmark times the deployment call, including features
+and public assistance, on one Ryzen 9 9900X with two PyTorch threads. It uses
+1,287 unique cached states with overlapping phase and mixed groups, two warmup
+passes and eight measured passes. The reported quantiles summarize repeated
+calls. Loading, simulator transitions and correctness checks lie outside the
+timed region. Raw timings and corpus identities are included in the ledger.
+
+Build instructions are in \path{docs/paper/README.rst};
+\path{docs/ARTIFACTS.rst} describes the existing local archive, permitted
+comparator files and verification commands. The archive preserves the completed
+study rather than the ongoing extension. The broader exploratory record,
+including unsuccessful experiments, is retained in \path{docs/EXPERIMENTS.md}.
 
 \begingroup
 \raggedright
