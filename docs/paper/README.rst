@@ -383,3 +383,27 @@ to prior review. New paragraph/reference inspected at full size. Abstract174
 words,25 cited references,20 embedded fonts;8 ledgers/392 input-output files
 verify. No numerical or empirical change. Previous PDF preserved as
 output/pdf/manuscript_opening_8a405247.pdf.
+
+
+Fixed-observer results and public-seat diagnosis
+------------------------------------------------
+
+The24-page revision adds the completed fixed-observer self-play comparison
+(Section9),its primary win table,and point/historical controls (AppendixG).
+All8 primary intervals include zero. The same section reports the diagnosed
+public-seat ambiguity and exact actor-input reconstruction on1,024 probes.
+The separate public/masked strength comparison is still running.
+
+Regenerate the completed observer tables and full ledger with::
+
+    .venv/Scripts/python.exe -m scripts.export_observer_selfplay_paper_evidence --audit-sha256 759889ec9ffd6f98f56f8f292f00e590e44dec07bbe489e4657f56aecef78e70
+
+Ledger generated/observer_selfplay_evidence.json SHA
+067d13a2f0ad3bd6d0f9a18146b3746dbb5c4bbe0ffabcfd2726beea2a499b48.
+PDF SHA f606acbb895b313bc592a61245fd4cef2dfbb123aeefb005a2be771ad1ddb961.
+QA runs/manuscript_observer_selfplay_qa.json SHA
+74a4588ffcb3b62433b903faad0cdc719677d7bd8a67ad2f94ce888db0b29791.
+All24 pages rendered/reviewed;25 references,20 embedded fonts,202-word Abstract.
+Nine evidence ledgers and the seat-diagnostic reports verify489 unique files.
+Prior numerical tokens and Related Work remain;no TeX box,glyph,reference or
+page-bound defects. Prior PDF:output/pdf/manuscript_temporal_6a10c91d.pdf.

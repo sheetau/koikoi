@@ -35,7 +35,9 @@ recover the correct gradient in the complete example, verified across Python,
 native CPU and CUDA. In a 160,000-match Koi-Koi study, this construction does
 not establish a replicated win gain over the starting policies and ordinary
 fixed-opponent PPO. It outperforms the $\lambda=1$ control against RL-Point
-at both model seeds.
+at both model seeds. A separate 160,000-match fixed-observer self-play study
+also finds no replicated win gain. An input audit identifies a public-seat
+ambiguity in the critic and verifies an explicit feature repair.
 \end{abstract}
 
 \section{Introduction}
@@ -86,6 +88,15 @@ $\lambda=1$ against RL-Point at both model seeds. Supplementary experiments
 find that combining the adapted card policy with RL-Point stop/continue
 decisions improves expected point margin; learned expert selection gives no
 replicated match-win gain (Appendix~\ref{sec:arbitration}).
+
+A second comparison retains each player's own observation throughout the
+return, including opponent turns, while matching critic fitting and optimizer
+settings (Section~\ref{sec:observer-selfplay}). Its 160,000 matches show no
+replicated win gain over the starting policies or matched signed-return
+controls. An input audit then identifies a distinct representation issue:
+seat relabeling changes the actor's choices while leaving its critic input
+unchanged. Adding the public seat bit resolves the observed ambiguity and
+allows exact reconstruction of the actor input on 1,024 checked observations.
 
 \section{Related work}
 \subsection{Learning to play Koi-Koi}
@@ -560,6 +571,88 @@ relative to the response controls; both learner endpoints still have negative
 absolute point margins against RL-Point. All parent-relative point-change
 intervals include zero.
 
+\section{Fixed-observer self-play}
+\label{sec:observer-selfplay}
+\subsection{Returns with a consistent viewer}
+The finite-game analysis suggests retaining the same player's information at
+each bootstrap. We implement this in self-play by evaluating two separate
+critic rows at every primitive decision. Each row contains its viewer's own
+cards and public information, plus a bit indicating whether that viewer is
+acting. A shared MLP maps the resulting 561 features to $v_t^i$, the value for
+viewer $i$. It processes rows independently; neither row contains the other
+player's hand or the stock order. The actor and its input are unchanged.
+
+Let $r_t$ denote seat zero's terminal-match reward and $c_t$ indicate that the
+match continues after decision $t$. For each viewer $i\in\{0,1\}$, use
+\begin{align}
+ \delta_t^i &= (-1)^i r_t+c_t v_{t+1}^i-v_t^i,\\
+ \widehat A_t^i &= \delta_t^i+\lambda c_t\widehat A_{t+1}^i.
+\end{align}
+A round ending leaves $c_t=1$; a match ending sets it to zero. At a rollout
+cutoff, the recurrence ends with $\widehat A_H^i=0$ and retains each viewer's
+own $v_H^i$ bootstrap. Fit $v_t^i+\widehat A_t^i$ for both viewers and use the
+acting viewer's advantage for the policy. The two conditional values need not
+sum to zero: their observations contain different private information.
+
+The matched signed-return control uses the same two-row critic targets,
+architecture, optimizer, minibatches and clipping. It changes only the policy
+advantage, selecting active-viewer values for the historical signed recurrence.
+Both arms use $\lambda=0.95$ and the warm adaptation settings. For each parent,
+they start from the same retained actor and padded critic; all saved model,
+optimizer, environment and RNG states agree after the 20
+critic-only warmup updates. Each arm then performs 500 policy updates, for
+8,519,680 simulator decisions and 17,039,360 value rows in total. This separates
+the policy-return contrast from changes in critic fitting.
+
+\subsection{Completed paired comparison}
+The four new endpoints, two unchanged parents and two archived ordinary
+self-play continuations face WP and Point on 5,000 fresh shared duplicate
+deals. The resulting 16 cells contain 160,000 matches. The primary criterion
+requires all eight paired win-change lower 95\% bounds to be positive:
+fixed-observer returns versus both the unchanged parent and matched signed
+control, at both parents against both opponents.
+
+None of the eight intervals excludes zero (Table~\ref{tab:observer-selfplay}).
+Against Point, the parent-relative mean gains are 0.715 and 0.320 percentage
+points. Against WP, they are 0.115 and 0.025. Thus this fixed-observer procedure
+does not establish a replicated win improvement at the tested budget.
+
+\begin{table}[ht]
+\centering\small
+\input{generated/observer_selfplay_primary_table.tex}
+\caption{Fixed-observer self-play: primary paired win-score changes in
+percentage points, with 95\% intervals, on 5,000 shared development deals.}
+\label{tab:observer-selfplay}
+\end{table}
+
+The secondary point margins improve over the parent in two different
+matchups: parent 1 against WP and parent 2 against Point. All four
+observer-minus-signed point intervals and all four observer-minus-historical
+self-play win intervals include zero. Appendix~\ref{app:observer-controls}
+retains these comparisons; the evidence ledger includes every absolute
+outcome and paired contrast.
+
+\subsection{An omitted public distinction}
+The actor and critic also differ in their input representations. The published
+actor records the absolute dealer seat, whereas the 561-input critic records
+dealer status relative to its viewer. Exchanging seat labels preserves the
+critic input but changes two actor feature rows. On 256 retained source
+decisions per parent, this relabeling changes 4 and 5 greedy actions,
+respectively. All nine changes occur at discard decisions. Legal actions and
+public endgame assistance are unchanged, and the actor features agree with
+the pinned upstream implementation on all 1,024 original/relabeled probes.
+
+A public viewer-seat bit resolves this ambiguity. With that bit and the
+relative-dealer feature, an observation-only decoder recovers the absolute
+dealer and exactly reconstructs the complete $300\times50$ actor input from
+the 562-element critic row on all 1,024 probes. The probes span discard,
+hand-capture, draw-capture and stop/continue decisions. Reconstruction uses
+only that active viewer's features, without stepping the saved states or
+running the actor. This diagnoses a concrete actor--critic information
+mismatch. Coverage of the tested actor inputs does not establish sufficient
+history for future values. Its effect on playing strength is being tested in a
+separately specified public-versus-masked seat comparison.
+
 \section{Limitations and interpretation}
 Both adapted seeds improve match wins against assisted RL-WP. RL-Point remains
 competitive in wins and superior in expected points. Fixed Point continuation
@@ -584,7 +677,9 @@ conditioning can make an expected update reduce true payoff despite exact
 conditional values, even at $\lambda=1$ with a truncated rollout.
 Learner-decision returns correct the complete example. In Koi-Koi they outperform
 $\lambda=1$ against RL-Point at both seeds but do not meet the primary
-parent-and-response win-gain criterion.
+parent-and-response win-gain criterion. Fixed-observer self-play likewise
+shows no replicated win gain. The input audit identifies an omitted public
+seat distinction and verifies its repair on all checked actor observations.
 
 \appendix
 \section{Reproduction and evidence}
@@ -641,6 +736,25 @@ of 17,039,360 training decisions. Evaluation uses 18,542,184 decisions across
 160,000 matches on 5,000 shared deals, numbered 24,000,000--24,004,999.
 The independent audit recomputes all 16 outcomes and 24 paired contrasts from
 the raw seat-swapped records.
+
+The fixed-observer ledger is \texttt{observer\_selfplay\_evidence.json}.
+Its four new arms
+use 34,078,720 decisions, 2,278,384 round endings, 292,470 completed matches and
+68,157,440 value rows. The two historical self-play endpoints supply a separate
+17,039,360-decision dependency. Evaluation uses 18,571,664 decisions across
+160,000 matches on 5,000 shared deals, numbered 27,000,000--27,004,999. The
+independent audit reproduces all 16 outcomes and 24 paired contrasts, including
+the failed primary conjunction.
+
+The seat-label and actor-input audits are recorded in
+\path{runs/observer_seat_information_v2/independent_audit.json} and
+\path{runs/seat_feature_reconstruction/audit.json}. The latter checks 862
+discard, 52 hand-capture, 28 draw-capture and 82 stop/continue observations,
+adding no simulator decisions. The original seat-label collection used 512
+decisions, 33 round endings and 4 completed matches; a first collection that
+failed during JSON serialization adds 256 decisions, 17 round endings and
+2 matches. The reported 1,024 probes come from the successful saved collection
+and its relabelings, not from additional independent games.
 
 The new arbitration experiments freeze the inherited actors. A traced
 near-tie shows why this detail belongs to the inference specification: with
@@ -1085,6 +1199,30 @@ a concrete static control to exceed: the experts already provide complementary
 scoring decisions, but selecting between them has not produced a replicated
 match-win improvement.
 
+
+\section{Additional fixed-observer comparisons}
+\label{app:observer-controls}
+The same 5,000 duplicate deals support the secondary point and historical
+continuation comparisons. All intervals use the joint whole-deal bootstrap
+from Section~\ref{sec:observer-selfplay}; these are additional views of the same
+160,000 matches.
+
+\begin{table}[ht]
+\centering\small
+\input{generated/observer_selfplay_points_table.tex}
+\caption{Fixed-observer self-play: paired changes in final point margin and
+95\% intervals. Positive values favor the observer condition.}
+\label{tab:observer-selfplay-points}
+\end{table}
+
+\begin{table}[ht]
+\centering\small
+\input{generated/observer_selfplay_historical_table.tex}
+\caption{Historical ordinary self-play controls on the observer-study deals:
+paired win-score changes in percentage points, with 95\% intervals. Their
+training work is reused rather than added to the new continuation budget.}
+\label{tab:observer-selfplay-historical}
+\end{table}
 
 \begingroup
 \raggedright
