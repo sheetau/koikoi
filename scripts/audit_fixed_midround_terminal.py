@@ -44,6 +44,21 @@ def read(path):
     return json.loads(Path(path).read_text(encoding="utf-8"))
 
 
+def verify_uniform_model_posterior(actual, compatible):
+    """Verify the recorded float64 reduction, without relaxing tolerances.
+
+    Under the fixed equal prior, every supported hand/model pair has mass 1/K.
+    Summing these masses need not be bit-identical to integer column counts/K.
+    Rebuild the masses directly, independently of joint_probabilities.
+    """
+    matrix = np.asarray(compatible)
+    assert matrix.dtype == bool and matrix.ndim == 2 and matrix.shape[1] == 2
+    count = int(np.count_nonzero(matrix))
+    assert count > 0
+    expected = np.where(matrix, 1.0 / count, 0.0).sum(axis=0)
+    np.testing.assert_array_equal(np.asarray(actual, dtype=np.float64), expected)
+
+
 def validate_histories(root, hands):
     """Native transitions validate even suffixes omitted by likelihood pruning."""
     targets = np.stack([canonical_world(root.state, hand) for hand in hands])
@@ -263,7 +278,7 @@ def audit(folder):
                     ctx["replay_work"] == counts
                     and ctx["supported_model_counts"] == matrix.sum(0).tolist()
                 )
-                close(ctx["model_posterior"], matrix.sum(0) / matrix.sum())
+                verify_uniform_model_posterior(ctx["model_posterior"], matrix)
             assert [r["alternative"] for r in decision["alternatives"]] == alternatives
             best = max(decision["alternatives"], key=lambda r: r["win_change"])
             assert (
