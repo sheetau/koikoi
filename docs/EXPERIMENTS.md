@@ -4148,3 +4148,57 @@ initialization failure and the Point regression need explicit handling before
 search use. Current strict study,renewal capability and renewal comparison
 queues remain intact. No canonical promotion,dealer change,101M use or paper
 strength-claim update. Existing252/221 frozen input bindings remain unchanged.
+
+
+## Multi-round fixed-root outcome, CUDA capability and renewal launch
+
+The preceding three goal turns were verified waits:producer10804 and its final
+strict evaluator65900 remained live,CPU time advanced and completed records
+increased. This turn continued bounded observation until all24,576 records
+were present. Producer46255 exited0. Independent auditor24560 then replayed
+allfour cells;queue96354 exited0. No partial win contrasts were inspected.
+
+Independent audit c1694086e2f91a7b13005324b409957cdd4aee4f84d09e2640e3e01a8601c322
+verifies278 bound inputs,all18 win/point contrasts exactly,146,184 historical
+input/mask reconstructions,matched initial/warmup states and endpoint optimizer
+checks. Primary replicated gain isfalse;all18win intervals includezero.
+Parent1 public-minus-masked points arepositive for mixture/Point;parent1 masked
+minus parent points arenegative for mixture/Point. These four secondary point
+intervals do not replace the failed primary win criterion.
+
+Command `.venv/Scripts/python.exe -m scripts.summarize_public_continuation_study --output runs/public_continuation_study`
+runs once,exit0. Summary SHA76f1352be16817c76e7c45fdeabf3cb97474581596809ded7cd50bc78a11eb29.
+New docs/PUBLIC_CONTINUATION_RESULTS.rst retains all18 contrasts. Primary mixture
+win changes(pp):P1public-minus-masked+.427[-.562,+1.404],public-minus-parent
+-.171[-1.160,+.781];P2public-minus-masked+.513[-.452,+1.477],public-minus-parent
++.720[-.183,+1.636]. No model promotion or extension of this completed study.
+
+Actual evaluation2,856,503dec/191,108round/24,576fullmatches on2,048 shared93M
+deals;201,568 strict identification predictions(100,192WP/101,376Point).
+Independent replay repeats recorded work and adds0 new neural calls/deals;
+root verification separately212,212dec/14,101round/192earlymatch completions.
+Training totals previously verified18,982,723dec/266,240conditional completions/
+1,277,944conditional round endings,0 full training matches. Initial dealer,
+canonical playable model and reserved101M deals stay unchanged.
+
+Renewal capability queue then executes the actual CUDA test:1passed,0skipped,
+7.528s;XML8b25274a538870705bb188159e75bbf613a9b243246839a35dd8383af1bd1262.
+Production-shape public/masked arms each complete3updates(1warm/2policy),128env,
+exact next-update resume,96 finite Adam states and exactmatchedinitial/warmup.
+Each arm:28,775dec(14,254learner/14,521opponent),384conditional completions,
+1,922conditional round endings,0 full matches. Each resume replay9,593dec/
+128completions/638round endings. Public memory-column L1 .07116440311074257;
+masked0.0. Capability auditbae671fbb2c674a888c8014baee4c4090d74523594ee363e8ee7ecc1c285aada
+pins306inputs and passes. Logical construction768/replay256,384distinctchance
+keys sharedbetweenarms. These capability totals exclude the separate unit test.
+
+Queue37463(actual65372) then launches the predesigned renewed comparison,
+launcher39952/actualPython58904. Its receipt now pins323inputs;actual protocol
+b380344727a3ac878e1c542b1754d6eac478ae66269cd662c60c0cd85dec46aa pins316inputs.
+Parent1-public passeswarmup20 and begins policy updates. Log
+runs/renewed_continuation_study_training_and_evaluation.log. Preserve this job:
+four new520-update arms,then40,960strictmatches on2,048sharedfresh95Mdeals,
+thenindependentaudit. Fivepolicies retain both fixedcontrols andoriginalparent;
+all66contrasts andthree separateclaims arepredeclared. No partial results or
+newperformance conclusion. No automaticpromotion/reserved101Muse. Run the
+renewal summarizer onlyonce after the new independent audit succeeds.

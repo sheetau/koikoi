@@ -11,44 +11,66 @@ Old process handles mentioned in that history are historical, not live jobs.
 
 ## Current experiment and next actions
 
-**Multi-round public-memory training complete;full evaluation running:**
-producer46255(actual Python PID10804) completed allfour520-update arms and
-entered the prespecified24,576-match strict evaluation. Three evaluation workers
-were confirmed live as PIDs64032,65900,49308. Log runs/public_continuation_study.log.
-Protocol95ce0a01a76c790f5dbdeb0c78028199e61219053167fc7309543cfa4c4815a1
-and all221 inputs are unchanged. No partial win contrasts have been inspected.
+**Renewed-chance comparison is training:** queue37463(OS Python PID65372)
+launched scripts.run_renewed_continuation_study as launcher39952/actual58904.
+The parent1-public arm has passed critic warmup and entered policy updates.
+Log runs/renewed_continuation_study_training_and_evaluation.log;process receipt
+runs/renewed_continuation_study/process.json. Preserve this producer and queue.
+The frozen protocol is b380344727a3ac878e1c542b1754d6eac478ae66269cd662c60c0cd85dec46aa,
+with316 bound inputs. The queue now binds323 inputs after merging the successful
+capability audit. Do not edit those sources/tests/designs or duplicate the run.
 
-Independent completion verification63848 exited0. Receipt
-runs/public_continuation_training_completion.json SHA
-ff847eac8babdfb625deb97c3e6db8f04a92fc535cd151fef7ee8b11df31bb5f
-verifies253 inputs,allfour endpoints and both matched initial/warmup20 states.
-It reuses unchanged independently verified reports for the firstthree endpoints
-and reruns the fourth endpoint and second parent's matched warmup. All96 Adam
-states per arm are finite and phase counts agree. Total18,982,723 decisions
-(9,364,114 learner/9,618,609 opponent),266,240 conditional completions,
-1,277,944 conditional round endings and0 full training matches. This verification
-adds0 simulator decisions or neural predictions;it is not strength evidence.
+The study executes four new520-update public/masked arms from both original
+parents,refreshing conditional chance while matching the original root-index
+schedule and budget. It reuses the four completed fixed-root controls and
+compares five policies on40,960 strict full matches sharing2,048 fresh95M deals.
+Primary strength,secondary public-memory and interaction criteria remain
+separate;all66 contrasts are retained. The design predates the preceding
+study's outcomes. See [protocol](RENEWED_CONTINUATION_STUDY.rst).
 
-Independent queue96354 waits for the whole producer output before replay/audit;
-receipt runs/public_continuation_study_finish.json. Preserve it and the producer.
-Renewal capability and the following renewal study remain queued behind that
-audit. No new strength outcome or model promotion is established.
+Next: let queue37463 finish training,evaluation and independent audit. Only
+then run scripts/summarize_renewed_continuation_study.py once;never overwrite
+summary.md or summary_receipt.json. No partial evaluation contrasts,checkpoint
+selection,budget extension,automatic promotion or reserved101M use.
+After the renewed comparison, reconcile the paper with both completed studies
+and rebuild/render its PDF. The current PDF covers the earlier final-round
+memory result;the new multi-round outcome is recorded in the result document.
 
-The frozen [multi-round protocol](PUBLIC_CONTINUATION_STUDY.rst) uses both
-original parents, public/masked memory, all855/876 natural public stopping roots,
-520 updates per arm, and24,576 strict full matches on2,048 shared fresh93M deals.
-The primary criterion requires public-minus-masked and public-minus-original
-balanced-mixture win lower95% bounds to be positive for both parents. Report all
-opponent-specific and point outcomes as well. Reserved101M deals remain unused.
+**Fixed-root multi-round comparison independently complete:** producer46255
+and audit96354 exited0. All24,576 strict matches and all18 contrasts reproduce.
+Every win interval includes zero;the replicated primary criterion fails.
+Parent1 public-minus-masked point intervals are positive for the mixture and
+Point;parent1 masked-minus-parent intervals are negative in those same scopes.
+These secondary point effects do not establish a replicated win gain.
+[All outcomes](PUBLIC_CONTINUATION_RESULTS.rst). Audit
+c1694086e2f91a7b13005324b409957cdd4aee4f84d09e2640e3e01a8601c322 verifies278inputs,
+146,184 original historical inputs/masks and matched initialization/warmup.
+The summarizer ran once;summary76f1352be16817c76e7c45fdeabf3cb97474581596809ded7cd50bc78a11eb29.
+Do not restart the completed jobs or overwrite their summary.
 
-Next: preserve producer46255 and independent queue96354 until all24,576
-strict matches and the independent audit finish. Then run the prepared
-scripts/summarize_public_continuation_study.py once;never overwrite summary.md
-or summary_receipt.json. Do not inspect partial contrasts,select checkpoints,
-extend the fixed budget or duplicate trainers/evaluators. Preserve all252
-renewal-queue input bindings as well as the221 fixed-study bindings. The queued
-CUDA capability and renewal comparison can proceed only after their existing
-prerequisites succeed.
+Training totals18,982,723 decisions(9,364,114 learner/9,618,609 opponent),266,240
+conditional completions,1,277,944 conditional round endings,0 full training
+matches. Actual evaluation2,856,503 decisions/191,108 round endings/24,576matches
+on2,048 shared93M deals,plus201,568 strict public-identification predictions.
+Independent replay repeats these records with0 new neural calls or independent
+deals. Root verification separately replays212,212dec/14,101round/192match endings.
+
+**Renewed CUDA/production capability passed:** one actual CUDA test,0 skips,
+7.528s(XML8b25274a538870705bb188159e75bbf613a9b243246839a35dd8383af1bd1262).
+Two three-update production arms and exact next-update resumes pass;all96 Adam
+states per arm are checked,initial/warmup states match,public memory weights
+change and masked weights stay zero. Capability audit
+bae671fbb2c674a888c8014baee4c4090d74523594ee363e8ee7ecc1c285aada verifies306inputs.
+Logical capability work57,550dec/768conditional completions/3,844conditional
+round endings;resume replay19,186dec/256completions/1,276round endings,0 full
+matches. There are384 distinct shared chance keys,768 logical and256 replayed
+conditional deal constructions. Queue PID36420 completed successfully. These
+are capability checks,not strength evidence. Canonical model and dealer unchanged.
+
+## Earlier implementation milestones
+
+The entries below retain their status at the time of each milestone. The current
+experiment and completed outcomes above supersede their earlier waiting states.
 
 **Training diversity diagnostic:** the855/876 root banks contain717/756
 distinct initial deal permutations. Completed parent1-public samples all855
