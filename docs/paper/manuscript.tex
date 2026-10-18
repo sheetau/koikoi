@@ -20,22 +20,21 @@ Match Wins and Critic Conditioning}
 \maketitle
 \begin{abstract}
 We improve published Koi-Koi Transformers through terminal-match self-play
-and identify a failure of return estimation across players' information.
-After 8.52 million additional decisions per model, two adapted agents achieve
-51.480\% and 51.445\% draw-adjusted wins against assisted RL-WP on 10,000 held-out
-duplicate deals; both 95\% intervals exclude 50\%. They retain the original
-architecture and greedy inference, with the canonical agent averaging 1.585 ms
-per CPU decision. Against RL-Point, win improvement varies between models and
-expected points favor the point-oriented agent. An exact two-step game then
-shows why correct payoff signs are insufficient for learning: bootstrapping
-through the opponent's observation can make the expected policy update decrease
-true payoff, even with exact conditional critics. This failure persists at
-$\lambda=1$ when a rollout ends before termination. Returns between learner
-decisions recover the correct gradient in the complete example. We verify the calculation
-across Python, native CPU and CUDA and implement the construction for fixed-opponent
-Koi-Koi training. A 160,000-match comparison does not meet the primary
-parent-and-response win-gain criterion. In the secondary comparison,
-learner-decision returns outperform the $\lambda=1$ control against RL-Point
+and show how switching critic information between players can reverse a policy
+update. After 8.52 million additional decisions per model, two adapted agents
+achieve 51.480\% and 51.445\% draw-adjusted wins against assisted RL-WP on 10,000
+held-out duplicate deals; both 95\% intervals exclude 50\%. Deployment retains
+the original actor architecture and greedy inference, with the canonical agent
+averaging 1.585 ms per CPU decision. Against RL-Point, win improvement varies
+between models and expected points favor the point-oriented agent. An exact
+two-step game shows that bootstrapping through the opponent's observation can
+make the expected policy update decrease true payoff, despite correct payoff
+signs and exact conditional critics. This failure persists at $\lambda=1$
+when a rollout ends before termination. Returns between learner decisions
+recover the correct gradient in the complete example, verified across Python,
+native CPU and CUDA. In a 160,000-match Koi-Koi study, this construction does
+not establish a replicated win gain over the starting policies and ordinary
+fixed-opponent PPO. It outperforms the $\lambda=1$ control against RL-Point
 at both model seeds.
 \end{abstract}
 
@@ -50,9 +49,9 @@ maximizing the chance of winning are related but distinct learning objectives.
 Guan et al. demonstrated Transformer-based Koi-Koi agents trained for these
 two objectives: RL-WP for wins and RL-Point for points
 \cite{guan2023koikoi,pinnedkoikoi}. Their released weights provide a strong
-starting point for studying further improvement. We ask whether terminal
-match rewards can adapt these existing representations efficiently, and where
-such adaptation still falls short.
+starting point for studying further improvement. We adapt these representations
+with terminal match rewards and evaluate how the gains transfer between
+win-oriented and point-oriented opponents.
 
 Our method converts the pretrained action scores into a stochastic policy and
 optimizes it by self-play with PPO \cite{schulman2017ppo}. A separate critic
@@ -62,13 +61,11 @@ A shared CPU/GPU simulator makes these updates practical while preserving the
 published feature and scoring conventions. Deployment retains greedy action
 selection and requires no search.
 
-The empirical contribution is a replicated improvement over the published
-win-oriented policy at a fixed additional budget of 8.52 million decisions per model. We
-also show that identical initial greedy behavior can lead to different adaptation
-outcomes: two fixed exploration and learning-rate configurations separate in
-paired development comparisons. Evaluating both published reward objectives
-then reveals where the improvement transfers and where a scoring advantage
-remains with RL-Point.
+Both adapted models beat the published win-oriented policy after an additional
+8.52 million decisions each. This gain transfers unevenly to RL-Point, which
+retains an expected-points advantage. Paired development comparisons also
+show that identical initial greedy behavior can lead to different adaptation
+outcomes under different exploration and learning-rate settings.
 
 We also examine what information a return estimator passes between players.
 An exactly enumerable two-step game shows that correct payoff signs and exact
@@ -80,16 +77,15 @@ the example and motivates a Koi-Koi implementation with explicit handling of
 unfinished rollout tails. A nonterminal cutoff can preserve the same failure
 even at $\lambda=1$.
 
-We test this construction against ordinary response training and a
-$\lambda=1$ control using the same two adapted parents and fixed opponents
-(Section~\ref{sec:learner}). The primary criterion is unmet: one of eight
-required paired win-change intervals excludes zero in the positive direction.
-The secondary comparison favors learner-decision returns over $\lambda=1$
-against Point at both parents. Supplementary policy-composition experiments
-identify a separate scoring benefit: retaining the adapted card policy while
-using RL-Point for stop/continue decisions improves expected point margin.
-Learned expert selection gives no replicated match-win gain
-(Appendix~\ref{sec:arbitration}).
+We test this construction against the two starting policies, ordinary
+fixed-opponent PPO and a $\lambda=1$ control (Section~\ref{sec:learner}).
+The 160,000-match study does not establish a replicated win gain over the
+starting policies and ordinary PPO: one of eight required paired intervals
+has a positive lower bound. Learner-decision returns do outperform
+$\lambda=1$ against RL-Point at both model seeds. Supplementary experiments
+find that combining the adapted card policy with RL-Point stop/continue
+decisions improves expected point margin; learned expert selection gives no
+replicated match-win gain (Appendix~\ref{sec:arbitration}).
 
 \section{Related work}
 \subsection{Learning to play Koi-Koi}

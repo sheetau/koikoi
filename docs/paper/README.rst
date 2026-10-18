@@ -343,3 +343,24 @@ All previous numerical tokens and8 evidence ledgers verify;no TeX box,glyph,
 reference or page-bound defect remains. Previous20-page PDF is preserved as
 ``output/pdf/manuscript_learner_79dd722c.pdf``. The ongoing observer study remains
 outside this revision until its fixed evaluation and audits complete.
+
+
+Opening clarity revision
+------------------------
+
+Abstract and Introduction now lead with the measured match-win adaptation and
+the precise critic-information counterexample. The text names the controls
+instead of relying on an unexplained parent-and-response criterion,clarifies
+that deployment retains the actor architecture,and shortens the adaptation
+summary. The primary negative learner result and secondary Point/lambda1
+result are both retained. No new experiment outcome is introduced.
+
+PDF SHA8a405247ec007d4d929e82426d931aae70b1d7a404607bc79d405b615be84175.
+QA runs/manuscript_opening_qa.json SHA
+7f0f8610d3dd5f4b73c95856fc74272712fe08bada0f0862b250d842073988cc.
+All21 pages rendered;the changed first2 pages were visually reviewed,and
+pages3--21 are pixel-identical to the previous reviewed PDF. Abstract174 words,
+24 references,20 embedded fonts. All prior numeric tokens,8 evidence ledgers
+and their392 unique inputs/outputs verify. Related Work and all following
+source text are unchanged. No TeX box,missing-glyph,reference or bounds defects.
+Previous PDF:output/pdf/manuscript_trace_cddde4e3.pdf.
