@@ -155,3 +155,44 @@ cells,wrong seeds,invalid identities and malformed point totals. These are
 synthetic records,not simulator matches. The module has no implicit execution
 entry point;the future runner/auditor must enforce completed provenance and
 independently replay actual outcomes before reporting strength.
+
+
+Executable prospective study
+-----------------------------
+
+``scripts/run_renewed_continuation_study.py`` now implements the prospective
+four-arm training and five-policy evaluation. Preflight requires the unchanged
+completed fixed study and its independent audit,the passed renewed CUDA
+capability and resume checks,successful protocol tests,and the original
+pre-evaluation design hash. The executable protocol is frozen only when these
+prerequisites hold. No checkpoint selection or extra training budget is added.
+
+``scripts/audit_renewed_continuation_study.py`` independently verifies all saved
+root schedules against the corresponding fixed-bank checkpoints,replays index
+RNGs,checks fresh-key accounting,and verifies identical initial models/RNGs.
+It checks ancestry,optimizer counts,public metadata and matched renewed warmup,
+then replays actual full matches and public evidence and independently recomputes
+the66 paired result records. Its scalar bootstrap does not import the producer's
+analysis implementation. Model predictions are not all re-executed by the audit.
+
+Seven tests pass,0 skips,in7.68s. They include changed/incomplete prerequisite
+rejection,initial fixed/renewed model/optimizer/global RNG equality,real fixed
+checkpoint root-index RNGs with corrupted-schedule rejection,independent result
+and decision calculations,and five policy formats in the actual evaluation
+worker. That worker fixture uses initial actors and one previously used88M deal;
+it adds5 correctness matches and5 reference replays,not new strength samples.
+No93M/95M/101M evaluation deal is used by these tests.
+
+The first scalar-bootstrap test differed by1.1e-16 for a synthetic five-deal
+stratum because summation orders differ. That small synthetic case now uses
+1e-15 absolute tolerance. Added nonconstant1,024-deal checks require exact
+agreement at the actual production shape;the full independent audit still
+requires exact equality. The failed and intermediate XMLs remain preserved.
+Final XML ``runs/renewed_continuation_protocol_tests.xml``:
+88ae130fa534ceea0b27d75520119deb60ffff20251c4afcf4201055e5eeb03a.
+
+The actual readiness check confirms preflight currently rejects launch because
+the fixed comparison is unfinished. A separate queue now waits for the existing
+CUDA capability queue,then executes this study and its independent audit without
+overlapping the prior evaluation. STATUS records the live handle and input
+bindings. This is scheduled work;no renewed strength training has yet occurred.

@@ -3845,3 +3845,51 @@ yet check parent2's paired warmup;that and the remaining endpoint are pending.
 Three completed arms total14,234,914 decisions/199,680 conditional completions/
 958,952 conditional round endings. No partial evaluation contrasts inspected,
 new strength claim,promotion,dealer change or101M use.
+
+
+## Renewed continuation producer and independent auditor queued
+
+Previous turn implemented/tested paired analysis and independently verified the
+third fixed endpoint,so it is progress. Current producer46255,audit96354 and
+renewal capability PID36420 are confirmed live;parent2-masked continues its
+unchanged520-update schedule. No partial evaluation outcomes inspected.
+
+Added scripts/run_renewed_continuation_study.py and
+scripts/audit_renewed_continuation_study.py. The producer requires completed
+unchanged prerequisite audits,passed CUDA/resume capability,successful tests
+and the pre-evaluation design identity;it implements the stated four new arms
+and five-policy40,960-match comparison. The independent auditor reconstructs
+every saved root-index RNG and compares it to the fixed control,checks initial
+states,source ancestry,chance accounting,finite optimizers,warmup and final520
+identity,then replays matches/public evidence and independently recomputes all66
+win/point contrast records. No full neural-prediction replay claim is made.
+
+Initial protocol run passed4/failed1 because the synthetic five-deal scalar
+bootstrap differed by1.1e-16 from vector summation. Preserved failed XML;changed
+only that small-case assertion to1e-15 absolute tolerance and added exact
+nonconstant1,024-deal production-shape checks. Five tests then passed2.43s.
+Added fixed/renewed initial actor/value/optimizer/global RNG comparison and
+corrected a Ruff dictionary-literal finding:six tests passed4.85s then4.62s.
+Finally added the real worker's five-format fixture using initial models and
+an already used88M deal. Final command `.venv/Scripts/python.exe -m pytest tests/test_renewed_continuation_protocol.py -q --junitxml=runs/renewed_continuation_protocol_tests.xml`
+passes7,0 skips,in7.68s with three expected Transformer warnings. All preceding
+executions have0 new simulator matches;the final worker fixture adds5 full
+correctness matches plus5 reference replays,not new strength observations.
+It consumes no93M/95M/101M evaluation deal. Ruff format/check pass.
+
+Final XML88ae130fa534ceea0b27d75520119deb60ffff20251c4afcf4201055e5eeb03a;
+runner44073df1608e0811bc1b1f8f16f87db6baf5b5e9d5bf3bd80afbe55cd115f177;
+auditorc691069845c880977a600a59cef99c157d680741ec6dae32e53fdab523145f06;
+testac94e18b33ed73c96dccd7b6f82800228e50678aba53c661c194856c20c54cb4.
+Readiness command `.venv/Scripts/python.exe -m runs.check_renewed_study_readiness`
+verifies250 inputs and confirms the actual preflight refuses the live unfinished
+comparison. Receipt5708bec872285baa6236a844c1e015650b81f44d8a1d11e06a8151fe26be9d93.
+
+Launched `.venv/Scripts/python.exe -m runs.finish_renewed_continuation_study` once:
+session37463,actual Python PID65372,launcher26672. It waits for the preceding
+renewed CUDA capability receipt,then runs the new producer and independent audit
+sequentially. Waiting receipt runs/renewed_continuation_study_finish.json pins252
+unchanged inputs;SHA45a93fa6922e7280c352b71db942365368aec9a8595a4bf036eb93088d8ff253.
+It records child PIDs/logs on launch;an8h observation deadline never kills prior
+jobs. Do not restart or modify bound sources/tests. No new strength training or
+evaluation has started;no promotion,dealer change or101M use.

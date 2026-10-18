@@ -78,8 +78,9 @@ It proposes four new520-update arms and40,960 fresh full matches on2,048 shared
 The specification was recorded while the current study was still training with
 zero evaluation files. Receipt runs/renewed_continuation_design_pre_evaluation.json
 SHAec855e090728072ddc491a9eadb1c50c3da1bd0538b169a59b310f77d104b6f3.
-This is not an executed/frozen study;runner,auditor and their checks remain to
-implement after the existing prerequisites. No new strength job is queued.
+Runner,auditor and their CPU/fixture checks are now implemented. A queue waits
+for the current comparison and CUDA capability before freezing/executing this
+protocol. No renewed strength training or evaluation has started yet.
 
 **Five-policy renewal analysis implemented:** the full-grid loader requires
 40,960 records with unique policy/parent/opponent/seat/replicate/deal identities.
@@ -89,8 +90,8 @@ Strength,public-memory and interaction success remain separate. Five synthetic
 tests pass,0 skips,in0.47s;XML462ca12e4c1aff98ee385328d6fe9923b7d5aed52a9381ded68b9a36096877b6.
 Scalar stratified-bootstrap calculations agree;incomplete/malformed grids and
 one-parent,point-only or one-opponent substitutes for primary success are rejected.
-This creates no simulated matches or strength result. The future runner and
-independent auditor still need implementation/validation before execution.
+The analysis tests create no simulated matches or strength result. The separate
+runner/auditor now pass their own CPU/fixture checks;see the queued milestone below.
 
 **Third fixed-continuation endpoint verified:** parent2-public final
 7beb4e2276d0773d015de8010650af620a0c3bd293b9e4db87333f0f99c49f44
@@ -104,6 +105,21 @@ Verifier98033 exited0 and adds0 simulation/inference. Parent2-masked is running;
 its endpoint and matched warmup remain pending. Three completed arms total
 14,234,914 decisions/199,680 conditional completions/958,952 conditional rounds.
 No strength outcome is available yet.
+
+**Renewal runner/auditor ready and queued:** seven tests pass,0 skips,in7.68s,
+including fixed/renewed initial model/optimizer/global RNG equality,real fixed
+root-index RNG validation,tamper rejection,independent paired statistics and a
+five-policy worker fixture on one already used88M correctness deal. The fixture
+adds5 full correctness matches plus5 reference replays,0 fresh evaluation deals.
+XML88ae130fa534ceea0b27d75520119deb60ffff20251c4afcf4201055e5eeb03a.
+Readiness receipt5708bec872285baa6236a844c1e015650b81f44d8a1d11e06a8151fe26be9d93
+verifies250 inputs and confirms actual preflight refuses the unfinished prior
+comparison. Queue37463(OS PID65372,launcher26672) now waits for renewed CUDA
+capability success,then runs the predesigned study and independent audit in
+sequence. Waiting receipt runs/renewed_continuation_study_finish.json pins252
+unchanged inputs;SHA45a93fa6922e7280c352b71db942365368aec9a8595a4bf036eb93088d8ff253.
+Do not duplicate it or edit its bound new sources/tests/design. Its8h waiting
+deadline does not terminate preceding jobs. No new strength outcome or promotion.
 
 ## Completed evidence informing this experiment
 
@@ -219,7 +235,8 @@ Use `.venv/Scripts/python.exe` (Python3.12/Torch2.12+cu130/NumPy2.5.4),not syste
 Python3.14. CPU Ryzen9900X,GPU RTX5070Ti16GB. Read PowerShell text explicitly as
 UTF8;preserve existing endings,new files UTF8 without BOM/LF. No subagents.
 Live research jobs at this snapshot:producer46255,audit queue96354,and
-renewal capability queue OS PID36420(launcher63668). The producer and audit
+renewal capability queue OS PID36420(launcher63668),and renewal study queue
+37463(OS PID65372,launcher26672). The producer and audit
 actual Python PIDs are10804 and32056 respectively. Confirm processes/receipts
 before treating these handles as live later;do not duplicate their work.
 
