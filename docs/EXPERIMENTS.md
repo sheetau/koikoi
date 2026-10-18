@@ -3924,3 +3924,36 @@ source08678404210ef1df84d17d0ef9c35cef05e38b3a68e41aa1ee8f37f4c294b84a;
 bibliography5270a386287ff8645abbc216b39c57c99ab4286bd12179287dae93f4caed0897.
 Final QA runs/manuscript_frontmatter_qa.json SHAfaf681e99a9d37b0989ad99419cc85f3977ccb920aa0f855c1004dd18a02cad0.
 No ongoing-study outcome,model,dealer rule or reserved101M data changed.
+
+
+## Allfour fixed-continuation training arms complete;strict evaluation started
+
+Previous turn revised/rendered/verified the paper frontmatter,so it is progress.
+This turn confirms producer46255 and allthree dependent queues actually live,
+then waits on the same producer handle in60s-or-shorter observations. The final
+parent2-masked arm advances420->460->480->520 with no restart or budget change.
+The producer enters evaluation with three real Python child workers
+PIDs64032/65900/49308 under10804. No partial win/point contrasts inspected.
+
+Command `.venv/Scripts/python.exe -m runs.verify_public_continuation_training_completion`
+exits0(63848 terminal) with one expected upstream Transformer warning. It binds
+253 inputs,checks the unchanged firstthree independent endpoint reports,and
+reruns the last endpoint audit plus parent2 initial/warmup20 equality. Allfour
+endpoints have96 finite Adam states and matching phase-step counts. Receipt
+runs/public_continuation_training_completion.json SHA
+ff847eac8babdfb625deb97c3e6db8f04a92fc535cd151fef7ee8b11df31bb5f.
+
+Parent2-masked final22b4c36084cf490fa4944c1cb42cc996840f3db60545c075ff80e13614b9686c:
+4,747,809 decisions(2,343,004 learner/2,404,805 opponent),66,560 conditional
+completions/318,992 conditional rounds,0 full training matches. Value14,481,
+discard13,926,pick13,890,koi13,898 optimizer steps. Both parents' matched initial
+and warmup models/optimizers/banks/memory/Python/NumPy/CPU/CUDA RNGs agree.
+
+Four-arm total18,982,723 decisions(9,364,114 learner/9,618,609 opponent),266,240
+conditional completions,1,277,944 conditional rounds,0 full training matches;
+2,080 updates comprise80 critic-only and2,000 policy updates. Completion
+verification adds0 simulation or neural prediction. The actual24,576-match
+evaluation and its independent audit remain pending;training totals are not
+strength evidence. All252 renewal-queue inputs reverify. Queues96354,renewal
+capability PID36420 and renewal study37463 remain intact. No new outcome,
+canonical-model promotion,dealer change or101M use.

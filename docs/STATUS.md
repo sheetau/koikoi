@@ -11,7 +11,28 @@ Old process handles mentioned in that history are historical, not live jobs.
 
 ## Current experiment and next actions
 
-**Multi-round public-memory study running:** producer46255 executes scripts.run_public_continuation_study via runs/launch_public_continuation_study.py;log runs/public_continuation_study.log. Protocol95ce0a01a76c790f5dbdeb0c78028199e61219053167fc7309543cfa4c4815a1 exactly matches preflight and all221 inputs verify. Both parent1 arms completed520 updates and passed independently rerun endpoint checks;parent2-public also completed520 updates and its independent endpoint check passed;parent2-masked is training. Masked receipt c4881c33d09c406b241e4fab9fb8e91a41c35e7aaaa7bc40d3f36eff61a68be8 verifies231 inputs;both arms total9,516,376 decisions/133,120 conditional completions/0 full training matches. Both matched initial/warmup20 states agree exactly. Receipt runs/public_continuation_study/parent1_public_completion_verification.json SHA22ac11cb454d1a0074fcf267b24d69a4399cbb6f1bc3525fec2b883fd7b2a583 verifies231 inputs. Other arms and24,576 fresh93M strict matches follow the frozen schedule. Independent queue96354 waits for complete producer output,then runs scripts.audit_public_continuation_study;receipt runs/public_continuation_study_finish.json,8h observation deadline does not terminate the producer. Preserve both live processes and all bound scripts/tests/designs. Manuscript files are not bound and can be updated with completed prior results during training. No new strength outcome or promotion yet. Completion-only summarizer scripts/summarize_public_continuation_study.py is ready;the live incomplete study correctly refuses summary output. Run it once only after independent queue96354 succeeds.
+**Multi-round public-memory training complete;full evaluation running:**
+producer46255(actual Python PID10804) completed allfour520-update arms and
+entered the prespecified24,576-match strict evaluation. Three evaluation workers
+were confirmed live as PIDs64032,65900,49308. Log runs/public_continuation_study.log.
+Protocol95ce0a01a76c790f5dbdeb0c78028199e61219053167fc7309543cfa4c4815a1
+and all221 inputs are unchanged. No partial win contrasts have been inspected.
+
+Independent completion verification63848 exited0. Receipt
+runs/public_continuation_training_completion.json SHA
+ff847eac8babdfb625deb97c3e6db8f04a92fc535cd151fef7ee8b11df31bb5f
+verifies253 inputs,allfour endpoints and both matched initial/warmup20 states.
+It reuses unchanged independently verified reports for the firstthree endpoints
+and reruns the fourth endpoint and second parent's matched warmup. All96 Adam
+states per arm are finite and phase counts agree. Total18,982,723 decisions
+(9,364,114 learner/9,618,609 opponent),266,240 conditional completions,
+1,277,944 conditional round endings and0 full training matches. This verification
+adds0 simulator decisions or neural predictions;it is not strength evidence.
+
+Independent queue96354 waits for the whole producer output before replay/audit;
+receipt runs/public_continuation_study_finish.json. Preserve it and the producer.
+Renewal capability and the following renewal study remain queued behind that
+audit. No new strength outcome or model promotion is established.
 
 The frozen [multi-round protocol](PUBLIC_CONTINUATION_STUDY.rst) uses both
 original parents, public/masked memory, all855/876 natural public stopping roots,
@@ -20,13 +41,14 @@ The primary criterion requires public-minus-masked and public-minus-original
 balanced-mixture win lower95% bounds to be positive for both parents. Report all
 opponent-specific and point outcomes as well. Reserved101M deals remain unused.
 
-Next: preserve producer46255 and independent queue96354;verify remaining completed
-endpoints and matched initial/warmup states. After allfour arms finish,record
-training completion and allow the existing strict evaluator to finish. After
-the independent audit passes,run the prepared summarizer once. Do not inspect
-partial win contrasts,select checkpoints,extend the fixed budget,or launch
-duplicate trainers/evaluators. Do not edit any of the221 protocol-bound inputs.
-Training and conditional completions are not strength evidence.
+Next: preserve producer46255 and independent queue96354 until all24,576
+strict matches and the independent audit finish. Then run the prepared
+scripts/summarize_public_continuation_study.py once;never overwrite summary.md
+or summary_receipt.json. Do not inspect partial contrasts,select checkpoints,
+extend the fixed budget or duplicate trainers/evaluators. Preserve all252
+renewal-queue input bindings as well as the221 fixed-study bindings. The queued
+CUDA capability and renewal comparison can proceed only after their existing
+prerequisites succeed.
 
 **Training diversity diagnostic:** the855/876 root banks contain717/756
 distinct initial deal permutations. Completed parent1-public samples all855
@@ -101,10 +123,9 @@ finite Adam states/phase counts. Actual4,718,538 decisions(2,328,594 learner,
 endings,0 full training matches. Receipt
 runs/public_continuation_study/parent2_public_completion_verification.json
 SHAea1e6df4e496bd2e83e94a9c0ec7eea7a7ef9c8186a3df831875d8597347a521.
-Verifier98033 exited0 and adds0 simulation/inference. Parent2-masked is running;
-its endpoint and matched warmup remain pending. Three completed arms total
-14,234,914 decisions/199,680 conditional completions/958,952 conditional rounds.
-No strength outcome is available yet.
+Verifier98033 exited0 and adds0 simulation/inference. This milestone has now
+been superseded by the four-arm completion verification above;its receipt
+remains unchanged. No strength outcome is available yet.
 
 **Renewal runner/auditor ready and queued:** seven tests pass,0 skips,in7.68s,
 including fixed/renewed initial model/optimizer/global RNG equality,real fixed
