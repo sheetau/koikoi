@@ -102,6 +102,34 @@ Test SHA256:
 Ruff passes and all126 active-study inputs still verify. The short CPU fixture
 run overlapped evaluation and is not an isolated timing benchmark.
 
+Production-shape capability queued
+---------------------------------
+
+``scripts/check_public_memory_continuation.py`` requires the completed round8
+study,its successful independent audit,unchanged evidence and a passed real CUDA
+test. It uses the855 audited parent1 training roots with128 environments,three
+PPO epochs and minibatches of512. Both public and masked arms execute one
+critic-only and two policy updates. Each third update is then replayed from the
+second checkpoint and compared exactly,including model,optimizer,bank and RNGs.
+Logical work and restart replay work are reported separately. Initial and
+warmup endpoints must match between treatments. Every Adam state must be finite
+and its step count must agree with the phase counters.
+
+Two capability-guard tests pass,0 skipped,1.39s. They reject unfinished/missing
+audits and changed evidence,and detect optimizer or RNG differences in endpoint
+comparison. XML SHA256:
+``e1b8c8e1a25c92923cf0c59bc22df9fe9e209e1fa6b05fd060d6fb06d8c2b06b``.
+These tests do not execute CUDA or the production-shape run.
+
+Queue76467 runs ``runs.finish_public_memory_continuation_capability`` and binds
+146 currently verified inputs. It waits for the existing audit queue35738 to
+finish successfully,then runs the CUDA test followed by the capability checker.
+Receipt:``runs/public_memory_continuation_capability_finish.json``.
+Outputs will be fresh under``runs/public_memory_continuation_capability``.
+The3h observation deadline does not terminate the existing producer. Do not
+restart the queue or change its bound implementation/tests while it is live.
+This is a capability check,not a new strength study.
+
 Remaining work
 --------------
 
