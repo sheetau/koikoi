@@ -11,7 +11,7 @@ Old process handles mentioned in that history are historical, not live jobs.
 
 ## Current experiment and next actions
 
-**Multi-round public-memory study running:** producer46255 executes scripts.run_public_continuation_study via runs/launch_public_continuation_study.py;log runs/public_continuation_study.log. Protocol95ce0a01a76c790f5dbdeb0c78028199e61219053167fc7309543cfa4c4815a1 exactly matches preflight and all221 inputs verify. Parent1-public completed520 updates and passed an independently rerun endpoint check;parent1-masked is training. Both matched initial/warmup20 states agree exactly. Receipt runs/public_continuation_study/parent1_public_completion_verification.json SHA22ac11cb454d1a0074fcf267b24d69a4399cbb6f1bc3525fec2b883fd7b2a583 verifies231 inputs. Other arms and24,576 fresh93M strict matches follow the frozen schedule. Independent queue96354 waits for complete producer output,then runs scripts.audit_public_continuation_study;receipt runs/public_continuation_study_finish.json,8h observation deadline does not terminate the producer. Preserve both live processes and all bound scripts/tests/designs. Manuscript files are not bound and can be updated with completed prior results during training. No new strength outcome or promotion yet. Completion-only summarizer scripts/summarize_public_continuation_study.py is ready;the live incomplete study correctly refuses summary output. Run it once only after independent queue96354 succeeds.
+**Multi-round public-memory study running:** producer46255 executes scripts.run_public_continuation_study via runs/launch_public_continuation_study.py;log runs/public_continuation_study.log. Protocol95ce0a01a76c790f5dbdeb0c78028199e61219053167fc7309543cfa4c4815a1 exactly matches preflight and all221 inputs verify. Both parent1 arms completed520 updates and passed independently rerun endpoint checks;parent2-public is training. Masked receipt c4881c33d09c406b241e4fab9fb8e91a41c35e7aaaa7bc40d3f36eff61a68be8 verifies231 inputs;both arms total9,516,376 decisions/133,120 conditional completions/0 full training matches. Both matched initial/warmup20 states agree exactly. Receipt runs/public_continuation_study/parent1_public_completion_verification.json SHA22ac11cb454d1a0074fcf267b24d69a4399cbb6f1bc3525fec2b883fd7b2a583 verifies231 inputs. Other arms and24,576 fresh93M strict matches follow the frozen schedule. Independent queue96354 waits for complete producer output,then runs scripts.audit_public_continuation_study;receipt runs/public_continuation_study_finish.json,8h observation deadline does not terminate the producer. Preserve both live processes and all bound scripts/tests/designs. Manuscript files are not bound and can be updated with completed prior results during training. No new strength outcome or promotion yet. Completion-only summarizer scripts/summarize_public_continuation_study.py is ready;the live incomplete study correctly refuses summary output. Run it once only after independent queue96354 succeeds.
 
 The frozen [multi-round protocol](PUBLIC_CONTINUATION_STUDY.rst) uses both
 original parents, public/masked memory, all855/876 natural public stopping roots,
@@ -48,8 +48,15 @@ strength trial or modification of the current study has occurred.
 source multiplicities and separate public-memory/routing metadata,assigns unique
 chance keys within a fixed allocation,and validates saved cursor/RNG consistency.
 Two CPU tests pass,0 skips,1.51s;XML9af1d59cd7035cca2de4825207879ae20360bb03d41a7d8dddd5f5f9d46759d1.
-Full learner integration and GPU/trainer-resume validation remain pending;
+The independent renewed learner now passes CPU integration/resume checks;GPU validation remains pending;
 the current fixed-root comparison is unchanged.
+
+**Renewed-deal learner passes CPU checks:** two tests pass,0 skips,one
+CUDA case deselected,46.40s. Complete multi-round reference returns,matched
+public/masked warmup and exact next-update model/optimizer/chance resume pass.
+XML19b7d3eccf220a3289fdfc22ed8041225b3e2b08650a2caed896a00d8e02621f.
+GPU/production capability,online new-format loader and a prospective strength
+trial remain pending. Existing46255/96354 and all221 inputs are unchanged.
 
 ## Completed evidence informing this experiment
 

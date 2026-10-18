@@ -67,11 +67,36 @@ and public-memory values,unique per-draw chance keys,and atomic rejection of
 invalid requests/snapshots. Final XML ``runs/renewed_root_sampler_metadata_tests.xml``
 has SHA256 9af1d59cd7035cca2de4825207879ae20360bb03d41a7d8dddd5f5f9d46759d1.
 
+Learner integration on CPU
+-------------------------
+
+``scripts/renewed_continuation.py`` adds an isolated terminal-return learner
+with explicit chance-key allocation and format ``renewed_public_continuation_v1``.
+The existing conditioning/PPO code and complete-continuation semantics are
+retained. Its separate collection method replaces root copying with renewed
+deals;no frozen study source is edited. Sampler cursor,fresh-deal count and
+conditional-completion count must agree before collection or saving.
+
+Checkpoints retain actor,critic,optimizer,frozen parent/opponents,source bank,
+public memory,all RNG states and the complete chance sampler. Restore validates
+source/bank identities and the chance schedule before resuming updates.
+
+Two CPU tests pass,0 skips,one CUDA case deselected,in46.40s. Reference replay
+checks every transition through multiple rounds,including opponent-turn match
+endings and learner reward signs. Public/masked initial models and warmup
+states/schedules agree. Resuming the next policy update reproduces metrics,
+model,optimizer and next chance keys exactly;frozen actors stay unchanged.
+Corrupt chance accounting and memory changes are rejected without advancing
+the sampler. Final XML ``runs/renewed_continuation_cpu_final_tests.xml``:
+19b7d3eccf220a3289fdfc22ed8041225b3e2b08650a2caed896a00d8e02621f.
+The earlier CPU run also passed before import-order cleanup and the added
+counter-mismatch assertion;both runs are correctness work,not strength data.
+
 Outstanding work
 ----------------
 
-CUDA transition checks,learner integration,full-trainer checkpoint/resume checks,
-matched training controls and a prospective strength comparison remain unperformed.
+CUDA transition/trainer-resume checks,production-shaped capability,an online
+loader for the new format,and a prospective strength comparison remain unperformed.
 The current study must finish unchanged. Its results may inform whether to
 run a separate renewal experiment;this capability establishes no playing gain,
 absence of overfitting or new general learning principle.
