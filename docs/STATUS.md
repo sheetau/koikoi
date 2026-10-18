@@ -165,7 +165,21 @@ their empirical fixes did not establish replicated Koi-Koi win improvement.
 
 ## Latest manuscript
 
-**Latest verified manuscript:**28 pages,31 references,171-word Abstract and20 embedded fonts. Related Work now explicitly covers showdown/fold Bayesian likelihoods,partial-revelation multiplayer adaptation,and policy-based hidden-deal inference. It identifies the contribution as exact Koi-Koi historical-input reconstruction,measured identification coverage and controlled downstream comparisons;delayed revelation/default-policy adaptation are not claimed as new principles. [Primary-source analysis](PUBLIC_MEMORY_PRIOR_ART.rst). Completed round8 public-memory negative results remain unchanged. All756 evidence inputs and221 live-study bindings verify;all28 pages rendered/contact-reviewed,with pages3/15/28 inspected full size. No box,glyph,reference or page-bound defects. PDF2ffe37c5ef6be499fbc9fd36b161a811eda7be7729fddc3d129e31404ace4440;source5a365f1b7e6e1f1a6366f2e69ca4f053336728bc00e61aeffe11777304805fa9;QA runs/manuscript_public_prior_art_qa.json SHA80bbecbcbb2e89aba3a9ffcb04b141b1d273c0efc9445c2bdc0cfd3a6bf46e21. Previous PDF retained as output/pdf/manuscript_public_memory_c909f25f.pdf. Multi-round study remains running;no new strength result or promotion.
+**Latest verified manuscript:**28 pages,31 references,143-word Abstract and20
+embedded fonts. Abstract/Introduction now lead with terminal-match adaptation,
+the exact critic-conditioning counterexample and public-input reconstruction.
+Repeated experiment counts and separate negative-result summaries are condensed;
+combined frontmatter falls from672 to552 whitespace words. Related Work and
+all following source bytes remain identical,including every result,table and
+qualification. All prior numeric tokens remain in the rendered PDF. All756
+evidence inputs and252 live-queue bindings verify. All28 pages rendered/contact-
+reviewed,with pages1/2/28 inspected full size;no box,glyph,reference or page-bound
+defects. PDF4bf68f3e5143bd1367f381886b91c8b6586093bc22b3eb970a894829935eacc0;
+source08678404210ef1df84d17d0ef9c35cef05e38b3a68e41aa1ee8f37f4c294b84a;
+QA runs/manuscript_frontmatter_qa.json SHAfaf681e99a9d37b0989ad99419cc85f3977ccb920aa0f855c1004dd18a02cad0.
+Previous31-reference PDF retained as output/pdf/manuscript_prior_art_2ffe37c5.pdf.
+The prior-art comparisons remain documented in PUBLIC_MEMORY_PRIOR_ART.rst.
+Ongoing multi-round/renewal experiments supply no new strength claim yet.
 
 ## Local human-play delivery
 

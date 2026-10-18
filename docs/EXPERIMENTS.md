@@ -3893,3 +3893,34 @@ unchanged inputs;SHA45a93fa6922e7280c352b71db942365368aec9a8595a4bf036eb93088d8f
 It records child PIDs/logs on launch;an8h observation deadline never kills prior
 jobs. Do not restart or modify bound sources/tests. No new strength training or
 evaluation has started;no promotion,dealer change or101M use.
+
+
+## Abstract and Introduction focused on measured contributions
+
+Previous turn implemented,tested and queued the renewed comparison;classified
+as progress. This turn confirms allfour research processes actually live:
+producer46255,audit96354,renewal capability PID36420 and renewal study37463.
+Parent2-masked remains in its fixed training schedule;no evaluation contrast
+inspected. The publication edit is outside all frozen experiment inputs.
+
+Rewrote only Abstract/Introduction around the established adaptation gain,the
+exact critic-information counterexample,and public-input reconstruction. Reduced
+repeated experiment counts and combined unsuccessful-repair summaries while
+retaining their outcome. Combined frontmatter672->552 whitespace words;
+Abstract171->143 words. Related Work and every following source byte are
+unchanged,including all empirical results,limitations,appendices and31 references.
+Preserved the prior PDF as output/pdf/manuscript_prior_art_2ffe37c5.pdf and
+source as runs/manuscript_before_frontmatter.tex. Existing CRLF preserved.
+The PDF authoring marker was previously run exactly once and was not repeated.
+
+Build `external/tectonic/tectonic.exe --keep-logs --outdir output/pdf docs/paper/manuscript.tex`
+succeeds. The existing Fontconfig configuration notice persists but all20 fonts
+are embedded. QA57222 exits0:all756 evidence inputs and252 queued bindings
+verify;all prior numeric tokens retained;no over/underfull boxes,missing glyphs,
+undefined references/citations or out-of-page text spans. Rendered/reviewed all28
+pages in four contact sheets and inspected pages1/2/28 at full size. Final PDF
+4bf68f3e5143bd1367f381886b91c8b6586093bc22b3eb970a894829935eacc0;
+source08678404210ef1df84d17d0ef9c35cef05e38b3a68e41aa1ee8f37f4c294b84a;
+bibliography5270a386287ff8645abbc216b39c57c99ab4286bd12179287dae93f4caed0897.
+Final QA runs/manuscript_frontmatter_qa.json SHAfaf681e99a9d37b0989ad99419cc85f3977ccb920aa0f855c1004dd18a02cad0.
+No ongoing-study outcome,model,dealer rule or reserved101M data changed.

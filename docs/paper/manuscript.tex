@@ -19,85 +19,70 @@ Match Wins and Critic Conditioning}
 \begin{document}
 \maketitle
 \begin{abstract}
-Terminal-match self-play improves the published Koi-Koi win policy without
-changing its Transformer architecture or greedy inference. With 8.52 million
+Terminal-match self-play improves the published Koi-Koi win policy while
+retaining its Transformer architecture and greedy inference. After 8.52 million
 additional decisions each, two adapted agents achieve 51.480\% and 51.445\%
 draw-adjusted wins against assisted RL-WP on 10,000 held-out duplicate deals;
 both 95\% intervals exclude 50\%. The canonical agent averages 1.585 ms per
 CPU decision. RL-Point remains competitive in wins and superior in expected
-points. Our second contribution is an exact counterexample for
-player-relative return estimation. Switching to the opponent's critic can
-reverse the expected policy update even when both critics give exact
-conditional values. Learner-decision returns recover the correct update in
-the example, with matching Python, native CPU and CUDA implementations.
-We also identify and repair a public-seat ambiguity in the critic input.
-Three controlled 160,000-match studies of learner-decision returns,
-fixed-observer returns and the feature repair find no replicated win gain.
-Delayed public hand
-revelations identify the fixed WP/Point opponent in 86.1\% of natural final-round
-starts. Conditioning final-round play on this signal yields no replicated win
-gain in a matched 24,576-match comparison.
+points. We also construct an exact counterexample in which switching to the
+opponent's critic reverses the expected policy update despite exact conditional
+values. Learner-decision returns correct the complete example. An audit of
+the Koi-Koi representation identifies an omitted public-seat distinction,
+and reconstruction of earlier inputs from completed public hands identifies
+the fixed WP/Point opponent in 86.1\% of natural final-round starts. Controlled
+comparisons find no replicated win gain from the return repairs, the seat
+feature, or final-round use of this public memory.
 \end{abstract}
 
 \section{Introduction}
 Koi-Koi rewards both collecting valuable card combinations and deciding when
-to stop. Continuing after a scoring opportunity can increase the gain, but it
-also gives the opponent another chance to score. Across a multi-round match,
-the same hand can call for different decisions depending on the score and the
-rounds remaining. Maximizing expected points and maximizing the chance of
-winning are related but distinct learning objectives.
+to stop. Continuing can increase the gain, but it also gives the opponent
+another chance to score. Across a match, the score and rounds remaining can
+change the best decision for the same hand. Expected points and match wins
+are therefore distinct learning objectives.
 
-Guan et al. trained Transformer-based agents for these two objectives:
-RL-WP for wins and RL-Point for points \cite{guan2023koikoi,pinnedkoikoi}.
-Their released representations provide a strong starting point. We study
-further adaptation with terminal match rewards and ask how the information
-available to a critic affects updates in an imperfect-information game.
+Guan et al. trained Transformer agents for these objectives: RL-WP for wins
+and RL-Point for points \cite{guan2023koikoi,pinnedkoikoi}. We use their released
+agents to investigate two questions. How much can terminal-match optimization
+improve an established policy? And when does estimating returns across players'
+different observations give a misleading learning signal?
 
-Our adaptation converts pretrained action scores into a stochastic policy and
-optimizes it by self-play with PPO \cite{schulman2017ppo}. A shared CPU/GPU
-simulator preserves the published features and scoring conventions. Returns
-retain future-round value and change sign when the acting player changes.
-After an additional 8.52 million decisions each, both adapted models beat the
-published win-oriented policy on held-out duplicate deals. Deployment retains
-the original actor architecture and greedy action selection, requiring no
-search. The gain transfers unevenly to RL-Point, which retains an
-expected-points advantage.
+For the first question, we convert pretrained action scores into a stochastic
+policy and optimize it by self-play with PPO \cite{schulman2017ppo}. Training
+uses match-end rewards and retains value across round boundaries. After an
+additional 8.52 million decisions each, both adapted models beat the published
+win-oriented policy on held-out duplicate deals. Deployment keeps the original
+actor architecture and greedy action selection. The gain transfers unevenly
+to RL-Point, which retains an expected-points advantage.
 
-Our analysis identifies a failure that payoff signs alone cannot prevent.
-When a return switches to an opponent's observation, it can lose private
-information used by the learner's earlier action. In an exactly enumerable
-two-step game, that change makes the expected policy update reduce true
-expected payoff, even with exact conditional critics and a shared policy
-parameter (Section~\ref{sec:observer}). A nonterminal rollout cutoff preserves
-the failure even at $\lambda=1$. Returns between learner decisions correct the
-complete example; fixed-observer returns instead preserve the learner's
-viewpoint through every primitive step.
+For the second question, we construct an exactly enumerable two-step game
+in which switching to the opponent's critic makes the expected policy update
+reduce true payoff. Both critics give exact values conditional on their own
+information, and both players share the policy parameter. The failure arises
+because the opponent's observation omits information used by the learner's
+earlier action. A nonterminal rollout cutoff preserves the failure even at
+$\lambda=1$. Returns between learner decisions correct the complete example
+(Section~\ref{sec:observer}). We implement these returns and a fixed-observer
+alternative, which keeps the learner's viewpoint through every primitive step.
 
-We test both return constructions in separate 160,000-match studies
-(Sections~\ref{sec:learner} and~\ref{sec:observer-selfplay}). Their primary
-comparisons find no replicated win gain over the starting policies and matched
-controls. Learner-decision returns do outperform the $\lambda=1$ control
-against RL-Point at both model seeds.
+We then examine the information available in Koi-Koi itself. Relabeling the
+seats can change the actor's choice while leaving the critic input unchanged;
+adding the viewer's seat resolves this ambiguity. Observation-only decoders
+recover current actor inputs and earlier inputs and actions within a round.
+Across rounds, eight public hand discards reveal an opponent's initial hand.
+We reconstruct its earlier network inputs and eliminate inconsistent fixed
+opponent models, producing a persistent public signal for subsequent play
+(Section~\ref{sec:public-revelation}).
 
-The critic-input audit then identifies a concrete representation problem:
-relabeling the seats can change the actor's choice while leaving the critic
-input unchanged. Adding the viewer's seat resolves this ambiguity. We construct
-observation-only decoders that recover current actor inputs and earlier inputs
-and actions within the same round. A third 160,000-match study tests the feature
-repair and finds no replicated win gain (Section~\ref{sec:seat-comparison}).
-The exact counterexample, representation audit and controlled comparisons
-therefore address distinct questions: whether the update can fail, whether the
-implemented representation loses relevant information, and whether a proposed
-repair improves play.
-
-Finally, we investigate information that becomes available only after play.
-Eight public hand discards reveal an opponent's initial hand for that round.
-We use this delayed information to reconstruct earlier policy inputs and
-eliminate inconsistent fixed opponent models. The resulting candidate set
-persists across rounds, providing a concrete signal for opponent-conditioned
-play. A matched 24,576-match comparison then tests its use in the final round:
-public-memory training yields no replicated win gain over masked-memory
-training or the original parent (Section~\ref{sec:public-revelation}).
+Each proposed return, representation and public-memory change is tested against
+its starting model and a matched control on complete paired matches. None
+passes its replicated primary win criterion. The experiments thus establish
+the terminal-match adaptation gain and measure the practical effects of the
+identified information problems separately. Sections~\ref{sec:learner},
+\ref{sec:observer-selfplay} and~\ref{sec:seat-comparison} report the return and
+representation comparisons; Section~\ref{sec:public-revelation} reports
+the final-round public-memory comparison.
 
 \section{Related work}
 \subsection{Learning to play Koi-Koi}
