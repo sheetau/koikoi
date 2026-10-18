@@ -3957,3 +3957,30 @@ evaluation and its independent audit remain pending;training totals are not
 strength evidence. All252 renewal-queue inputs reverify. Queues96354,renewal
 capability PID36420 and renewal study37463 remain intact. No new outcome,
 canonical-model promotion,dealer change or101M use.
+
+
+## Completed-only renewal reporting prepared during strict evaluation
+
+Previous turn was a verified wait:producer46255 and allthree evaluation workers
+were confirmed live and recorded-match counts advanced without reading outcomes.
+This turn reconfirms their live PIDs/CPU work. A first inline PowerShell/Python
+count command had a quoting syntax error;it was corrected with a literal
+here-string,without restarting any process. Only newline counts were read.
+
+Added scripts/summarize_renewed_continuation_study.py. It refuses incomplete or
+unaudited output,changed audited inputs,inconsistent decisions/incomplete grids
+and existing summary files. After completion it will report all66 contrasts,
+separate primary strength and two secondary mechanism criteria,new conditional
+training versus reused fixed controls,shared chance/evaluation keys,actual
+predictions and separate verification replay. No new strength result is inferred.
+
+Command `.venv/Scripts/python.exe -m pytest tests/test_renewed_continuation_summary.py -q --junitxml=runs/renewed_continuation_summary_tests.xml`
+passes4,0 skips,in1.49s. Synthetic fixtures verify that strength can pass while
+both mechanism claims fail,all66 rows remain visible,units/work accounting are
+distinct,and altered/incomplete inputs cannot produce a report. Tests run0
+simulator decisions or neural predictions. Ruff passes. Actual unstarted-study
+preflight also refuses output. All252 queued inputs reverify. Source/test/XML:
+{'scripts/summarize_renewed_continuation_study.py': 'aeb45273a03fe98cab22fa5a9ec42d1cff024e60cd3acdb2526adc19b86c40ca', 'tests/test_renewed_continuation_summary.py': 'aef5df1efff5d855b39e9636c1ee87e10ea68f96a86af05c1266b8223ad3434c', 'runs/renewed_continuation_summary_tests.xml': 'fd1251a49ab56b880c774dbdeba195b7750229ad932484b0d82ef1ccb659cc4d'}.
+The helper is outside the frozen study bindings and has not been run on any
+evaluation outcomes. Run it once after queue37463's independent audit succeeds.
+No new training,model promotion,dealer change or101M use.

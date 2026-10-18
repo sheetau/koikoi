@@ -142,6 +142,15 @@ unchanged inputs;SHA45a93fa6922e7280c352b71db942365368aec9a8595a4bf036eb93088d8f
 Do not duplicate it or edit its bound new sources/tests/design. Its8h waiting
 deadline does not terminate preceding jobs. No new strength outcome or promotion.
 
+**Renewal reporting ready:** scripts/summarize_renewed_continuation_study.py
+requires a complete producer,passed unchanged independent audit,all66 result
+cells and the full40,960-match grid. It keeps primary strength,secondary memory
+and interaction verdicts separate and reports every contrast with work counts.
+Four tests pass,0 skips,in1.49s;XMLfd1251a49ab56b880c774dbdeba195b7750229ad932484b0d82ef1ccb659cc4d.
+Actual unstarted-study guard refuses output. Run once only after queue37463
+finishes successfully;do not overwrite summary.md or summary_receipt.json.
+No new study outcome is available. All252 queued inputs are unchanged.
+
 ## Completed evidence informing this experiment
 
 **Public-memory round8 comparison independently complete:** producer67506 and audit35738 exit0;all24,576 full matches replay and all18 win/point contrasts reproduce exactly. Primary balanced-mixture gain fails;every win and point interval includes zero. Audit a5a9f350f2388294cdd106758d60eb453a2f03a24ff41f192436a04d4925acd7 verifies300,092 upstream input/mask checks and all181 input hashes. Actual evaluation2,857,337 decisions/191,262 rounds/24,576 matches;355,486 public-model predictions. Summarizer ran once;summary ca6182fb9e687e4c0a23237e161a4bc27de518ffb40e12b32c9b650e583fc985. [All outcomes](PUBLIC_MEMORY_RESULTS.rst). No promotion/extra old budget/101M use. Do not restart67506/35738 or resummarize over existing files.
