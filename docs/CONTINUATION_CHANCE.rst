@@ -132,3 +132,26 @@ remain unperformed. The current study must finish unchanged. These correctness
 checks establish no playing gain,absence of overfitting or new general learning
 principle. The proposed empirical question is whether fresh chance improves
 generalization at the same number of conditional training completions.
+
+
+Prospective evaluation analysis
+-------------------------------
+
+The separate specification ``RENEWED_CONTINUATION_STUDY.rst`` fixes a five-policy
+comparison before current multi-round evaluation begins. Its original design
+hash remains unchanged. ``scripts/renewed_continuation_analysis.py`` implements
+the complete40,960-record grid,all ten pairwise comparisons and the interaction
+between chance renewal and public memory. Each comparison retains both parents,
+the equal-opponent mixture and individual opponents,with win and point outcomes.
+Wins are computed per actual match before seat averaging. Bootstrap resamples
+paired deals independently by opponent,stratifying the equal-weight mixture.
+
+Five tests pass,0 skips,in0.47s. Synthetic fixtures distinguish strength from
+public-memory benefit and interaction,and reject a single-parent improvement,
+positive points without wins,or an opponent-specific gain canceled in the mixture.
+An independent scalar bootstrap with correlated contrasts reproduces the vector
+calculation across chunk boundaries. Full-grid parsing rejects duplicate/missing
+cells,wrong seeds,invalid identities and malformed point totals. These are
+synthetic records,not simulator matches. The module has no implicit execution
+entry point;the future runner/auditor must enforce completed provenance and
+independently replay actual outcomes before reporting strength.

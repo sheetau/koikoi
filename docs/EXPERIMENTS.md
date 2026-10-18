@@ -3797,3 +3797,51 @@ It adds0 simulator decisions/NN predictions and does not start any strength job.
 The new design is not yet a frozen executable protocol;runner/auditor validation
 and completed current-study/CUDA-capability prerequisites remain necessary.
 No manuscript result,canonical model,dealer mechanism or101M range changes.
+
+
+## Five-policy paired analysis implemented during fixed training
+
+Previous turn committed/pushed the new online adapter and prospective design,
+so it is classified as progress. This turn confirms producer46255,audit96354
+and renewal queue PID36420 actually live;the original producer handle is polled
+without restarting. Parent2-public continues its unchanged520-update schedule.
+
+Added scripts/renewed_continuation_analysis.py:complete40,960-record grid,shared
+95M cases,ten pairwise and one interaction comparison across two parents/three
+scopes,paired seat averages and stratified10,000-draw bootstrap. Strength,memory
+benefit and interaction decisions require their distinct prespecified both-parent
+conjunctions. The loader rejects partial grids,duplicate/wrong deal keys and
+invalid score totals;it does not replace trajectory/provenance verification.
+No automatic partial-study analysis entry point is added.
+
+Command `.venv/Scripts/python.exe -m pytest tests/test_renewed_continuation_analysis.py -q --junitxml=runs/renewed_continuation_analysis_tests.xml`
+passes5,0 skips,in0.47s. Fixtures distinguish positive point margins from win
+gains,one-parent/opponent-only improvement from the primary criterion,and memory
+benefit from the interaction. Independent scalar bootstrap agrees across257
+draws including chunk boundaries. Synthetic40,960-record grid tests do not run
+the simulator or neural policies and are not independent strength samples.
+XML462ca12e4c1aff98ee385328d6fe9923b7d5aed52a9381ded68b9a36096877b6;
+source05dcafbf2939baa564df02bfc7a0ee9131f972cc18d179792447d54f7d15e922;
+test5cc69aa810290d08abb900fe0b88f1cb293dba6700b6fa6b535a28c88115c8cb.
+Targeted Ruff format/check pass. All240 queued inputs reverify and the original
+prospective design hash matches its pre-evaluation receipt. The new runner and
+independent auditor remain to implement;no new training/evaluation launched.
+
+
+## Third fixed-continuation endpoint independently verified
+
+Producer46255 completes parent2-public520 updates and starts parent2-masked.
+Command `.venv/Scripts/python.exe -m runs.verify_public_continuation_parent2_public`
+exits0(98033 terminal),with one expected upstream Transformer warning. The
+endpoint audit reproduces its producer report exactly and all228 inputs pass
+before/after;96 finite Adam states and phase counts agree. Final SHA
+7beb4e2276d0773d015de8010650af620a0c3bd293b9e4db87333f0f99c49f44.
+Actual4,718,538 decisions comprise2,328,594 learner and2,389,944 opponent;
+66,560 conditional completions/318,361 conditional rounds,0 full training matches.
+Value14,376/discard13,821/pick13,793/koi13,786 optimizer steps. Receipt
+ea1e6df4e496bd2e83e94a9c0ec7eea7a7ef9c8186a3df831875d8597347a521.
+The verification adds0 simulator decisions or neural predictions. It does not
+yet check parent2's paired warmup;that and the remaining endpoint are pending.
+Three completed arms total14,234,914 decisions/199,680 conditional completions/
+958,952 conditional round endings. No partial evaluation contrasts inspected,
+new strength claim,promotion,dealer change or101M use.

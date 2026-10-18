@@ -11,7 +11,7 @@ Old process handles mentioned in that history are historical, not live jobs.
 
 ## Current experiment and next actions
 
-**Multi-round public-memory study running:** producer46255 executes scripts.run_public_continuation_study via runs/launch_public_continuation_study.py;log runs/public_continuation_study.log. Protocol95ce0a01a76c790f5dbdeb0c78028199e61219053167fc7309543cfa4c4815a1 exactly matches preflight and all221 inputs verify. Both parent1 arms completed520 updates and passed independently rerun endpoint checks;parent2-public is training. Masked receipt c4881c33d09c406b241e4fab9fb8e91a41c35e7aaaa7bc40d3f36eff61a68be8 verifies231 inputs;both arms total9,516,376 decisions/133,120 conditional completions/0 full training matches. Both matched initial/warmup20 states agree exactly. Receipt runs/public_continuation_study/parent1_public_completion_verification.json SHA22ac11cb454d1a0074fcf267b24d69a4399cbb6f1bc3525fec2b883fd7b2a583 verifies231 inputs. Other arms and24,576 fresh93M strict matches follow the frozen schedule. Independent queue96354 waits for complete producer output,then runs scripts.audit_public_continuation_study;receipt runs/public_continuation_study_finish.json,8h observation deadline does not terminate the producer. Preserve both live processes and all bound scripts/tests/designs. Manuscript files are not bound and can be updated with completed prior results during training. No new strength outcome or promotion yet. Completion-only summarizer scripts/summarize_public_continuation_study.py is ready;the live incomplete study correctly refuses summary output. Run it once only after independent queue96354 succeeds.
+**Multi-round public-memory study running:** producer46255 executes scripts.run_public_continuation_study via runs/launch_public_continuation_study.py;log runs/public_continuation_study.log. Protocol95ce0a01a76c790f5dbdeb0c78028199e61219053167fc7309543cfa4c4815a1 exactly matches preflight and all221 inputs verify. Both parent1 arms completed520 updates and passed independently rerun endpoint checks;parent2-public also completed520 updates and its independent endpoint check passed;parent2-masked is training. Masked receipt c4881c33d09c406b241e4fab9fb8e91a41c35e7aaaa7bc40d3f36eff61a68be8 verifies231 inputs;both arms total9,516,376 decisions/133,120 conditional completions/0 full training matches. Both matched initial/warmup20 states agree exactly. Receipt runs/public_continuation_study/parent1_public_completion_verification.json SHA22ac11cb454d1a0074fcf267b24d69a4399cbb6f1bc3525fec2b883fd7b2a583 verifies231 inputs. Other arms and24,576 fresh93M strict matches follow the frozen schedule. Independent queue96354 waits for complete producer output,then runs scripts.audit_public_continuation_study;receipt runs/public_continuation_study_finish.json,8h observation deadline does not terminate the producer. Preserve both live processes and all bound scripts/tests/designs. Manuscript files are not bound and can be updated with completed prior results during training. No new strength outcome or promotion yet. Completion-only summarizer scripts/summarize_public_continuation_study.py is ready;the live incomplete study correctly refuses summary output. Run it once only after independent queue96354 succeeds.
 
 The frozen [multi-round protocol](PUBLIC_CONTINUATION_STUDY.rst) uses both
 original parents, public/masked memory, all855/876 natural public stopping roots,
@@ -80,6 +80,30 @@ zero evaluation files. Receipt runs/renewed_continuation_design_pre_evaluation.j
 SHAec855e090728072ddc491a9eadb1c50c3da1bd0538b169a59b310f77d104b6f3.
 This is not an executed/frozen study;runner,auditor and their checks remain to
 implement after the existing prerequisites. No new strength job is queued.
+
+**Five-policy renewal analysis implemented:** the full-grid loader requires
+40,960 records with unique policy/parent/opponent/seat/replicate/deal identities.
+It reports all ten pairwise comparisons and the chance-by-memory interaction
+for both parents and all three scopes(66 records,win and point intervals).
+Strength,public-memory and interaction success remain separate. Five synthetic
+tests pass,0 skips,in0.47s;XML462ca12e4c1aff98ee385328d6fe9923b7d5aed52a9381ded68b9a36096877b6.
+Scalar stratified-bootstrap calculations agree;incomplete/malformed grids and
+one-parent,point-only or one-opponent substitutes for primary success are rejected.
+This creates no simulated matches or strength result. The future runner and
+independent auditor still need implementation/validation before execution.
+
+**Third fixed-continuation endpoint verified:** parent2-public final
+7beb4e2276d0773d015de8010650af620a0c3bd293b9e4db87333f0f99c49f44
+passes independent rerun against its producer report,all228 bound inputs,and96
+finite Adam states/phase counts. Actual4,718,538 decisions(2,328,594 learner,
+2,389,944 opponent),66,560 conditional completions,318,361 conditional round
+endings,0 full training matches. Receipt
+runs/public_continuation_study/parent2_public_completion_verification.json
+SHAea1e6df4e496bd2e83e94a9c0ec7eea7a7ef9c8186a3df831875d8597347a521.
+Verifier98033 exited0 and adds0 simulation/inference. Parent2-masked is running;
+its endpoint and matched warmup remain pending. Three completed arms total
+14,234,914 decisions/199,680 conditional completions/958,952 conditional rounds.
+No strength outcome is available yet.
 
 ## Completed evidence informing this experiment
 
