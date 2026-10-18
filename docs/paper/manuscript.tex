@@ -19,26 +19,22 @@ Match Wins and Critic Conditioning}
 \begin{document}
 \maketitle
 \begin{abstract}
-Terminal-match self-play improves the published Koi-Koi win policy while
-preserving its Transformer architecture and greedy inference. With 8.52 million
+Terminal-match self-play improves the published Koi-Koi win policy without
+changing its Transformer architecture or greedy inference. With 8.52 million
 additional decisions each, two adapted agents achieve 51.480\% and 51.445\%
 draw-adjusted wins against assisted RL-WP on 10,000 held-out duplicate deals;
 both 95\% intervals exclude 50\%. The canonical agent averages 1.585 ms per
 CPU decision. RL-Point remains competitive in wins and superior in expected
-points. We then identify an information loss in player-relative return
-estimation: switching to the opponent's critic can reverse the expected policy
-update even when both critics give exact conditional values. An enumerable
-two-step game demonstrates the reversal, including at $\lambda=1$ under a
-nonterminal cutoff. Learner-decision returns correct the complete example,
-with matching Python, native CPU and CUDA implementations. Two separate
-160,000-match studies evaluate learner-decision and fixed-observer returns in
-Koi-Koi. Neither establishes a replicated win gain over its primary controls;
-learner-decision returns outperform the $\lambda=1$ control against RL-Point
-at both model seeds. Finally, a public-seat feature repair resolves a measured
-actor--critic input ambiguity. Observation-only decoders recover current actor
-inputs on 1,024 probes and earlier inputs and actions on all 3,764 checked
-within-round pairs. A third 160,000-match study finds no replicated win gain
-from the feature repair.
+points. Our second contribution is an exact counterexample for
+player-relative return estimation. Switching to the opponent's critic can
+reverse the expected policy update even when both critics give exact
+conditional values. Learner-decision returns recover the correct update in
+the example, with matching Python, native CPU and CUDA implementations.
+We also identify and repair a public-seat ambiguity in the critic input.
+Three controlled 160,000-match studies test learner-decision returns,
+fixed-observer returns and the feature repair in Koi-Koi. These changes do
+not establish replicated win gains, separating the demonstrated information
+failures from their measured effect on playing strength.
 \end{abstract}
 
 \section{Introduction}
@@ -75,23 +71,22 @@ the failure even at $\lambda=1$. Returns between learner decisions correct the
 complete example; fixed-observer returns instead preserve the learner's
 viewpoint through every primitive step.
 
-We implement both constructions and test them in separate 160,000-match
-Koi-Koi studies (Sections~\ref{sec:learner} and~\ref{sec:observer-selfplay}).
-Neither meets its primary requirement of replicated win gains over the
-starting policies and matched controls. Learner-decision returns do outperform
-$\lambda=1$ against RL-Point at both model seeds. The distinction between the
-exact example and these match results guides the next diagnostic: whether the
-implemented critic representation retains the information used by its actor.
+We test both return constructions in separate 160,000-match studies
+(Sections~\ref{sec:learner} and~\ref{sec:observer-selfplay}). Their primary
+comparisons find no replicated win gain over the starting policies and matched
+controls. Learner-decision returns do outperform the $\lambda=1$ control
+against RL-Point at both model seeds.
 
-The input audit finds a public-seat ambiguity: relabeling seats changes the
-actor's choices while leaving the critic input unchanged. Adding the viewer's
-seat resolves that ambiguity and supports exact recovery of the actor input
-on 1,024 checked observations. A temporal decoder also recovers earlier actor
-inputs and chosen actions on all 3,764 checked pairs within the same round,
-including 1,968 pairs whose later decision belongs to the opponent. These
-constructions show what the representation preserves across a turn change;
-a matched 160,000-match comparison finds no replicated win gain from adding
-the seat bit (Section~\ref{sec:seat-comparison}).
+The critic-input audit then identifies a concrete representation problem:
+relabeling the seats can change the actor's choice while leaving the critic
+input unchanged. Adding the viewer's seat resolves this ambiguity. We construct
+observation-only decoders that recover current actor inputs and earlier inputs
+and actions within the same round. A third 160,000-match study tests the feature
+repair and finds no replicated win gain (Section~\ref{sec:seat-comparison}).
+The exact counterexample, representation audit and controlled comparisons
+therefore address distinct questions: whether the update can fail, whether the
+implemented representation loses relevant information, and whether a proposed
+repair improves play.
 
 \section{Related work}
 \subsection{Learning to play Koi-Koi}
