@@ -86,3 +86,53 @@ Evidence
 * Independent audit: corresponding ``independent_audit.json``, SHA256
   1d8d9687f2f3e9fba3f1f5e0b3ec699803fecd17dc9e1e20311c0bf2467e2255.
 * Upstream revision: 89d789565c7c36c84b74662e43001d960bf80901.
+
+CPU implementation and validation
+---------------------------------
+
+``scripts/seat_observer_selfplay.py`` now implements the candidate in an
+isolated trainer. Both public and masked conditions use a 562-input critic;
+the masked condition always supplies zero in the additional column. Existing
+observer/signed return code, collection, value targets and PPO updates are
+reused unchanged. Each row remains one observer's own information. The active
+policy/value forward reconstructs the public active-seat bit from the existing
+packed dealer and relative-dealer features, so it needs no simulator access.
+Raw 560-input critic calls are rejected instead of silently guessing a seat.
+
+Both new columns (role and seat) are zero-padded when importing a retained
+560-input parent. Actor tensors are copied unchanged. The checkpoint format
+``seat_observer_selfplay_v1`` records the context and source identity, and
+supports exact CPU training restart. ``load_policy`` loads the corresponding
+CPU actor/value model. The historical formats are not silently reinterpreted.
+
+Five CPU tests pass, zero skipped. They cover all four decision phases,
+independent reference features for both seats, hidden-card/stock/RNG
+noninterference, relabeling, row independence, parent action equality,
+initial-value agreement within1e-7 absolute/1e-6 relative tolerance, active-seat
+reconstruction, exact resumed model/Adam/environment/counter/RNG state,
+matched observer/signed critic-only warmup within each context, and rejection
+of invalid formats/source identities. Public and masked initial tensors and
+RNG agree; their warmup updates may diverge because the information differs.
+
+The first test run exposed an unsuitable zero-value fixture: before the first
+match end, a zero critic has zero targets, so the new column cannot yet update.
+The final test gives both return modes an identical nonzero output-layer
+fixture and verifies real learning of the public column. No production code
+change was needed for that correction.
+
+``scripts/check_seat_observer_selfplay.py`` additionally imports both actual
+retained parents into both contexts and executes two critic-only updates plus
+one policy update per case,CPU2,8 environments,64 steps,256-row minibatches,
+one epoch,width256. All four runs complete, with6,144 decisions,406 round
+endings,32 completed matches and12,288 observer value rows. Each checkpoint
+has96 finite optimizer parameter states,6 value Adam steps and2 actor steps
+per phase. Public-seat-column L1 norms reach0.082305/0.097818; masked columns
+stay zero. Initial actor logits agree exactly with each parent and saved-model
+inference agrees exactly with the trained model. Report:
+``runs/seat_observer_capability_cpu/audit.json``, SHA256
+ d6f00fccd056731590d5bb7e9a9a30eb0f55fcf48b1460329b2e482527ba0d59.
+
+These short runs establish CPU integration and a functioning learning path.
+They do not establish strength,CUDA capability or a sufficient value history.
+The original four-arm observer study continues unchanged. A full comparison
+protocol and GPU validation remain pending; no checkpoint is promoted.
