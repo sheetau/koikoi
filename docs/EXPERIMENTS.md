@@ -3740,3 +3740,38 @@ Producer46255 completes parent1-masked and advances to parent2-public. Independe
 Added isolated scripts/renewed_continuation.py,new checkpoint format and finite chance allocation. Reuses existing actor conditioning/PPO,retains complete terminal rewards and frozen prefix/opponents,but renews every sampled round deal. Saves the full root sampler and rejects disagreement between its cursor,fresh-deal count and conditional completions. Command `.venv/Scripts/python.exe -m pytest tests/test_renewed_continuation.py -k "not cuda" -q --junitxml=runs/renewed_continuation_cpu_final_tests.xml` passes2,0 skips,1 CUDA case deselected,in46.40s with two expected warnings;93413 terminal0. Covers reference/native all-transition and terminal-reward agreement,public-memory masking,matched initial/warmup models and chance schedules,exact next-update model/optimizer/metrics/chance-key resume,frozen actors,and corrupt cursor/counter/memory rejection. XML19b7d3eccf220a3289fdfc22ed8041225b3e2b08650a2caed896a00d8e02621f;source732f2b2f1ab5695391f1adce15af677df16bd7d2f4601ac218799ba320b3b90d;test5453023cec3ff233d4573309566a4c2854baae4d5e98ed3337d09e45a91f0d2a.
 
 Initial CPU run54406 also passed2 in45.98s,0 skips/1 deselected;Ruff initially found test import ordering. Fixed imports and added the integrated counter-mismatch guard assertion before the final rerun. Both are correctness/training fixtures,not independent strength samples. All221 ongoing-study inputs remain unchanged;no CUDA test or production capability/new strength run started. Online loader and GPU/full-size checks remain pending. Current46255/96354 remain live;the canonical model,dealer and101M range are unchanged. Details in CONTINUATION_CHANCE.rst.
+
+
+## Renewed-deal online adapter and deferred CUDA capability
+
+Added scripts/renewed_continuation_match.py and the isolated production checker
+scripts/check_renewed_continuation.py. The online adapter inherits the existing
+public-event lifecycle and fresh-round activation,loads only inference actors
+and configuration,and preserves whole-match parent fallback when identification
+is ambiguous. Three tests pass,0 skips,in8.93s with four expected Transformer
+warnings;XML a0009da4d30932a9cbc52ecd3d0004b1672baf40e6a494e3c234927f8e4f0d37.
+Capability guard/equality tests pass two,0 skips,in1.39s;XML
+20b5c51f9a27d98aa150b0683c19307128a709640ffd73d0ba255af5085deaf7.
+Commands use pytest on tests/test_renewed_continuation_match.py and
+tests/test_renewed_continuation_capability.py with their corresponding run XMLs.
+Final targeted Ruff passes. These tests are correctness work,not strength data.
+
+Before capability execution,source review found and corrected a copied bank
+path to runs/public_memory_continuation_bank. The ignored queue helper
+runs/finish_renewed_continuation_capability.py also checks literal input paths
+before waiting. Command `.venv/Scripts/python.exe -m runs.finish_renewed_continuation_capability`
+is live as OS Python PID36420,launcher63668;its original tool session output was
+lost during compaction,so process and receipt were recovered without relaunch.
+Receipt runs/renewed_continuation_capability_finish.json is waiting for the
+existing multi-round independent audit;240 pinned inputs all verify. Waiting
+receipt SHA c692ee7486c2967ffe8890e67a8fc4ed531757141b023b145ad9c3965a0c5181.
+It will run the actual CUDA case,then two production-shaped three-update arms
+and exact third-update resumes. The allocation is384 distinct shared chance
+keys,768 logical and256 replay constructions;no capability trajectory has yet
+run. The8h deadline never kills the preceding producer. New bound sources/tests
+must remain unchanged while queued. No prospective strength run or promotion.
+
+Existing producer46255/audit96354 are live(actual Python PIDs10804/32056).
+Parent2-public reaches update320/520 after both parent1 arms completed;no partial
+evaluation contrasts inspected. All221 old-study inputs remain unchanged.
+Dealer selection,canonical human-play weights and reserved101M remain unchanged.

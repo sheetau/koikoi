@@ -8,8 +8,8 @@ Implementation boundary
 fresh training deals at rounds2--8 of an unfinished paper8 match. Its immutable
 context contains only round,dealer and the two point totals. Learner seat and
 the publicly inferred opponent code remain caller-owned metadata;the constructor
-neither derives nor changes them. A future trainer must retain their audited
-provenance and never substitute the simulator's true opponent label.
+neither derives nor changes them. The separate trainer retains their audited
+provenance and must never substitute the simulator's true opponent label.
 
 ``PublicContinuationContext.from_root`` reads those public fields from an
 already audited fresh-round root. It checks profile,phase,turn,round and point
@@ -21,7 +21,7 @@ preserves points/dealer/round and resets within-round history. Policies must
 continue to use the existing observation builders,not this packed state.
 
 This changes no initial-dealer mechanism and no scoring or transition rule.
-It is not connected to the current fixed-root trainer,online agent or UI.
+The current fixed-root trainer and human-play UI remain unchanged.
 
 Verified CPU scope
 ------------------
@@ -92,11 +92,43 @@ the sampler. Final XML ``runs/renewed_continuation_cpu_final_tests.xml``:
 The earlier CPU run also passed before import-order cleanup and the added
 counter-mismatch assertion;both runs are correctness work,not strength data.
 
-Outstanding work
-----------------
+Online loading and queued production capability
+-----------------------------------------------
 
-CUDA transition/trainer-resume checks,production-shaped capability,an online
-loader for the new format,and a prospective strength comparison remain unperformed.
-The current study must finish unchanged. Its results may inform whether to
-run a separate renewal experiment;this capability establishes no playing gain,
-absence of overfitting or new general learning principle.
+``scripts/renewed_continuation_match.py`` loads the new checkpoint format into
+the existing public stopping-rule adapter. It retains only actor weights,
+configuration and public-event tracking. Training banks,optimizer state,chance
+schedules and simulator routing labels do not enter online decisions. Ambiguous
+identification falls back to the frozen parent for the entire match.
+
+Three online tests pass,0 skips,in8.93s. Initial public/masked actors reproduce
+all parent actions/outcomes in both seats against both published candidates;
+independent reference replay verifies activation timing with both dealer
+alignments. Ambiguous fallback,match reset,sequential lifecycle and wrong-format
+or missing-candidate rejection pass. XML ``runs/renewed_continuation_match_tests.xml``:
+a0009da4d30932a9cbc52ecd3d0004b1672baf40e6a494e3c234927f8e4f0d37.
+
+``scripts/check_renewed_continuation.py`` requires the completed multi-round
+comparison and its passed independent audit before executing. Its separate
+capability uses all855 parent1 roots,128 environments,horizon448,three epochs,
+minibatch512 and three updates per public/masked arm. The first update is
+critic-only;the third is replayed from the second saved checkpoint. Full
+model/optimizer/frozen actors/sampler/RNG equality,matched initial/warmup and
+finite Adam states are required. The scheduled384 chance keys are shared
+between arms;768 logical constructions and256 replay constructions are counted
+separately from trajectory decisions and full matches.
+
+Guard/equality tests pass two,0 skips,in1.39s. XML
+``runs/renewed_continuation_capability_tests.xml``:
+20b5c51f9a27d98aa150b0683c19307128a709640ffd73d0ba255af5085deaf7.
+A copied bank path was corrected before execution;the launcher checks literal
+input paths before waiting. It pins240 inputs,all verified,and runs the CUDA
+unit test followed by production capability only after the current independent
+audit succeeds. Its8h observation deadline does not kill the existing study.
+See STATUS for the live PID and receipt;do not start a duplicate invocation.
+
+CUDA validation,production capability and a prospective strength comparison
+remain unperformed. The current study must finish unchanged. These correctness
+checks establish no playing gain,absence of overfitting or new general learning
+principle. The proposed empirical question is whether fresh chance improves
+generalization at the same number of conditional training completions.

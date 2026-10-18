@@ -41,8 +41,9 @@ preserves points,dealer and round while drawing new legal cards/future chance.
 Three CPU tests pass,0 skips;all1,731 real roots reconstruct exactly at their
 original keys and support1,731 fresh legal conditional deals. Receipt
 f18357c52be82afa71b6f5d14869d6616c7cc60bcbf41b08b67bd6c482961cfc.
-[Scope and pending integration](CONTINUATION_CHANCE.rst). No GPU test,new trainer,
-strength trial or modification of the current study has occurred.
+[Implementation and checks](CONTINUATION_CHANCE.rst). The separate learner and
+online loader now pass CPU checks;GPU capability is queued after the current audit.
+No new strength trial or modification of the current study has occurred.
 
 **Renewed-root sampling is restartable:** the isolated sampler preserves
 source multiplicities and separate public-memory/routing metadata,assigns unique
@@ -55,8 +56,19 @@ the current fixed-root comparison is unchanged.
 CUDA case deselected,46.40s. Complete multi-round reference returns,matched
 public/masked warmup and exact next-update model/optimizer/chance resume pass.
 XML19b7d3eccf220a3289fdfc22ed8041225b3e2b08650a2caed896a00d8e02621f.
-GPU/production capability,online new-format loader and a prospective strength
-trial remain pending. Existing46255/96354 and all221 inputs are unchanged.
+The new-format online loader passes three tests in8.93s;capability guards
+pass two in1.39s,both with0 skips. GPU/production capability and a prospective
+strength trial remain pending. Existing46255/96354 and all221 inputs are unchanged.
+
+**Renewal capability queue waiting:** runs/finish_renewed_continuation_capability.py
+is live as OS Python PID36420(launcher63668). It pins240 unchanged inputs and
+waits for the existing multi-round independent audit before running the actual
+CUDA test and two three-update production-shape arms,including exact resume.
+Receipt runs/renewed_continuation_capability_finish.json currently says
+waiting_for_multi_round_independent_audit;waiting receipt SHA
+c692ee7486c2967ffe8890e67a8fc4ed531757141b023b145ad9c3965a0c5181.
+The8h observation deadline never terminates the existing producer. Do not
+restart the queue or edit its bound new modules/tests. No CUDA stage has run.
 
 ## Completed evidence informing this experiment
 
@@ -171,8 +183,10 @@ artifact publication has been performed.
 Use `.venv/Scripts/python.exe` (Python3.12/Torch2.12+cu130/NumPy2.5.4),not system
 Python3.14. CPU Ryzen9900X,GPU RTX5070Ti16GB. Read PowerShell text explicitly as
 UTF8;preserve existing endings,new files UTF8 without BOM/LF. No subagents.
-Only producer46255 and audit queue96354 are live research jobs at this snapshot;
-confirm their actual handles before treating them as live later.
+Live research jobs at this snapshot:producer46255,audit queue96354,and
+renewal capability queue OS PID36420(launcher63668). The producer and audit
+actual Python PIDs are10804 and32056 respectively. Confirm processes/receipts
+before treating these handles as live later;do not duplicate their work.
 
 Keep full matches,rounds,decisions,conditional continuations and verification
 replay separate. Policies must not read hidden hands,stock order,RNG or future
