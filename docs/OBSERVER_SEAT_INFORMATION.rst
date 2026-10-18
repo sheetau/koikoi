@@ -161,3 +161,47 @@ Initial traces execute1,024 decisions,68 round endings and8 completed matches.
 The trained endpoint checks execute another870 decisions across8 complete
 matches on2 shared deal streams;the standard duel helper does not report round
 endings for those matches. No new training or reserved test use is involved.
+
+Guarded device capability
+-------------------------
+
+``scripts/check_seat_observer_device.py`` provides a production-size CUDA
+capability and a reduced CPU validation mode. It checks256 saved source
+positions per context against independent Python observer features,including
+active-seat reconstruction. It requires identical public/masked initial states
+and actor/environment/counter/CPU+CUDA RNG warmup contents;the critics may
+differ. One final policy update is replayed from a saved checkpoint,with exact
+metrics,model,Adam,environment,counter and RNG comparison. Replay simulation is
+included separately in physical work.
+
+Three tests pass,zero skipped,in13.25s. They reject missing,live,failed or
+duplicate current GPU workers and verify that a pending guard creates neither
+a model nor an output directory. The actual reduced path runs both contexts
+with4 environments,64 steps,128-row minibatches,one epoch,one warmup and two
+policy updates. Including replay,it executes2,048 decisions,132 round endings,
+8 matches and4,096 value rows. All96 optimizer states per endpoint are finite
+and agree with recorded phase counters. The public critic changes its seat
+column;the masked column stays zero. Initial identities and exact restart pass.
+
+Final reduced evidence is preserved in ``runs/seat_observer_device_smoke``;
+audit SHA4df957a460039d3171390224baff6a716d6ed98b0952654252b4d53b61adcc58.
+A preceding successful test invocation before the protocol-identity guard was
+added executed the same amount of work and is counted separately.
+
+The CUDA invocation is queued with::
+
+    .venv/Scripts/python.exe -m scripts.check_seat_observer_device --output runs/seat_observer_capability_cuda --wait
+
+Session20636 is waiting for all four existing observer-study GPU training jobs
+to terminate successfully. It checks their fixed protocol,training audits and
+checkpoint identities before allocating the new CUDA trainer. It will run
+public/masked conditions from parent1,128 environments,128 steps,512-row
+minibatches,three epochs,20 warmup plus2 policy updates,seed26095001. Logical
+endpoint work is720,896 decisions;two extra restart updates add32,768,for
+753,664 planned physical decisions and1,507,328 value rows. Match/round counts
+will be measured. Bound protocol SHA
+e3679b894abae603fd268b1a1865d34a01b88f3879b0e8df0d73d765091ad894.
+
+GPU validation is pending;this queue is not a strength run. The64 bound inputs,
+including its checker,test,trainer and proposed study design,must not change
+while the queued/running capability owns them. Do not restart its directory.
