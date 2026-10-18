@@ -8,7 +8,7 @@ Purpose and implementation
 training capability from one final round to all rounds remaining after a public
 identification. The previously materialized banks provide natural starts in
 rounds2--8; see PUBLIC_MEMORY_CONTINUATION_BANK.rst. This is capability work,
-not a new strength study or a replacement for the active round8 comparison.
+not a new strength study or a replacement for the completed round8 comparison.
 
 ``ContinuationConfig`` retains the public/masked memory treatment and uses a
 448-decision safety bound. ``ContinuationTrainer`` reuses the existing public
@@ -102,8 +102,8 @@ Test SHA256:
 Ruff passes and all126 active-study inputs still verify. The short CPU fixture
 run overlapped evaluation and is not an isolated timing benchmark.
 
-Production-shape capability queued
----------------------------------
+Production-shape capability complete
+-----------------------------------
 
 ``scripts/check_public_memory_continuation.py`` requires the completed round8
 study,its successful independent audit,unchanged evidence and a passed real CUDA
@@ -121,20 +121,31 @@ comparison. XML SHA256:
 ``e1b8c8e1a25c92923cf0c59bc22df9fe9e209e1fa6b05fd060d6fb06d8c2b06b``.
 These tests do not execute CUDA or the production-shape run.
 
-Queue76467 runs ``runs.finish_public_memory_continuation_capability`` and binds
-146 currently verified inputs. It waits for the existing audit queue35738 to
-finish successfully,then runs the CUDA test followed by the capability checker.
-Receipt:``runs/public_memory_continuation_capability_finish.json``.
-Outputs will be fresh under``runs/public_memory_continuation_capability``.
-The3h observation deadline does not terminate the existing producer. Do not
-restart the queue or change its bound implementation/tests while it is live.
-This is a capability check,not a new strength study.
+Queue76467 and both child commands finish with exit0. The CUDA reference/resume
+test passes1,zero skips,two unrelated cases deselected,in6.55s. XML SHA256:
+``fcdb9fa731551eef80cfc6cacb7735b34da4ecfe7df38c1de2a83dfbd1f71744``.
+
+The real capability passes with96 finite Adam states per arm,exact initial and
+warmup endpoint equality,and exact resumed third updates. Each arm executes
+28,782 logical decisions (14,274 learner/14,508 opponent),384 conditional
+completions and1,927 conditional round endings. Combined logical work is57,564
+decisions/768 completions/3,854 round endings. Exact-restart replay adds17,980
+decisions/256 completions/1,210 round endings separately. All ordinary full-match
+and round counters remain zero. Public input-column L1 becomes0.07289130613207817;
+masked columns remain exactly zero. No playing-strength evaluation is performed.
+
+Capability audit SHA256:
+``1ba645ade180878ebf5e8803211abe46e1b1cc8161c160100b733b5fb0647bee``.
+All214 input/output hashes reverify. Completion receipt SHA256:
+``0c3be9745cc9c0e2e74a781ab304431403bfd06056a7877d80458f9efc7ba0d5``.
+Artifacts:``runs/public_memory_continuation_capability``.
+Do not restart completed queue76467 or overwrite its artifacts.
 
 Remaining work
 --------------
 
-CUDA verification and a production-shape capability run have not executed.
-The inference adapter above now implements the public stopping rule. A new comparison
-requires a separately frozen training/evaluation protocol after the current
-round8 comparison and independent audit finish. There is no new strength claim,
+CPU/CUDA,production-shape and online-adapter capability checks are complete.
+The round8 strength comparison and independent audit are now complete with no
+replicated gain (PUBLIC_MEMORY_RESULTS.rst). A new multi-round comparison
+requires a separately frozen training/evaluation protocol. There is no new strength claim,
 model promotion, dealer change or use of the reserved101M confirmation deals.
