@@ -97,7 +97,8 @@ to qualify both renewed-public520 endpoints. Secondary/one-parent findings do
 not substitute. Proposed confirmation uses three policies,4,096 paired deals
 per opponent,8,192 shared fresh101M deals and98,304 matches;it is not running.
 Memory/interaction claims remain separate and no automatic promotion occurs.
-The evaluator/auditor/reporting remain conditional future implementation work.
+The evaluator/auditor/reporting are now implemented and verified below; execution
+remains conditional on the completed development primary result.
 
 Read-only qualification gate passes4 tests,0skips,1.39s;XML
 6559213974f60c48c94ae315e566979a05a0f2169291a7dc107624cfbfe0c9d8.
@@ -115,6 +116,29 @@ cells and requires allfour primary win bounds. Six synthetic tests pass,0skips,
 boundaries. XML4f709888979e2a8d295b1a7c356a7076238a4c6e4598c7fb6a06fd0571c75a78.
 Synthetic rows and integer seed allocations are not played matches;0simulation
 or neural calls. No final evaluator/auditor has been launched or final deal used.
+
+**Final-confirmation workflow verified before development evaluation:**
+New runner,auditor and summarizer implement the fixed98,304-match allocation,
+strict singleton CPU play,full trajectory/public-input replay and independent
+scalar absolute/contrast statistics. Eleven tests pass,0skips,5.18s;XML
+ a651e732a9c3f62bee001fd89b44350a03aadc8db2dca0bd1e41607607859c5a.
+Actual unfinished development is refused before an output/deal is created.
+Receipt runs/renewed_confirmation_workflow_pre_evaluation.json SHA
+ f81c80195f2394312309f7c9c88f048ffb21fae1e80f0006e410a7cef45a5385
+binds336inputs while95M evaluation files remain0. Do not alter these files
+without explicitly revising and revalidating that recorded capability.
+
+Correctness worker uses initial models only and one already-consumed88M deal.
+Both seats/three formats reproduce original actions and public evidence. Two
+test attempts total12actual matches,1,380decisions,96round endings;the separate
+replay repeats those counts with68historical input checks. First attempt failed
+only in receipt counter aggregation after play/replay;its records are preserved.
+Zero fresh confirmation deals,zero trained-candidate strength evaluation and no
+promotion. After a qualifying completed development study only,run in order:
+`python -m scripts.run_renewed_confirmation --output runs/renewed_confirmation`,
+`python -m scripts.audit_renewed_confirmation --output runs/renewed_confirmation`,
+`python -m scripts.summarize_renewed_confirmation --output runs/renewed_confirmation`.
+None is queued or launched. A failed development primary leaves101M untouched.
 
 ## Earlier implementation milestones
 

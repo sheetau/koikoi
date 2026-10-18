@@ -4338,3 +4338,64 @@ binds332inputs. Three training arms and the full40,960-match comparison remain
 pending;no strength outcome or checkpoint promotion follows. Current316study/
 323queue and321confirmation-spec bindings remain unchanged. No dealer change,
 reserved101M use or manuscript-strength-claim update.
+
+
+## Conditional final-confirmation execution, audit and complete reporting
+
+Implemented scripts/run_renewed_confirmation.py,audit_renewed_confirmation.py
+and summarize_renewed_confirmation.py under the unchanged prospective design.
+No final run is launched. The actual live development study is refused by
+make_plan before output creation/model loading/deal construction. Primary
+qualification is inherited from the existing gate;secondary findings cannot
+trigger this workflow. Final model set is both original/fixed-public/renewed-
+public endpoints,4,096pairs per opponent,both seats,98,304matches,8,192shared
+101M deals,4CPU workers with strict singleton policies/two Torch threads.
+
+The independent auditor verifies plan/model hashes,replays every saved action,
+reconstructs public histories and compares frozen prefixes/activation evidence.
+It computes all18paired contrasts and18absolute cells through its own outcome
+transform,scalar stratified bootstrap and primary conjunction. It does not rerun
+neural predictions or retest memory/interaction mechanisms. The write-once
+summarizer retains positive/negative outcomes and every absolute/contrast cell,
+with development mechanism claims explicitly separate. No model is promoted.
+
+Command `.venv/Scripts/python.exe -m pytest tests/test_renewed_confirmation_workflow.py -q --junitxml=runs/renewed_confirmation_workflow_tests.xml`
+passes11,0skips,5.18s. Checks include incomplete/failed-primary/predeclaration
+refusals,qualified synthetic plan/model identity and drift,independent full-shape
+variable scalar arithmetic,strict record identities,empty/duplicate grids,
+negative complete reporting and changed-audit refusal. Nonconstant synthetic
+4,096-pair results use129resamples to cross chunk boundaries;constant decisive
+checks retain10,000. Production bootstrap remains10,000. No synthetic data are
+reported as played matches. Ruff/format pass;only the pre-existing upstream
+Transformer nested-tensor performance advisory is emitted.
+
+The real worker fixture loads the canonical parent and fixed/renewed initial
+models,plays three formats in both seats of already-consumed seed88110001,and
+independently replays all six matches. Actions,public-identification events and
+activation evidence agree exactly. Per attempt690decisions/48round endings/
+6matches,34historical public-input checks and prediction calls WP34/Point14.
+Initial test attempt passed play/replay but failed receipt aggregation because
+prediction_calls is a per-opponent mapping,not a scalar. Corrected only that
+reporting aggregation and added the successful-plan/drift fixture;rerun passes.
+Both attempts therefore total1,380actual decisions/96round endings/12matches,
+plus the same independent replay counts,68historical input checks and96public
+model predictions. All use one shared old development deal and initial models;
+no95M outcome or101M simulated deal is used. Both six-record files are preserved
+in runs/renewed_confirmation_worker_{initial,final}_records.jsonl and match
+byte-for-byte. Failed test XML is preserved separately.
+
+Source hashes:runner1216121a9368687bc34ecddd6a1805ce68d7ca339a73ebbef20798bbd8f95c39;
+auditor7d530a2f0fdba491924160ee999ced62d55c82678b9b2aeaee44b9d3a3c45cb6;
+summarizerdee358e62df550e8c05df103b0cc15b8864169e0ac5695553d5d26ac113d447d;
+testf622166440629cce2ef6e00e3ace575a92a8908496014edc235ebdb63a324729.
+Final XMLa651e732a9c3f62bee001fd89b44350a03aadc8db2dca0bd1e41607607859c5a;
+initial failed XML9e12d37d8364a198b0317827b223be448d1bca4ad0cd12daf5f9676fd92a810d;
+worker receiptf7e28c82393fc0cf2d22603e909c69e95c9d5da0bfc340424b5071bdd8f53a4a.
+
+Recorded before any95M evaluation files in
+runs/renewed_confirmation_workflow_pre_evaluation.json SHA
+ f81c80195f2394312309f7c9c88f048ffb21fae1e80f0006e410a7cef45a5385,
+with336inputs. Existing316study/323queue/321prospective bindings are unchanged.
+Producer58904/queue65372 continue parent1-masked training. This is verified
+conditional infrastructure,not a new strength result. The goal remains active;
+canonical human-play model,dealer and manuscript strength claims are unchanged.
