@@ -37,7 +37,8 @@ learner-decision returns outperform the $\lambda=1$ control against RL-Point
 at both model seeds. Finally, a public-seat feature repair resolves a measured
 actor--critic input ambiguity. Observation-only decoders recover current actor
 inputs on 1,024 probes and earlier inputs and actions on all 3,764 checked
-within-round pairs.
+within-round pairs. A third 160,000-match study finds no replicated win gain
+from the feature repair.
 \end{abstract}
 
 \section{Introduction}
@@ -89,7 +90,8 @@ on 1,024 checked observations. A temporal decoder also recovers earlier actor
 inputs and chosen actions on all 3,764 checked pairs within the same round,
 including 1,968 pairs whose later decision belongs to the opponent. These
 constructions show what the representation preserves across a turn change;
-the ongoing public-versus-masked comparison tests its effect on playing strength.
+a matched 160,000-match comparison finds no replicated win gain from adding
+the seat bit (Section~\ref{sec:seat-comparison}).
 
 \section{Related work}
 \subsection{Learning to play Koi-Koi}
@@ -667,8 +669,50 @@ $\nabla_\theta\log\pi_\theta(a\mid o)$ is determined by its input and chosen
 action. Recovering both arguments at a supplied public address determines the
 earlier score on these checked pairs. This is measured within-round retention, rather than a
 proof for every trajectory or across round boundaries. Stop actions end a round
-and have no same-round successor. Learned value accuracy and playing strength
-remain separate questions; the fixed public-versus-masked comparison is ongoing.
+and have no same-round successor. The next comparison tests whether this
+representation repair improves playing strength.
+
+\subsection{Does the public-seat repair improve play?}
+\label{sec:seat-comparison}
+For each retained parent, we train two 562-input fixed-observer continuations.
+The public condition receives the viewer-seat bit; the masked condition sets
+that input to zero. Both use the same architecture, initial parameters,
+optimizer, random streams and training budget: 20 critic-only updates followed
+by 500 policy updates, or 8,519,680 decisions per arm. Initial numerical states
+match exactly within each parent. After warmup, the actors, environments and
+random-generator states still match; the critics have learned different values.
+The seat column acquires nonzero weights only in the public condition.
+
+The four new endpoints, the two unchanged parents and the two archived
+561-input observer endpoints each face WP and Point on 5,000 fresh duplicate
+deals, giving 16 cells and 160,000 matches. We use the same whole-deal bootstrap
+as before. The primary criterion requires positive lower 95\% bounds for
+public-minus-parent and public-minus-masked win changes, against both opponents
+at both parent seeds. The archived endpoints provide a secondary architecture
+comparison; their earlier training is counted separately.
+
+Only one of the eight primary bounds is positive
+(Table~\ref{tab:seat-primary}): parent 2 improves over its starting policy
+against Point by 0.860 percentage points [0.070, 1.655]. The corresponding
+parent-1 gain is 0.110 [-0.685, 0.920]. All four public-minus-masked intervals
+include zero, as do all four public-minus-archived-observer intervals. The
+feature repair therefore does not establish a replicated match-win gain.
+
+\begin{table}[ht]
+\centering\small
+\input{generated/seat_observer_primary_table.tex}
+\caption{Public-seat comparison: paired changes in draw-adjusted win score,
+in percentage points, with 95\% intervals.}
+\label{tab:seat-primary}
+\end{table}
+
+Public-minus-parent point margins improve against WP at both seeds and against
+Point at seed 2. However, all four public-minus-masked point intervals include
+zero; the masked condition itself improves point margin over its parent in all
+four matchups. These results distinguish benefits of continued training from
+benefits attributable to the added information. The representation repair is
+verified, but it has not supplied the desired policy improvement.
+Appendix~\ref{app:seat-controls} retains the secondary comparisons.
 
 \section{Limitations and interpretation}
 Both adapted seeds improve match wins against assisted RL-WP. RL-Point remains
@@ -697,7 +741,8 @@ $\lambda=1$ against RL-Point at both seeds but do not meet the primary
 parent-and-response win-gain criterion. Fixed-observer self-play likewise
 shows no replicated win gain. The input audit identifies an omitted public
 seat distinction and verifies a repair that reconstructs current actor inputs
-and earlier input--action pairs within the checked rounds.
+and earlier input--action pairs within the checked rounds. Its matched
+160,000-match evaluation finds no replicated win improvement from that repair.
 
 \appendix
 \section{Reproduction and evidence}
@@ -763,6 +808,16 @@ use 34,078,720 decisions, 2,278,384 round endings, 292,470 completed matches and
 160,000 matches on 5,000 shared deals, numbered 27,000,000--27,004,999. The
 independent audit reproduces all 16 outcomes and 24 paired contrasts, including
 the failed primary conjunction.
+
+The public-seat comparison is bound in \texttt{seat\_observer\_evidence.json}.
+Four new arms use 34,078,720 decisions, 2,277,571 round endings,
+292,388 completed matches and 68,157,440 value rows. The archived observer
+endpoints supply 17,039,360 pre-existing training decisions. Evaluation uses
+18,586,219 decisions across 160,000 matches on 5,000 shared deals, numbered
+28,000,000--28,004,999. The independent audit reproduces all 16 outcomes and
+24 paired contrasts, the matched warmup checks and the failed primary
+conjunction. No endpoint is promoted and the reserved confirmation deals remain
+unused.
 
 The seat-label and actor-input audits are recorded in
 \path{runs/observer_seat_information_v2/independent_audit.json} and
@@ -1254,8 +1309,32 @@ training work is reused rather than added to the new continuation budget.}
 \label{tab:observer-selfplay-historical}
 \end{table}
 
+\section{Additional public-seat comparisons}
+\label{app:seat-controls}
+These secondary comparisons use the same 5,000 duplicate deals and joint
+bootstrap as Section~\ref{sec:seat-comparison}. They add no matches to that
+study's 160,000-match total. The archived observer has 561 inputs; public and
+masked conditions both have 562, isolating the information intervention from
+the change in architecture.
+
+\begin{table}[ht]
+\centering\small
+\input{generated/seat_observer_points_table.tex}
+\caption{Public-seat comparison: paired changes in final point margin,
+with 95\% intervals.}
+\label{tab:seat-points}
+\end{table}
+
+\begin{table}[ht]
+\centering
+\resizebox{\linewidth}{!}{\input{generated/seat_observer_historical_table.tex}}
+\caption{Public and masked conditions versus the archived observer:
+paired win-score changes in percentage points, with 95\% intervals.}
+\label{tab:seat-historical}
+\end{table}
+
 \begingroup
-\raggedright
+\raggedright\small
 \bibliographystyle{plain}
 \bibliography{references}
 \endgroup
