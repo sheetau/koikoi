@@ -1,0 +1,302 @@
+{
+  "status": "passed",
+  "inputs": {
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\scripts\\run_final_round_training_study.py": "ad24625fad36606066c4dc3297e11c5961c25c02f5cf8f1d7eed2a71bfbfa60a",
+    "runs\\final_round_training_capability\\audit.json": "aadb1273b63af7961d22fb69ebf010dd718d76d0b6ed640b2454eb726f5bfac2",
+    "scripts\\audit_final_round_training_study.py": "80b36369c3f9b89e9245470f0c17071a281f22ee5ea45ffa56a7ef3178d22f65",
+    "scripts\\final_round_training.py": "543390a836b82c973e208fdebff9149b2a313f2e9dab706de02fc8b14c03a9cb",
+    "scripts\\final_round_actual_match.py": "82bcd368f9682b0eadec4126fa35e69d323a9a9726a380a6a6b952d8321e266a",
+    "scripts\\fixed_microbatch_continuation.py": "b8ec179c137c56cd838df48515d5ca68c52a763774b79317c587888cb8b7cec6",
+    "scripts\\run_arbitration_study.py": "3b82987651e585e7e220ad628180f5beec0c71da12dc8a40bf9e66530664caf8",
+    "docs\\FINAL_ROUND_TRAINING.rst": "7197cc5ec61ae9f1592467826313a30a5d2d7140f98f130306922ef5f9454ed6",
+    "docs\\FINAL_ROUND_TRAINING_STUDY.rst": "4acd398ff12610d47fbd45ff31a71ac0d1b4d9d9a3b66e54fea103bfed01b9b5",
+    "tests\\test_final_round_training.py": "748f394bc34fd02bb1b66ce0592a9aaf79c2e816876258d6add8e81c36cd79e5",
+    "tests\\test_final_round_training_protocol.py": "839302ee6b11d02e4681ebeedf20e765cbbf67e278fef0aeb6f94dc061c5c432",
+    "runs\\final_round_training_tests.xml": "ee43d2b65151469e9aef12bbe3ea8316bc56724a6656f4225b1bdd45f3135554",
+    "runs\\final_round_training_protocol_tests.xml": "e4da7cb029369b6f00d8ec935ac7deba780d9cffedc7f015fc90ac9234dae07b",
+    "runs\\final_round_search_completion.json": "e7c65ea57bcd5a865b7ef20b88e6bc28ef4f5ee67165b344f6d267402847cbfe",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\scripts\\check_final_round_training.py": "e58af77e91eccc99d63621f23c28b7b013b33030b5978fc76b278d2b678e940e",
+    "runs\\cold_ppo_screen\\seed6710001_warm\\update_00000520.pt": "37d06849261e0c1f0c31a9d2f228388fa1f391b670ce6772093a1c276091cc36",
+    "runs\\final_round_training_capability\\initial.pt": "3cc005eb785a2bd00c7efcf8a727ba6142a2dfd39d3b3f8423555c241c21fe5e",
+    "runs\\final_round_training_capability\\final.pt": "1001655dd58eeeb8c319f879c8c98a36ad7a4cdcf00f845c06ac909da60df30a",
+    "runs\\final_round_training_capability\\source.json": "e0c08204bd212b7868b8694c0479ba323455a571e73134af2a00127d5c540fb7",
+    "koikoi\\agents.py": "e2188ea87b4c05a884737a6c38a2faec5ce8e1d3eeaf4a60ff09cb516bb3afe3",
+    "koikoi\\arbitration.py": "de2364137bb75d2a8c779d17df1421fa3cc782de22ac1ff2ac6ad939de828e57",
+    "koikoi\\batch_evaluate.py": "6e28381bea8fc0363dfc2a714d5473c1a1f291c2f37845c48d57b57affd961fe",
+    "koikoi\\benchmark.py": "30c2bb2dd463e01fff638d38dad8996aff6c00c52a6f31d4be349ec3e3f2f348",
+    "koikoi\\budget.py": "0f9cf299dbbaaa07c47cf01187eab20bfe96f74ecfb65f9d866fac8f5a4017e7",
+    "koikoi\\capture.py": "bf379603adef31968ead5c99c27b21cbe89442ddebe71e48e802ae141ee3561e",
+    "koikoi\\compare.py": "21173f9fe58f38877d3dac9128816fe5a14ea134618b6d540983c21ad59ce174",
+    "koikoi\\complete_matches.py": "8fabf48508508560f3919220b04cb82b2d17fcfaeb170f42feafe7c838b91305",
+    "koikoi\\env.py": "979617e94988b406b14d34bc00f08335ac4b78579f43e142568bddec6391f6b6",
+    "koikoi\\estimators.py": "d820083ef6c15eed8212544ab3dbf0b94f0b7480f7b2a8daa26e526082e2947a",
+    "koikoi\\evaluate.py": "50f403c3dbadcd7db38ef1bac4858d2662afab61aff7cd85a5216b7ca04a8600",
+    "koikoi\\layout.py": "5aeb1f111f6e051f24fa8f50d53a6607d70ec92fa291c979ad3966d8784147bc",
+    "koikoi\\model.py": "3dba5951daaf288016b0e274fe18e4870c3c6ade58b49900e588f37064d846fe",
+    "koikoi\\native.py": "26f0fea3bcf787be52af0abc1899cd0a6afb6020605b5c10ac5d6f86d400e028",
+    "koikoi\\opponents.py": "7b35c3d9e9ea4589d6c1704855ffaa9a906e5e01483e36a804b6f466d30272ac",
+    "koikoi\\play.py": "4ce371b2b3caa1c68ea0698d832a53baac82b43f3fd02e43350f4a44c8badee9",
+    "koikoi\\published_actor.py": "6455c08bbb3df0acc33a7a5c0205995943930f8e330d8ac78877a4d08ac0d1c6",
+    "koikoi\\published_opponent.py": "0135f52261a018998e195f80391a95964fa227b724fb3ce0f71a9de9253167c1",
+    "koikoi\\published_train.py": "bfb603296b6204bdef391949a30383d59ac870f3b95cced3536015ba57756250",
+    "koikoi\\reference.py": "52141cde4ad247fc75756da284c8d8a93197917edc1b3f9bb601c6af8405f5ff",
+    "koikoi\\round_continuation.py": "dd452723ecd9dd83fa8f02d82a091008c422df9f22f827613a0a491eea09aa45",
+    "koikoi\\search.py": "ded6944a76938ff59a68e53c0571a1b8387184c35d7de9c254720bcbac54d9db",
+    "koikoi\\search_capture.py": "a3f053bd3a2643178876c6dfb529675af6dfc087aa00e4e5ade0f573689f9b9f",
+    "koikoi\\train.py": "4b37cc872a1e334c191d2dc31708f1430103d15e22317d0fb216bec2ccd3ceea",
+    "koikoi\\upstream.py": "435d80abcdb7fe6eda3d114e1575f19dd8d94458b10be4c62bca8b6feed0d3e0",
+    "koikoi\\upstream_batch.py": "2d973d675aa02b74d9131a34ee321547072e66250fab27d48ef2426892131009",
+    "koikoi\\__init__.py": "69b906e1719fded664a246c35262d538d9e1913dacb531786c2c1fd4c86276b7",
+    "koikoi\\native\\core.h": "820333d57e060e8705e2fe1a45544d0553d396980c0d25a23b00a92aeaee5dc3",
+    "koikoi\\native\\cpu.cpp": "dc4eed0d666a7bc408111ce30a97efd27959cd1193ece8b1e7d2ff9ac5cc7c45",
+    "koikoi\\native\\kernels.cu": "cd068279c7c87bd26eb1ea767ccfae09fd564a5002b7b36ec6d702675fdf841f",
+    "koikoi\\native\\published.h": "0a8d0ce36b0ccab3714a5ebb54180e134bdc2a344d342019ca26e312b6b17ba1",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\model_agent\\discard_rl_wp.pt": "31197cbd4b4fc17da6dbd6a6ae946f25000968aa941757028db92d480d548fdd",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\model_agent\\discard_rl_point.pt": "4f314359ae9d2b3780726a1b0d297e293cc3429d6d9c0ccf309574b4e35dc9b9",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\model_agent\\pick_rl_wp.pt": "4064b54356f1cda3baedcd6b94187effb51a2fac381f07dcfdb1649d8bf01e64",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\model_agent\\pick_rl_point.pt": "7439379f9e23137b3fdcb12fdcd421d4b22574222fe544de2ba1eb6f31d93f49",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\model_agent\\koikoi_rl_wp.pt": "408f931abafd7127648f9b933fbb8be7cc137a15d0b23b182090a9a83a70e3e4",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\model_agent\\koikoi_rl_point.pt": "79c7b83ba4ea41d6115000128c410d104447ba517cb975cc32f4d25b7bc6c266",
+    "runs\\cold_ppo_screen\\seed6720001_warm\\update_00000520.pt": "5e8a123d5fafb6ebae8c1ac8d094c9de65bf364381cc10b78208337051e181cc",
+    "runs\\final_round_training_study\\eval_parent1_point.jsonl": "647acd005414084ccee3e742f8159540f7e583ca2ae9af043de579f6621dd121",
+    "runs\\final_round_training_study\\eval_parent1_wp.jsonl": "d169110d25067ca0762f512f10c0614b4b01cc628af334e165648a48639e8dd2",
+    "runs\\final_round_training_study\\eval_parent2_point.jsonl": "73943d5451bc0f27116f8de217b9db87d52fe541a13ef765a614488ee76c1a56",
+    "runs\\final_round_training_study\\eval_parent2_wp.jsonl": "f778ef6e998f0a9c6a603486bb1f1fe8e814d0e5753a64ce194de4ec0b3cd77f",
+    "runs\\final_round_training_study\\protocol.json": "99c47e73db4dbd08374e8defb95a0689d89a5ba4170f954ba5bb60586da32087",
+    "runs\\final_round_training_study\\training_completion.json": "18b4bfe49f106137c5528706a34dcbe4bce25c2e812f16fe6363848c07b6e7ff",
+    "runs\\final_round_training_study\\parent1\\bank.pt": "f391a27d109f66c10139ac2c9a4d20bbd947f235b717d878f945128c9f2160ea",
+    "runs\\final_round_training_study\\parent1\\final.pt": "7574187043111a5ed15b1d9c7003590fa18a14bbdc8243dd5b0b8fb16fc9d777",
+    "runs\\final_round_training_study\\parent1\\initial.pt": "93bb60f882b2e549cf00e7aab73e8506be4c4ae794cb8d5d073c75c6ebe679c9",
+    "runs\\final_round_training_study\\parent1\\metrics.jsonl": "246126d2384f157009314722832639a2291641bc78abdb006f46bd6072d60852",
+    "runs\\final_round_training_study\\parent1\\source.jsonl": "c6fcab59aa5557713dcff2c2ea4d5e3aa12831552b6df579368c9f87487b4ab4",
+    "runs\\final_round_training_study\\parent1\\training_audit.json": "a0314168e25edc6c9cb5479a5cfd3e2c9ca2c12b930c3c5f3307c61f267705ab",
+    "runs\\final_round_training_study\\parent1\\update_00000100.pt": "ea2ce96e1d415cdba3f49f245c660b2fea25c7d609a6dac325da0594640ad725",
+    "runs\\final_round_training_study\\parent1\\update_00000200.pt": "e321dfcab80aad45a2f87238de47576eb102bc5790b2c2a42ce89c4580dfdeac",
+    "runs\\final_round_training_study\\parent1\\update_00000300.pt": "f02feb54e6f052d9aa2ecf69f3decb442559e803810ee9f7d4ba30876181a401",
+    "runs\\final_round_training_study\\parent1\\update_00000400.pt": "0d337a69c97972dfe3ae530996806234e0ab53e332ab26e1a14f89de5e50012e",
+    "runs\\final_round_training_study\\parent1\\update_00000500.pt": "e69c6e75539cae4ebcd4d2ec0969dfab514b9fc2e7bbcd6cd517488c36d62115",
+    "runs\\final_round_training_study\\parent1\\update_00000520.pt": "1632908131ba58178d5396553441e3900f513fe1de3292f27a929a5563e753a0",
+    "runs\\final_round_training_study\\parent2\\bank.pt": "22b5bf86045cf29e08667f83bf9192beca453888b203420787adee837e923abd",
+    "runs\\final_round_training_study\\parent2\\final.pt": "06346d9c7127537f64b21b8b1a16a1eb16156fb765a8f7e34141c39803888dd8",
+    "runs\\final_round_training_study\\parent2\\initial.pt": "b6bcda8b3d519de6036b4ccd9e328f5926723fa4e4a0a645cb985d9e24a36662",
+    "runs\\final_round_training_study\\parent2\\metrics.jsonl": "8a4a6311471627983a8e5e44bc56301ee7057f654c1e5f788a236709dd831434",
+    "runs\\final_round_training_study\\parent2\\source.jsonl": "185ce0fd36abed8a2cfb2a57f107130d17089603d14bb62f0ce60a25fce61da3",
+    "runs\\final_round_training_study\\parent2\\training_audit.json": "dd46fbd8b80b8d2b9a1ba02c89c85d7a9ee0c362e3e5afc0dab7f2a9b4d1ca93",
+    "runs\\final_round_training_study\\parent2\\update_00000100.pt": "e5dfaf82dce4ba13ed0f6316608e1a623e6d9243cd92cfbfd56d51114d493542",
+    "runs\\final_round_training_study\\parent2\\update_00000200.pt": "db0019ff9090e5d9d18d92df202b81312c954d79b40485613dd1b00e8252a6db",
+    "runs\\final_round_training_study\\parent2\\update_00000300.pt": "e4265a80a68dd39864c5f7bac1d1ee6ce1c3d4835c5fb09c957747ffc2a80d76",
+    "runs\\final_round_training_study\\parent2\\update_00000400.pt": "183d1b5ade120413802ac4b23280fcc7ae0f39512966007915323cfe737665a0",
+    "runs\\final_round_training_study\\parent2\\update_00000500.pt": "6b96a30af3eb33b383724112328c3103d29d77384aac606e7ad9afce8fe26bd5",
+    "runs\\final_round_training_study\\parent2\\update_00000520.pt": "f7191ddb878357e69ca65975c958a6829dd0c74ac49aef8ed1289b5cd1aa367c",
+    "runs\\final_round_training_study\\analysis.json": "0b3498df45a6cad2a95a751143e06e860af9ee25bb4ddbe1bf58a82021abc4d2",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\scripts\\audit_final_round_training_study.py": "80b36369c3f9b89e9245470f0c17071a281f22ee5ea45ffa56a7ef3178d22f65",
+    "runs\\final_round_training_study\\independent_audit.json": "2f5b65a1fbb5e036c757c106cd9ee9294effef878a0688081ad29d987cd10278",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\scripts\\check_revealed_opponent_identification.py": "4fcbe953b8dac54e4f4fc46a507230adc7cce49668a75d21c6c2d19bc6db1923",
+    "scripts\\revealed_opponent_models.py": "47185fa0c2ac649f7491357dc2aeba639dfe6314482562892ebe73cfbc21ed49",
+    "scripts\\revealed_opponent_inputs.py": "fa16051f79079002e6d8a0180ef4f5f3ea1d260fa5a3acc55b417384f1824931",
+    "scripts\\check_seat_feature_reconstruction.py": "8b73b8672f0a81e8c60b700ad8d003112ca4c317fe62c5f4783d7a3b0ec9840a",
+    "scripts\\check_public_hand_revelation.py": "dd7cc9c47b73e1e01ac6dba40a8fc061a7321422bf9eb57afa7902e6dff52b3a",
+    "tests\\test_revealed_opponent_models.py": "60d94ecf1cb0d2d86ae9ca133dfbdead8940deee7ef1d2b75476bb269532e56d",
+    "runs\\revealed_opponent_model_tests.xml": "97d41e3dd76c140bbe660b30b5a06a693f29fdc1d16c765806d178dfdf1785d3",
+    "runs\\revealed_opponent_input_capability.json": "ce1346dafa03594d445411873f9cff254531e55c771dddb0bbe25370039fe198",
+    "runs\\public_hand_revelation.json": "880037d22b20f55cacb55d9cac3186e427d09c656c7416d5c19fe66c8d391cbf",
+    "docs\\REVEALED_OPPONENT_IDENTIFICATION.rst": "d3d8ed315b2319ad12172c40b0b0cb4f0666115f017326987edf164f5e50fa2b",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\koikoigame.py": "17ade09c4424e346fee3526c5d2daaccbd9b7d2580c1c56c7e491baf20f7866e",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\koikoinet2L.py": "608d91c36875afc929a5470f3c86f787455537cd7213eb3c1bcda12a004d4862",
+    "runs\\revealed_opponent_identification\\audit.json": "d26b04a79262d35fd74d9a9c8e3497d8f7927ea919b3f67db90686dde078e2e2",
+    "runs\\revealed_opponent_identification\\records.jsonl": "e80eb4080e08edcc3e0fc5b2ade0d73a173995bef92c211bb1c6479151a602df",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\scripts\\audit_revealed_opponent_identification.py": "fd27153ec736e5a88a0745a84f3cb30ad43ca9ed1384a4688a5e12a7e9c91b4c",
+    "runs\\revealed_opponent_identification\\independent_audit.json": "c83ea431e670ef91b3fb53d780993e6bcc3ebd92a1df54387ae627f583096fc2",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\scripts\\export_public_revelation_evidence.py": "a538700306ff52306b58d61b313aafa07ca03d1e63f1ac6a7f96debcaeda4537"
+  },
+  "outputs": {
+    "docs\\paper\\generated\\final_tail_table.tex": "ce836a42dc6f28db13f9be5db881a049ce619c3abde1554a4fd649127e488755",
+    "docs\\paper\\generated\\public_revelation_table.tex": "899130c3ecda73b78c31b8abfe5b316026bd95a78cddb2884347c920f43848c2"
+  },
+  "tail_contrasts": [
+    {
+      "parent": 1,
+      "opponent": "wp",
+      "win": {
+        "parent_mean": 0.50390625,
+        "tail_mean": 0.505126953125,
+        "change": 0.001220703125,
+        "interval95": [
+          -0.00439453125,
+          0.0068359375
+        ]
+      },
+      "point": {
+        "parent_mean": 1.0869140625,
+        "tail_mean": 1.2529296875,
+        "change": 0.166015625,
+        "interval95": [
+          -0.048828125,
+          0.38576660156249964
+        ]
+      }
+    },
+    {
+      "parent": 1,
+      "opponent": "point",
+      "win": {
+        "parent_mean": 0.513427734375,
+        "tail_mean": 0.518798828125,
+        "change": 0.00537109375,
+        "interval95": [
+          0.00048828125,
+          0.010498046875
+        ]
+      },
+      "point": {
+        "parent_mean": -1.3818359375,
+        "tail_mean": -1.3642578125,
+        "change": 0.017578125,
+        "interval95": [
+          -0.134765625,
+          0.17578125
+        ]
+      }
+    },
+    {
+      "parent": 2,
+      "opponent": "wp",
+      "win": {
+        "parent_mean": 0.50732421875,
+        "tail_mean": 0.506103515625,
+        "change": -0.001220703125,
+        "interval95": [
+          -0.00634765625,
+          0.00390625
+        ]
+      },
+      "point": {
+        "parent_mean": 2.345703125,
+        "tail_mean": 2.3857421875,
+        "change": 0.0400390625,
+        "interval95": [
+          -0.13479003906249998,
+          0.2109375
+        ]
+      }
+    },
+    {
+      "parent": 2,
+      "opponent": "point",
+      "win": {
+        "parent_mean": 0.518798828125,
+        "tail_mean": 0.517822265625,
+        "change": -0.0009765625,
+        "interval95": [
+          -0.00634765625,
+          0.00390625
+        ]
+      },
+      "point": {
+        "parent_mean": -1.57421875,
+        "tail_mean": -1.7021484375,
+        "change": -0.1279296875,
+        "interval95": [
+          -0.2841796875,
+          0.026391601562499645
+        ]
+      }
+    }
+  ],
+  "tail_training_work": {
+    "decisions": 1860647,
+    "learner_decisions": 918437,
+    "opponent_decisions": 942210,
+    "conditional_tail_completions": 133120,
+    "conditional_round_endings": 133120
+  },
+  "tail_evaluation_work": {
+    "decisions": 1908865,
+    "round_endings": 127476,
+    "completed_matches": 16384
+  },
+  "identification": {
+    "parent1_wp": {
+      "source_prefixes": 512,
+      "identified_correct": 428,
+      "identified_wrong": 0,
+      "ambiguous": 84,
+      "inconsistent": 0,
+      "true_model_excluded": 0,
+      "first_identification_round_counts": [
+        117,
+        92,
+        68,
+        46,
+        33,
+        42,
+        30
+      ],
+      "final_round_survivors": 483,
+      "correctly_identified_final_round_survivors": 410,
+      "learner_decisions_with_singleton_candidate": 12218
+    },
+    "parent1_point": {
+      "source_prefixes": 512,
+      "identified_correct": 435,
+      "identified_wrong": 0,
+      "ambiguous": 77,
+      "inconsistent": 0,
+      "true_model_excluded": 0,
+      "first_identification_round_counts": [
+        114,
+        101,
+        79,
+        61,
+        34,
+        32,
+        14
+      ],
+      "final_round_survivors": 455,
+      "correctly_identified_final_round_survivors": 387,
+      "learner_decisions_with_singleton_candidate": 13341
+    },
+    "parent2_wp": {
+      "source_prefixes": 512,
+      "identified_correct": 438,
+      "identified_wrong": 0,
+      "ambiguous": 74,
+      "inconsistent": 0,
+      "true_model_excluded": 0,
+      "first_identification_round_counts": [
+        123,
+        88,
+        77,
+        45,
+        45,
+        35,
+        25
+      ],
+      "final_round_survivors": 460,
+      "correctly_identified_final_round_survivors": 402,
+      "learner_decisions_with_singleton_candidate": 12749
+    },
+    "parent2_point": {
+      "source_prefixes": 512,
+      "identified_correct": 445,
+      "identified_wrong": 0,
+      "ambiguous": 67,
+      "inconsistent": 0,
+      "true_model_excluded": 0,
+      "first_identification_round_counts": [
+        109,
+        106,
+        87,
+        49,
+        33,
+        39,
+        22
+      ],
+      "final_round_survivors": 458,
+      "correctly_identified_final_round_survivors": 399,
+      "learner_decisions_with_singleton_candidate": 13339
+    }
+  },
+  "strict_input_checks": 36977,
+  "scope": "Completed studies only; no public-memory strength claim."
+}

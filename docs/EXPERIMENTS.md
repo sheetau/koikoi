@@ -3623,3 +3623,11 @@ Commands: `pytest tests/test_public_memory_tail.py -q` (4 passed,0 skips,14.50s)
 ## Public-memory comparison protocol
 
 Two protocol tests pass,0 skips,1.72s: fresh balanced91M deal grid,independent stratified bootstrap,zero-cancelling constant strata,conjunctive primary decision,and refusal of premature revelation,changed endpoint and corrupted reconstructed-input hash. Plan preflight verifies126 input identities. Four matched520-update arms;24,576 full evaluation matches on2,048 shared fresh deals. Primary balanced WP/Point mixture win gain must be positive against masked and original parent for both parents. Existing earlier results are not reclassified. No training/evaluation run yet.
+
+## Public-memory full comparison launch
+
+Producer67506: `.venv/Scripts/python.exe runs/launch_public_memory_study.py`;runs the frozen module with UTF8 log runs/public_memory_study.log. Protocol3e1282183196b0f76bfbaa383160304f34377c12d482578bf4cec112a627c7c1,126 input bindings. Four trainers then four strict CPU evaluation cells (three workers). No partial outcomes inspected.
+
+## Public-revelation manuscript revision
+
+Verified27-page PDF,29 references,179-word Abstract,20 embedded fonts. Exporter checks completed tail/identification audits and107 unique bound inputs;combined prior/new QA verifies677 evidence inputs. Both generated tables reproduce audited values. New Related Work covers Bayes' Bluff,Bayesian Policy Reuse,DRON,JSRL. Main text separates identification capability from the ongoing strength experiment and clarifies ordinary PPO cross-round bootstrapping. PDF0b3bd30a9dca1e24dc0b8600ab533d8b0cc2d1168cc2c7b8c049d386a63f3ee3;source36c0779feaea8c5ca5ac3c0f6c197ce1464a4f9c6fa835312897d787edbb8728. All27 final pages contact-reviewed;1/13/14/15/27 full size. Minor layout revision keeps revelation heading and first paragraph together. Old numeric tokens retained;no TeX/ref/glyph/bounds defects. Compilation/rendering CPU work overlaps the current GPU training,so this run is not an isolated latency measurement. Independent audit queue35738 waits on67506 and bindsits protocol/auditor/helper.

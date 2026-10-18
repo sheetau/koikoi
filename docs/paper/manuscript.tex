@@ -15,7 +15,7 @@
 \title{Adapting Published Koi-Koi Transformers:\\
 Match Wins and Critic Conditioning}
 \author{}
-\date{18 October 2026}
+\date{19 October 2026}
 \begin{document}
 \maketitle
 \begin{abstract}
@@ -34,7 +34,9 @@ We also identify and repair a public-seat ambiguity in the critic input.
 Three controlled 160,000-match studies test learner-decision returns,
 fixed-observer returns and the feature repair in Koi-Koi. These changes do
 not establish replicated win gains, separating the demonstrated information
-failures from their measured effect on playing strength.
+failures from their measured effect on playing strength. Delayed public hand
+revelations identify the fixed WP/Point opponent in 86.1\% of naturally reached final
+rounds, supplying an explicit cross-round memory signal.
 \end{abstract}
 
 \section{Introduction}
@@ -88,6 +90,13 @@ therefore address distinct questions: whether the update can fail, whether the
 implemented representation loses relevant information, and whether a proposed
 repair improves play.
 
+Finally, we investigate information that becomes available only after play.
+Eight public hand discards reveal an opponent's initial hand for that round.
+We use this delayed information to reconstruct earlier policy inputs and
+eliminate inconsistent fixed opponent models. The resulting candidate set
+persists across rounds, providing a concrete signal for opponent-conditioned
+play (Section~\ref{sec:public-revelation}).
+
 \section{Related work}
 \subsection{Learning to play Koi-Koi}
 Sato and Ikeda compared policy gradients with Neural Fitted Q Iteration using
@@ -109,7 +118,7 @@ that produce RL-WP and RL-Point \cite{guan2023koikoi}. We retain their released
 representations and input conventions, then adapt an explicit sampling policy.
 Their released RL-WP training code assigns round-ending targets from a
 continuation-win table indexed by next round, score and dealer
-\cite{pinnedkoikoi}. Our PPO targets retain actual terminal-match returns across
+\cite{pinnedkoikoi}. Our PPO objective uses match-end rewards and bootstraps across
 round boundaries. The experiments measure the effect of this additional
 optimization and its transfer across the two published opponents.
 
@@ -123,6 +132,25 @@ perfect recall \cite{zinkevich2007cfr}. Our current-policy self-play instead
 optimizes an inherited actor and measures its head-to-head performance against
 fixed opponents. Those measurements characterize matchups; exploitability
 requires a separate analysis.
+
+\subsection{Opponent inference and guided starting states}
+Bayes' Bluff separates uncertainty about hidden cards from uncertainty about
+an opponent's strategy, then responds to a posterior over strategies
+\cite{southey2005bayes}. Bayesian Policy Reuse selects from learned policies
+using observed signals about an unknown task instance \cite{rosman2016reuse}.
+DRON incorporates opponent observations into a deep Q-network and learns
+opponent-dependent responses \cite{he2016opponent}. Our public-memory study
+uses a finite deterministic candidate set: after a hand is publicly revealed,
+observed actions can rule out incompatible policies. Its domain-specific
+question is whether information recovered at that time remains useful after
+the round boundary.
+
+Jump-Start Reinforcement Learning uses a guide policy to construct a curriculum
+of starting states \cite{uchendu2023jump}. Our final-round experiment fixes
+the guide for rounds 1--7 and trains from its naturally reached round-eight
+states. This preserves the prefix distribution while isolating final-round
+decisions. The starting-state construction is an application of guided
+learning; its contribution here is the controlled Koi-Koi comparison.
 
 \subsection{Critic information and decision times}
 Baisero and Amato analyze the bias from substituting state critics for history
@@ -709,6 +737,84 @@ benefits attributable to the added information. The representation repair is
 verified, but it has not supplied the desired policy improvement.
 Appendix~\ref{app:seat-controls} retains the secondary comparisons.
 
+\section{Final-round learning and delayed public information}
+\label{sec:public-revelation}
+\subsection{Learning from natural final-round starts}
+We isolate the last round by keeping each parent unchanged in rounds 1--7.
+Every learner decision in the final round receives the realized terminal
+match reward. There is no opponent-critic bootstrap or unfinished trajectory
+in these training batches. The prefix policy determines both the chance of
+reaching the last round and the distribution of its starting positions;
+adapting only the tail leaves those quantities fixed.
+
+The two parents produce 938 and 918 natural final-round starts from 2,048
+prefix attempts on 512 shared training deals. Each tail receives 20 critic-only
+and 500 policy updates with 128 sampled starts per update. Across the two
+arms this adds 1,860,647 decisions and 133,120 completed conditional tails.
+Training opponents use fixed batches of 64 on the GPU; full-match evaluation
+uses the strict CPU policies. These numerical policies can differ at near-tied
+scores, so the two execution modes are recorded separately.
+
+Evaluation compares each adapted tail with its own parent against WP and Point
+on 1,024 duplicate deals per opponent: 16,384 complete matches in total.
+Only parent 1 against Point has a positive lower win-change bound
+(Table~\ref{tab:final-tail}). The other three win intervals and all four point
+intervals include zero. The fixed four-comparison criterion therefore fails.
+The complete-return tail objective alone has not produced a replicated gain.
+
+\begin{table}[ht]
+\centering\small
+\input{generated/final_tail_table.tex}
+\caption{Final-round adaptation minus its unchanged parent. Win changes are
+percentage points; point changes are final learner-minus-opponent margins.
+Brackets give paired 95\% intervals.}
+\label{tab:final-tail}
+\end{table}
+
+\begin{samepage}
+\subsection{Recovering opponent information after a hand is revealed}
+A player's eight hand cards are discarded one by one; stock draws never enter
+the hand. Once all eight hand discards have been observed, their set reveals
+that round's initial hand. Combining it with the public board, captures and
+action history reconstructs the player's earlier inputs. This reconstruction
+becomes available after the eighth discard, including when that action ends
+the round. It cannot be used to choose any earlier action.
+\end{samepage}
+
+We retain the two fixed assisted CPU opponents as candidate models. At each
+revelation, we reconstruct their inputs at earlier opponent decisions and
+remove any candidate whose predicted action disagrees with the observed one.
+The candidate set carries across rounds. An unresolved set remains unresolved;
+an empty set records model mismatch. The true opponent label is used only for
+scoring the diagnostic, never for prediction.
+
+Across all 2,048 retained training prefixes, the procedure identifies the true
+opponent in 1,746 cases and leaves 302 unresolved. It makes no incorrect
+identification or exclusion of the true model. At the 1,856 natural final-round
+starts, 1,598 have an identified opponent (86.1\%;
+Table~\ref{tab:public-revelation}). All 36,977 reconstructed historical inputs
+and assistance masks agree with the original upstream builders. Independent
+replay verifies the time of each revelation and every candidate exclusion.
+These prefixes share 512 deals; they are not 2,048 independent full matches.
+
+\begin{table}[ht]
+\centering\small
+\input{generated/public_revelation_table.tex}
+\caption{Identification from public training histories within the fixed
+WP/Point candidate class. Every identified case is correct. The last column
+conditions on reaching the final round; all earlier terminations remain in
+the preceding columns.}
+\label{tab:public-revelation}
+\end{table}
+
+Identification is conditional on the opponent belonging to the specified
+deterministic class. Unlisted or changing policies can violate that assumption.
+The result establishes an available information signal. A separate prospective
+comparison tests its effect on strength by training final-round policies with
+the public candidate bits or with those bits masked, using matched initialization
+and training. That comparison is ongoing and is not included in the strength
+results reported here.
+
 \section{Limitations and interpretation}
 Both adapted seeds improve match wins against assisted RL-WP. RL-Point remains
 competitive in wins and superior in expected points. Fixed Point continuation
@@ -738,6 +844,9 @@ shows no replicated win gain. The input audit identifies an omitted public
 seat distinction and verifies a repair that reconstructs current actor inputs
 and earlier input--action pairs within the checked rounds. Its matched
 160,000-match evaluation finds no replicated win improvement from that repair.
+Delayed public hand revelations add a different result: they identify a fixed
+opponent at 86.1\% of natural final-round starts. This creates a verified
+cross-round information signal whose playing benefit is being tested separately.
 
 \appendix
 \section{Reproduction and evidence}
@@ -755,6 +864,14 @@ analysis and its CPU/CUDA verification, bound in
 \path{docs/paper/generated/observer_evidence.json}. The finite-cutoff extension
 and its exact fractions are bound in
 \path{docs/paper/generated/observer_trace_evidence.json}.
+
+The final-round adaptation and public-opponent identification results are
+bound in \path{docs/paper/generated/public_revelation_evidence.json}. The
+tail comparison adds 1,908,865 evaluation decisions, 127,476 round endings
+and 16,384 complete matches on 2,048 fresh deals. Its 133,120 training tails
+are conditional continuations, not complete training matches. Identification
+reuses the training prefixes and performs 44,170 strict CPU predictions;
+the independent audit adds no new policy inference or independent deals.
 
 The machine-readable evidence ledger,
 \path{docs/paper/generated/evidence.json}, binds the completed studies'
