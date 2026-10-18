@@ -136,16 +136,27 @@ fixed opponents. Those measurements characterize matchups; exploitability
 requires a separate analysis.
 
 \subsection{Opponent inference and guided starting states}
-Bayes' Bluff separates uncertainty about hidden cards from uncertainty about
-an opponent's strategy, then responds to a posterior over strategies
-\cite{southey2005bayes}. Bayesian Policy Reuse selects from learned policies
-using observed signals about an unknown task instance \cite{rosman2016reuse}.
-DRON incorporates opponent observations into a deep Q-network and learns
-opponent-dependent responses \cite{he2016opponent}. Our public-memory study
-uses a finite deterministic candidate set: after a hand is publicly revealed,
-observed actions can rule out incompatible policies. Its domain-specific
-question is whether information recovered at that time remains useful after
-the round boundary.
+Bayes' Bluff updates opponent-strategy beliefs from both showdown hands,
+whose private cards become known, and folded hands, whose hidden cards must
+be marginalized \cite{southey2005bayes}. Ganzfried et al. extend Bayesian
+opponent modeling to multiplayer games with partial revelation, collecting
+observations under a default strategy before switching to model-based
+responses \cite{ganzfried2024opponent}. Thus delayed revelation and later
+adaptation already have direct precedents.
+
+Policy Based Inference uses action likelihoods under a player model to weight
+possible hidden deals in Skat \cite{rebstock2019policy}. Our revelation study
+instead reconstructs a completed Koi-Koi hand and the opponent's earlier
+network inputs exactly, then eliminates inconsistent members of a fixed
+deterministic policy set. The measured contribution is the resulting
+identification coverage and a matched test of whether this information
+improves subsequent play.
+
+Bayesian Policy Reuse selects from learned policies using observed signals
+about an unknown task instance \cite{rosman2016reuse}. DRON incorporates
+opponent observations into a deep Q-network and learns opponent-dependent
+responses \cite{he2016opponent}. Our public/masked comparison isolates the
+effect of supplying the recovered opponent identity to the adapted actor.
 
 Jump-Start Reinforcement Learning uses a guide policy to construct a curriculum
 of starting states \cite{uchendu2023jump}. Our final-round experiment fixes
