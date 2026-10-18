@@ -46,11 +46,32 @@ zero simulator decisions,policy predictions or full matches. Receipt:
 ``runs/continuation_chance_bank_capability.json``,
 SHA256 f18357c52be82afa71b6f5d14869d6616c7cc60bcbf41b08b67bd6c482961cfc.
 
+Checkpointable root sampling
+----------------------------
+
+``scripts/renewed_root_sampler.py`` selects original root records with their
+existing multiplicity and assigns a fresh seed to every draw,including repeated
+root indices within a batch. It retains learner seat,simulator routing label
+and public memory as distinct metadata. An explicit finite seed allocation
+prevents silent overflow or budget extension. A prospective protocol must
+allocate a range separate from evaluation;the sampler does not choose that
+experimental range automatically.
+
+Snapshots contain source/bank identities,allocation,cursor,batch lengths and
+the CPU root-index RNG. Restore reconstructs the index RNG from the recorded
+draw lengths and rejects inconsistent cursors,RNGs,inputs or allocations.
+It does not regenerate deals or replay policies during that validation.
+Two CPU tests pass,0 skips,in1.51s,including exact serialized restart,paired
+sampling,unchanged internal metadata after caller mutation,distinct routing
+and public-memory values,unique per-draw chance keys,and atomic rejection of
+invalid requests/snapshots. Final XML ``runs/renewed_root_sampler_metadata_tests.xml``
+has SHA256 9af1d59cd7035cca2de4825207879ae20360bb03d41a7d8dddd5f5f9d46759d1.
+
 Outstanding work
 ----------------
 
-CUDA transition checks,learner integration,checkpointed chance-key scheduling,
-matched controls and a prospective strength comparison remain unperformed.
+CUDA transition checks,learner integration,full-trainer checkpoint/resume checks,
+matched training controls and a prospective strength comparison remain unperformed.
 The current study must finish unchanged. Its results may inform whether to
 run a separate renewal experiment;this capability establishes no playing gain,
 absence of overfitting or new general learning principle.
