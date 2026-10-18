@@ -3775,3 +3775,25 @@ Existing producer46255/audit96354 are live(actual Python PIDs10804/32056).
 Parent2-public reaches update320/520 after both parent1 arms completed;no partial
 evaluation contrasts inspected. All221 old-study inputs remain unchanged.
 Dealer selection,canonical human-play weights and reserved101M remain unchanged.
+
+
+## Chance-renewal strength design recorded before current evaluation
+
+Added docs/RENEWED_CONTINUATION_STUDY.rst before any current multi-round
+evaluation file existed. The prospective2x2 comparison retains both fixed-bank
+public/masked endpoints and trains renewed public/masked arms from each original
+parent. Same root-index/training seeds,budgets and context multiplicities isolate
+chance renewal. New chance allocations94110001--94176560/94210001--94276560 are
+shared within each parent;266,240 conditional completions use133,120 distinct
+keys. All five policies receive40,960 new full matches on2,048 shared95M deals.
+Primary renewed-public minus parent/fixed-public win conjunction is distinct
+from secondary public-signal and chance-by-memory interaction tests. All pairwise
+and opponent-specific results must remain visible;no endpoint selection.
+
+Read-only command `.venv/Scripts/python.exe -m runs.record_renewed_study_design`
+checks arithmetic/range disjointness,all240 queued input hashes,the current
+training stage and absence of evaluation files. Receipt SHAec855e090728072ddc491a9eadb1c50c3da1bd0538b169a59b310f77d104b6f3.
+It adds0 simulator decisions/NN predictions and does not start any strength job.
+The new design is not yet a frozen executable protocol;runner/auditor validation
+and completed current-study/CUDA-capability prerequisites remain necessary.
+No manuscript result,canonical model,dealer mechanism or101M range changes.

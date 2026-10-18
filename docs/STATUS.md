@@ -70,6 +70,17 @@ c692ee7486c2967ffe8890e67a8fc4ed531757141b023b145ad9c3965a0c5181.
 The8h observation deadline never terminates the existing producer. Do not
 restart the queue or edit its bound new modules/tests. No CUDA stage has run.
 
+**Prospective renewal comparison specified:**
+[Design](RENEWED_CONTINUATION_STUDY.rst) separates fixed/renewed chance from
+public/masked information using a2x2 comparison and the original-parent control.
+It proposes four new520-update arms and40,960 fresh full matches on2,048 shared
+95M deals. Primary strength and secondary memory/interaction claims are separate.
+The specification was recorded while the current study was still training with
+zero evaluation files. Receipt runs/renewed_continuation_design_pre_evaluation.json
+SHAec855e090728072ddc491a9eadb1c50c3da1bd0538b169a59b310f77d104b6f3.
+This is not an executed/frozen study;runner,auditor and their checks remain to
+implement after the existing prerequisites. No new strength job is queued.
+
 ## Completed evidence informing this experiment
 
 **Public-memory round8 comparison independently complete:** producer67506 and audit35738 exit0;all24,576 full matches replay and all18 win/point contrasts reproduce exactly. Primary balanced-mixture gain fails;every win and point interval includes zero. Audit a5a9f350f2388294cdd106758d60eb453a2f03a24ff41f192436a04d4925acd7 verifies300,092 upstream input/mask checks and all181 input hashes. Actual evaluation2,857,337 decisions/191,262 rounds/24,576 matches;355,486 public-model predictions. Summarizer ran once;summary ca6182fb9e687e4c0a23237e161a4bc27de518ffb40e12b32c9b650e583fc985. [All outcomes](PUBLIC_MEMORY_RESULTS.rst). No promotion/extra old budget/101M use. Do not restart67506/35738 or resummarize over existing files.
