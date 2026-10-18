@@ -4090,3 +4090,61 @@ A future local proposal sampler must retain global movement to cross components
 and account for correlated samples. No sampler change or new strength trial
 is inferred from this analysis. Current252/221 study inputs remain protected;
 no canonical promotion,dealer change,101M use or paper-strength-claim update.
+
+
+## Mixed global/local posterior sampler and fixed equal-attempt comparison
+
+Previous turn was progress:exact posterior comparison and disconnected support
+analysis committed671b9b3. Current turn reconfirms producer10804,its worker pool
+and allthree downstream waiters live;partial win outcomes remain unread.
+
+Added scripts/mixed_history_sampler.py. A bounded uniform-rejection initializer
+is followed by a0.2 global/0.8 one-card-swap symmetric proposal kernel. Invalid
+hands and rejected moves consume attempts;after initialization rejected moves
+retain the current state. Deterministic likelihood caching stays within one root.
+No initialization yields an explicit failure. Chain length/distinct hands are
+not reported as independent ESS. Singleton model provenance must be prior-round
+public evidence;the wrapper rejects multiple models and never selects an action.
+
+Command `.venv/Scripts/python.exe -m pytest tests/test_mixed_history_sampler.py -q --junitxml=runs/mixed_history_sampler_tests.xml`
+passes8,zero skips,1.26s. Exact rational enumeration of actual transition code
+checks stationarity and movement between disconnected components. Holding,
+cache/budget/failure controls,independent full replay and hidden substitution
+also pass. XML3276094cbf7c9bcc44c90e04b6c784fc4f5525b22de2d2ea9c771737e04ac30c.
+An independent exhaustive rational two-attempt check of the spectral finite-budget
+MSE calculation passes1,zero skips,1.27s via tests/test_mixed_history_expectation.py;
+XMLa8862b60f2c6bc16f1848d4d220dcbf3f70b5d7565e7ca76430f2d0637f0f3ba.
+Allnew sources/tests pass Ruff and format checks. Fixtures are correctness work.
+
+Frozen design docs/MIXED_HISTORY_SAMPLER.rst specifies allfour previous cases,
+128 attempts,global probability0.2,256 paired RNG replicates,retained failures,
+exact-posterior marginal MSE and analytic conditional expectations. These are
+three unique own/public roots,two old deals,not independent new test positions.
+Command `.venv/Scripts/python.exe -m scripts.benchmark_mixed_history_sampler --output runs/mixed_history_sampler_benchmark`
+completes exit0 with69 unchanged inputs. The exact-table oracle uses262,144
+proposal attempts and0 neural calls;source reconstruction188 replay decisions.
+Conditional expected IID/mixed MSE: P1WP .07719483252020704/.05737625119333386;
+P2WP .07425142526443416/.04290892540829567;Point .012262726552334019/.013945623119139074.
+Failure probabilities .2637120476968796/.3724721694068962/.000004589684336253619.
+Empirical failures66/256,90/256,0/256,0/256;both methods share every success/failure.
+Empirical errors agree in direction. Point chains visitabout40 distinct hands
+versusabout12 IID yet havehigher MSE;correlation cannot be ignored. No universal
+replacement,generalization or action-strength conclusion.
+
+Command `.venv/Scripts/python.exe -m scripts.check_mixed_history_runtime --output runs/mixed_history_runtime_check.json`
+finishes66780,exit0. Four actual published-policy runs equal the cached oracle
+and hidden-world-substituted runs exactly. Full unpruned replay agrees for every
+queried valid hand. Shares canonical constructor and published adapter.
+Adds188 source replay decisions;actual+substituted history3,206 transitions/
+2,104 model calls;full replay3,530 transitions/2,051 calls. Its1,536 proposals
+comprise512 actual+512 substituted+512 cached. No new evaluation deal,future
+rollout or training. Upstream transformer nested-tensor advisory expected.
+
+Protocol d2cfa2a3df9f703faf3aef0dce0defcff88f617f539a7a5451356cf0a744c0e3;
+benchmark1211943d0ac82c375cec6a9f12d18d5068f4a0c828015c7bce196531dad572ac;
+runtimeeaf60c75b07a335c047db0b18f4e854ef5298215589542311f92d629a1d93cb7,71inputs.
+Details docs/MIXED_HISTORY_RESULTS.rst. New sampler remains research-only;
+initialization failure and the Point regression need explicit handling before
+search use. Current strict study,renewal capability and renewal comparison
+queues remain intact. No canonical promotion,dealer change,101M use or paper
+strength-claim update. Existing252/221 frozen input bindings remain unchanged.

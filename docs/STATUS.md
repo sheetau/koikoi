@@ -176,6 +176,19 @@ global moves and check correlations against the exact tables before strength
 use. [Results and work](SAMPLED_HISTORY_RESULTS.rst). No new generalization or
 playing-strength result;existing main study and queues continue unchanged.
 
+**Mixed hand proposals implemented and checked:** uniform rejection starts a
+stationary global/local chain;global probability0.2 connects local components.
+Nine unit tests pass,zero skips,and allfour actual published-model checks agree
+with cached exact likelihoods,full replay and hidden-world substitution.
+At128 attempts,conditional exact marginal MSE falls25.67%/42.21% at the two WP
+roots but rises13.72% at Point(the same public root for both parents). Shared
+initialization failure probabilities are26.37%/37.25% at WP;allfailures retained.
+This is a standard invariant-kernel construction,not a general new MCMC method
+or strength result. [Complete comparison](MIXED_HISTORY_RESULTS.rst). Runtime
+receipteaf60c75b07a335c047db0b18f4e854ef5298215589542311f92d629a1d93cb7.
+Do not deploy universally:correlation and initialization failure remain material.
+Existing252/221 study bindings and the canonical playable policy are unchanged.
+
 ## Completed evidence informing this experiment
 
 **Public-memory round8 comparison independently complete:** producer67506 and audit35738 exit0;all24,576 full matches replay and all18 win/point contrasts reproduce exactly. Primary balanced-mixture gain fails;every win and point interval includes zero. Audit a5a9f350f2388294cdd106758d60eb453a2f03a24ff41f192436a04d4925acd7 verifies300,092 upstream input/mask checks and all181 input hashes. Actual evaluation2,857,337 decisions/191,262 rounds/24,576 matches;355,486 public-model predictions. Summarizer ran once;summary ca6182fb9e687e4c0a23237e161a4bc27de518ffb40e12b32c9b650e583fc985. [All outcomes](PUBLIC_MEMORY_RESULTS.rst). No promotion/extra old budget/101M use. Do not restart67506/35738 or resummarize over existing files.
