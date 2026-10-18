@@ -4283,3 +4283,58 @@ including its helper and immutable checkpoints. Its status is explicitly
 prefix_verification_passed,not a completed-study audit. Existing316 study/323
 queue bindings remain intact. Main training continues with its fixed budget;
 canonical model,dealer,final-confirmation allocation and manuscript unchanged.
+
+
+## Three-policy confirmation analysis and first renewed endpoint verification
+
+Previous turn verified the actual renewed schedule through update300(commit
+f0e61c8). Current producer58904/queue65372 remain live. Parent1-public completes
+all520updates,and parent1-masked begins policy learning. No evaluation files
+exist and no partial win contrasts have been read.
+
+Added scripts/renewed_confirmation_analysis.py under the unchanged prospective
+confirmation specification. Full grid is2parents x3policies x2opponents x4096
+pairs x2seats=98,304records on8,192shared101M deal identifiers. Loader validates
+every identity,uniqueness,coverage and terminal total. Analysis computes each
+match's draw-adjusted win before seat averaging,then stratified paired bootstrap
+withseed101300001/10,000draws. It reports18paired contrasts and18absolute win/
+point cells;confirmation requires allfour declared mixture-win bounds. It does
+not infer public-memory/interaction confirmation or promote a policy.
+
+Command `.venv/Scripts/python.exe -m pytest tests/test_renewed_confirmation_analysis.py -q --junitxml=runs/renewed_confirmation_analysis_tests_final.xml`
+passes6,0skips,1.33s. Tests use a complete synthetic98,304-row grid,malformed/
+missing/duplicate records,seat-order sign checks,primary-vs-secondary rules and
+independent scalar4,096-pair bootstrap arithmetic. Variable absolute/difference
+intervals are checked through the actual analysis path with257draws,crossing
+chunk boundaries;production budget stays10,000. The shared bootstrap also has
+prior full-study audit coverage. Initial five-test XML is preserved;added
+absolute-interval and nonconstant integration checks justify the final rerun.
+No simulator or neural calls occur;synthetic101M identifiers do not consume
+actual confirmation deals. Ruff and format checks pass. Source/test/final XML:
+e7aa5b07ffcc60c7f0b197a7ebde4cf95fc2f256ee1a7c14aaa892768e7f16d3;
+8a3fceba080251348b5eab3df2a0db4ba9ab6002025036a61b3fbedc276ba30e;
+4f709888979e2a8d295b1a7c356a7076238a4c6e4598c7fb6a06fd0571c75a78.
+Final evaluator,independent replay and reporting remain conditional work after
+qualification;none is launched by this numerical module.
+
+First renewed public endpoint is
+ dd35e584f136edda68da1de0a39f1cb5074186ca3ae81d5b894791643c766307.
+Command `.venv/Scripts/python.exe -m runs.verify_renewed_parent1_public`
+finishes72740,exit0. Independent rerun of the existing endpoint verifier equals
+the producer's training_audit.json;all0/20/100/200/300/400/500/520/final saved
+root schedules match the fixed control,final equals520,all96 Adam states are
+finite with phase counters,value14,568/discard14,002/pick13,973/koi13,971.
+Parent1 renewed public/masked initial and warmup20 actor/value/optimizer/bank/
+memory/runtime/root-sampler/Python/NumPy/CPU/CUDA states also match exactly.
+This reuses the existing verifier;it is not a second policy implementation.
+
+Actual completed-arm work4,788,606decisions(2,358,991learner/2,429,615opponent),
+66,560conditional completions/freshdealconstructions,320,449conditional round
+endings,0ordinaryrounds/fullmatches. The verification adds0simulatorsteps,
+0neuralcalls and0newdeals. Receipt
+runs/renewed_continuation_study/parent1_public_completion_verification.json SHA
+ e5030a8760323ca8f195a07f39f1473b5fbd10ae3fa7c3b9715764567fa66c43
+binds332inputs. Three training arms and the full40,960-match comparison remain
+pending;no strength outcome or checkpoint promotion follows. Current316study/
+323queue and321confirmation-spec bindings remain unchanged. No dealer change,
+reserved101M use or manuscript-strength-claim update.

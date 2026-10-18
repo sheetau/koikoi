@@ -13,12 +13,23 @@ Old process handles mentioned in that history are historical, not live jobs.
 
 **Renewed-chance comparison is training:** queue37463(OS Python PID65372)
 launched scripts.run_renewed_continuation_study as launcher39952/actual58904.
-The parent1-public arm has passed critic warmup and entered policy updates.
+The parent1-public arm is complete;parent1-masked is now learning.
 Log runs/renewed_continuation_study_training_and_evaluation.log;process receipt
 runs/renewed_continuation_study/process.json. Preserve this producer and queue.
 The frozen protocol is b380344727a3ac878e1c542b1754d6eac478ae66269cd662c60c0cd85dec46aa,
 with316 bound inputs. The queue now binds323 inputs after merging the successful
 capability audit. Do not edit those sources/tests/designs or duplicate the run.
+
+First completed renewed endpoint dd35e584f136edda68da1de0a39f1cb5074186ca3ae81d5b894791643c766307
+passes a separate rerun of its full endpoint verifier,all saved root schedules
+and96 finite Adam states. Parent1 public/masked initial and warmup20 states
+match exactly,including runtime,optimizers,root samplers and all RNG payloads.
+Receipt e5030a8760323ca8f195a07f39f1473b5fbd10ae3fa7c3b9715764567fa66c43
+in runs/renewed_continuation_study/parent1_public_completion_verification.json
+binds332inputs. Actual4,788,606decisions(2,358,991learner/2,429,615opponent),
+66,560conditional completions,320,449conditional round endings,0fullmatches.
+Verification72740 adds0 simulation/inference/deals. Three arms and all strength
+evaluation remain pending;this does not promote the checkpoint.
 
 Read-only prefix verification37227 passed saved parent1-public checkpoints
 0/20/100/200/300:root-index RNG equals both a reconstructed schedule and the
@@ -95,6 +106,15 @@ in runs/renewed_confirmation_pre_evaluation.json SHA
  a9547cb8a9601b40e162988dca2bd1515e4b696bc4749601806d869dda89a934,
 with321 immutable input bindings. This preparation runs0 simulation/neural calls
 and consumes0 final deals. Main producer58904 and queue65372 remain live.
+
+**Final-confirmation analysis implemented:** the three-policy loader requires
+all98,304 record identities and rejects missing,duplicate,wrong-policy/deal or
+invalid score records. It retains18 paired contrasts and18 absolute-performance
+cells and requires allfour primary win bounds. Six synthetic tests pass,0skips,
+1.33s;independent scalar checks cover4,096-pair variable samples and chunk
+boundaries. XML4f709888979e2a8d295b1a7c356a7076238a4c6e4598c7fb6a06fd0571c75a78.
+Synthetic rows and integer seed allocations are not played matches;0simulation
+or neural calls. No final evaluator/auditor has been launched or final deal used.
 
 ## Earlier implementation milestones
 
