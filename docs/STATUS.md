@@ -28,6 +28,14 @@ partial win contrasts,select checkpoints,extend the fixed budget,or launch
 duplicate trainers/evaluators. Do not edit any of the221 protocol-bound inputs.
 Training and conditional completions are not strength evidence.
 
+**Training diversity diagnostic:** the855/876 root banks contain717/756
+distinct initial deal permutations. Completed parent1-public samples all855
+roots47--111 times(mean77.85) over66,560 continuations;replayed root-index RNG
+equals the final checkpoint exactly. No simulation or evaluation was added.
+[Counts and possible chance-renewal comparison](CONTINUATION_ROOT_DIVERSITY.rst).
+This measures finite chance reuse,not overfitting or strength. Finish the current
+comparison before changing its sampling procedure.
+
 ## Completed evidence informing this experiment
 
 **Public-memory round8 comparison independently complete:** producer67506 and audit35738 exit0;all24,576 full matches replay and all18 win/point contrasts reproduce exactly. Primary balanced-mixture gain fails;every win and point interval includes zero. Audit a5a9f350f2388294cdd106758d60eb453a2f03a24ff41f192436a04d4925acd7 verifies300,092 upstream input/mask checks and all181 input hashes. Actual evaluation2,857,337 decisions/191,262 rounds/24,576 matches;355,486 public-model predictions. Summarizer ran once;summary ca6182fb9e687e4c0a23237e161a4bc27de518ffb40e12b32c9b650e583fc985. [All outcomes](PUBLIC_MEMORY_RESULTS.rst). No promotion/extra old budget/101M use. Do not restart67506/35738 or resummarize over existing files.
