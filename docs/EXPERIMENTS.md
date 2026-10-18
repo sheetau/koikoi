@@ -4248,3 +4248,38 @@ inside the reserved101M allocation;constructing integer sets consumes no deals.
 This is prospective qualification infrastructure,not strength evidence or an
 executed confirmation study. Existing316 protocol/323 queue bindings are
 preserved. Canonical game,dealer and all101M deals remain unchanged.
+
+
+## Actual renewed-training prefix preserves the matched root schedule
+
+Previous goal turn implemented and tested prospective final-qualification
+conditions(commit6d8f959). Current turn confirms producer58904 and queue65372
+live;parent1-public training advances beyond380updates. No evaluation files or
+partial strength contrasts are read. Bound training sources are unchanged.
+
+Command `.venv/Scripts/python.exe -m runs.verify_renewed_schedule_prefix`
+finishes37227,exit0. It reads saved parent1-public checkpoints0/20/100/200/300
+and corresponding fixed-root checkpoints,using the existing independent
+`audit_sampler` routine without modifying it. Each saved root-index RNG agrees
+with independent Torch draw reconstruction and the fixed control;bank/memory
+identity,chance allocation,cursor and batch lengths agree. Initial actor,value,
+optimizer,prefix,opponents and Python/NumPy/CPU/CUDA RNG payloads match the fixed
+control. Frozen prefix and opponent tensors stay unchanged at later checked
+points. Warmup weights across fixed/renewed chance are intentionally not compared;
+paired renewed public/masked warmup and full endpoint audits remain pending.
+
+At update300 the existing trajectory counters are2,766,388 decisions,
+1,366,732learner/1,399,656opponent,38,400conditional completions/fresh conditional
+deal constructions,185,926conditional round endings,0ordinary rounds/fullmatches.
+Reconstructed root-index draws cover all855 roots25--67times(mean44.9122807).
+These are existing training counts,not work added by the verifier. The checker
+executes0 simulator decisions,0neural calls and0new deals. Distinct chance keys
+are not asserted to imply distinct card permutations. No policy checkpoint is
+selected for evaluation or deployment.
+
+Receipt runs/renewed_schedule_prefix_verification.json SHA
+449a8e7de6d1bc155fc9569a8cdce203b266a3238e2367b207e17fd21632e9c8 binds323inputs,
+including its helper and immutable checkpoints. Its status is explicitly
+prefix_verification_passed,not a completed-study audit. Existing316 study/323
+queue bindings remain intact. Main training continues with its fixed budget;
+canonical model,dealer,final-confirmation allocation and manuscript unchanged.

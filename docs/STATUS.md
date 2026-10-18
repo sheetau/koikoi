@@ -20,6 +20,18 @@ The frozen protocol is b380344727a3ac878e1c542b1754d6eac478ae66269cd662c60c0cd85
 with316 bound inputs. The queue now binds323 inputs after merging the successful
 capability audit. Do not edit those sources/tests/designs or duplicate the run.
 
+Read-only prefix verification37227 passed saved parent1-public checkpoints
+0/20/100/200/300:root-index RNG equals both a reconstructed schedule and the
+fixed-root controls;bank/memory provenance and chance cursor agree. Initial
+model/optimizer/global RNG states match the fixed control exactly,and frozen
+prefix/opponent weights remain unchanged. Receipt
+runs/renewed_schedule_prefix_verification.json SHA
+449a8e7de6d1bc155fc9569a8cdce203b266a3238e2367b207e17fd21632e9c8 binds323inputs.
+Through300 updates,existing training totals2,766,388dec/38,400conditional
+completions/185,926conditional round endings,0fullmatches;all855roots occur
+25--67times. Verification adds0 simulation,inference or new deals. This is a
+prefix/schedule check,not a complete endpoint audit or strength evidence.
+
 The study executes four new520-update public/masked arms from both original
 parents,refreshing conditional chance while matching the original root-index
 schedule and budget. It reuses the four completed fixed-root controls and
