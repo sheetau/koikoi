@@ -3635,3 +3635,7 @@ Verified27-page PDF,29 references,179-word Abstract,20 embedded fonts. Exporter 
 ## Public-memory first-parent endpoints complete
 
 Producer67506 completed public and masked520-update endpoints:929,883 and929,458 decisions,respectively;66,560 tails each,0 full training matches. Both training audits pass,including original frozen prefix/opponents,audited public-memory root codes,finite96-state Adam andphase step counts. Exact initial/warmup20 comparison passes before parent2-public begins. Endpoint input identities reverified. Independent queue35738 waits for the complete24,576-match evaluation;no partial win outcomes inspected.
+
+## Public-memory all endpoints complete; evaluation started
+
+All4 training arms complete520 updates. Public/masked decisions:parent1 929,883/929,458;parent2 932,153/934,154,total3,725,648. Each66,560 tails;combined266,240 conditional round/tail completions,0 full training matches. All96 Adam states perarm finite with phase-step counts verified;original prefixes/opponents and audited public-code roots agree. Both exact initial/warmup20 comparisons pass before producer67506 starts three-worker strict CPU evaluation. Completion receipt runs/public_memory_study/training_completion.json binds immutable endpoints and reverified inputs. Independent audit queue35738 waits for all24,576 matches. Summarizer is implemented,lintchecked,and verified to refuse this incomplete study;run once after the independent audit.
