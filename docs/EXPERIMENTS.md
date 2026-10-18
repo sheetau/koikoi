@@ -3504,3 +3504,10 @@ Producer command `.venv/Scripts/python.exe -m scripts.check_fixed_midround_termi
 ## Numerical batching prior-art positioning
 
 Read the official PyTorch2.12 numerical-accuracy documentation and Thinking Machines'10 September2025 article by Horace He and collaborators on18 October2026. Recorded source links and scope in docs/NUMERICAL_BATCH_PRIOR_ART.rst. Batch-dependent numerical results and invariant-reduction methods are established;fixed size does not by itself prove position invariance. Our local contribution here is the saved Koi-Koi paired-rollout failure and the measured fixed64 repair,not a new general inference algorithm. No external kernels installed,no live protocol/dependency or manuscript change,and no new simulation or strength conclusion from this source review.
+
+
+## Retrospective search round coverage
+
+**Search round coverage:** a hash-checked retrospective audit of the completed Transformer card/koi diagnostics finds no final-round roots:24 card roots and64 unsolved koi roots all occur in rounds1--7. These are shared-trajectory diagnostic positions,not88 independent matches. This leaves final-round card choices outside those two screens;it does not imply a strength gain. Current first-round fixed64 pilot and its conditions remain unchanged. See [coverage counts](SEARCH_ROUND_COVERAGE.rst);report SHA5f3bb5a3d3684116aa1987f4c0affe648efcfb39477ce7614742589bd9073613. No new simulation.
+
+.venv/Scripts/python.exe -m scripts.audit_search_round_coverage verifies the original protocol/input/root hashes and counts public round,turn and phase fields. Ruff passes. Card roots by rounds1--8:parent1 [4,3,1,0,1,2,1,0],parent2 [6,3,0,2,0,1,0,0];koi:parent1 [5,7,4,3,4,3,6,0],parent2 [4,8,3,8,3,4,2,0]. Counts describe only these two existing corpora. Final-round card search is a candidate to assess after the live pilot,not a launched protocol or a post-hoc strength result. Earlier-round opponent-type evidence must be addressed explicitly if extending the current history model.
