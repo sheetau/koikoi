@@ -5,7 +5,7 @@ import json
 
 import pytest
 
-from scripts import export_observer_paper_evidence as exporter
+from scripts import export_observer_selfplay_paper_evidence as exporter
 
 
 def write(path, value):
