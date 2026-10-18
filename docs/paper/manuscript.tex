@@ -31,12 +31,12 @@ reverse the expected policy update even when both critics give exact
 conditional values. Learner-decision returns recover the correct update in
 the example, with matching Python, native CPU and CUDA implementations.
 We also identify and repair a public-seat ambiguity in the critic input.
-Three controlled 160,000-match studies test learner-decision returns,
-fixed-observer returns and the feature repair in Koi-Koi. These changes do
-not establish replicated win gains, separating the demonstrated information
-failures from their measured effect on playing strength. Delayed public hand
-revelations identify the fixed WP/Point opponent in 86.1\% of naturally reached final
-rounds, supplying an explicit cross-round memory signal.
+Three controlled 160,000-match studies of learner-decision returns,
+fixed-observer returns and the feature repair find no replicated win gain.
+Delayed public hand
+revelations identify the fixed WP/Point opponent in 86.1\% of natural final-round
+starts. Conditioning final-round play on this signal yields no replicated win
+gain in a matched 24,576-match comparison.
 \end{abstract}
 
 \section{Introduction}
@@ -95,7 +95,9 @@ Eight public hand discards reveal an opponent's initial hand for that round.
 We use this delayed information to reconstruct earlier policy inputs and
 eliminate inconsistent fixed opponent models. The resulting candidate set
 persists across rounds, providing a concrete signal for opponent-conditioned
-play (Section~\ref{sec:public-revelation}).
+play. A matched 24,576-match comparison then tests its use in the final round:
+public-memory training yields no replicated win gain over masked-memory
+training or the original parent (Section~\ref{sec:public-revelation}).
 
 \section{Related work}
 \subsection{Learning to play Koi-Koi}
@@ -807,13 +809,32 @@ the preceding columns.}
 \label{tab:public-revelation}
 \end{table}
 
-Identification is conditional on the opponent belonging to the specified
-deterministic class. Unlisted or changing policies can violate that assumption.
-The result establishes an available information signal. A separate prospective
-comparison tests its effect on strength by training final-round policies with
-the public candidate bits or with those bits masked, using matched initialization
-and training. That comparison is ongoing and is not included in the strength
-results reported here.
+Identification assumes that the opponent belongs to the specified deterministic
+class. Unlisted or changing policies can violate that assumption.
+
+\subsection{Testing the final-round use of public memory}
+For each parent, we train two new final-round policies: one receives the public
+candidate bits and the other receives those bits masked to zero. Both use the
+same roots, training seed and 520-update schedule. The bits occupy previously
+unused actor input rows whose weights start at zero, preserving the initial
+policy. All initial and critic-only warmup states match exactly between arms.
+
+The comparison evaluates parent, public-memory and masked-memory policies
+against WP and Point on 1,024 duplicate deals per opponent: 24,576 full matches
+on 2,048 shared fresh deals. The primary criterion requires positive lower
+95\% bounds for public memory versus both references at both parents, using
+the equally weighted WP/Point mixture. Every primary interval includes zero
+(Table~\ref{tab:public-memory}), so this criterion fails. All opponent-specific
+win and point intervals also include zero.
+
+\begin{table}[ht]
+\centering\small
+\input{generated/public_memory_table.tex}
+\caption{Public-memory final-round policy minus each reference, equally weighted
+over WP and Point. Brackets give stratified paired 95\% intervals. The four
+win comparisons form the primary criterion; all include zero.}
+\label{tab:public-memory}
+\end{table}
 
 \section{Limitations and interpretation}
 Both adapted seeds improve match wins against assisted RL-WP. RL-Point remains
@@ -845,8 +866,9 @@ seat distinction and verifies a repair that reconstructs current actor inputs
 and earlier input--action pairs within the checked rounds. Its matched
 160,000-match evaluation finds no replicated win improvement from that repair.
 Delayed public hand revelations add a different result: they identify a fixed
-opponent at 86.1\% of natural final-round starts. This creates a verified
-cross-round information signal whose playing benefit is being tested separately.
+opponent at 86.1\% of natural final-round starts. The matched final-round
+comparison finds no replicated win gain from this signal. Its effect when
+used earlier in the match remains to be measured.
 
 \appendix
 \section{Reproduction and evidence}
@@ -872,6 +894,14 @@ and 16,384 complete matches on 2,048 fresh deals. Its 133,120 training tails
 are conditional continuations, not complete training matches. Identification
 reuses the training prefixes and performs 44,170 strict CPU predictions;
 the independent audit adds no new policy inference or independent deals.
+
+The public-memory comparison is bound in
+\path{docs/paper/generated/public_memory_evidence.json}. Its four arms add
+3,725,648 training decisions and 266,240 conditional final-round completions.
+Evaluation adds 2,857,337 decisions, 191,262 round endings and 24,576 full
+matches on 2,048 fresh deals. Public-model elimination makes 355,486 strict
+predictions; independent replay checks 300,092 historical inputs and masks
+without new policy inference. The ledger retains all 18 contrasts.
 
 The machine-readable evidence ledger,
 \path{docs/paper/generated/evidence.json}, binds the completed studies'
