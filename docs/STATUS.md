@@ -13,7 +13,7 @@ Old process handles mentioned in that history are historical, not live jobs.
 
 **Renewed-chance comparison is training:** queue37463(OS Python PID65372)
 launched scripts.run_renewed_continuation_study as launcher39952/actual58904.
-The parent1-public arm is complete;parent1-masked is now learning.
+Both parent1 arms are complete;parent2-public is now learning.
 Log runs/renewed_continuation_study_training_and_evaluation.log;process receipt
 runs/renewed_continuation_study/process.json. Preserve this producer and queue.
 The frozen protocol is b380344727a3ac878e1c542b1754d6eac478ae66269cd662c60c0cd85dec46aa,
@@ -28,8 +28,8 @@ Receipt e5030a8760323ca8f195a07f39f1473b5fbd10ae3fa7c3b9715764567fa66c43
 in runs/renewed_continuation_study/parent1_public_completion_verification.json
 binds332inputs. Actual4,788,606decisions(2,358,991learner/2,429,615opponent),
 66,560conditional completions,320,449conditional round endings,0fullmatches.
-Verification72740 adds0 simulation/inference/deals. Three arms and all strength
-evaluation remain pending;this does not promote the checkpoint.
+Verification72740 adds0 simulation/inference/deals. At that verification,three
+arms and all strength evaluation remained pending;it did not promote the checkpoint.
 
 Read-only prefix verification37227 passed saved parent1-public checkpoints
 0/20/100/200/300:root-index RNG equals both a reconstructed schedule and the
@@ -55,9 +55,9 @@ Next: let queue37463 finish training,evaluation and independent audit. Only
 then run scripts/summarize_renewed_continuation_study.py once;never overwrite
 summary.md or summary_receipt.json. No partial evaluation contrasts,checkpoint
 selection,budget extension,automatic promotion or reserved101M use.
-After the renewed comparison, reconcile the paper with both completed studies
-and rebuild/render its PDF. The current PDF covers the earlier final-round
-memory result;the new multi-round outcome is recorded in the result document.
+The current PDF now includes both completed final-round and fixed-root
+multi-round outcomes. After the renewed comparison, reconcile the paper with
+that additional completed evidence and rebuild/render its PDF.
 
 **Fixed-root multi-round comparison independently complete:** producer46255
 and audit96354 exited0. All24,576 strict matches and all18 contrasts reproduce.
@@ -328,21 +328,22 @@ their empirical fixes did not establish replicated Koi-Koi win improvement.
 
 ## Latest manuscript
 
-**Latest verified manuscript:**28 pages,31 references,143-word Abstract and20
-embedded fonts. Abstract/Introduction now lead with terminal-match adaptation,
-the exact critic-conditioning counterexample and public-input reconstruction.
-Repeated experiment counts and separate negative-result summaries are condensed;
-combined frontmatter falls from672 to552 whitespace words. Related Work and
-all following source bytes remain identical,including every result,table and
-qualification. All prior numeric tokens remain in the rendered PDF. All756
-evidence inputs and252 live-queue bindings verify. All28 pages rendered/contact-
-reviewed,with pages1/2/28 inspected full size;no box,glyph,reference or page-bound
-defects. PDF4bf68f3e5143bd1367f381886b91c8b6586093bc22b3eb970a894829935eacc0;
-source08678404210ef1df84d17d0ef9c35cef05e38b3a68e41aa1ee8f37f4c294b84a;
-QA runs/manuscript_frontmatter_qa.json SHAfaf681e99a9d37b0989ad99419cc85f3977ccb920aa0f855c1004dd18a02cad0.
-Previous31-reference PDF retained as output/pdf/manuscript_prior_art_2ffe37c5.pdf.
-The prior-art comparisons remain documented in PUBLIC_MEMORY_PRIOR_ART.rst.
-Ongoing multi-round/renewal experiments supply no new strength claim yet.
+**Latest verified manuscript:**29 pages,31 references,145-word Abstract and20
+embedded fonts. Added the independently completed fixed-root multi-round
+public-memory comparison and its four primary contrasts;all18win intervals
+include zero. Secondary point effects stay separate. Abstract/Introduction,
+guided-start Related Work and Conclusion now agree with the measured earlier-
+activation result;removed the obsolete statement that it remains unmeasured.
+No renewed-chance outcome is claimed. New evidence exporter verifies282inputs;
+full manuscript QA verifies858evidence inputs and323active queue bindings.
+All prior numeric tokens remain. All29pages rendered/contact-reviewed,pages
+1/3/15/16/29 inspected full size;no layout,glyph,reference or page-bound defects.
+PDFdfa9122e0abc760d8df08b2fa987651d58ae73a5e37f4503cd839b7835c04249;
+source0fa4a933229f614c5f519e4c454831f414bed01b50910a6c7246cf653e12364b;
+QA runs/manuscript_multi_round_qa.json SHAb6792410b9729b435e12b75c003c16922a379eb9348b6c94da81590ebfcd6fb3.
+Prior PDF retained as output/pdf/manuscript_before_multi_round_4bf68f3e.pdf.
+Bibliography and established adaptation-strength claims are unchanged. The
+ongoing renewed-chance comparison supplies no new strength claim yet.
 
 ## Local human-play delivery
 

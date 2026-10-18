@@ -4399,3 +4399,45 @@ with336inputs. Existing316study/323queue/321prospective bindings are unchanged.
 Producer58904/queue65372 continue parent1-masked training. This is verified
 conditional infrastructure,not a new strength result. The goal remains active;
 canonical human-play model,dealer and manuscript strength claims are unchanged.
+
+
+## Completed multi-round result integrated into the manuscript
+
+Previous goal turn implemented the gated confirmation workflow and passed11
+checks;classified as progress. This turn confirms actual OS producer58904 and
+queue65372 are live. Parent1-masked finishes520updates and parent2-public begins.
+No ongoing95M evaluation contrast is inspected;no restart or extra training arm.
+
+Added scripts/export_public_continuation_evidence.py and generated table/evidence.
+Command `.venv/Scripts/python.exe -m scripts.export_public_continuation_evidence`
+verifies282immutable inputs,completed receipt/accounting,all18unique contrasts,
+allwin intervals containing zero,and exactly the four secondary point intervals
+excluding zero. No simulations or neural calls are added. Ruff/format pass.
+Table SHA d64e873fe7e7733da3bc664cdb283d67f6084708e3be356b1c73a83aca989593;
+evidence SHA3c63d173687414aa710544b32f4998d8fab16af6584c654fd3a5f148c0b5a2a3.
+
+Paper adds the earlier-activation design,matched public/masked training,full-
+match comparison and four primary numerical results. All18contrasts remain in
+the evidence ledger and result document. It separates the parent1 secondary
+point improvements over masked learning from masked degradation relative to
+the parent. Abstract,Introduction,guided-start Related Work and Conclusion now
+cover both final-round and multi-round tests. Removed the outdated claim that
+earlier activation remains unmeasured. No ongoing renewed-chance outcome or
+new superiority claim is introduced. Existing source CRLF and bibliography
+are preserved;prior source/PDF are archived. PDF authoring marker already ran
+exactly once earlier and was not repeated.
+
+Build `external/tectonic/tectonic.exe --keep-logs --outdir output/pdf docs/paper/manuscript.tex`
+passes. The unchanged Fontconfig configuration notice persists;all20fonts are
+embedded. Preflight60417 exits0:858evidence inputs and323live queue bindings
+verify,all previous numeric tokens retained,no over/underfull boxes,missing
+glyphs,undefined citations/references or out-of-page text. All29pages rendered
+and inspected in4contact sheets;full-size pages1/3/15/16/29 checked. Abstract
+145whitespace words,31references. No clipping,overlap,table overflow or orphan
+heading observed. PDFdfa9122e0abc760d8df08b2fa987651d58ae73a5e37f4503cd839b7835c04249;
+source0fa4a933229f614c5f519e4c454831f414bed01b50910a6c7246cf653e12364b;
+bibliography5270a386287ff8645abbc216b39c57c99ab4286bd12179287dae93f4caed0897.
+Final QA runs/manuscript_multi_round_qa.json SHAb6792410b9729b435e12b75c003c16922a379eb9348b6c94da81590ebfcd6fb3.
+This closes a manuscript/evidence mismatch;it does not complete the research
+goal. Stronger-model evaluation remains pending,with dealer/canonical human
+model and reserved101M actual deals unchanged.

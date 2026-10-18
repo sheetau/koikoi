@@ -32,7 +32,7 @@ the Koi-Koi representation identifies an omitted public-seat distinction,
 and reconstruction of earlier inputs from completed public hands identifies
 the fixed WP/Point opponent in 86.1\% of natural final-round starts. Controlled
 comparisons find no replicated win gain from the return repairs, the seat
-feature, or final-round use of this public memory.
+feature, or final-round and multi-round use of this public memory.
 \end{abstract}
 
 \section{Introduction}
@@ -82,7 +82,7 @@ the terminal-match adaptation gain and measure the practical effects of the
 identified information problems separately. Sections~\ref{sec:learner},
 \ref{sec:observer-selfplay} and~\ref{sec:seat-comparison} report the return and
 representation comparisons; Section~\ref{sec:public-revelation} reports
-the final-round public-memory comparison.
+the final-round and multi-round public-memory comparisons.
 
 \section{Related work}
 \subsection{Learning to play Koi-Koi}
@@ -146,9 +146,11 @@ effect of supplying the recovered opponent identity to the adapted actor.
 Jump-Start Reinforcement Learning uses a guide policy to construct a curriculum
 of starting states \cite{uchendu2023jump}. Our final-round experiment fixes
 the guide for rounds 1--7 and trains from its naturally reached round-eight
-states. This preserves the prefix distribution while isolating final-round
-decisions. The starting-state construction is an application of guided
-learning; its contribution here is the controlled Koi-Koi comparison.
+states. A second comparison starts at the first fresh round after public
+identification and trains through the remaining match. Both constructions
+preserve the parent prefix before activation and isolate subsequent adaptation.
+They apply guided learning to test the value of reconstructed public
+information in Koi-Koi.
 
 \subsection{Critic information and decision times}
 Baisero and Amato analyze the bias from substituting state critics for history
@@ -832,6 +834,41 @@ win comparisons form the primary criterion; all include zero.}
 \label{tab:public-memory}
 \end{table}
 
+\subsection{Using public memory earlier in the match}
+The next comparison activates adaptation at the first fresh round after public
+identification, then retains that policy for the rest of the match. The parent
+plays every preceding decision. Without an eligible activation, it plays the
+whole match. This rule gives both memory conditions the same public evidence
+and activation time while allowing learning across several rounds.
+
+The two parents supply 855 and 876 eligible starting states from their natural
+training histories. Each initializes matched public-memory and masked-memory
+arms, with identical initial parameters and critic-only warmup states. Each
+arm receives 520 updates and completes 66,560 conditional matches from this
+fixed bank. These completions contain only the remaining rounds; evaluation
+always begins at the start of a full match.
+
+On a separate 2,048 shared fresh deals, the three policies per parent again
+play 24,576 full matches against WP and Point. Every primary win interval
+includes zero (Table~\ref{tab:public-continuation}), as do all opponent-specific
+win intervals. Earlier activation therefore does not establish a replicated
+win improvement under this training schedule.
+
+\begin{table}[ht]
+\centering\small
+\input{generated/public_continuation_table.tex}
+\caption{Public-memory multi-round policy minus each reference, equally weighted
+over WP and Point. Brackets give stratified paired 95\% intervals. The four win
+comparisons form the primary criterion.}
+\label{tab:public-continuation}
+\end{table}
+
+For parent 1, public memory improves expected points over masked learning in
+the mixture and against Point. The masked arm itself loses expected points
+relative to its parent in those scopes. These are secondary, per-contrast
+findings; neither effect repeats at parent 2. The full set of 18 contrasts is
+retained in \path{docs/PUBLIC_CONTINUATION_RESULTS.rst} and the evidence ledger.
+
 \section{Limitations and interpretation}
 Both adapted seeds improve match wins against assisted RL-WP. RL-Point remains
 competitive in wins and superior in expected points. Fixed Point continuation
@@ -863,8 +900,9 @@ and earlier input--action pairs within the checked rounds. Its matched
 160,000-match evaluation finds no replicated win improvement from that repair.
 Delayed public hand revelations add a different result: they identify a fixed
 opponent at 86.1\% of natural final-round starts. The matched final-round
-comparison finds no replicated win gain from this signal. Its effect when
-used earlier in the match remains to be measured.
+and multi-round comparisons find no replicated win gain from this signal.
+They separate successful opponent identification from its measured value for
+policy improvement.
 
 \appendix
 \section{Reproduction and evidence}
@@ -898,6 +936,15 @@ Evaluation adds 2,857,337 decisions, 191,262 round endings and 24,576 full
 matches on 2,048 fresh deals. Public-model elimination makes 355,486 strict
 predictions; independent replay checks 300,092 historical inputs and masks
 without new policy inference. The ledger retains all 18 contrasts.
+
+The multi-round comparison is bound in
+\path{docs/paper/generated/public_continuation_evidence.json}. Its four arms
+add 18,982,723 training decisions, 266,240 conditional match completions and
+1,277,944 conditional round endings. Full-match evaluation adds 2,856,503
+decisions, 191,108 round endings and 24,576 matches on 2,048 fresh deals.
+Public-model checks add 201,568 strict predictions. Independent replay verifies
+146,184 historical inputs and masks without new neural inference or independent
+deals. Root reconstruction is accounted for separately in the ledger.
 
 The machine-readable evidence ledger,
 \path{docs/paper/generated/evidence.json}, binds the completed studies'
