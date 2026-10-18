@@ -164,6 +164,18 @@ published-policy replay and independent error arithmetic;receipt
 queued study inputs are unchanged. Main strict evaluation and its queues remain
 live;no model promotion,dealer change or101M use.
 
+**Exact follow-up identifies sampling error:** all23,940 candidate hands at
+four fixed development cases were enumerated(21,657 valid). These are only
+three distinct own/public roots on two old deal seeds. Exact joint and publicly
+identified posteriors lower true-hand card error in allfour cases;128-proposal
+marginals can differ by up to0.926829 for one card. Full candidate-set/scalar
+arithmetic verification passes;report8feae6976f43329e7816d1ec6a27119229387cc9f804ac8246ceed6266f7c0eb.
+The identified parent1/WP support has components of61 and1 under single-card
+swaps:local moves alone cannot cross them. Next proposal work should include
+global moves and check correlations against the exact tables before strength
+use. [Results and work](SAMPLED_HISTORY_RESULTS.rst). No new generalization or
+playing-strength result;existing main study and queues continue unchanged.
+
 ## Completed evidence informing this experiment
 
 **Public-memory round8 comparison independently complete:** producer67506 and audit35738 exit0;all24,576 full matches replay and all18 win/point contrasts reproduce exactly. Primary balanced-mixture gain fails;every win and point interval includes zero. Audit a5a9f350f2388294cdd106758d60eb453a2f03a24ff41f192436a04d4925acd7 verifies300,092 upstream input/mask checks and all181 input hashes. Actual evaluation2,857,337 decisions/191,262 rounds/24,576 matches;355,486 public-model predictions. Summarizer ran once;summary ca6182fb9e687e4c0a23237e161a4bc27de518ffb40e12b32c9b650e583fc985. [All outcomes](PUBLIC_MEMORY_RESULTS.rst). No promotion/extra old budget/101M use. Do not restart67506/35738 or resummarize over existing files.

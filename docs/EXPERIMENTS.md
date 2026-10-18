@@ -4034,3 +4034,59 @@ with a measured support/variance limitation,not a new general Bayesian method
 or playing-strength improvement. Current strict evaluation and allthree queues
 remain running;preserve252 renewal and221 fixed-study bindings. No canonical
 promotion,dealer change,reserved101M use,or paper strength-claim change.
+
+
+## Exact four-case follow-up separates sampling error from posterior error
+
+Previous goal turn made progress:bounded inference,32-attempt diagnostic and
+full sampled-likelihood replay were committed/pushed as974f07e. Current turn
+confirms producer10804,allthree strict workers,and waiters32056/36420/65372 live.
+Partial win results remain unread. Added docs/SAMPLED_HISTORY_EXACT_CHECK.rst
+and scripts/check_sampled_history_exact.py;Ruff and format checks pass. The
+follow-up selects the first eligible case per parent/opponent before exact
+inference:case0/512 for each parent. This is development on inspected data.
+
+Command `.venv/Scripts/python.exe -m scripts.check_sampled_history_exact --output runs/sampled_history_exact_check`
+finishes session22357,exit0(actual Python PID35540). Frozen55 inputs;four cases
+have5,985 candidate hands each. All23,940 combinations enumerate,21,657 valid
+and2,283 invalid;allstored128-proposal likelihoods agree with exact entries.
+There are two shared source seeds and three distinct own/public roots:Point
+roots repeat across parents. Do not count four independent roots or matches.
+
+Exact uniform/joint/identified card errors:
+P1WP .15419501133786848/.11608416621954921/.08949011446409992;
+P1Point .15238489108382552/.1240185081148798/.12839338676490358;
+P2WP .15419880503854433/.11822611257471462/.09006211180124224;
+P2Point repeats P1Point exact values. Identified sampled errors are
+.2857142857142857/.16520894071914477/.09523809523809523/.09126984126984128.
+The two WP identified approximations each have one effective proposal;mean
+absolute marginal errors .2457757296466974/.22153209109730845. The maximum
+sampled joint per-card error is .926829268292683. Exact conditioning helps on
+these cases;finite sample noise can either worsen or luckily improve actual
+hand error. This does not establish generalization or stronger decisions.
+
+Enumeration172.3888s total,two CPU threads alongside strict evaluation;
+188 source replay decisions,61,727 hypothetical history transitions,73,389
+model calls,zero new evaluation deals/future rollouts/training matches.
+Independent scalar verification `python -m runs.verify_sampled_exact_arithmetic`
+passes full hand-set construction,marginals and true-hand error to1e-12,61inputs.
+Adds188 source replay decisions,zero neural calls;does not independently
+recompute the complete exact likelihood table. Producer uses existing tested
+pruned replay. No new fixture training or evaluation.
+
+Protocol a3169caff74a839e6e12e0a92e7be5d48ec65f70b58e8b1824f4dcfb26e88544;
+report8feae6976f43329e7816d1ec6a27119229387cc9f804ac8246ceed6266f7c0eb;
+scalar receiptc9a9b51f4f337bfc9bf70396ca14604679f0fa920cf5593b2cafda7d205e6bf9.
+
+Exploratory `python -m runs.inspect_exact_hand_graphs` uses the stored exact
+identified-model supports only:zero simulator steps or neural calls. Single-card
+swap graph P1WP has components61+1,including an isolated valid hand;P2WP46
+and Point548 are connected. Uniform out/in card proposals have stationary mean
+acceptance .1200189753/.1432225064/.4353799914. Kernels are symmetric,stochastic
+and preserve uniform supported-hand mass. Absolute spectral gaps0/.0136724907/
+.1240761643 are finite graph properties,not fresh-chain performance evidence.
+Graph receiptcd97d1c581b68e65270b4a80d9f0aed81bc116b823d56633758a3491d1c3e3cc.
+A future local proposal sampler must retain global movement to cross components
+and account for correlated samples. No sampler change or new strength trial
+is inferred from this analysis. Current252/221 study inputs remain protected;
+no canonical promotion,dealer change,101M use or paper-strength-claim update.

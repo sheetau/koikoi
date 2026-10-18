@@ -73,3 +73,61 @@ See ``SAMPLED_HISTORY_SUPPORT.rst`` for the design fixed before execution.
 The result supplies an implementation capability and a concrete weakness to
 address; it does not establish a new general inference algorithm or stronger
 Koi-Koi play.
+
+Exact follow-up: approximation error and support connectivity
+------------------------------------------------------------
+
+The subsequent design in ``SAMPLED_HISTORY_EXACT_CHECK.rst`` selected the first
+eligible source case in each parent/opponent group before computing exact
+posteriors. These four cases share two source seeds and only three distinct
+own/public roots: the two Point cases are the same root. They are development
+cases, not independent confirmation.
+
+All 5,985 candidate hands per case were enumerated: 23,940 combinations, 21,657
+valid hands and 2,283 invalid initial hands. Both conditioned exact distributions
+lower card-membership error relative to exact uniform inference in every case:
+
+================  ========  ===========  ================  ==================
+Case              Uniform   Joint exact  Identified exact  Identified sampled
+================  ========  ===========  ================  ==================
+Parent1 / WP      0.154195   0.116084     0.089490          0.285714
+Parent1 / Point   0.152385   0.124019     0.128393          0.165209
+Parent2 / WP      0.154199   0.118226     0.090062          0.095238
+Parent2 / Point   0.152385   0.124019     0.128393          0.091270
+================  ========  ===========  ================  ==================
+
+The 128-proposal approximation is inaccurate at the two WP roots: identified
+estimates have mean absolute marginal errors 0.245776 and 0.221532 relative to
+the exact distribution, with only one effective proposal each. Sampled joint
+inference has a maximum per-card error of 0.926829. A lucky sampled hand can
+also score better than the exact posterior on one realized outcome, as the
+second parent's Point case illustrates. Single-hand error does not by itself
+measure posterior approximation quality.
+
+The exact computation took 172.39 seconds across four cases. It adds 188
+source-prefix replay decisions, 61,727 hypothetical-history transitions and
+73,389 model calls. All stored sampled compatibility entries agree with the
+corresponding exact entries. Separate scalar verification reconstructs every
+valid hand set and checks marginals and errors to 1e-12; it adds 188 source
+replay decisions and zero model calls. Exact likelihoods outside the preceding
+sample are computed by the existing tested early-rejection routine, not a
+second independent full-history implementation.
+
+An exploratory graph calculation then connects supported hands differing by
+one exchanged card. The parent1/WP support splits into components of 61 and one
+hand; the isolated hand has no valid local move. Parent2/WP's 46 hands and the
+Point root's 548 hands are connected. Under a uniformly proposed outgoing and
+incoming card, stationary local acceptance is 0.1200, 0.1432 and 0.4354,
+respectively. These are exact finite-graph properties, not measured sampler
+accuracy or speed. The calculation performs no simulation or neural inference.
+
+This rules out relying solely on local swaps for a general sampler: a chain
+cannot leave its initial support component. A candidate improvement should
+retain global hand proposals as well as local moves, account for correlations,
+and be checked against these exact distributions before any strength trial.
+
+Exact artifacts under ``runs/sampled_history_exact_check``:
+
+* Protocol: a3169caff74a839e6e12e0a92e7be5d48ec65f70b58e8b1824f4dcfb26e88544.
+* Report: 8feae6976f43329e7816d1ec6a27119229387cc9f804ac8246ceed6266f7c0eb.
+* Scalar verification: c9a9b51f4f337bfc9bf70396ca14604679f0fa920cf5593b2cafda7d205e6bf9.
