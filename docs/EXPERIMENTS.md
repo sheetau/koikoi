@@ -3619,3 +3619,7 @@ Command: `.venv/Scripts/python.exe -m scripts.audit_revealed_opponent_identifica
 ## Public-memory tail capability
 
 Commands: `pytest tests/test_public_memory_tail.py -q` (4 passed,0 skips,14.50s), `pytest tests/test_public_memory_match.py -q` (1 passed,5.44s), `python -m scripts.check_public_memory_tail --output runs/public_memory_tail_capability` (exit0). Initial CPU test mismatch came from comparison-model construction consuming fixture RNG;preserving that RNG fixes matched warmup without changing production code or tolerances. Failed XML retained as public_memory_tail_tests_initial_failure.xml. CUDA production check: public/masked each5,476 decisions,2,571 learner /2,905 opponent,384 conditional tails,0 full matches;all96 Adam states finite,exact shared warmup,frozen prefix/opponents verified. Audit35072349596c1bb731388c0bc3d3afae13e0b8594a890c3ac3040a5168a45acb. Public columns learn;masked stay zero. No strength claim.
+
+## Public-memory comparison protocol
+
+Two protocol tests pass,0 skips,1.72s: fresh balanced91M deal grid,independent stratified bootstrap,zero-cancelling constant strata,conjunctive primary decision,and refusal of premature revelation,changed endpoint and corrupted reconstructed-input hash. Plan preflight verifies126 input identities. Four matched520-update arms;24,576 full evaluation matches on2,048 shared fresh deals. Primary balanced WP/Point mixture win gain must be positive against masked and original parent for both parents. Existing earlier results are not reclassified. No training/evaluation run yet.
