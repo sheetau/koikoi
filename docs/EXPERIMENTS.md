@@ -3984,3 +3984,53 @@ preflight also refuses output. All252 queued inputs reverify. Source/test/XML:
 The helper is outside the frozen study bindings and has not been run on any
 evaluation outcomes. Run it once after queue37463's independent audit succeeds.
 No new training,model promotion,dealer change or101M use.
+
+
+## Bounded historical-hand proposals and fixed early-root diagnostic
+
+Added scripts/sampled_history_support.py with fixed-budget uniform proposals,
+joint model/hand likelihood normalization,multiplicity preservation and explicit
+zero-mass failure. Smaller spaces enumerate exactly. Neither actual hidden hands
+nor opponent routing labels become inference evidence. Tests/test_sampled_history_support.py
+passes4,zero skips,1.461s;existing XML was recovered after a tool-output truncation
+without rerunning the completed tests. XML12223e2c0984cfde48dd050ae62eed2cbf46986a0843548f3cba4216df6d7342.
+
+Added scripts/diagnose_sampled_history_support.py and its three passing tests,
+zero skips,1.36s;final XML904d7a252c9619d25e939999967120bc72575ee4d1ca3b2e403d1efec893415f.
+A fixture class mutable-attribute Ruff finding was fixed before freezing/running.
+The earlier test XML remains preserved. The sampler,diagnostic and their tests
+pass Ruff and format checks. Unit fixtures are correctness work,not new strength
+matches. The new design docs/SAMPLED_HISTORY_SUPPORT.rst was frozen before any
+published-policy inference. It retains32 attempts on eight existing training
+seeds and selects only publicly eligible prior-round-identified roots.
+
+Command `.venv/Scripts/python.exe -m scripts.diagnose_sampled_history_support --output runs/sampled_history_diagnostic`
+completes session37931,exit0. Twenty-five roots,all four-card,have4,845--5,985
+candidate hands. Of3,200 proposed draws,65 invalid hands consume budget.
+All25 roots yield allthree estimators. Pooled uniform/joint/identified errors
+are0.1568038643061392/0.14984593779198593/0.1585971570749626. Parent1 worsens for
+both conditioned estimates;parent2 improves. No replicated belief gain.
+Identified ESS min/median/max1/7/95,14roots at most10;distinct support median7.
+Inference33.5824s total,median1.2868s,max2.4036s,two CPU threads alongside ongoing
+strict evaluation;not isolated latency. Source replay3,144dec/216round/3match
+endings;hypothetical replay15,478dec and14,831 neural calls. No new evaluation
+deals,future rollouts or training. Full records and summary retained.
+
+Command `.venv/Scripts/python.exe -m scripts.audit_sampled_history_diagnostic --output runs/sampled_history_diagnostic`
+completes session4848,exit0. All3,135 valid hands at all25 roots agree with full
+unpruned two-policy history replay. Scalar marginals and errors agree to1e-14.
+Adds953 source-prefix replay decisions,53,278 hypothetical replay decisions,
+28,404 neural calls. Shares canonical constructor/published inference adapter;
+ineligible selection is not independently reimplemented. The frozen auditor
+has one nonfunctional Ruff PLC0206 dict-iteration style finding;final lint uses
+an explicit PLC0206 exception only for this auditor,without changing its audited
+bytes. Upstream transformer nested-tensor advisory is expected on both commands.
+
+Protocol e4cf707c26b1c5f5ccead8681ba827abe652ef3d5eb4c655f736d5080dbafdd3;
+report1ae94dc9b18c5b3b262247c6883a4ee54074fddf1fa6c3ab16ff74887970c032;
+independent replay2c3b08ca3cfbf19a420576533c34a2bb7db8ce0937d8fb88bfc815580ec1eac4.
+Details docs/SAMPLED_HISTORY_RESULTS.rst. This is a broader inference capability
+with a measured support/variance limitation,not a new general Bayesian method
+or playing-strength improvement. Current strict evaluation and allthree queues
+remain running;preserve252 renewal and221 fixed-study bindings. No canonical
+promotion,dealer change,reserved101M use,or paper strength-claim change.

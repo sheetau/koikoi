@@ -151,6 +151,19 @@ Actual unstarted-study guard refuses output. Run once only after queue37463
 finishes successfully;do not overwrite summary.md or summary_receipt.json.
 No new study outcome is available. All252 queued inputs are unchanged.
 
+**Bounded hand inference tested on earlier roots:** the isolated sampler and
+fixed training-prefix diagnostic pass seven tests total,zero skips. All32
+attempts are retained;25 four-card roots have4,845--5,985 possible hands and
+128 proposals each. Joint-model pooled card error improves0.156804 to0.149846,
+but parent1 worsens;publicly identified single-model error is0.158597. Median
+identified-model effective proposals7;14/25 roots have at most10. No replicated
+belief gain or strength result. All3,135 valid proposals pass full unpruned
+published-policy replay and independent error arithmetic;receipt
+2c3b08ca3cfbf19a420576533c34a2bb7db8ce0937d8fb88bfc815580ec1eac4.
+[Full diagnostic and accounting](SAMPLED_HISTORY_RESULTS.rst). Existing252/221
+queued study inputs are unchanged. Main strict evaluation and its queues remain
+live;no model promotion,dealer change or101M use.
+
 ## Completed evidence informing this experiment
 
 **Public-memory round8 comparison independently complete:** producer67506 and audit35738 exit0;all24,576 full matches replay and all18 win/point contrasts reproduce exactly. Primary balanced-mixture gain fails;every win and point interval includes zero. Audit a5a9f350f2388294cdd106758d60eb453a2f03a24ff41f192436a04d4925acd7 verifies300,092 upstream input/mask checks and all181 input hashes. Actual evaluation2,857,337 decisions/191,262 rounds/24,576 matches;355,486 public-model predictions. Summarizer ran once;summary ca6182fb9e687e4c0a23237e161a4bc27de518ffb40e12b32c9b650e583fc985. [All outcomes](PUBLIC_MEMORY_RESULTS.rst). No promotion/extra old budget/101M use. Do not restart67506/35738 or resummarize over existing files.
