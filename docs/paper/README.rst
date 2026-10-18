@@ -364,3 +364,22 @@ pages3--21 are pixel-identical to the previous reviewed PDF. Abstract174 words,
 and their392 unique inputs/outputs verify. Related Work and all following
 source text are unchanged. No TeX box,missing-glyph,reference or bounds defects.
 Previous PDF:output/pdf/manuscript_trace_cddde4e3.pdf.
+
+
+Temporal-abstraction attribution
+--------------------------------
+
+Related Work now cites Sutton,Precup and Singh (Artificial Intelligence112,
+181--211,1999) for options and semi-Markov temporal abstraction. Primary PDF
+pages1/8/10 were visually checked. The learner-decision connection is stated
+as temporal organization;the analysis concerns critic information at interval
+boundaries. Finite Koi-Koi observations are not claimed to be sufficient states.
+
+PDF SHA6a10c91daec57ab714efb15d752e6193b2d42984c6b31b380f5225c63c782311.
+QA runs/manuscript_temporal_related_qa.json SHA
+81c4ed7ad683a650d84936bb67b2c22c401149455e53d137a3932019dd87a6bc.
+All21 pages rendered and reviewed;changed pages2/3/21,other18 pixel-identical
+to prior review. New paragraph/reference inspected at full size. Abstract174
+words,25 cited references,20 embedded fonts;8 ledgers/392 input-output files
+verify. No numerical or empirical change. Previous PDF preserved as
+output/pdf/manuscript_opening_8a405247.pdf.

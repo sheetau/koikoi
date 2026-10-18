@@ -123,7 +123,7 @@ optimizes an inherited actor and measures its head-to-head performance against
 fixed opponents. Those measurements characterize matchups; exploitability
 requires a separate analysis.
 
-\subsection{Critic information under partial observability}
+\subsection{Critic information and decision times}
 Baisero and Amato analyze the bias from substituting state critics for history
 critics and develop a history-state formulation \cite{baisero2022asymmetric}.
 Lyu et al. show that state-based multi-agent critics can bias policy gradients
@@ -132,8 +132,14 @@ Our example studies a specific instance of this conditioning problem: a
 player-relative return crosses between two players' observations. It makes the
 failure explicit with exact conditional values and a policy update that reduces
 true expected payoff. Its return recurrence is checked in all three simulator
-backends. The learner-decision construction propagates credit between the
-learner's own observations and is tested in the fixed-opponent comparison.
+backends.
+
+Sutton, Precup and Singh formalize temporally extended decisions with options
+and semi-Markov models \cite{sutton1999options}. Learner-decision returns use a
+related temporal organization: opponent moves lie inside an interval between
+the learner's actions. Our analysis focuses on the information used at those
+boundaries, with exactness established for the finite example and Koi-Koi
+assessed in the fixed-opponent comparison.
 
 \subsection{Search and rollout-based improvement}
 Information Set Monte Carlo Tree Search organizes search around information
