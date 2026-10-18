@@ -2914,3 +2914,72 @@ Command: `.venv/Scripts/python.exe -m scripts.diagnose_published_koi_search --ou
 Mean call seconds0.3438674563/0.6300557312 for parent1 at32/256 particles,and0.3580037812/0.6618898063 for parent2. Medians0.34996850/0.63217375 and0.36323070/0.63315000. Cold first calls and concurrent CPU activity are included,so this is not isolated deployment timing. Main report SHA53fe36d4ea385befd06c3b87612b1c665587f8ad2f5216298484d98ca1504a18 retains raw terminal point pairs for every call. Independent standard-library recomputation verifies all128 margins/choices,branch/work sums,and bound identities: receipt SHA0b045fce313508d3128ac99d7a9189d89382690c669955f151aab407a686b769. Among1,024 shared-prefix paired worlds per parent,one point pair differs between batch sizes for each parent;zero win pairs differ. These are continuation numerical differences,not independent samples.
 
 Disposition: there is no observed action-change signal supporting a costly koi-only match study with either setting. No post-outcome confidence reduction,match-strength claim or deployment promotion. This bounded result does not rule out all koi search. Broader card-action search remains a distinct untested direction; the next intervention depends on the completed fixed learner-return comparison. Ruff passes for the diagnostic script. The existing search capability tests remain unchanged and their earlier12-test result is retained.
+
+
+## Completed learner-return study and revised manuscript (2026-10-18)
+
+Guarded launcher23277 exits0 after all4 training jobs and16 evaluation cells. No checkpoint selection,sample extension,interim ranking or deployment promotion. Protocol675638eb8561f52e2d023c7f8fedc3006eac59a051d32e3b54e8e7cb78e10674 retains all51 bound inputs; production unchanged. Training34,078,720 decisions /2,274,630 rounds /294,469 matches; evaluation160,000 matches /18,542,184 decisions on5,000 shared unique24M deal streams. Reused signed0.95 response training17,039,360 decisions remains a separate dependency. Evaluation round counts were not recorded.
+
+Analysis SHA4934001ea55d09f3248d20bdf36052d2e87534d6579d9095674921a751dedec1. Command `.venv/Scripts/python.exe -m scripts.audit_learner_return_study --output runs/learner_return_study/independent_audit.json` exits0 in7.14s; audit SHA1aaee8bd9885be94ec104b9d4332cf3d6b56d59cc143bd1941795760e2a93b45. It independently checks all raw seat outcomes,exact common seeds,checkpoint/raw/report identities,stored optimizer receipts,and the combined closed-job schedule,then recomputes all16 outcomes/24 contrasts with joint5,000-replicate seed99 resampling. It does not replay every inference or trajectory.
+
+Primary criterion fails:1/8 positive lower win-change bounds. The sole passing comparison is learner versus parent1 against Point. All eight primary means are positive. No substitution of the secondary lambda1/point-margin results for this primary decision,and no use of the101M reserved final range.
+
+### Absolute endpoint outcomes
+
+| Endpoint/opponent | Win score %,95% CI | Candidate-minus-opponent points,95% CI |
+| --- | --- | --- |
+| parent1/rl-wp-assisted | 51.340000 [50.605000,52.045000] | 2.115800 [1.692115,2.532845] |
+| parent1/rl-point-assisted | 50.955000 [50.180000,51.780000] | -1.278600 [-1.771610,-0.770755] |
+| parent1_response/rl-wp-assisted | 51.350000 [50.605000,52.090000] | 2.089000 [1.649770,2.540015] |
+| parent1_response/rl-point-assisted | 51.355000 [50.560000,52.150000] | -1.504200 [-2.012250,-0.995160] |
+| parent2/rl-wp-assisted | 51.080000 [50.325000,51.805000] | 2.077400 [1.654585,2.500225] |
+| parent2/rl-point-assisted | 51.155000 [50.360000,51.925125] | -1.464600 [-1.977800,-0.966960] |
+| parent2_response/rl-wp-assisted | 50.520000 [49.780000,51.235000] | 1.690200 [1.258390,2.111420] |
+| parent2_response/rl-point-assisted | 51.450000 [50.679875,52.235000] | -1.667400 [-2.169200,-1.149780] |
+| parent1_learner/rl-wp-assisted | 51.405000 [50.655000,52.150000] | 2.233800 [1.811985,2.648610] |
+| parent1_learner/rl-point-assisted | 51.875000 [51.085000,52.665000] | -0.884600 [-1.384605,-0.378380] |
+| parent1_lambda1/rl-wp-assisted | 50.530000 [49.775000,51.305000] | 1.965800 [1.514980,2.422420] |
+| parent1_lambda1/rl-point-assisted | 50.815000 [50.015000,51.625125] | -1.508800 [-2.013865,-0.978975] |
+| parent2_learner/rl-wp-assisted | 51.160000 [50.390000,51.910000] | 2.490200 [2.036165,2.940205] |
+| parent2_learner/rl-point-assisted | 51.480000 [50.690000,52.285000] | -1.031200 [-1.526265,-0.538750] |
+| parent2_lambda1/rl-wp-assisted | 50.205000 [49.454875,50.935000] | 0.896600 [0.451800,1.351430] |
+| parent2_lambda1/rl-point-assisted | 50.465000 [49.685000,51.260000] | -2.579600 [-3.084475,-2.067390] |
+
+### All paired contrasts
+
+Win changes are percentage points. Intervals describe common-deal uncertainty conditional on endpoints,not all training-seed variation.
+
+| Contrast/opponent | Win change pp,95% CI | Point-margin change,95% CI |
+| --- | --- | --- |
+| parent1_learner-parent1/rl-wp-assisted | 0.065000 [-0.795125,0.895000] | 0.118000 [-0.330205,0.572405] |
+| parent1_lambda1-parent1/rl-wp-assisted | -0.810000 [-1.725125,0.155000] | -0.150000 [-0.656010,0.399645] |
+| parent1_response-parent1/rl-wp-assisted | 0.010000 [-0.825000,0.890000] | -0.026800 [-0.503200,0.459615] |
+| parent1_learner-parent1_response/rl-wp-assisted | 0.055000 [-0.870000,0.940250] | 0.144800 [-0.356820,0.631435] |
+| parent1_learner-parent1_lambda1/rl-wp-assisted | 0.875000 [-0.075000,1.780000] | 0.268000 [-0.263605,0.799205] |
+| parent1_lambda1-parent1_response/rl-wp-assisted | -0.820000 [-1.830000,0.170000] | -0.123200 [-0.690250,0.420830] |
+| parent1_learner-parent1/rl-point-assisted | 0.920000 [0.125000,1.755000] | 0.394000 [-0.074200,0.875410] |
+| parent1_lambda1-parent1/rl-point-assisted | -0.140000 [-1.025000,0.760000] | -0.230200 [-0.752410,0.286815] |
+| parent1_response-parent1/rl-point-assisted | 0.400000 [-0.425000,1.245000] | -0.225600 [-0.720810,0.269610] |
+| parent1_learner-parent1_response/rl-point-assisted | 0.520000 [-0.325000,1.365000] | 0.619600 [0.117155,1.107405] |
+| parent1_learner-parent1_lambda1/rl-point-assisted | 1.060000 [0.155000,1.955000] | 0.624200 [0.094585,1.143425] |
+| parent1_lambda1-parent1_response/rl-point-assisted | -0.540000 [-1.455000,0.400000] | -0.004600 [-0.569400,0.550425] |
+| parent2_learner-parent2/rl-wp-assisted | 0.080000 [-0.760000,0.950125] | 0.412800 [-0.081420,0.918810] |
+| parent2_lambda1-parent2/rl-wp-assisted | -0.875000 [-1.835000,0.090000] | -1.180800 [-1.723860,-0.628180] |
+| parent2_response-parent2/rl-wp-assisted | -0.560000 [-1.395000,0.245000] | -0.387200 [-0.834605,0.056440] |
+| parent2_learner-parent2_response/rl-wp-assisted | 0.640000 [-0.235000,1.540000] | 0.800000 [0.293790,1.315610] |
+| parent2_learner-parent2_lambda1/rl-wp-assisted | 0.955000 [0.010000,1.920000] | 1.593600 [1.021200,2.137410] |
+| parent2_lambda1-parent2_response/rl-wp-assisted | -0.315000 [-1.320000,0.650125] | -0.793600 [-1.344000,-0.219555] |
+| parent2_learner-parent2/rl-point-assisted | 0.325000 [-0.480125,1.165000] | 0.433400 [-0.032610,0.915415] |
+| parent2_lambda1-parent2/rl-point-assisted | -0.690000 [-1.615125,0.225000] | -1.115000 [-1.664210,-0.567990] |
+| parent2_response-parent2/rl-point-assisted | 0.295000 [-0.505000,1.100000] | -0.202800 [-0.679230,0.267405] |
+| parent2_learner-parent2_response/rl-point-assisted | 0.030000 [-0.820000,0.860125] | 0.636200 [0.146170,1.133270] |
+| parent2_learner-parent2_lambda1/rl-point-assisted | 1.015000 [0.104875,1.945125] | 1.548400 [1.000765,2.104810] |
+| parent2_lambda1-parent2_response/rl-point-assisted | -0.985000 [-1.900000,-0.065000] | -0.912200 [-1.475820,-0.347200] |
+
+Secondary learner-minus-lambda1 win intervals are positive in3/4 matchups,including Point at both parents. Learner-minus-response point intervals are positive in3/4 matchups,including Point at both parents. All four learner-minus-parent point intervals contain zero. The lambda1 arms have negative parent-relative win means in all4 matchups;parent2 also has negative parent-relative point intervals against both opponents. These results distinguish the complete procedures without isolating information from optimization differences.
+
+Paper export command `.venv/Scripts/python.exe -m scripts.export_learner_paper_evidence --audit-sha256 1aaee8bd9885be94ec104b9d4332cf3d6b56d59cc143bd1941795760e2a93b45` exits0. Ledger SHAddcfee08ee8b0bd9ab1656b7e9a9ff9defa08df70db87caeaa8278dc6e4b992e binds all outcomes/contrasts and both generated tables.
+
+Revised manuscript:20 pages,24 cited references,19 embedded fonts,Abstract168 whitespace words. Composition experiments move intact to AppendixF; completed response/learner studies occupy main Section8. Main conclusion starts on page10. All prior numeric tokens are retained across source and generated tables;old citation set preserved plus two direct Koi-Koi references. All7 evidence ledgers reverified. All20 rendered pages reviewed,table/proof pages10/12 inspected in detail;no TeX box/reference/glyph/bounds defects. PDF SHA79dd722cccdaea1491865e280c47cf347ff4b1af08c58a731100d0a3af6c95fc;QA runs/manuscript_learner_qa_v2.json SHA766d718d30b9c450a32aeb232f3569411fecd45fae74d3729f5827b34007cde5. Prior verified19-page PDF retained as output/pdf/manuscript_response_99db5ce0.pdf. The broader user-requested strength/new-method extension remains active; this completed study does not satisfy the new replicated parent-relative win-gain objective.
+
+A final cross-reference correction replaces a stale relative "above" with AppendixF after the composition material moved. Only rendered page16 changed;it was reinspected,and the other19 PNGs match the already reviewed renders exactly. Final QA is the v2 receipt above.

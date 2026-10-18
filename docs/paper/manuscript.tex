@@ -18,26 +18,23 @@ Match Wins and Critic Conditioning}
 \begin{document}
 \maketitle
 \begin{abstract}
-We improve the match-winning performance of published Koi-Koi Transformers
-through additional self-play, retaining their architecture and greedy inference.
-The method turns pretrained action scores into a stochastic policy and optimizes
-player-relative terminal-match returns using a shared C++/CUDA simulator.
-After 8.52 million additional decisions per model, two independently adapted
-models achieve 51.480\% and 51.445\% draw-adjusted wins against the original
-assisted RL-WP policy on 10,000 held-out duplicate deals. Both 95\% intervals
-exclude 50\%. A warmer exploration and learning-rate configuration gains
-0.935--1.050 percentage points over a colder configuration with identical initial
-greedy play. Against RL-Point, win-rate improvement is inconsistent across models
-and expected points favor the point-oriented agent. Using RL-Point only for
-stop/continue decisions improves expected point margin at both adapted models
-against both public opponents; learned selection and direct opponent training
-give no replicated match-win gain. A separate exact analysis exhibits an estimator failure:
-perfect observation-conditioned critics can make the expected policy update
-decrease true expected payoff when a return bootstraps through the opponent's
-information. We derive an exact counterexample, verify its return calculation
-across Python, native CPU and CUDA, and obtain the correct gradient by using
-returns between learner decisions. The canonical agent uses no search and averages 1.585 ms per CPU
-decision.
+We improve published Koi-Koi Transformers through terminal-match self-play
+and identify a failure of return estimation across players' information.
+After 8.52 million additional decisions per model, two adapted agents achieve
+51.480\% and 51.445\% draw-adjusted wins against assisted RL-WP on 10,000 held-out
+duplicate deals; both 95\% intervals exclude 50\%. They retain the original
+architecture and greedy inference, with the canonical agent averaging 1.585 ms
+per CPU decision. Against RL-Point, win improvement varies between models and
+expected points favor the point-oriented agent. An exact two-step game then
+shows why correct payoff signs are insufficient for learning: bootstrapping
+through the opponent's observation can make the expected policy update decrease
+true payoff, even with exact conditional critics. Returns between learner
+decisions recover the correct gradient in this example. We verify the calculation
+across Python, native CPU and CUDA and implement the construction for fixed-opponent
+Koi-Koi training. A 160,000-match comparison does not meet the primary
+parent-and-response win-gain criterion. In the secondary comparison,
+learner-decision returns outperform the $\lambda=1$ control against RL-Point
+at both model seeds.
 \end{abstract}
 
 \section{Introduction}
@@ -63,19 +60,13 @@ A shared CPU/GPU simulator makes these updates practical while preserving the
 published feature and scoring conventions. Deployment retains greedy action
 selection and requires no search.
 
-The main contribution is a replicated improvement over the published win-oriented
-policy at a fixed additional budget of 8.52 million decisions per model. We
+The empirical contribution is a replicated improvement over the published
+win-oriented policy at a fixed additional budget of 8.52 million decisions per model. We
 also show that identical initial greedy behavior can lead to different adaptation
 outcomes: two fixed exploration and learning-rate configurations separate in
 paired development comparisons. Evaluating both published reward objectives
 then reveals where the improvement transfers and where a scoring advantage
 remains with RL-Point.
-
-The accompanying system connects reference rules, native CPU/GPU simulation,
-exact training restart, and paired match evaluation. It preserves the pretrained
-actors' input conventions and tracks simulation, training, and evaluation work
-separately. This makes the measured adaptation and subsequent expert-selection
-experiments reproducible within a common game protocol.
 
 We also examine what information a return estimator passes between players.
 An exactly enumerable two-step game shows that correct payoff signs and exact
@@ -86,17 +77,16 @@ uses the opponent's observation and loses the learner's private information
 the example and motivates a Koi-Koi implementation with explicit handling of
 unfinished rollout tails.
 
-The result against RL-Point motivates a second question: can a small controller
-use its own observation to choose useful actions from differently trained experts more effectively
-than continuing to update the entire policy? A matched-budget experiment
-finds no replicated win gain from either approach (Section~\ref{sec:arbitration}).
-Direct supervision from paired complete-match outcomes also fails to produce
-a replicated gain. Direct PPO against a fixed mixture of the two published
-opponents likewise gives no replicated win gain in a separate 120,000-match
-comparison. A simple fixed composition does improve expected points:
-keep the adapted card policy and use RL-Point for stop/continue decisions.
-This result identifies a useful division of decisions while leaving the
-match-win objective unresolved.
+We test this construction against ordinary response training and a
+$\lambda=1$ control using the same two adapted parents and fixed opponents
+(Section~\ref{sec:learner}). The primary criterion is unmet: one of eight
+required paired win-change intervals excludes zero in the positive direction.
+The secondary comparison favors learner-decision returns over $\lambda=1$
+against Point at both parents. Supplementary policy-composition experiments
+identify a separate scoring benefit: retaining the adapted card policy while
+using RL-Point for stop/continue decisions improves expected point margin.
+Learned expert selection gives no replicated match-win gain
+(Appendix~\ref{sec:arbitration}).
 
 \section{Related work}
 \subsection{Learning to play Koi-Koi}
@@ -109,6 +99,10 @@ koi-koi continuation disabled, they proposed switching scoring and
 fast-finishing strategies across a match as future work. This anticipates the
 motivation for combining objectives; our experiments include continuation
 decisions and compare learned selection with fixed card/koi roles.
+
+Takaoka et al. change UCT choices according to the current score to keep games
+close and study player enjoyment \cite{takaoka2018fun}. Their objective-dependent
+search complements the scoring and win-oriented approaches considered here.
 
 Guan et al. introduced the phase-specific Transformers and reward objectives
 that produce RL-WP and RL-Point \cite{guan2023koikoi}. We retain their released
@@ -139,17 +133,24 @@ Our example studies a specific instance of this conditioning problem: a
 player-relative return crosses between two players' observations. It makes the
 failure explicit with exact conditional values and a policy update that reduces
 true expected payoff. Its return recurrence is checked in all three simulator
-backends. Learner-decision returns are a decision-time
-reduction motivated by that example, rather than a new general gradient theorem.
+backends. The learner-decision construction propagates credit between the
+learner's own observations and is tested in the fixed-opponent comparison.
 
 \subsection{Search and rollout-based improvement}
 Information Set Monte Carlo Tree Search organizes search around information
 sets \cite{cowling2012ismcts}; ReBeL combines learning and search through public
 belief states \cite{brown2020rebel}. Expert Iteration alternates search-based
 improvement with learning a policy that generalizes its decisions
-\cite{anthony2017expert}. Our retained rollout-search experiments use
-observation-only policies inside sampled worlds. They did not replicate a
-match-level benefit, motivating the search-free adaptations studied here.
+\cite{anthony2017expert}. Our earlier rollout-search experiments use MLP continuation policies that
+receive only acting-player observations inside sampled worlds. They did not
+replicate a match-level benefit. Those experiments predate the pretrained
+Transformer adaptations studied here.
+
+Suzuki's Open Hanafuda AI provides a recent public implementation combining
+simulation with observable-information inference and heuristics
+\cite{suzuki2026openhanafuda}. Its declaration and scoring rules differ from
+our pinned eight-round benchmark, so its internal Hard-versus-Normal results
+do not provide a head-to-head comparison with these agents.
 
 Learning action choices from rollout outcomes is also established. Lagoudakis
 and Parr formulate policy iteration as classification
@@ -435,120 +436,21 @@ on both $X$ and $A$. The Python, native CPU and CUDA implementations reproduce
 the return calculation. The scalar expectation also agrees with direct objective
 differentiation. Appendix~\ref{app:observer} gives the derivation and a
 learner-decision implementation with explicit tail masks.
-The Koi-Koi match results above use the original signed estimator; the new
-implementation's strength comparison is ongoing.
+The Koi-Koi match results above use the original signed estimator.
+Section~\ref{sec:learner} compares the return constructions under fixed-opponent
+training.
 
-\section{Further policy improvement}
-\label{sec:arbitration}
-The RL-Point result motivates combining the adapted win policy with the
-original point policy. At expert disagreements, an observation-based controller
-chooses one of their proposed actions; agreement decisions stay unchanged.
-The experts are frozen. We compare the full controller, a phase-only controller
-and continued full-policy PPO at both parent models. Every arm receives the
-same 8.52 million additional simulator decisions.
-
-All final endpoints face RL-WP, RL-Point and their own parent on 1,000 duplicate
-development deals. Both unchanged parents use those same deals. A second
-study fits action choices from paired complete-match outcomes. These designs
-address two questions: whether learned composition improves on the adapted
-parent, and whether direct outcome targets improve on PPO selection.
-Appendix~\ref{app:controllers} gives the models, targets and fitting protocol.
-
-\subsection{Matched-budget results}
-All six training runs and 22 matchups completed. Learned selection and continued
-PPO show no replicated win gain over their unchanged parents against both
-published opponents (Figure~\ref{fig:arbitration}). For learned selection,
-paired win changes against RL-WP are $+0.100$ and $-0.050$ percentage points;
-against RL-Point they are $+0.500$ and $-0.550$. Every corresponding interval
-includes zero. The first selector gains 1.513 points [0.463, 2.536] against
-RL-Point, but the second gains only 0.238 [-0.622, 1.122]. Both phase-only
-selectors greedily choose the parent in all four phases. Their win outcomes
-match their parents on these deals.
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=\linewidth]{generated/arbitration_changes.pdf}
-\caption{Changes from each unchanged parent on 1,000 shared duplicate
-development deals. Win score gives draws half credit. Intervals resample
-whole duplicate pairs; they describe deal uncertainty conditional on each
-trained endpoint. Training-seed variation is represented by the two separate
-models.}
-\label{fig:arbitration}
-\end{figure}
-
-These results distinguish access to complementary experts from learning when
-to use them. The full selectors sometimes choose Point and improve some
-point outcomes, yet terminal-reward PPO does not produce consistent match-win
-gains at this budget. We therefore next test a more direct training signal:
-the difference between complete-match outcomes after the two proposed actions.
-
-
-\subsection{Paired complete-match supervision}
-Paired supervision compares the complete-match outcomes after the two expert
-proposals at the same root. Each parent supplies 65,536 disagreements, and the
-controller learns the outcome difference from its own observations. The two branches
-share hidden cards and future deals, while their continuation policies see only
-the acting player's observation. A matched ablation removes explicit score and
-round inputs. This adds rollout computation beyond the PPO training budget;
-source matches are kept intact in the validation split.
-
-\begin{table}[ht]
-\centering\small
-\input{generated/paired_supervision_table.tex}
-\caption{Paired-supervision win-score changes relative to each unchanged
-parent, in percentage points. Intervals bootstrap 1,000 shared duplicate deals.
-The ablation removes explicit score and round inputs.}
-\label{tab:paired-supervision}
-\end{table}
-
-Both fitted controllers, arbitration PPO, continued actor PPO and unchanged
-parents are evaluated on 1,000 duplicate development deals against RL-WP and
-RL-Point; fitted controllers also play their own parents. All 24 matchups are
-complete, totaling 48,000 matches on the same 1,000 unique deal streams.
-
-
-
-Neither full supervision nor the ablation establishes a win gain at both
-parents against both opponents (Table~\ref{tab:paired-supervision}). The full
-first-parent controller gains 1.260 expected points [0.160, 2.430] against WP,
-while the second gains 1.660 [0.412, 2.863] against Point. These point gains
-occur in different matchups and do not translate into replicated win gains.
-Full-versus-ablation win intervals include zero in all four comparisons.
-
-The targets also expose a learning difficulty: only about 9.6\% of roots
-have different terminal win outcomes for the two proposals. On held-out
-source matches, both full controllers have slightly higher prediction MSE
-than predicting zero. Direct access to paired outcomes therefore does not by
-itself provide a selector that improves repeated match play. Appendix controls
-examine representation, data volume, regularization and continuation opponents.
-Protocols are in \texttt{docs/PAIRED\_ROLLOUTS.md}.
-
-\subsection{Fixed card and continuation roles}
-Two fixed hybrids test whether learning is necessary to benefit from the second
-expert: Point card play with adapted continuation decisions, and adapted card
-play with Point continuation decisions. Both parents and both public opponents
-use the same 1,000 development deals as the paired-supervision study.
-
-\begin{table}[ht]
-\centering\small
-\input{generated/static_koi_table.tex}
-\caption{Using RL-Point only for stop/continue decisions: paired changes from
-the unchanged adapted parent on 1,000 shared duplicate deals. Point margin is
-final candidate score minus opponent score.}
-\label{tab:static-koi}
-\end{table}
-
-Point continuation improves expected point margin in all four comparisons
-(Table~\ref{tab:static-koi}). The gains range from 0.926 to 2.086 points.
-Every corresponding win interval includes zero, as do all four win intervals
-for the reverse card/continuation assignment. Learned selection therefore has
-a concrete static control to exceed: the experts already provide complementary
-scoring decisions, but selecting between them has not produced a replicated
-match-win improvement.
+\section{Learning against fixed opponents}
+\label{sec:training}
+We test two changes to the adapted actors: training directly against the
+published opponents, and constructing returns between learner decisions.
+The first comparison measures opponent-specific training against continued
+self-play. The second holds the opponent mixture fixed and changes the return
+construction and its associated optimization.
 
 \subsection{Direct training against the published opponents}
 \label{sec:response}
-We next test full-policy PPO against the published opponents themselves.
+The first comparison tests full-policy PPO against the published opponents.
 Each retained parent initializes two continuations: a response learner facing
 RL-WP and RL-Point on a balanced whole-match schedule, and ordinary self-play.
 Both use the warm configuration and 8,519,680 additional simulator decisions,
@@ -578,8 +480,74 @@ parent 1's response loses 0.975 percentage points to its self-play continuation
 below zero. The self-play continuations themselves have
 parent-relative win intervals containing zero in all four matchups. Thus
 training directly against these opponents does not establish an improvement
-at this budget. The learner-decision study in Appendix~\ref{app:observer} uses
-these response endpoints as fixed controls; that comparison remains ongoing.
+at this budget. The learner-decision comparison below uses these response
+endpoints as fixed controls.
+
+\subsection{Learner-decision returns}
+\label{sec:learner}
+The exact example in Section~\ref{sec:observer} motivates a comparison of three
+return constructions: signed GAE with $\lambda=0.95$, learner-decision returns
+with $\lambda=0.95$, and signed GAE with $\lambda=1$. The learner-decision variant
+bootstraps at learner observations and attributes opponent-caused terminal
+rewards to the learner before a match reset. Eligibility decays across primitive
+decisions, and unfinished learner-to-opponent tails are excluded from both
+policy and value losses. Appendix~\ref{app:observer} specifies the recurrence.
+
+Both retained parents initialize a learner-decision run and a $\lambda=1$ run,
+with the original response endpoints supplying the signed-$0.95$ controls.
+Each new run uses 8,519,680 simulator decisions, the same opponent mixture,
+and 20 value-only followed by 500 policy updates. The learner-decision
+implementation also removes the opponent critic and normalizes value loss over
+valid learner rows; joint gradient clipping and minibatch composition change
+with it. The comparison measures this complete learning procedure. The
+$\lambda=1$ control retains the finite-rollout boundary bootstrap.
+
+The eight players---two unchanged parents, two original response endpoints,
+and four new endpoints---face WP and Point on 5,000 fresh shared duplicate
+deals, for 160,000 evaluation matches. The primary criterion requires all eight
+paired win-change lower 95\% bounds to be positive: learner-decision returns
+versus both the unchanged parent and signed-$0.95$ response, at both parents
+against both opponents. The $\lambda=1$ comparisons and point margins are
+secondary. All four training runs and all 16 matchups are complete.
+
+Only one of the eight primary lower bounds is positive
+(Table~\ref{tab:learner-primary}). Against Point, learner-decision returns gain
+0.920 percentage points over parent 1 [0.125, 1.755], while parent 2's gain is
+0.325 [$-0.480$, 1.165]. All four learner-minus-response win intervals include
+zero. The method therefore does not meet the primary replicated-gain criterion.
+All eight primary mean differences are positive.
+
+\begin{table}[ht]
+\centering\small
+\input{generated/learner_primary_table.tex}
+\caption{Learner-decision returns: primary paired win-score changes in percentage
+points, with 95\% intervals, on 5,000 fresh shared development deals.}
+\label{tab:learner-primary}
+\end{table}
+
+The secondary $\lambda=1$ control has negative parent-relative mean win changes
+in all four matchups (Table~\ref{tab:learner-lambda1}). Learner-decision returns
+exceed it against Point by 1.060 [0.155, 1.955] and 1.015 [0.105, 1.945]
+percentage points at parents 1 and 2. Against WP, the corresponding gains are
+0.875 [$-0.075$, 1.780] and 0.955 [0.010, 1.920]. Thus removing interior
+bootstraps with $\lambda=1$ and retaining learner-observation bootstraps have
+different empirical outcomes at this budget.
+
+\begin{table}[ht]
+\centering\small
+\input{generated/learner_lambda1_table.tex}
+\caption{Secondary return comparison on the same deals. Each cell gives a
+paired win-score change in percentage points and its 95\% interval.}
+\label{tab:learner-lambda1}
+\end{table}
+
+Point margins supply a consistent secondary signal against the signed-$0.95$
+response: learner-decision returns gain 0.620 [0.117, 1.107] and
+0.636 [0.146, 1.133] points against Point at the two parents. Against WP, the
+gains are 0.145 [$-0.357$, 0.631] and 0.800 [0.294, 1.316]. These are gains
+relative to the response controls; both learner endpoints still have negative
+absolute point margins against RL-Point. All parent-relative point-change
+intervals include zero.
 
 \section{Limitations and interpretation}
 The strongest supported result is the improvement in match wins against
@@ -601,23 +569,22 @@ unmeasured. The temperature comparison changes learning rate simultaneously,
 and latency describes one machine and a cached random-play workload.
 
 \section{Conclusion}
-Self-play adaptation improves the match-winning performance of published
-Koi-Koi Transformers. Both adapted models beat assisted RL-WP on held-out
-deals after 8.52 million additional decisions each, with search-free CPU
-inference averaging 1.585 ms for the canonical model. RL-Point exposes the
-remaining challenge: match-win improvement is inconsistent across models,
-and expected points still favor the point-oriented agent. A matched-budget
-experiment finds no replicated win gain from PPO expert selection or further
-full-policy PPO. A separate complete-match evaluation reaches the same conclusion
-for paired-outcome supervision. Direct PPO against the published opponent
-mixture also gives no replicated win gain. Fixed Point continuation improves expected
-points at both adapted models against both opponents. The next challenge is
-to retain that scoring benefit while improving terminal match wins. The exact
-critic-conditioning example identifies a separate estimator issue: changing
-payoff signs cannot recover private information absent from the next observer's
-value. In a shared-parameter policy, this loss makes the expected update reduce
-true expected payoff. Returns between learner decisions correct that example
-and provide a concrete method for further Koi-Koi evaluation.
+Terminal-match self-play improves the published Koi-Koi win policy at both
+adapted model seeds, while preserving its architecture and fast greedy
+inference. RL-Point provides a complementary test: the improvement in match
+wins does not imply an advantage in expected points. Fixed Point continuation
+recovers part of that scoring deficit, whereas the completed learned-selection
+and direct-opponent comparisons give no replicated match-win gain.
+
+The exact critic-conditioning example establishes a second result. A return
+that crosses to another player's observation can lose information needed by
+the learner's action value. Under a shared-parameter policy, even exact
+conditional critics then produce an expected update that reduces true payoff.
+Learner-decision returns correct the example and outperform the $\lambda=1$
+control against RL-Point at both model seeds. The primary parent-and-response
+win-gain criterion remains unmet. The comparison identifies the practical
+requirement for further return design: preserve the learner's information while
+establishing improvement over the retained strong actors.
 
 \appendix
 \section{Reproduction and evidence}
@@ -630,7 +597,7 @@ study and its earlier manuscript are preserved in a local evidence archive
 from project snapshot \texttt{f5cf955}. The present manuscript revision adds
 related work, completed PPO and paired-supervision comparisons, and the
 subsequent fitting diagnostics, followed by the completed direct-response
-comparison. It also adds the exact critic-conditioning
+and learner-return comparisons. It also adds the exact critic-conditioning
 analysis and its CPU/CUDA verification, bound in
 \path{docs/paper/generated/observer_evidence.json}.
 
@@ -664,7 +631,14 @@ are recomputed from raw matches. The target-control results retain dataset,
 feature-cache and checkpoint identities. The completed direct-response comparison is bound in
 \path{docs/paper/generated/response_evidence.json}. It uses 34,078,720 training
 decisions and 13,947,308 evaluation decisions, with all 120,000 evaluation
-matches on 5,000 shared deals. The learner-decision comparison remains ongoing.
+matches on 5,000 shared deals. The learner-return comparison is bound separately
+in \path{docs/paper/generated/learner_evidence.json}. Its four new training runs
+use 34,078,720 decisions, 2,274,630 round endings and 294,469 completed matches.
+The two reused signed-response endpoints add a separate pre-existing dependency
+of 17,039,360 training decisions. Evaluation uses 18,542,184 decisions across
+160,000 matches on 5,000 shared deals, numbered 24,000,000--24,004,999.
+The independent audit recomputes all 16 outcomes and 24 paired contrasts from
+the raw seat-swapped records.
 
 The new arbitration experiments freeze the inherited actors. A traced
 near-tie shows why this detail belongs to the inference specification: with
@@ -754,10 +728,11 @@ The integrated PPO variant also removes the opponent critic and normalizes
 value loss over valid learner rows, changing joint clipping and minibatch sizes.
 These are part of the full intervention. The fixed comparison in
 \path{docs/LEARNER_RETURN_STUDY.rst} includes the original signed estimator and
-$\lambda=1$ controls. It is not included in the completed match findings here.
-Finite current observations and boundary-dependent exclusions still require
-empirical evaluation; the example establishes neither generally unbiased PPO
-nor a cause for the earlier Koi-Koi composition results.
+$\lambda=1$ controls; Section~\ref{sec:learner} reports the completed results.
+Finite current observations and boundary-dependent exclusions remain part of
+the implemented estimator. The exact example concerns its stated finite game;
+the Koi-Koi comparisons test the full learning procedures, including their
+optimization differences.
 
 \section{Simulation, budgets, and supporting experiments}
 \label{app:systems}
@@ -911,7 +886,8 @@ uses the established rollout-policy-improvement approach discussed in Related
 Work; it is not a new loss. Across the initial 48 fixed fitted endpoints, no condition
 establishes one-action win gain over both fixed expert choices at both parents.
 These diagnostics change one action and then follow frozen continuation.
-They are separate from the repeated-policy match comparisons above.
+They are separate from the repeated-policy match comparisons in
+Appendix~\ref{sec:arbitration}.
 
 A controlled data study compares 65,536 roots for 20 or 80 epochs with
 262,144 roots for 20 epochs. All endpoints are evaluated on the same new
@@ -942,6 +918,115 @@ A fixed training-quantile rule also restricts Point substitutions to at most
 no replicated one-action win gain over the parent, and both restricted-minus-greedy
 win intervals include zero. These are diagnostics on consumed development roots;
 complete-match improvement remains a separate measurement.
+
+\section{Supplementary policy-composition experiments}
+\label{sec:arbitration}
+The RL-Point result motivates combining the adapted win policy with the
+original point policy. At expert disagreements, an observation-based controller
+chooses one of their proposed actions; agreement decisions stay unchanged.
+The experts are frozen. We compare the full controller, a phase-only controller
+and continued full-policy PPO at both parent models. Every arm receives the
+same 8.52 million additional simulator decisions.
+
+All final endpoints face RL-WP, RL-Point and their own parent on 1,000 duplicate
+development deals. Both unchanged parents use those same deals. A second
+study fits action choices from paired complete-match outcomes. These designs
+address two questions: whether learned composition improves on the adapted
+parent, and whether direct outcome targets improve on PPO selection.
+Appendix~\ref{app:controllers} gives the models, targets and fitting protocol.
+
+\subsection{Matched-budget results}
+All six training runs and 22 matchups completed. Learned selection and continued
+PPO show no replicated win gain over their unchanged parents against both
+published opponents (Figure~\ref{fig:arbitration}). For learned selection,
+paired win changes against RL-WP are $+0.100$ and $-0.050$ percentage points;
+against RL-Point they are $+0.500$ and $-0.550$. Every corresponding interval
+includes zero. The first selector gains 1.513 points [0.463, 2.536] against
+RL-Point, but the second gains only 0.238 [-0.622, 1.122]. Both phase-only
+selectors greedily choose the parent in all four phases. Their win outcomes
+match their parents on these deals.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{generated/arbitration_changes.pdf}
+\caption{Changes from each unchanged parent on 1,000 shared duplicate
+development deals. Win score gives draws half credit. Intervals resample
+whole duplicate pairs; they describe deal uncertainty conditional on each
+trained endpoint. Training-seed variation is represented by the two separate
+models.}
+\label{fig:arbitration}
+\end{figure}
+
+These results distinguish access to complementary experts from learning when
+to use them. The full selectors sometimes choose Point and improve some
+point outcomes, yet terminal-reward PPO does not produce consistent match-win
+gains at this budget. We therefore next test a more direct training signal:
+the difference between complete-match outcomes after the two proposed actions.
+
+
+\subsection{Paired complete-match supervision}
+Paired supervision compares the complete-match outcomes after the two expert
+proposals at the same root. Each parent supplies 65,536 disagreements, and the
+controller learns the outcome difference from its own observations. The two branches
+share hidden cards and future deals, while their continuation policies see only
+the acting player's observation. A matched ablation removes explicit score and
+round inputs. This adds rollout computation beyond the PPO training budget;
+source matches are kept intact in the validation split.
+
+\begin{table}[ht]
+\centering\small
+\input{generated/paired_supervision_table.tex}
+\caption{Paired-supervision win-score changes relative to each unchanged
+parent, in percentage points. Intervals bootstrap 1,000 shared duplicate deals.
+The ablation removes explicit score and round inputs.}
+\label{tab:paired-supervision}
+\end{table}
+
+Both fitted controllers, arbitration PPO, continued actor PPO and unchanged
+parents are evaluated on 1,000 duplicate development deals against RL-WP and
+RL-Point; fitted controllers also play their own parents. All 24 matchups are
+complete, totaling 48,000 matches on the same 1,000 unique deal streams.
+
+
+
+Neither full supervision nor the ablation establishes a win gain at both
+parents against both opponents (Table~\ref{tab:paired-supervision}). The full
+first-parent controller gains 1.260 expected points [0.160, 2.430] against WP,
+while the second gains 1.660 [0.412, 2.863] against Point. These point gains
+occur in different matchups and do not translate into replicated win gains.
+Full-versus-ablation win intervals include zero in all four comparisons.
+
+The targets also expose a learning difficulty: only about 9.6\% of roots
+have different terminal win outcomes for the two proposals. On held-out
+source matches, both full controllers have slightly higher prediction MSE
+than predicting zero. Direct access to paired outcomes therefore does not by
+itself provide a selector that improves repeated match play. Appendix controls
+examine representation, data volume, regularization and continuation opponents.
+Protocols are in \texttt{docs/PAIRED\_ROLLOUTS.md}.
+
+\subsection{Fixed card and continuation roles}
+Two fixed hybrids test whether learning is necessary to benefit from the second
+expert: Point card play with adapted continuation decisions, and adapted card
+play with Point continuation decisions. Both parents and both public opponents
+use the same 1,000 development deals as the paired-supervision study.
+
+\begin{table}[ht]
+\centering\small
+\input{generated/static_koi_table.tex}
+\caption{Using RL-Point only for stop/continue decisions: paired changes from
+the unchanged adapted parent on 1,000 shared duplicate deals. Point margin is
+final candidate score minus opponent score.}
+\label{tab:static-koi}
+\end{table}
+
+Point continuation improves expected point margin in all four comparisons
+(Table~\ref{tab:static-koi}). The gains range from 0.926 to 2.086 points.
+Every corresponding win interval includes zero, as do all four win intervals
+for the reverse card/continuation assignment. Learned selection therefore has
+a concrete static control to exceed: the experts already provide complementary
+scoring decisions, but selecting between them has not produced a replicated
+match-win improvement.
+
 
 \begingroup
 \raggedright
