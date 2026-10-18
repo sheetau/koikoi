@@ -68,12 +68,45 @@ Test source SHA256:
 Ruff passes. CPU checks overlapped the running strict evaluation; these are not
 isolated latency measurements. All126 live-comparison input hashes still match.
 
+Online activation verification
+------------------------------
+
+``scripts/public_memory_continuation_match.py`` adds an explicit public-counter
+lifecycle and a strict full-match evaluator. The caller announces every decision,
+including opponent decisions, before acting and supplies erased-hand opponent
+snapshots after their actions. The first fresh round after public identification
+activates the continuation, even when the opponent is its dealer. Memory is then
+fixed. Unresolved histories retain the original parent throughout; no guessed
+identity activates the continuation. Duplicate/missing decision addresses and
+cross-match events are rejected. This adapter is not deployed in human play.
+
+Two tests pass with zero skips in8.25s,with three expected Transformer warnings.
+Four seat/opponent fixtures compare both public and masked initial policies with
+the original parent:all actions,terminal scores,rounds and counts match. An
+independent replay locates each first eligible boundary;both dealer alignments
+are exercised and activation occurs before the final round. Identical candidate
+predictors exercise persistent ambiguity and full parent fallback. Match reset
+and malformed lifecycle checks also pass. These are correctness fixtures,not
+new independent strength observations.
+
+Command::
+
+  .venv/Scripts/python.exe -m pytest tests/test_public_memory_continuation_match.py -q --junitxml=runs/public_memory_continuation_match_tests.xml
+
+JUnit SHA256:
+``66d1bf3520e6ce68d2e180c48d7dc0f0c58dc4cc18dcc9384efcf80f65e8bddb``.
+Adapter SHA256:
+``f296e9321d552defd660fda1c07f264f498d9d220281d7fcc66e9a9550cd0724``.
+Test SHA256:
+``2dadbd11f2bc52a5a3b39a0228c7cf6f0268869a3d79f4dd009952651a07358c``.
+Ruff passes and all126 active-study inputs still verify. The short CPU fixture
+run overlapped evaluation and is not an isolated timing benchmark.
+
 Remaining work
 --------------
 
 CUDA verification and a production-shape capability run have not executed.
-A full-match inference adapter must apply the same public stopping rule and
-retain the parent when no identification becomes available. A new comparison
+The inference adapter above now implements the public stopping rule. A new comparison
 requires a separately frozen training/evaluation protocol after the current
 round8 comparison and independent audit finish. There is no new strength claim,
 model promotion, dealer change or use of the reserved101M confirmation deals.
