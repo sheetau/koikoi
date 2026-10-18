@@ -4202,3 +4202,49 @@ thenindependentaudit. Fivepolicies retain both fixedcontrols andoriginalparent;
 all66contrasts andthree separateclaims arepredeclared. No partial results or
 newperformance conclusion. No automaticpromotion/reserved101Muse. Run the
 renewal summarizer onlyonce after the new independent audit succeeds.
+
+
+## Prospective renewal confirmation qualification implemented before outcomes
+
+Previous goal turn made progress:fixed-root results were independently closed,
+CUDA capability passed,and renewed training launched(committedad7fd14). Current
+turn reconfirms actual producer58904 and queue65372 live;parent1-public advances
+through262updates while this preparation executes. The 95M evaluation has no
+files and no outcomes have been inspected. Existing study inputs stay unchanged.
+
+Added docs/RENEWED_CONFIRMATION.rst and scripts/renewed_confirmation_gate.py.
+The read-only gate requires completed producer,passed immutable audit,completed
+summary and matching protocol/audit/summary/summarizer hashes,all66 consistent
+contrasts and the complete40,960-match grid. Only the existing primary strength
+conjunction qualifies;secondary mechanism/opponent/point or one-parent effects
+do not. Both renewed-public update520 endpoints remain fixed;no reranking or
+model promotion. Guard does not train,simulate,load policies or write a final
+protocol. Future evaluator/replay/reporting still require implementation before
+any final deal can be consumed.
+
+Prospective budget:original/fixed-public/renewed-public at both parents,4,096
+paired deals per opponent,8,192 shared distinct101M deals,98,304actualmatches.
+Use101100001+10000*opponent_index+replicate;bootstrap101300001,10,000draws.
+Four CPU workers,two threads each,strict singleton policies. Same four primary
+mixture bounds;allopponent/point results retained. This final strength study
+would not confirm memory/interaction ablations omitted from its three policies.
+No final simulation is scheduled or started by this preparation.
+
+Command `.venv/Scripts/python.exe -m pytest tests/test_renewed_confirmation_gate.py -q --junitxml=runs/renewed_confirmation_gate_tests_final.xml`
+passes4,0skips,1.39s. Tests cover primary-versus-secondary separation,one failed
+parent/zero lower bound,incomplete/unaudited/unsummarized refusal,and changed
+audited inputs. Initial three-test XML is preserved;an added tamper check
+justified the final rerun. No simulation/inference occurs in these fixtures.
+Ruff and format checks pass. Final XML
+6559213974f60c48c94ae315e566979a05a0f2169291a7dc107624cfbfe0c9d8.
+
+Actual check on the running study raises 'Completed renewed study required'
+before reading evaluation outcomes. Pre-evaluation receipt
+runs/renewed_confirmation_pre_evaluation.json SHA
+ a9547cb8a9601b40e162988dca2bd1515e4b696bc4749601806d869dda89a934
+pins321 immutable inputs and records training stage,zero evalfiles and zero
+final matches/simulator steps/neural calls. Proposed ranges are disjoint and
+inside the reserved101M allocation;constructing integer sets consumes no deals.
+This is prospective qualification infrastructure,not strength evidence or an
+executed confirmation study. Existing316 protocol/323 queue bindings are
+preserved. Canonical game,dealer and all101M deals remain unchanged.

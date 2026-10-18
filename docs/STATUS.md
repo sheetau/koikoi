@@ -67,6 +67,23 @@ matches. There are384 distinct shared chance keys,768 logical and256 replayed
 conditional deal constructions. Queue PID36420 completed successfully. These
 are capability checks,not strength evidence. Canonical model and dealer unchanged.
 
+**Confirmation conditions fixed before renewed evaluation:**
+[Prospective specification](RENEWED_CONFIRMATION.rst) permits only the completed,
+independently audited and summarized study's replicated primary strength result
+to qualify both renewed-public520 endpoints. Secondary/one-parent findings do
+not substitute. Proposed confirmation uses three policies,4,096 paired deals
+per opponent,8,192 shared fresh101M deals and98,304 matches;it is not running.
+Memory/interaction claims remain separate and no automatic promotion occurs.
+The evaluator/auditor/reporting remain conditional future implementation work.
+
+Read-only qualification gate passes4 tests,0skips,1.39s;XML
+6559213974f60c48c94ae315e566979a05a0f2169291a7dc107624cfbfe0c9d8.
+Actual unfinished-study refusal and zero current evaluation files are recorded
+in runs/renewed_confirmation_pre_evaluation.json SHA
+ a9547cb8a9601b40e162988dca2bd1515e4b696bc4749601806d869dda89a934,
+with321 immutable input bindings. This preparation runs0 simulation/neural calls
+and consumes0 final deals. Main producer58904 and queue65372 remain live.
+
 ## Earlier implementation milestones
 
 The entries below retain their status at the time of each milestone. The current
