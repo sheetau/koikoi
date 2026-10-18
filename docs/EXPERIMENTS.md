@@ -2885,3 +2885,14 @@ error and creates neither a directory nor evidence files. This validates the
 completion gate only;successful full-data export remains pending. All51 bound
 study inputs remain unchanged. No result table,PDF revision,new simulation,
 training or strength claim is produced by this preparation.
+
+
+## Pretrained koi-search capability (2026-10-18)
+
+An isolated scripts/published_koi_search.py closes the retained Transformer search-adapter gap without changing production code or the running learner protocol. The original strict CPU2 greedy parent remains the fallback and supplies all card actions. A separate frozen batched actor completes paired stop/continue branches from observation-consistent sampled hidden worlds. Both seats use that continuation; the uniform proposal does not condition on opponent-action likelihoods. Fresh confirmation particles can accept only the selected alternative. See PUBLISHED_KOI_SEARCH.rst for the complete information/inference contract and limitations.
+
+Validation command: `.venv/Scripts/python.exe -m pytest tests/test_published_koi_search.py -q`:12 passed,0 skipped in5.74s,with5 expected upstream Transformer warnings. CPU/CUDA tests compare each actual branch action through independent reference transitions,terminal points and work counts at both root seats; hidden-world substitutions preserve observations/actions/statistics. All non-koi phases retain the original strict fallback. Confirmation routing and budget rejection are covered. Ruff passes after test-only style corrections.
+
+Capability command: `.venv/Scripts/python.exe -m scripts.check_published_koi_search --output runs/published_koi_search_capability`; launcher49769 exits0. Fixed16 greedy-play unguarded koi roots are shared across both parents;32 proposal particles,32 optional confirmation particles,confidence2.5,two warmups and16 timed calls per parent. Source238 decisions/18 round endings/2 completed matches. Parent1 warmup12,620 decisions/957 rounds/128 terminal branches;timed64,888/5,284/1,024. Parent2 warmup12,589/956/128;timed65,630/5,280/1,024. Total search155,727 decisions/12,477 round endings/2,304 branch completions. No fitting or independent strength matches.
+
+Timed means0.3191641813/0.3303635187 seconds,medians0.34126485/0.35461375,maxima0.52851810/0.57487820. No timed proposal or action change;confirmation work is zero. These are small-corpus cost measurements with another CPU evaluator active,not isolated latency or evidence of improvement. Report SHAe18e8fe1e963a01b71a9b48698dc76bd7ce29f4e94c319c6e82ffa9d47823749. All51 live learner-study inputs reverified unchanged. No search strength study or deployment promotion; its next protocol remains dependent on the completed learner-return result.
