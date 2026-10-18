@@ -34,8 +34,10 @@ error. Both have only one alternative at a koi root. Reset search seed to
 72,210,001+case_index identically in both methods. Verify proposal world hashes
 and model labels agree. When both methods confirm,verify their confirmation
 world hashes/model labels agree as well. Keep every candidate estimate,margin,
-raw endpoint record,change/refusal,counter and time. Timing includes model/support
-overheads and is descriptive,not an isolated latency guarantee.
+raw endpoint record,change/refusal,counter and time. Root timers cover act(),
+including history enumeration and inference,but exclude agent construction and
+table loading. Record offline table construction separately. Timing is
+descriptive,not an isolated latency guarantee.
 
 Independent terminal reference
 ------------------------------
