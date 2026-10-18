@@ -97,3 +97,54 @@ algorithmic novelty claim. Any next comparison must report parent-relative
 paired match outcomes, both parent seeds, exact inference settings and added
 branch computation; its protocol should be chosen after the learner-return
 comparison completes.
+
+
+On-policy root diagnostic
+-------------------------
+
+A fixed diagnostic subsequently collects32 unsolved own koi roots per parent
+against an alternating WP/Point whole-match schedule,with seats alternating
+across each two-opponent block. Roots are retained before any search outcome
+is observed. Both budgets use every root:32 and256 proposal particles,matching
+independent confirmation counts,and confidence2.5. The smaller random samples
+are prefixes of the larger ones. There are64 distinct roots and128 root/budget
+comparisons,not128 independent positions or match evaluations.
+
+Command::
+
+  .venv/Scripts/python.exe -m scripts.diagnose_published_koi_search --output runs/published_koi_search_roots
+
+Session33432 exits0. Source collection contributes1,298 decisions,84 round
+endings and10 completed matches across both parents; final source matches are
+unfinished. All four parent/budget conditions propose zero changes,so actual
+confirmation work is zero. Their complete branch work is:
+
+================= ========== ============== ================= ============
+Condition          Decisions Round endings Branch completions Mean seconds
+================= ========== ============== ================= ============
+Parent1 /32           127116          10347              2048     0.343867
+Parent1 /256         1022446          82944             16384     0.630056
+Parent2 /32           137750          10866              2048     0.358004
+Parent2 /256         1104401          87105             16384     0.661890
+Total                2391713         191262             36864          n/a
+================= ========== ============== ================= ============
+
+Timing includes cold first calls and concurrent CPU activity. The report binds
+both actual root tensors,all individual branch point outcomes,metadata,timings
+and source identities. Raw outcomes are independently recomputed with Python's
+standard-library mean/stdev,including all128 margins and decisions and work
+sums. The1,024 shared-prefix world pairs per parent have one differing point
+pair each across budget/batch sizes and zero differing win pairs. This observed
+numerical continuation difference is retained,not treated as a sampling effect.
+
+Main report SHA25653fe36d4ea385befd06c3b87612b1c665587f8ad2f5216298484d98ca1504a18.
+Independent recomputation receipt SHA256
+0b045fce313508d3128ac99d7a9189d89382690c669955f151aab407a686b769.
+
+Disposition: these settings supply no observed policy changes even on the
+parents' own source trajectories. A large koi-only search match study is not
+justified by this screen. This does not prove that all koi search is ineffective
+or establish a strength estimate. Do not select a looser confidence threshold
+from these outcomes and call it confirmed improvement. After the fixed learner
+comparison completes,choose the next intervention from its evidence; broader
+card-action search remains distinct from this completed koi-only diagnostic.
