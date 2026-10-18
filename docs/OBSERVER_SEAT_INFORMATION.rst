@@ -136,3 +136,28 @@ These short runs establish CPU integration and a functioning learning path.
 They do not establish strength,CUDA capability or a sufficient value history.
 The original four-arm observer study continues unchanged. A full comparison
 protocol and GPU validation remain pending; no checkpoint is promoted.
+
+CPU match-evaluation adapter
+---------------------------
+
+``scripts/seat_observer_agent.py`` adds ``SeatObserverAgent(checkpoint)``.
+It loads the explicitly tagged checkpoint and reuses ``NeuralAgent.act`` for
+singleton greedy public observations and the existing endgame guard. It can
+be passed directly to ``koikoi.evaluate.duel``. The general evaluator factory
+and the running study's adapters remain unchanged; that factory does not yet
+recognize this isolated checkpoint format automatically.
+
+Eight CPU inference tests pass,zero skipped. All four actual-parent initial
+checkpoints match their retained parent's actions on256 source decisions each,
+covering every phase and both public/masked contexts. Perturbing the current
+opponent hand,stock and RNG leaves decisions unchanged,and acting leaves the
+reference state unchanged. All four small trained capability endpoints retain
+the saved actor tensors and agree with direct published-actor logits or the
+public endgame solution at each visited candidate decision. Each completes
+a duplicate pair against the greedy fixture using the standard duel path.
+These are adapter correctness checks,not comparative strength estimates.
+
+Initial traces execute1,024 decisions,68 round endings and8 completed matches.
+The trained endpoint checks execute another870 decisions across8 complete
+matches on2 shared deal streams;the standard duel helper does not report round
+endings for those matches. No new training or reserved test use is involved.
