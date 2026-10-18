@@ -36,6 +36,14 @@ equals the final checkpoint exactly. No simulation or evaluation was added.
 This measures finite chance reuse,not overfitting or strength. Finish the current
 comparison before changing its sampling procedure.
 
+**Chance-renewal CPU capability:** an isolated public-context constructor
+preserves points,dealer and round while drawing new legal cards/future chance.
+Three CPU tests pass,0 skips;all1,731 real roots reconstruct exactly at their
+original keys and support1,731 fresh legal conditional deals. Receipt
+f18357c52be82afa71b6f5d14869d6616c7cc60bcbf41b08b67bd6c482961cfc.
+[Scope and pending integration](CONTINUATION_CHANCE.rst). No GPU test,new trainer,
+strength trial or modification of the current study has occurred.
+
 ## Completed evidence informing this experiment
 
 **Public-memory round8 comparison independently complete:** producer67506 and audit35738 exit0;all24,576 full matches replay and all18 win/point contrasts reproduce exactly. Primary balanced-mixture gain fails;every win and point interval includes zero. Audit a5a9f350f2388294cdd106758d60eb453a2f03a24ff41f192436a04d4925acd7 verifies300,092 upstream input/mask checks and all181 input hashes. Actual evaluation2,857,337 decisions/191,262 rounds/24,576 matches;355,486 public-model predictions. Summarizer ran once;summary ca6182fb9e687e4c0a23237e161a4bc27de518ffb40e12b32c9b650e583fc985. [All outcomes](PUBLIC_MEMORY_RESULTS.rst). No promotion/extra old budget/101M use. Do not restart67506/35738 or resummarize over existing files.
