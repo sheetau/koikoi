@@ -310,3 +310,36 @@ with table/proof pages11/13 inspected in detail;19 embedded fonts,22 references,
 all6 evidence ledgers verify; no TeX box,glyph,reference or page-bound defects.
 Prior18-page PDF:output/pdf/manuscript_shared_6d7406c9.pdf. All51 live learner-study
 inputs remain unchanged; the actual launcher session23277 remains live.
+
+
+Finite-cutoff extension
+-----------------------
+
+The current21-page manuscript includes the exact nonterminal-cutoff extension
+in Abstract,Introduction,Section7 and AppendixB.2. It separates internal
+observer-bootstrap errors from the final boundary term using the standard GAE
+expansion. In the existing scalar game,lambda1 at a one-step cutoff still gives
+-19701/160000 instead of true3/800. Exact root-history conditioning removes the
+score covariance;finite Koi-Koi features are not asserted to satisfy that
+history condition. Existing empirical results remain unchanged.
+
+Regenerate the exact constants and bound ledger with::
+
+    .venv/Scripts/python.exe -m scripts.export_observer_trace_evidence
+
+The exporter verifies the pinned6048-case rational report and independently
+recomputes all16 toy expectations from the payoff matrix. Ledger
+``generated/observer_trace_evidence.json`` SHA
+ a926388d445b82216f345ae7a96e94c0341353d53b8bb07779cf3386b183d0ac.
+The original observer_evidence exporter and ledger remain unchanged.
+
+Final PDF SHA
+ cddde4e37e0eee599dd18052ce7f2513b1a0ad29f4846516aeb4a10adea8cc7f.
+QA ``runs/manuscript_trace_qa.json`` SHA
+ 22779a344afb31d3c0034390fdbdf5c55f5f663fc2c5e56fd69a56230acdbbd6.
+All21 pages reviewed;24 references and20 embedded fonts;Abstract180 words.
+The condensed conclusion fits page10;the displayed cutoff derivation is on13.
+All previous numerical tokens and8 evidence ledgers verify;no TeX box,glyph,
+reference or page-bound defect remains. Previous20-page PDF is preserved as
+``output/pdf/manuscript_learner_79dd722c.pdf``. The ongoing observer study remains
+outside this revision until its fixed evaluation and audits complete.

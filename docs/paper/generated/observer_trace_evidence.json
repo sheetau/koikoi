@@ -1,0 +1,100 @@
+{
+  "status": "passed",
+  "inputs": {
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\scripts\\diagnose_observer_trace_identity.py": "f08ec53df9bdb192087c9cb6827f5bab4b6609735de60d75e7aa4fe4a8cdb35a",
+    "docs\\OBSERVER_TRACE_IDENTITY.rst": "8bfcffdd0988a5e3c23348e586454c65138bf8099a8a2bd5886fbbe18bce99b1",
+    "scripts\\observer_selfplay_returns.py": "c565c6cfb62bc42de7e89cb7f66546d5764cbc7f09059e6ac51b7cd25c5b8163",
+    "runs\\observer_trace_identity_cpu.json": "830420c471986c33b84bfd3a9a8d2b86f7aaef5bd343637856d4e682b4006d60",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\scripts\\export_observer_trace_evidence.py": "47458d096eaaea60958042c32ae3c189780014241b841885c039d4228bcaac0f"
+  },
+  "outputs": {
+    "docs\\paper\\generated\\observer_trace_constants.tex": "499c61730d5dbdb200ce2a68dca2d93d669f32ab71d1ced07dfced4b2acc6a6e"
+  },
+  "pathwise_exact_cases": 6048,
+  "true_gradient": "3/800",
+  "cross_observer_score_covariance": "-20301/160000",
+  "cutoff_signed_gradient": "-19701/160000",
+  "verified_cases": {
+    "cutoff_observer_lambda0": {
+      "exact_gradient": "3/800",
+      "exact_bias": "0",
+      "cpu_gradient": 0.0037499999999999977
+    },
+    "cutoff_signed_lambda0": {
+      "exact_gradient": "-19701/160000",
+      "exact_bias": "-20301/160000",
+      "cpu_gradient": -0.12313125
+    },
+    "cutoff_observer_lambda37/100": {
+      "exact_gradient": "3/800",
+      "exact_bias": "0",
+      "cpu_gradient": 0.0037499999999999977
+    },
+    "cutoff_signed_lambda37/100": {
+      "exact_gradient": "-19701/160000",
+      "exact_bias": "-20301/160000",
+      "cpu_gradient": -0.12313125
+    },
+    "cutoff_observer_lambda19/20": {
+      "exact_gradient": "3/800",
+      "exact_bias": "0",
+      "cpu_gradient": 0.0037499999999999977
+    },
+    "cutoff_signed_lambda19/20": {
+      "exact_gradient": "-19701/160000",
+      "exact_bias": "-20301/160000",
+      "cpu_gradient": -0.12313125
+    },
+    "cutoff_observer_lambda1": {
+      "exact_gradient": "3/800",
+      "exact_bias": "0",
+      "cpu_gradient": 0.0037499999999999977
+    },
+    "cutoff_signed_lambda1": {
+      "exact_gradient": "-19701/160000",
+      "exact_bias": "-20301/160000",
+      "cpu_gradient": -0.12313125
+    },
+    "terminal_observer_lambda0": {
+      "exact_gradient": "3/800",
+      "exact_bias": "0",
+      "cpu_gradient": 0.0037499999999999977
+    },
+    "terminal_signed_lambda0": {
+      "exact_gradient": "-19701/160000",
+      "exact_bias": "-20301/160000",
+      "cpu_gradient": -0.12313125
+    },
+    "terminal_observer_lambda37/100": {
+      "exact_gradient": "3/800",
+      "exact_bias": "0",
+      "cpu_gradient": 0.00375
+    },
+    "terminal_signed_lambda37/100": {
+      "exact_gradient": "-1218963/16000000",
+      "exact_bias": "-1278963/16000000",
+      "cpu_gradient": -0.07618518689498303
+    },
+    "terminal_observer_lambda19/20": {
+      "exact_gradient": "3/800",
+      "exact_bias": "0",
+      "cpu_gradient": 0.0037500000000000033
+    },
+    "terminal_signed_lambda19/20": {
+      "exact_gradient": "-8301/3200000",
+      "exact_bias": "-20301/3200000",
+      "cpu_gradient": -0.002594064012542356
+    },
+    "terminal_observer_lambda1": {
+      "exact_gradient": "3/800",
+      "exact_bias": "0",
+      "cpu_gradient": 0.0037499999999999964
+    },
+    "terminal_signed_lambda1": {
+      "exact_gradient": "3/800",
+      "exact_bias": "0",
+      "cpu_gradient": 0.0037500000000000033
+    }
+  },
+  "scope": "Exact rational identity and eight-atom expected gradients; CPU return functions and direct autograd. No sampled games, training, search branches or CUDA computation. Standard GAE identity specialized to observer switching, not a new general policy-gradient theorem."
+}

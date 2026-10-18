@@ -4,6 +4,7 @@
 \usepackage{lmodern,amsmath,amssymb,booktabs,array}
 \usepackage[hidelinks]{hyperref}
 \usepackage{microtype,graphicx}
+\input{generated/observer_trace_constants.tex}
 \renewcommand{\topfraction}{0.85}
 \renewcommand{\textfraction}{0.1}
 \renewcommand{\floatpagefraction}{0.8}
@@ -28,8 +29,9 @@ per CPU decision. Against RL-Point, win improvement varies between models and
 expected points favor the point-oriented agent. An exact two-step game then
 shows why correct payoff signs are insufficient for learning: bootstrapping
 through the opponent's observation can make the expected policy update decrease
-true payoff, even with exact conditional critics. Returns between learner
-decisions recover the correct gradient in this example. We verify the calculation
+true payoff, even with exact conditional critics. This failure persists at
+$\lambda=1$ when a rollout ends before termination. Returns between learner
+decisions recover the correct gradient in the complete example. We verify the calculation
 across Python, native CPU and CUDA and implement the construction for fixed-opponent
 Koi-Koi training. A 160,000-match comparison does not meet the primary
 parent-and-response win-gain criterion. In the secondary comparison,
@@ -75,7 +77,8 @@ expected payoff. A shared policy parameter exposes this failure when a target
 uses the opponent's observation and loses the learner's private information
 (Section~\ref{sec:observer}). Using returns between learner decisions corrects
 the example and motivates a Koi-Koi implementation with explicit handling of
-unfinished rollout tails.
+unfinished rollout tails. A nonterminal cutoff can preserve the same failure
+even at $\lambda=1$.
 
 We test this construction against ordinary response training and a
 $\lambda=1$ control using the same two adapted parents and fixed opponents
@@ -430,7 +433,7 @@ averages over $X$, changing the relative targets for the two actions when the
 learner knows $X=0$. This result concerns the population score-function update
 before PPO clipping and empirical advantage normalization.
 
-Three controls recover the true expectation in this game: $\lambda=1$, a
+Three controls recover the true expectation for the complete game: $\lambda=1$, a
 single learner-to-terminal transition, and an intermediate critic conditioned
 on both $X$ and $A$. The Python, native CPU and CUDA implementations reproduce
 the return calculation. The scalar expectation also agrees with direct objective
@@ -439,6 +442,12 @@ learner-decision implementation with explicit tail masks.
 The Koi-Koi match results above use the original signed estimator.
 Section~\ref{sec:learner} compares the return constructions under fixed-opponent
 training.
+
+The $\lambda=1$ cancellation requires reaching termination. Cutting this same
+game after the learner action leaves the opponent-observation bootstrap and
+a negative expected update, even at $\lambda=1$. Retaining the learner history
+restores the correct gradient. Appendix~\ref{app:trace} separates the internal
+bootstrap terms from this rollout-boundary term.
 
 \section{Learning against fixed opponents}
 \label{sec:training}
@@ -550,41 +559,30 @@ absolute point margins against RL-Point. All parent-relative point-change
 intervals include zero.
 
 \section{Limitations and interpretation}
-The strongest supported result is the improvement in match wins against
-assisted RL-WP at both adapted model seeds. RL-Point remains competitive in
-wins and superior in expected points. This objective dependence is a useful
-direction for further work: more aggressive scoring may be valuable when
-trailing, while a leading player can favor decisions that preserve a match win.
-Neither terminal-reward PPO selection nor paired-outcome supervision reliably
-exploits this difference in the completed comparisons. Fixed Point continuation
-improves expected point margin consistently, providing a more specific target
-for future adaptation than treating every expert disagreement alike.
+Both adapted seeds improve match wins against assisted RL-WP. RL-Point remains
+competitive in wins and superior in expected points. Fixed Point continuation
+improves point margin; learned selection and paired-outcome supervision give
+no replicated win gain. Continuation decisions therefore merit further
+point-oriented adaptation.
 
-Two training seeds limit conclusions about robustness across optimization
-runs. The broader development program also includes many unsuccessful
-interventions, which are retained in the experiment ledger. Held-out deals
-support the reported endpoint comparisons, while additional seeds and opponents
-are needed to assess generality. Exploitability and human performance remain
-unmeasured. The temperature comparison changes learning rate simultaneously,
-and latency describes one machine and a cached random-play workload.
+Two training seeds and fixed opponents limit generality: held-out deals measure
+endpoint performance, not robustness across optimization runs. The ledger
+retains unsuccessful experiments. Exploitability and human performance are
+unmeasured. Temperature and learning rate change jointly, and latency covers
+one machine and a cached random-play workload.
 
 \section{Conclusion}
 Terminal-match self-play improves the published Koi-Koi win policy at both
-adapted model seeds, while preserving its architecture and fast greedy
-inference. RL-Point provides a complementary test: the improvement in match
-wins does not imply an advantage in expected points. Fixed Point continuation
-recovers part of that scoring deficit, whereas the completed learned-selection
-and direct-opponent comparisons give no replicated match-win gain.
+adapted seeds while preserving its architecture and greedy inference. RL-Point
+remains stronger in expected points, where fixed Point continuation supplies
+a complementary benefit.
 
-The exact critic-conditioning example establishes a second result. A return
-that crosses to another player's observation can lose information needed by
-the learner's action value. Under a shared-parameter policy, even exact
-conditional critics then produce an expected update that reduces true payoff.
-Learner-decision returns correct the example and outperform the $\lambda=1$
-control against RL-Point at both model seeds. The primary parent-and-response
-win-gain criterion remains unmet. The comparison identifies the practical
-requirement for further return design: preserve the learner's information while
-establishing improvement over the retained strong actors.
+Our exact shared-parameter game demonstrates that cross-player critic
+conditioning can make an expected update reduce true payoff despite exact
+conditional values, even at $\lambda=1$ with a truncated rollout.
+Learner-decision returns correct the complete example. In Koi-Koi they outperform
+$\lambda=1$ against RL-Point at both seeds but do not meet the primary
+parent-and-response win-gain criterion.
 
 \appendix
 \section{Reproduction and evidence}
@@ -599,7 +597,9 @@ related work, completed PPO and paired-supervision comparisons, and the
 subsequent fitting diagnostics, followed by the completed direct-response
 and learner-return comparisons. It also adds the exact critic-conditioning
 analysis and its CPU/CUDA verification, bound in
-\path{docs/paper/generated/observer_evidence.json}.
+\path{docs/paper/generated/observer_evidence.json}. The finite-cutoff extension
+and its exact fractions are bound in
+\path{docs/paper/generated/observer_trace_evidence.json}.
 
 The machine-readable evidence ledger,
 \path{docs/paper/generated/evidence.json}, binds the completed studies'
@@ -659,6 +659,7 @@ including unsuccessful experiments, is retained in \path{docs/EXPERIMENTS.md}.
 
 \section{Observer-bootstrap calculation and learner-decision returns}
 \label{app:observer}
+\subsection{Exact terminal-game calculation}
 At the uniform policy, $v_x=(\mu_{x0}+\mu_{x1})/2$ and
 $m_a=(\mu_{0a}+\mu_{1a})/2$. The learner's immediate reward is zero and the
 opponent's terminal reward is $-R$. The first residual is $m_A-v_X$; the second
@@ -713,6 +714,61 @@ uses rational outcome enumeration and direct scalar autograd. It reruns the
 Python/native CPU calculation and projects the pinned earlier CPU/CUDA gradients
 by $(1,-1/100)$; it performs no additional CUDA computation. The evidence ledger
 binds both calculations and their exact source files.
+
+\subsection{Internal and boundary bootstrap terms}
+\label{app:trace}
+The standard GAE expansion \cite{schulman2015gae} identifies the effect of
+an observer change at any rollout position. Fix a root action by seat $i$,
+use $\gamma=1$, and express rewards $r_k$ and values in that seat's payoff
+units. If $p_k$ is the active seat, write
+$W_k=(-1)^{i+p_k}V_k^{p_k}$ and let $G_k$ be the realized return through match
+termination, including any suffix beyond the $n$-step rollout. Thus
+$G_k=r_k+G_{k+1}$. Consecutive player-change signs telescope to $(-1)^{i+p_k}$,
+including repeated actions by the same player. With $e_k=W_k-G_k$,
+\begin{align}
+ \widehat A_\lambda
+ &=\sum_{k=0}^{n-1}\lambda^k(r_k+W_{k+1}-W_k)\\
+ &=G_0-W_0+(1-\lambda)\sum_{k=1}^{n-1}\lambda^{k-1}e_k
+   +\lambda^{n-1}e_n.\label{eq:trace-error}
+\end{align}
+This pathwise identity follows by substituting $r_k=G_k-G_{k+1}$ and
+collecting coefficients; $0^0=1$. A terminal boundary has $W_n=G_n=0$.
+A nonterminal cutoff generally retains $e_n$, including when $\lambda=1$.
+
+Let $S_0=\nabla\log\pi_i(a_0\mid H_0^i)$, hold the opponent policy fixed,
+and treat targets as constants. If $W_0$ is action-independent given the
+root policy information, multiplying the last two terms of
+Equation~\ref{eq:trace-error} by $S_0$ and taking expectations gives the
+error in this root score contribution. Exactness conditional on the active
+opponent's observation need not make $\mathbb E[S_0e_k]$ zero. In contrast,
+let $U_k=\mathbb E[G_k\mid H_k^i]$ use the root player's full history,
+including its root action. When $S_0$ is measurable in $H_k^i$,
+\begin{equation}
+ \mathbb E[S_0(U_k-G_k)]
+ =\mathbb E[S_0\,\mathbb E[U_k-G_k\mid H_k^i]]=0.
+\end{equation}
+The same argument applies at a nonterminal cutoff and requires no opponent
+hand. Finite feature vectors need not retain this history. The calculation
+concerns one player's score contribution; updating both seats of a shared
+zero-sum policy does not turn their identically zero total payoff into a
+joint improvement objective.
+
+For the scalar example, cut the rollout immediately after the learner action.
+Exact enumeration gives
+\begin{align}
+ \mathbb E[S_0(m_A-\mu_{XA})]&=\TraceScoreCovariance,\\
+ g_{\rm cutoff}(\lambda)&=\TraceSignedCutoff,\qquad 0\leq\lambda\leq1.
+\end{align}
+The true gradient and the exact learner-history update are both $3/800$.
+The diagnostic
+\path{scripts/diagnose_observer_trace_identity.py} verifies the pathwise
+identity in \TraceExactCases{} rational cases and all 16 combinations of
+terminal/cutoff, return construction and tested $\lambda$ values. CPU returns
+agree within $1.513\times10^{-9}$. This establishes the cutoff failure in the
+example; attributing a Koi-Koi performance difference to that mechanism
+requires a separate controlled comparison.
+
+\subsection{Learner-decision implementation}
 
 The companion \path{scripts/learner_returns.py} accumulates fixed-opponent
 transitions from a learner action to its next observation or match termination.
