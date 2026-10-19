@@ -6519,3 +6519,48 @@ Main root:runs/point_initialization_evaluation. Queue stage receipts record
 prepare exit0 and evaluate started; the queue owns later evaluation and audit.
 Do not launch duplicate workers or change frozen inputs. No full main outcome
 summary, qualification decision, export or deployment change exists yet.
+
+## 2026-10-20: final Point endpoint mechanism measured before main outcomes
+
+Added a separate fixed-input diagnostic for the six new initialization-study
+endpoints. docs/POINT_INITIALIZATION_MECHANISM.rst fixes the population and all
+phase-wise probability/score/action summaries before scoring. No main outcome
+means are inspected. Use only old nonnegative sourceIDs modulo4==3:25groups,
+3,258rows and3,045unforced choices. No final snapshots or selected phases.
+OriginalWP/Point CPU scores are reused; public feature oracle hashes, masks and
+endgame guards are checked before the six singletonCPU2 endpoint scorings.
+
+Three tests pass0skips in1.49s, covering allfour declared divisors, scalar math,
+correct own-initialization references, score-rescaling invariance, negative-source
+and forced-choice exclusions, paired disagreements and exclusive writes. Ruff
+passes. XML runs/point_initialization_mechanism_tests.xml SHA
+0d423bb7580bf08489d92d2170b3bd4738787f51a828649c96033b4038538fab.
+
+Prepared fresh root runs/point_initialization_mechanism. Protocol
+cb4fdf6236f7e6cb74210ce663bac29a6b2536e5aff41fbc320ad21290a83b04 binds194inputs,
+including all187main evaluation inputs and new diagnostic sources/tests/spec.
+Producer session64947 exits0 after18,270singletonneural calls (6x3,045), zero
+simulator transitions, new matches or updates. Report
+36e66a1aaea7f0179a505558ca2d254dcb827bbe31b4060cc76c03d910373f6a;
+scores1a3ec3324dee6bae91cf69d60162e3e1113d11ee8b892a17ac8c7b02ff0aff54.
+Independent population/mask, float32 argmax and scalar entropy/gap/count checks
+pass for all9settings x4phases; archived initial statistics also match the
+frozen calibration. Audit892486fa2f44efcdca5d93978cfce913fc8e8ff2bdbeccd2573fd3ad1aca257f
+binds198inputs and adds no neural calls or simulator transitions. This is not
+independent neural replay or playing-strength evidence.
+
+At both seeds and all phases, calibratedPoint keeps greater declared-divisor
+entropy than fixedPoint, while common0.05 entropy is lower and mean raw gaps
+are larger. Final calibrated entropy is below its initial calibrated value in
+all8phase/seed comparisons. On215koi inputs, calibrated/fixed greedy actions
+differ at only3/6 inputs; on2,578discard inputs they differ at232/200. These
+measurements separate probability changes from greedy-action changes but do
+not attribute effects to exploration versus gradient scaling or show better
+play. docs/POINT_INITIALIZATION_MECHANISM_RESULTS.rst includes all36probability
+rows, all36action-change rows and all6paired-disagreement rows. The complete
+JSON retains full precision and all probability statistics.
+
+Main evaluator53480, queue42304 and initial workers66036/2820 remain OS-live;
+records continue to increase. No main result summary or deployment change.
+Diagnostic sources/tests/inputs are now frozen. Do not rerun this closed
+scoring or the earlier closed koi-temperature diagnostic.

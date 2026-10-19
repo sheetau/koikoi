@@ -207,6 +207,32 @@ prove absence of unrecorded/implicit schedules. ScanSHA
  dfa5688894853738b608b0c79c530027cc6a0e7dc0854d54b1b932244aa98e68.
 Initialization alone is not a new method;the broader objective stays unachieved.
 
+**Completed final-policy Point mechanism diagnostic.**
+[Results](POINT_INITIALIZATION_MECHANISM_RESULTS.rst) report all six endpoints
+and three initial reference settings on the old25validation source groups:
+3,258rows,3,045unforced choices. Six models make18,270singletonCPU2 calls;
+originalWP/Point scores are reused. Zero new matches, simulator steps or learning.
+The producer session64947 exits0; the independent scalar/population audit passes.
+
+At both seeds and every phase, calibratedPoint has higher entropy at its declared
+divisor than fixedPoint, but lower entropy under common0.05 and larger raw top-two
+score gaps. Its declared entropy falls below its initial calibrated value in
+all eight phase/seed comparisons. The calibration's probability effect persists
+on these inputs; this does not establish equal exploration or better decisions.
+Greedy calibrated-versus-fixed Point disagreement is232/200 of2,578discard
+inputs and3/6 of215koi inputs. All phases/paired counts are reported, without
+confidence intervals or strength conclusions from the reused correlated inputs.
+Main full-match outcomes have not been inspected or used in this diagnostic.
+
+Root runs/point_initialization_mechanism; protocol
+cb4fdf6236f7e6cb74210ce663bac29a6b2536e5aff41fbc320ad21290a83b04 binds194inputs.
+Report36e66a1aaea7f0179a505558ca2d254dcb827bbe31b4060cc76c03d910373f6a;
+audit892486fa2f44efcdca5d93978cfce913fc8e8ff2bdbeccd2573fd3ad1aca257f binds198.
+Three focused tests pass0skips(1.49s);Ruffpasses. TestXML SHA
+0d423bb7580bf08489d92d2170b3bd4738787f51a828649c96033b4038538fab.
+Freeze these completed sources/tests/inputs and do not rerun their networks.
+Main evaluation and canonical deployment are unchanged; full results are pending.
+
 Completed [initialization diagnostic](PUBLISHED_INITIALIZATION_COMPARISON.rst):
 all28stored published configs use WP. Archived Point scores atT0.05 have lower
 normalized entropy(koi0.028503 versusWP0.199169 on215old inputs). A naive
