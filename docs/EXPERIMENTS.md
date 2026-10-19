@@ -6410,3 +6410,39 @@ only, adding zero inference, simulation or training. No playing-strength claim.
 At03:20JST actual learning23676 and completion queue42304 remain live. Three
 of six arms are complete; outcome evaluation has not started. The fixed study
 continues without endpoint selection, protocol changes or deployment changes.
+
+## 2026-10-20: second-seed WP complete; second Point learner starts
+
+seed2_wp_fixed completes520updates in original process23676:
+8,519,680decisions /572,238round endings /73,449training matches. Its final
+saved-state audit passes the pinned source/initialization, finite tensors,
+metrics prefix, simulator counts and actual Adam steps/moments. Value Adam
+has49,920steps; actor heads48,000each. Final model
+447a8699c54428737d70d1d8a0a02bf6bacd6d999c297c9cbaeb1691768bde75;
+actor f6967444d47f632e84337556969148ab7cb46851085b08bc1fc006335d43011e;
+metrics547241d25f4d6911ec1151554e30bc964df032734c971e0785804c40b7bd32c1;
+final auditb4663b0907442d7081a382123e106f19d65800a04330d3ba04e37b34eb4ff4f4.
+Four complete arms total34,078,720decisions /2,272,432round endings /
+293,423training matches /2,080updates, including warmup once.
+
+The same process starts seed2_point_fixed. Its20-update warmup passes:
+327,680decisions /21,127round endings /2,709matches, originalPointactor
+unchanged, valueAdam1,920steps and actorAdam0. Initial
+156ff62138eff67dc215cbc4c3b4938fb6f7ffe72e86d276168f522cdbf17e01;
+warmup f4966aca4d10a6d23daa357aea0242388d17af2f65983f9d06a374b1a88a5be6;
+audit5d91232ac7da036807b0af69acf99c072dac9dbd852f293cb5b40a4be8f79e99.
+Both new snapshots are checked once with the unchanged
+scripts.audit_point_initialization_checkpoint CLI and fresh output receipts.
+
+The bound recursive assert_equal and tensor_digest helpers compare the actual
+second-seed initial WP/Point snapshots: critic, optimizer, environment, counters,
+runtime and all four RNG states are equal. The only configuration difference is
+initial_variant; each initial actor tensor digest equals its declared original.
+Receipt runs/point_initialization_study/seed2_wp_point_initial_check.json
+SHA2e56c4a4f7ac573507d52c812844c4480da8ec56cdf15cb697ec0b5d04e1c6fe binds both
+initial files, main protocol and three comparison/wrapper source files. These
+saved-state checks add zero neural calls, simulator decisions or training.
+
+Four of six arms are complete; final strength evaluation remains unstarted.
+Learning23676 and completion queue42304 are OS-live. Continue the two remaining
+Point arms with all frozen inputs unchanged; no selection, rerun or promotion.

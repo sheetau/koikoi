@@ -114,12 +114,25 @@ phase_temperatures. Receipt seed1_three_initial_check.json SHA
 These saved-state checks add no inference or simulator work and establish
 neither equal exploration/gradients nor playing strength.
 
-The same process now trains seed2_wp_fixed (seed102210001). Its20-update warmup
-passes:327,680decisions /22,102rounds /2,774matches, originalWPactorunchanged,
-valueAdam1,920steps and actorAdam0. Warmup checkpoint
-b4bca0c6c372d248f0dda17c668a4079867b4109efbbe448ed11578deb9399d6;
-audit293bac5093b42d873b44bda13048e777a8a59ae3abae9c07208e3caba6cf2369.
-Three of six arms are complete. No outcome evaluation has started.
+The second-seed WP arm also completes520updates and passes its final audit:
+8,519,680decisions /572,238round endings /73,449training matches. Model
+447a8699c54428737d70d1d8a0a02bf6bacd6d999c297c9cbaeb1691768bde75;
+final auditb4663b0907442d7081a382123e106f19d65800a04330d3ba04e37b34eb4ff4f4.
+All four completed arms total34,078,720decisions /2,272,432round endings /
+293,423training matches /2,080updates; warmup is included once.
+
+The same process now trains seed2_point_fixed (seed102210001). Its20-update
+warmup passes:327,680decisions /21,127rounds /2,709matches, originalPointactor
+unchanged, valueAdam1,920steps and actorAdam0. Warmup model
+f4966aca4d10a6d23daa357aea0242388d17af2f65983f9d06a374b1a88a5be6;
+audit5d91232ac7da036807b0af69acf99c072dac9dbd852f293cb5b40a4be8f79e99.
+The actual second-seed WP/Point initial snapshots have exactly equal critic,
+optimizer, environment, counters, runtime and all four RNG states. Only
+initial_variant differs in their configs; both tensor digests match declared
+original actors. Receipt seed2_wp_point_initial_check.json SHA
+2e56c4a4f7ac573507d52c812844c4480da8ec56cdf15cb697ec0b5d04e1c6fe.
+These are zero-inference saved-state checks, not playing-strength evidence.
+Four of six arms are complete. No outcome evaluation has started.
 Actual learningPID23676 and queuePID42304 remain OS-live.
 Protocol
  defd0e993e2c85efb844164b0c1edfa4ac6bae917c31ea6a6eb33d7ba4618048 binds102inputs,
