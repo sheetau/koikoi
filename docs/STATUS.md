@@ -168,12 +168,21 @@ Main evaluation root runs/point_initialization_evaluation now exists.
 Protocol SHA1df245b6fea1799c0ed9f91518642ccb3d1e4bf9c0f7e682a1208819e609b7e7
 binds187inputs and all12training audits. The16cells use4,096paired deals per
 opponent,131,072planned matches, and the previously fixed bootstrap family.
-Evaluator launcher6284/actual53480 starts04:45:17JST. First workers
-parent1_parent_wp launcher6596/actual66036 and parent1_parent_point
-launcher9624/actual2820 start04:45:19JST and are producing complete match rows.
-These worker PIDs apply only to the first two cells; the parent owns later ones.
-Track process handles and newline-terminated record counts without interpreting
-partial outcomes. Final results and main replay/statistics audit are pending.
+Evaluator launcher6284/actual53480 started04:45:17JST and remains live.
+First cells parent1_parent_wp and parent1_parent_point each finish8,192matches;
+original workers66036/2820 are gone. Their producer-reported totals are
+16,384matches /1,896,665decisions /127,363round endings. Receipt hashes, raw-file
+hashes, row counts and protocol/checkpoint identity agree. This is producer
+completion, not the later native-action/statistics audit or strength evidence.
+
+At05:22JST the next workers are OS-live: parent1_wp_fixed_wp
+launcher61796/actual44684, and parent1_wp_fixed_point launcher12624/actual18512.
+Both write new complete-match records. Two of16cells are complete; do not rerun
+them. Later worker IDs are owned by evaluator53480 and must be rediscovered.
+Monitor evaluation_complete.json/evaluation_failed.json in the evaluation root,
+and complete.json/failed.json in the completion-queue root. Track actual process
+handles and newline-terminated row counts without interpreting partial outcomes.
+Final results and the main native-action/statistics audit remain pending.
 
 The complete-only Point result exporter is ready:
 scripts/export_point_initialization_results.py. It requires the pinned training

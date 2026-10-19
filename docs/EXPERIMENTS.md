@@ -6564,3 +6564,28 @@ Main evaluator53480, queue42304 and initial workers66036/2820 remain OS-live;
 records continue to increase. No main result summary or deployment change.
 Diagnostic sources/tests/inputs are now frozen. Do not rerun this closed
 scoring or the earlier closed koi-temperature diagnostic.
+
+## 2026-10-20: first two Point-study evaluation cells complete
+
+parent1_parent_wp and parent1_parent_point each finish the fixed8,192matches.
+The evaluator observes both workers exit0 and launches the next two cells.
+Original actual workers66036/2820 are gone; completed files must not be rerun.
+Producer-reported work is942,355decisions /64,147round endings againstWP and
+954,310decisions /63,216round endings againstPoint. Total16,384matches /
+1,896,665decisions /127,363round endings. Hash/identity checks verify receipts
+against their8,192newline-terminated rows and unchanged protocol/checkpoint.
+These checks are not the later native replay/statistical audit.
+
+WP cell receipt6306aba277f1f5adae0abb7087cf7a1c264247a53772a50f8f46a870470436c6;
+rows6795ce597189fbd609fe6bda0f10d56c2fc20b6459fe609be4a940f805983b3d.
+Point cell receiptb015ac468b0c4fe7c5a40a9194f94b5e47b045939d7b1bf8c5730406806b2917;
+rows395efc6b04b5f0dd092c000382b5f3d794e6e417a30f41fb940d0079282c5ddd.
+No partial win or point means are inspected.
+
+At05:22JST parent1_wp_fixed_wp launcher61796/actual44684 and
+parent1_wp_fixed_point launcher12624/actual18512 are OS-live and appending
+complete-match rows. Evaluator53480 and queue42304/session25193 remain live.
+Two of16cells are complete. Monitor the actual evaluator terminal filenames
+(evaluation_complete.json/evaluation_failed.json), separately from queue
+complete.json/failed.json. All frozen inputs and canonical deployment remain
+unchanged; full outcomes, independent audit and qualification are pending.
