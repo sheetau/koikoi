@@ -15,7 +15,7 @@ Old process handles mentioned in that history are historical, not live jobs.
 [Fixed design](PUBLISHED_DURATION_STUDY.rst),runner
 scripts/published_duration_study.py. Session99216,actual PID32540(parent18152)
 verified live by same-session polling and Win32_Process. Current first seed
-99110001 is at update57/4,020:933,888 decisions/63,010 rounds/8,017 completed
+99110001 is at update374/4,020:6,127,616 decisions/410,806 rounds/52,796 completed
 matches. These are training counters,not strength evidence. Seed99210001 starts
 sequentially after the first finishes. Never restart from a timeout or old handle.
 
@@ -32,10 +32,29 @@ on8,192 shared99M deals. Primary:both seeds' long-minus-short AND long-minus-
 retained-parent equal-mixture win lower bounds must be positive in one four-
 contrast simultaneous95% bootstrap family. All opponent/point results remain
 reported. Only the fixed endpoints are evaluated.101M confirmation stays unused.
-Evaluation/analysis orchestration is not yet implemented;prepare it while this
-unchanged training runs. Also integrate completed temperature/directional
-findings concisely into Related Work/results during the next substantive paper
-revision,with full PDF rendering/QA;the current verified PDF is unchanged.
+Evaluation and independent replay/statistics are implemented and capability-
+verified. scripts/evaluate_published_duration.py refuses main preparation until
+both learners finish and saved20/520/4,020 accounting audits pass. It binds all
+endpoint bytes and runs at most two owned CPU workers. A failure stops owned
+workers and preserves partial files;existing executions cannot silently restart.
+No main evaluation or automatic queue has started. Once training completes::
+
+    python -m scripts.evaluate_published_duration prepare --output runs/published_duration_evaluation
+    python -m scripts.evaluate_published_duration run --protocol runs/published_duration_evaluation/evaluation_protocol.json
+    python -m scripts.audit_published_duration_evaluation --input runs/published_duration_evaluation
+
+Capability48 actual matches on4 shared deals completes:5,487 decisions/383 rounds.
+OriginalWP fixtures fill short/long slots;these are not trained endpoint scores.
+Native CPU replay verifies every action,initial/final state and point/work row.
+Separate scalar block construction and resampling verify all72 marginal result
+coordinates and the four simultaneous primary bands. Four tests pass0 skips:
+independent expanded-row statistics,draw/zero-variance/one-seed gates,seat/deal
+schedule and replay corruption,plus incomplete-training refusal. No inference
+rerun is claimed. All103 audit bindings and67 live training inputs verify.
+Capability audit ee47f2ae3c362365a1d1542c868cd90d3dc53c810586e73ae74b66a18e73cef1;
+readiness7708a4a90f1555fd9642fa94e5ff86a7a29798f973010c2e8e75a92d5c914af0.
+Keep the completed capability and evaluation sources frozen. The manuscript now
+integrates the completed temperature/directional studies;see Latest manuscript.
 
 Before launch,the actual CUDA capability tests production tensor shapes with a
 shortened warmup,actor stationarity/movement and exact saved-next-update model,
@@ -146,7 +165,8 @@ Do not repeat the closed return-decay or temperature sweeps. Existing paired
 rollout selectors already used same-world branch outcomes,including larger-data
 and opponent-preserving controls;do not relabel that method as a new direction.
 The stronger-play objective remains active and unachieved. Canonical play,
-dealer,reserved101M confirmation and the verified manuscript/PDF are unchanged.
+dealer and reserved101M confirmation are unchanged. The later manuscript
+revision below incorporates this completed diagnostic.
 
 **Renewed-chance comparison independently complete:** allfour520-update arms,
 40,960matches and full replay/statistics audit pass. Producer58904/queue65372
@@ -536,22 +556,30 @@ their empirical fixes did not establish replicated Koi-Koi win improvement.
 
 ## Latest manuscript
 
-**Latest verified manuscript:**29pages,31references,145-word Abstract,20embedded
-fonts. Includes the completed40,960-match renewed-chance comparison and four
-primary contrasts;strength,memory and interaction replication allfail. All66
-contrasts/accounting remain in the bound ledger. Abstract/Introduction and
-Conclusion agree with fixed/renewed outcomes. Conclusion shortened182->128words
-in three paragraphs;body results and all previous numeric tokens retained.
-Bibliography contents/font size unchanged;local item spacing removes an
-isolated final reference page. New exporter verifies375inputs;full QA verifies
-956evidence inputs and66live diagnostic bindings. All29pages rendered/contact-
-reviewed,pages1/15/16/17/29 fullsize;no layout,glyph,reference or page-bound defects.
-PDFea8073cbd5197820fb6f737055eb324adea49f0907f1f4eb325a103b074a9e6b;
-sourcebee2dc10a52f02e9ec168cc800f9ae80b89a425da6e6ab283877ac7a5c568b56;
-QA runs/manuscript_renewal_qa.json SHA038c62b5048139662f1788d4b68860c74c3f1e15d9f845800f4b7c4378a3b745.
-Prior PDF output/pdf/manuscript_before_renewal_dfa9122e.pdf is preserved. Current-
-hand inference remains a development diagnostic and supplies no new playing-
-strength claim. Canonical human model and dealer are unchanged.
+**Latest verified manuscript:**31pages,34references,161-word Abstract,21embedded
+fonts. Added policy-distillation,discrete-SAC and target-entropy references with
+primary-source metadata;Section2.2 distinguishes the established methods from
+the fixed continuation-temperature intervention. AppendixC.3 reports allfour
+failed primary contrasts and the measured probability changes. Section7.1
+connects the exact finite counterexample to the8,192-match directional diagnostic:
+all10 MC and30 estimator-difference bands includezero. Abstract/Introduction
+state that empirical scope directly. No new strength or duration outcome is added.
+
+Conclusion is103words in three paragraphs and fits page17. A float barrier
+keeps supplementary tables before references. Every previous numeric token value
+is retained. New evidence manifest binds328inputs;QA verifies the1,214-input union
+and67live training bindings. All31pages contact-reviewed;pages1/2/9/23/24 reviewed
+full size. First16final rendered pages are pixel-identical to their reviewed
+initial render. Fonts,citations,page bounds and box/glyph logs pass.
+PDF6e8b43ad042dd5df55a2763636bf3248ea1dd93927dd73c44ee5fc59aa2f53c6;
+sourcefedfb016274e1ce83c5279cbc1dc52b0fa7c6f1ce6b7adcd632dad7641f12192;
+bibliographydd702f28fb9c7d49ec33ceaabd19672268e6fa3c57d5aadadec61292ceb7ad08.
+QA runs/manuscript_temperature_directional_qa.json
+SHA16cb66196fa4de1560f82eb90f6fdd9ae46586124d2ad8b850bb44719765a7da.
+Previous PDF/TeX/bibliography preserved in runs/manuscript_return_temperature_previous.
+Renderer:system Python3.14 with external/pdf_render on sys.path for PyMuPDF,
+plus installed Pillow;training remains exclusively the .venv Python3.12 runtime.
+The PDF-skill artifact marker already ran earlier;never repeat it.
 
 ## Local human-play delivery
 

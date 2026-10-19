@@ -95,8 +95,9 @@ separately from the established temperature-control principles.
 Integration status
 ------------------
 
-This is a literature note and a candidate paragraph, not a change to the
-verified manuscript or PDF. The pending comparison has not supplied a strength
-result. Bibliography entries and a final result paragraph should be integrated
-together once the independently audited study is complete. No new claim of
-priority, exhaustive literature coverage or general learning guarantees is made.
+The three references and method comparison are now integrated into manuscript
+Section2.2. AppendixC.3 reports the independently completed negative comparison,
+including allfour primary intervals and the final-policy entropy diagnostic.
+The earlier prospective language above records the questions before completion;
+it does not describe a pending strength result. Temperature conversion or entropy
+control alone is not claimed as a new general algorithm.

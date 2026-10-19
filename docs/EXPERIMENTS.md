@@ -5460,3 +5460,101 @@ fd6725cf40f704fc86653a0b8afa403712a556de83da3f65a24592fac442dbf5.
 All67 live training bindings reverify unchanged. No canonical player,dealer,
 reserved final range or verified manuscript/PDF change. Continue evaluation/
 analysis preparation and concise paper integration during the fixed training.
+
+## 2026-10-19: duration evaluation capability and completed-study paper revision
+
+Previous goal turn was progress:the fixed duration study was committed/launched
+and actual warmup artifacts passed independent checks. At this turn's start,
+PID32540(parent18152),session99216 is confirmed live;first seed isupdate94.
+No restart or training condition change. Latest verified progress update374:
+6,127,616 decisions/410,806 rounds/52,796 matches,20warm+354policy. These counts
+are training work and supply no strength result. Seed2 remains queued inside
+the same sequential runner;all67 bound training inputs remain unchanged.
+
+Added scripts/published_duration_analysis.py,evaluate_published_duration.py and
+audit_published_duration_evaluation.py. Analysis retains parent,policy,opponent,
+deal and seat axes. The four predeclared primary equal-mixture contrasts reuse
+the tested fixed-SE simultaneous-band implementation. Seventy-two descriptive
+absolute/contrast win/point coordinates receive marginal percentile intervals
+from the same compound-block resampling schedule. No secondary statistic can
+replace the primary conjunction. Degenerate contrasts receive no sign claim.
+
+The evaluation preparer requires both complete4,020-update learners and checks
+all20/520/4,020 saved checkpoints with immutable metric-prefix and optimizer
+accounting. Main endpoints/comparators are pinned before any new match. Strict
+singleton greedyCPU2thread inference follows public-endgame paper8 semantics.
+A maximum of two explicitly owned subprocesses handles twelve cells. On failure,
+only owned live workers are terminated and partial outputs are preserved. An
+existing execution cannot silently restart. No main evaluation or automatic
+queue is started in this turn;commands are preserved in readiness and STATUS.
+
+Four targeted tests pass0 skips,1.50s;Ruff passes. Independent expanded-row
+resampling checks the actual four-coordinate primary family and secondary
+intervals. Other fixtures cover draws,zero-variance intervals,one-seed-only
+gains,seat/deal enumeration,reference/native replay corruption and refusal of
+main preparation during incomplete training. Test XML
+7f6706b2ec5f2fd7da7e2ba8450e7cc466b761f5b756a3198f144fb60811eed5.
+
+Actual evaluation capability executes all12 cells with2 duplicate pairs each:
+48 full matches/383 rounds/5,487 decisions on4 shared initial deals. Short/long
+fixtures use originalWP;retained parent fixtures use both actual checkpoints.
+Every originalWP-vs-WP pair has zero combined point difference,and identical
+short/long fixtures agree against Point. Capability session41141 exits0. Every
+recorded action replays on native CPU against the Python-reference producer's
+initial/final states. Allpoint/work rows match. Separate scalar seat/opponent
+sums,37-replicate bootstrap chunks and explicit quantile interpolation reproduce
+all72 descriptive intervals and four simultaneous bands. Neural inference is
+not independently rerun;replay adds no independent matches. Capability does not
+represent a trained short/long comparison or qualify any stronger model.
+
+Capability protocol22d952e1fe70970e70bac5c3aba41ed8ccb3d42b04bc51d3d5b560b484ad7aef;
+audit ee47f2ae3c362365a1d1542c868cd90d3dc53c810586e73ae74b66a18e73cef1 binds103inputs.
+Readiness runs/published_duration_evaluation_ready.json
+7708a4a90f1555fd9642fa94e5ff86a7a29798f973010c2e8e75a92d5c914af0 records commands.
+All103 evaluation-capability and67 live-training inputs reverified. Keep these
+completed capability/source artifacts unchanged while the main learner runs.
+
+Paper revision:rechecked primary arXiv metadata for Rusu et al.Policy Distillation
+1511.06295v2,Christodoulou discreteSAC1910.07207v2,and Xu et al.target entropy
+2112.02852v1. Earlier full-text notes supply the method comparison. Added their
+bibliography entries and a concise Related Work subsection distinguishing direct
+inherited-actor PPO from teacher-distribution matching and soft-return entropy
+control. These established principles are not claimed novel. Updated the
+literature note's integration status;no bound training input is affected.
+
+AppendixC.3 now gives the completed temperature study's four primary mixture
+intervals,49,152-match budget and215-input entropy diagnostic. Section7.1 adds
+the completed five-direction8,192-match measurement,its local exponential-tilt
+estimand,70-coordinate simultaneous family and all-MC/all-difference null bands.
+Abstract/Introduction directly distinguish the finite-game reversal from its
+inconclusive actual-game test. No duration-study outcome is added. The paper
+continues to lead with the measured retained WP adaptation gain,not an unverified
+new strongest-agent claim. Conclusion is shortened to103words while retaining
+the measured contributions. Every prior numeric token value remains elsewhere
+in the manuscript. The full goal is still active and unachieved.
+
+New generated/temperature_directional_evidence.json binds328inputs and hashes to
+cf19b275069e67b9bafa83574a7cdfb31a7bae54acbfbb8a3763d4f90c51ac3f.
+The initial export attempt referred to mechanism/audit.json instead of its actual
+independent_audit.json;corrected the read path before writing the manifest. The
+verified union contains1,214inputs,including all956 prior evidence bindings.
+The existing artifact marker was not repeated. Tectonic builds successfully;
+its Fontconfig environment notice does not leave missing or unembedded fonts.
+An initial layout split the conclusion and let a table float into references.
+Condensed conclusion plus a bibliography float barrier fix both;body font sizes
+are unchanged. Final31pages are rendered with PyMuPDF(globalPython3.14,
+external/pdf_render) and Pillow. Allpages contact-reviewed,changed pages1/2/9/23/24
+full-size reviewed. First16final page images are byte-identical to the earlier
+reviewed render. No box/glyph warnings,unresolved citations,page-bound overflow,
+clipping,overlap or orphan headings remain;all21fonts embedded,34references
+resolve. Abstract161words;no current inference or latency timing is claimed.
+
+Final PDF6e8b43ad042dd5df55a2763636bf3248ea1dd93927dd73c44ee5fc59aa2f53c6;
+TeXfedfb016274e1ce83c5279cbc1dc52b0fa7c6f1ce6b7adcd632dad7641f12192;
+bibdd702f28fb9c7d49ec33ceaabd19672268e6fa3c57d5aadadec61292ceb7ad08.
+QA runs/manuscript_temperature_directional_qa.json
+16cb66196fa4de1560f82eb90f6fdd9ae46586124d2ad8b850bb44719765a7da.
+Prior files preserved in runs/manuscript_return_temperature_previous. Canonical
+player,dealer and101M final confirmation remain unchanged. Next monitor the
+actual duration process,verify planned saved stages and execute the fixed
+prepared evaluation only after both training runs complete.

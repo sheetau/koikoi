@@ -3,7 +3,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{lmodern,amsmath,amssymb,booktabs,array}
 \usepackage[hidelinks]{hyperref}
-\usepackage{microtype,graphicx}
+\usepackage{microtype,graphicx,placeins}
 \input{generated/observer_trace_constants.tex}
 \renewcommand{\topfraction}{0.85}
 \renewcommand{\textfraction}{0.1}
@@ -25,9 +25,11 @@ additional decisions each, two adapted agents achieve 51.480\% and 51.445\%
 draw-adjusted wins against assisted RL-WP on 10,000 held-out duplicate deals;
 both 95\% intervals exclude 50\%. The canonical agent averages 1.585 ms per
 CPU decision. RL-Point remains competitive in wins and superior in expected
-points. We also construct an exact counterexample in which switching to the
-opponent's critic reverses the expected policy update despite exact conditional
-values. Learner-decision returns correct the complete example. An audit of
+points. An exact shared-parameter counterexample shows that switching to the
+opponent's critic can reverse the expected policy update despite exact conditional
+values. Learner-decision returns correct the complete example. Five public
+policy-direction probes on 8,192 Koi-Koi matches do not establish this reversal
+in the retained agents. An audit of
 the Koi-Koi representation identifies an omitted public-seat distinction,
 and reconstruction of earlier inputs from completed public hands identifies
 the fixed WP/Point opponent in 86.1\% of natural final-round starts. Controlled
@@ -65,6 +67,9 @@ earlier action. A nonterminal rollout cutoff preserves the failure even at
 $\lambda=1$. Returns between learner decisions correct the complete example
 (Section~\ref{sec:observer}). We implement these returns and a fixed-observer
 alternative, which keeps the learner's viewpoint through every primitive step.
+We also measure score-weighted return contributions in the retained agents on
+8,192 complete matches. Simultaneous intervals do not establish a reversal in
+the five policy directions tested (Section~\ref{sec:directional}).
 
 We then examine the information available in Koi-Koi itself. Relabeling the
 seats can change the actor's choice while leaving the critic input unchanged;
@@ -108,6 +113,18 @@ continuation-win table indexed by next round, score and dealer
 \cite{pinnedkoikoi}. Our PPO objective uses match-end rewards and bootstraps across
 round boundaries. The experiments measure the effect of this additional
 optimization and its transfer across the two published opponents.
+
+\subsection{Adapting action scores and exploration}
+Policy distillation converts teacher action values into temperature-scaled
+probabilities and trains a student to match them \cite{rusu2016distillation}.
+We retain the released actor and optimize it directly with match rewards.
+Discrete SAC derives categorical maximum-entropy learning
+\cite{christodoulou2019discrete}, and target-entropy scheduling adapts exploration
+as learning proceeds \cite{xu2021entropy}. Our continuation-temperature control
+instead fixes one head's score divisor before PPO training; the critic retains
+ordinary match returns. Its matched comparison tests whether the inherited
+heads' different exploration levels restrict adaptation
+(Appendix~\ref{app:temperature}).
 
 \subsection{Self-play and strategic interaction}
 Neural Fictitious Self-Play combines learned best responses with supervised
@@ -479,6 +496,29 @@ game after the learner action leaves the opponent-observation bootstrap and
 a negative expected update, even at $\lambda=1$. Retaining the learner history
 restores the correct gradient. Appendix~\ref{app:trace} separates the internal
 bootstrap terms from this rollout-boundary term.
+
+\subsection{Directional measurements in the retained agents}
+\label{sec:directional}
+To connect the finite example to actual play, we collect 4,096 complete sampled
+self-play matches from each retained agent, sharing initial deals across the
+two agents. For a fixed public feature $f$, the local policy
+$\pi_\theta(a\mid o)\propto\pi_0(a\mid o)\exp(\theta f(o,a))$ has score
+$f(o,a)-\mathbb E_{\pi_0}f(o,A)$. The five features are a continuation indicator
+and one base-probability preference feature for each decision phase. Features
+and critics stay fixed. We sum score times advantage separately for each seat,
+then average the two unilateral responses against the frozen other seat.
+
+Complete terminal Monte Carlo contributions are compared with full-match
+GAE0.95 and 128-step-window GAE0.95/GAE1, using independently assigned cutoff
+positions. One 70-coordinate simultaneous bootstrap family covers all means
+and differences across both agents. Every Monte Carlo mean and every paired
+difference interval includes zero. Thus these probes do not establish the
+finite example's reversal in the retained agents. The measurement concerns
+these local policy directions before PPO clipping and normalization; it does
+not identify observer mismatch separately from critic approximation error.
+All 8,192 matches are replayed on native CPU, and independent scalar score and
+return calculations agree to $8.9\times10^{-16}$. Full coordinates and the
+fixed design are in \path{docs/DIRECTIONAL_RETURN_RESULTS.rst}.
 
 \section{Learning against fixed opponents}
 \label{sec:training}
@@ -918,22 +958,19 @@ unmeasured. Temperature and learning rate change jointly, and latency covers
 one machine and a cached random-play workload.
 
 \section{Conclusion}
-Terminal-match self-play improves the published Koi-Koi win policy at both
-adapted seeds while preserving its architecture and greedy inference. RL-Point
-remains stronger in expected points, where fixed Point continuation supplies
-a complementary benefit.
+Terminal-match self-play improves the released win policy at both adapted
+seeds while preserving its actor and greedy inference. RL-Point retains an
+expected-points advantage.
 
-An exact shared-parameter game shows that switching between players' critic
-information can reverse the expected policy update despite exact conditional
-values. A finite rollout cutoff preserves this failure at $\lambda=1$.
-Learner-decision returns correct the complete example.
+An exact shared-parameter game shows that an opponent-conditioned critic can
+reverse the expected policy update, even with exact conditional values.
+Learner-decision returns correct the complete example; five public directions
+measured in the retained agents do not establish that reversal.
 
-The Koi-Koi audits reconstruct earlier actor inputs and expose an omitted
-public-seat distinction. Completed public hands identify the fixed opponent
-at 86.1\% of natural final-round starts. Matched learning comparisons find no
-replicated additional win gain from the return repairs, seat feature or public
-memory, including renewed training deals. They distinguish verified information
-repairs from measured improvements in play.
+Public reconstruction exposes a missing seat distinction and identifies the
+fixed opponent at 86.1\% of natural final-round starts. Controlled learning
+tests separate these information repairs from playing strength: return repairs,
+seat features and public-memory adaptation yield no replicated additional win gain.
 
 \appendix
 \section{Reproduction and evidence}
@@ -1067,6 +1104,15 @@ also rejects 512 requests for actions not yet taken and 512 different-round
 requests. The caller enforces both match and round identity because displayed
 round numbers repeat between matches. Both checks add zero simulator decisions,
 round endings, completed matches, policy inferences and training updates.
+
+The continuation-temperature study uses 34,078,720 training decisions and
+5,706,119 evaluation decisions; its complete learning and recorded-action audit
+is \path{runs/koi_temperature_study/independent_audit.json}.
+The directional diagnostic uses 952,157 decisions and 64,067 round endings,
+with no learning updates. Its native-CPU replay and scalar audit is
+\path{runs/directional_return_diagnostic/audit.json}. These completed results
+and their source/raw-data dependencies are bound in
+\path{docs/paper/generated/temperature_directional_evidence.json}.
 
 The new arbitration experiments freeze the inherited actors. A traced
 near-tie shows why this detail belongs to the inference specification: with
@@ -1285,6 +1331,39 @@ raw durations, action accounting, group reconstruction, identities, and
 descriptive statistics. It does not independently remeasure inference or
 the clock. No other project training/evaluation workers were observed at pass
 boundaries; unrelated operating-system activity was not controlled.
+
+\subsection{Continuation-temperature control}
+\label{app:temperature}
+A separate two-seed comparison isolates the continuation-head temperature.
+Four original-WP learners use the same 20 warmup and 500 policy updates.
+Within each seed, the fixed control uses 0.05 at all heads; calibration changes
+only the continuation divisor to 0.21989585, fixed before training from an old
+public-input corpus. The four endpoints and two retained parents play 49,152
+complete matches on 4,096 shared development deals. Table~\ref{tab:temperature}
+reports every primary equal-WP/Point-mixture contrast.
+
+\begin{table}[htbp]
+\centering\small
+\begin{tabular}{lrr}
+\toprule
+Training seed & Calibrated minus fixed & Calibrated minus retained \\
+\midrule
+1 & $-0.195$ [$-1.111$, $0.745$] & $+0.012$ [$-0.897$, $0.909$] \\
+2 & $-0.775$ [$-1.727$, $0.177$] & $-0.720$ [$-1.599$, $0.159$] \\
+\bottomrule
+\end{tabular}
+\caption{Win-score differences in percentage points, with paired 95\% intervals.
+All four primary intervals include zero; the intervention gives no replicated gain.}
+\label{tab:temperature}
+\end{table}
+
+On 215 common unforced continuation inputs, final normalized entropy at the
+calibrated temperature is 0.253 at both seeds, versus 0.200 and 0.166 for the
+fixed controls. Raw score gaps also grow. The probability change is measurable,
+but does not yield a replicated match-win improvement. All opponent-specific
+win and point contrasts are retained in \path{docs/KOI_TEMPERATURE_RESULTS.rst}.
+The temperature conversion and entropy-control principles are established;
+this comparison measures their practical effect on the released Koi-Koi heads.
 
 \subsection{Retained unsuccessful directions}
 The broader development record includes architecture/critic variants,
@@ -1560,6 +1639,7 @@ paired win-score changes in percentage points, with 95\% intervals.}
 \label{tab:seat-historical}
 \end{table}
 
+\FloatBarrier
 \begingroup
 \raggedright\small
 \let\originalthebibliography\thebibliography
