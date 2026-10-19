@@ -5741,3 +5741,36 @@ training-time field,not current evaluation status.
 Queue remains responsible for finishing allcells and then independently
 replaying recordedactions and reproducing statistics. No newmodel promotion,
 101Mconfirmation orPDF edits. Full strength objective remains unachieved.
+
+## 2026-10-19: complete-only duration report preparation
+
+Added scripts/export_published_duration_results.py and its synthetic tests while
+main evaluation continues. The exporter pins the already-frozen main protocol,
+requires the single-use queue and all twelve cells to finish, requires an explicit
+passed audit SHA256, checks summary/protocol/training and all recorded result
+bindings, and preserves every unrounded statistic in evidence.json. It writes
+results.rst with four simultaneous primary bands, eighteen absolute comparisons
+and eighteen paired contrasts, each with win and point results. Marginal and
+simultaneous intervals are distinguished. Zero-SE coordinates never qualify;
+all four primary signs, without rounding, determine the development gate.
+Training prefixes are counted once. This report cannot promote a model.
+
+Verification commands:
+- .venv/Scripts/python.exe -m pytest tests/test_export_published_duration_results.py -q --junitxml=runs/published_duration_export_tests.xml
+- .venv/Scripts/python.exe -m ruff check scripts/export_published_duration_results.py tests/test_export_published_duration_results.py
+
+Four tests pass, zero skips, in 0.30s; Ruff passes. Tests cover completed synthetic
+export, overwrite/dependency tamper rejection, missing/nonfinite/capability
+results, all-four and tiny unrounded lower-bound gates, zero-SE handling and
+incomplete producer/queue refusal. XML SHA256:
+7055c7f10d442f32b50108e3ac569cdb8ee82f9afbeab97baf1c9d03f650b1ec.
+The actual live main evaluation is also correctly refused by load_completed:
+Wait for the completion queue. No main results were exported or inspected.
+All 92 evaluation, 108 queue and 67 training bindings reverify unchanged.
+
+OS confirms actual queue32628, evaluator63224 and first workers33480/55700 live.
+Both first-cell logs have reached 1,536 completed matches, advancing from the
+previous opening counts; no interim outcome means were reviewed. The existing
+queue still owns all matches and the following independent audit. No new
+training, simulation, neural calls, deployment, dealer or manuscript changes.
+Goal remains active: this reporting preparation is not a strength improvement.

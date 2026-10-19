@@ -11,6 +11,18 @@ Old process handles mentioned in that history are historical, not live jobs.
 
 ## Current experiment and next actions
 
+The complete-only duration results exporter is ready and tested:
+`scripts/export_published_duration_results.py`. It requires the completed queue,
+all twelve cells, a passed audit pinned by SHA256 and unchanged dependencies.
+It presents all 72 secondary coordinates and four simultaneous primary bands;
+qualification uses unrounded bounds, including zero-SE refusal. Four synthetic
+presentation tests pass (0 skips); these add no strength evidence. The live
+incomplete run is correctly refused. No results have been exported yet.
+After the existing queue finishes, use a new output directory and the actual
+passed audit SHA with `python -m scripts.export_published_duration_results
+--output runs/published_duration_results --audit-sha256 <completed-audit-sha256>`.
+Do not change frozen evaluation sources, restart workers or select partial scores.
+
 A completed [initialization diagnostic](PUBLISHED_INITIALIZATION_COMPARISON.rst)
 finds all28stored published configs use WP. Archived Point scores at the same
 T0.05 have lower normalized entropy (koi0.028503 versusWP0.199169 on215old
