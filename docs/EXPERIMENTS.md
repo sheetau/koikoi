@@ -6446,3 +6446,40 @@ saved-state checks add zero neural calls, simulator decisions or training.
 Four of six arms are complete; final strength evaluation remains unstarted.
 Learning23676 and completion queue42304 are OS-live. Continue the two remaining
 Point arms with all frozen inputs unchanged; no selection, rerun or promotion.
+
+## 2026-10-20: fifth learner complete; final calibrated learner starts
+
+seed2_point_fixed completes520updates in original process23676:
+8,519,680decisions /562,166round endings /72,862training matches. Its immutable
+final snapshot passes the existing checkpoint auditor: pinned initialization,
+source/runtime, metrics prefix, simulator counters and finite Adam state. Value
+Adam has49,920steps and each actor head48,000. Final model
+03bdd4cfd6e33084c67d82a3bf5f2845d82c760babb54e3ad420445d0cba4ffe;
+actor7c75073e8e882f4f0c31e034355bdcd117665061aa45731698098f5d3235456a;
+metrics1a63b2299b22c1514db4cd7b4640141b10895b55ad9e61f2f889148aa1524607;
+final audit886037c3226839f29c0e0688f85fc49ed21c2fbbe9eb77d98735c8f790329549.
+Five complete arms total42,598,400decisions /2,834,598round endings /
+366,285training matches /2,600updates; warmup is included once.
+
+The same process starts final arm seed2_point_matched. Its20-update warmup
+passes:327,680decisions /21,031round endings /2,691matches, originalPointactor
+unchanged, valueAdam1,920steps and actorAdam0. Initial
+423da6989f722415e75c0f250e5d2d3a0c69d5359ffaff59aa87da969e9dcb2b;
+warmup2a444e728b217bbc126ad4241c28d6ea8eb9e1930998f6b137a7aad080d698e0;
+audit25a7d844a2c79cd5a5d66541670f7a241ba33988db7476b13928753591bf1850.
+Both new audits use the unchanged scripts.audit_point_initialization_checkpoint
+CLI with respective --arm/--update and fresh output receipts. No replay.
+
+The actual second-seed Point initial snapshots have exactly equal actors,
+critics, optimizers, environments, counters, runtime and four RNG states;
+phase_temperatures is the only config difference. The prior actual WP/Point
+receipt and all its inputs are re-hashed. This gives transitive initial-state
+equality across all three arms. New receipt seed2_three_initial_check.json
+SHAef28204f585796f30897dacbaea887d03347bdcf66f3069b771624ea39717fcd. The check
+adds zero inference, simulation and updates, not a claim about trajectories,
+gradients, exploration equality or playing strength.
+
+At04:14JST learning23676 and queue42304 remain OS-live. Main evaluation output
+still does not exist. Five arms are complete; the queue will own preparation,
+evaluation and audit after final training success. Do not restart training,
+duplicate evaluation or change frozen inputs. The broader goal remains active.

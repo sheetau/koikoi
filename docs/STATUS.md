@@ -118,22 +118,28 @@ The second-seed WP arm also completes520updates and passes its final audit:
 8,519,680decisions /572,238round endings /73,449training matches. Model
 447a8699c54428737d70d1d8a0a02bf6bacd6d999c297c9cbaeb1691768bde75;
 final auditb4663b0907442d7081a382123e106f19d65800a04330d3ba04e37b34eb4ff4f4.
-All four completed arms total34,078,720decisions /2,272,432round endings /
-293,423training matches /2,080updates; warmup is included once.
+The second-seed Point fixed arm also completes520updates and passes its final
+audit:8,519,680decisions /562,166round endings /72,862training matches. Model
+03bdd4cfd6e33084c67d82a3bf5f2845d82c760babb54e3ad420445d0cba4ffe;
+final audit886037c3226839f29c0e0688f85fc49ed21c2fbbe9eb77d98735c8f790329549.
+All five completed arms total42,598,400decisions /2,834,598round endings /
+366,285training matches /2,600updates; warmup is included once.
 
-The same process now trains seed2_point_fixed (seed102210001). Its20-update
-warmup passes:327,680decisions /21,127rounds /2,709matches, originalPointactor
-unchanged, valueAdam1,920steps and actorAdam0. Warmup model
-f4966aca4d10a6d23daa357aea0242388d17af2f65983f9d06a374b1a88a5be6;
-audit5d91232ac7da036807b0af69acf99c072dac9dbd852f293cb5b40a4be8f79e99.
-The actual second-seed WP/Point initial snapshots have exactly equal critic,
-optimizer, environment, counters, runtime and all four RNG states. Only
-initial_variant differs in their configs; both tensor digests match declared
-original actors. Receipt seed2_wp_point_initial_check.json SHA
-2e56c4a4f7ac573507d52c812844c4480da8ec56cdf15cb697ec0b5d04e1c6fe.
+The same process now trains the final arm, seed2_point_matched(seed102210001).
+Its20-update warmup passes:327,680decisions /21,031rounds /2,691matches,
+originalPointactor unchanged, valueAdam1,920steps and actorAdam0. Warmup model
+2a444e728b217bbc126ad4241c28d6ea8eb9e1930998f6b137a7aad080d698e0;
+audit25a7d844a2c79cd5a5d66541670f7a241ba33988db7476b13928753591bf1850.
+The second-seed Point initial actors and all critic/optimizer/environment/RNG
+states match; only phase_temperatures differs in their configs. The prior
+WP/Point comparison is preserved and hash-checked, giving three-arm initial
+critic, optimizer, environment, counters, runtime and four-RNG equality.
+Receipt seed2_three_initial_check.json SHA
+ef28204f585796f30897dacbaea887d03347bdcf66f3069b771624ea39717fcd.
 These are zero-inference saved-state checks, not playing-strength evidence.
-Four of six arms are complete. No outcome evaluation has started.
-Actual learningPID23676 and queuePID42304 remain OS-live.
+Five of six arms are complete. No outcome evaluation has started.
+Actual learningPID23676 and queuePID42304 remain OS-live. The queue owns the
+next evaluation launch after the producer exits successfully; do not duplicate it.
 Protocol
  defd0e993e2c85efb844164b0c1edfa4ac6bae917c31ea6a6eb33d7ba4618048 binds102inputs,
 all verified unchanged. Keep these sources/tests/specifications frozen.
