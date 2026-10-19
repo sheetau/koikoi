@@ -32,7 +32,7 @@ the Koi-Koi representation identifies an omitted public-seat distinction,
 and reconstruction of earlier inputs from completed public hands identifies
 the fixed WP/Point opponent in 86.1\% of natural final-round starts. Controlled
 comparisons find no replicated win gain from the return repairs, the seat
-feature, or final-round and multi-round use of this public memory.
+feature, or public-memory adaptation with fixed or renewed training deals.
 \end{abstract}
 
 \section{Introduction}
@@ -82,7 +82,7 @@ the terminal-match adaptation gain and measure the practical effects of the
 identified information problems separately. Sections~\ref{sec:learner},
 \ref{sec:observer-selfplay} and~\ref{sec:seat-comparison} report the return and
 representation comparisons; Section~\ref{sec:public-revelation} reports
-the final-round and multi-round public-memory comparisons.
+the final-round, multi-round and renewed-deal public-memory comparisons.
 
 \section{Related work}
 \subsection{Learning to play Koi-Koi}
@@ -869,6 +869,41 @@ relative to its parent in those scopes. These are secondary, per-contrast
 findings; neither effect repeats at parent 2. The full set of 18 contrasts is
 retained in \path{docs/PUBLIC_CONTINUATION_RESULTS.rst} and the evidence ledger.
 
+\subsection{Renewing chance during continuation training}
+A fixed starting-state bank reuses the same cards and future chance. We test
+whether renewing them improves adaptation while preserving the sampled public
+contexts. The new arms retain the round, score, dealer, learner seat and
+publicly identified opponent. At each sampled round boundary they draw fresh
+legal cards and future chance. Their root-index schedule matches the fixed-bank
+arms exactly. Public and masked conditions share the same chance keys.
+
+Each parent supplies two new 520-update arms, again with 20 critic-only updates
+and 66,560 conditional completions per arm. Four fixed-bank endpoints are
+reused as controls. The complete comparison therefore evaluates five policies
+per parent: original, fixed-public, fixed-masked, renewed-public and
+renewed-masked. On 2,048 new shared deals it plays 40,960 full matches, with
+1,024 duplicate deals per opponent. These results are analyzed separately
+from the preceding comparison.
+
+Renewed public memory does not beat both its original and fixed-public
+references at either parent under the replicated primary criterion
+(Table~\ref{tab:renewed-continuation}). The secondary tests of public versus
+masked memory and of the chance-by-memory interaction also fail their
+both-parent win criteria. Of all 66 reported win contrasts, two intervals
+exclude zero, both indicating losses against WP: renewed-public versus the
+original at parent 1 and renewed-masked versus the original at parent 2.
+Fifteen point intervals exclude zero. They remain secondary per-contrast
+results, reported in \path{docs/RENEWED_CONTINUATION_RESULTS.rst}.
+
+\begin{table}[ht]
+\centering\small
+\input{generated/renewed_continuation_table.tex}
+\caption{Renewed-public policy minus its two primary references in the equal
+WP/Point mixture. Brackets give stratified paired 95\% intervals. Every primary
+win interval includes zero; the study does not qualify for final confirmation.}
+\label{tab:renewed-continuation}
+\end{table}
+
 \section{Limitations and interpretation}
 Both adapted seeds improve match wins against assisted RL-WP. RL-Point remains
 competitive in wins and superior in expected points. Fixed Point continuation
@@ -888,21 +923,17 @@ adapted seeds while preserving its architecture and greedy inference. RL-Point
 remains stronger in expected points, where fixed Point continuation supplies
 a complementary benefit.
 
-Our exact shared-parameter game demonstrates that cross-player critic
-conditioning can make an expected update reduce true payoff despite exact
-conditional values, even at $\lambda=1$ with a truncated rollout.
-Learner-decision returns correct the complete example. In Koi-Koi they outperform
-$\lambda=1$ against RL-Point at both seeds but do not meet the primary
-parent-and-response win-gain criterion. Fixed-observer self-play likewise
-shows no replicated win gain. The input audit identifies an omitted public
-seat distinction and verifies a repair that reconstructs current actor inputs
-and earlier input--action pairs within the checked rounds. Its matched
-160,000-match evaluation finds no replicated win improvement from that repair.
-Delayed public hand revelations add a different result: they identify a fixed
-opponent at 86.1\% of natural final-round starts. The matched final-round
-and multi-round comparisons find no replicated win gain from this signal.
-They separate successful opponent identification from its measured value for
-policy improvement.
+An exact shared-parameter game shows that switching between players' critic
+information can reverse the expected policy update despite exact conditional
+values. A finite rollout cutoff preserves this failure at $\lambda=1$.
+Learner-decision returns correct the complete example.
+
+The Koi-Koi audits reconstruct earlier actor inputs and expose an omitted
+public-seat distinction. Completed public hands identify the fixed opponent
+at 86.1\% of natural final-round starts. Matched learning comparisons find no
+replicated additional win gain from the return repairs, seat feature or public
+memory, including renewed training deals. They distinguish verified information
+repairs from measured improvements in play.
 
 \appendix
 \section{Reproduction and evidence}
@@ -945,6 +976,17 @@ decisions, 191,108 round endings and 24,576 matches on 2,048 fresh deals.
 Public-model checks add 201,568 strict predictions. Independent replay verifies
 146,184 historical inputs and masks without new neural inference or independent
 deals. Root reconstruction is accounted for separately in the ledger.
+
+The renewed-chance comparison is bound in
+\path{docs/paper/generated/renewed_continuation_evidence.json}. New training
+adds 19,033,187 decisions, 266,240 conditional completions and 1,276,266
+conditional round endings, using 133,120 distinct chance keys shared between
+public and masked conditions. Evaluation adds 4,754,060 decisions, 318,260
+round endings and 40,960 full matches on 2,048 fresh deals. Identification
+uses 399,624 strict predictions. Independent replay checks 290,156 historical
+inputs and masks and reproduces all 66 contrasts without new neural inference
+or independent deals. All three replication criteria fail; the reserved final
+confirmation remains unused.
 
 The machine-readable evidence ledger,
 \path{docs/paper/generated/evidence.json}, binds the completed studies'
@@ -1520,6 +1562,9 @@ paired win-score changes in percentage points, with 95\% intervals.}
 
 \begingroup
 \raggedright\small
+\let\originalthebibliography\thebibliography
+\renewcommand{\thebibliography}[1]{%
+  \originalthebibliography{#1}\setlength{\itemsep}{0pt}}
 \bibliographystyle{plain}
 \bibliography{references}
 \endgroup

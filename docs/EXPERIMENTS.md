@@ -4520,3 +4520,68 @@ are fullyenumerated(max6,000candidates) usingstrictCPU2 WP/Pointmodels.
 At launch onecachedroot completed;the fullresult and independent arithmetic
 check remainpending. Do not duplicate/restart whilelive. No fresh evaluation,
 future rollout,training orreserved101M trajectory. Goal remainsactive.
+
+
+## Complete-hand arithmetic auditor and renewed-result manuscript reconciliation
+
+Previous turn closed the audited renewal trial negatively and launched the
+25-root exact-hand diagnostic;classified as progress. Actual67641/OS64412 is
+observedlive this turn,advancing2->10completedroots with8new tables. Preserve
+this computation;do not duplicate or restart it. No diagnostic outcome is used
+to select another policy or declare stronger play.
+
+Added scripts/audit_complete_sampled_history_exact.py. Independently reconstructs
+all candidate hand sets,public observation hashes,scalar posterior card/model
+probabilities,effective counts,Brier and sampling errors,pooled/stratum means,
+coverage and cache/new-work accounting. It consumes the fixed likelihood tables;
+it doesnot repeat all neural predictions. Full25-root audit awaits producer
+completion. Its new inputs include verifier/test identities and both test XMLs.
+
+Command `.venv/Scripts/python.exe -m pytest tests/test_audit_complete_sampled_history_exact.py -q --junitxml=runs/audit_complete_sampled_history_exact_tests.xml`
+passes3,0skips,1.49s. The reference is the prior independently verified parent1
+WP exact table;damaged probabilities and missing hands are rejected. Initial
+aggregate-check insertion landed inside the per-model loop,raisingNameError;
+Ruff and tests caught it. Moved that block to the intended aggregate scope.
+Failed XML retained;final Ruff passes. Initial2failed fixture calls plusfinal3
+calls replay5x42=210old-prefix decisions,0neural calls ornewindependentdeals.
+Source06dbb7d3bcea64170f33c5f25e31024c55909b69be969e50bd4a021ca1f4dd6a;
+test6edcc13c2e70dfa38278a7e74353ae4675f4cc9c2ebead589e117f776578a70a;
+final XMLea88981cce558ee30c20624b1fbccb7b1446e0a4011a0bc78fd79ed5ea0d99a0;
+initial XML42c5f467c5eea27860d6d38c73c7854fdc51323c21a5a9b47a22e1937c33f728.
+Afterpassing,the audit receipt was extended to bind those test artifacts;
+no numerical or replay path changed and the producer's66inputs remainunchanged.
+
+Added scripts/export_renewed_continuation_evidence.py;command
+`.venv/Scripts/python.exe -m scripts.export_renewed_continuation_evidence`
+finishes63478exit0,verifying375inputs,all66unique contrasts,failed criteria and
+complete accounting. No simulations orneural calls. Table
+65534cac4185a0373f3ce3ddb9ac4483cd6c09a4738fa1c29d85693e88490479;
+evidence2f4a056e046158fe6f6db51cece211e9a121501d14091e56750970c6fa6f1cf9.
+
+Manuscript now explains matching public contexts while renewing legal chance,
+the five-policy comparison,allfour primary win intervals and failed secondary
+memory/interaction criteria. Two negative individual win findings and15secondary
+point intervals are explicitly separated from the primary outcome. Full66cells
+remain in the result/evidence files. Abstract/Introduction andConclusion agree
+with this completed study. Conclusion compresses182->128words inthreeparagraphs;
+all previous numeric tokens remain elsewhere in the paper. Existing sourceCRLF
+and bibliography contents/fonts preserved. PriorPDF retained as
+output/pdf/manuscript_before_renewal_dfa9122e.pdf. Authoring marker was already
+run exactlyonce earlier and is not repeated.
+
+Build `external/tectonic/tectonic.exe --keep-logs --outdir output/pdf docs/paper/manuscript.tex`
+passes. Initialrender had an isolated finalreference onpage30. Shortened the
+repetitive conclusion and set local bibliography itemspacing0pt without reducing
+font size;finalpaper29pages. All29pages rerendered and contactreviewed;fullsize
+pages1/15/16/17/29 reviewed. No clipping,overlap,glyph defects,orphan headings or
+table overflow. The existing Fontconfig notice persists;all20fonts embedded.
+Finalpreflight85951exit0:956evidenceinputs/66livediagnosticbindings verify,no
+missing references/citations,over/underfullboxes orout-of-pagetext. Abstract145
+words and31references. FinalPDF
+ea8073cbd5197820fb6f737055eb324adea49f0907f1f4eb325a103b074a9e6b;
+sourcebee2dc10a52f02e9ec168cc800f9ae80b89a425da6e6ab283877ac7a5c568b56;
+bibliography5270a386287ff8645abbc216b39c57c99ab4286bd12179287dae93f4caed0897.
+FinalQA runs/manuscript_renewal_qa.json SHA038c62b5048139662f1788d4b68860c74c3f1e15d9f845800f4b7c4378a3b745.
+No finalconfirmation,modelpromotion,dealerrule change orcurrent-hand strength
+claim. Goal remainsactive;stronger-player work continues after the exact inference
+diagnostic and independent arithmetic check.

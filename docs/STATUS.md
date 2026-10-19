@@ -35,7 +35,7 @@ round endings,0fullmatches;133,120shared distinctchancekeys. Evaluation
 Public-model predictions399,624. Replay verifies290,156historical inputs with0new
 neural calls/independentdeals;root replay separately212,212dec/14,101round/192endings.
 
-Next: integrate this completed renewal result into the manuscript. Public
+The manuscript now includes the completed renewal result. Public
 identity conditioning has failed across the three completed memory studies;
 examine current-hand inference using public action history. First complete the
 existing exact-posterior diagnostic over all25eligible development roots to
@@ -55,6 +55,18 @@ independently check all candidate sets and marginal/error arithmetic before
 using the result to design an action comparison. [Design](SAMPLED_HISTORY_COMPLETE_CHECK.rst).
 Four CPU checks pass,0skips,1.55s;XML
 6424fe47ddcc7648ca0f92ce037f0ae68dde3023e256ccfca98db000de25e141.
+
+**Complete-hand scalar auditor ready:** scripts.audit_complete_sampled_history_exact
+checks all candidate sets,public keys,marginals,model weights,Brier/sampling
+errors,group averages and cached/new work accounting. Three checks pass,0skips,
+1.49s against a previously independently verified exact table and corrupted
+probability/candidate cases;XML
+ea88981cce558ee30c20624b1fbccb7b1446e0a4011a0bc78fd79ed5ea0d99a0.
+Initial scope-placement error was corrected;failed XML retained. Unit attempts
+replay210old-prefix decisions,0neural calls. Full25-root audit has not run.
+After67641 completes,run `python -m scripts.audit_complete_sampled_history_exact
+--output runs/sampled_history_complete_exact` once. It does not independently
+rerun all neural likelihood predictions. Do not infer strength from this check.
 
 **Fixed-root multi-round comparison independently complete:** producer46255
 and audit96354 exited0. All24,576 strict matches and all18 contrasts reproduce.
@@ -325,22 +337,22 @@ their empirical fixes did not establish replicated Koi-Koi win improvement.
 
 ## Latest manuscript
 
-**Latest verified manuscript:**29 pages,31 references,145-word Abstract and20
-embedded fonts. Added the independently completed fixed-root multi-round
-public-memory comparison and its four primary contrasts;all18win intervals
-include zero. Secondary point effects stay separate. Abstract/Introduction,
-guided-start Related Work and Conclusion now agree with the measured earlier-
-activation result;removed the obsolete statement that it remains unmeasured.
-No renewed-chance outcome is claimed. New evidence exporter verifies282inputs;
-full manuscript QA verifies858evidence inputs and323active queue bindings.
-All prior numeric tokens remain. All29pages rendered/contact-reviewed,pages
-1/3/15/16/29 inspected full size;no layout,glyph,reference or page-bound defects.
-PDFdfa9122e0abc760d8df08b2fa987651d58ae73a5e37f4503cd839b7835c04249;
-source0fa4a933229f614c5f519e4c454831f414bed01b50910a6c7246cf653e12364b;
-QA runs/manuscript_multi_round_qa.json SHAb6792410b9729b435e12b75c003c16922a379eb9348b6c94da81590ebfcd6fb3.
-Prior PDF retained as output/pdf/manuscript_before_multi_round_4bf68f3e.pdf.
-Bibliography and established adaptation-strength claims are unchanged. The
-completed renewed-chance result is recorded above and awaits manuscript integration.
+**Latest verified manuscript:**29pages,31references,145-word Abstract,20embedded
+fonts. Includes the completed40,960-match renewed-chance comparison and four
+primary contrasts;strength,memory and interaction replication allfail. All66
+contrasts/accounting remain in the bound ledger. Abstract/Introduction and
+Conclusion agree with fixed/renewed outcomes. Conclusion shortened182->128words
+in three paragraphs;body results and all previous numeric tokens retained.
+Bibliography contents/font size unchanged;local item spacing removes an
+isolated final reference page. New exporter verifies375inputs;full QA verifies
+956evidence inputs and66live diagnostic bindings. All29pages rendered/contact-
+reviewed,pages1/15/16/17/29 fullsize;no layout,glyph,reference or page-bound defects.
+PDFea8073cbd5197820fb6f737055eb324adea49f0907f1f4eb325a103b074a9e6b;
+sourcebee2dc10a52f02e9ec168cc800f9ae80b89a425da6e6ab283877ac7a5c568b56;
+QA runs/manuscript_renewal_qa.json SHA038c62b5048139662f1788d4b68860c74c3f1e15d9f845800f4b7c4378a3b745.
+Prior PDF output/pdf/manuscript_before_renewal_dfa9122e.pdf is preserved. Current-
+hand inference remains a development diagnostic and supplies no new playing-
+strength claim. Canonical human model and dealer are unchanged.
 
 ## Local human-play delivery
 
