@@ -94,17 +94,28 @@ Work:8,519,680decisions/571,625round endings/73,440training matches,
 including20warmup+500policy updates. Checkpoint
  d5e2b98de6762692348a60f3cff910584b19ba90dcbfeaef148df36ea218f41e;
 final auditfd92eb275f872f74aa505954d49cb90bd6c6ccb9a02b2ed410cdc5f590c13d0e.
-The same process starts seed1_point_fixed;at least35updates are complete.
-Its20-update warmup audit passes:327,680decisions/21,131rounds/2,722matches,
-Point actor unchanged,valueAdam1,920steps,actorAdam0. Warmup receiptSHA
-871ac26ef725c4a05528531b9c3d8c4481218059ff93886d8ade6376753e2578.
-Actual first-seed WP/Point initial checkpoints have identical critic,optimizer,
-environment,counters,runtime and Python/NumPy/Torch/CUDA RNG states. Their only
-config difference isinitial_variant;both actors match their declared original
-digests. Comparison receipt runs/point_initialization_study/seed1_wp_point_initial_check.json
-SHAcd557a8d2f92814985f56a6b5a1154ece5221dd7c78222a01a66aac1c118a4c6.
-These checks add0inference/simulation;they do not establish playing strength.
-One ofsixarms iscomplete. Never restart it. No outcome evaluation has started.
+The second arm, seed1_point_fixed, also completes 520 updates and passes its
+final saved-state audit. Work: 8,519,680 decisions / 562,510 round endings /
+73,153 training matches, including 327,680 warmup decisions once. Final model
+09255f171d5a79c3552efd20c8e23c32a52324c2151cdd0c9b4b7cf94ea2e4b4;
+audit 4d706f858c69cc6802a9a44818c4c9f77123256d56529e2bc1c1b60ed6684a04.
+Value Adam has 49,920 steps; each actor head has 48,000.
+
+The same process now trains seed1_point_matched. Its 20-update warmup audit
+passes: 327,680 decisions / 21,065 rounds / 2,709 matches; original Point actor
+unchanged, value Adam 1,920 steps and actor Adam zero. Warmup audit SHA
+65dbc17aae98593c14bf94eb0bb652b25ce0456afb8ef3ae08c69eba31f24e9e.
+The two Point initial snapshots have identical actors, critics, optimizers,
+environments, counters, runtime and all four RNG states. Only phase_temperatures
+differs in their configs. Combined with the prior actual WP/Point check, all
+three arms start with identical critic/environment/optimizer/RNG state.
+Receipt runs/point_initialization_study/seed1_three_initial_check.json
+SHA 639678df15809acbd0fc965f701a607124f50377963b0d1f730db8eee098b454.
+The prior WP/Point receipt and its inputs are preserved and hash-checked.
+These checks add zero inference, simulation or learning; they are not strength
+evidence or claims of equal trajectories, exploration or gradients.
+Two of six arms are complete. Never restart them. No outcome evaluation has
+started. Actual learning PID23676 and queue PID42304 remain OS-live.
 Protocol
  defd0e993e2c85efb844164b0c1edfa4ac6bae917c31ea6a6eb33d7ba4618048 binds102inputs,
 all verified unchanged. Keep these sources/tests/specifications frozen.

@@ -6339,3 +6339,41 @@ Prior artifacts: runs/manuscript_opening_previous. Renders:
 runs/manuscript_opening_render. The active Point learning and completion queue
 continue unchanged. This editorial improvement does not complete the broader
 stronger-play and novelty objective.
+
+## 2026-10-20: Point fixed endpoint complete; calibrated arm starts
+
+The original training process23676 finishes seed1_point_fixed at520 updates:
+8,519,680 decisions /562,510 round endings /73,153 training matches. Warmup is
+included once (327,680 decisions /21,131 rounds /2,722 matches). The immutable
+final snapshot passes the existing auditor: value Adam49,920 steps and each
+actor head48,000, finite model/optimizer tensors, pinned initialization/source,
+metrics prefix and simulator counters. Final checkpoint
+09255f171d5a79c3552efd20c8e23c32a52324c2151cdd0c9b4b7cf94ea2e4b4;
+metrics a722772c9a40934b9ae870964c967cda8e44929bb94feb324cc2bdd9fc175f81;
+final audit4d706f858c69cc6802a9a44818c4c9f77123256d56529e2bc1c1b60ed6684a04.
+
+The same process starts seed1_point_matched. Its saved20-update warmup passes:
+327,680 decisions /21,065 rounds /2,709 matches, actor unchanged at original
+Point digestc36a40cedf9dd447e4a393f249aa0e7f4ff4d47506bfdbdcd2d8e402660f0b2c,
+value Adam1,920 and actor Adam0. Checkpoint
+e751be3a6f7f9ad1307f850ea2d5ec47642162076611c772d29be33c4bd7112b;
+audit65dbc17aae98593c14bf94eb0bb652b25ce0456afb8ef3ae08c69eba31f24e9e.
+
+Both audits run once with scripts.audit_point_initialization_checkpoint,
+--input runs/point_initialization_study, respective --arm/--update values and
+fresh final_audit.json or warmup_audit.json output paths. No training replay.
+
+The bound recursive assert_equal helper in scripts/published_duration_study.py
+also compares the two actual Point initial snapshots: actor, value, optimizer,
+environment, four RNG states, counters and runtime are exactly equal. The only
+config difference is phase_temperatures. The previous WP/Point comparison and
+all its inputs are re-hashed; combined equality covers all three initial states.
+New receipt runs/point_initialization_study/seed1_three_initial_check.json
+SHA639678df15809acbd0fc965f701a607124f50377963b0d1f730db8eee098b454;
+calibrated initial53639d04b7ada5078cb88c586b6a8655ae1557782a133a8a66bf61a7eabc5478.
+This is zero-inference saved-state evidence, not equal trajectory or strength.
+
+Two of six arms are complete. Session26829/actual23676 and completion
+session25193/actual42304 remain live. The main evaluation directory does not
+yet exist. Continue the fixed study without restarting, selecting endpoints,
+changing frozen inputs or promoting a model. The broader objective is pending.
