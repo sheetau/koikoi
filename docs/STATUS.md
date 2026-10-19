@@ -102,6 +102,11 @@ without creating an output directory. Final capability receipt
 50c1b92b58d5c9b66d3d51391f9e72922d6e346ffbe0c5a38b377d48194e86fa.
 After finalizer completion,inspect and pin the audit SHA before exporting into
 a fresh runs/koi_temperature_results directory. No final results exported yet.
+A focused literature note,KOI_TEMPERATURE_PRIOR_ART.rst,adds primary sources
+on policy distillation,discrete SAC and target-entropy annealing. It supplies
+a concise integration paragraph and distinguishes the present fixed-head PPO
+intervention from those established methods. It does not change the bound
+mechanism design,current experiment or verified manuscript/PDF.
 
 **Renewed-chance comparison independently complete:** allfour520-update arms,
 40,960matches and full replay/statistics audit pass. Producer58904/queue65372

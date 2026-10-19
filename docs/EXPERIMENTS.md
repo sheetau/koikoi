@@ -5131,3 +5131,40 @@ runs/koi_temperature_results --audit-sha256 <verified independent audit SHA>`.
 No result export,manuscript edit,PDF delivery or model promotion has occurred.
 The stronger-play objective remains active;the frozen full comparison and
 recorded-action/statistics audit must finish before the next strength decision.
+
+## 2026-10-19: direct temperature-control prior art checked
+
+Previous goal turn was progress: the complete-result exporter and four targeted
+tests were committed/pushed as28fe1e5,and actual evaluation processes were live.
+This turn confirms the same driver/finalizer/three workers remain live after
+three of12 evaluation cells finish. No partial outcome values were inspected.
+
+Read primary full texts of Rusu et al.,Policy Distillation,arXiv1511.06295v2
+(7 January2016),Christodoulou,Soft Actor-Critic for Discrete Action Settings,
+arXiv1910.07207v2 (18 October2019),and Xu et al.,Target Entropy Annealing for
+Discrete Soft Actor-Critic,arXiv2112.02852v1 (6 December2021). Version-specific
+HTML links were opened successfully. These add directly relevant literature
+beyond the already-recorded SAC and Boltzmann-bandit references.
+
+Policy distillation Section3.2 explicitly converts Q-values through a
+scaled softmax and fits student KL targets;Section4.2 discusses the selected
+sharpening temperature. Discrete SAC Section3 uses categorical policies and
+finite action expectations. Xu et al.Sections3--4.4 address fixed entropy
+sensitivity,moving-entropy scheduling,targets proportional to log action
+count,and adaptation of target-entropy control to a Q-derived soft policy.
+These sources preclude treating value-to-policy softmax conversion or a
+feedback entropy rule alone as a new general method.
+
+Added docs/KOI_TEMPERATURE_PRIOR_ART.rst with source links,precise method
+differences,a prospective comparison implication,and a concise candidate
+Related Work paragraph. The current actor is updated directly by PPO;there
+is no separate distilled student,no teacher KL objective,no SAC soft-return
+critic,and no on-policy feedback temperature controller. The experiment
+measures a fixed phase intervention at matched decision budgets. Whether it
+improves playing strength remains the job of the full pending comparison.
+
+This note adds zero simulator steps,neural calls,training or evaluation deals.
+It does not alter frozen mechanism/protocol files or the verified manuscript,
+bibliography and PDF. Integrate the relevant references with the completed
+result rather than delivering an unchanged PDF or implying a measured gain.
+The stronger-play objective remains active.
