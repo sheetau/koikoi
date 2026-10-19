@@ -6274,3 +6274,41 @@ Trainingactual23676andqueue42304remainOS-live. Atleast331completefirst-armupdate
 records areverified. All156queuebindings remainunchanged. No newinference,
 simulatorsteps orlearning areattributed toexport work. The live six-armtraining
 continues onits fixedschedule;strongerplay/researchgoalremainsactive.
+
+## 2026-10-20: first Point-study control completes; actual Point learner begins
+
+Verified waits on live training session26829 track seed1_wp_fixed through520
+updates. Its completed checkpoint,metrics and work agree with the independent
+saved-state auditor:8,519,680decisions/571,625round endings/73,440training
+matches,including327,680warmup decisions/22,036warmup rounds/2,770warmup matches.
+Value Adam records49,920steps;each actor head48,000steps. All finite state and
+simulator/accounting checks pass. Checkpoint
+ d5e2b98de6762692348a60f3cff910584b19ba90dcbfeaef148df36ea218f41e;
+actor61d49d1b95fce699228068839e2ccd424b2354e90e6da3ed3619f24c6b776ac8;
+final auditfd92eb275f872f74aa505954d49cb90bd6c6ccb9a02b2ed410cdc5f590c13d0e.
+Command:
+
+    python -m scripts.audit_point_initialization_checkpoint --input runs/point_initialization_study --arm seed1_wp_fixed --update 520 --output runs/point_initialization_study/seed1_wp_fixed/final_audit.json
+
+The unchanged producer23676 then
+starts seed1_point_fixed. At least35updates arecomplete. Its20warmup checkpoint
+passes the same saved-state check:327,680decisions/21,131rounds/2,722matches;
+Point actor remains originalc36a40cedf9dd447e4a393f249aa0e7f4ff4d47506bfdbdcd2d8e402660f0b2c,
+valueAdam1,920steps,actorAdam0. Warmup checkpoint
+42c8e0124b59fcaf9ceb8a5de476a0b398b2415fdfc93ada55fa0b9d160e9e6c;
+audit871ac26ef725c4a05528531b9c3d8c4481218059ff93886d8ade6376753e2578.
+
+Immutable actual WP/Point initial checkpoints are compared using the bound
+recursive state checker. Critic,optimizer,env,counters,runtime andallfourRNG
+families match exactly. The only config difference isinitial_variant;the two
+actors match their original parameter digests and differ from each other.
+New exclusive receipt runs/point_initialization_study/seed1_wp_point_initial_check.json
+SHAcd557a8d2f92814985f56a6b5a1154ece5221dd7c78222a01a66aac1c118a4c6 binds the
+actual initial files,protocol andchecker/wrapper sources. This comparison and
+the saved-state audits add0NNcalls,simulation ortraining. No trajectory or
+learning replay andno strength comparison isclaimed.
+
+One ofsix mainarms iscomplete;no restart orintermediate outcome evaluation.
+Training23676andqueue42304remainOS-live. All156queuebindings remainunchanged.
+The queue still waits for allsixarms before the fixed131,072-match evaluation.
+No model promotion,PDFchange,dealerchange or101Mconfirmation. Broadergoalactive.

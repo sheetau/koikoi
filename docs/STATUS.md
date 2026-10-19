@@ -88,8 +88,24 @@ f8d3036e9af6b55b21cf94275515fd0c19f61b737539931133f1e38b56538367 binds94inputs;
 producer receiptbe2b1c01539138582eaeeb89d7c9fb6262089f0b0efe1c9f3b91ac6835d02c1e.
 
 Main root runs/point_initialization_study. Session26829;launcher47112/actual23676
-starts2026-10-20 01:56:02JST. Actual23676 is OS-live;seed1_wp_fixed has331closed
-update records. No outcome evaluation has started. Protocol
+starts2026-10-20 01:56:02JST. Actual23676 is OS-live. The first arm,
+seed1_wp_fixed,completes520updates and passes its final saved-state audit.
+Work:8,519,680decisions/571,625round endings/73,440training matches,
+including20warmup+500policy updates. Checkpoint
+ d5e2b98de6762692348a60f3cff910584b19ba90dcbfeaef148df36ea218f41e;
+final auditfd92eb275f872f74aa505954d49cb90bd6c6ccb9a02b2ed410cdc5f590c13d0e.
+The same process starts seed1_point_fixed;at least35updates are complete.
+Its20-update warmup audit passes:327,680decisions/21,131rounds/2,722matches,
+Point actor unchanged,valueAdam1,920steps,actorAdam0. Warmup receiptSHA
+871ac26ef725c4a05528531b9c3d8c4481218059ff93886d8ade6376753e2578.
+Actual first-seed WP/Point initial checkpoints have identical critic,optimizer,
+environment,counters,runtime and Python/NumPy/Torch/CUDA RNG states. Their only
+config difference isinitial_variant;both actors match their declared original
+digests. Comparison receipt runs/point_initialization_study/seed1_wp_point_initial_check.json
+SHAcd557a8d2f92814985f56a6b5a1154ece5221dd7c78222a01a66aac1c118a4c6.
+These checks add0inference/simulation;they do not establish playing strength.
+One ofsixarms iscomplete. Never restart it. No outcome evaluation has started.
+Protocol
  defd0e993e2c85efb844164b0c1edfa4ac6bae917c31ea6a6eb33d7ba4618048 binds102inputs,
 all verified unchanged. Keep these sources/tests/specifications frozen.
 Never restart because a wait expires;started.json prevents a second launch.
