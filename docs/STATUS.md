@@ -169,16 +169,20 @@ Protocol SHA1df245b6fea1799c0ed9f91518642ccb3d1e4bf9c0f7e682a1208819e609b7e7
 binds187inputs and all12training audits. The16cells use4,096paired deals per
 opponent,131,072planned matches, and the previously fixed bootstrap family.
 Evaluator launcher6284/actual53480 started04:45:17JST and remains live.
-First cells parent1_parent_wp and parent1_parent_point each finish8,192matches;
-original workers66036/2820 are gone. Their producer-reported totals are
-16,384matches /1,896,665decisions /127,363round endings. Receipt hashes, raw-file
-hashes, row counts and protocol/checkpoint identity agree. This is producer
-completion, not the later native-action/statistics audit or strength evidence.
+The first four cells are complete: parent1_parent_wp, parent1_parent_point,
+parent1_wp_fixed_wp and parent1_wp_fixed_point,each8,192matches. Completed-cell
+producer totals are32,768matches /3,804,970decisions /254,809round endings.
+The two new WP-initialized cells add16,384matches /1,908,305decisions /
+127,446round endings. Receipt hashes, raw-file hashes, complete row counts and
+protocol/checkpoint identities agree. This is producer completion, not the
+later native-action/statistics audit or playing-strength evidence.
 
-At05:22JST the next workers are OS-live: parent1_wp_fixed_wp
-launcher61796/actual44684, and parent1_wp_fixed_point launcher12624/actual18512.
-Both write new complete-match records. Two of16cells are complete; do not rerun
-them. Later worker IDs are owned by evaluator53480 and must be rediscovered.
+At05:58JST the next workers are OS-live: parent1_point_fixed_wp
+launcher40440/actual52108(start05:56:50),and parent1_point_fixed_point
+launcher62244/actual58912(start05:58:02). The preceding workers44684/18512
+have exited,and the parent log records both cell completions. Four of16cells
+are complete; do not rerun them. Later worker IDs are owned by evaluator53480
+and must be rediscovered.
 Monitor evaluation_complete.json/evaluation_failed.json in the evaluation root,
 and complete.json/failed.json in the completion-queue root. Track actual process
 handles and newline-terminated row counts without interpreting partial outcomes.

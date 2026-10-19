@@ -6620,3 +6620,32 @@ Section-to-Appendix reference change; no source edit occurred until that check
 was corrected. Main evaluation session25193 remains live; latest progress check
 shows24,547 completed match records, two completed cells, no failure receipt.
 Canonical deployment and dealer remain unchanged; the broader goal is active.
+
+## First WP-initialized main evaluation cells complete, 20 October 2026
+
+parent1_wp_fixed_wp and parent1_wp_fixed_point each finish8,192matches.
+Their producer counters are947,810/960,495decisions and64,171/63,275round
+endings. Combined new work:16,384matches /1,908,305decisions /127,446rounds.
+With the two retained-parent cells,completed work is32,768matches /
+3,804,970decisions /254,809round endings. Four of16cells are complete.
+
+Verified completion status,exact newline-terminated row counts,rawSHA,
+protocolSHA,checkpointSHA and checkpoint identity against the fixed protocol.
+No endpoint outcomes or partial win/point means were inspected. This verifies
+producer metadata only; the full native-action/statistics audit remains pending.
+Receipt hashes:
+- WP:745624b451afab1d5efcb93d14012fd44229dc61fe9940748d82c0e19e8029bf
+- Point:ac335a70a1d7fa095e71064549dcafaf73fff7509264c3381b00fa3ebfdfd29c
+Raw record hashes:
+- WP:53124a9556185cd76af887f88069c33248561706f647230d81c8f0212903ad03
+- Point:e04515b0ad23e7d9f2bdb7e53e595305df23fb6f4173876a4a0e7ee9d7646944
+Read-only metadata check runs/point_initialization_first_wp_cells_check.json
+SHA 4ad00ea3277dc36efa76e166f68025052397c1acbf2ece1a30a0451346ab117f.
+
+Evaluator53480 starts parent1_point_fixed_wp at05:56:50JST,
+launcher40440/actual52108,and parent1_point_fixed_point at05:58:02JST,
+launcher62244/actual58912. Both are OS-live and writing records. Previous
+workers44684/18512 are gone; parent log records completion and successor starts.
+Queue session25193/actual42304 stays live,with no failure/terminal receipt.
+Do not restart or duplicate evaluation. Native replay,statistics export and
+any candidate qualification remain pending. Canonical player/dealer unchanged.
