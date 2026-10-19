@@ -11,6 +11,12 @@ Old process handles mentioned in that history are historical, not live jobs.
 
 ## Current experiment and next actions
 
+A completed [initialization diagnostic](PUBLISHED_INITIALIZATION_COMPARISON.rst)
+finds all28stored published configs use WP. Archived Point scores at the same
+T0.05 have lower normalized entropy (koi0.028503 versusWP0.199169 on215old
+inputs). A naive initialization swap would also change exploration. No new
+training arm or temperature is selected;finish the live duration study first.
+
 **Longer pretrained adaptation launched; actual GPU process live.**
 [Fixed design](PUBLISHED_DURATION_STUDY.rst),runner
 scripts/published_duration_study.py. Session99216,actual PID32540(parent18152)

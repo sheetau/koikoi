@@ -5598,3 +5598,38 @@ No win evaluation is run at the short prefix. The original learner continues
 without reset to4,020;second seed follows. Main98,304-match evaluation remains
 pending. No strength/novelty claim is added,goal remains active,canonical play,
 dealer and101M confirmation are unchanged. No PDF edit or redelivery this turn.
+
+## 2026-10-19: archived WP/Point initialization comparison
+
+Previous turn made progress:durable evaluation queue and520-prefix audit were
+completed. This turn re-verifies exact live producer32540 and queue32628 via
+Win32_Process. First seed597/4020 at last observation:9,781,248decisions,
+656,594rounds/84,283completed matches. No restart or evaluation started.
+
+Code/config review identifies Point initialization as untested in the stored
+published-config inventory:28records,allWP,including capabilities/descendants.
+This is a bounded inventory,not28independent studies. New script
+scripts/compare_published_initializations.py reuses archived scores without any
+new training or inference. Same25old sourcegroups/3258publicrows as the earlier
+mechanism corpus. Public guard masks and imported PHASE=99 select decisions.
+An initial scratch calculation mistakenly indexed state76;discarded those
+scratch groupings before the report. Final script uses the ABI constant and
+checks that all215koi rows have precisely stop/continue as legal actions.
+
+Unforced phasecounts2578/122/130/215. WP versusPoint normalized entropies at
+T.05:discard.452271/.153910,pickhand.710939/.349895,pickdraw.611028/.303543,
+koi.199169/.028503. Different raw-score argmaxcounts822/21/14/38. Koi directional
+changesWPstop->Pointcontinue25,reverse13. Scalar per-row math.fsum entropy
+reproduces vectorized group means at1e-12;Ruff passes. All33reportbindings verify.
+Report runs/published_initialization_comparison.json
+ ee8a8ffb512e8fb769bbaf09a12eec3973b32b2ac1ae7e48eb959a3012a2b29b.
+These are reused correlated states,not action-quality labels,new deployment
+inference or strength outcomes. Zero newdecisions/calls/matches/updates.
+
+Decision recorded in PUBLISHED_INITIALIZATION_COMPARISON.rst:do not launch a
+naive Point swap while the frozen duration comparison is running. A future
+Point adaptation comparison must account for the score-scale/exploration
+change,without calling transfer or temperature calibration novel. Token-swap
+ensembling is deprioritized because the existing pointwise/position-free actor
+already has exact-arithmetic token equivariance;no numerical certificate claimed.
+Current methods/models/sources,101M confirmation andPDF unchanged. Goal active.
