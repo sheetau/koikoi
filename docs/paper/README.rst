@@ -3,16 +3,22 @@ Manuscript working files
 
 This is an English research manuscript, not a submitted or published paper.
 
-Current revision:17 pages,22 cited references. Abstract/Introduction state the
-measured adaptation gain, completed static-composition result and exact
-critic-conditioning finding. The manuscript includes all completed arbitration,
-paired-supervision, static-hybrid and continuation-target studies, plus an
-exact two-step example with a reversed expected gradient coordinate. Its related
-partial-observation critic literature and scope are explicit. Direct-response
-and learner-return strength comparisons remain ongoing and are excluded from
-completed match findings. Latest QA: runs/manuscript_observer_qa.json.
-The original9-page final-results manuscript/archive and intermediate PDFs remain
-preserved; later sections below record the revision history.
+Current verified revision: 29 pages, 31 cited references, 145-word Abstract.
+Abstract and Introduction lead with the measured terminal-match adaptation
+and the exact critic-conditioning counterexample. Related Work covers earlier
+Koi-Koi systems, self-play, opponent inference, guided starting states, critic
+information and temporal abstraction. The manuscript includes the completed
+return, public-seat and public-memory comparisons, including renewed training
+deals; these comparisons do not establish a replicated additional win gain.
+Latest QA: runs/manuscript_renewal_qa.json. Current PDF: output/pdf/manuscript.pdf,
+SHA256 ea8073cbd5197820fb6f737055eb324adea49f0907f1f4eb325a103b074a9e6b.
+
+The newer exact-hand/search, boundary-residual and koi-temperature work is
+tracked in docs/STATUS.md. The temperature comparison is still running and
+has no completed strength result in this manuscript. The original archive and
+intermediate PDFs remain preserved. Sections below the build/source instructions
+record earlier revision milestones; their page counts and formerly active
+processes are historical, not the current manuscript or live-job inventory.
 The final two-model/two-comparator evaluation and isolated latency measurement
 are complete and independently audited. Both selected models clear the fixed
 RL-WP win criterion; the separate RL-Point criterion does not replicate, and

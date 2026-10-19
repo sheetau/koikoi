@@ -41,7 +41,8 @@ Study protocol binds 91 inputs, SHA
 b9075ac261ce6a3e681a64fa7845f031850ef20fba60f618435b3ad108a74d19;
 it matches the prelaunch receipt. Original producer tool handle was lost,
 but actual driver PID59656 (launcher54836) is live. At the current snapshot,
-seed1_fixed is training (worker20924, launcher18484); no evaluation is complete.
+seed1_fixed has completed and its worker20924/launcher18484 are gone.
+seed1_calibrated is training (worker16036,launcher9328); no evaluation is complete.
 Finalizer session64818 / PID36936 (launcher36764) is waiting; its eight-input
 protocol SHA f6180c6f94acadb02d7f907f1d145df24577189cf50d429b532bf6a41c7c6f87.
 Inspect process/finish_process and actual OS processes before any continuation;
@@ -55,6 +56,21 @@ point gains, per-head Adam counters and corruption rejection. Independent
 optimizer inspection also passes actual initial/warm20/update100 checkpoints.
 No new replicated improvement has yet been established. Canonical human-play
 model, dealer, reserved101M and the latest verified paper/PDF are unchanged.
+
+**First endpoint independently checked:** seed1_fixed finishes520 updates,
+8,519,680 decisions /571,167 round endings /73,290 training matches. Warmup20
+accounts for327,680 decisions /22,078 rounds /2,769 matches. Value Adam takes
+49,920 steps; every actor head takes48,000. All saved schedules, finite weights,
+initial original-WP identity, unchanged warmup actor, later actor changes and
+final520/final.pt equality pass. Final checkpoint SHA
+ e9c63e565982472994643625e4ef3bd574e97e54a125b157148818f54b95b156.
+
+Early audit d7b87fcd5ca952a2c549c14c75b1e6b7cd26c6da91e32402a194e82a25a53f70
+binds107 inputs at seed1_fixed/early_training_audit.json. It also verifies
+fixed/calibrated initial actor,critic,Adam,environment,counters,all RNG and
+runtime equality; configs differ only in koi_temperature. No forward call or
+new training is performed by this audit. This is training integrity,not playing
+strength. Full final match replay/statistics remains queued after all arms.
 
 **Final-policy mechanism diagnostic prepared, not run:** seven policies
 (original WP, retained A/B and four final learners) will be scored on common

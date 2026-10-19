@@ -4875,3 +4875,42 @@ Preparation performs no score pass. Run the same module without --prepare only
 after allfour training receipts complete. It is not queued yet. The study and
 its original finalizer continue unchanged; canonical model,dealer,101M and
 verified manuscript/PDF remain unchanged. Stronger-play objective stays active.
+
+## 2026-10-19: first temperature endpoint and matched initialization verified
+
+Previous continuation was progress: implemented and froze the common-input
+mechanism diagnostic, passed its independent fixture/deployment checks and
+pushed94fbc38. This turn repeatedly verified actual producer/worker/finalizer
+PIDs while waiting, rather than assuming a live job from state files. The first
+fixed worker20924 (launcher18484) finishes and disappears; driver59656 starts
+calibrated worker16036 (launcher9328). No duplicate job or altered condition.
+
+seed1_fixed completes520 updates:8519680 decisions,571167 round endings,73290
+training matches. Warmup20:327680 decisions,22078 rounds,2769 matches. Value Adam
+49920 steps,discard/pick/koi Adam48000 each. Final SHA
+ e9c63e565982472994643625e4ef3bd574e97e54a125b157148818f54b95b156.
+The independent audit_arm function in scripts.audit_koi_temperature_study checks
+all saved schedules and520 metric rows,original-WP initialization,stationary
+warmup actor,changes in every later actor head,finite model/Adam values and
+identical final520/final.pt states. It passes without a code change. Earlier
+update400 checkpoint/log/Adam inspection also passed.
+
+Compared the new seed1_calibrated initial checkpoint to seed1_fixed initial:
+actor,value,optimizer,environment,counters,Python/NumPy/Torch/CUDA RNG and runtime
+are exactly equal; config difference is only koi_temperature. Source revisions
+in provenance can differ because implementation/documentation milestones were
+committed between workers; the protocol-bound code bytes remain unchanged.
+No neural forward or learning replay. Saved receipt
+runs/koi_temperature_study/seed1_fixed/early_training_audit.json binds107 inputs,
+SHA d7b87fcd5ca952a2c549c14c75b1e6b7cd26c6da91e32402a194e82a25a53f70.
+The finalizer's later complete four-arm check remains required. This inspection
+checks saved integrity; it does not produce a strength estimate.
+
+Found docs/paper/README.rst still describing the17-page revision and old ongoing
+studies. Updated its opening to the authoritative29-page/31-reference/145-word
+Abstract version and clearly marked the following historical revision entries.
+Current TeX,bibliography andPDF hashes exactly match manuscript_renewal_qa.json;
+README is not in that QA's bound inputs. No numerical/source/PDF change or new
+render was needed. Study,finalizer and mechanism protocols remain fixed.
+Remaining three learners and all49152 evaluation matches are still pending;
+canonical policy,dealer and101M remain unchanged. Goal stays active.
