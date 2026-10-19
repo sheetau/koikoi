@@ -6312,3 +6312,30 @@ One ofsix mainarms iscomplete;no restart orintermediate outcome evaluation.
 Training23676andqueue42304remainOS-live. All156queuebindings remainunchanged.
 The queue still waits for allsixarms before the fixed131,072-match evaluation.
 No model promotion,PDFchange,dealerchange or101Mconfirmation. Broadergoalactive.
+
+## 2026-10-20: opening organized around three demonstrated findings
+
+Revised only the Abstract and Introduction. The Abstract falls from 182 to 159
+words by moving secondary latency, duration and probe details to the unchanged
+body. The Introduction (425 words) explicitly develops the adaptation result,
+exact critic-conditioning example and public reconstruction result in order.
+Negative controls and the unestablished empirical critic reversal remain
+explicit; no new algorithm or additional strength claim is introduced.
+Everything from Related Work onward is byte-identical to the previous source.
+
+Tectonic build succeeds. All 32 pages are rendered and contact-reviewed, with
+full-size review of pages 1 and 2. All 34 references and embedded fonts (21
+unique names) are present; no box/glyph/undefined-reference warnings or text
+replacement characters. All 1,353 previous evidence inputs and 156 live queue
+inputs still match their hashes. An exclusive QA write initially refused the
+existing 2026-10-18 receipt after those checks passed; it is preserved unchanged,
+and the new receipt uses a dated filename.
+
+PDF SHA 9fa85305854cb052edbc6d7320f5cbdb2f4875295851ac39e708150d25b25c1f;
+source SHA f8f9e8ce20da6ac7c2f763f8a4695da3184b2a5ccbcd251bb2777ca5fbb0ea61.
+QA runs/manuscript_opening_20261020_qa.json
+SHA 052d43957ac117e721e1a66dccb1c6777c048b0eed869df765b600bff7b33850.
+Prior artifacts: runs/manuscript_opening_previous. Renders:
+runs/manuscript_opening_render. The active Point learning and completion queue
+continue unchanged. This editorial improvement does not complete the broader
+stronger-play and novelty objective.

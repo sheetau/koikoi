@@ -683,27 +683,29 @@ their empirical fixes did not establish replicated Koi-Koi win improvement.
 
 ## Latest manuscript
 
-**Latest verified manuscript:**32pages,34references,182-word Abstract and
-122-word Conclusion. Section6.2 adds the closed duration comparison with allfour
-primary simultaneous intervals and allfourlongopponentendpoint rows. Abstract,
-Introduction andConclusion distinguish improvedpointmargins fromunestablished
-replicatedadditionalwins. Priorfinaltest andlaterdevelopment remainseparate.
-No strongerclaim,newalgorithmclaim,promotion or101Mconfirmation isadded.
+**Latest verified manuscript:** 32 pages, 34 references, 159-word Abstract,
+425-word Introduction and unchanged 122-word Conclusion. The opening now leads
+with three findings: terminal-match adaptation, the exact critic-conditioning
+counterexample, and opponent identification from public reconstruction. Detailed
+latency, duration and probe counts remain in the body; the limits on additional
+win gains and empirical critic reversal remain explicit. No new strength or
+algorithm claim is added. Everything from Related Work onward is byte-identical
+to the preceding verified source, including all completed duration results.
 
-Two generated tables bind the completed recovered export. New durationevidence
-SHA0ca55d16e57df8ccfac261380216ab641b8eee262c67b6694981145e71aea94c.
-QAverifies1,353unchangedinputbindings;all32pagescontactreviewed,fullpages1/9/20
-inspected. All34numberedreferences arepresent,allfonts embedded(18unique names),
-noover/underfullboxes,missingglyphs,undefinedrefs orreplacementcharacters.
-PDFceff57a36f95045fd152c6a3189f3e8fb6623b74f83b41c9f510a8a7194f385a;
-sourcea5ec454eb5362b50aa6d03befb28b9013bebe969c2f0a97540718f267a524f23;
-bibliographydd702f28fb9c7d49ec33ceaabd19672268e6fa3c57d5aadadec61292ceb7ad08.
-QA runs/manuscript_duration_qa.json
-SHA87b26ee93088d707ff03319be39c0d95d73caf00c507aaa19f5361455ef42513.
-PriorPDF/TeX/QA preserved in runs/manuscript_duration_previous.
-Renders:runs/manuscript_duration_render. Renderer uses systemPython3.14,
-external/pdf_render PyMuPDF andPillow;training uses .venvPython3.12.
-The PDF-skill artifact marker already ran earlier;never repeat it.
+QA rechecks the previous 1,353 evidence input hashes and all 156 live Point
+queue inputs. All 32 pages are contact-reviewed; changed pages 1 and 2 are
+reviewed at full size. All 34 numbered references are present; all fonts are
+embedded (21 unique names). No TeX box, glyph, reference or replacement-character
+issues occur. The earlier duration evidence and its audit remain preserved.
+PDF SHA 9fa85305854cb052edbc6d7320f5cbdb2f4875295851ac39e708150d25b25c1f;
+source SHA f8f9e8ce20da6ac7c2f763f8a4695da3184b2a5ccbcd251bb2777ca5fbb0ea61;
+bibliography dd702f28fb9c7d49ec33ceaabd19672268e6fa3c57d5aadadec61292ceb7ad08.
+QA runs/manuscript_opening_20261020_qa.json
+SHA 052d43957ac117e721e1a66dccb1c6777c048b0eed869df765b600bff7b33850.
+Prior PDF/TeX/QA: runs/manuscript_opening_previous.
+Renders: runs/manuscript_opening_render. Renderer uses system Python 3.14,
+external/pdf_render PyMuPDF and Pillow; training uses .venv Python 3.12.
+The PDF-skill artifact marker already ran earlier; never repeat it.
 
 ## Local human-play delivery
 
