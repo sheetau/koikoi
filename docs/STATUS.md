@@ -88,16 +88,49 @@ independently reruns all hypothetical neural policies. Preserve finished runs.
 Three CPU adapter checks, one actual CUDA/reference check, and two checks for
 each auditor pass with zero skips. The CUDA check ran twice, both passed.
 
-**Next stronger-play work:** exact public-hand information is useful for
-prediction, but identity-only training and the bounded policy-rollout route
-have not supplied a new replicated win gain. Investigate learning action values
-from the full posterior rather than repeating identity-only training or merely
-loosening the observed search threshold. First review existing value-learning
-attempts and numerical-policy mismatch evidence, then fix a distinct, bounded
-comparison with uniform-belief controls before training or fresh evaluation.
-The 25 old roots cannot serve as held-out evidence. Keep 101M unused unless a
-new, independently specified qualifying study justifies final confirmation.
-Canonical model, initial dealer, and the verified renewal PDF remain unchanged.
+**Boundary-residual estimator diagnostic complete:** session 83797 exits 0;
+50 cells (all 25 old roots x uniform/identified-history) and independent scalar
+verification pass. The standard two-level correction reduces sample variance,
+but not enough to pay for the cheap extra trajectories. Mean variance ratios
+are 0.937784 / 0.934917; variance-times-recorded-seconds ratios 1.188984 / 1.221901.
+Every one of the 50 time-cost ratios exceeds one. No action or policy is selected.
+[Full results](BOUNDARY_RESIDUAL_RESULTS.rst), [prior art](BOUNDARY_RESIDUAL_PRIOR_ART.rst).
+
+New work: high 4,202,458 decisions / 308,866 rounds / 51,200 terminal paths;
+cheap 1,529,919 decisions / 204,800 rounds / 2,528 true terminal endpoints;
+reference 16,823,174 decisions / 1,235,907 rounds / 204,800 terminal paths.
+Recorded simulation/lookup times are 101.83 / 26.13 / 408.58s, excluding world
+construction and prior inference. Producer and auditor each replay 953 source
+decisions. Zero actual completions, new evaluation deals or training updates.
+Protocol 2095651ec1a1027e23aac7e1fe6b9a2dc5f89ec43da16620a546e8e181fd941b
+binds 198 inputs; audit
+e74599970f1b0d4fe69a61e5bfee086353f6f4b6d570c1922c6e7df4e51fbba2 binds 253.
+Do not rerun or overwrite this completed experiment.
+
+A separately labelled post-hoc allocation calculation predicts mean best
+variance-cost ratios 0.992473 (time) / 0.996522 (decisions). These optimistic
+sample-moment estimates are not independently measured gains; no coefficient
+is adopted. Receipt f87983c730d115b56efb27746c037da81141fd35153ce29548ca71e644256d1c
+binds 257 inputs, with zero new simulation. The return identity and game-planning
+variance reduction are prior work. This route is not prioritized for learning.
+
+**Next stronger-play work: phase-specific exploration.** Existing original-WP
+scores on old random-policy public states show much more deterministic koi/stop
+sampling than discard at common temperature 0.05. A score-only calibration on
+75 whole source matches sets koi temperature 0.21989584747027907 to match the
+normalized discard entropy; discard/capture retain 0.05. On 25 separate old
+source matches, koi normalized entropy changes 0.199169 -> 0.446049 (discard
+0.452271). This measures sampling probabilities, not actual training visitation
+or strength. No outcome labels enter calibration. [Details](PHASE_EXPLORATION_CALIBRATION.rst).
+Receipt d191ca3bafe0c3bb1f268f612a3dfb80f2223dc97292ed87d0571c6024487e0a;
+two analytical tests pass, zero skips, 1.23s; no neural calls or simulation.
+
+Implement an isolated training adapter and identical-temperature control next,
+verify gradients/warmup/exact resume/strict greedy evaluation, then freeze a
+bounded two-seed learning comparison before training. The old warm/cold study
+changed LR as well as temperature, so it does not resolve this hypothesis.
+There are no live jobs. Canonical model, dealer and verified renewal PDF remain
+unchanged. Keep 101M unused and do not describe any new replicated strength gain.
 
 **Fixed-root multi-round comparison independently complete:** producer46255
 and audit96354 exited0. All24,576 strict matches and all18 contrasts reproduce.

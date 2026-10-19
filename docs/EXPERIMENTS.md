@@ -4682,3 +4682,71 @@ No model promotion or stronger-play claim. The current-hand prediction gain
 survives complete enumeration, while these search settings do not convert it
 into demonstrated strength. The active research goal remains unfinished.
 No live job remains; do not rerun completed diagnostics or overwrite receipts.
+
+
+## 2026-10-19: boundary residual estimator and phase exploration calibration
+
+Reviewed earlier paired-value learning and approximate round-boundary search.
+Implemented scripts/boundary_residual_values.py: independent cheap mean plus
+coupled terminal-minus-proxy residual with fixed coefficient. The boundary
+proxy is the A/B table average; a first-round barrier gives the same prefix
+execution in cheap and high paths. The fixed table's error cancels in the
+conditional expectation identity; variance and numerical-policy mismatch remain.
+This is established two-level/control-variate estimation, not a new theorem.
+Primary sources checked: Peherstorfer et al., SISC2016 (10.1137/15M1046472), and
+Veness et al., NIPS2011 Variance Reduction in Monte-Carlo Tree Search. Their
+relationship is documented in BOUNDARY_RESIDUAL_PRIOR_ART.rst. No paper/PDF edit.
+
+Four capability checks pass, zero skips, 2.94s: finite rational unbiasedness /
+variance identity, an adverse-correlation case, and actual CUDA/reference
+trajectories for both seats with identical cheap/high first-round endpoints.
+Initial lint-only import-order finding was corrected; no functional failure.
+XML 8583c771564e0adf8179303a0198e445e32e0b9e963514eb2f4100995d572860.
+Two independent scalar-auditor checks pass, zero skips, 1.35s; four allocation
+checks pass, zero skips, 1.34s, including dense-grid minimization. Initial unused
+import in the auditor was removed. All lint checks now pass.
+
+Command `python -m scripts.diagnose_boundary_residual --output
+runs/boundary_residual_diagnostic` completes session 83797, exit 0. The frozen
+198-input protocol uses all 25 roots x two beliefs, first legal non-parent
+action, 512 coupled samples + 2,048 independent cheap + 2,048 independent
+reference samples per cell. Seeds are hypothetical 104M/105M/106M streams;
+no new actual deal. Every cell retained. Independent command
+`python -m scripts.audit_boundary_residual --output runs/boundary_residual_diagnostic`
+passes, binds 253 inputs, reconstructing all public proxies, scalar/block
+statistics and work totals. It does not rerun all neural trajectories.
+
+Mean variance ratios uniform/history 0.937784/0.934917; variance-times-time
+1.188984/1.221901, with no cell below one. Mean block MSEs corrected/ordinary
+0.00351173/0.00360707 and 0.00399291/0.00453186; extra cheap samples are not free.
+Full work/time/scope and hashes are in BOUNDARY_RESIDUAL_RESULTS.rst. There are
+22,555,551 new hypothetical decisions across all three categories and zero
+new full evaluation matches, actual completions or updates. Producer/auditor
+each replay 953 old source decisions. Times exclude world construction and
+prior inference, so do not claim end-to-end latency.
+
+A separately labeled post-hoc command `python -m scripts.boundary_allocation_diagnostic
+--output runs/boundary_residual_diagnostic` fits coefficients/asymptotic allocation
+to sample moments and costs, with ordinary estimation as a zero-coefficient
+option. Predicted mean ratios 0.992473 time / 0.996522 decisions suggest less
+than one percent average gain even in this optimistic calculation. It adds no
+simulation, adopts no parameter and is not an independent improvement result.
+Receipt f87983c730d115b56efb27746c037da81141fd35153ce29548ca71e644256d1c.
+
+Reviewed existing score distributions as a distinct learning hypothesis. The
+original corpus is 100 old random-policy matches, not actual training visitation.
+Implemented score-only phase calibration with a 75/25 whole-match split, excluding
+negative-source fixtures and forced actions. Target normalized discard entropy
+0.3760419898 at T0.05 yields koi T0.21989584747027907. Validation koi entropy
+0.199169 -> 0.446049, versus discard0.452271; median greedy probability
+0.999993 -> 0.937786. These are intended probability changes, not model strength.
+Two tests pass, zero skips, 1.23s, including independent binary entropy and
+shift/scale checks. Command `python -m scripts.phase_exploration_calibration
+--output runs/phase_exploration_calibration.json` completes with zero neural
+calls/simulation/updates. Receipt
+d191ca3bafe0c3bb1f268f612a3dfb80f2223dc97292ed87d0571c6024487e0a.
+
+Next implement and verify isolated koi-temperature training, then fix a fresh
+matched two-seed experiment. No training is launched yet. Human-play policy,
+initial dealer, reserved101M and verified manuscript/PDF are unchanged. The goal
+remains active; neither strength nor new-method novelty is established here.
