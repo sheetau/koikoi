@@ -6678,3 +6678,34 @@ workers52108/58912 are gone; parent log records completion and successor starts.
 Queue session25193/actual42304 remains live,with no failure/terminal receipt.
 Do not restart or duplicate evaluation. Native replay,statistics export and
 any candidate qualification remain pending. Canonical player/dealer unchanged.
+
+## First calibrated-Point main evaluation cells complete, 20 October 2026
+
+parent1_point_matched_wp and parent1_point_matched_point each finish8,192matches.
+Their producer counters are943,171/956,736decisions and63,718/63,015round
+endings. Combined new work:16,384matches /1,899,907decisions /126,733rounds.
+All eight parent1 cells are now complete:65,536matches /7,610,954decisions /
+508,229round endings. Eight of16cells are complete.
+
+Verified completion status,exact newline-terminated row counts,rawSHA,
+protocolSHA,checkpointSHA and checkpoint,parent,policy,opponent and first-seed
+identity against the fixed protocol. No partial outcome means were inspected.
+This verifies producer metadata only; the full native-action/statistics audit
+remains pending. Receipt hashes:
+- WP:53b5804e5a275991b7787b1f8c29d8a5d6fc2fb109f34ccdf05be73a8b501cd5
+- Point:104497eef0e3cc85e5d4d6f2148a465c4c48bbb6314765bac01a965d2fdb9af7
+Raw record hashes:
+- WP:1330a702b4a2416e58fc64a2da9fe6364003394c23ba3ad05d07a7dd7ab4e1f0
+- Point:2bc1885ec6804fad2577825c5f2044b3468b6d9d672c4658bd4e890e2a3a2e6a
+Metadata check runs/point_initialization_first_matched_cells_check.json
+SHA e21349da7f0e1610498de96ee760bdee91004d902efd9ebb6e227ed2a611e2bb.
+The check hashes the raw files and checkpoint and compares protocol identities;
+it performs no neural inference or native replay and adds no simulated work.
+
+Evaluator53480 starts parent2_parent_wp at07:08:13JST,
+launcher62896/actual64892,and parent2_parent_point at07:10:38JST,
+launcher2552/actual24976. Both are OS-live and writing records. Previous
+workers19248/52492 are gone; parent log records completion and successor starts.
+Queue session25193/actual42304 remains live,with no failure/terminal receipt.
+Do not restart or duplicate evaluation. Native replay,statistics export and
+any candidate qualification remain pending. Canonical player/dealer unchanged.

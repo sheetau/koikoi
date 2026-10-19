@@ -169,18 +169,18 @@ Protocol SHA1df245b6fea1799c0ed9f91518642ccb3d1e4bf9c0f7e682a1208819e609b7e7
 binds187inputs and all12training audits. The16cells use4,096paired deals per
 opponent,131,072planned matches, and the previously fixed bootstrap family.
 Evaluator launcher6284/actual53480 started04:45:17JST and remains live.
-The first six cells are complete: parent1_parent, parent1_wp_fixed and
-parent1_point_fixed,each against WP and Point with8,192matches per cell.
-Completed-cell producer totals are49,152matches /5,711,047decisions /
-381,496round endings. The two new fixed-Point cells add16,384matches /
-1,906,077decisions /126,687round endings. Receipt hashes, raw-file hashes,
-complete row counts and protocol/checkpoint identities agree. This is producer
-completion, not the later native-action/statistics audit or strength evidence.
+The first eight cells are complete: all four parent1 policies against WP and
+Point with8,192matches per cell. Completed-cell producer totals are65,536matches /
+7,610,954decisions /508,229round endings. The two new calibrated-Point cells
+add16,384matches /1,899,907decisions /126,733round endings. Receipt hashes,
+raw-file hashes,complete row counts and protocol/checkpoint identities agree.
+This is producer completion,not the later native-action/statistics audit or
+strength evidence. No partial outcome means were inspected.
 
-At06:34JST the next workers are OS-live: parent1_point_matched_wp
-launcher61980/actual19248(start06:32:31),and parent1_point_matched_point
-launcher43620/actual52492(start06:34:17). The preceding workers52108/58912
-have exited,and the parent log records both cell completions. Six of16cells
+At07:10JST the next workers are OS-live: parent2_parent_wp
+launcher62896/actual64892(start07:08:13),and parent2_parent_point
+launcher2552/actual24976(start07:10:38). The preceding workers19248/52492
+have exited,and the parent log records both cell completions. Eight of16cells
 are complete; do not rerun them. Later worker IDs are owned by evaluator53480
 and must be rediscovered.
 Monitor evaluation_complete.json/evaluation_failed.json in the evaluation root,
