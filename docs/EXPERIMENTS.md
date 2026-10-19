@@ -5672,3 +5672,29 @@ python -m scripts.audit_published_duration_checkpoint --seed 99210001 --update
 Next verify second saved520prefix. Existing single-use completion queue must
 remain in charge of final preparation/evaluation/audit after both runs. No
 main evaluation or101M confirmation has run. Canonical/dealer/PDF unchanged.
+
+## 2026-10-19: both duration short prefixes independently verified
+
+Second learner advances from53through535updates under the same live producer
+32540 and waiting queue32628. Win32_Process confirms the original process
+identities;no failure receipt appears. New independent saved520checkpoint audit
+passes. This completes the planned short-prefix verification for both seeds;
+the second learner continues uninterrupted toward4,020. No intermediate win
+evaluation or selection is performed.
+
+Seed99210001 update520 contains8,519,680decisions/570,785rounds/73,248completed
+trainingmatches,20warmup/500policyupdates. Adamsteps49,920value/48,000eachactor.
+Snapshot23a8bb514cb739ac44cb6a832a5a38dd5cd3f4c632ebc850081fa3609e695e77;
+actorparametersa06d3ed4acb5e0770297ab5ae21ce4cb66961ddd4a73da6106662df4f77bf79b;
+audit18d92b09ff98230b2c4c4041331e190b2ddf864702e545043797a051a6981f96.
+The unchanged auditor checks saved metrics,simulatorcounter,initialization,
+finite tensors and per-parameter optimizerstate;it does not replay training or
+measure strength. All108completionqueue bindings still match. Command exits0:
+python -m scripts.audit_published_duration_checkpoint --input
+runs/published_duration_study --seed 99210001 --update 520 --output
+runs/published_duration_study/audit_seed99210001_update520.json.
+
+Next await second4,020completion. The already-live single-use queue owns main
+preparation,the98,304-match comparison and independentaction/statisticsaudit.
+No new learning configuration,main evaluation,final101Mconfirmation,canonical
+model,dealer orPDF change. Goal remains active and improvement unproven.

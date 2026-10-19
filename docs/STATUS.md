@@ -28,14 +28,19 @@ and endpoint hash agree. Final checkpoint
 506ff8738c304f15d71344c1d4038e7f84381a500f3f0931f56be63f11e3a150;
 audit b9c10748dce30e210fa070390ed3661200ac812350213571f8368b40ff069dc5.
 
-Second seed reaches30/4,020updates at the recorded observation. Its20-update
+Second seed passes its saved520prefix and continues past535/4,020updates.
+The520audit passes:8,519,680decisions/570,785rounds/73,248matches,49,920value
+Adamsteps and48,000peractorhead. Both short prefixes are now verified.
+Second short checkpoint23a8bb514cb739ac44cb6a832a5a38dd5cd3f4c632ebc850081fa3609e695e77;
+audit 18d92b09ff98230b2c4c4041331e190b2ddf864702e545043797a051a6981f96.
+Its20-update
 warmup audit passes:327,680decisions/22,010rounds/2,769matches,1,920value Adam
 steps and0actor steps;actor equals originalWP. Receipt
 33724feea3b8157a8b7e46001a6d15ca2e50b5be5ff6a405c139aaf51c948877.
 All67training and108completion-queue bindings reverify unchanged. The live queue
 still waits for both runs;no main evaluation,model selection or promotion occurs.
 These are training/state checks,not strength evidence. Never restart from a
-stale observation or timeout. Next audit second seed's saved520prefix,then
+stale observation or timeout. Next await the second4,020endpoint and
 allow the existing queue to prepare/evaluate/audit once both runs finish.
 
 Two fresh original-WP learners preserve the existing actor,public critic,PPO,
