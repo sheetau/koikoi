@@ -11,95 +11,55 @@ Old process handles mentioned in that history are historical, not live jobs.
 
 ## Current experiment and next actions
 
-**Original evaluation failed; recovery is live in a fresh directory.**
-The original queue session21869 exits1. Its evaluator failed on Windows atomic
-replacement of evaluation_process.json (WinError5 access denied),not on a game
-or model assertion. Original queue/evaluator/workers are terminal and preserved.
-A concurrent reader sharing conflict is plausible but its cause is unproven.
-Do not restart the original queue or alter its failure receipts.
+**Longer adaptation and recovered evaluation are independently complete.**
+[All results](PUBLISHED_DURATION_RESULTS.rst). Session2601 exits0 after all12cells
+and the full native-action/statistics audit. Training, evaluation and recovery
+are terminal; never restart them. Original failed queue/evaluator receipts remain
+preserved. The recovery repeats four incomplete cells and copies eight complete
+cells unchanged. All5,753 preserved prefix rows match repeated inference exactly.
 
-Recovery root:runs/published_duration_evaluation_recovery. Session2601;
-launcher65496/actual54664 starts2026-10-20 00:19:09JST. Both short cells now
-complete8,192matches each;report identities,row counts/hashes and work agree.
-Their actual workers16776/60244 exit. Ten of twelve cells are complete.
-Current long workers:WP launcher40896/actual12408 starts00:53:04JST;
-Point launcher4236/actual60892 starts00:54:02JST. Both and recovery54664 are
-OS-verified live. Current complete rows449WP/214Point;total82,583analysis rows.
-No partial outcomes inspected. The unchanged independent native replay/statistics
-audit follows these last two cells. New immutable launch/completion/failure
-receipts avoid periodic replacement of a polled status file. Existing
-recovery_started.json prevents another launch. Read logs and actual OS processes;
-do not restart after an observation timeout or reuse the former short-worker IDs.
+The predeclared four-contrast simultaneous95% win criterion fails:
 
-Recovery protocolbf1163339fdb52303344f118c92bb5c75204eea7e0211cdc295ab3ad9fca86c8
-binds130inputs. Eight completed cells are copied byte-for-byte. Four incomplete
-cells are rerun through the unchanged original worker on the original full
-schedule. Original short WP3,200 and Point2,553 complete rows are preserved;
-all5,753 prefix records must exactly match repeated neural inference before
-the recovered study can complete. Their667,309decisions/44,637round endings
-are additional recorded duplicate work,not additional independent evidence.
-Unrecorded in-flight work is unknown. No partial outcomes inspected or selected.
-Both preserved prefixes now match repeated inference exactly:all5,753 rows.
-Receipt runs/published_duration_evaluation_recovery/preserved_prefix_check.json
-SHA4f761afdbe1344f05d7b2b3c51abb0c1e159b7a4b7bd49bb17346305a4319fa5.
-This checks prefix identity only;the remaining cells and full audit are pending.
+| Seed | Long minus short (pp) | Long minus retained (pp) |
+| --- | --- | --- |
+| 99110001 | +0.5798 [-0.3191,+1.4788] | +0.5249 [-0.3906,+1.4404] |
+| 99210001 | +0.8942 [+0.0005,+1.7878] | +0.6104 [-0.2847,+1.5054] |
 
-Recovery implementation:scripts/recover_published_duration.py. Four tests pass
-0skips,including malformed/changed prefix refusal,non-overwriting receipts,
-live-process refusal and real owned-worker failure cleanup. Ruff passes.
-Capability repeats8existing small-study matches,918decisions/64round endings;
-all bytes equal earlier CPU inference and native CPU action replay agrees.
-Capability receipt06a1ecac96fb1874f71982424a38173d86acf87590e01c3278c3b5ea6d27872a.
-This verifies recovery mechanics,not strength. Keep recovery sources/tests frozen.
+Long Point win scores are50.9460% [50.0916,51.8127] and52.2217%
+[51.3489,53.0945],with descriptive marginal95% intervals. Long WP scores are
+52.7283% and51.8066%. All four opponent-specific marginal lower bounds exceed50%,
+but these secondary results do not replace the failed primary criterion or
+prospective confirmation. Point mean margins remain negative:-1.1873/-0.3379;
+the second interval includes zero. Both long mixture point margins improve over
+both short/retained comparators with positive descriptive paired intervals.
+No replicated win improvement over retained policies is established.
 
-The complete-only exporter now explicitly supports this pinned recovery via
---recovered. It verifies the completed recovery and full audit,unchanged source
-failure receipts,eight exact copies,both exact prefixes,and separately counted
-duplicate work. All72 secondary coordinates/four primary bands remain mandatory.
-Twelve synthetic tests pass0skips;the actual incomplete recovery is refused.
-No main results exported. After recovery_complete.json and the audit finish:
+Training:131,727,360decisions/8,804,257rounds/1,133,134matches/8,040updates;
+short prefixes included once. Evaluation:98,304matches/11,376,824decisions/
+762,598round endings on8,192shared deals. Native replay checks those recorded
+actions;it adds no independent deals or neural action selection. Additional
+recorded recovery duplicates:5,753matches/667,309decisions/44,637round endings.
+Unrecorded interrupted work remains unknown. Recovery capability separately
+repeats8fixture matches/918decisions/64round endings,not strength evidence.
 
-    python -m scripts.export_published_duration_results --recovered --study runs/published_duration_evaluation_recovery --output runs/published_duration_results --audit-sha256 <completed-audit-sha256>
+Evaluation protocol76e1b6af987e21f4e05e270aaabcd85ee9a89e68621589d1802a3a7543b24f18.
+Recovery protocolbf1163339fdb52303344f118c92bb5c75204eea7e0211cdc295ab3ad9fca86c8.
+Passed auditf193d0ac7ce3aa63071f3f65fb81d6b809329944012b4fa48d30c5a9e0367b31.
+Summary74d03c23bb41a2fce755a1aee885119592de4bb527e8ae9f7ce9f870544e0050.
+Recovery completion9640e4891cd7e70c64f3d5c63baf6b9dae5a9a76316743c7fd8663a62c70757b.
+Complete-only recovered export runs/published_duration_results/evidence.json
+b4e7bc2566deb3718aaf4c0dd19ac7d270750fe511f933a13e461c0b11c06212 binds197inputs;
+all dependencies/output hashes verify. Do not rerun or overwrite completed exports.
+Recovery sources/tests and all frozen inputs remain unchanged.
 
-The original route still rejects the failed old queue;never fabricate a success
-receipt. Frozen evaluation/recovery sources,models,dealer and deployment remain
-unchanged. Stronger play and the broader research objective remain unachieved.
-
-Both long adaptations are complete. [Fixed design](PUBLISHED_DURATION_STUDY.rst).
-Two fresh original-WP seeds99110001/99210001 each finish4,020updates:20critic
-warmup and4,000policy updates. Exact short prefixes are at520total updates.
-Total131,727,360decisions/8,804,257round endings/1,133,134training matches,
-including both prefixes once. Each seed uses65,863,680decisions. All six saved
-20/520/4,020 state/accounting audits pass;these do not establish playing strength.
-Final model SHA seed99110001:
-506ff8738c304f15d71344c1d4038e7f84381a500f3f0931f56be63f11e3a150;
-seed99210001:9aa1b1b7f92289133b003dd86adc8685ed8f9c78b5042605a8797f0d26e602d0.
-Training completionce033a7a2b2c870efa0269509981c5a7913bfef2caca83c388fd8314ad6197ca.
-Training protocolafd19da343ae13624d949523b436a2ac85d6c3e00a42ecb0da0d8f655b27e4e6.
-Never restart completed training or count recovery inference as training.
-
-The unchanged evaluation protocol
-76e1b6af987e21f4e05e270aaabcd85ee9a89e68621589d1802a3a7543b24f18
-is copied exactly to the recovery root. It fixes12cells x4,096paired deals:
-98,304analysis matches on8,192shared deal streams,greedy singleton CPU2threads,
-paper8 with public endgame assistance. Both short/long endpoints and retained
-parents play assisted WP/Point. Primary:both seeds' long-minus-short AND
-long-minus-retained-parent equal-mixture win lower bounds must be positive in
-one four-contrast simultaneous95% family. Use10,000whole-block bootstrap draws,
-seed99410001. Report all72 secondary coordinates. Only if all four pass is the
-fixed longseed99110001 candidate eligible for separate prospective101M
-confirmation.101M remains unused. This is an eightfold policy-update budget
-comparison,not a new algorithm or equal-compute gain.
-
-The unchanged auditor replays all recorded actions through native CPU and
-independently checks the compound-block statistics/accounting. Evaluation
-capability48matches/5,487decisions/383rounds passed (audit
- ee47f2ae3c362365a1d1542c868cd90d3dc53c810586e73ae74b66a18e73cef1).
-The pending full audit must cover the complete recovered study;copying completed
-reports alone is not that audit. Prior original queue protocol
-371721bbebb20b08a256145a53fee851c5127d67a40c1ae1140855cf5db96588
-remains preserved with its failure. See EXPERIMENTS for historical process IDs,
-training capabilities and saved-state checks;these are not live processes.
+No endpoint is promoted; canonical player,dealer and101Mconfirmation are unchanged.
+No study job is live. This is greater-compute adaptation,not a novel algorithm.
+Next incorporate the closed duration result in the manuscript,then specify and
+capability-test the previously identified Point-initialization comparison with
+explicit score-scale/exploration controls. Do not extend this comparison after
+seeing its outcomes or repeat closed temperature/return sweeps. Initialization
+alone is not a novelty claim;the broader research objective remains unachieved.
+The existing PDF does not yet include this newly completed duration result.
 
 Completed [initialization diagnostic](PUBLISHED_INITIALIZATION_COMPARISON.rst):
 all28stored published configs use WP. Archived Point scores atT0.05 have lower

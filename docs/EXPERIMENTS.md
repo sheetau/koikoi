@@ -6028,3 +6028,40 @@ Ten of twelve cells are complete. Open-file counts in the final cells:449WP/
 No changed model,protocol,source,dealer,deployment orPDF. Next monitor these
 last two cells and the existing driver's complete independent audit. Broader
 stronger-play/research objective remains active and unachieved.
+
+## 2026-10-20: duration evaluation and recovery complete; primary gate fails
+
+Session2601 exits0. All12cells complete98,304scheduled matches on8,192shared
+deals;11,376,824decisions and762,598round endings. Independent nativeCPUreplay
+verifies every initial state,legal action,endpoint,work count and schedule.
+Independent scalar bootstrap statistics reproduce all72secondary coordinates
+and the four simultaneous primary intervals. This does not replay networks or
+training. The recovery driver verifies all130bindings,eight exact copied cells
+and all5,753preserved prefix rows before and after audit. Both long workers and
+audit exit;no study job remains. Originalfailedreceipts remain unchanged.
+
+Primary long-minus-short mixture win changes(pp):seed1+0.5798[-0.3191,+1.4788];
+seed2+0.8942[+0.0005,+1.7878]. Long-minus-retained:seed1+0.5249[-0.3906,+1.4404];
+seed2+0.6104[-0.2847,+1.5054]. One four-contrast simultaneous95%family,
+critical2.4578265204153222;only secondseedlong-minus-short haspositive lowerbound.
+Qualificationfalse,no101Mconfirmation orpromotion. LongPointdescriptive wins
+50.9460%[50.0916,51.8127]and52.2217%[51.3489,53.0945];meanscoremargins
+-1.1873/-0.3379. Bothlongmixturepointimprovements over bothshort/retainedhave
+positive marginalintervals. These secondary outcomes do not replaceprimary.
+Allresults and interpretation:docs/PUBLISHED_DURATION_RESULTS.rst.
+
+Passed auditf193d0ac7ce3aa63071f3f65fb81d6b809329944012b4fa48d30c5a9e0367b31;
+summary74d03c23bb41a2fce755a1aee885119592de4bb527e8ae9f7ce9f870544e0050;
+completion9640e4891cd7e70c64f3d5c63baf6b9dae5a9a76316743c7fd8663a62c70757b.
+Complete-only exporter executes once:
+
+    .venv/Scripts/python.exe -m scripts.export_published_duration_results --recovered --study runs/published_duration_evaluation_recovery --output runs/published_duration_results --audit-sha256 f193d0ac7ce3aa63071f3f65fb81d6b809329944012b4fa48d30c5a9e0367b31
+
+Export evidenceb4e7bc2566deb3718aaf4c0dd19ac7d270750fe511f933a13e461c0b11c06212
+binds197inputs;all197inputhashes andoutputhashes verify. Presentation adds0matches
+orNNcalls. Additionalrecordedduplicate recoverywork5,753matches/667,309decisions/
+44,637roundendings remains separate,as does8match recoverycapability. Unknown
+interruptedinflightwork remainsunknown. Trainingprefixescountedonce,total
+131,727,360decisions. NoPDFchange yet. Next incorporate results and specify the
+untriedPointinitializationcontrols;additionalcompute isnotclaimedasnovelty.
+Strongerplay/researchobjective staysactive;neverrestart thiscompletedstudy.
