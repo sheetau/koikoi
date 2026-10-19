@@ -6009,3 +6009,22 @@ endings. No win/point means inspected,no model selection. Recovery54664 and
 workers16776/60244 remain OS-live. The driver repeats this identity check after
 all cells finish,before the full native replay/statistics audit. That audit and
 the strength conclusion remain pending;the broader objective is unachieved.
+
+## 2026-10-20: recovered short evaluation completes; final two cells run
+
+Verified waits on session2601 show both parent2_short_wp andparent2_short_point
+finish8,192matches each. verify_cell checks exact case order,all report/model/
+protocol identities,actual row hashes and stored work. WP:943,643decisions/
+63,804round endings;Point:954,984decisions/63,067round endings. These are saved
+producer checks,not the pending full native replay/statistics audit. Both
+preserved partial prefixes were already verified exactly;the driver will repeat
+those checks after all cells finish. No win or point means inspected.
+
+Actual short workers16776/60244 exit. The same recovery54664 automatically
+launches long WP launcher40896/actual12408 at00:53:04JST andlong Point
+launcher4236/actual60892 at00:54:02JST. All three current processes are OS-live.
+Ten of twelve cells are complete. Open-file counts in the final cells:449WP/
+214Point;total82,583scheduled analysis rows,excluding old duplicate prefixes.
+No changed model,protocol,source,dealer,deployment orPDF. Next monitor these
+last two cells and the existing driver's complete independent audit. Broader
+stronger-play/research objective remains active and unachieved.

@@ -19,13 +19,17 @@ A concurrent reader sharing conflict is plausible but its cause is unproven.
 Do not restart the original queue or alter its failure receipts.
 
 Recovery root:runs/published_duration_evaluation_recovery. Session2601;
-launcher65496/actual54664 starts2026-10-20 00:19:09JST. Actual workers16776
-(parent23628,short WP) and60244(parent62112,short Point) start00:19:10JST.
-All are OS-verified live. The fresh runner then evaluates parent2_long WP/Point
-and runs the unchanged independent native replay/statistics auditor. It creates
-new immutable launch/completion/failure receipts,without periodically replacing
-a polled progress file. Existing recovery_started.json prevents another launch.
-Read logs and actual OS processes;do not restart after an observation timeout.
+launcher65496/actual54664 starts2026-10-20 00:19:09JST. Both short cells now
+complete8,192matches each;report identities,row counts/hashes and work agree.
+Their actual workers16776/60244 exit. Ten of twelve cells are complete.
+Current long workers:WP launcher40896/actual12408 starts00:53:04JST;
+Point launcher4236/actual60892 starts00:54:02JST. Both and recovery54664 are
+OS-verified live. Current complete rows449WP/214Point;total82,583analysis rows.
+No partial outcomes inspected. The unchanged independent native replay/statistics
+audit follows these last two cells. New immutable launch/completion/failure
+receipts avoid periodic replacement of a polled status file. Existing
+recovery_started.json prevents another launch. Read logs and actual OS processes;
+do not restart after an observation timeout or reuse the former short-worker IDs.
 
 Recovery protocolbf1163339fdb52303344f118c92bb5c75204eea7e0211cdc295ab3ad9fca86c8
 binds130inputs. Eight completed cells are copied byte-for-byte. Four incomplete
