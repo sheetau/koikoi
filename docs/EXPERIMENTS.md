@@ -5238,3 +5238,66 @@ is closed;future methods need a separate diagnostic/design and fresh development
 comparison. The canonical player,dealer and verified manuscript/PDF remain
 unchanged. Integrate this completed result concisely with the next substantive
 paper revision;do not redeliver the old PDF or call this a new general algorithm.
+
+## 2026-10-19: directional return-probe arithmetic and prospective diagnostic
+
+Previous goal turn was progress: the full temperature study and independent
+replay/statistics audit completed,all results were exported,and milestone
+3daa6c4 was committed/pushed. No live job remains from that comparison.
+
+Inspected existing diagnose_match_returns and observer examples. The former
+compares MLP return estimates with realized Monte Carlo but explicitly cannot
+infer gradient bias;the latter proves an exact finite-game reversal. There is
+not yet a measured score-weighted return comparison on the retained published
+Koi-Koi agents. Read the primary GAE paper,arXiv1506.02438v6,Section2 and its
+score-weighted-estimator definition. The new diagnostic uses standard policy-
+gradient identities;it is not a new gradient theorem or learning algorithm.
+
+Added scripts/directional_return_probe.py. Five bounded public exponential-
+tilt probes are fixed:continue bias at koi and one base-probability preference
+feature for each of the four phases. The selected-action score subtracts its
+base-policy expectation. Recorded relative probability weights are normalized
+in float64;illegal/zero-mass selections are rejected. Forced and padded rows
+contribute zero. Features are frozen when differentiating the local family.
+
+Complete-match terminal rewards yield MC advantages. Separate seat-zero
+recurrences compute signed lambda0.95 full returns and128-step-window lambda
+0.95/1 returns,with externally supplied cutoff offsets. Cutoffs stop eligibility
+but retain next values;terminal states clear both. Full lambda1 must equal MC.
+Within-match contributions retain both seats and all probes;the intended
+average describes two unilateral responses against a frozen other seat,not
+the zero joint payoff under changing both agents. PPO clipping,normalization,
+entropy and optimizer updates are outside the diagnostic's estimand.
+
+Three targeted tests pass,0 skips,0.16s. Independent finite differences check
+all five scores and zero conditional means. Exact enumeration reproduces the
+shared-parameter true gradient3/800,the signed0.95 value-conditional result
+-8301/3200000,and nonterminal cutoff -19701/160000. An independent per-root TD
+expansion checks random variable-length matches,same-player turns,cutoffs,
+terminal padding and contribution sums. A review caught unsigned seat storage
+as a possible sign-wrap hazard;the implementation casts validated players to
+signed integers and the variable-length test usesuint8. Closure bindings and
+formatting were corrected;Ruff checks pass. No production/frozen source changes.
+
+Command: `.venv/Scripts/python.exe -m pytest
+ tests/test_directional_return_probe.py -q
+ --junitxml=runs/directional_return_probe_tests.xml`.
+Test XML SHA256: 862bdc6fb4fb75b65fff4fa6e597f3cb78a59b21f861b4f000c25a6dcd7b4e4a.
+These are analytical/synthetic tests:0 new Koi-Koi matches,simulator steps,
+neural calls or optimization updates. They do not establish an actual-game
+reversal or playing improvement.
+
+Added docs/DIRECTIONAL_RETURN_PROBE.rst. Planned main corpus:retained parents
+A/B,4,096 full sampled-self-play matches each,64 batches of64,shared initial
+seeds98110001..98114096. Separate action and cutoff RNGs are specified. The
+corpus is8,192 actual matches on4,096 shared deals,not strength evaluation.
+Capability must use separate98100001 seeds and actual production-sized CUDA
+batches. The collector,independent replay and simultaneous bootstrap bands
+must be implemented/tested before launch. Every probe and estimator remains
+in reporting;primary continue-direction reversal needs opposite nonzero MC
+and windowed-GAE0.95 signs under simultaneous intervals at both parents.
+No data collection or training has started. No model is selected or promoted.
+
+The research objective remains active. Complete the new capability and
+measurement before choosing a further learning repair;neither the verified
+manuscript/PDF nor canonical human play is changed by this arithmetic module.

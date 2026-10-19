@@ -72,12 +72,28 @@ KOI_TEMPERATURE_PRIOR_ART.rst adds primary policy-distillation,discrete-SAC and
 target-entropy literature and a concise candidate Related Work paragraph.
 No new general algorithm claim follows from adjusting temperature.
 
-**Next research action:** the current comparison is closed. Select a further
-improvement from the completed evidence and define a separate diagnostic before
-starting new training. Additional replicated strength and a stronger research
-contribution remain unachieved. The verified manuscript/PDF have not yet been
-changed to include this new negative result;integrate it concisely with the
-next substantive revision. Do not redeliver the unchanged PDF.
+**Next research action: directional return diagnostic.**
+The closed temperature comparison does not justify further temperature tuning.
+A new diagnostic will compare score-weighted return estimates with complete
+Monte Carlo contributions for fixed public policy directions. This addresses
+an empirical gap: earlier Koi-Koi return-error measurements were not gradient
+measurements,and the exact observer reversal is a finite example.
+[Design and scope](DIRECTIONAL_RETURN_PROBE.rst).
+
+scripts/directional_return_probe.py implements five bounded exponential-tilt
+scores,complete and cutoff signed advantages,and within-match seat sums.
+Three tests pass0 skips: independent finite-difference scores,the exact shared-
+parameter reversal/cutoff,and per-root TD expansion with variable lengths,
+same-player transitions,padding and unsigned player storage. Ruff passes.
+This adds0 simulator steps,neural calls or learning updates. It is diagnostic
+arithmetic,not an implemented training repair or new general estimator.
+
+Next implement/test actual frozen-parent CUDA collection,independent CPU replay
+and simultaneous uncertainty before launching the planned8,192 sampled-self-
+play matches on4,096 shared98Mdeal streams. Capability uses separate seeds.
+No diagnostic collection or live process has started. Keep original policies,
+temperatures and canonical deployment unchanged. The full-strength objective
+remains active and unachieved;the verified manuscript/PDF are unchanged.
 
 **Renewed-chance comparison independently complete:** allfour520-update arms,
 40,960matches and full replay/statistics audit pass. Producer58904/queue65372
