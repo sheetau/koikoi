@@ -5301,3 +5301,72 @@ No data collection or training has started. No model is selected or promoted.
 The research objective remains active. Complete the new capability and
 measurement before choosing a further learning repair;neither the verified
 manuscript/PDF nor canonical human play is changed by this arithmetic module.
+
+## 2026-10-19: actual directional returns collected and independently verified
+
+Implemented isolated collect_directional_returns,audit_directional_returns and
+directional_return_statistics. Production/frozen policies remain unchanged.
+The collector uses actual retained Transformer/critic CUDA inference,batch64,
+public endgame masks and log-softmax sampling at0.05. Complete matches freeze
+terminal rows,record public probability weights and all replay inputs,and
+reject incomplete1,024-step trajectories. Main collection requires a passed
+separate capability with identical42-input source/model/native-library bindings.
+
+Before any main data,defined/tested one70-coordinate simultaneous95% family:
+four means and three MC differences across five probes and both parents.
+10,000 whole-deal bootstrap replicates(seed98410001) keep all seats/parents
+paired. The higher95th percentile of maximum fixed-SE deviations gives a
+single critical value;zero-SE coordinates receive null bands and no sign claim.
+Independent expanded-row bootstrap and pairing fixtures extend the previous
+three analytical tests. All5 pass,0 skips,0.20s;Ruff passes. XML
+runs/directional_return_collection_tests.xml SHA
+cc73f20ce07061f9ce0c7468736a878d10bd7e83720136d3d9f14c0e94366330.
+
+Capability:128 matches/1,013 rounds/15,163 decisions on64 shared initial deals,
+280 model-forward batches and2,757 padded rows. Both CUDA parameter identities
+are unchanged. Every action,state/public-input hash and legal mask passes CPU
+replay;scalar advantage difference <=6.661338147750939e-16. Capability audit
+6cedec7c9afab1f0274cacb7d164ce6c04e54f39c1bf72ee2c114d3fb449713a.
+The fixed main protocol is written only after this pass.
+
+Main producer84684 exits0:8,192 matches/64,067 rounds/952,157 actual decisions
+on4,096 shared initial deal streams98110001..98114096. There are17,907
+model-forward batches and193,891 padded rows,0 optimization updates. Separate
+sampling/offset seeds follow the planned protocol. Neither actor nor critic
+parameter digest changes. CPU auditor82239 exits0 after all128 batches pass
+full action/state/public-mask replay and scalar scores,forward per-root TD
+expansions and both-seat contribution sums. Max advantage difference is
+8.881784197001252e-16. The shared transition core is disclosed;neural inference
+and action RNG are not replayed. Replays add0 independent matches/updates.
+
+The simultaneous critical value is3.255407047966088;all70 coordinates have
+nonzero empirical SE. Primary continue-direction reversal is false for both
+parents. All10 MC-mean bands and all30 paired-difference bands include zero.
+Seven positive GAE-mean bands concern discard preference(full/window95,both
+parents;window1,parent2) and koi preference(full/window95,parent1). None is
+converted into a true-gradient or strength claim. Increasing the fixed-base
+probability preference also preserves greedy ordering. No equivalence or
+universal absence-of-bias claim follows from these inconclusive intervals.
+
+Complete commands,all70 rows and protocol/report/audit/summary identities are
+in DIRECTIONAL_RETURN_RESULTS.rst. Main protocol
+cae47d239af584ea62f47a97d879ecf83d7108870ca975b6a34db63a6c4ee911;
+report5085458b15947062550d3a0732cb6a30d02bd9f29b988909c6085f50c4b7f059;
+audit0aa47825725adf0ed1d7142edf1214c42c0653cfea555e1a72511104c608da3c;
+summary5c63a84a8735520c73065e3a7e919f465ea5ddcea6b969794202430a6cf1c0c9.
+
+Reviewed a possible next direction based on action-branch training,then checked
+it against the existing paired-rollout selectors. Those already use same-world
+terminal differences,held-out source matches,larger datasets and retained-
+opponent controls;that construction alone is not new. Re-read the primary
+LOLS paper(Chang et al.,ICML2015),Section2/Figure2:
+https://proceedings.mlr.press/v37/changb15.pdf . It evaluates one-step deviations
+with terminal rollouts and cost-sensitive learning. Its structured-prediction
+analysis does not supply a Koi-Koi improvement guarantee. A direct web fetch of
+the older Lagoudakis-Parr author PDF returned403;no new full-text claim is made
+from that fetch. The manuscript already cites rollout classification and
+AggreVaTe. No new branch-training experiment is launched on this overlap.
+
+The fixed diagnostic is closed. Stronger play remains unestablished beyond the
+retained baseline;the active goal is not complete. No live process remains.
+No model,canonical player,dealer,101M final range or verified PDF is changed.

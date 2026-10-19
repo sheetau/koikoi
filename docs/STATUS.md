@@ -72,28 +72,37 @@ KOI_TEMPERATURE_PRIOR_ART.rst adds primary policy-distillation,discrete-SAC and
 target-entropy literature and a concise candidate Related Work paragraph.
 No new general algorithm claim follows from adjusting temperature.
 
-**Next research action: directional return diagnostic.**
-The closed temperature comparison does not justify further temperature tuning.
-A new diagnostic will compare score-weighted return estimates with complete
-Monte Carlo contributions for fixed public policy directions. This addresses
-an empirical gap: earlier Koi-Koi return-error measurements were not gradient
-measurements,and the exact observer reversal is a finite example.
-[Design and scope](DIRECTIONAL_RETURN_PROBE.rst).
+**Directional return diagnostic independently complete; reversal not established.**
+[All70 coordinates](DIRECTIONAL_RETURN_RESULTS.rst). Both retained CUDA models
+complete8,192 sampled-self-play matches on4,096 shared98Mdeals:952,157 actual
+decisions,64,067 rounds,17,907 model-forward batches,0 updates. A separate128-
+match capability passes first. Both parent parameter digests remain unchanged.
+CPU replay verifies every state/public-input hash,legal mask,action and work
+output. Separate forward TD expansions,scalar scores and both-seat sums pass;
+maximum advantage difference8.881784197001252e-16. No neural-inference replay
+is claimed,and replay adds no independent matches.
 
-scripts/directional_return_probe.py implements five bounded exponential-tilt
-scores,complete and cutoff signed advantages,and within-match seat sums.
-Three tests pass0 skips: independent finite-difference scores,the exact shared-
-parameter reversal/cutoff,and per-root TD expansion with variable lengths,
-same-player transitions,padding and unsigned player storage. Ruff passes.
-This adds0 simulator steps,neural calls or learning updates. It is diagnostic
-arithmetic,not an implemented training repair or new general estimator.
+One70-coordinate simultaneous95% bootstrap family preserves whole shared deals,
+both parents and seats. All10 MC-mean and all30 estimator-minus-MC bands include
+zero. The predeclared continue-direction reversal fails at both parents.
+Seven GAE-mean coordinates are positive;these do not establish positive true
+policy gradients or greedy deployment gains. This is inconclusive about
+estimator equality,not proof of absence of bias. No return repair or model is
+selected from the result.
 
-Next implement/test actual frozen-parent CUDA collection,independent CPU replay
-and simultaneous uncertainty before launching the planned8,192 sampled-self-
-play matches on4,096 shared98Mdeal streams. Capability uses separate seeds.
-No diagnostic collection or live process has started. Keep original policies,
-temperatures and canonical deployment unchanged. The full-strength objective
-remains active and unachieved;the verified manuscript/PDF are unchanged.
+Main protocol cae47d239af584ea62f47a97d879ecf83d7108870ca975b6a34db63a6c4ee911
+binds42 inputs. Report5085458b15947062550d3a0732cb6a30d02bd9f29b988909c6085f50c4b7f059;
+audit0aa47825725adf0ed1d7142edf1214c42c0653cfea555e1a72511104c608da3c;
+summary5c63a84a8735520c73065e3a7e919f465ea5ddcea6b969794202430a6cf1c0c9.
+Five tests pass0 skips,Ruff passes. Producer84684 and auditor82239 exit0;
+no live research job remains. Preserve completed artifacts;do not restart.
+
+The next research decision must identify a separate measurable learning signal,
+not repeat the closed return-decay or temperature sweeps. Existing paired
+rollout selectors already used same-world branch outcomes,including larger-data
+and opponent-preserving controls;do not relabel that method as a new direction.
+The stronger-play objective remains active and unachieved. Canonical play,
+dealer,reserved101M confirmation and the verified manuscript/PDF are unchanged.
 
 **Renewed-chance comparison independently complete:** allfour520-update arms,
 40,960matches and full replay/statistics audit pass. Producer58904/queue65372

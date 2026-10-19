@@ -90,15 +90,29 @@ inference, and that distinction must be stated.
 
 The main analysis will use10,000 whole-deal bootstrap replicates with seed
 98410001,retaining both seats and both parents at each index. Report every
-probe/estimator,not only significant coordinates. Define and test simultaneous
-uncertainty calculations before launch. A reversal for the primary continue
+probe/estimator,not only significant coordinates. Use one simultaneous95% family of70 coordinates: four estimator means and
+three paired differences from MC, for five probes and both parents. Each
+bootstrap replicate resamples4,096 whole deal blocks with replacement, keeping
+both parents and seats together. Divide centered bootstrap mean deviations by
+the original sample standard errors; take the replicate maximum absolute
+standardized deviation. The higher empirical95th percentile across10,000
+replicates supplies one critical value for all bands. Zero-standard-error
+coordinates get a null interval and no sign claim. These are asymptotic
+resampling bands, not finite-sample coverage guarantees. The same method is
+tested against an independent expanded-row resampling calculation before
+launch. A reversal for the primary continue
 direction requires opposite nonzero Monte Carlo and128-step GAE0.95 signs with
 simultaneous intervals at both parents. Other findings remain descriptive.
 
-The immediate implementation is the score/return/contribution arithmetic.
-Its tests use finite differences, an exactly enumerable reversal and separate
-per-root TD expansion. Actual Koi-Koi collection, uncertainty implementation
-and independent replay remain to be completed. This diagnostic can inform a
+Implementation comprises score/return arithmetic, a frozen-model CUDA
+collector, whole-deal simultaneous bands and an independent CPU auditor. Tests
+use finite differences, an exactly enumerable reversal, separate per-root TD
+expansion, resampling equivalence and preservation of parent/seat pairing.
+Before main collection, the separate128-match capability must pass all CPU
+state/public-input/mask checks, scalar calculations and parameter immutability.
+The main collector requires that capability receipt with identical source
+bindings. Parameter equality is checked before and after each parent corpus.
+Padding consumes sampling RNG but contributes no decisions or statistics. This diagnostic can inform a
 subsequent learning experiment; it does not qualify a stronger deployed agent.
 The policy is sampled self-play, not greedy deployment against WP/Point.
 Any proposed learning repair still needs a separate complete-match strength
