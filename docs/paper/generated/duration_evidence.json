@@ -1,0 +1,773 @@
+{
+  "status": "complete",
+  "inputs": {
+    "koikoi/agents.py": "e2188ea87b4c05a884737a6c38a2faec5ce8e1d3eeaf4a60ff09cb516bb3afe3",
+    "koikoi/arbitration.py": "de2364137bb75d2a8c779d17df1421fa3cc782de22ac1ff2ac6ad939de828e57",
+    "koikoi/batch_evaluate.py": "6e28381bea8fc0363dfc2a714d5473c1a1f291c2f37845c48d57b57affd961fe",
+    "koikoi/benchmark.py": "30c2bb2dd463e01fff638d38dad8996aff6c00c52a6f31d4be349ec3e3f2f348",
+    "koikoi/budget.py": "0f9cf299dbbaaa07c47cf01187eab20bfe96f74ecfb65f9d866fac8f5a4017e7",
+    "koikoi/capture.py": "bf379603adef31968ead5c99c27b21cbe89442ddebe71e48e802ae141ee3561e",
+    "koikoi/compare.py": "21173f9fe58f38877d3dac9128816fe5a14ea134618b6d540983c21ad59ce174",
+    "koikoi/complete_matches.py": "8fabf48508508560f3919220b04cb82b2d17fcfaeb170f42feafe7c838b91305",
+    "koikoi/env.py": "979617e94988b406b14d34bc00f08335ac4b78579f43e142568bddec6391f6b6",
+    "koikoi/estimators.py": "d820083ef6c15eed8212544ab3dbf0b94f0b7480f7b2a8daa26e526082e2947a",
+    "koikoi/evaluate.py": "50f403c3dbadcd7db38ef1bac4858d2662afab61aff7cd85a5216b7ca04a8600",
+    "koikoi/layout.py": "5aeb1f111f6e051f24fa8f50d53a6607d70ec92fa291c979ad3966d8784147bc",
+    "koikoi/model.py": "3dba5951daaf288016b0e274fe18e4870c3c6ade58b49900e588f37064d846fe",
+    "koikoi/native.py": "26f0fea3bcf787be52af0abc1899cd0a6afb6020605b5c10ac5d6f86d400e028",
+    "koikoi/opponents.py": "7b35c3d9e9ea4589d6c1704855ffaa9a906e5e01483e36a804b6f466d30272ac",
+    "koikoi/play.py": "4ce371b2b3caa1c68ea0698d832a53baac82b43f3fd02e43350f4a44c8badee9",
+    "koikoi/published_actor.py": "6455c08bbb3df0acc33a7a5c0205995943930f8e330d8ac78877a4d08ac0d1c6",
+    "koikoi/published_opponent.py": "0135f52261a018998e195f80391a95964fa227b724fb3ce0f71a9de9253167c1",
+    "koikoi/published_train.py": "bfb603296b6204bdef391949a30383d59ac870f3b95cced3536015ba57756250",
+    "koikoi/reference.py": "52141cde4ad247fc75756da284c8d8a93197917edc1b3f9bb601c6af8405f5ff",
+    "koikoi/round_continuation.py": "dd452723ecd9dd83fa8f02d82a091008c422df9f22f827613a0a491eea09aa45",
+    "koikoi/search.py": "ded6944a76938ff59a68e53c0571a1b8387184c35d7de9c254720bcbac54d9db",
+    "koikoi/search_capture.py": "a3f053bd3a2643178876c6dfb529675af6dfc087aa00e4e5ade0f573689f9b9f",
+    "koikoi/train.py": "4b37cc872a1e334c191d2dc31708f1430103d15e22317d0fb216bec2ccd3ceea",
+    "koikoi/upstream.py": "435d80abcdb7fe6eda3d114e1575f19dd8d94458b10be4c62bca8b6feed0d3e0",
+    "koikoi/upstream_batch.py": "2d973d675aa02b74d9131a34ee321547072e66250fab27d48ef2426892131009",
+    "koikoi/__init__.py": "69b906e1719fded664a246c35262d538d9e1913dacb531786c2c1fd4c86276b7",
+    "koikoi/native/core.h": "820333d57e060e8705e2fe1a45544d0553d396980c0d25a23b00a92aeaee5dc3",
+    "koikoi/native/cpu.cpp": "dc4eed0d666a7bc408111ce30a97efd27959cd1193ece8b1e7d2ff9ac5cc7c45",
+    "koikoi/native/kernels.cu": "cd068279c7c87bd26eb1ea767ccfae09fd564a5002b7b36ec6d702675fdf841f",
+    "koikoi/native/published.h": "0a8d0ce36b0ccab3714a5ebb54180e134bdc2a344d342019ca26e312b6b17ba1",
+    "external/KoiKoi-AI/ai_vs_ai_test.py": "f5024f6439fc169d143bdc2d166e76cf0f9b020a8b5b5e7de10029b972b619f8",
+    "external/KoiKoi-AI/gamerecord_replay.py": "ea11adebd332c53bcf76dc6a3abd1d8542e9c01038c53a621372426dc4a7c064",
+    "external/KoiKoi-AI/gamerecord_replay_func.py": "4702dd50f882a2064d5d27240de7ae2a53c1303aba61b6a0d8dbc01dc385e5f1",
+    "external/KoiKoi-AI/gamerecord_replay_gui.py": "9606a24e35f5632b96d378acbf7d810f4e93bb2f8269440aa24e9469e4a5bb0f",
+    "external/KoiKoi-AI/koikoigame.py": "17ade09c4424e346fee3526c5d2daaccbd9b7d2580c1c56c7e491baf20f7866e",
+    "external/KoiKoi-AI/koikoigui.py": "bd64f60f46358d28db83f5a7fc6b48aea67d4c75f28253ca0e94dd4e96492b78",
+    "external/KoiKoi-AI/koikoilearn.py": "bb93bdc99b70a589d0bdf42fc1cfe98f481566e1f9d98663a8a9a1936329c370",
+    "external/KoiKoi-AI/koikoinet2L.py": "608d91c36875afc929a5470f3c86f787455537cd7213eb3c1bcda12a004d4862",
+    "external/KoiKoi-AI/play_vs_ai.py": "6f1988e5f7e7bac2f4e0c6f1b808da40b48618ed409a37ae83b0e9c5448658da",
+    "external/KoiKoi-AI/plot_attention.py": "f2f9ec565a480e789201cbefd7120b87dca58480bb8444128a5229ef30f4d79c",
+    "external/KoiKoi-AI/rl_train.py": "4b1ecbcf71bdf779c010e861e5758004db74f1939e85a64ed41dc3b9dad01046",
+    "external/KoiKoi-AI/rl_wp_reward_regress.py": "6e34eb825c10f963c73fb2e9e981e431976ab38f40282da3492332def80c0004",
+    "external/KoiKoi-AI/rl_wp_reward_simulate.py": "8b08bba55d7791cf4ebd4848d44dc720b50ca22d78e88bf6d054995f249e0b51",
+    "external/KoiKoi-AI/sl_acc_stat.py": "d24be9cd4d95eead807c750b34a654bf87754101d77483fc18c968cc3dd6ec5c",
+    "external/KoiKoi-AI/sl_record_to_dataset.py": "ec08a01972632a7895f8e41f7cd94b9a0e7c5a7bccbe7c470a0f5b33798b2b13",
+    "external/KoiKoi-AI/sl_train.py": "294205b25b378ea3e16cd72c78352df8409fa5915bf745a84ecbb603e5880844",
+    "external/KoiKoi-AI/torch_text_mha.py": "9e13095004b86b6feef157eaf130ad17a5660fee175d5e7bb3c2126c8b60dc36",
+    "external/KoiKoi-AI/model_agent/discard_rl_wp.pt": "31197cbd4b4fc17da6dbd6a6ae946f25000968aa941757028db92d480d548fdd",
+    "external/KoiKoi-AI/model_agent/discard_rl_point.pt": "4f314359ae9d2b3780726a1b0d297e293cc3429d6d9c0ccf309574b4e35dc9b9",
+    "external/KoiKoi-AI/model_agent/pick_rl_wp.pt": "4064b54356f1cda3baedcd6b94187effb51a2fac381f07dcfdb1649d8bf01e64",
+    "external/KoiKoi-AI/model_agent/pick_rl_point.pt": "7439379f9e23137b3fdcb12fdcd421d4b22574222fe544de2ba1eb6f31d93f49",
+    "external/KoiKoi-AI/model_agent/koikoi_rl_wp.pt": "408f931abafd7127648f9b933fbb8be7cc137a15d0b23b182090a9a83a70e3e4",
+    "external/KoiKoi-AI/model_agent/koikoi_rl_point.pt": "79c7b83ba4ea41d6115000128c410d104447ba517cb975cc32f4d25b7bc6c266",
+    "runs/pretrained_ppo_screen/initial/initial.pt": "290e301702428a1762ffec2004ec9e9fafbb35a7d68a79e849c8e47a1126893e",
+    "scripts/published_duration_study.py": "a5d04b402d6ec9f818a410e128e76b420cfbdd8280d31a77bb8c09eec68ae45c",
+    "docs/PUBLISHED_DURATION_STUDY.rst": "d8e0cf6e0d0ff57de78a15976c017c14180db5ccdf19b39035a5675276110253",
+    "scripts/run_arbitration_study.py": "3b82987651e585e7e220ad628180f5beec0c71da12dc8a40bf9e66530664caf8",
+    "scripts/directional_return_statistics.py": "ce5f40fd0343d8e7330d39c79f7f536854e2f26ebecf9979aa0d908d262aa213",
+    "scripts/directional_return_probe.py": "e1dc35102adc8691dc8bc46ada62c26bb9262a1f0718f8d4270da1f77fe999d8",
+    "scripts/audit_pretrained_ppo_screen.py": "620058f96d1414848eff0617cad8281977666ff15d86ad15ec7e9de31f5d6c45",
+    "runs/directional_return_diagnostic/audit.json": "0aa47825725adf0ed1d7142edf1214c42c0653cfea555e1a72511104c608da3c",
+    "runs/directional_return_diagnostic/summary.json": "5c63a84a8735520c73065e3a7e919f465ea5ddcea6b969794202430a6cf1c0c9",
+    "runs/published_duration_seed_scan.json": "8cc8584984129a5e66145c43dbd3c85f3a577c3c49e20d59f28381c1152dc583",
+    "runs/cold_ppo_screen/seed6710001_warm/update_00000520.pt": "37d06849261e0c1f0c31a9d2f228388fa1f391b670ce6772093a1c276091cc36",
+    "runs/cold_ppo_screen/seed6720001_warm/update_00000520.pt": "5e8a123d5fafb6ebae8c1ac8d094c9de65bf364381cc10b78208337051e181cc",
+    "runs\\published_duration_capability\\audit.json": "44b2bd5f3ed27aba655515c8035af1382bf5f0c79ddaa981d58d3578f949fe56",
+    "runs\\published_duration_study\\protocol.json": "afd19da343ae13624d949523b436a2ac85d6c3e00a42ecb0da0d8f655b27e4e6",
+    "runs\\published_duration_study\\seed99110001\\initial.pt": "da3ebc822aadb08b40edf69197e5a83bac929b1b38c7ae62994ef310756ae555",
+    "runs\\published_duration_study\\seed99110001\\complete.json": "17088878e419dcdd1def692357191d973562a3caf3fdc3c6371c5daa6c986667",
+    "runs\\published_duration_study\\seed99110001\\metrics.jsonl": "351939f2eeee055539429f4fec9290699bcbd9d371be542f09735c3a41320f9d",
+    "runs\\published_duration_study\\seed99110001\\config.json": "c5ec632a8dab5dc1d903e143cf23f0a3060c7df2b9bfa55c32be3f69a78a8aa9",
+    "runs\\published_duration_study\\seed99110001\\update_00000020.pt": "3a11bce4f9d56170d58e419ab775a377d8ef74ab77a4f45421e25608a1d325a1",
+    "runs\\published_duration_study\\seed99210001\\initial.pt": "ddd65f1f685fcaf483eb8b4baa83d9451b2cc97f23cd56decec3e0c6972ec1f4",
+    "runs\\published_duration_study\\seed99210001\\complete.json": "69fe8ee021b8489b7944abd80c2d18ff80c78445e50d43a3a3ad37be282d3bd0",
+    "runs\\published_duration_study\\seed99210001\\metrics.jsonl": "e0c13884bd40f6884e08ef2290ee54eae18963609044249d17665bd0169b8cfb",
+    "runs\\published_duration_study\\seed99210001\\config.json": "bdb1debd3266f625b453f698a4394c89211c43a682deb913a02791c33f4c1b01",
+    "runs\\published_duration_study\\seed99210001\\update_00000020.pt": "15a11b8d5e3563bc6f2af6d4c862b15bbdfdd357f5b0e602b1538ad5184044cd",
+    "runs\\published_duration_study\\training_complete.json": "ce033a7a2b2c870efa0269509981c5a7913bfef2caca83c388fd8314ad6197ca",
+    "runs\\published_duration_study\\seed99110001\\update_00000520.pt": "0fefb96cd49bc887043e149001fec72884ffeb225d65a1e17c4c9b57d4df13a6",
+    "runs\\published_duration_study\\seed99110001\\update_00004020.pt": "506ff8738c304f15d71344c1d4038e7f84381a500f3f0931f56be63f11e3a150",
+    "runs\\published_duration_study\\seed99210001\\update_00000520.pt": "23a8bb514cb739ac44cb6a832a5a38dd5cd3f4c632ebc850081fa3609e695e77",
+    "runs\\published_duration_study\\seed99210001\\update_00004020.pt": "9aa1b1b7f92289133b003dd86adc8685ed8f9c78b5042605a8797f0d26e602d0",
+    "runs\\cold_ppo_screen\\seed6710001_warm\\update_00000520.pt": "37d06849261e0c1f0c31a9d2f228388fa1f391b670ce6772093a1c276091cc36",
+    "runs\\cold_ppo_screen\\seed6720001_warm\\update_00000520.pt": "5e8a123d5fafb6ebae8c1ac8d094c9de65bf364381cc10b78208337051e181cc",
+    "scripts/evaluate_published_duration.py": "42534ecb9f1fc457a83e5324299f144c0425cb3d8490ed18da7b2d325385f6e9",
+    "scripts/published_duration_analysis.py": "7a84ea26c4727cc4463fa443c06f3ba80a6cf769252d849dc34d53fc8f9ccc96",
+    "scripts/audit_published_duration_checkpoint.py": "40ac4d38845ab8bb7f7944e14c448c6bd4899de410a885313a1c015ce2f4fcfe",
+    "scripts/audit_published_duration_evaluation.py": "b8a5aab986a86dd0418518f847f7757e4bf75f7b5da6545ad594774965f60bb5",
+    "tests/test_published_duration_analysis.py": "4d30def68712d151f5d5d211f2903a4bfe9b2b296385bf5591cab1fce43047b2",
+    "tests/test_published_duration_evaluation.py": "d9607f2ab7641868970ae9822a28dd5976085f4fca8fc95fa513a1f092d3bc98",
+    "runs\\published_duration_evaluation_capability\\audit.json": "ee47f2ae3c362365a1d1542c868cd90d3dc53c810586e73ae74b66a18e73cef1",
+    "runs\\published_duration_evaluation_recovery\\evaluation_protocol.json": "76e1b6af987e21f4e05e270aaabcd85ee9a89e68621589d1802a3a7543b24f18",
+    "runs\\published_duration_evaluation_recovery\\evaluation\\parent1_parent_wp.jsonl": "88c48b8246c3d86a851d122f3346da8c47fa9fb0c175e182af10dfed2617b099",
+    "runs\\published_duration_evaluation_recovery\\evaluation\\parent1_parent_wp.json": "aeb36ba4bb8459c7bb10ec391d58c414c7725af8be465cfd552af711b01c42f7",
+    "runs\\published_duration_evaluation_recovery\\evaluation\\parent1_parent_point.jsonl": "ce343ee6c6929d6f765aefbe87f8e7faa957a5cb54cce986fb575e0e83d9cbe9",
+    "runs\\published_duration_evaluation_recovery\\evaluation\\parent1_parent_point.json": "d1238730d23ea8a82ed54a5ca736c0d73fbbda35f347bb082ef90c206d6a7f8c",
+    "runs\\published_duration_evaluation_recovery\\evaluation\\parent1_short_wp.jsonl": "ca8a14b2abaa8e9affd65381ec166383e1400c1522fe3e8a19c9f2ceb7db38d4",
+    "runs\\published_duration_evaluation_recovery\\evaluation\\parent1_short_wp.json": "2ff9e5bc5fc8b52aee38e4a22d42fcdd6f8927abd8294409b5fcc397cbf34f16",
+    "runs\\published_duration_evaluation_recovery\\evaluation\\parent1_short_point.jsonl": "cf594bca072550a78f82860b77d7522541be66ba5cbbb78dad216cfec2dfde25",
+    "runs\\published_duration_evaluation_recovery\\evaluation\\parent1_short_point.json": "939d12e25f3e4476c96a01c3bf5ff6953049900f01b713aff327907a97bc93b4",
+    "runs\\published_duration_evaluation_recovery\\evaluation\\parent1_long_wp.jsonl": "60410b6febeda9ede0f7b384de7c0c34a2ba6f5dc3afe30a34aec83a4099739d",
+    "runs\\published_duration_evaluation_recovery\\evaluation\\parent1_long_wp.json": "12f3cbc6e818c33eb1137535a0ce8ca2e71c25ed3645da0c2831ff934ba7f046",
+    "runs\\published_duration_evaluation_recovery\\evaluation\\parent1_long_point.jsonl": "2c3e130134aba21ab080886b7ecc9334cd44d25b19fad760902f7b12f6a7ac60",
+    "runs\\published_duration_evaluation_recovery\\evaluation\\parent1_long_point.json": "fc1660d38ac9661bf2eb26151d42ebf90bc602b6989580aa6354e71cfb8e8152",
+    "runs\\published_duration_evaluation_recovery\\evaluation\\parent2_parent_wp.jsonl": "923d4267f1da3f9c1f13a75fd7cda651b56dcdb03527c901e25f27aaaabfd469",
+    "runs\\published_duration_evaluation_recovery\\evaluation\\parent2_parent_wp.json": "da39dcd0caed28b2436d6ef981248c8ec5004899a3ceda04cfdde83b5428835e",
+    "runs\\published_duration_evaluation_recovery\\evaluation\\parent2_parent_point.jsonl": "e1d75e21c99563aecf074fb0e0cf93e5424455446b19265e7c6f6b557f607c13",
+    "runs\\published_duration_evaluation_recovery\\evaluation\\parent2_parent_point.json": "2471a56dd4745d1f576fb0eb10835212decba3291a0330fc81d3df9a30559c26",
+    "runs\\published_duration_evaluation_recovery\\evaluation\\parent2_short_wp.jsonl": "8efd9452983a632b1977aba83001991be8f11cbc08907c9952f146227cf45711",
+    "runs\\published_duration_evaluation_recovery\\evaluation\\parent2_short_wp.json": "545795eeb1f8d8516d701e483f310fff15d7bb02ee2fe79a78aa2628f8453cd3",
+    "runs\\published_duration_evaluation_recovery\\evaluation\\parent2_short_point.jsonl": "ce45d92fed6d88c7465984ba3f10799c72b74799c40185671bc587274293ee6d",
+    "runs\\published_duration_evaluation_recovery\\evaluation\\parent2_short_point.json": "9ed50bcaa7f6865ac4bcf6c1ae9554dff1400320f06bd53f95529bc5f79d2dde",
+    "runs\\published_duration_evaluation_recovery\\evaluation\\parent2_long_wp.jsonl": "cba7b2cb9e894ab9f6dc5de99e2ba555fc7d3a3bbf12c727b7a792a00156c84d",
+    "runs\\published_duration_evaluation_recovery\\evaluation\\parent2_long_wp.json": "718b1028a1a583dad32e8614143a21b26e798561185266ebdce660350b6e3292",
+    "runs\\published_duration_evaluation_recovery\\evaluation\\parent2_long_point.jsonl": "b74bbe4db4bc04b93ee8094f9456e5e107835adb9347ada0d45b4652470b5f4b",
+    "runs\\published_duration_evaluation_recovery\\evaluation\\parent2_long_point.json": "600892d40455b07b22bedc772474cb99a83deba3cf74c8b586581a9d07a97e3b",
+    "runs\\published_duration_evaluation_recovery\\summary.json": "74d03c23bb41a2fce755a1aee885119592de4bb527e8ae9f7ce9f870544e0050",
+    "runs\\published_duration_evaluation\\evaluation_parent1_long_point.log": "35a287d1421eae8d8378837998e09659b559225df3e095f1e4dd2579e7c8c789",
+    "runs\\published_duration_evaluation\\evaluation_parent1_long_wp.log": "3b9fb84c8a98ab9777a4a348b530bfc41a1ad172b31f977494f584b49f97a7f5",
+    "runs\\published_duration_evaluation\\evaluation_parent1_parent_point.log": "0d496bdc0000bad10b3e7b429c9a34fb6436ae3ce7796932cf08f3cc124aa56b",
+    "runs\\published_duration_evaluation\\evaluation_parent1_parent_wp.log": "0e69fb5961f95aef51e66ac9951a8e36244222ff9fcc6beffb1b18e4ab2d6e93",
+    "runs\\published_duration_evaluation\\evaluation_parent1_short_point.log": "9866096a3a1c050aa7fefd5fdb6297ee9c840f8c045156bea5f21b8efae2d4a1",
+    "runs\\published_duration_evaluation\\evaluation_parent1_short_wp.log": "0987b777976a9ebe773588244d599a45446e2083268f021f01f5a5f8800b1c05",
+    "runs\\published_duration_evaluation\\evaluation_parent2_parent_point.log": "cbcb324dcd0eb25c3597072b60a7e673d0ef68a58384339e1c6703c97ede2843",
+    "runs\\published_duration_evaluation\\evaluation_parent2_parent_wp.log": "fed5cdd03a3e93e5a2f3c7b22004068a260f36b67ed0d7091359fceea58f676a",
+    "runs\\published_duration_evaluation\\evaluation_parent2_short_point.log": "6a82f16f809dfff36a0b99c0f167adbfe3e459414af1222cc78fa59281ba7431",
+    "runs\\published_duration_evaluation\\evaluation_parent2_short_wp.log": "e9f1fbb568b7fd1cb0122199872c100d0b4e1f47f7c619b64b046ef534bbe719",
+    "runs\\published_duration_evaluation\\evaluation_process.json": "6656b009450e7c977d078c0ef4292185610d8addd2ae4802e094a33d40113307",
+    "runs\\published_duration_evaluation\\evaluation_protocol.json": "76e1b6af987e21f4e05e270aaabcd85ee9a89e68621589d1802a3a7543b24f18",
+    "runs\\published_duration_evaluation\\evaluation\\parent1_long_point.json": "fc1660d38ac9661bf2eb26151d42ebf90bc602b6989580aa6354e71cfb8e8152",
+    "runs\\published_duration_evaluation\\evaluation\\parent1_long_point.jsonl": "2c3e130134aba21ab080886b7ecc9334cd44d25b19fad760902f7b12f6a7ac60",
+    "runs\\published_duration_evaluation\\evaluation\\parent1_long_wp.json": "12f3cbc6e818c33eb1137535a0ce8ca2e71c25ed3645da0c2831ff934ba7f046",
+    "runs\\published_duration_evaluation\\evaluation\\parent1_long_wp.jsonl": "60410b6febeda9ede0f7b384de7c0c34a2ba6f5dc3afe30a34aec83a4099739d",
+    "runs\\published_duration_evaluation\\evaluation\\parent1_parent_point.json": "d1238730d23ea8a82ed54a5ca736c0d73fbbda35f347bb082ef90c206d6a7f8c",
+    "runs\\published_duration_evaluation\\evaluation\\parent1_parent_point.jsonl": "ce343ee6c6929d6f765aefbe87f8e7faa957a5cb54cce986fb575e0e83d9cbe9",
+    "runs\\published_duration_evaluation\\evaluation\\parent1_parent_wp.json": "aeb36ba4bb8459c7bb10ec391d58c414c7725af8be465cfd552af711b01c42f7",
+    "runs\\published_duration_evaluation\\evaluation\\parent1_parent_wp.jsonl": "88c48b8246c3d86a851d122f3346da8c47fa9fb0c175e182af10dfed2617b099",
+    "runs\\published_duration_evaluation\\evaluation\\parent1_short_point.json": "939d12e25f3e4476c96a01c3bf5ff6953049900f01b713aff327907a97bc93b4",
+    "runs\\published_duration_evaluation\\evaluation\\parent1_short_point.jsonl": "cf594bca072550a78f82860b77d7522541be66ba5cbbb78dad216cfec2dfde25",
+    "runs\\published_duration_evaluation\\evaluation\\parent1_short_wp.json": "2ff9e5bc5fc8b52aee38e4a22d42fcdd6f8927abd8294409b5fcc397cbf34f16",
+    "runs\\published_duration_evaluation\\evaluation\\parent1_short_wp.jsonl": "ca8a14b2abaa8e9affd65381ec166383e1400c1522fe3e8a19c9f2ceb7db38d4",
+    "runs\\published_duration_evaluation\\evaluation\\parent2_parent_point.json": "2471a56dd4745d1f576fb0eb10835212decba3291a0330fc81d3df9a30559c26",
+    "runs\\published_duration_evaluation\\evaluation\\parent2_parent_point.jsonl": "e1d75e21c99563aecf074fb0e0cf93e5424455446b19265e7c6f6b557f607c13",
+    "runs\\published_duration_evaluation\\evaluation\\parent2_parent_wp.json": "da39dcd0caed28b2436d6ef981248c8ec5004899a3ceda04cfdde83b5428835e",
+    "runs\\published_duration_evaluation\\evaluation\\parent2_parent_wp.jsonl": "923d4267f1da3f9c1f13a75fd7cda651b56dcdb03527c901e25f27aaaabfd469",
+    "runs\\published_duration_evaluation\\evaluation\\parent2_short_point.jsonl": "4a8362496b22b8060871afb858aeecc8c3567a0fac8de988f8ba01c67680c540",
+    "runs\\published_duration_evaluation\\evaluation\\parent2_short_wp.jsonl": "307c5748d976ac700101d87b8faffe4aa3ee913be6e111fa4672d2065385dfce",
+    "runs\\published_duration_completion\\child.json": "b2d2c8f01d856e432edf9fccd3ac68b0e4d088f3956cb724a63f456c7a4b9732",
+    "runs\\published_duration_completion\\evaluate.log": "575456e4261bf49018e7d6b9019ed57199cdf60e60a045bbfb2259e04aae2d1c",
+    "runs\\published_duration_completion\\prepare.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "runs\\published_duration_completion\\process.json": "a0bd90480a3e52c2063e6da599414bcebc2e8285621dd7d9ba8f9b196b606750",
+    "runs\\published_duration_completion\\protocol.json": "371721bbebb20b08a256145a53fee851c5127d67a40c1ae1140855cf5db96588",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\scripts\\recover_published_duration.py": "ea98d43c6454721a9fef1d85327f636a99174e42f704231751009e0b7e732b06",
+    "tests\\test_recover_published_duration.py": "819a68dca800703700ab995d92352fd5861281285f3208d187185613d480610b",
+    "runs\\published_duration_recovery_capability\\receipt.json": "06a1ecac96fb1874f71982424a38173d86acf87590e01c3278c3b5ea6d27872a",
+    "runs\\pretrained_ppo_screen\\initial\\initial.pt": "290e301702428a1762ffec2004ec9e9fafbb35a7d68a79e849c8e47a1126893e",
+    "runs\\published_duration_evaluation_capability\\evaluation_protocol.json": "22d952e1fe70970e70bac5c3aba41ed8ccb3d42b04bc51d3d5b560b484ad7aef",
+    "runs\\published_duration_evaluation_capability\\evaluation\\parent1_parent_wp.jsonl": "e79b7416fe7ff0f5439ebc6ad755bbda410ea90647de9595c4c4e2189a2e9ca6",
+    "runs\\published_duration_evaluation_capability\\evaluation\\parent1_parent_wp.json": "618952756f7726fd7265a093967f609568cf0fc63b7fc7d79796b1c3c2b4df8a",
+    "runs\\published_duration_evaluation_capability\\evaluation\\parent1_parent_point.jsonl": "8516ebba39a06dc1df988cee86afd46f0d27830da6d16bf28a2c912dd7b38dfa",
+    "runs\\published_duration_evaluation_capability\\evaluation\\parent1_parent_point.json": "1dde97ef7ed7194becc0bb0a91139c7a5bf65ba7cfe205783dbdc10448dddfef",
+    "runs\\published_duration_evaluation_capability\\evaluation\\parent1_short_wp.jsonl": "9bffa03b11d501674806b5d399d51729d790223f1ece8ee065fd730c77539329",
+    "runs\\published_duration_evaluation_capability\\evaluation\\parent1_short_wp.json": "cdb36d9d8b9a3e8151c8cdecd21cce183e24f9cf024d6ceda249b0ff0918458e",
+    "runs\\published_duration_evaluation_capability\\evaluation\\parent1_short_point.jsonl": "e02454afc74b78a650a2e29622118151a46be3a7519de20dabc646e23bfa2c5d",
+    "runs\\published_duration_evaluation_capability\\evaluation\\parent1_short_point.json": "f7a2129de75415e8743f33364247f474e429fbf1f4b70de1551a3e9d964892c9",
+    "runs\\published_duration_evaluation_capability\\evaluation\\parent1_long_wp.jsonl": "9bffa03b11d501674806b5d399d51729d790223f1ece8ee065fd730c77539329",
+    "runs\\published_duration_evaluation_capability\\evaluation\\parent1_long_wp.json": "53e673658e90fdb92a075ff0b02bfcc8a5efd8b50060265633e3444a5772562c",
+    "runs\\published_duration_evaluation_capability\\evaluation\\parent1_long_point.jsonl": "e02454afc74b78a650a2e29622118151a46be3a7519de20dabc646e23bfa2c5d",
+    "runs\\published_duration_evaluation_capability\\evaluation\\parent1_long_point.json": "cb93212999bd9097ba37fbb6f7303ab3494469e447dcdf373312f6c5dad7f29e",
+    "runs\\published_duration_evaluation_capability\\evaluation\\parent2_parent_wp.jsonl": "023401205dbb77221895376f32c2184460f5e4778220539748ef71f00a2d065f",
+    "runs\\published_duration_evaluation_capability\\evaluation\\parent2_parent_wp.json": "0378203604374228a35fbb029d9d1ae52be6d8ae6702327210f80e8d36220741",
+    "runs\\published_duration_evaluation_capability\\evaluation\\parent2_parent_point.jsonl": "12186373f739bc9ac9f6af251771ba61e586d2e64036c1ddab858ed7098267a6",
+    "runs\\published_duration_evaluation_capability\\evaluation\\parent2_parent_point.json": "b39b50b72551ce6aa6a366230b9cc79cef455d863515992a986beb83fd4ee9e5",
+    "runs\\published_duration_evaluation_capability\\evaluation\\parent2_short_wp.jsonl": "8ded17b990659ce58eb195007ee20df12a24abe9a9d69bc53101bba2b3a171ba",
+    "runs\\published_duration_evaluation_capability\\evaluation\\parent2_short_wp.json": "afb03fac89c5f5c503416bb375d9cb220e364d13f75a547e4e42acfac77083f6",
+    "runs\\published_duration_evaluation_capability\\evaluation\\parent2_short_point.jsonl": "a086c50c4d21e19e66e75f6bbb5d1bffc8962362dfa9c9e9751353e96560b839",
+    "runs\\published_duration_evaluation_capability\\evaluation\\parent2_short_point.json": "143f257cfd637a656642f26f6c2da01bfd125958ddb849c62e1db2a9de3c83a0",
+    "runs\\published_duration_evaluation_capability\\evaluation\\parent2_long_wp.jsonl": "8ded17b990659ce58eb195007ee20df12a24abe9a9d69bc53101bba2b3a171ba",
+    "runs\\published_duration_evaluation_capability\\evaluation\\parent2_long_wp.json": "d265a33d16bf2c7e6972ac60d44e66b7b13239201fcd3d78655cbdb45113180b",
+    "runs\\published_duration_evaluation_capability\\evaluation\\parent2_long_point.jsonl": "a086c50c4d21e19e66e75f6bbb5d1bffc8962362dfa9c9e9751353e96560b839",
+    "runs\\published_duration_evaluation_capability\\evaluation\\parent2_long_point.json": "7da689bbf4facce4a830250561410f13185ecfc4e177291e90ea1fcd4fab3cdc",
+    "runs\\published_duration_evaluation_capability\\summary.json": "5c0c001c9e7fa1cb7201a47602b0feb393ee60a10648be6ea1721c0e23beb0c2",
+    "runs\\published_duration_recovery_tests.xml": "b759c76dfad21242b8b320d25295c89d17ccf786cb7c3d6d5d8736d0cdea9a54",
+    "scripts\\finish_published_duration.py": "29c5679ec05d127333f24ea0aa530f96417ed53abe7a80c91fc0a283957ed201",
+    "runs\\published_duration_recovery_capability\\evaluation\\parent1_short_wp.jsonl": "9bffa03b11d501674806b5d399d51729d790223f1ece8ee065fd730c77539329",
+    "runs\\published_duration_recovery_capability\\evaluation\\parent1_short_wp.json": "cdb36d9d8b9a3e8151c8cdecd21cce183e24f9cf024d6ceda249b0ff0918458e",
+    "runs\\published_duration_recovery_capability\\evaluation\\parent1_short_point.jsonl": "e02454afc74b78a650a2e29622118151a46be3a7519de20dabc646e23bfa2c5d",
+    "runs\\published_duration_recovery_capability\\evaluation\\parent1_short_point.json": "f7a2129de75415e8743f33364247f474e429fbf1f4b70de1551a3e9d964892c9",
+    "runs\\published_duration_recovery_capability\\evaluation_protocol.json": "22d952e1fe70970e70bac5c3aba41ed8ccb3d42b04bc51d3d5b560b484ad7aef",
+    "runs\\published_duration_evaluation_recovery\\recovery_complete.json": "9640e4891cd7e70c64f3d5c63baf6b9dae5a9a76316743c7fd8663a62c70757b",
+    "runs\\published_duration_evaluation_recovery\\recovery_protocol.json": "bf1163339fdb52303344f118c92bb5c75204eea7e0211cdc295ab3ad9fca86c8",
+    "runs\\published_duration_evaluation_recovery\\recovery_started.json": "40abaf68fd4ab8916d81a34d7b8318cbeb4299087af7b61293f78137c76c24d4",
+    "runs\\published_duration_evaluation_recovery\\audit.json": "f193d0ac7ce3aa63071f3f65fb81d6b809329944012b4fa48d30c5a9e0367b31",
+    "runs\\published_duration_evaluation_recovery\\evaluation_process.json": "7d34b20b51706a9e3bf76b523549ab54342f4b517ae6ab108a2d95d2a3e962c9",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\scripts\\export_published_duration_results.py": "904b4d9292bbc760ad89ce479d4d758fe556907fa8b646c95e92030e2ea29254",
+    "scripts\\export_koi_temperature_results.py": "30227cc59c5a0e9b33b23dca2d5ec296b80546fcd3aec65dbde03d43897b0c08",
+    "runs\\published_duration_results\\evidence.json": "b4e7bc2566deb3718aaf4c0dd19ac7d270750fe511f933a13e461c0b11c06212",
+    "runs\\published_duration_results\\results.rst": "68f88224cf2ad3e1f8d3459ec7e3e040869cddeb7259db2dc42b5a13cc94d380",
+    "docs\\PUBLISHED_DURATION_RESULTS.rst": "5f76f73773e755f457835bfa9612ead245b6ddff306f61ae1e19f0ed92e38d85"
+  },
+  "generated": {
+    "docs\\paper\\generated\\duration_primary_table.tex": "20124906d26faef5639612afe04cf63901b3f2c4c9ecabbf9ea4c6dbcc3307a4",
+    "docs\\paper\\generated\\duration_absolute_table.tex": "de06f0014f5edd4ce505c98d3ebf02add9efa2ec77bc8b65b62ff406d61bab8e"
+  },
+  "summary": {
+    "rows": {
+      "parent1/mixture/parent/win": {
+        "mean": 0.51312255859375,
+        "marginal95": [
+          0.507293701171875,
+          0.5193489074707032
+        ]
+      },
+      "parent1/mixture/parent/points": {
+        "mean": 0.4385986328125,
+        "marginal95": [
+          0.07408447265625001,
+          0.8188507080078125
+        ]
+      },
+      "parent1/mixture/short/win": {
+        "mean": 0.5125732421875,
+        "marginal95": [
+          0.50665283203125,
+          0.518585205078125
+        ]
+      },
+      "parent1/mixture/short/points": {
+        "mean": 0.022705078125,
+        "marginal95": [
+          -0.3474273681640625,
+          0.3916137695312498
+        ]
+      },
+      "parent1/mixture/long/win": {
+        "mean": 0.51837158203125,
+        "marginal95": [
+          0.512420654296875,
+          0.52435302734375
+        ]
+      },
+      "parent1/mixture/long/points": {
+        "mean": 1.2232666015625,
+        "marginal95": [
+          0.845574951171875,
+          1.5971710205078125
+        ]
+      },
+      "parent1/mixture/long-short/win": {
+        "mean": 0.00579833984375,
+        "marginal95": [
+          -0.0013740539550781243,
+          0.012939453125
+        ]
+      },
+      "parent1/mixture/long-short/points": {
+        "mean": 1.2005615234375,
+        "marginal95": [
+          0.7795196533203125,
+          1.6196441650390623
+        ]
+      },
+      "parent1/mixture/long-parent/win": {
+        "mean": 0.0052490234375,
+        "marginal95": [
+          -0.002044677734375,
+          0.0125732421875
+        ]
+      },
+      "parent1/mixture/long-parent/points": {
+        "mean": 0.78466796875,
+        "marginal95": [
+          0.3480224609375,
+          1.2128936767578125
+        ]
+      },
+      "parent1/mixture/short-parent/win": {
+        "mean": -0.00054931640625,
+        "marginal95": [
+          -0.007293701171875,
+          0.00604248046875
+        ]
+      },
+      "parent1/mixture/short-parent/points": {
+        "mean": -0.4158935546875,
+        "marginal95": [
+          -0.7939605712890625,
+          -0.04222717285156263
+        ]
+      },
+      "parent1/wp/parent/win": {
+        "mean": 0.52191162109375,
+        "marginal95": [
+          0.5137939453125,
+          0.53009033203125
+        ]
+      },
+      "parent1/wp/parent/points": {
+        "mean": 2.962158203125,
+        "marginal95": [
+          2.482647705078125,
+          3.4277648925781246
+        ]
+      },
+      "parent1/wp/short/win": {
+        "mean": 0.51568603515625,
+        "marginal95": [
+          0.50750732421875,
+          0.52386474609375
+        ]
+      },
+      "parent1/wp/short/points": {
+        "mean": 2.070556640625,
+        "marginal95": [
+          1.58154296875,
+          2.551513671875
+        ]
+      },
+      "parent1/wp/long/win": {
+        "mean": 0.52728271484375,
+        "marginal95": [
+          0.51898193359375,
+          0.53582763671875
+        ]
+      },
+      "parent1/wp/long/points": {
+        "mean": 3.6337890625,
+        "marginal95": [
+          3.126708984375,
+          4.14063720703125
+        ]
+      },
+      "parent1/wp/long-short/win": {
+        "mean": 0.0115966796875,
+        "marginal95": [
+          0.00128173828125,
+          0.02203369140625
+        ]
+      },
+      "parent1/wp/long-short/points": {
+        "mean": 1.563232421875,
+        "marginal95": [
+          0.962884521484375,
+          2.15650634765625
+        ]
+      },
+      "parent1/wp/long-parent/win": {
+        "mean": 0.00537109375,
+        "marginal95": [
+          -0.00518798828125,
+          0.015809631347656228
+        ]
+      },
+      "parent1/wp/long-parent/points": {
+        "mean": 0.671630859375,
+        "marginal95": [
+          0.076898193359375,
+          1.268804931640625
+        ]
+      },
+      "parent1/wp/short-parent/win": {
+        "mean": -0.0062255859375,
+        "marginal95": [
+          -0.01599273681640625,
+          0.00335693359375
+        ]
+      },
+      "parent1/wp/short-parent/points": {
+        "mean": -0.8916015625,
+        "marginal95": [
+          -1.420416259765625,
+          -0.3625427246093751
+        ]
+      },
+      "parent1/point/parent/win": {
+        "mean": 0.50433349609375,
+        "marginal95": [
+          0.495849609375,
+          0.5131240844726562
+        ]
+      },
+      "parent1/point/parent/points": {
+        "mean": -2.0849609375,
+        "marginal95": [
+          -2.639410400390625,
+          -1.509759521484375
+        ]
+      },
+      "parent1/point/short/win": {
+        "mean": 0.50946044921875,
+        "marginal95": [
+          0.50067138671875,
+          0.51837158203125
+        ]
+      },
+      "parent1/point/short/points": {
+        "mean": -2.025146484375,
+        "marginal95": [
+          -2.589111328125,
+          -1.462158203125
+        ]
+      },
+      "parent1/point/long/win": {
+        "mean": 0.50946044921875,
+        "marginal95": [
+          0.50091552734375,
+          0.51812744140625
+        ]
+      },
+      "parent1/point/long/points": {
+        "mean": -1.187255859375,
+        "marginal95": [
+          -1.7510009765625,
+          -0.6293640136718754
+        ]
+      },
+      "parent1/point/long-short/win": {
+        "mean": 0.0,
+        "marginal95": [
+          -0.00994873046875,
+          0.009889221191406228
+        ]
+      },
+      "parent1/point/long-short/points": {
+        "mean": 0.837890625,
+        "marginal95": [
+          0.231927490234375,
+          1.429449462890625
+        ]
+      },
+      "parent1/point/long-parent/win": {
+        "mean": 0.005126953125,
+        "marginal95": [
+          -0.0048828125,
+          0.01519775390625
+        ]
+      },
+      "parent1/point/long-parent/points": {
+        "mean": 0.897705078125,
+        "marginal95": [
+          0.287109375,
+          1.4897644042968747
+        ]
+      },
+      "parent1/point/short-parent/win": {
+        "mean": 0.005126953125,
+        "marginal95": [
+          -0.00372314453125,
+          0.01397705078125
+        ]
+      },
+      "parent1/point/short-parent/points": {
+        "mean": 0.059814453125,
+        "marginal95": [
+          -0.46534423828125,
+          0.588623046875
+        ]
+      },
+      "parent2/mixture/parent/win": {
+        "mean": 0.5140380859375,
+        "marginal95": [
+          0.50811767578125,
+          0.51995849609375
+        ]
+      },
+      "parent2/mixture/parent/points": {
+        "mean": 0.3563232421875,
+        "marginal95": [
+          -0.010995483398437492,
+          0.7254638671875
+        ]
+      },
+      "parent2/mixture/short/win": {
+        "mean": 0.511199951171875,
+        "marginal95": [
+          0.505279541015625,
+          0.51708984375
+        ]
+      },
+      "parent2/mixture/short/points": {
+        "mean": 0.3927001953125,
+        "marginal95": [
+          0.02562561035156251,
+          0.7642883300781249
+        ]
+      },
+      "parent2/mixture/long/win": {
+        "mean": 0.5201416015625,
+        "marginal95": [
+          0.514129638671875,
+          0.5261238098144532
+        ]
+      },
+      "parent2/mixture/long/points": {
+        "mean": 1.3111572265625,
+        "marginal95": [
+          0.9368865966796875,
+          1.6845733642578125
+        ]
+      },
+      "parent2/mixture/long-short/win": {
+        "mean": 0.008941650390625,
+        "marginal95": [
+          0.001708984375,
+          0.01605224609375
+        ]
+      },
+      "parent2/mixture/long-short/points": {
+        "mean": 0.91845703125,
+        "marginal95": [
+          0.50096435546875,
+          1.3372802734375
+        ]
+      },
+      "parent2/mixture/long-parent/win": {
+        "mean": 0.006103515625,
+        "marginal95": [
+          -0.001129150390625,
+          0.013275146484375
+        ]
+      },
+      "parent2/mixture/long-parent/points": {
+        "mean": 0.954833984375,
+        "marginal95": [
+          0.5185546875,
+          1.3823272705078125
+        ]
+      },
+      "parent2/mixture/short-parent/win": {
+        "mean": -0.002838134765625,
+        "marginal95": [
+          -0.008972930908203124,
+          0.003448486328125
+        ]
+      },
+      "parent2/mixture/short-parent/points": {
+        "mean": 0.036376953125,
+        "marginal95": [
+          -0.3233673095703125,
+          0.40210876464843737
+        ]
+      },
+      "parent2/wp/parent/win": {
+        "mean": 0.52044677734375,
+        "marginal95": [
+          0.51263427734375,
+          0.5284423828125
+        ]
+      },
+      "parent2/wp/parent/points": {
+        "mean": 2.777099609375,
+        "marginal95": [
+          2.305413818359375,
+          3.2490661621093744
+        ]
+      },
+      "parent2/wp/short/win": {
+        "mean": 0.518798828125,
+        "marginal95": [
+          0.510986328125,
+          0.52679443359375
+        ]
+      },
+      "parent2/wp/short/points": {
+        "mean": 2.905517578125,
+        "marginal95": [
+          2.436273193359375,
+          3.373291015625
+        ]
+      },
+      "parent2/wp/long/win": {
+        "mean": 0.51806640625,
+        "marginal95": [
+          0.5096435546875,
+          0.5263671875
+        ]
+      },
+      "parent2/wp/long/points": {
+        "mean": 2.960205078125,
+        "marginal95": [
+          2.44725341796875,
+          3.466552734375
+        ]
+      },
+      "parent2/wp/long-short/win": {
+        "mean": -0.000732421875,
+        "marginal95": [
+          -0.0107421875,
+          0.00933837890625
+        ]
+      },
+      "parent2/wp/long-short/points": {
+        "mean": 0.0546875,
+        "marginal95": [
+          -0.551031494140625,
+          0.6377197265624996
+        ]
+      },
+      "parent2/wp/long-parent/win": {
+        "mean": -0.00238037109375,
+        "marginal95": [
+          -0.01251220703125,
+          0.007997131347656228
+        ]
+      },
+      "parent2/wp/long-parent/points": {
+        "mean": 0.18310546875,
+        "marginal95": [
+          -0.42384643554687496,
+          0.7783325195312498
+        ]
+      },
+      "parent2/wp/short-parent/win": {
+        "mean": -0.00164794921875,
+        "marginal95": [
+          -0.0106201171875,
+          0.0074462890625
+        ]
+      },
+      "parent2/wp/short-parent/points": {
+        "mean": 0.12841796875,
+        "marginal95": [
+          -0.374029541015625,
+          0.6384338378906249
+        ]
+      },
+      "parent2/point/parent/win": {
+        "mean": 0.50762939453125,
+        "marginal95": [
+          0.49908447265625,
+          0.516357421875
+        ]
+      },
+      "parent2/point/parent/points": {
+        "mean": -2.064453125,
+        "marginal95": [
+          -2.617694091796875,
+          -1.4987670898437502
+        ]
+      },
+      "parent2/point/short/win": {
+        "mean": 0.50360107421875,
+        "marginal95": [
+          0.49481201171875,
+          0.5125137329101562
+        ]
+      },
+      "parent2/point/short/points": {
+        "mean": -2.1201171875,
+        "marginal95": [
+          -2.67677001953125,
+          -1.5531860351562505
+        ]
+      },
+      "parent2/point/long/win": {
+        "mean": 0.522216796875,
+        "marginal95": [
+          0.51348876953125,
+          0.53094482421875
+        ]
+      },
+      "parent2/point/long/points": {
+        "mean": -0.337890625,
+        "marginal95": [
+          -0.88892822265625,
+          0.23390502929687473
+        ]
+      },
+      "parent2/point/long-short/win": {
+        "mean": 0.01861572265625,
+        "marginal95": [
+          0.008544921875,
+          0.02850341796875
+        ]
+      },
+      "parent2/point/long-short/points": {
+        "mean": 1.7822265625,
+        "marginal95": [
+          1.176025390625,
+          2.3755187988281246
+        ]
+      },
+      "parent2/point/long-parent/win": {
+        "mean": 0.01458740234375,
+        "marginal95": [
+          0.004331970214843751,
+          0.02435302734375
+        ]
+      },
+      "parent2/point/long-parent/points": {
+        "mean": 1.7265625,
+        "marginal95": [
+          1.102777099609375,
+          2.325927734375
+        ]
+      },
+      "parent2/point/short-parent/win": {
+        "mean": -0.0040283203125,
+        "marginal95": [
+          -0.012879943847656249,
+          0.00469970703125
+        ]
+      },
+      "parent2/point/short-parent/points": {
+        "mean": -0.0556640625,
+        "marginal95": [
+          -0.574957275390625,
+          0.46169433593749964
+        ]
+      }
+    },
+    "primary": {
+      "deals": 4096,
+      "replicates": 10000,
+      "seed": 99410001,
+      "family_size": 4,
+      "nondegenerate": 4,
+      "critical": 2.4578265204153222,
+      "rows": {
+        "parent1/mixture/long-short/win": {
+          "mean": 0.00579833984375,
+          "standard_error": 0.0036576171697848808,
+          "simultaneous95": [
+            -0.003191448637673712,
+            0.014788128325173712
+          ],
+          "sign": 0
+        },
+        "parent1/mixture/long-parent/win": {
+          "mean": 0.0052490234375,
+          "standard_error": 0.003724946964911481,
+          "simultaneous95": [
+            -0.00390625,
+            0.014404296875
+          ],
+          "sign": 0
+        },
+        "parent2/mixture/long-short/win": {
+          "mean": 0.008941650390625,
+          "standard_error": 0.003636013701133128,
+          "simultaneous95": [
+            4.959487386525796e-06,
+            0.017878341293863474
+          ],
+          "sign": 1
+        },
+        "parent2/mixture/long-parent/win": {
+          "mean": 0.006103515625,
+          "standard_error": 0.0036416705213886988,
+          "simultaneous95": [
+            -0.0028470787610838377,
+            0.015054110011083838
+          ],
+          "sign": 0
+        }
+      }
+    },
+    "qualified": false,
+    "compound_blocks": 4096,
+    "distinct_initial_deals": 8192,
+    "full_matches": 98304,
+    "bootstrap_seed": 99410001,
+    "bootstrap_replicates": 10000,
+    "secondary_scope": "72 descriptive absolute/contrast win/point means with marginal percentile intervals; only the four simultaneous primary bands determine qualification.",
+    "mode": "main",
+    "protocol_sha256": "76e1b6af987e21f4e05e270aaabcd85ee9a89e68621589d1802a3a7543b24f18"
+  },
+  "scope": "Tables transcribed from the completed audited development study; no new analysis, matches or model selection."
+}

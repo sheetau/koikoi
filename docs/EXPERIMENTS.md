@@ -6065,3 +6065,43 @@ interruptedinflightwork remainsunknown. Trainingprefixescountedonce,total
 131,727,360decisions. NoPDFchange yet. Next incorporate results and specify the
 untriedPointinitializationcontrols;additionalcompute isnotclaimedasnovelty.
 Strongerplay/researchobjective staysactive;neverrestart thiscompletedstudy.
+
+## 2026-10-20: duration manuscript revision and Point initialization calibration
+
+Added completed duration results toSection6.2,two generated tables,andthe
+Abstract/Introduction/Conclusion. Greatertrainingeffort improves mixturepoint
+margins atbothfreshseeds but fails thefour-primarywincriterion;separatepriorfinal
+results remain intact. Reproduction text accounts fororiginalfailure,eightcopied
+cells,fourreruns,exactprefixes,duplicates andunknowninterruptedwork. No model
+selection,additionalmatches or inference. Source-bound durationevidence
+0ca55d16e57df8ccfac261380216ab641b8eee262c67b6694981145e71aea94c.
+
+Built withTectonic andrenderedwithsystemPython/PyMuPDF. All32pagescontactreviewed;
+fullpages1/9/20checked. All34referencespresent,18uniqueembeddedfontnames,
+noTeXbox/glyph/referencewarnings orreplacementcharacters. QAverifies1,353input
+bindings. Abstract182words,Conclusion122. PDFceff57a36f95045fd152c6a3189f3e8fb6623b74f83b41c9f510a8a7194f385a;
+QA runs/manuscript_duration_qa.json SHA87b26ee93088d707ff03319be39c0d95d73caf00c507aaa19f5361455ef42513.
+PreviousPDF/TeX/QA preserved inruns/manuscript_duration_previous.
+
+Fixed thecalibrationprocedure indocs/POINT_INITIALIZATION_STUDY.rst beforefitting.
+New scripts/calibrate_point_initialization.py uses archivedCPUWP/Pointscores,
+75oldcalibrationsourcegroups and25oldvalidationgroups,excludingforceddecisions.
+Per-phasePointdivisors matchWP0.05meannormalizedentropy oncalibration:
+0.16808073347585306/0.19483521603032863/0.21949649006919622/0.23576122751596976.
+ValidationPointmatchedentropies0.379238/0.640632/0.579449/0.130684remainbelow
+WP0.452271/0.710939/0.611028/0.199169. No validationrefitting;nomatchingclaimfor
+allstates ortrainingvisitation. No outcomes,newneuralcalls,simulation orupdates.
+Independentscalarentropy agreeswithin1e-12forall24means.
+
+Three tests pass0skips in1.34s(scale/groupselection,validation/ineligiblerowscannot
+changefit,unattainabletargetrefusal). Ruffpasses. TestXML
+runs/point_initialization_calibration_tests.xml SHAdc7e7bdf87749dc828cec920f4a5010e810edae55b01b3271e3d3de791b0a32e.
+Executedonce:
+
+    .venv/Scripts/python.exe -m scripts.calibrate_point_initialization --output runs/point_initialization_calibration.json
+
+Report869ab1e45e7e8a5569ff20edaea55fdc5e2a2464d6d6a32a9c50df188bd701f3 binds9inputs,
+allverify. docs/POINT_INITIALIZATION_CALIBRATION.rst reportsfullvalues/limits.
+Next implementthephasewrapper andverifyoriginalcontrolequivalence,initialweights,
+warmupandnextupdaterestore beforefreezingmainseeds/evaluationrules. Neither
+calibration norPointinitialization isclaimednovel. Broadergoalremainsactive.

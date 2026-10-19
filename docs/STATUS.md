@@ -54,12 +54,28 @@ Recovery sources/tests and all frozen inputs remain unchanged.
 
 No endpoint is promoted; canonical player,dealer and101Mconfirmation are unchanged.
 No study job is live. This is greater-compute adaptation,not a novel algorithm.
-Next incorporate the closed duration result in the manuscript,then specify and
-capability-test the previously identified Point-initialization comparison with
-explicit score-scale/exploration controls. Do not extend this comparison after
-seeing its outcomes or repeat closed temperature/return sweeps. Initialization
-alone is not a novelty claim;the broader research objective remains unachieved.
-The existing PDF does not yet include this newly completed duration result.
+The manuscript now includes the completed duration result (latest PDF below).
+Do not extend this closed comparison or repeat closed temperature/return sweeps.
+
+**Point initialization calibration complete; main learning not yet started.**
+[Specification](POINT_INITIALIZATION_STUDY.rst),[result](POINT_INITIALIZATION_CALIBRATION.rst).
+The old public CPU-score corpus supplies75calibration/25descriptive validation
+source groups,excluding forced choices. Four Point divisors match WP0.05phase
+mean normalized entropy on calibration:0.16808073347585306,
+0.19483521603032863,0.21949649006919622,0.23576122751596976.
+Validation entropy differences remain;do not refit or claim equal exploration
+on all states. No outcomes,new inference,simulator steps or learning are used.
+Independent scalar entropy checks all24means to1e-12;three tests pass0skips,
+Ruff passes. Report runs/point_initialization_calibration.json SHA
+869ab1e45e7e8a5569ff20edaea55fdc5e2a2464d6d6a32a9c50df188bd701f3 binds9inputs.
+Keep the calibration source,test,specification and corpus unchanged.
+
+Next implement an isolated four-phase-temperature wrapper and capability-test
+exact all0.05control equivalence,warmup,greedy deployment and exactnext-update
+restore. Planned arms:WP0.05,Point0.05,Pointcalibrated at two freshseeds.
+Main seed inventory,evaluation schedule and qualification family must be frozen
+before main training. No job is live. Initialization alone isnot a new method;
+the broader strength/research objective remains active and unachieved.
 
 Completed [initialization diagnostic](PUBLISHED_INITIALIZATION_COMPARISON.rst):
 all28stored published configs use WP. Archived Point scores atT0.05 have lower
@@ -556,29 +572,26 @@ their empirical fixes did not establish replicated Koi-Koi win improvement.
 
 ## Latest manuscript
 
-**Latest verified manuscript:**31pages,34references,161-word Abstract,21embedded
-fonts. Added policy-distillation,discrete-SAC and target-entropy references with
-primary-source metadata;Section2.2 distinguishes the established methods from
-the fixed continuation-temperature intervention. AppendixC.3 reports allfour
-failed primary contrasts and the measured probability changes. Section7.1
-connects the exact finite counterexample to the8,192-match directional diagnostic:
-all10 MC and30 estimator-difference bands includezero. Abstract/Introduction
-state that empirical scope directly. No new strength or duration outcome is added.
+**Latest verified manuscript:**32pages,34references,182-word Abstract and
+122-word Conclusion. Section6.2 adds the closed duration comparison with allfour
+primary simultaneous intervals and allfourlongopponentendpoint rows. Abstract,
+Introduction andConclusion distinguish improvedpointmargins fromunestablished
+replicatedadditionalwins. Priorfinaltest andlaterdevelopment remainseparate.
+No strongerclaim,newalgorithmclaim,promotion or101Mconfirmation isadded.
 
-Conclusion is103words in three paragraphs and fits page17. A float barrier
-keeps supplementary tables before references. Every previous numeric token value
-is retained. New evidence manifest binds328inputs;QA verifies the1,214-input union
-and67live training bindings. All31pages contact-reviewed;pages1/2/9/23/24 reviewed
-full size. First16final rendered pages are pixel-identical to their reviewed
-initial render. Fonts,citations,page bounds and box/glyph logs pass.
-PDF6e8b43ad042dd5df55a2763636bf3248ea1dd93927dd73c44ee5fc59aa2f53c6;
-sourcefedfb016274e1ce83c5279cbc1dc52b0fa7c6f1ce6b7adcd632dad7641f12192;
+Two generated tables bind the completed recovered export. New durationevidence
+SHA0ca55d16e57df8ccfac261380216ab641b8eee262c67b6694981145e71aea94c.
+QAverifies1,353unchangedinputbindings;all32pagescontactreviewed,fullpages1/9/20
+inspected. All34numberedreferences arepresent,allfonts embedded(18unique names),
+noover/underfullboxes,missingglyphs,undefinedrefs orreplacementcharacters.
+PDFceff57a36f95045fd152c6a3189f3e8fb6623b74f83b41c9f510a8a7194f385a;
+sourcea5ec454eb5362b50aa6d03befb28b9013bebe969c2f0a97540718f267a524f23;
 bibliographydd702f28fb9c7d49ec33ceaabd19672268e6fa3c57d5aadadec61292ceb7ad08.
-QA runs/manuscript_temperature_directional_qa.json
-SHA16cb66196fa4de1560f82eb90f6fdd9ae46586124d2ad8b850bb44719765a7da.
-Previous PDF/TeX/bibliography preserved in runs/manuscript_return_temperature_previous.
-Renderer:system Python3.14 with external/pdf_render on sys.path for PyMuPDF,
-plus installed Pillow;training remains exclusively the .venv Python3.12 runtime.
+QA runs/manuscript_duration_qa.json
+SHA87b26ee93088d707ff03319be39c0d95d73caf00c507aaa19f5361455ef42513.
+PriorPDF/TeX/QA preserved in runs/manuscript_duration_previous.
+Renders:runs/manuscript_duration_render. Renderer uses systemPython3.14,
+external/pdf_render PyMuPDF andPillow;training uses .venvPython3.12.
 The PDF-skill artifact marker already ran earlier;never repeat it.
 
 ## Local human-play delivery
