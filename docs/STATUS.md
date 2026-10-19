@@ -88,7 +88,7 @@ f8d3036e9af6b55b21cf94275515fd0c19f61b737539931133f1e38b56538367 binds94inputs;
 producer receiptbe2b1c01539138582eaeeb89d7c9fb6262089f0b0efe1c9f3b91ac6835d02c1e.
 
 Main root runs/point_initialization_study. Session26829;launcher47112/actual23676
-starts2026-10-20 01:56:02JST. Actual23676 is OS-live;seed1_wp_fixed has182closed
+starts2026-10-20 01:56:02JST. Actual23676 is OS-live;seed1_wp_fixed has331closed
 update records. No outcome evaluation has started. Protocol
  defd0e993e2c85efb844164b0c1edfa4ac6bae917c31ea6a6eb33d7ba4618048 binds102inputs,
 all verified unchanged. Keep these sources/tests/specifications frozen.
@@ -140,6 +140,28 @@ binds156inputs,allunchanged. It waits for exactproducerexit0 plusmatchingcomplet
 then prepares main evaluation,executes it and independently audits it once.
 No promotion or training restart. Main output runs/point_initialization_evaluation
 doesnotexist yet;do not create it or launch another evaluator/queue.
+
+The complete-only Point result exporter is ready:
+scripts/export_point_initialization_results.py. It requires the pinned training
+and queue protocols,matching queue completion and explicit passed-auditSHA,
+all16completed cells,all6training arms/all12saved-state audits,andunchanged raw
+records/dependencies. It validates all120secondary coordinates andfourunrounded
+simultaneous primary bands,then emits all24absolute and36contrast win/point rows,
+plus primary results and full-precision JSON. Main work and replay are separate;
+capability work remains in the ledger. No export selects or promotes a model.
+
+Ten synthetic tests pass0skips in1.29s;Ruffpasses. They cover complete output,
+units,non-overwrite,missing/failed/changed evidence,omitted/nonfinite coordinates,
+zero-SE and all-four qualification. The actual live study is correctly refused
+before output directory creation. No main result table or summary isexported.
+After the queue and full audit complete,run once into a fresh directory:
+
+    python -m scripts.export_point_initialization_results --output runs/point_initialization_results --audit-sha256 <completed-main-audit-sha256>
+
+XML runs/point_initialization_export_tests_final.xml SHA
+43d77aa1f183edad22b48c73c93b040f3d427241161cbbf7dca63e3fa0ae2110.
+ExporterSHA7a282ec61e819ffdb6982bbe08fbed4528ec77da809e2fb53f514de0ea5f647f.
+All156frozen queue inputs remain unchanged. Actual23676and42304areOS-live.
 
 Next monitor training session26829/actual23676 and queue25193/actual42304.
 Freeze both training and evaluation/queue sources,tests and XML receipts. If a

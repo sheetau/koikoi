@@ -6234,3 +6234,43 @@ allunchanged. Training session26829/actual23676 isOS-live with182first-arm updat
 The queue will wait,prepare allmain endpoints,evaluate131,072matches andaudit
 once. Main evaluation directory doesnotexist yet;no second launch. Canonical
 player,dealer and101Mconfirmation stay unchanged. Fullgoalremainsactive.
+
+## 2026-10-20: complete-only Point results exporter verified
+
+Added scripts/export_point_initialization_results.py without changing any frozen
+training/evaluation/queue input. It requires the exact pinned training andqueue
+protocols,allthree completed queue stages,explicit passed mainauditSHA,all16cells,
+all6training arms and12saved-state audits. It verifies summary/raw-record/input
+hashes,model identities,training andevaluation work andthe fixed inference/study
+bindings before creating a fresh output directory. Failed/incomplete queues or
+any changed bound dependency are refused. All120secondary coordinates andfour
+primary rows aremandatory;qualification follows the four unrounded simultaneous
+lower bounds,with no positive claim forzero-SEcoordinates.
+
+The readable output contains all24absolute and36paired-comparison rows,eachwith
+win andpoint estimates/intervals,plus thefourprimarybands. Win fractions convert
+topercent anddifferences topercentagepoints. JSON preserves complete unrounded
+summary andevidence bindings. Maintraining counts include warmup once;recorded
+action replay adds no independentmatches. Capability costs stay separate in the
+ledger. The report identifies the fixed first-seed Pointcalibrated candidate only
+conditionally on qualification andretains separate101Mconfirmation. No promotion.
+
+Ten synthetic tests pass0skips in1.29s,Ruffpasses. Complete-output fidelity,units,
+non-overwriting,missing completion,failure receipts,missingcells,changedrows,
+changedtraining,wrongaudit/queue identities,omission/nonfinite/capabilityrefusal,
+zero-SE andall-fourqualification arecovered. Synthetic fixtures arepresentation
+tests,notstrength evidence. XML runs/point_initialization_export_tests_final.xml
+SHA43d77aa1f183edad22b48c73c93b040f3d427241161cbbf7dca63e3fa0ae2110.
+ExporterSHA7a282ec61e819ffdb6982bbe08fbed4528ec77da809e2fb53f514de0ea5f647f;
+testSHAe16b06f29aedce3b7422b3db5ea3ca6be19048e779f425beb3b5b1b449691bd0.
+Actual unfinished study is also refused before any results directory iscreated.
+No main outcomes areinspected andno realresults areexported.
+
+When the existing queue completes,invokeonce with the actual mainauditSHA:
+
+    python -m scripts.export_point_initialization_results --output runs/point_initialization_results --audit-sha256 <completed-main-audit-sha256>
+
+Trainingactual23676andqueue42304remainOS-live. Atleast331completefirst-armupdate
+records areverified. All156queuebindings remainunchanged. No newinference,
+simulatorsteps orlearning areattributed toexport work. The live six-armtraining
+continues onits fixedschedule;strongerplay/researchgoalremainsactive.
