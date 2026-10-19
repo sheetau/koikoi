@@ -6649,3 +6649,32 @@ workers44684/18512 are gone; parent log records completion and successor starts.
 Queue session25193/actual42304 stays live,with no failure/terminal receipt.
 Do not restart or duplicate evaluation. Native replay,statistics export and
 any candidate qualification remain pending. Canonical player/dealer unchanged.
+
+## First fixed-Point main evaluation cells complete, 20 October 2026
+
+parent1_point_fixed_wp and parent1_point_fixed_point each finish8,192matches.
+Their producer counters are945,077/961,000decisions and63,669/63,018round
+endings. Combined new work:16,384matches /1,906,077decisions /126,687rounds.
+With the four preceding cells,completed work is49,152matches /
+5,711,047decisions /381,496round endings. Six of16cells are complete.
+
+Verified completion status,exact newline-terminated row counts,rawSHA,
+protocolSHA,checkpointSHA and checkpoint,parent,policy,opponent and first-seed
+identity against the fixed protocol. No partial outcome means were inspected.
+This verifies producer metadata only; the full native-action/statistics audit
+remains pending. Receipt hashes:
+- WP:624ca09630fce39a1f3f3d26f45c5c02fe58a1081bc7cd2daf3ffc626801bca9
+- Point:5ed117c4b78e32f36860832b82865b367014ebe983a0229cf46e68edb31c6411
+Raw record hashes:
+- WP:3523640e05d614b347d0cb8e58e075498f2242d7bd47d7803155795afebabb18
+- Point:dc49bcc86a71d6cd36712a1e9938abb40636e03ff6739de5dc9fe110336f6c0f
+Read-only metadata check runs/point_initialization_first_point_cells_check.json
+SHA a8df9d9e0f05d7815b06bf5f2da48cc0e3cb89db6800cc0912cacec56cf964ce.
+
+Evaluator53480 starts parent1_point_matched_wp at06:32:31JST,
+launcher61980/actual19248,and parent1_point_matched_point at06:34:17JST,
+launcher43620/actual52492. Both are OS-live and writing records. Previous
+workers52108/58912 are gone; parent log records completion and successor starts.
+Queue session25193/actual42304 remains live,with no failure/terminal receipt.
+Do not restart or duplicate evaluation. Native replay,statistics export and
+any candidate qualification remain pending. Canonical player/dealer unchanged.
