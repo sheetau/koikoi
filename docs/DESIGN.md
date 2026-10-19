@@ -306,3 +306,25 @@ New exclusive launch/failure/completion receipts avoid periodic replacement of
 a progress file opened by monitoring readers. Recovery does not alter model,
 rule,seed,inference or selection semantics and never promotes a model. See
 EXPERIMENTS for the frozen recovery protocol and actual capability evidence.
+
+## Experimental phase-temperature initialization controls
+
+scripts/phase_temperature_ppo.py wraps the unchanged PublishedTrainer with four
+fixed sampling divisors, one per public phase. It reuses the same actor/value
+parameter objects and optimizer references; no additional inputs, hidden state,
+model layers or RNG-consuming initialization are introduced. The all0.05 path
+retains the original scalar division exactly. Hand and draw captures share the
+original actor parameters while using their own declared divisors.
+
+Checkpoints embed actor, critic, optimizer, environment, counters, full RNG state,
+config, runtime and wrapper source identity. Restore rejects source/runtime or
+initialization mismatches. Configuration changes during training are rejected.
+PhaseTemperatureAgent deliberately restores the existing PublishedPolicyValue
+with deployment divisor0.05 and singleton greedy CPU inference. Training
+calibration does not change the inference implementation or playable defaults.
+
+The separate Point-initialization runner fixes three arms at two seeds, records
+append-only metrics and exclusive start/completion/failure receipts, and refuses
+a second start. It binds the completed production capability and independent
+saved-state audit before learning. Evaluation is a separate gated stage under
+POINT_INITIALIZATION_MAIN.rst; no outcome-driven training extension is allowed.

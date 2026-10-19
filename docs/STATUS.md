@@ -53,11 +53,11 @@ all dependencies/output hashes verify. Do not rerun or overwrite completed expor
 Recovery sources/tests and all frozen inputs remain unchanged.
 
 No endpoint is promoted; canonical player,dealer and101Mconfirmation are unchanged.
-No study job is live. This is greater-compute adaptation,not a novel algorithm.
+No duration-study job is live. This is greater-compute adaptation,not a novel algorithm.
 The manuscript now includes the completed duration result (latest PDF below).
 Do not extend this closed comparison or repeat closed temperature/return sweeps.
 
-**Point initialization calibration complete; main learning not yet started.**
+**Point initialization main learning is live; capability and calibration are complete.**
 [Specification](POINT_INITIALIZATION_STUDY.rst),[result](POINT_INITIALIZATION_CALIBRATION.rst).
 The old public CPU-score corpus supplies75calibration/25descriptive validation
 source groups,excluding forced choices. Four Point divisors match WP0.05phase
@@ -70,12 +70,47 @@ Ruff passes. Report runs/point_initialization_calibration.json SHA
 869ab1e45e7e8a5569ff20edaea55fdc5e2a2464d6d6a32a9c50df188bd701f3 binds9inputs.
 Keep the calibration source,test,specification and corpus unchanged.
 
-Next implement an isolated four-phase-temperature wrapper and capability-test
-exact all0.05control equivalence,warmup,greedy deployment and exactnext-update
-restore. Planned arms:WP0.05,Point0.05,Pointcalibrated at two freshseeds.
-Main seed inventory,evaluation schedule and qualification family must be frozen
-before main training. No job is live. Initialization alone isnot a new method;
-the broader strength/research objective remains active and unachieved.
+Implemented scripts/phase_temperature_ppo.py without changing frozen core or
+prior-study sources. Nine tests pass0skips:both WP/Point all0.05 controls exactly
+match original CUDA updates;per-phase scaling,invalid configs,Point warmup,
+full next-update restore and two full-match greedy-policy equivalence pass.
+The training runner's three failure/preservation tests also pass0skips.
+
+Production capability runs/point_initialization_capability is terminal:
+3arms x20warmup+2policy updates with128x128rollouts. Initial critic/env/optimizer/
+RNG match across all arms;Point actor matches between its two arms. Saved-state
+inspection confirms original pinned weights,all nine20/21/22snapshots,counters,
+finite tensors,actual Adam steps/moments and exact resumed endpoints.
+Unique work:1,081,344decisions/70,512round endings/8,968training matches;
+repeated verification:49,152decisions/3,220round endings/409matches. These are
+capability executions,not strength evidence. Independent audit
+f8d3036e9af6b55b21cf94275515fd0c19f61b737539931133f1e38b56538367 binds94inputs;
+producer receiptbe2b1c01539138582eaeeb89d7c9fb6262089f0b0efe1c9f3b91ac6835d02c1e.
+
+Main root runs/point_initialization_study. Session26829;launcher47112/actual23676
+starts2026-10-20 01:56:02JST. Actual23676 is OS-live;seed1_wp_fixed has16closed
+update records. No outcome evaluation has started. Protocol
+ defd0e993e2c85efb844164b0c1edfa4ac6bae917c31ea6a6eb33d7ba4618048 binds102inputs,
+all verified unchanged. Keep these sources/tests/specifications frozen.
+Never restart because a wait expires;started.json prevents a second launch.
+
+[Fixed main design](POINT_INITIALIZATION_MAIN.rst):seeds102110001/102210001,
+three arms WP0.05/Point0.05/Pointcalibrated,each20warmup+500policy updates.
+Total51,118,080decisions including1,966,080warmup once. Only totalupdate520 is
+an evaluation endpoint. No resets,intermediate outcome checks or extensions.
+Following all training,eight policies play131,072matches on8,192shared WP/Point
+deals. Primary:Pointcalibrated-minus-WPfixed andminus-retained at both seeds,
+one four-contrast simultaneous95% family;all lower bounds must be positive.
+Report120secondary win/point coordinates. If qualified,fixedcandidate is
+seed102110001's Pointcalibrated;101Mconfirmation remains separate andunused.
+
+Next monitor this exact live training session while implementing/capability-
+testing the independent training verifier and fixed evaluation/statistics code
+before any main evaluation. Main seed inventory scans3,642JSONfiles with956
+seed-bearing files,no scalar seed collisions or unreadable files;it does not
+prove absence of unrecorded/implicit schedules. ScanSHA
+ dfa5688894853738b608b0c79c530027cc6a0e7dc0854d54b1b932244aa98e68.
+Initialization alone is not a new method;the broader objective stays unachieved.
 
 Completed [initialization diagnostic](PUBLISHED_INITIALIZATION_COMPARISON.rst):
 all28stored published configs use WP. Archived Point scores atT0.05 have lower

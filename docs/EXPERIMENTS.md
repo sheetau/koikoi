@@ -6105,3 +6105,68 @@ allverify. docs/POINT_INITIALIZATION_CALIBRATION.rst reportsfullvalues/limits.
 Next implementthephasewrapper andverifyoriginalcontrolequivalence,initialweights,
 warmupandnextupdaterestore beforefreezingmainseeds/evaluationrules. Neither
 calibration norPointinitialization isclaimednovel. Broadergoalremainsactive.
+
+## 2026-10-20: phase-temperature learner verified; Point initialization main starts
+
+Implemented scripts/phase_temperature_ppo.py as an isolated wrapper around the
+existing public-input PublishedTrainer. All four default divisors retain exact
+original update behavior for both WP and Point. Calibrated Point training uses
+the four previously frozen values. No core, rule, old study or deployment changes.
+Nine tests pass0skips in11.04s;Ruff passes. Tests cover phase scaling/gradients,
+mask/value preservation,invalid configs,actual CUDA uniform-control equivalence,
+Point warmup/actor movement,full-state exact next update,and two completed greedy
+match equivalence checks. Upstream Transformer nested-tensor optimization
+warnings are unchanged and do not indicate failed tests. Test XML
+runs/phase_temperature_ppo_tests.xml SHA4614925ff7267290a4a2a74e2060662267149b1e4bb657706149dd16ca923f13.
+
+Production capability executes once:
+
+    .venv/Scripts/python.exe -m scripts.check_point_initialization_training --output runs/point_initialization_capability
+    .venv/Scripts/python.exe -m scripts.audit_point_initialization_capability --input runs/point_initialization_capability
+
+Session29461 exits0. Three arms each complete20critic-only plus2policy updates
+at128envs x128horizon,512minibatches and3epochs. All initial critics,environments,
+optimizers and RNG states match;the two Point initial actors also match. Each
+last update is repeated from its prior checkpoint and all parameters,Adam,env,
+counters,Python/NumPy/Torch/CUDA RNG state and metrics agree exactly.
+Independent saved-state inspection checks pinned original weights,all nine saved
+20/21/22stages,actual simulator counters,finite tensors and per-parameter Adam
+steps/moments. It adds0inference and0simulation;it does not replay training.
+
+Unique capability work:1,081,344decisions/70,512rounds/8,968training matches;
+separate duplicate verification:49,152decisions/3,220rounds/409matches.
+Warmup is included:983,040decisions. This small execution is not strength evidence.
+Capability protocolb4b2ec69b2654a038f6e24e5de7b3a63ede8b9849c32fb48e858b1eb4862bd52;
+producerbe2b1c01539138582eaeeb89d7c9fb6262089f0b0efe1c9f3b91ac6835d02c1e;
+independent auditf8d3036e9af6b55b21cf94275515fd0c19f61b737539931133f1e38b56538367,
+94inputs. Preserve the capability;do not rerun it.
+
+Fixed docs/POINT_INITIALIZATION_MAIN.rst before main training. Two fresh seeds,
+three arms,520updates each,51,118,080totaldecisions. Later16evaluation cells,
+131,072matches,8,192shareddeals;four simultaneous primary mixture-win contrasts
+and120descriptive secondary coordinates. No outcome selection or automatic
+promotion. Candidate fixed to first-seed Pointcalibrated if all four gates pass.
+The existing101Mconfirmation remains separate and unused. Temperature affects
+sampling and policy gradients;calibrated mean entropy is not a pure exploration
+or equal-gradient intervention.
+
+Seed inventory scans3,642existingJSONfiles,956seed-bearing,no scalar seed overlap
+or unreadable files. It does not enumerate unrecorded work or implicit schedules.
+Receipt runs/point_initialization_main_seed_scan.json SHA
+ dfa5688894853738b608b0c79c530027cc6a0e7dc0854d54b1b932244aa98e68.
+Training runner tests exercise failure preserving the first completed arm,
+stopping later arms,refusing automatic restart,source drift before startup,and
+existing-directory preservation. Three pass0skips in1.35s;Ruff passes. Final XML
+runs/point_initialization_runner_tests_final.xml SHA
+ f2494ce46a37a181abc769baeff64e1d68587cb1fd27fa5f82bf5385799befc3.
+
+    .venv/Scripts/python.exe -m scripts.train_point_initialization prepare --output runs/point_initialization_study
+    .venv/Scripts/python.exe -m scripts.train_point_initialization run --output runs/point_initialization_study
+
+Main protocoldefd0e993e2c85efb844164b0c1edfa4ac6bae917c31ea6a6eb33d7ba4618048
+binds102inputs,allunchanged. Session26829,launcher47112/actual23676 starts
+01:56:02JST;OS-verified live with16complete first-arm updates. No evaluation yet.
+The runner uses append-only logs and exclusive receipts,without periodic status
+replacement. Never restart on an observation timeout. Next build and capability-
+test the separate training verifier and evaluation/statistics implementation
+while this fixed training runs. Broader strength/research objective stays active.
