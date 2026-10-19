@@ -5793,3 +5793,25 @@ recorded matches;two of twelve cells complete. These are progress counts only.
 No restart,source change,model selection,promotion or101Mconfirmation occurs.
 Continue the same frozen evaluation and subsequent independent audit. The
 stronger-play and research objective remains active and unachieved.
+
+## 2026-10-19: short duration evaluation cells complete; long evaluation starts
+
+Verified waits on the same live session21869 and OS processes show both
+parent1_short_wp and parent1_short_point complete8,192matches. Saved report
+status/counts and actual JSONL SHA256 agree. WP producer work:
+941,575decisions/64,029round endings/8,192matches. Point producer work:
+953,009decisions/63,303round endings/8,192matches. These are completed producer
+records,not the pending independent recorded-action/statistics audit. No win or
+point means inspected and no partial outcome selection occurs.
+
+Workers27980/54120 exit. The existing evaluator63224 automatically launches
+parent1_long_wp launcher15624/actual50752 at22:51:19JST,then
+parent1_long_point launcher63804/actual59432 at22:52:30JST. Both are OS-verified
+live,along with evaluator63224 and queue32628. A transient receipt reading had
+only the WP worker while the OS already showed Point's new process;the next
+receipt confirms both. No recovery or duplicate launch was needed.
+
+Current open-file counts:long WP295/Point30;four finished cells each8,192.
+Total33,093recorded matches,four of twelve cells complete. No source,model,
+training,protocol,dealer,deployment orPDF changes. The fixed evaluation and
+subsequent independent audit continue;the full objective remains unachieved.

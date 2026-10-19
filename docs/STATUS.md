@@ -50,10 +50,12 @@ launcher60412,starts2026-10-19 21:42JST. The first two cells now complete:
 parent1_parent_wp and parent1_parent_point each contain8,192matches; their
 completion reports, match counts and row SHA256 identities agree. The old
 workers33480/55700 have exited. Queue and evaluator remain OS-verified live.
-Next workers start automatically:parent1_short_wp launcher26388/actual27980
-at22:16:58JST;parent1_short_point launcher46160/actual54120 at22:17:29JST.
-Both are OS-verified live with289/163complete rows at this checkpoint.
-Total16,836recorded matches;two of twelve cells complete. No interim outcome
+The next two cells,parent1_short_wp/point,also finish8,192matches each;
+completion reports,counts and row hashes agree. Their workers27980/54120 exit.
+Current workers start automatically:parent1_long_wp launcher15624/actual50752
+at22:51:19JST;parent1_long_point launcher63804/actual59432 at22:52:30JST.
+Both are OS-verified live with295/30complete rows at this checkpoint.
+Total33,093recorded matches;four of twelve cells complete. No interim outcome
 means inspected. Read evaluation_process.json and actual child processes for
 subsequent workers;do not reuse old process handles or restart.
 
