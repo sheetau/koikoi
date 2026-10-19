@@ -6589,3 +6589,34 @@ Two of16cells are complete. Monitor the actual evaluator terminal filenames
 (evaluation_complete.json/evaluation_failed.json), separately from queue
 complete.json/failed.json. All frozen inputs and canonical deployment remain
 unchanged; full outcomes, independent audit and qualification are pending.
+
+## Manuscript structure revision, 20 October 2026
+
+Reorganized the main argument around match adaptation, critic conditioning and
+public-input reconstruction. Detailed response/learner-return, fixed-observer/
+seat and final-round/public-memory protocols and tables now appear in
+AppendicesC--E. Main summaries retain the failed primary win criteria and the
+optimization differences in learner-decision training. No empirical result or
+claim of a new algorithm is added. All original table inputs, figures, citations
+and labels remain; after normalizing headings and reference titles, only one
+original paragraph changes its final forward pointer. Abstract, Introduction
+and Conclusion remain unchanged.
+
+Main whitespace words7,484 ->5,466 (27.0% fewer); Conclusion page18 ->13.
+Full document32 ->33pages because the detailed evidence is preserved and the
+new summaries add text. All33pages contact-reviewed; pages10--13 full-size.
+Tectonic build succeeds with no box/glyph/undefined-reference warnings; all34
+references and21unique embedded font names verify. The known Fontconfig stderr
+message persists without missing embedded fonts. Reverified1,353 evidence-file
+hashes and156 live queue inputs. No new training, simulation, replay or inference.
+
+QA runs/manuscript_structure_20261020_qa.json SHA d202cc996f93ead6070321a72f50b636b5d38dcd373c7a25666cb7c4db2520b2.
+PDF b9de94e68c9b1324924d461272bebed0bae24ab48e2155136a65d4810857c88b.
+Source fcdebef32f65ebf6ba19e6c2707a7379cf64b4eb240d4a50ce911d6132b84355.
+Prior artifacts runs/manuscript_structure_previous; renders
+runs/manuscript_structure_render. The artifact marker had already run and was
+not repeated. A first pre-write structural assertion caught the intended
+Section-to-Appendix reference change; no source edit occurred until that check
+was corrected. Main evaluation session25193 remains live; latest progress check
+shows24,547 completed match records, two completed cells, no failure receipt.
+Canonical deployment and dealer remain unchanged; the broader goal is active.

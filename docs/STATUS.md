@@ -737,28 +737,33 @@ their empirical fixes did not establish replicated Koi-Koi win improvement.
 
 ## Latest manuscript
 
-**Latest verified manuscript:** 32 pages, 34 references, 159-word Abstract,
-425-word Introduction and unchanged 122-word Conclusion. The opening now leads
-with three findings: terminal-match adaptation, the exact critic-conditioning
-counterexample, and opponent identification from public reconstruction. Detailed
-latency, duration and probe counts remain in the body; the limits on additional
-win gains and empirical critic reversal remain explicit. No new strength or
-algorithm claim is added. Everything from Related Work onward is byte-identical
-to the preceding verified source, including all completed duration results.
+**Latest verified manuscript:** 33 pages including appendices, 34 references,
+159-word Abstract, 425-word Introduction and 122-word Conclusion. The main text
+now reaches its Conclusion on page13 rather than page18. Its whitespace word
+count falls from7,484 to5,466 (27.0%). Detailed direct-opponent/return,
+fixed-observer/seat and final-round/public-memory studies move to AppendicesC--E.
+The main text retains their primary outcomes and explicit links to every detail.
 
-QA rechecks the previous 1,353 evidence input hashes and all 156 live Point
-queue inputs. All 32 pages are contact-reviewed; changed pages 1 and 2 are
-reviewed at full size. All 34 numbered references are present; all fonts are
-embedded (21 unique names). No TeX box, glyph, reference or replacement-character
-issues occur. The earlier duration evidence and its audit remain preserved.
-PDF SHA 9fa85305854cb052edbc6d7320f5cbdb2f4875295851ac39e708150d25b25c1f;
-source SHA f8f9e8ce20da6ac7c2f763f8a4695da3184b2a5ccbcd251bb2777ca5fbb0ea61;
+Abstract, Introduction and Conclusion remain unchanged. Every original table,
+figure, citation and label remains; the reference titles now distinguish the
+moved appendices. Paragraph comparison finds only one changed original prose
+paragraph: its final forward pointer becomes an explicit appendix reference.
+New main summaries retain the failed replicated-win findings and distinguish
+fixed-critic return controls from the learner-decision procedure's optimization
+changes. No new playing-strength or algorithm claim is introduced.
+
+QA rechecks1,353 evidence inputs and all156 live Point queue inputs. All33pages
+are contact-reviewed and pages10--13 are inspected at full size. All34numbered
+references are present,21unique font names are embedded,and there are no TeX
+box,glyph,undefined-reference or replacement-character issues.
+PDF SHA b9de94e68c9b1324924d461272bebed0bae24ab48e2155136a65d4810857c88b;
+source SHA fcdebef32f65ebf6ba19e6c2707a7379cf64b4eb240d4a50ce911d6132b84355;
 bibliography dd702f28fb9c7d49ec33ceaabd19672268e6fa3c57d5aadadec61292ceb7ad08.
-QA runs/manuscript_opening_20261020_qa.json
-SHA 052d43957ac117e721e1a66dccb1c6777c048b0eed869df765b600bff7b33850.
-Prior PDF/TeX/QA: runs/manuscript_opening_previous.
-Renders: runs/manuscript_opening_render. Renderer uses system Python 3.14,
-external/pdf_render PyMuPDF and Pillow; training uses .venv Python 3.12.
+QA runs/manuscript_structure_20261020_qa.json SHA
+d202cc996f93ead6070321a72f50b636b5d38dcd373c7a25666cb7c4db2520b2.
+Prior PDF/TeX/QA/guide: runs/manuscript_structure_previous.
+Renders: runs/manuscript_structure_render. Renderer uses system Python3.14,
+external/pdf_render PyMuPDF and Pillow; training uses .venv Python3.12.
 The PDF-skill artifact marker already ran earlier; never repeat it.
 
 ## Local human-play delivery

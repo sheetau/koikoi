@@ -3,7 +3,7 @@ Manuscript working files
 
 This is an English research manuscript, not a submitted or published paper.
 
-Current verified revision: 32 pages, 34 cited references, 159-word Abstract.
+Current verified revision: 33 pages including appendices, 34 cited references, 159-word Abstract.
 Abstract and Introduction lead with terminal-match adaptation, the exact
 critic-conditioning counterexample and reconstruction from public history.
 Related Work covers Koi-Koi systems, action-score adaptation and exploration,
@@ -11,9 +11,12 @@ self-play, opponent inference, critic information, temporal abstraction,
 search and policy composition. The completed longer-adaptation comparison
 appears in Section 6.2; it improves mixture point margins at both new seeds
 but does not establish replicated additional win improvement.
-Latest QA: runs/manuscript_opening_20261020_qa.json.
+The main text reaches its Conclusion on page 13, previously page 18. Detailed
+return, fixed-observer and public-memory learning comparisons are retained in
+Appendices C--E; their primary outcomes remain explicit in the main text.
+Latest QA: runs/manuscript_structure_20261020_qa.json.
 Current PDF: output/pdf/manuscript.pdf, SHA256
-9fa85305854cb052edbc6d7320f5cbdb2f4875295851ac39e708150d25b25c1f.
+b9de94e68c9b1324924d461272bebed0bae24ab48e2155136a65d4810857c88b.
 
 The Point-initialization comparison has completed training and is undergoing
 its fixed main evaluation. Its final-policy probability diagnostic is complete;

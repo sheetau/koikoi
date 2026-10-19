@@ -534,7 +534,7 @@ the return calculation. The scalar expectation also agrees with direct objective
 differentiation. Appendix~\ref{app:observer} gives the derivation and a
 learner-decision implementation with explicit tail masks.
 The Koi-Koi match results above use the original signed estimator.
-Section~\ref{sec:learner} compares the return constructions under fixed-opponent
+Appendix~\ref{sec:learner} compares the return constructions under fixed-opponent
 training.
 
 The $\lambda=1$ cancellation requires reaching termination. Cutting this same
@@ -566,177 +566,36 @@ All 8,192 matches are replayed on native CPU, and independent scalar score and
 return calculations agree to $8.9\times10^{-16}$. Full coordinates and the
 fixed design are in \path{docs/DIRECTIONAL_RETURN_RESULTS.rst}.
 
-\section{Learning against fixed opponents}
-\label{sec:training}
-We test two changes to the adapted actors: training directly against the
-published opponents, and constructing returns between learner decisions.
-The first comparison measures opponent-specific training against continued
-self-play. The second holds the opponent mixture fixed and changes the return
-construction and its associated optimization.
+\subsection{Do return repairs improve learned play?}
+The exact counterexample motivates two implementations: returns between
+learner decisions, and a critic that maintains each player's viewpoint through
+all primitive decisions. Both are tested from the two retained parents against
+unchanged parents and signed-return controls. Each new arm receives
+8.52 million simulator decisions. Separate paired evaluations contain 160,000
+full matches per study. The fixed-observer contrast holds critic fitting fixed;
+the learner-decision procedure also changes critic fitting and optimization.
 
-\subsection{Direct training against the published opponents}
-\label{sec:response}
-The first comparison tests full-policy PPO against the published opponents.
-Each retained parent initializes two continuations: a response learner facing
-RL-WP and RL-Point on a balanced whole-match schedule, and ordinary self-play.
-Both use the warm configuration and 8,519,680 additional simulator decisions,
-including 20 critic-only and 500 policy updates. The response actor learns only
-from its own actions, with separate observation critics for the two acting roles.
-The budget counts both players' actions; equal simulator work therefore gives
-different learner sample counts across the two regimes.
+Learner-decision returns have positive mean win changes in all eight primary
+comparisons, but only one lower 95\% bound is positive. Against Point, gains
+over the two parents are 0.920 percentage points [0.125, 1.755] and 0.325
+[$-0.480$, 1.165]. All four learner-minus-response win intervals include zero.
+The fixed-observer comparison has no positive lower bound among its eight
+primary intervals. These results separate the exact analytical repair from
+an additional playing-strength gain. Appendices~\ref{sec:training}
+and~\ref{sec:observer-selfplay} retain the complete training protocols,
+matched controls, point outcomes and comparison tables.
 
-The four final endpoints and two unchanged parents each face WP and Point on
-5,000 fresh shared duplicate deals, giving 120,000 matches. The primary criterion
-requires a positive lower 95\% paired win-change bound for response versus both
-its parent and its self-play control, at both initial models against both
-opponents. No comparison passes (Table~\ref{tab:response}).
+\section{Information recovered from public play}
+\label{sec:public-information}
+The fixed-observer critic uses 561 viewer-relative features
+(Appendix~\ref{sec:observer-selfplay}). Public history supports two concrete
+reconstructions. A viewer-seat bit makes
+the critic representation distinguish actor inputs that it previously merged.
+Completed hand discards reveal enough information to reconstruct an opponent's
+earlier inputs and identify it within a fixed model class. We verify these
+information properties before testing their use in learning.
 
-\begin{table}[ht]
-\centering\small
-\input{generated/response_table.tex}
-\caption{Direct opponent training: paired win-score changes in percentage
-points, with 95\% intervals, on 5,000 shared development deals. Both trained
-arms receive the same simulator budget.}
-\label{tab:response}
-\end{table}
-
-All four response-minus-parent win intervals include zero. Against WP,
-parent 1's response loses 0.975 percentage points to its self-play continuation
-[\(-1.830,-0.110\)]. Three of the four response-minus-self-play point-margin intervals lie
-below zero. The self-play continuations themselves have
-parent-relative win intervals containing zero in all four matchups. Thus
-training directly against these opponents does not establish an improvement
-at this budget. The learner-decision comparison below uses these response
-endpoints as fixed controls.
-
-\subsection{Learner-decision returns}
-\label{sec:learner}
-The exact example in Section~\ref{sec:observer} motivates a comparison of three
-return constructions: signed GAE with $\lambda=0.95$, learner-decision returns
-with $\lambda=0.95$, and signed GAE with $\lambda=1$. The learner-decision variant
-bootstraps at learner observations and attributes opponent-caused terminal
-rewards to the learner before a match reset. Eligibility decays across primitive
-decisions, and unfinished learner-to-opponent tails are excluded from both
-policy and value losses. Appendix~\ref{app:observer} specifies the recurrence.
-
-Both retained parents initialize a learner-decision run and a $\lambda=1$ run,
-with the original response endpoints supplying the signed-$0.95$ controls.
-Each new run uses 8,519,680 simulator decisions, the same opponent mixture,
-and 20 value-only followed by 500 policy updates. The learner-decision
-implementation also removes the opponent critic and normalizes value loss over
-valid learner rows; joint gradient clipping and minibatch composition change
-with it. The comparison measures this complete learning procedure. The
-$\lambda=1$ control retains the finite-rollout boundary bootstrap.
-
-The eight players---two unchanged parents, two original response endpoints,
-and four new endpoints---face WP and Point on 5,000 fresh shared duplicate
-deals, for 160,000 evaluation matches. The primary criterion requires all eight
-paired win-change lower 95\% bounds to be positive: learner-decision returns
-versus both the unchanged parent and signed-$0.95$ response, at both parents
-against both opponents. The $\lambda=1$ comparisons and point margins are
-secondary. All four training runs and all 16 matchups are complete.
-
-Only one of the eight primary lower bounds is positive
-(Table~\ref{tab:learner-primary}). Against Point, learner-decision returns gain
-0.920 percentage points over parent 1 [0.125, 1.755], while parent 2's gain is
-0.325 [$-0.480$, 1.165]. All four learner-minus-response win intervals include
-zero. The method therefore does not meet the primary replicated-gain criterion.
-All eight primary mean differences are positive.
-
-\begin{table}[ht]
-\centering\small
-\input{generated/learner_primary_table.tex}
-\caption{Learner-decision returns: primary paired win-score changes in percentage
-points, with 95\% intervals, on 5,000 fresh shared development deals.}
-\label{tab:learner-primary}
-\end{table}
-
-The secondary $\lambda=1$ control has negative parent-relative mean win changes
-in all four matchups (Table~\ref{tab:learner-lambda1}). Learner-decision returns
-exceed it against Point by 1.060 [0.155, 1.955] and 1.015 [0.105, 1.945]
-percentage points at parents 1 and 2. Against WP, the corresponding gains are
-0.875 [$-0.075$, 1.780] and 0.955 [0.010, 1.920]. Thus removing interior
-bootstraps with $\lambda=1$ and retaining learner-observation bootstraps have
-different empirical outcomes at this budget.
-
-\begin{table}[ht]
-\centering\small
-\input{generated/learner_lambda1_table.tex}
-\caption{Secondary return comparison on the same deals. Each cell gives a
-paired win-score change in percentage points and its 95\% interval.}
-\label{tab:learner-lambda1}
-\end{table}
-
-Point margins supply a consistent secondary signal against the signed-$0.95$
-response: learner-decision returns gain 0.620 [0.117, 1.107] and
-0.636 [0.146, 1.133] points against Point at the two parents. Against WP, the
-gains are 0.145 [$-0.357$, 0.631] and 0.800 [0.294, 1.316]. These are gains
-relative to the response controls; both learner endpoints still have negative
-absolute point margins against RL-Point. All parent-relative point-change
-intervals include zero.
-
-\section{Fixed-observer self-play}
-\label{sec:observer-selfplay}
-\subsection{Returns with a consistent viewer}
-The finite-game analysis suggests retaining the same player's information at
-each bootstrap. We implement this in self-play by evaluating two separate
-critic rows at every primitive decision. Each row contains its viewer's own
-cards and public information, plus a bit indicating whether that viewer is
-acting. A shared MLP maps the resulting 561 features to $v_t^i$, the value for
-viewer $i$. It processes rows independently; neither row contains the other
-player's hand or the stock order. The actor and its input are unchanged.
-
-Let $r_t$ denote seat zero's terminal-match reward and $c_t$ indicate that the
-match continues after decision $t$. For each viewer $i\in\{0,1\}$, use
-\begin{align}
- \delta_t^i &= (-1)^i r_t+c_t v_{t+1}^i-v_t^i,\\
- \widehat A_t^i &= \delta_t^i+\lambda c_t\widehat A_{t+1}^i.
-\end{align}
-A round ending leaves $c_t=1$; a match ending sets it to zero. At a rollout
-cutoff, the recurrence ends with $\widehat A_H^i=0$ and retains each viewer's
-own $v_H^i$ bootstrap. Fit $v_t^i+\widehat A_t^i$ for both viewers and use the
-acting viewer's advantage for the policy. The two conditional values need not
-sum to zero: their observations contain different private information.
-
-The matched signed-return control uses the same two-row critic targets,
-architecture, optimizer, minibatches and clipping. It changes only the policy
-advantage, selecting active-viewer values for the historical signed recurrence.
-Both arms use $\lambda=0.95$ and the warm adaptation settings. For each parent,
-they start from the same retained actor and padded critic; all saved model,
-optimizer, environment and RNG states agree after the 20
-critic-only warmup updates. Each arm then performs 500 policy updates, for
-8,519,680 simulator decisions and 17,039,360 value rows in total. This separates
-the policy-return contrast from changes in critic fitting.
-
-\subsection{Completed paired comparison}
-The four new endpoints, two unchanged parents and two archived ordinary
-self-play continuations face WP and Point on 5,000 fresh shared duplicate
-deals. The resulting 16 cells contain 160,000 matches. The primary criterion
-requires all eight paired win-change lower 95\% bounds to be positive:
-fixed-observer returns versus both the unchanged parent and matched signed
-control, at both parents against both opponents.
-
-None of the eight intervals excludes zero (Table~\ref{tab:observer-selfplay}).
-Against Point, the parent-relative mean gains are 0.715 and 0.320 percentage
-points. Against WP, they are 0.115 and 0.025. Thus this fixed-observer procedure
-does not establish a replicated win improvement at the tested budget.
-
-\begin{table}[ht]
-\centering\small
-\input{generated/observer_selfplay_primary_table.tex}
-\caption{Fixed-observer self-play: primary paired win-score changes in
-percentage points, with 95\% intervals, on 5,000 shared development deals.}
-\label{tab:observer-selfplay}
-\end{table}
-
-The secondary point margins improve over the parent in two different
-matchups: parent 1 against WP and parent 2 against Point. All four
-observer-minus-signed point intervals and all four observer-minus-historical
-self-play win intervals include zero. Appendix~\ref{app:observer-controls}
-retains these comparisons; the evidence ledger includes every absolute
-outcome and paired contrast.
-
-\subsection{An omitted public distinction}
+\subsection{Aligning actor and critic inputs}
 The actor and critic also differ in their input representations. The published
 actor records the absolute dealer seat, whereas the 561-input critic records
 dealer status relative to its viewer. Exchanging seat labels preserves the
@@ -778,87 +637,12 @@ $\nabla_\theta\log\pi_\theta(a\mid o)$ is determined by its input and chosen
 action. Recovering both arguments at a supplied public address determines the
 earlier score on these checked pairs. This is measured within-round retention, rather than a
 proof for every trajectory or across round boundaries. Stop actions end a round
-and have no same-round successor. The next comparison tests whether this
-representation repair improves playing strength.
-
-\subsection{Does the public-seat repair improve play?}
-\label{sec:seat-comparison}
-For each retained parent, we train two 562-input fixed-observer continuations.
-The public condition receives the viewer-seat bit; the masked condition sets
-that input to zero. Both use the same architecture, initial parameters,
-optimizer, random streams and training budget: 20 critic-only updates followed
-by 500 policy updates, or 8,519,680 decisions per arm. Initial numerical states
-match exactly within each parent. After warmup, the actors, environments and
-random-generator states still match; the critics have learned different values.
-The seat column acquires nonzero weights only in the public condition.
-
-The four new endpoints, the two unchanged parents and the two archived
-561-input observer endpoints each face WP and Point on 5,000 fresh duplicate
-deals, giving 16 cells and 160,000 matches. We use the same whole-deal bootstrap
-as before. The primary criterion requires positive lower 95\% bounds for
-public-minus-parent and public-minus-masked win changes, against both opponents
-at both parent seeds. The archived endpoints provide a secondary architecture
-comparison; their earlier training is counted separately.
-
-Only one of the eight primary bounds is positive
-(Table~\ref{tab:seat-primary}): parent 2 improves over its starting policy
-against Point by 0.860 percentage points [0.070, 1.655]. The corresponding
-parent-1 gain is 0.110 [-0.685, 0.920]. All four public-minus-masked intervals
-include zero, as do all four public-minus-archived-observer intervals. The
-feature repair therefore does not establish a replicated match-win gain.
-
-\begin{table}[ht]
-\centering\small
-\input{generated/seat_observer_primary_table.tex}
-\caption{Public-seat comparison: paired changes in draw-adjusted win score,
-in percentage points, with 95\% intervals.}
-\label{tab:seat-primary}
-\end{table}
-
-Public-minus-parent point margins improve against WP at both seeds and against
-Point at seed 2. However, all four public-minus-masked point intervals include
-zero; the masked condition itself improves point margin over its parent in all
-four matchups. These results distinguish benefits of continued training from
-benefits attributable to the added information. The representation repair is
-verified, but it has not supplied the desired policy improvement.
-Appendix~\ref{app:seat-controls} retains the secondary comparisons.
-
-\section{Final-round learning and delayed public information}
-\label{sec:public-revelation}
-\subsection{Learning from natural final-round starts}
-We isolate the last round by keeping each parent unchanged in rounds 1--7.
-Every learner decision in the final round receives the realized terminal
-match reward. There is no opponent-critic bootstrap or unfinished trajectory
-in these training batches. The prefix policy determines both the chance of
-reaching the last round and the distribution of its starting positions;
-adapting only the tail leaves those quantities fixed.
-
-The two parents produce 938 and 918 natural final-round starts from 2,048
-prefix attempts on 512 shared training deals. Each tail receives 20 critic-only
-and 500 policy updates with 128 sampled starts per update. Across the two
-arms this adds 1,860,647 decisions and 133,120 completed conditional tails.
-Training opponents use fixed batches of 64 on the GPU; full-match evaluation
-uses the strict CPU policies. These numerical policies can differ at near-tied
-scores, so the two execution modes are recorded separately.
-
-Evaluation compares each adapted tail with its own parent against WP and Point
-on 1,024 duplicate deals per opponent: 16,384 complete matches in total.
-Only parent 1 against Point has a positive lower win-change bound
-(Table~\ref{tab:final-tail}). The other three win intervals and all four point
-intervals include zero. The fixed four-comparison criterion therefore fails.
-The complete-return tail objective alone has not produced a replicated gain.
-
-\begin{table}[ht]
-\centering\small
-\input{generated/final_tail_table.tex}
-\caption{Final-round adaptation minus its unchanged parent. Win changes are
-percentage points; point changes are final learner-minus-opponent margins.
-Brackets give paired 95\% intervals.}
-\label{tab:final-tail}
-\end{table}
+and have no same-round successor. Appendix~\ref{sec:seat-comparison} tests whether this representation repair
+improves playing strength.
 
 \begin{samepage}
 \subsection{Recovering opponent information after a hand is revealed}
+\label{sec:public-revelation}
 A player's eight hand cards are discarded one by one; stock draws never enter
 the hand. Once all eight hand discards have been observed, their set reveals
 that round's initial hand. Combining it with the public board, captures and
@@ -896,99 +680,31 @@ the preceding columns.}
 Identification assumes that the opponent belongs to the specified deterministic
 class. Unlisted or changing policies can violate that assumption.
 
-\subsection{Testing the final-round use of public memory}
-For each parent, we train two new final-round policies: one receives the public
-candidate bits and the other receives those bits masked to zero. Both use the
-same roots, training seed and 520-update schedule. The bits occupy previously
-unused actor input rows whose weights start at zero, preserving the initial
-policy. All initial and critic-only warmup states match exactly between arms.
+\subsection{Playing-strength tests of the recovered information}
+The seat reconstruction and opponent identification are exact on the checked
+inputs. We test their value for learning with public and masked information
+conditions that share architecture, initialization and training schedules.
+Every comparison evaluates complete matches from their natural beginnings;
+conditional training tails are counted separately.
 
-The comparison evaluates parent, public-memory and masked-memory policies
-against WP and Point on 1,024 duplicate deals per opponent: 24,576 full matches
-on 2,048 shared fresh deals. The primary criterion requires positive lower
-95\% bounds for public memory versus both references at both parents, using
-the equally weighted WP/Point mixture. Every primary interval includes zero
-(Table~\ref{tab:public-memory}), so this criterion fails. All opponent-specific
-win and point intervals also include zero.
+Adding the public-seat bit yields one positive lower win-change bound among
+eight primary comparisons in 160,000 evaluation matches. That gain is against
+Point at parent 2. All four public-minus-masked win intervals include zero,
+so the comparison does not attribute a replicated gain to the added bit.
+Appendix~\ref{sec:seat-comparison} reports the controls and secondary outcomes.
 
-\begin{table}[ht]
-\centering\small
-\input{generated/public_memory_table.tex}
-\caption{Public-memory final-round policy minus each reference, equally weighted
-over WP and Point. Brackets give stratified paired 95\% intervals. The four
-win comparisons form the primary criterion; all include zero.}
-\label{tab:public-memory}
-\end{table}
+For opponent memory, three studies test progressively earlier and more varied
+adaptation: the final round, all rounds after identification, and the same
+public starting contexts with freshly sampled cards and future chance.
+They evaluate 24,576, 24,576 and 40,960 full matches, respectively, on separate
+shared deal sets. Every primary win interval includes zero in all three
+studies. Earlier activation and renewed chance therefore do not produce a
+replicated improvement under these schedules. Appendix~\ref{app:memory-learning}
+retains every primary comparison and the secondary point findings.
 
-\subsection{Using public memory earlier in the match}
-The next comparison activates adaptation at the first fresh round after public
-identification, then retains that policy for the rest of the match. The parent
-plays every preceding decision. Without an eligible activation, it plays the
-whole match. This rule gives both memory conditions the same public evidence
-and activation time while allowing learning across several rounds.
-
-The two parents supply 855 and 876 eligible starting states from their natural
-training histories. Each initializes matched public-memory and masked-memory
-arms, with identical initial parameters and critic-only warmup states. Each
-arm receives 520 updates and completes 66,560 conditional matches from this
-fixed bank. These completions contain only the remaining rounds; evaluation
-always begins at the start of a full match.
-
-On a separate 2,048 shared fresh deals, the three policies per parent again
-play 24,576 full matches against WP and Point. Every primary win interval
-includes zero (Table~\ref{tab:public-continuation}), as do all opponent-specific
-win intervals. Earlier activation therefore does not establish a replicated
-win improvement under this training schedule.
-
-\begin{table}[ht]
-\centering\small
-\input{generated/public_continuation_table.tex}
-\caption{Public-memory multi-round policy minus each reference, equally weighted
-over WP and Point. Brackets give stratified paired 95\% intervals. The four win
-comparisons form the primary criterion.}
-\label{tab:public-continuation}
-\end{table}
-
-For parent 1, public memory improves expected points over masked learning in
-the mixture and against Point. The masked arm itself loses expected points
-relative to its parent in those scopes. These are secondary, per-contrast
-findings; neither effect repeats at parent 2. The full set of 18 contrasts is
-retained in \path{docs/PUBLIC_CONTINUATION_RESULTS.rst} and the evidence ledger.
-
-\subsection{Renewing chance during continuation training}
-A fixed starting-state bank reuses the same cards and future chance. We test
-whether renewing them improves adaptation while preserving the sampled public
-contexts. The new arms retain the round, score, dealer, learner seat and
-publicly identified opponent. At each sampled round boundary they draw fresh
-legal cards and future chance. Their root-index schedule matches the fixed-bank
-arms exactly. Public and masked conditions share the same chance keys.
-
-Each parent supplies two new 520-update arms, again with 20 critic-only updates
-and 66,560 conditional completions per arm. Four fixed-bank endpoints are
-reused as controls. The complete comparison therefore evaluates five policies
-per parent: original, fixed-public, fixed-masked, renewed-public and
-renewed-masked. On 2,048 new shared deals it plays 40,960 full matches, with
-1,024 duplicate deals per opponent. These results are analyzed separately
-from the preceding comparison.
-
-Renewed public memory does not beat both its original and fixed-public
-references at either parent under the replicated primary criterion
-(Table~\ref{tab:renewed-continuation}). The secondary tests of public versus
-masked memory and of the chance-by-memory interaction also fail their
-both-parent win criteria. Of all 66 reported win contrasts, two intervals
-exclude zero, both indicating losses against WP: renewed-public versus the
-original at parent 1 and renewed-masked versus the original at parent 2.
-Fifteen point intervals exclude zero. They remain secondary per-contrast
-results, reported in \path{docs/RENEWED_CONTINUATION_RESULTS.rst}.
-
-\begin{table}[ht]
-\centering\small
-\input{generated/renewed_continuation_table.tex}
-\caption{Renewed-public policy minus its two primary references in the equal
-WP/Point mixture. Brackets give stratified paired 95\% intervals. Every primary
-win interval includes zero; the study does not qualify for final confirmation.}
-\label{tab:renewed-continuation}
-\end{table}
+The distinction is operational: public reconstruction supplies information
+that the original representation or memory omitted; the tested learners have
+yet to turn that information into a consistent additional match-win gain.
 
 \section{Limitations and interpretation}
 Both adapted seeds improve match wins against assisted RL-WP. RL-Point remains
@@ -1323,11 +1039,353 @@ The integrated PPO variant also removes the opponent critic and normalizes
 value loss over valid learner rows, changing joint clipping and minibatch sizes.
 These are part of the full intervention. The fixed comparison in
 \path{docs/LEARNER_RETURN_STUDY.rst} includes the original signed estimator and
-$\lambda=1$ controls; Section~\ref{sec:learner} reports the completed results.
+$\lambda=1$ controls; Appendix~\ref{sec:learner} reports the completed results.
 Finite current observations and boundary-dependent exclusions remain part of
 the implemented estimator. The exact example concerns its stated finite game;
 the Koi-Koi comparisons test the full learning procedures, including their
 optimization differences.
+
+\section{Learning against fixed opponents}
+\label{sec:training}
+We test two changes to the adapted actors: training directly against the
+published opponents, and constructing returns between learner decisions.
+The first comparison measures opponent-specific training against continued
+self-play. The second holds the opponent mixture fixed and changes the return
+construction and its associated optimization.
+
+\subsection{Direct training against the published opponents}
+\label{sec:response}
+The first comparison tests full-policy PPO against the published opponents.
+Each retained parent initializes two continuations: a response learner facing
+RL-WP and RL-Point on a balanced whole-match schedule, and ordinary self-play.
+Both use the warm configuration and 8,519,680 additional simulator decisions,
+including 20 critic-only and 500 policy updates. The response actor learns only
+from its own actions, with separate observation critics for the two acting roles.
+The budget counts both players' actions; equal simulator work therefore gives
+different learner sample counts across the two regimes.
+
+The four final endpoints and two unchanged parents each face WP and Point on
+5,000 fresh shared duplicate deals, giving 120,000 matches. The primary criterion
+requires a positive lower 95\% paired win-change bound for response versus both
+its parent and its self-play control, at both initial models against both
+opponents. No comparison passes (Table~\ref{tab:response}).
+
+\begin{table}[ht]
+\centering\small
+\input{generated/response_table.tex}
+\caption{Direct opponent training: paired win-score changes in percentage
+points, with 95\% intervals, on 5,000 shared development deals. Both trained
+arms receive the same simulator budget.}
+\label{tab:response}
+\end{table}
+
+All four response-minus-parent win intervals include zero. Against WP,
+parent 1's response loses 0.975 percentage points to its self-play continuation
+[\(-1.830,-0.110\)]. Three of the four response-minus-self-play point-margin intervals lie
+below zero. The self-play continuations themselves have
+parent-relative win intervals containing zero in all four matchups. Thus
+training directly against these opponents does not establish an improvement
+at this budget. The learner-decision comparison below uses these response
+endpoints as fixed controls.
+
+\subsection{Learner-decision returns}
+\label{sec:learner}
+The exact example in Section~\ref{sec:observer} motivates a comparison of three
+return constructions: signed GAE with $\lambda=0.95$, learner-decision returns
+with $\lambda=0.95$, and signed GAE with $\lambda=1$. The learner-decision variant
+bootstraps at learner observations and attributes opponent-caused terminal
+rewards to the learner before a match reset. Eligibility decays across primitive
+decisions, and unfinished learner-to-opponent tails are excluded from both
+policy and value losses. Appendix~\ref{app:observer} specifies the recurrence.
+
+Both retained parents initialize a learner-decision run and a $\lambda=1$ run,
+with the original response endpoints supplying the signed-$0.95$ controls.
+Each new run uses 8,519,680 simulator decisions, the same opponent mixture,
+and 20 value-only followed by 500 policy updates. The learner-decision
+implementation also removes the opponent critic and normalizes value loss over
+valid learner rows; joint gradient clipping and minibatch composition change
+with it. The comparison measures this complete learning procedure. The
+$\lambda=1$ control retains the finite-rollout boundary bootstrap.
+
+The eight players---two unchanged parents, two original response endpoints,
+and four new endpoints---face WP and Point on 5,000 fresh shared duplicate
+deals, for 160,000 evaluation matches. The primary criterion requires all eight
+paired win-change lower 95\% bounds to be positive: learner-decision returns
+versus both the unchanged parent and signed-$0.95$ response, at both parents
+against both opponents. The $\lambda=1$ comparisons and point margins are
+secondary. All four training runs and all 16 matchups are complete.
+
+Only one of the eight primary lower bounds is positive
+(Table~\ref{tab:learner-primary}). Against Point, learner-decision returns gain
+0.920 percentage points over parent 1 [0.125, 1.755], while parent 2's gain is
+0.325 [$-0.480$, 1.165]. All four learner-minus-response win intervals include
+zero. The method therefore does not meet the primary replicated-gain criterion.
+All eight primary mean differences are positive.
+
+\begin{table}[ht]
+\centering\small
+\input{generated/learner_primary_table.tex}
+\caption{Learner-decision returns: primary paired win-score changes in percentage
+points, with 95\% intervals, on 5,000 fresh shared development deals.}
+\label{tab:learner-primary}
+\end{table}
+
+The secondary $\lambda=1$ control has negative parent-relative mean win changes
+in all four matchups (Table~\ref{tab:learner-lambda1}). Learner-decision returns
+exceed it against Point by 1.060 [0.155, 1.955] and 1.015 [0.105, 1.945]
+percentage points at parents 1 and 2. Against WP, the corresponding gains are
+0.875 [$-0.075$, 1.780] and 0.955 [0.010, 1.920]. Thus removing interior
+bootstraps with $\lambda=1$ and retaining learner-observation bootstraps have
+different empirical outcomes at this budget.
+
+\begin{table}[ht]
+\centering\small
+\input{generated/learner_lambda1_table.tex}
+\caption{Secondary return comparison on the same deals. Each cell gives a
+paired win-score change in percentage points and its 95\% interval.}
+\label{tab:learner-lambda1}
+\end{table}
+
+Point margins supply a consistent secondary signal against the signed-$0.95$
+response: learner-decision returns gain 0.620 [0.117, 1.107] and
+0.636 [0.146, 1.133] points against Point at the two parents. Against WP, the
+gains are 0.145 [$-0.357$, 0.631] and 0.800 [0.294, 1.316]. These are gains
+relative to the response controls; both learner endpoints still have negative
+absolute point margins against RL-Point. All parent-relative point-change
+intervals include zero.
+
+\section{Fixed-observer self-play}
+\label{sec:observer-selfplay}
+\subsection{Returns with a consistent viewer}
+The finite-game analysis suggests retaining the same player's information at
+each bootstrap. We implement this in self-play by evaluating two separate
+critic rows at every primitive decision. Each row contains its viewer's own
+cards and public information, plus a bit indicating whether that viewer is
+acting. A shared MLP maps the resulting 561 features to $v_t^i$, the value for
+viewer $i$. It processes rows independently; neither row contains the other
+player's hand or the stock order. The actor and its input are unchanged.
+
+Let $r_t$ denote seat zero's terminal-match reward and $c_t$ indicate that the
+match continues after decision $t$. For each viewer $i\in\{0,1\}$, use
+\begin{align}
+ \delta_t^i &= (-1)^i r_t+c_t v_{t+1}^i-v_t^i,\\
+ \widehat A_t^i &= \delta_t^i+\lambda c_t\widehat A_{t+1}^i.
+\end{align}
+A round ending leaves $c_t=1$; a match ending sets it to zero. At a rollout
+cutoff, the recurrence ends with $\widehat A_H^i=0$ and retains each viewer's
+own $v_H^i$ bootstrap. Fit $v_t^i+\widehat A_t^i$ for both viewers and use the
+acting viewer's advantage for the policy. The two conditional values need not
+sum to zero: their observations contain different private information.
+
+The matched signed-return control uses the same two-row critic targets,
+architecture, optimizer, minibatches and clipping. It changes only the policy
+advantage, selecting active-viewer values for the historical signed recurrence.
+Both arms use $\lambda=0.95$ and the warm adaptation settings. For each parent,
+they start from the same retained actor and padded critic; all saved model,
+optimizer, environment and RNG states agree after the 20
+critic-only warmup updates. Each arm then performs 500 policy updates, for
+8,519,680 simulator decisions and 17,039,360 value rows in total. This separates
+the policy-return contrast from changes in critic fitting.
+
+\subsection{Completed paired comparison}
+The four new endpoints, two unchanged parents and two archived ordinary
+self-play continuations face WP and Point on 5,000 fresh shared duplicate
+deals. The resulting 16 cells contain 160,000 matches. The primary criterion
+requires all eight paired win-change lower 95\% bounds to be positive:
+fixed-observer returns versus both the unchanged parent and matched signed
+control, at both parents against both opponents.
+
+None of the eight intervals excludes zero (Table~\ref{tab:observer-selfplay}).
+Against Point, the parent-relative mean gains are 0.715 and 0.320 percentage
+points. Against WP, they are 0.115 and 0.025. Thus this fixed-observer procedure
+does not establish a replicated win improvement at the tested budget.
+
+\begin{table}[ht]
+\centering\small
+\input{generated/observer_selfplay_primary_table.tex}
+\caption{Fixed-observer self-play: primary paired win-score changes in
+percentage points, with 95\% intervals, on 5,000 shared development deals.}
+\label{tab:observer-selfplay}
+\end{table}
+
+The secondary point margins improve over the parent in two different
+matchups: parent 1 against WP and parent 2 against Point. All four
+observer-minus-signed point intervals and all four observer-minus-historical
+self-play win intervals include zero. Appendix~\ref{app:observer-controls}
+retains these comparisons; the evidence ledger includes every absolute
+outcome and paired contrast.
+
+\subsection{Does the public-seat repair improve play?}
+\label{sec:seat-comparison}
+Section~\ref{sec:public-information} establishes the input reconstruction;
+this comparison tests its effect on learning.
+For each retained parent, we train two 562-input fixed-observer continuations.
+The public condition receives the viewer-seat bit; the masked condition sets
+that input to zero. Both use the same architecture, initial parameters,
+optimizer, random streams and training budget: 20 critic-only updates followed
+by 500 policy updates, or 8,519,680 decisions per arm. Initial numerical states
+match exactly within each parent. After warmup, the actors, environments and
+random-generator states still match; the critics have learned different values.
+The seat column acquires nonzero weights only in the public condition.
+
+The four new endpoints, the two unchanged parents and the two archived
+561-input observer endpoints each face WP and Point on 5,000 fresh duplicate
+deals, giving 16 cells and 160,000 matches. We use the same whole-deal bootstrap
+as before. The primary criterion requires positive lower 95\% bounds for
+public-minus-parent and public-minus-masked win changes, against both opponents
+at both parent seeds. The archived endpoints provide a secondary architecture
+comparison; their earlier training is counted separately.
+
+Only one of the eight primary bounds is positive
+(Table~\ref{tab:seat-primary}): parent 2 improves over its starting policy
+against Point by 0.860 percentage points [0.070, 1.655]. The corresponding
+parent-1 gain is 0.110 [-0.685, 0.920]. All four public-minus-masked intervals
+include zero, as do all four public-minus-archived-observer intervals. The
+feature repair therefore does not establish a replicated match-win gain.
+
+\begin{table}[ht]
+\centering\small
+\input{generated/seat_observer_primary_table.tex}
+\caption{Public-seat comparison: paired changes in draw-adjusted win score,
+in percentage points, with 95\% intervals.}
+\label{tab:seat-primary}
+\end{table}
+
+Public-minus-parent point margins improve against WP at both seeds and against
+Point at seed 2. However, all four public-minus-masked point intervals include
+zero; the masked condition itself improves point margin over its parent in all
+four matchups. These results distinguish benefits of continued training from
+benefits attributable to the added information. The representation repair is
+verified, but it has not supplied the desired policy improvement.
+Appendix~\ref{app:seat-controls} retains the secondary comparisons.
+
+\section{Final-round and public-memory learning}
+\label{app:memory-learning}
+\subsection{Learning from natural final-round starts}
+We isolate the last round by keeping each parent unchanged in rounds 1--7.
+Every learner decision in the final round receives the realized terminal
+match reward. There is no opponent-critic bootstrap or unfinished trajectory
+in these training batches. The prefix policy determines both the chance of
+reaching the last round and the distribution of its starting positions;
+adapting only the tail leaves those quantities fixed.
+
+The two parents produce 938 and 918 natural final-round starts from 2,048
+prefix attempts on 512 shared training deals. Each tail receives 20 critic-only
+and 500 policy updates with 128 sampled starts per update. Across the two
+arms this adds 1,860,647 decisions and 133,120 completed conditional tails.
+Training opponents use fixed batches of 64 on the GPU; full-match evaluation
+uses the strict CPU policies. These numerical policies can differ at near-tied
+scores, so the two execution modes are recorded separately.
+
+Evaluation compares each adapted tail with its own parent against WP and Point
+on 1,024 duplicate deals per opponent: 16,384 complete matches in total.
+Only parent 1 against Point has a positive lower win-change bound
+(Table~\ref{tab:final-tail}). The other three win intervals and all four point
+intervals include zero. The fixed four-comparison criterion therefore fails.
+The complete-return tail objective alone has not produced a replicated gain.
+
+\begin{table}[ht]
+\centering\small
+\input{generated/final_tail_table.tex}
+\caption{Final-round adaptation minus its unchanged parent. Win changes are
+percentage points; point changes are final learner-minus-opponent margins.
+Brackets give paired 95\% intervals.}
+\label{tab:final-tail}
+\end{table}
+
+\subsection{Testing the final-round use of public memory}
+For each parent, we train two new final-round policies: one receives the public
+candidate bits and the other receives those bits masked to zero. Both use the
+same roots, training seed and 520-update schedule. The bits occupy previously
+unused actor input rows whose weights start at zero, preserving the initial
+policy. All initial and critic-only warmup states match exactly between arms.
+
+The comparison evaluates parent, public-memory and masked-memory policies
+against WP and Point on 1,024 duplicate deals per opponent: 24,576 full matches
+on 2,048 shared fresh deals. The primary criterion requires positive lower
+95\% bounds for public memory versus both references at both parents, using
+the equally weighted WP/Point mixture. Every primary interval includes zero
+(Table~\ref{tab:public-memory}), so this criterion fails. All opponent-specific
+win and point intervals also include zero.
+
+\begin{table}[ht]
+\centering\small
+\input{generated/public_memory_table.tex}
+\caption{Public-memory final-round policy minus each reference, equally weighted
+over WP and Point. Brackets give stratified paired 95\% intervals. The four
+win comparisons form the primary criterion; all include zero.}
+\label{tab:public-memory}
+\end{table}
+
+\subsection{Using public memory earlier in the match}
+The next comparison activates adaptation at the first fresh round after public
+identification, then retains that policy for the rest of the match. The parent
+plays every preceding decision. Without an eligible activation, it plays the
+whole match. This rule gives both memory conditions the same public evidence
+and activation time while allowing learning across several rounds.
+
+The two parents supply 855 and 876 eligible starting states from their natural
+training histories. Each initializes matched public-memory and masked-memory
+arms, with identical initial parameters and critic-only warmup states. Each
+arm receives 520 updates and completes 66,560 conditional matches from this
+fixed bank. These completions contain only the remaining rounds; evaluation
+always begins at the start of a full match.
+
+On a separate 2,048 shared fresh deals, the three policies per parent again
+play 24,576 full matches against WP and Point. Every primary win interval
+includes zero (Table~\ref{tab:public-continuation}), as do all opponent-specific
+win intervals. Earlier activation therefore does not establish a replicated
+win improvement under this training schedule.
+
+\begin{table}[ht]
+\centering\small
+\input{generated/public_continuation_table.tex}
+\caption{Public-memory multi-round policy minus each reference, equally weighted
+over WP and Point. Brackets give stratified paired 95\% intervals. The four win
+comparisons form the primary criterion.}
+\label{tab:public-continuation}
+\end{table}
+
+For parent 1, public memory improves expected points over masked learning in
+the mixture and against Point. The masked arm itself loses expected points
+relative to its parent in those scopes. These are secondary, per-contrast
+findings; neither effect repeats at parent 2. The full set of 18 contrasts is
+retained in \path{docs/PUBLIC_CONTINUATION_RESULTS.rst} and the evidence ledger.
+
+\subsection{Renewing chance during continuation training}
+A fixed starting-state bank reuses the same cards and future chance. We test
+whether renewing them improves adaptation while preserving the sampled public
+contexts. The new arms retain the round, score, dealer, learner seat and
+publicly identified opponent. At each sampled round boundary they draw fresh
+legal cards and future chance. Their root-index schedule matches the fixed-bank
+arms exactly. Public and masked conditions share the same chance keys.
+
+Each parent supplies two new 520-update arms, again with 20 critic-only updates
+and 66,560 conditional completions per arm. Four fixed-bank endpoints are
+reused as controls. The complete comparison therefore evaluates five policies
+per parent: original, fixed-public, fixed-masked, renewed-public and
+renewed-masked. On 2,048 new shared deals it plays 40,960 full matches, with
+1,024 duplicate deals per opponent. These results are analyzed separately
+from the preceding comparison.
+
+Renewed public memory does not beat both its original and fixed-public
+references at either parent under the replicated primary criterion
+(Table~\ref{tab:renewed-continuation}). The secondary tests of public versus
+masked memory and of the chance-by-memory interaction also fail their
+both-parent win criteria. Of all 66 reported win contrasts, two intervals
+exclude zero, both indicating losses against WP: renewed-public versus the
+original at parent 1 and renewed-masked versus the original at parent 2.
+Fifteen point intervals exclude zero. They remain secondary per-contrast
+results, reported in \path{docs/RENEWED_CONTINUATION_RESULTS.rst}.
+
+\begin{table}[ht]
+\centering\small
+\input{generated/renewed_continuation_table.tex}
+\caption{Renewed-public policy minus its two primary references in the equal
+WP/Point mixture. Brackets give stratified paired 95\% intervals. Every primary
+win interval includes zero; the study does not qualify for final confirmation.}
+\label{tab:renewed-continuation}
+\end{table}
 
 \section{Simulation, budgets, and supporting experiments}
 \label{app:systems}
@@ -1660,7 +1718,7 @@ match-win improvement.
 \label{app:observer-controls}
 The same 5,000 duplicate deals support the secondary point and historical
 continuation comparisons. All intervals use the joint whole-deal bootstrap
-from Section~\ref{sec:observer-selfplay}; these are additional views of the same
+from Appendix~\ref{sec:observer-selfplay}; these are additional views of the same
 160,000 matches.
 
 \begin{table}[ht]
@@ -1683,7 +1741,7 @@ training work is reused rather than added to the new continuation budget.}
 \section{Additional public-seat comparisons}
 \label{app:seat-controls}
 These secondary comparisons use the same 5,000 duplicate deals and joint
-bootstrap as Section~\ref{sec:seat-comparison}. They add no matches to that
+bootstrap as Appendix~\ref{sec:seat-comparison}. They add no matches to that
 study's 160,000-match total. The archived observer has 561 inputs; public and
 masked conditions both have 562, isolating the information intervention from
 the change in architecture.
