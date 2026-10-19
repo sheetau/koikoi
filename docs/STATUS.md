@@ -15,8 +15,8 @@ Old process handles mentioned in that history are historical, not live jobs.
 [Fixed design](PUBLISHED_DURATION_STUDY.rst),runner
 scripts/published_duration_study.py. Session99216,actual PID32540(parent18152)
 verified live by same-session polling and Win32_Process. Current first seed
-99110001 is at update374/4,020:6,127,616 decisions/410,806 rounds/52,796 completed
-matches. These are training counters,not strength evidence. Seed99210001 starts
+99110001 has passed the saved update520/4,020:8,519,680 decisions/571,740
+rounds/73,426 completed matches. The independent520 checkpoint audit passes. These are training counters,not strength evidence. Seed99210001 starts
 sequentially after the first finishes. Never restart from a timeout or old handle.
 
 Two fresh original-WP learners preserve the existing actor,public critic,PPO,
@@ -37,11 +37,25 @@ verified. scripts/evaluate_published_duration.py refuses main preparation until
 both learners finish and saved20/520/4,020 accounting audits pass. It binds all
 endpoint bytes and runs at most two owned CPU workers. A failure stops owned
 workers and preserves partial files;existing executions cannot silently restart.
-No main evaluation or automatic queue has started. Once training completes::
+Main evaluation has not started. A single-use completion queue is now live:
+session21869,actualPID32628(parent22404),runs/published_duration_completion.
+It holds a query-only handle for exact trainingPID32540 with creation FILETIME
+134368624471611284,waits for exit0 plus completion,then executes these commands::
 
     python -m scripts.evaluate_published_duration prepare --output runs/published_duration_evaluation
     python -m scripts.evaluate_published_duration run --protocol runs/published_duration_evaluation/evaluation_protocol.json
     python -m scripts.audit_published_duration_evaluation --input runs/published_duration_evaluation
+
+Queue protocol371721bbebb20b08a256145a53fee851c5127d67a40c1ae1140855cf5db96588
+binds108inputs,including frozen evaluation capability,source,tests and interpreter.
+Do not edit bound sources or restart this queue. On failure preserve its logs,
+process receipts and any existing evaluation. It never restarts training or
+promotes a model. Five tests pass0skips,including an actual Windows process
+handle surviving child exit,early-completion refusal,failed-job log preservation
+and prevention of downstream evaluation after preparation failure. Ruff passes.
+520 checkpoint audit8468d59cc53f0ffcc6490b92b77d851513193847efabf9ea16f67f5feffbc811;
+checkpoint0fefb96cd49bc887043e149001fec72884ffeb225d65a1e17c4c9b57d4df13a6.
+This audits saved state/accounting,not neural inference or training replay.
 
 Capability48 actual matches on4 shared deals completes:5,487 decisions/383 rounds.
 OriginalWP fixtures fill short/long slots;these are not trained endpoint scores.

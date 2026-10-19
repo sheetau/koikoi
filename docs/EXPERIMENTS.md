@@ -5558,3 +5558,43 @@ Prior files preserved in runs/manuscript_return_temperature_previous. Canonical
 player,dealer and101M final confirmation remain unchanged. Next monitor the
 actual duration process,verify planned saved stages and execute the fixed
 prepared evaluation only after both training runs complete.
+
+## 2026-10-19:duration completion queue and short-prefix audit
+
+Added scripts/finish_published_duration.py without changing any frozen training
+or evaluation implementation. The Windows query-only handle pins the exact
+producer object and records creation FILETIME134368624471611284 forPID32540.
+PID reuse cannot redirect monitoring. The queue requires that object's exit0
+and a successful training_complete receipt before running fixed prepare/run/audit
+commands. Atomic new-directory creation prevents duplicate queue claims; logs
+use exclusive creation and any failure preserves outputs and stops subsequent
+commands. No automatic recovery,training restart,endpoint selection or promotion.
+If the queue is externally killed,inspect child.json and actual OS processes
+before recovery;the queue does not claim cleanup after forced termination.
+
+Verification:5tests0skips1.59s and Ruff pass. Tests exercise a real owned Windows
+child's live/exit7 process handle,live-producer completion gating,missing/failed
+training receipts,failed child logs and overwrite refusal,and a preparation
+failure that never launches evaluation/audit. XML
+runs/published_duration_queue_tests.xml
+48b34f05aa9ada5adce8d8a581a8fbf45a52b3e9d7ad941138df167ddc2dac9f.
+Launch:.venv/Scripts/python.exe -m scripts.finish_published_duration
+--producer-pid 32540 --output runs/published_duration_completion
+Session21869,actualPID32628,parent22404 verified byWin32_Process and waiting
+receipt. Queue protocol371721bbebb20b08a256145a53fee851c5127d67a40c1ae1140855cf5db96588
+binds108unchangedinputs and records all three exact commands. Existing readiness
+receipt remains immutable and describes the earlier pre-queue state.
+
+The first learner reaches the planned short prefix520 with8,519,680decisions,
+571,740rounds and73,426completed training matches. Independent checkpoint audit
+passes finite tensors,source/model identities,simulator counters,metric prefix
+and per-parameter Adam state:49,920value steps/48,000each actor phase.
+Snapshot0fefb96cd49bc887043e149001fec72884ffeb225d65a1e17c4c9b57d4df13a6;
+audit8468d59cc53f0ffcc6490b92b77d851513193847efabf9ea16f67f5feffbc811.
+Command:python -m scripts.audit_published_duration_checkpoint --input
+runs/published_duration_study --seed 99110001 --update 520 --output
+runs/published_duration_study/audit_seed99110001_update520.json.
+No win evaluation is run at the short prefix. The original learner continues
+without reset to4,020;second seed follows. Main98,304-match evaluation remains
+pending. No strength/novelty claim is added,goal remains active,canonical play,
+dealer and101M confirmation are unchanged. No PDF edit or redelivery this turn.
