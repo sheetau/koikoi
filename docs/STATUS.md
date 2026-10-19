@@ -43,7 +43,8 @@ it matches the prelaunch receipt. Original producer tool handle was lost,
 but actual driver PID59656 (launcher54836) is live. At the current snapshot,
 seed1_fixed has completed and its worker20924/launcher18484 are gone.
 seed1_calibrated also completes; worker16036/launcher9328 are gone.
-seed2_fixed is training (worker64436,launcher55036); no evaluation is complete.
+seed2_fixed also completes; worker64436/launcher55036 are gone.
+seed2_calibrated is training (worker25144,launcher5464); no evaluation is complete.
 Finalizer session64818 / PID36936 (launcher36764) is waiting; its eight-input
 protocol SHA f6180c6f94acadb02d7f907f1d145df24577189cf50d429b532bf6a41c7c6f87.
 Inspect process/finish_process and actual OS processes before any continuation;
@@ -82,6 +83,17 @@ later actor changes,finite state and final checkpoint identity pass. Checkpoint
 early audit3669edfb5650d60dbae8ca584a23306e81fc04d62c6593f4d0d887023b8940c3
 binds106 inputs. First paired training seed is complete; the second seed's
 fixed/calibrated training and all strength evaluation remain outstanding.
+
+**Third endpoint independently checked:** seed2_fixed finishes520 updates,
+8,519,680 decisions /571,267 round endings /73,479 training matches. Warmup20:
+327,680 decisions /22,041 rounds /2,779 matches. Value Adam49,920; each actor
+head48,000. All saved stages,original-WP ancestry,warmup stationarity,head
+changes,finite states and final checkpoint identity pass. Checkpoint
+08a1293b6c560bf79b389b5d6ebcaf973f17e1cb8250592131c82f615f79d94c;
+early audite9d906190b32d9008cc0dcc6eda5023080a5a1cadbba2c0b1a6bc42d8e69498c
+binds107 inputs. It also verifies exact fixed/calibrated initial actor,critic,
+Adam,environment,counters,all RNG and runtime at seed2. Only koi_temperature
+differs in config. The fourth learner and all strength evaluation remain pending.
 
 **Final-policy mechanism diagnostic prepared, not run:** seven policies
 (original WP, retained A/B and four final learners) will be scored on common

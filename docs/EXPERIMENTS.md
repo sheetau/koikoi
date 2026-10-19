@@ -4989,3 +4989,37 @@ The first learning-seed pair is now complete. The second pair and all49152
 strict CPU evaluation matches remain to be completed and independently audited.
 Canonical human player,dealer,101M and latest manuscript/PDF remain unchanged.
 Objective remains active; no new replicated strength or method novelty claimed.
+
+## 2026-10-19: third temperature endpoint and second matched initialization
+
+Previous goal turn was progress: completed/verified seed1_calibrated and added
+independent mechanism scalar verification. This turn confirmed actual live
+worker64436 and advancing metrics repeatedly while waiting. It completes and
+disappears with launcher55036. Driver59656 launches final learner seed2_calibrated,
+actualPID25144,launcher5464. Finalizer36936/session64818 and mechanismqueue13764/
+session10737 remain live,waiting for their declared prerequisites. No restart,
+intermediate strength evaluation,condition change or checkpoint selection.
+
+seed2_fixed completes520 updates:8519680decisions,571267round endings,73479
+training matches. Warmup20:327680decisions,22041rounds,2779matches. ValueAdam49920,
+each actorhead48000. Final checkpoint
+08a1293b6c560bf79b389b5d6ebcaf973f17e1cb8250592131c82f615f79d94c.
+Independent audit_arm verifies all saved stages and520 log rows,original-WP
+ancestry,stationary warmup actor,subsequent changes in each actor head,finite
+model/Adam values and final520/final.pt identity. It passes unchanged.
+
+The new seed2_calibrated initial checkpoint exactly matches the fixed initial
+actor,value,Adam,environment,counters,Python/NumPy/Torch/CUDA RNG and runtime;
+config differs only in koi_temperature. Receipt
+runs/koi_temperature_study/seed2_fixed/early_training_audit.json binds107 inputs,
+SHAe9d906190b32d9008cc0dcc6eda5023080a5a1cadbba2c0b1a6bc42d8e69498c.
+No neural forward,simulator step or training replay was added by these checks.
+Three completed learners total25559040decisions/1713963round endings/220143
+training matches. These are learning counters,not strength-evaluation outcomes.
+
+The last calibrated learner remains in progress. All49152 strict evaluation
+matches and the final-policy mechanism diagnostic are queued after allfour
+training endpoints. Independent full match/statistical audit follows evaluation;
+run the separate mechanism scalar auditor once its scorer completes. Canonical
+human-play model,dealer,reserved101M and verified manuscript/PDF are unchanged.
+The stronger-play/novelty objective remains active and unachieved.
