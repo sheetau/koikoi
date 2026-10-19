@@ -5084,3 +5084,50 @@ STATUS current block was consolidated to completed-training and live-evaluation
 facts; detailed earlier receipts remain here. No manuscript/PDF change orcanonical
 promotion. Objective remains active; await all paired outcomes and independent
 fullstudyverification before judging playing strength or a confirmation design.
+
+## 2026-10-19: complete-result presentation prepared during evaluation
+
+Previous goal turn was a verified wait: actual driver59656,finalizer36936 and
+workers58596/61292/60952 remained live,with advancing serialized match rows.
+The present turn adds a guarded presentation exporter;no partial outcomes were
+read,ranked or used to change the frozen study. Evaluation remains active.
+
+scripts/export_koi_temperature_results.py accepts a completed finalizer and
+an explicitly pinned audit SHA256. It verifies the frozen study protocol,
+summary/audit agreement,all bound dependencies,training/evaluation budgets,
+complete row identities and the primary gate from unrounded intervals. It
+writes a new directory containing results.rst,absolute.csv,contrasts.csv and
+evidence.json. Existing exports are preserved. All18 absolute and18 contrast
+rows are included,with the four primary comparisons repeated for readability.
+CSV win units remain fractions;display tables use percent/percentage points.
+Point units and their factor-of-two relation to the original paper are stated.
+Bootstrap intervals are described as marginal,not simultaneous;the export is
+presentation of the existing audit,not another independent analysis.
+
+Targeted command:
+`.venv/Scripts/python.exe -m pytest tests/test_export_koi_temperature_results.py
+-q --junitxml=runs/koi_temperature_export_tests_final.xml`.
+Four tests pass,0 skips,0.19s. Coverage includes omitted/duplicate rows,
+near-zero unrounded gate behavior,nonfinite values,exact CSV value retention,
+unit formatting,source/summary corruption,incomplete state and overwrite
+rejection. Ruff checks pass. An actual attempt against the live study rejects
+with 'Wait for the finalizer to complete',before creating any output directory.
+Zero neural calls,simulator steps,matches or training updates are added.
+
+The initial presentation title underline was one character short. It was
+corrected and the existing render test now checks heading lengths. Earlier
+source bytes and receipt are preserved at
+runs/koi_temperature_export_source_initial.py and
+runs/koi_temperature_export_capability.json (c096003fa2d7d0a7daadc2b423b51b42b1a792acde67b207ecd5d88799eacf29).
+That receipt is historical. Current final capability receipt
+runs/koi_temperature_export_capability_final.json has SHA256
+50c1b92b58d5c9b66d3d51391f9e72922d6e346ffbe0c5a38b377d48194e86fa
+and binds6 inputs. Final test XML SHA256
+0b03c8147f5795d3155bd0e0b47b19c7872cf0bc992d7ffb58e0e718f1cd1918.
+
+Once the live finalizer finishes,inspect its audit and summary before invoking:
+`python -m scripts.export_koi_temperature_results --output
+runs/koi_temperature_results --audit-sha256 <verified independent audit SHA>`.
+No result export,manuscript edit,PDF delivery or model promotion has occurred.
+The stronger-play objective remains active;the frozen full comparison and
+recorded-action/statistics audit must finish before the next strength decision.

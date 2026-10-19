@@ -92,6 +92,17 @@ Earlier checker failure and all capability/replay work are preserved in
 EXPERIMENTS.md. No new replicated strength gain is established yet. Canonical
 human player,initial dealer,reserved101M and verified manuscript/PDF are unchanged.
 
+Completed-result presentation is prepared in
+scripts/export_koi_temperature_results.py. It requires the completed finalizer,
+an explicitly pinned independent-audit hash and unchanged dependencies. It
+exports all18 absolute rows/all18 contrasts,including the four primary rows,
+as readable RST and unrounded CSV;it adds no analysis,simulation or selection.
+Four targeted tests pass with0 skips;the actual live-study export is rejected
+without creating an output directory. Final capability receipt
+50c1b92b58d5c9b66d3d51391f9e72922d6e346ffbe0c5a38b377d48194e86fa.
+After finalizer completion,inspect and pin the audit SHA before exporting into
+a fresh runs/koi_temperature_results directory. No final results exported yet.
+
 **Renewed-chance comparison independently complete:** allfour520-update arms,
 40,960matches and full replay/statistics audit pass. Producer58904/queue65372
 are gone;queue37463 exits0. The predeclared strength,public-memory and interaction
