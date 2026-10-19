@@ -87,10 +87,14 @@ Two checks pass,0 skips,2.73s: independent binary entropy / score-rescaling
 counterexample and actual public-feature hidden invariance plus deployment
 action equality on four phase examples. Diagnostic protocol binds98 inputs,
 SHA a25292a03b0d343870fd2e3b3c829bd2834aa41a3cdf6f467bb6877fd571c941.
-Do not edit its bound script,design,tests or XML. After all four complete.json
-receipts exist, run `python -m scripts.koi_temperature_mechanism --output
-runs/koi_temperature_mechanism` once, then inspect raw-score/scalar accounting.
-The main producer/finalizer remain live; no strength result is available yet.
+Do not edit its bound script,design,tests or XML. A one-shot local queue now
+waits for all four complete.json receipts, then runs the frozen diagnostic:
+session10737,actualPID13764,launcher9832. Source is the ignored local file
+runs/koi_temperature_mechanism_queue.py; queue protocol SHA
+fb9c21fc65153fed0ec07d6d0b99a748af432107492dbbe47258896710555edd.
+Do not launch a duplicate diagnostic. After completion, inspect its raw-score/
+scalar accounting before using findings. Main producer,calibrated worker and
+both waiting queues are live; no strength result is available yet.
 
 **Renewed-chance comparison independently complete:** allfour520-update arms,
 40,960matches and full replay/statistics audit pass. Producer58904/queue65372

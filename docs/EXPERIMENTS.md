@@ -4914,3 +4914,29 @@ README is not in that QA's bound inputs. No numerical/source/PDF change or new
 render was needed. Study,finalizer and mechanism protocols remain fixed.
 Remaining three learners and all49152 evaluation matches are still pending;
 canonical policy,dealer and101M remain unchanged. Goal stays active.
+
+## 2026-10-19: final-policy diagnostic queue connected
+
+Previous goal turn was progress: seed1_fixed completed, its full saved schedule
+and matched calibrated initialization passed independent checks, and the stale
+manuscript README was corrected. Revalidated actual driver59656,calibrated
+worker16036 and waiting finalizer36936. The calibrated learner advances to
+update87/520,1,425,408 decisions. No completed strength evaluation yet.
+
+Connected the already-frozen common-input diagnostic using a one-shot ignored
+local wrapper,runs/koi_temperature_mechanism_queue.py. Command
+`python -m runs.koi_temperature_mechanism_queue` is live,session10737,
+actualPID13764,launcher9832. It waits for allfour complete.json receipts,checks
+all98 frozen diagnostic inputs,setsCPUthreads2 and runs the existing scorer once.
+Producer failure stops the queue; no retries,training restart or tuning. Its
+terminal success marker is complete_awaiting_scalar_audit,not a strength claim.
+Queue protocol bindsits source and the two existing protocols; SHA
+fb9c21fc65153fed0ec07d6d0b99a748af432107492dbbe47258896710555edd.
+Do not duplicate the queue or manually start the same diagnostic directory.
+
+A targeted recent Koi-Koi literature/source search rediscovered the already
+reviewed Open Hanafuda AI implementation. Existing COMPARATORS.md and the
+manuscript already distinguish its rule variant and internal benchmark; no new
+eligible comparator or outcome was added. This search is not an exhaustive
+absence-of-new-work claim. Ongoing training/evaluation conditions,canonical
+player,initial dealer and reserved101M remain unchanged. Goal remains active.
