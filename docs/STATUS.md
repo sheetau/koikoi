@@ -88,7 +88,7 @@ f8d3036e9af6b55b21cf94275515fd0c19f61b737539931133f1e38b56538367 binds94inputs;
 producer receiptbe2b1c01539138582eaeeb89d7c9fb6262089f0b0efe1c9f3b91ac6835d02c1e.
 
 Main root runs/point_initialization_study. Session26829;launcher47112/actual23676
-starts2026-10-20 01:56:02JST. Actual23676 is OS-live;seed1_wp_fixed has16closed
+starts2026-10-20 01:56:02JST. Actual23676 is OS-live;seed1_wp_fixed has182closed
 update records. No outcome evaluation has started. Protocol
  defd0e993e2c85efb844164b0c1edfa4ac6bae917c31ea6a6eb33d7ba4618048 binds102inputs,
 all verified unchanged. Keep these sources/tests/specifications frozen.
@@ -104,9 +104,47 @@ one four-contrast simultaneous95% family;all lower bounds must be positive.
 Report120secondary win/point coordinates. If qualified,fixedcandidate is
 seed102110001's Pointcalibrated;101Mconfirmation remains separate andunused.
 
-Next monitor this exact live training session while implementing/capability-
-testing the independent training verifier and fixed evaluation/statistics code
-before any main evaluation. Main seed inventory scans3,642JSONfiles with956
+**Evaluation capability and completion queue are ready and frozen.**
+New scripts/evaluate_point_initialization.py implements the fixed16cells,strict
+singletonCPU2 inference and exclusive launch/completion/failure receipts.
+No periodic status-file replacement. A failed worker stops owned process trees;
+restarting the same evaluation is refused. Native CPU replay and separate scalar
+bootstrap code verify all120secondary coordinates andfourprimary simultaneous
+bands. The checker covers20warmup and520final saved stages before main evaluation.
+
+Ten evaluation/checkpoint tests pass0skips in8.78s:paired scheduling,corrupted
+record rejection,scalar bootstrap agreement,zero-SE/single-seed gate rejection,
+training completion gating,owned-worker failure cleanup,andfive corruptions of
+the actual first warmup snapshot. Four queue tests pass0skips in1.47s,including
+an early completion receipt while the exact producer is still live.
+
+Capability root runs/point_initialization_evaluation_capability is terminal;
+session17700 exits0. All16cells x4matches finish:64matches/6,607decisions/
+433round endings on4shared deals,using original-initialization fixtures and
+retained parents. Independent recorded-action/statistics audit passes,with no
+new inference or independent matches from replay. Capability isnotstrength.
+Protocol d1d7646baaa00074240431c9deb1394b1e8fe51a83d0bf6022a5d906aa57d343;
+audit0e87ebb17f564d06711e00a0d225a6497be0e7eac3452363476e4f56dbfa958a binds149inputs;
+summary0185b290e35940374b3d0e56e4fd322ad04cf95083bf2b62ca100b39de2c6e04.
+First actual warmup audit passes:327,680decisions/22,036rounds/2,770matches,
+actorunchanged,valueAdam1,920steps,actorAdam0. Receipt
+runs/point_initialization_study/seed1_wp_fixed/warmup_audit.json
+SHA12c8f04ae4dc91588c66dd72e9a82c7c2a0e2853d39c54c4cb9b7912eea30d86.
+It verifies only that saved prefix,not training convergence or playing strength.
+
+Completion queue runs/point_initialization_completion is live,session25193,
+launcher60448/actual42304 starts02:05:33JST. It holds a query-only handle to
+actual23676 with creationFILETIME134369025624284303;PID reuse cannot redirect it.
+Queue protocol3419c9da7ec674828b8865ea61dddc6e253600586093c9a23c8d2d940864ac8a
+binds156inputs,allunchanged. It waits for exactproducerexit0 plusmatchingcomplete,
+then prepares main evaluation,executes it and independently audits it once.
+No promotion or training restart. Main output runs/point_initialization_evaluation
+doesnotexist yet;do not create it or launch another evaluator/queue.
+
+Next monitor training session26829/actual23676 and queue25193/actual42304.
+Freeze both training and evaluation/queue sources,tests and XML receipts. If a
+wait expires,verify these exact processes;never restart solely from timeout.
+The full main result ispending. Main seed inventory scans3,642JSONfiles with956
 seed-bearing files,no scalar seed collisions or unreadable files;it does not
 prove absence of unrecorded/implicit schedules. ScanSHA
  dfa5688894853738b608b0c79c530027cc6a0e7dc0854d54b1b932244aa98e68.

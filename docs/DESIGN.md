@@ -328,3 +328,20 @@ append-only metrics and exclusive start/completion/failure receipts, and refuses
 a second start. It binds the completed production capability and independent
 saved-state audit before learning. Evaluation is a separate gated stage under
 POINT_INITIALIZATION_MAIN.rst; no outcome-driven training extension is allowed.
+
+The Point-initialization evaluation is separate from training. Preparation pins
+all endpoints, validates warmup/final model and optimizer state and shared
+initialization, and requires the completed small evaluation capability. Sixteen
+cells use both seats, two fixed opponents and shared deals. Workers append action
+records and write exclusive terminal receipts. Cleanup targets only owned worker
+trees. Four primary contrasts share one simultaneous bootstrap family; all120
+secondary win/point coordinates remain visible. The native replay auditor uses
+separate scalar statistics and does not rerun neural action selection.
+
+The completion queue holds a Windows query-only handle to the exact live learner
+process, including creation identity, and requires exit0 plus its matching final
+receipt. It runs prepare/evaluate/audit once in new directories, with separate
+immutable stage receipts and logs. A failed stage preserves artifacts and stops
+the queue; neither failure nor a monitor timeout triggers training or evaluation
+restart. Completed capability fixtures and copied replay work are not new
+independent playing-strength samples. Canonical deployment remains separate.

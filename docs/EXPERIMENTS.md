@@ -6170,3 +6170,67 @@ The runner uses append-only logs and exclusive receipts,without periodic status
 replacement. Never restart on an observation timeout. Next build and capability-
 test the separate training verifier and evaluation/statistics implementation
 while this fixed training runs. Broader strength/research objective stays active.
+
+## 2026-10-20: Point evaluation capability passes; exact-producer queue starts
+
+Added audit_point_initialization_checkpoint.py,point_initialization_analysis.py,
+evaluate_point_initialization.py andaudit_point_initialization_evaluation.py.
+Training inputs remain unchanged. The checkpoint verifier reads only completed
+20/520prefixes,compares pinned WP/Point initial weights,actual saved Adam steps,
+finite moments,simulator counters and declared phase temperatures. Actual first
+warmup passes:327,680decisions/22,036round endings/2,770matches,unchangedactor,
+1,920valueAdamsteps and0actorsteps. Receipt
+runs/point_initialization_study/seed1_wp_fixed/warmup_audit.json SHA
+12c8f04ae4dc91588c66dd72e9a82c7c2a0e2853d39c54c4cb9b7912eea30d86.
+No inference or learning is repeated by this saved-state check.
+
+Evaluation uses the frozen16cells and CPU2singletongreedy path;the phase wrapper
+isused only fortraining,not deployment. Append-only records and exclusive launch/
+terminal receipts replace the old periodic status-file replacement pattern.
+Worker failure terminates owned Windows process trees. The independent auditor
+replays every action through nativeCPU and reconstructs all120secondary means/
+intervals andfourprimarysimultaneousbands using separate scalar loops,37-replicate
+chunks andexplicit quantile arithmetic. Source/mode/schedule/model/work identities
+arebound;only completed main results may qualify. All training must finish before
+main preparation creates an output directory.
+
+Ten tests pass0skips in8.78s,Ruffpasses:shared-seat schedule/native replay and
+corrupted records,scalar resampling,degenerate/single-seed gating,training
+completion gate,actual owned-worker failure cleanup,andfive corruptions of the
+real warmup artifact(Adam,episodes,source,metrics,phase temperatures). Initial
+cleanup-test mocking also intercepted taskkill;that test tree was terminated,
+the mock was limited to worker launches,and the corrected suite passed. The
+training process23676 was untouched. XML runs/point_initialization_evaluation_tests.xml
+SHA2c900dc5c32de3b4ceea852461b0c2a0d4db667870607f368a423aa818b7560f.
+
+    .venv/Scripts/python.exe -m scripts.evaluate_point_initialization capability --output runs/point_initialization_evaluation_capability
+    .venv/Scripts/python.exe -m scripts.evaluate_point_initialization run --protocol runs/point_initialization_evaluation_capability/evaluation_protocol.json
+    .venv/Scripts/python.exe -m scripts.audit_point_initialization_evaluation --input runs/point_initialization_evaluation_capability
+
+Session17700 exits0;all16cells x4matches complete. Capability uses4sharedinitial
+deals,64matches/6,607decisions/433round endings,original WP/Point initialization
+fixtures plus retained parents. Point fixed/calibrated fixtures reproduce each
+other;WPfixture pairedselfplay sums tozero. Nativeaction/statistics verification
+passes andadds no independentmatches orNNcalls. No strengthconclusion follows.
+Protocold1d7646baaa00074240431c9deb1394b1e8fe51a83d0bf6022a5d906aa57d343;
+audit0e87ebb17f564d06711e00a0d225a6497be0e7eac3452363476e4f56dbfa958a,149inputs;
+summary0185b290e35940374b3d0e56e4fd322ad04cf95083bf2b62ca100b39de2c6e04.
+Freeze these completed artifacts and their source/test/XML bindings.
+
+Added finish_point_initialization.py with exact held-Windows-process identity,
+cleanexit pluscompletion gating,owned-child cleanup,andexclusive per-stage
+receipts. Four tests pass0skips in1.47s,including earlyreceipt/liveprocess,
+failedexit despitecomplete,missing/wrong completion,andnon-overwritingqueue.
+XML runs/point_initialization_queue_tests.xml SHA
+41171301954b5db665ded3c7b5e4d383d19be22fc8361b6dd33d9afbc3e6a634.
+
+    .venv/Scripts/python.exe -m scripts.finish_point_initialization --output runs/point_initialization_completion --producer-pid 23676
+
+Queue session25193,
+launcher60448/actual42304 starts02:05:33JST andisOS-live. Heldproducer23676
+creationFILETIME134369025624284303. Queueprotocol
+3419c9da7ec674828b8865ea61dddc6e253600586093c9a23c8d2d940864ac8a binds156inputs,
+allunchanged. Training session26829/actual23676 isOS-live with182first-arm updates.
+The queue will wait,prepare allmain endpoints,evaluate131,072matches andaudit
+once. Main evaluation directory doesnotexist yet;no second launch. Canonical
+player,dealer and101Mconfirmation stay unchanged. Fullgoalremainsactive.
