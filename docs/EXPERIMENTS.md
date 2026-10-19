@@ -5815,3 +5815,25 @@ Current open-file counts:long WP295/Point30;four finished cells each8,192.
 Total33,093recorded matches,four of twelve cells complete. No source,model,
 training,protocol,dealer,deployment orPDF changes. The fixed evaluation and
 subsequent independent audit continue;the full objective remains unachieved.
+
+## 2026-10-19: first-group duration evaluation complete; second group begins
+
+Verified waits on the same session21869 and live OS processes show both
+parent1_long_wp and parent1_long_point complete8,192matches. Saved report
+status/counts and actual JSONL SHA256 agree. WP producer work:
+943,971decisions/63,849round endings/8,192matches. Point producer work:
+954,195decisions/63,082round endings/8,192matches. This verifies saved producer
+accounting,not the final independent recorded-action/statistics audit. No win
+or point means inspected,no partial primary analysis or model selection.
+
+Workers50752/59432 exit. The existing evaluator63224 automatically launches
+parent2_parent_wp launcher21780/actual60516 at23:26:47JST and
+parent2_parent_point launcher58936/actual14948 at23:28:21JST. Both are OS-verified
+live,along with evaluator63224 and queue32628. Open-file counts:second-group
+retained-parent WP451/Point66;all six first-group cells each8,192. Total49,669
+recorded matches,six of twelve cells complete. The second group still includes
+its retained comparator and short/long endpoints against both fixed opponents.
+
+No source,model,training,protocol,dealer,deployment orPDF changes. The fixed
+full evaluation and subsequent independent audit continue;the broader stronger-
+play and research objective remains active and unachieved.
