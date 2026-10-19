@@ -4441,3 +4441,82 @@ Final QA runs/manuscript_multi_round_qa.json SHAb6792410b9729b435e12b75c003c1692
 This closes a manuscript/evidence mismatch;it does not complete the research
 goal. Stronger-model evaluation remains pending,with dealer/canonical human
 model and reserved101M actual deals unchanged.
+
+
+## Renewal comparison closes negatively; complete current-hand inference diagnostic
+
+Previous turn reconciled the completed fixed-root result into the paper and
+passed29-page visual/evidence QA;classified as progress. At first this turn
+producer58904/queue65372 were observed live in parent2-public training. Later
+authoritative process receipts showed completion and both OS processes gone.
+Queue37463 drains with exit0;allfour520-update arms and40,960matches completed,
+independent audit passed. A monitoring snippet assumed a training parent key
+and raisedKeyError after the status changed to complete;the diagnostic file
+had already been written. This was a monitor error,not a study failure or
+reason to restart. No running/evaluation checkpoint was replaced.
+
+Command `.venv/Scripts/python.exe -m scripts.summarize_renewed_continuation_study --output runs/renewed_continuation_study`
+executes once,session62894 exits0. Independent audit
+0f920e4be44cf833964975f3f7784846eb556c32f215011597a5cc892480da0a binds371inputs;
+summary4f7fbccb5f97c88d54792083ac39b7818b07a8fcddde5053f6c567611f91ee98.
+Strength,public-memory and interaction replication criteria allfail. Primary
+mixture-win changes(pp) are parent1 new-original -0.903[-1.917,+0.098],
+new-fixedpublic -0.110[-1.062,+0.842];parent2 -0.183[-1.136,+0.769] and
++0.134[-0.903,+1.172]. Allfour intervals includezero. Two of66win contrasts
+excludezero,bothnegative againstWP(parent1newpublic-original,parent2newmasked-
+original). Fifteen secondary point intervals excludezero. All66cells retained
+in docs/RENEWED_CONTINUATION_RESULTS.rst SHA
+16965b61f1562dbbe29fabfc8d92d91b65524cadcbb0bb1b1a02711d5e50f0e8.
+No pooling with93M outcomes or favorable-secondary substitution.
+
+Training19,033,187decisions(9,372,263learner/9,660,924opponent),266,240conditional
+completions/freshconstructions,1,276,266conditionalrounds,0fulltrainingmatches;
+133,120distinct chancekeys sharedbetweenpublic/masked. Actualevaluation
+4,754,060decisions/318,260rounds/40,960matches on2,048shared95Mdeals. Identification
+399,624strictpredictions(197,272WP/202,352Point). Fullindependentreplay repeats
+records,checks290,156historicalinputs/masks,adds0newNN/independentdeals. Rootreplay
+separately212,212decisions/14,101rounds/192earlymatchendings.
+
+Command `.venv/Scripts/python.exe -m scripts.renewed_confirmation_gate --study runs/renewed_continuation_study`
+finishes76639exit0,qualified=false. No finalrunner or98,304-match allocation is
+launched;101M remainsunused. Canonical humanmodel anddealer unchanged. Paper
+currently includes the preceding fixed-root result;renewal integration pending.
+
+Read-only parent1 training-health diagnostic verifies all2,080records across
+four fixed/renewed public/masked arms finite and20warmup/500policy allocation.
+Early21--120 versuslate421--520meanvalue losses:fixedpublic .584175->.532299,
+fixedmasked .579485->.533331,renewedpublic .609208->.622295,renewedmasked
+.596573->.618891. LateapproxKL ranges .000127--.000172;no stopped updates or
+nonfinite losses observed. Training distributions differ;these curves neither
+prove overfitting nor rank strength. Receipt
+runs/renewed_parent1_training_metrics_diagnostic.json SHA
+ff97c67689601204f2fe3dd32063c364efc91a207e939768d991249440d5f514;
+0newinference/simulation. Diagnostic changesno training or selection criterion.
+
+The next direction uses current-hand constraints from public opponent actions,
+not another identity-only training extension. Added complete enumeration over
+all25eligible roots in the existing32-attempt sampled diagnostic,including all
+previously selected four exact cases. Existing exact tables are reused by
+own/public observation key only;duplicate tables must agree exactly. The true
+hidden hand is read only after predictions for descriptive scoring. No favorable
+Brier selection,held-out interpretation,checkpoint choice or strength claim.
+
+New design docs/SAMPLED_HISTORY_COMPLETE_CHECK.rst SHA
+442b6d48d24fa4db192d2fadfdb21f10a4fae7a8a21d940dee5ab3032bf458db;
+runner scripts/complete_sampled_history_exact.py SHA
+2f3b1667bbd252e1330dbf5e61ae75b49c9f695608bb47ee02e20d53c666b8d8.
+Command `.venv/Scripts/python.exe -m pytest tests/test_complete_sampled_history_exact.py -q --junitxml=runs/complete_sampled_history_exact_tests.xml`
+passes4,0skips,1.55s:all25existingidentities,nooutcomeselection,realduplicate
+publictableconsistency/tamperrejection,independentFractionBrier/errors,and
+explicitmissing-sample accounting. Ruff/format pass. Testsource
+3f39dbc50cb7c8395e428f89483b0ed4827eb2bc41af11b88cbb00ab34c4dcc6;
+XML6424fe47ddcc7648ca0f92ce037f0ae68dde3023e256ccfca98db000de25e141.
+
+Command `.venv/Scripts/python.exe -m scripts.complete_sampled_history_exact --output runs/sampled_history_complete_exact`
+starts67641,launcher58808/actual64412 observedlive. Protocol
+01ea7aef3844faf07aa4a6ac9bcf5c5e47dc87eb2c5f307d0ecd51c0af9be9f1
+binds66inputs. Three distinct prior publictables are cached;remaining spaces
+are fullyenumerated(max6,000candidates) usingstrictCPU2 WP/Pointmodels.
+At launch onecachedroot completed;the fullresult and independent arithmetic
+check remainpending. Do not duplicate/restart whilelive. No fresh evaluation,
+future rollout,training orreserved101M trajectory. Goal remainsactive.

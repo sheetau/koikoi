@@ -11,53 +11,50 @@ Old process handles mentioned in that history are historical, not live jobs.
 
 ## Current experiment and next actions
 
-**Renewed-chance comparison is training:** queue37463(OS Python PID65372)
-launched scripts.run_renewed_continuation_study as launcher39952/actual58904.
-Both parent1 arms are complete;parent2-public is now learning.
-Log runs/renewed_continuation_study_training_and_evaluation.log;process receipt
-runs/renewed_continuation_study/process.json. Preserve this producer and queue.
-The frozen protocol is b380344727a3ac878e1c542b1754d6eac478ae66269cd662c60c0cd85dec46aa,
-with316 bound inputs. The queue now binds323 inputs after merging the successful
-capability audit. Do not edit those sources/tests/designs or duplicate the run.
+**Renewed-chance comparison independently complete:** allfour520-update arms,
+40,960matches and full replay/statistics audit pass. Producer58904/queue65372
+are gone;queue37463 exits0. The predeclared strength,public-memory and interaction
+criteria all fail. No endpoint is promoted;the final-confirmation gate returns
+qualified=false and101M remains unused. [All66contrasts](RENEWED_CONTINUATION_RESULTS.rst).
 
-First completed renewed endpoint dd35e584f136edda68da1de0a39f1cb5074186ca3ae81d5b894791643c766307
-passes a separate rerun of its full endpoint verifier,all saved root schedules
-and96 finite Adam states. Parent1 public/masked initial and warmup20 states
-match exactly,including runtime,optimizers,root samplers and all RNG payloads.
-Receipt e5030a8760323ca8f195a07f39f1473b5fbd10ae3fa7c3b9715764567fa66c43
-in runs/renewed_continuation_study/parent1_public_completion_verification.json
-binds332inputs. Actual4,788,606decisions(2,358,991learner/2,429,615opponent),
-66,560conditional completions,320,449conditional round endings,0fullmatches.
-Verification72740 adds0 simulation/inference/deals. At that verification,three
-arms and all strength evaluation remained pending;it did not promote the checkpoint.
+Primary mixture-win changes(pp):parent1 new-minus-original -0.903[-1.917,+0.098],
+new-minus-fixed-public -0.110[-1.062,+0.842];parent2 -0.183[-1.136,+0.769] and
++0.134[-0.903,+1.172],respectively. Of66win contrasts,two exclude zero,both
+negative against WP. Fifteen secondary point intervals exclude zero;none
+substitutes for a failed primary or mechanism criterion.
 
-Read-only prefix verification37227 passed saved parent1-public checkpoints
-0/20/100/200/300:root-index RNG equals both a reconstructed schedule and the
-fixed-root controls;bank/memory provenance and chance cursor agree. Initial
-model/optimizer/global RNG states match the fixed control exactly,and frozen
-prefix/opponent weights remain unchanged. Receipt
-runs/renewed_schedule_prefix_verification.json SHA
-449a8e7de6d1bc155fc9569a8cdce203b266a3238e2367b207e17fd21632e9c8 binds323inputs.
-Through300 updates,existing training totals2,766,388dec/38,400conditional
-completions/185,926conditional round endings,0fullmatches;all855roots occur
-25--67times. Verification adds0 simulation,inference or new deals. This is a
-prefix/schedule check,not a complete endpoint audit or strength evidence.
+Protocol b380344727a3ac878e1c542b1754d6eac478ae66269cd662c60c0cd85dec46aa;
+audit0f920e4be44cf833964975f3f7784846eb556c32f215011597a5cc892480da0a;
+summary4f7fbccb5f97c88d54792083ac39b7818b07a8fcddde5053f6c567611f91ee98.
+Summarizer62894 exits0 and ranonce. Preserve completed records;do not restart
+or overwrite summaries. Study used316initial/323queue bindings.
 
-The study executes four new520-update public/masked arms from both original
-parents,refreshing conditional chance while matching the original root-index
-schedule and budget. It reuses the four completed fixed-root controls and
-compares five policies on40,960 strict full matches sharing2,048 fresh95M deals.
-Primary strength,secondary public-memory and interaction criteria remain
-separate;all66 contrasts are retained. The design predates the preceding
-study's outcomes. See [protocol](RENEWED_CONTINUATION_STUDY.rst).
+New training19,033,187decisions/266,240conditional completions/1,276,266conditional
+round endings,0fullmatches;133,120shared distinctchancekeys. Evaluation
+4,754,060decisions/318,260round endings/40,960matches on2,048shared95Mdeals.
+Public-model predictions399,624. Replay verifies290,156historical inputs with0new
+neural calls/independentdeals;root replay separately212,212dec/14,101round/192endings.
 
-Next: let queue37463 finish training,evaluation and independent audit. Only
-then run scripts/summarize_renewed_continuation_study.py once;never overwrite
-summary.md or summary_receipt.json. No partial evaluation contrasts,checkpoint
-selection,budget extension,automatic promotion or reserved101M use.
-The current PDF now includes both completed final-round and fixed-root
-multi-round outcomes. After the renewed comparison, reconcile the paper with
-that additional completed evidence and rebuild/render its PDF.
+Next: integrate this completed renewal result into the manuscript. Public
+identity conditioning has failed across the three completed memory studies;
+examine current-hand inference using public action history. First complete the
+existing exact-posterior diagnostic over all25eligible development roots to
+separate inference information from128-proposal sampling noise. This does not
+use fresh evaluation/final deals,select a winner or establish stronger play.
+
+**Complete exact-hand diagnostic running:** session67641,launcher58808/actual
+Python64412,executes scripts.complete_sampled_history_exact on all25eligible
+roots from the existing32-attempt development diagnostic. Sevenineligible
+attempts stay in its coverage accounting. Protocol
+01ea7aef3844faf07aa4a6ac9bcf5c5e47dc87eb2c5f307d0ecd51c0af9be9f1 binds66inputs.
+Output runs/sampled_history_complete_exact;do not duplicate/restart this job.
+It reuses3distinct prior verified public-root tables and computes remaining
+complete hand spaces with strict CPU2 models,retaining all marginal/error results.
+No new evaluation deals,future rollouts,training or101M use. After completion,
+independently check all candidate sets and marginal/error arithmetic before
+using the result to design an action comparison. [Design](SAMPLED_HISTORY_COMPLETE_CHECK.rst).
+Four CPU checks pass,0skips,1.55s;XML
+6424fe47ddcc7648ca0f92ce037f0ae68dde3023e256ccfca98db000de25e141.
 
 **Fixed-root multi-round comparison independently complete:** producer46255
 and audit96354 exited0. All24,576 strict matches and all18 contrasts reproduce.
@@ -343,7 +340,7 @@ source0fa4a933229f614c5f519e4c454831f414bed01b50910a6c7246cf653e12364b;
 QA runs/manuscript_multi_round_qa.json SHAb6792410b9729b435e12b75c003c16922a379eb9348b6c94da81590ebfcd6fb3.
 Prior PDF retained as output/pdf/manuscript_before_multi_round_4bf68f3e.pdf.
 Bibliography and established adaptation-strength claims are unchanged. The
-ongoing renewed-chance comparison supplies no new strength claim yet.
+completed renewed-chance result is recorded above and awaits manuscript integration.
 
 ## Local human-play delivery
 
