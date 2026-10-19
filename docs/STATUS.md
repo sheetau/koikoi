@@ -87,35 +87,40 @@ capability executions,not strength evidence. Independent audit
 f8d3036e9af6b55b21cf94275515fd0c19f61b737539931133f1e38b56538367 binds94inputs;
 producer receiptbe2b1c01539138582eaeeb89d7c9fb6262089f0b0efe1c9f3b91ac6835d02c1e.
 
-Main root runs/point_initialization_study. Session26829;launcher47112/actual23676
-starts2026-10-20 01:56:02JST. Actual23676 is OS-live. The first arm,
-seed1_wp_fixed,completes520updates and passes its final saved-state audit.
-Work:8,519,680decisions/571,625round endings/73,440training matches,
-including20warmup+500policy updates. Checkpoint
- d5e2b98de6762692348a60f3cff910584b19ba90dcbfeaef148df36ea218f41e;
-final auditfd92eb275f872f74aa505954d49cb90bd6c6ccb9a02b2ed410cdc5f590c13d0e.
-The second arm, seed1_point_fixed, also completes 520 updates and passes its
-final saved-state audit. Work: 8,519,680 decisions / 562,510 round endings /
-73,153 training matches, including 327,680 warmup decisions once. Final model
-09255f171d5a79c3552efd20c8e23c32a52324c2151cdd0c9b4b7cf94ea2e4b4;
-audit 4d706f858c69cc6802a9a44818c4c9f77123256d56529e2bc1c1b60ed6684a04.
-Value Adam has 49,920 steps; each actor head has 48,000.
+Main root runs/point_initialization_study. Session26829; launcher47112/actual23676
+started2026-10-20 01:56:02JST. The actual process remains OS-live. All three
+first-seed arms complete520updates and pass final saved-state audits:
 
-The same process now trains seed1_point_matched. Its 20-update warmup audit
-passes: 327,680 decisions / 21,065 rounds / 2,709 matches; original Point actor
-unchanged, value Adam 1,920 steps and actor Adam zero. Warmup audit SHA
-65dbc17aae98593c14bf94eb0bb652b25ce0456afb8ef3ae08c69eba31f24e9e.
-The two Point initial snapshots have identical actors, critics, optimizers,
-environments, counters, runtime and all four RNG states. Only phase_temperatures
-differs in their configs. Combined with the prior actual WP/Point check, all
-three arms start with identical critic/environment/optimizer/RNG state.
-Receipt runs/point_initialization_study/seed1_three_initial_check.json
-SHA 639678df15809acbd0fc965f701a607124f50377963b0d1f730db8eee098b454.
-The prior WP/Point receipt and its inputs are preserved and hash-checked.
-These checks add zero inference, simulation or learning; they are not strength
-evidence or claims of equal trajectories, exploration or gradients.
-Two of six arms are complete. Never restart them. No outcome evaluation has
-started. Actual learning PID23676 and queue PID42304 remain OS-live.
+| First-seed arm | Decisions | Round endings | Training matches |
+| --- | ---: | ---: | ---: |
+| wp_fixed | 8,519,680 | 571,625 | 73,440 |
+| point_fixed | 8,519,680 | 562,510 | 73,153 |
+| point_matched | 8,519,680 | 566,059 | 73,381 |
+
+Total:25,559,040decisions /1,700,194round endings /219,974training matches /
+1,560updates. Included warmup:983,040decisions /64,232rounds /8,201matches.
+Each final model has valueAdam49,920steps and actor heads48,000each.
+The newly completed calibrated Point model is
+45cd3641955784e536dce2eeb644a9370cd2fcb9fb17b367f521de9c039f8167;
+its final audit SHA is
+e37bd7823e593cff9b14e3d23df464b6c24838504e42e096e1572c5b02180d1d.
+All earlier arm receipts and checkpoints remain unchanged; do not rerun them.
+
+First-seed actual initial-state comparison remains passed: the two Point actors
+are equal, and all three arms have identical critic, optimizer, environment,
+counters, runtime and four RNG states. The Point config difference is only
+phase_temperatures. Receipt seed1_three_initial_check.json SHA
+639678df15809acbd0fc965f701a607124f50377963b0d1f730db8eee098b454.
+These saved-state checks add no inference or simulator work and establish
+neither equal exploration/gradients nor playing strength.
+
+The same process now trains seed2_wp_fixed (seed102210001). Its20-update warmup
+passes:327,680decisions /22,102rounds /2,774matches, originalWPactorunchanged,
+valueAdam1,920steps and actorAdam0. Warmup checkpoint
+b4bca0c6c372d248f0dda17c668a4079867b4109efbbe448ed11578deb9399d6;
+audit293bac5093b42d873b44bda13048e777a8a59ae3abae9c07208e3caba6cf2369.
+Three of six arms are complete. No outcome evaluation has started.
+Actual learningPID23676 and queuePID42304 remain OS-live.
 Protocol
  defd0e993e2c85efb844164b0c1edfa4ac6bae917c31ea6a6eb33d7ba4618048 binds102inputs,
 all verified unchanged. Keep these sources/tests/specifications frozen.

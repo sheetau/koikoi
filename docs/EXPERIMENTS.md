@@ -6377,3 +6377,36 @@ Two of six arms are complete. Session26829/actual23676 and completion
 session25193/actual42304 remain live. The main evaluation directory does not
 yet exist. Continue the fixed study without restarting, selecting endpoints,
 changing frozen inputs or promoting a model. The broader objective is pending.
+
+## 2026-10-20: first seed complete; second seed learning starts
+
+seed1_point_matched completes520updates in the original process23676, with
+8,519,680decisions /566,059round endings /73,381training matches. The existing
+checkpoint auditor passes its final saved state, source/initialization identity,
+metrics prefix, simulator counters and finite per-parameter Adam state. Value
+Adam has49,920steps and each actor head48,000. Final model
+45cd3641955784e536dce2eeb644a9370cd2fcb9fb17b367f521de9c039f8167;
+actor digest8fe78138b4121f98da9c16e90b6bd9fa7fb4158b171a510106a100b605cb0cd6;
+metrics c325436e62173f4c2f252fc2071c06fec00545ddd577db701dfb48fa3391478c;
+final audit e37bd7823e593cff9b14e3d23df464b6c24838504e42e096e1572c5b02180d1d.
+
+All three first-seed arms now finish:25,559,040decisions /1,700,194round endings /
+219,974training matches /1,560updates. Their included warmup totals983,040decisions /
+64,232rounds /8,201matches. These are training counts, not evaluation results.
+All three final saved-state audits pass; completed states are not rerun.
+
+The same process starts seed2_wp_fixed (seed102210001). Its20-update warmup
+passes:327,680decisions /22,102round endings /2,774matches, zero policy updates,
+originalWPactor unchanged, valueAdam1,920 and actorAdam0. Initial checkpoint
+4c77e6235dc6ac7cd468a9852b5cf225ab0e55d14410844f12b87c4ab3484e8a;
+warmup b4bca0c6c372d248f0dda17c668a4079867b4109efbbe448ed11578deb9399d6;
+audit293bac5093b42d873b44bda13048e777a8a59ae3abae9c07208e3caba6cf2369.
+
+Both new audits use scripts.audit_point_initialization_checkpoint, with the
+existing --input runs/point_initialization_study and respective --arm/--update,
+writing fresh final_audit.json or warmup_audit.json. They inspect saved states
+only, adding zero inference, simulation or training. No playing-strength claim.
+
+At03:20JST actual learning23676 and completion queue42304 remain live. Three
+of six arms are complete; outcome evaluation has not started. The fixed study
+continues without endpoint selection, protocol changes or deployment changes.
