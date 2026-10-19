@@ -4750,3 +4750,76 @@ Next implement and verify isolated koi-temperature training, then fix a fresh
 matched two-seed experiment. No training is launched yet. Human-play policy,
 initial dealer, reserved101M and verified manuscript/PDF are unchanged. The goal
 remains active; neither strength nor new-method novelty is established here.
+
+## 2026-10-19: isolated koi-temperature learning and frozen comparison
+
+Implemented scripts/koi_temperature_ppo.py without modifying production source.
+It reuses existing actor/value parameter objects and Adam state. Only koi rows
+use calibrated temperature0.21989584747027907; others retain0.05. A fixed0.05
+control follows the exact previous division path. Full saved state includes
+actor/value/optimizer/environment/counters/runtime and all four RNG sources.
+Inference deliberately restores the original PublishedPolicyValue CPU path at
+0.05, independently of learning temperature. No dealer or human-model change.
+
+Four adapter tests pass,0 skips,7.84s: independent score/gradient calculations,
+actual CUDA all-0.05 equality with old trainer, warmup/update/exact restart and
+mutation rejection, plus original singleton CPU action equality on two complete
+capability matches. XML18cb2ca058fdb9d29cd4c1e9aed24e02ef93e9d79010d8bdc849e7a1b9bec403.
+Three study tests pass,0 skips,3.14s: shared deal/seat allocation, strict primary
+criterion and point-only failure, plus four actual CPU matches and reference
+replay. XML7c824c6bdcca39e10bc6d5284a35c6e16548c187881ad9e21dd81982415a3b1f.
+Lint import order/type cleanup preceded the study launch; all checks now pass.
+
+Production-size capability first completed fixed22 updates then failed in the
+checker: actor.current contains metadata; weights require actor.current.weights.
+Session61274 exits1, preserved producer/failure receipt at
+runs/koi_temperature_capability. That attempt adds360448dec/24254round/3052matches;
+no calibrated arm started. Corrected separate run
+`python -m scripts.check_koi_temperature_training --output
+runs/koi_temperature_capability_corrected` completes session94977 exit0.
+Both full128x128,3epoch512 arms use20 warm+2policy updates and exact21->22 replay.
+Fixed:360448dec/24254round/3052matches; calibrated:360448dec/24254round/3041matches.
+Replay separately32768dec/2217round/291matches. All96 Adam states per arm and
+initial weights/critic/optimizer/environment/RNG were independently inspected.
+Producer auditbd3a521596008b7985ef3ed9716fea168c42f0123da9035d11ddf7f7bdc44c22;
+independent0f37f1c43a10082bbbf6f892a1d28341e528c657751fb47332fa3825e1f7d0f1.
+No strength claim follows these execution checks.
+
+Frozen docs/KOI_TEMPERATURE_STUDY.rst and runner bind91 inputs. Command
+`python -m scripts.run_koi_temperature_study --output runs/koi_temperature_study`
+is live: actual driver59656 (launcher54836), first fixed worker20924
+(launcher18484). Tool handle was lost to context truncation; OS state and
+increasing metrics confirm continued execution. Do not restart it.
+Protocolb9075ac261ce6a3e681a64fa7845f031850ef20fba60f618435b3ad108a74d19
+matches the prelaunch receipt exactly. Two seeds96110001/96210001, eachfixed/
+calibrated, initialize from original WP, not retainedA/B. Every arm20warm+500policy,
+identical learning rates/architecture/returns/critic. Different sampled paths
+may change warmup critic weights; they are not claimed equal. Temperature also
+rescales entropy and log-probability gradients, not visitation alone.
+
+Only final520 checkpoints are evaluated after all four arms finish. Four new
+policies and retainedA/B each face assistedWP/Point at both seats over2048pairs
+peropponent. WP seeds97110001..97112048;Point97120001..97122048. Total49152full
+matches on4096shared actual deals. Bootstrap10000 blocks,seed97310001; retain
+bothseats andbothopponentstrata perreplicate. Allfourprimary mixturewin lower
+bounds must exceedzero: eachseedcalibrated-minus-fixed and-minus-corresponding
+retainedparent. All18contrasts/18absolute results and secondarypoints retained.
+No intermediate evaluation, outcome-based retuning/extension or promotion.
+Reserved101M and old100M final evidence are not reused.
+
+Added independent audit of all saved schedules/initial matches/actor ancestry,
+Adam per-head counters, complete recorded trajectories, allocation, endpoint
+scores/work and independent bootstrap statistics. This replays actions, not
+neural decisions or training. Three independent-auditor tests pass,0skips,1.39s;
+XML72ad1fa6508f25f76ed42e1cd5ddb5bbaca004d9eea8c684a6005042eedb0bcf.
+Fixtures cover four full synthetic-policy matches, both signs, corrupt records,
+paired cancellation and per-head optimizer counts. Actual saved initial,warm20,
+update100 optimizer checks also pass. No new policy calls in that inspection.
+
+Command `python -m scripts.finish_koi_temperature_study --output
+runs/koi_temperature_study --wait` is queued: session64818,actualPID36936,
+launcher36764. It freezes eight finalizer inputs, waits for producer completion,
+runs independent audit once and writes complete summary once. Protocol
+f6180c6f94acadb02d7f907f1d145df24577189cf50d429b532bf6a41c7c6f87.
+It does not change training, promote models or launch final confirmation.
+No completed outcome is available at this milestone. Goal remains active.

@@ -42,20 +42,23 @@ unattainable targets. The calculation adds no neural calls, simulation or
 training. Receipt runs/phase_exploration_calibration.json has SHA
 d191ca3bafe0c3bb1f268f612a3dfb80f2223dc97292ed87d0571c6024487e0a.
 
-Required next comparison
-------------------------
+Matched comparison now running
+------------------------------
 
-Implement this as an isolated training adapter with a matched all-0.05 control.
-Keep actor architecture, learning rates, optimizer, returns, critic and training
-budget identical. Greedy evaluation should use the existing strict CPU score
-path, independently of the learning temperature. Verify non-koi behavior,
-warmup, gradients, exact restart and checkpoint/agent identity before training.
-Then fix fresh training/evaluation seeds, endpoints and paired criteria before
-running a two-seed comparison against the matched control and retained players.
-Do not reuse the old final evaluation or reserve 101M for this development test.
+The isolated adapter and matched all-0.05 control are implemented. Four adapter
+checks and three evaluation/analysis checks pass; actual production-size CUDA
+warmup/update/exact-restart and saved-state independent checks pass as well.
+The frozen two-seed comparison is running; see KOI_TEMPERATURE_STUDY.rst and
+STATUS.md. Both conditions start from original WP, use equal learning rates
+and520 updates, and evaluate only their final endpoints against assistedWP/Point
+alongside retainedA/B. All six policies share4,096 development deal streams,
+49,152 complete matches. The primary criterion requires both learned seeds to
+improve against both their matched control and corresponding retained parent
+in the balanced-opponent mixture. No result is yet available. The reserved
+101M confirmation seeds remain untouched.
 
 The earlier warm/cold comparison changed learning rate together with temperature;
 it cannot isolate this phase-specific sampling hypothesis. Score calibration and
 Boltzmann sampling are established techniques. Any contribution must be supported
 by a controlled learning result and a clear mechanism, not by naming the adapter.
-No training comparison has been launched yet.
+Calibration is fixed; neither temperature nor budget is retuned from outcomes.

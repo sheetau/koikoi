@@ -11,6 +11,51 @@ Old process handles mentioned in that history are historical, not live jobs.
 
 ## Current experiment and next actions
 
+**Koi-temperature comparison is running:** four original-WP initializations,
+two matched seeds x common-temperature/calibrated-koi conditions, each with
+20 critic-only + 500 policy updates. Learning rates, architecture, returns and
+budgets are fixed; only koi temperature differs within each seed. Deployment
+uses the original greedy singleton CPU path. [Frozen design](KOI_TEMPERATURE_STUDY.rst).
+
+Production-size capability and independent saved-state audit pass: matched
+initial weights/critic/Adam/environment/RNG, stationary warmup actor, later
+actor updates and exact resumed update22. Corrected capability has 720,896
+logical training decisions / 48,508 rounds / 6,093 matches; replay adds 32,768
+decisions / 2,217 rounds / 291 matches. Earlier checker failure is preserved
+separately: its fixed arm trained 360,448 decisions / 24,254 rounds / 3,052
+matches before a metadata-iteration error; calibrated training had not started.
+This is execution capability, not strength evidence. Independent capability SHA
+0f37f1c43a10082bbbf6f892a1d28341e528c657751fb47332fa3825e1f7d0f1.
+
+Training uses seeds 96110001 and 96210001, from original released WP rather
+than retained A/B. After all four endpoints finish, evaluate them and A/B on
+2,048 duplicate deals per opponent, both seats: 49,152 full matches on 4,096
+shared development deals (97M). Primary criterion requires all four mixture
+win lower bounds to exceed zero: calibrated-minus-fixed and calibrated-minus-
+retained-parent at both seeds. Full trajectory/optimizer/statistics audit and
+summary are queued. No outcome-based retuning or endpoint selection. The
+sampling change also affects entropy/gradient scale, so this does not isolate
+visitation alone. The calibration itself is not a new general algorithm.
+
+Study protocol binds 91 inputs, SHA
+b9075ac261ce6a3e681a64fa7845f031850ef20fba60f618435b3ad108a74d19;
+it matches the prelaunch receipt. Original producer tool handle was lost,
+but actual driver PID59656 (launcher54836) is live. At the current snapshot,
+seed1_fixed is training (worker20924, launcher18484); no evaluation is complete.
+Finalizer session64818 / PID36936 (launcher36764) is waiting; its eight-input
+protocol SHA f6180c6f94acadb02d7f907f1d145df24577189cf50d429b532bf6a41c7c6f87.
+Inspect process/finish_process and actual OS processes before any continuation;
+never start duplicate workers or overwrite this directory. All study-bound
+code, tests, XML and design are now frozen.
+
+New checks: four adapter tests pass (actual CUDA included), three evaluation/
+analysis tests pass, and three independent-auditor tests pass, all zero skips.
+The auditor tests cover paired-seat cancellation, primary failure despite
+point gains, per-head Adam counters and corruption rejection. Independent
+optimizer inspection also passes actual initial/warm20/update100 checkpoints.
+No new replicated improvement has yet been established. Canonical human-play
+model, dealer, reserved101M and the latest verified paper/PDF are unchanged.
+
 **Renewed-chance comparison independently complete:** allfour520-update arms,
 40,960matches and full replay/statistics audit pass. Producer58904/queue65372
 are gone;queue37463 exits0. The predeclared strength,public-memory and interaction
@@ -114,7 +159,7 @@ is adopted. Receipt f87983c730d115b56efb27746c037da81141fd35153ce29548ca71e64425
 binds 257 inputs, with zero new simulation. The return identity and game-planning
 variance reduction are prior work. This route is not prioritized for learning.
 
-**Next stronger-play work: phase-specific exploration.** Existing original-WP
+**Completed calibration underlying the live comparison.** Existing original-WP
 scores on old random-policy public states show much more deterministic koi/stop
 sampling than discard at common temperature 0.05. A score-only calibration on
 75 whole source matches sets koi temperature 0.21989584747027907 to match the
@@ -125,12 +170,10 @@ or strength. No outcome labels enter calibration. [Details](PHASE_EXPLORATION_CA
 Receipt d191ca3bafe0c3bb1f268f612a3dfb80f2223dc97292ed87d0571c6024487e0a;
 two analytical tests pass, zero skips, 1.23s; no neural calls or simulation.
 
-Implement an isolated training adapter and identical-temperature control next,
-verify gradients/warmup/exact resume/strict greedy evaluation, then freeze a
-bounded two-seed learning comparison before training. The old warm/cold study
-changed LR as well as temperature, so it does not resolve this hypothesis.
-There are no live jobs. Canonical model, dealer and verified renewal PDF remain
-unchanged. Keep 101M unused and do not describe any new replicated strength gain.
+The isolated adapter and matched comparison are now implemented, verified and
+running as described above. The old warm/cold study changed LR as well as
+temperature, so it does not resolve this hypothesis. Keep 101M unused and do not
+describe any new replicated strength gain before completed evaluation/audit.
 
 **Fixed-root multi-round comparison independently complete:** producer46255
 and audit96354 exited0. All24,576 strict matches and all18 contrasts reproduce.
@@ -485,11 +528,9 @@ artifact publication has been performed.
 Use `.venv/Scripts/python.exe` (Python3.12/Torch2.12+cu130/NumPy2.5.4),not system
 Python3.14. CPU Ryzen9900X,GPU RTX5070Ti16GB. Read PowerShell text explicitly as
 UTF8;preserve existing endings,new files UTF8 without BOM/LF. No subagents.
-Live research jobs at this snapshot:producer46255,audit queue96354,and
-renewal capability queue OS PID36420(launcher63668),and renewal study queue
-37463(OS PID65372,launcher26672). The producer and audit
-actual Python PIDs are10804 and32056 respectively. Confirm processes/receipts
-before treating these handles as live later;do not duplicate their work.
+Live work is the koi-temperature study and its waiting finalizer described
+at the top. Renewal, posterior-search and boundary-residual jobs are complete.
+Their old process handles are historical; never restart their directories.
 
 Keep full matches,rounds,decisions,conditional continuations and verification
 replay separate. Policies must not read hidden hands,stock order,RNG or future
