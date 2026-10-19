@@ -3,22 +3,26 @@ Manuscript working files
 
 This is an English research manuscript, not a submitted or published paper.
 
-Current verified revision: 29 pages, 31 cited references, 145-word Abstract.
-Abstract and Introduction lead with the measured terminal-match adaptation
-and the exact critic-conditioning counterexample. Related Work covers earlier
-Koi-Koi systems, self-play, opponent inference, guided starting states, critic
-information and temporal abstraction. The manuscript includes the completed
-return, public-seat and public-memory comparisons, including renewed training
-deals; these comparisons do not establish a replicated additional win gain.
-Latest QA: runs/manuscript_renewal_qa.json. Current PDF: output/pdf/manuscript.pdf,
-SHA256 ea8073cbd5197820fb6f737055eb324adea49f0907f1f4eb325a103b074a9e6b.
+Current verified revision: 32 pages, 34 cited references, 159-word Abstract.
+Abstract and Introduction lead with terminal-match adaptation, the exact
+critic-conditioning counterexample and reconstruction from public history.
+Related Work covers Koi-Koi systems, action-score adaptation and exploration,
+self-play, opponent inference, critic information, temporal abstraction,
+search and policy composition. The completed longer-adaptation comparison
+appears in Section 6.2; it improves mixture point margins at both new seeds
+but does not establish replicated additional win improvement.
+Latest QA: runs/manuscript_opening_20261020_qa.json.
+Current PDF: output/pdf/manuscript.pdf, SHA256
+9fa85305854cb052edbc6d7320f5cbdb2f4875295851ac39e708150d25b25c1f.
 
-The newer exact-hand/search, boundary-residual and koi-temperature work is
-tracked in docs/STATUS.md. The temperature comparison is still running and
-has no completed strength result in this manuscript. The original archive and
-intermediate PDFs remain preserved. Sections below the build/source instructions
-record earlier revision milestones; their page counts and formerly active
-processes are historical, not the current manuscript or live-job inventory.
+The Point-initialization comparison has completed training and is undergoing
+its fixed main evaluation. Its final-policy probability diagnostic is complete;
+neither supplies a completed main strength result yet. Current experiment
+status and the other completed follow-ups are recorded in docs/STATUS.md.
+The original archive and intermediate PDFs remain preserved. Sections below
+the build/source instructions record earlier revision milestones; their page
+counts and formerly active processes are historical, not the current manuscript
+or live-job inventory.
 The final two-model/two-comparator evaluation and isolated latency measurement
 are complete and independently audited. Both selected models clear the fixed
 RL-WP win criterion; the separate RL-Point criterion does not replicate, and
