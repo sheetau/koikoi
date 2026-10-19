@@ -11,102 +11,73 @@ Old process handles mentioned in that history are historical, not live jobs.
 
 ## Current experiment and next actions
 
-**All koi-temperature learners complete; full evaluation is running.**
-The frozen comparison trains from original released WP with two matched seeds,
-each at common0.05 and calibrated-koi0.21989584747027907. Every arm completes
-20 critic-only +500 policy updates,8,519,680 decisions. Learning rates,actor
-architecture,returns and budgets are fixed. [Design](KOI_TEMPERATURE_STUDY.rst).
+**Koi-temperature comparison independently complete; improvement criterion fails.**
+All four520-update learners and all49,152 full matches finish. Finalizer
+session64818 exits0 after the complete training-state,recorded-action and
+statistics audit. Producer59656,evaluation workers58596/61292/60952 and
+finalizer36936 are gone. No live job remains in this study;never restart it.
+[All results](KOI_TEMPERATURE_RESULTS.rst).
 
-| Learner | Training round endings | Training matches | Final checkpoint SHA256 |
-| --- | --- | --- | --- |
-| seed1_fixed | 571,167 | 73,290 | e9c63e565982472994643625e4ef3bd574e97e54a125b157148818f54b95b156 |
-| seed1_calibrated | 571,529 | 73,374 | 9de43715d4b1805c45d8519d21dfb5b78ff15eb9c0524a927059220229e6ea4e |
-| seed2_fixed | 571,267 | 73,479 | 08a1293b6c560bf79b389b5d6ebcaf973f17e1cb8250592131c82f615f79d94c |
-| seed2_calibrated | 571,735 | 73,381 | 63003ace347d45af56adee6d85d9be4f7206da994c053c9c30a28e971fad84f9 |
+Primary mixture-win changes,percentage points with95% paired intervals:
 
-All saved stages and metric rows pass early independent training checks:
-original-WP ancestry,unchanged warmup actor,later actor changes,finite weights
-and Adam,correct counters and final520/final.pt identity. At each seed,fixed and
-calibrated initial actor,critic,Adam,environment,all RNG and runtime match;
-configs differ only in koi_temperature. Each value optimizer has49,920 steps,
-each actor head48,000. Four-arm totals:34,078,720 decisions /2,285,698 round
-endings /293,524 training matches. Warmup is included:1,310,720 decisions /
-88,244 rounds /11,088 matches. These counters are not evaluation or independent
-unique-deal counts. Early checks add0 neural calls or training replay.
+| Learner | Calibrated minus fixed | Calibrated minus retained parent |
+| --- | --- | --- |
+| seed1 | -0.1953 [-1.1108,+0.7446] | +0.0122 [-0.8972,+0.9094] |
+| seed2 | -0.7751 [-1.7274,+0.1770] | -0.7202 [-1.5991,+0.1588] |
 
-Early audit SHA256,under each arm's early_training_audit.json:
-seed1_fixed d7b87fcd5ca952a2c549c14c75b1e6b7cd26c6da91e32402a194e82a25a53f70;
-seed1_calibrated3669edfb5650d60dbae8ca584a23306e81fc04d62c6593f4d0d887023b8940c3;
-seed2_fixed e9d906190b32d9008cc0dcc6eda5023080a5a1cadbba2c0b1a6bc42d8e69498c;
-seed2_calibrated ea27afc48bd421111bcedab3b7447d4537a40eaa05b9d8c7b974710da1f6d019.
-They bind107/106/107/106 inputs. Full study audit remains required after matches.
+All18 paired win-change intervals contain zero. Four secondary point-change
+intervals exclude zero;these do not replace the failed primary criterion.
+No checkpoint or temperature is reranked,extended or promoted. Reserved101M
+confirmation deals and the canonical human-play agent remain unchanged.
 
-The four new policies plus retained A/B each face assisted WP/Point at both
-seats on2,048 duplicate pairs per opponent:49,152 full matches on4,096 shared
-97M development deal streams. Primary criterion requires allfour mixture-win
-lower bounds positive: calibrated-minus-fixed and-minus-retained-parent at
-both training seeds. Every18 contrast and18 absolute result remains in scope.
-Do not retune,extend,select a checkpoint or infer strength from partial outcomes.
+Training:34,078,720 decisions /2,285,698 round endings /293,524 matches,
+including20 critic-only+500 policy updates per arm. Warmup is included:
+1,310,720 decisions /88,244 round endings /11,088 matches. Evaluation:
+5,706,119 decisions /383,234 rounds /49,152 full matches on4,096 shared97M
+deal streams. Replay repeats those evaluation events;it adds no independent
+matches or neural action selection. All saved training stages and both
+within-seed initial-state/RNG matches pass. No training replay is claimed.
 
-Study protocol b9075ac261ce6a3e681a64fa7845f031850ef20fba60f618435b3ad108a74d19
-binds91 inputs. Actual driver59656 (launcher54836) remains live; its original
-tool handle was lost. All training workers are gone. Strict CPU evaluation
-workers58596,61292,60952 are live at this snapshot. Finalizer session64818 /
-PID36936 (launcher36764) waits for all matches,then replays every recorded action,
-checks all training states and statistics,and writes one complete summary.
-Finalizer protocol f6180c6f94acadb02d7f907f1d145df24577189cf50d429b532bf6a41c7c6f87.
-Confirm OS processes and receipts before continuing;never restart this directory.
+Protocol b9075ac261ce6a3e681a64fa7845f031850ef20fba60f618435b3ad108a74d19
+binds91 inputs. Independent audit
+c1c89bf669f48490b51a40e6cebb35cf88a115b232fa95c6fe9f0ae1be625b45
+binds169;summary247a230efbb275f58658be6f89c6a789fa9cc9c4b4c26ad2de43673c21b9e26a
+binds171. Preserve runs/koi_temperature_study and completed finalizer receipts.
 
-**Final-policy mechanism diagnostic independently complete:** queue session10737
-exits0;formerPID13764/launcher9832 are gone. Seven policies receive the same
-3,045 old unforced validation inputs and481 unforced saved final snapshots.
-Producer adds24,682 singleton CPU neural calls,0 simulator steps/matches/updates.
-Independent scalar/population/native-mask/recorded-score-argmax verification
-passes,with0 new neural calls. It does not rerun network predictions.
-[All koi findings and scope](KOI_TEMPERATURE_MECHANISM_RESULTS.rst).
+The guarded exporter runs once after finalizer completion,with the explicitly
+pinned audit hash. runs/koi_temperature_results contains all18 absolute rows,
+all18 contrasts and the four primary rows,with unrounded CSV and readable RST.
+Export evidencee24777f4ac07c4cf32955a170902aea789c56ae960d43ea609c3fdbb57cb7877
+binds174 inputs. Every exported CSV identity/value and output hash agrees with
+the completed summary. This is presentation verification,not another analysis.
+Four exporter tests pass0 skips;capability and earlier heading correction are
+recorded in EXPERIMENTS.md. Do not overwrite completed exports.
 
-On215 common validation koi states,the calibrated final models have normalized
-entropy0.253215/0.253104 at their declared temperature,versus0.200316/0.165775
-for matched controls. Their raw score gaps grow to1.462182/1.388870 versus
-0.590015/0.618418. Applying the already-fixed calibrated temperature to original
-stored scores gives0.446049: learning partly offsets the initial probability
-change. Greedy koi changes against originalWP are17/24 for calibrated versus
-20/22 for fixed. Snapshot results use just39 koi states. These descriptive
-probability/action effects do not establish stronger play or isolate visitation
-from gradient rescaling. No parameter or player is selected from them.
+**Final-policy mechanism diagnostic independently complete:**
+Seven policies score3,045 old unforced validation inputs and481 unforced final
+snapshots,adding24,682 singleton CPU calls and0 simulator steps or updates.
+Independent population/mask/scalar verification passes with0 new neural calls;
+it does not rerun the networks. [Findings](KOI_TEMPERATURE_MECHANISM_RESULTS.rst).
+On215 common validation koi states,declared-temperature normalized entropy is
+0.253215/0.253104 for calibrated versus0.200316/0.165775 for fixed controls.
+Raw score gaps are1.462182/1.388870 versus0.590015/0.618418. Greedy changes
+against originalWP are17/24 versus20/22. Those probability/score effects did
+not establish a match-win gain. Snapshot koi results contain only39 states.
 
 Mechanism protocol a25292a03b0d343870fd2e3b3c829bd2834aa41a3cdf6f467bb6877fd571c941;
 report ad65e505430c175d78a51e32455f2be43824d18158be2ee1dd482f4ae22b04c4;
-scores f548966b5560d312568987c84da63df63d760ab28b3bda9733285cd5bbd90b79;
 audit bcda39c6f5abef07a79332676a33df841cd344072aff9a27966bd50b985ae214.
-Bindings98/108/113 for protocol/report/audit. Preserve these completed outputs.
-The separate old-calibration scalar check also passes all16 groups,receipt
-c094bc5039ace2d0c46104b17757c1eda4cff40ff4c39c31fd780c53caafb3d8.
+Bindings98/108/113. Preserve these completed outputs. The focused
+KOI_TEMPERATURE_PRIOR_ART.rst adds primary policy-distillation,discrete-SAC and
+target-entropy literature and a concise candidate Related Work paragraph.
+No new general algorithm claim follows from adjusting temperature.
 
-Implementation checks already pass:4 adapter tests (actual CUDA included),
-3 study tests,3 full-study-auditor tests,2 mechanism tests and2 scalar-auditor
-tests,all0 skips. Production-size warmup/update/exact-resume capability also
-passes; its corrected independent audit is
-0f37f1c43a10082bbbf6f892a1d28341e528c657751fb47332fa3825e1f7d0f1.
-Earlier checker failure and all capability/replay work are preserved in
-EXPERIMENTS.md. No new replicated strength gain is established yet. Canonical
-human player,initial dealer,reserved101M and verified manuscript/PDF are unchanged.
-
-Completed-result presentation is prepared in
-scripts/export_koi_temperature_results.py. It requires the completed finalizer,
-an explicitly pinned independent-audit hash and unchanged dependencies. It
-exports all18 absolute rows/all18 contrasts,including the four primary rows,
-as readable RST and unrounded CSV;it adds no analysis,simulation or selection.
-Four targeted tests pass with0 skips;the actual live-study export is rejected
-without creating an output directory. Final capability receipt
-50c1b92b58d5c9b66d3d51391f9e72922d6e346ffbe0c5a38b377d48194e86fa.
-After finalizer completion,inspect and pin the audit SHA before exporting into
-a fresh runs/koi_temperature_results directory. No final results exported yet.
-A focused literature note,KOI_TEMPERATURE_PRIOR_ART.rst,adds primary sources
-on policy distillation,discrete SAC and target-entropy annealing. It supplies
-a concise integration paragraph and distinguishes the present fixed-head PPO
-intervention from those established methods. It does not change the bound
-mechanism design,current experiment or verified manuscript/PDF.
+**Next research action:** the current comparison is closed. Select a further
+improvement from the completed evidence and define a separate diagnostic before
+starting new training. Additional replicated strength and a stronger research
+contribution remain unachieved. The verified manuscript/PDF have not yet been
+changed to include this new negative result;integrate it concisely with the
+next substantive revision. Do not redeliver the unchanged PDF.
 
 **Renewed-chance comparison independently complete:** allfour520-update arms,
 40,960matches and full replay/statistics audit pass. Producer58904/queue65372
@@ -580,9 +551,9 @@ artifact publication has been performed.
 Use `.venv/Scripts/python.exe` (Python3.12/Torch2.12+cu130/NumPy2.5.4),not system
 Python3.14. CPU Ryzen9900X,GPU RTX5070Ti16GB. Read PowerShell text explicitly as
 UTF8;preserve existing endings,new files UTF8 without BOM/LF. No subagents.
-Live work is the koi-temperature study and its waiting finalizer described
-at the top. Renewal, posterior-search and boundary-residual jobs are complete.
-Their old process handles are historical; never restart their directories.
+The koi-temperature study and its finalizer are complete,as are renewal,
+posterior-search and boundary-residual jobs. No live job is retained here.
+Their old process handles are historical;never restart their directories.
 
 Keep full matches,rounds,decisions,conditional continuations and verification
 replay separate. Policies must not read hidden hands,stock order,RNG or future

@@ -5168,3 +5168,73 @@ It does not alter frozen mechanism/protocol files or the verified manuscript,
 bibliography and PDF. Integrate the relevant references with the completed
 result rather than delivering an unchanged PDF or implying a measured gain.
 The stronger-play objective remains active.
+
+## 2026-10-19: temperature comparison fully evaluated and independently verified
+
+The preceding goal turns were verified waits: specific OS PIDs remained live,
+CPU time and complete serialized match rows advanced. All12 cells finish4096
+matches each. Producer59656 and workers58596/61292/60952 disappear;finalizer
+36936/session64818 enters audit automatically,replays all12 cells and exits0.
+finish_process.json is complete. No worker was restarted or budget changed.
+
+The independent audit passes all saved training states,original initialization,
+matched within-seed RNG/environment/optimizer starts,warmup stationarity,
+finite weights/Adam and complete metric/counter schedules. It then replays every
+recorded actual action and terminal result and independently recomputes the
+paired statistics. The computed analysis agrees with production analysis.
+It does not rerun training or the neural selection of recorded actions.
+Audit SHA c1c89bf669f48490b51a40e6cebb35cf88a115b232fa95c6fe9f0ae1be625b45
+binds169 inputs;summary SHA
+247a230efbb275f58658be6f89c6a789fa9cc9c4b4c26ad2de43673c21b9e26a binds171.
+
+Primary balanced-opponent mixture win changes,percentage points and95% CI:
+
+| Seed | Calibrated minus fixed | Calibrated minus retained parent |
+| --- | --- | --- |
+| 1 | -0.1953 [-1.1108,+0.7446] | +0.0122 [-0.8972,+0.9094] |
+| 2 | -0.7751 [-1.7274,+0.1770] | -0.7202 [-1.5991,+0.1588] |
+
+Allfour primary lower bounds fail. All18 paired win intervals contain zero.
+Four secondary point-change intervals exclude zero:seed1 mixture calibrated-
+fixed -0.9392[-1.4751,-0.3933],seed1 WP calibrated-fixed -1.1792[-1.9151,-0.4185],
+seed1 WP fixed-parent +0.8911[+0.1650,+1.6011],seed2 WP fixed-parent
+-0.9136[-1.6841,-0.1465]. These marginal secondary findings do not qualify the
+method. Every evaluated policy has a negative absolute Point-margin interval.
+No equivalence or universal ineffectiveness is inferred from intervals crossing
+zero. No checkpoint reranking,sample extension,temperature retuning,promotion
+or use of reserved101M confirmation deals occurs.
+
+Training totals34,078,720 decisions /2,285,698 round endings /293,524 matches
+include warmup. Evaluation5,706,119 decisions /383,234 rounds /49,152 matches
+uses4,096 shared97Mdeal streams. Recorded-action verification repeats those
+same evaluation events and adds zero independent matches or neural calls.
+All per-arm and per-cell work remains in the audit/summary. Finalizer summary
+runs exactly once after verification;completed study outputs are preserved.
+
+Command:
+`.venv/Scripts/python.exe -m scripts.export_koi_temperature_results --output
+runs/koi_temperature_results --audit-sha256
+c1c89bf669f48490b51a40e6cebb35cf88a115b232fa95c6fe9f0ae1be625b45`.
+The exporter exits0,verifies all current dependencies,and emits all18 absolute
+rows/all18 contrasts/four primary rows. Export evidence
+ e24777f4ac07c4cf32955a170902aea789c56ae960d43ea609c3fdbb57cb7877 binds174 inputs.
+RST75c061c367e0609e9f7a35d325c4a7bf0c9b3800cf8e64b93c513168dfc1f1c9;
+absoluteCSV58db4ea686aef3af12bb0861b317fddfdb405087a0aa3dc9dd274c9780935629;
+contrastCSV265e81332d0991195781085ddfe8f88af587c486fb32a7c16cbabcc07f9a366b.
+A separate stdlib CSV read compares every row identity,mean and interval with
+the completed summary;all agree exactly,as do every exported-file hash.
+This is presentation verification,not new statistical or trajectory evidence.
+
+Added docs/KOI_TEMPERATURE_RESULTS.rst with complete tables,scope and identifiers.
+Updated the mechanism-result document to refer to the completed negative
+comparison rather than say strength evaluation is pending. The higher declared
+koi entropy and learned score-gap growth are real descriptive effects on the
+recorded common populations;they did not establish the requested playing gain.
+The original frozen study/mechanism protocol files and result artifacts remain
+unchanged. STATUS now closes these jobs and preserves historical handles.
+
+The active stronger-play/research goal is not achieved. This fixed intervention
+is closed;future methods need a separate diagnostic/design and fresh development
+comparison. The canonical player,dealer and verified manuscript/PDF remain
+unchanged. Integrate this completed result concisely with the next substantive
+paper revision;do not redeliver the old PDF or call this a new general algorithm.

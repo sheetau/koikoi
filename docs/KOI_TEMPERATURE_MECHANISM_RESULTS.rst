@@ -1,8 +1,9 @@
 Final-policy temperature diagnostic
-==================================
+===================================
 
 All four learners completed the fixed 520-update budget. Their full-match
-strength evaluation is still running. This diagnostic describes how their
+comparison is now independently complete and fails its replicated improvement
+criterion (KOI_TEMPERATURE_RESULTS.rst). This diagnostic describes how their
 scores and greedy choices differ on common public inputs.
 
 The seven evaluated policies are original WP, retained A/B, and the two fixed
@@ -14,7 +15,7 @@ update; they are not a fresh rollout of the final policy. These populations
 are descriptive and do not estimate complete training/deployment visitation.
 
 Koi/stop on common old validation states
----------------------------------------
+----------------------------------------
 
 There are 215 unforced koi decisions. Entropy below is normalized by log(2).
 ``H common`` applies temperature 0.05 to every model. ``H declared`` uses each
@@ -93,6 +94,7 @@ steps and does not independently rerun the score networks. All checks pass.
 Files reside in runs/koi_temperature_mechanism. Preserve completed receipts.
 This establishes a probability/score effect on the declared common populations.
 It supplies no win-rate result and does not isolate visitation from gradient
-rescaling. The frozen 49,152-match comparison must determine whether the
-intervention improves playing strength. No model or temperature is selected
-from this diagnostic; the canonical human-play player remains unchanged.
+rescaling. The completed 49,152-match comparison finds no paired win-change
+interval excluding zero. The probability/score effects here therefore did not
+establish stronger play. No model or temperature is selected from this
+diagnostic; the canonical human-play player remains unchanged.
