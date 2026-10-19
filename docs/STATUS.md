@@ -35,6 +35,10 @@ all5,753 prefix records must exactly match repeated neural inference before
 the recovered study can complete. Their667,309decisions/44,637round endings
 are additional recorded duplicate work,not additional independent evidence.
 Unrecorded in-flight work is unknown. No partial outcomes inspected or selected.
+Both preserved prefixes now match repeated inference exactly:all5,753 rows.
+Receipt runs/published_duration_evaluation_recovery/preserved_prefix_check.json
+SHA4f761afdbe1344f05d7b2b3c51abb0c1e159b7a4b7bd49bb17346305a4319fa5.
+This checks prefix identity only;the remaining cells and full audit are pending.
 
 Recovery implementation:scripts/recover_published_duration.py. Four tests pass
 0skips,including malformed/changed prefix refusal,non-overwriting receipts,

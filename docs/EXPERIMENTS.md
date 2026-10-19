@@ -5988,3 +5988,24 @@ Next wait for recovery completion and full audit,then invoke:
 
 Use a fresh output directory and the actual completed audit SHA. Strength,
 prospective confirmation,model promotion and the broader objective remain open.
+
+## 2026-10-20: all preserved recovery prefixes match repeated inference
+
+The live recovery outputs now include both complete original prefixes. Binary
+comparison verifies all3,200short WP rows and2,553short Point rows exactly,
+including recorded actions,endpoints and metadata. The original source bytes
+still match the pinned recovery manifest. Prefix SHA256 values:
+WP307c5748d976ac700101d87b8faffe4aa3ee913be6e111fa4672d2065385dfce;
+Point4a8362496b22b8060871afb858aeecc8c3567a0fac8de988f8ba01c67680c540.
+New exclusive receipt:
+runs/published_duration_evaluation_recovery/preserved_prefix_check.json
+SHA4f761afdbe1344f05d7b2b3c51abb0c1e159b7a4b7bd49bb17346305a4319fa5.
+
+The receipt binds the recovery protocol and old files,and identifies only the
+verified byte ranges of growing recovery files. It does not freeze their future
+suffixes. This comparison adds0inference calls or matches;the rerun work is
+already recorded separately as5,753duplicate matches/667,309decisions/44,637round
+endings. No win/point means inspected,no model selection. Recovery54664 and
+workers16776/60244 remain OS-live. The driver repeats this identity check after
+all cells finish,before the full native replay/statistics audit. That audit and
+the strength conclusion remain pending;the broader objective is unachieved.
