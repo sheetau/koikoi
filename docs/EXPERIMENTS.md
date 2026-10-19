@@ -5023,3 +5023,64 @@ training endpoints. Independent full match/statistical audit follows evaluation;
 run the separate mechanism scalar auditor once its scorer completes. Canonical
 human-play model,dealer,reserved101M and verified manuscript/PDF are unchanged.
 The stronger-play/novelty objective remains active and unachieved.
+
+## 2026-10-19: all temperature training complete; mechanism diagnostic verified
+
+Previous goal turn was progress: completed/audited seed2_fixed and matched the
+last learner's initial state. Repeated verified OS/log waits now observe final
+worker25144/launcher5464 finish and disappear. Driver59656 starts three strict
+CPU evaluation workers58596/61292/60952. Finalizer36936/session64818 remains
+waiting for the full evaluation. No restart,tuning or intermediate evaluation.
+
+seed2_calibrated completes520 updates:8519680decisions,571735round endings,
+73381training matches. Warmup20:327680decisions,22048rounds,2773matches. ValueAdam
+49920 andeveryactorhead48000. Final checkpoint
+63003ace347d45af56adee6d85d9be4f7206da994c053c9c30a28e971fad84f9.
+Independent audit_arm passes every saved stage and520 log rows,original-WP
+ancestry,warmup stationarity,laterheadchanges,finiteweights/Adam and exact
+final520/final.pt identity. Receipt seed2_calibrated/early_training_audit.json
+binds106inputs,SHAea27afc48bd421111bcedab3b7447d4537a40eaa05b9d8c7b974710da1f6d019.
+No new neural calls or learning replay. Four-arm totals34078720decisions/
+2285698roundendings/293524trainingmatches; warmupincluded1310720decisions/
+88244rounds/11088matches. These are accounting events,not independent deals.
+
+The frozen evaluation begins after allfour endpoints,as specified. Only row
+counts were monitored; partial outcomes have not selected anything. Total49152
+matches on4096shared97Mdeals remain the fixed budget. Complete raw trajectory
+replay,training/statistics audit andsummary remain queued;no strength conclusion.
+
+The one-shot mechanism queue runs automatically,then session10737 exits0 and
+PID13764/launcher9832 disappear. Seven policies each score3526common unforced
+inputs:3045old-validation +481pooledfinal-snapshot rows. Total24682singleton CPU
+calls,0newmatches,simulatorsteps orupdates. Oldpublicfeatures,masks,guards match
+oracle records. Producer reportad65e505430c175d78a51e32455f2be43824d18158be2ee1dd482f4ae22b04c4
+binds108inputs; rawscoresf548966b5560d312568987c84da63df63d760ab28b3bda9733285cd5bbd90b79.
+
+Command `python -m scripts.audit_koi_temperature_mechanism --output
+runs/koi_temperature_mechanism` passes,binds113inputs,audit
+bcda39c6f5abef07a79332676a33df841cd344072aff9a27966bd50b985ae214.
+It independently verifies all7models x6populations x4phases,population selection,
+nativepublicmasks/guards,recordedfloat32argmax and scalarstatistics/work. It adds
+0neuralcalls/steps anddoesnotrerun neuralpredictions. Do not overwrite/rerun the
+completed directory. Full scope/tables in KOI_TEMPERATURE_MECHANISM_RESULTS.rst.
+
+On215oldvalidationkoistates,calibratedfinal normalizedentropy at declaredT is
+0.253215/0.253104 versusfixed0.200316/0.165775. Rawgap1.462182/1.388870 versus
+fixed0.590015/0.618418. A further scalar application of the already-fixedT to
+original storedsingleton scores gives0.446049,without new inference orparameter
+selection; learning partly offsets the initial probability change. At common0.05,
+calibratedentropy is0.085556/0.080724. Greedykoichangesfromoriginal are17/24 versus
+fixed20/22;discardchanges293/339 versusfixed346/302 on2578discardstates.
+No uniform increase in changed greedy actions andnoqualityclaim fromcounts.
+
+Pooledsnapshots contain39unforcedkoistates;declaredentropycalibrated0.161931/
+0.201813 versusfixed0.114088/0.079056. Koichanges2/3 versusfixed2/2,allstopto
+continue. Originalstoredscores atcalibratedT give0.362498 inthispopulation.
+The512snapshotsfollowtheprecedingrollout before thefinaloptimizerupdate;
+thesearesmalldescriptivepopulations,notcompletevisitationorindependentCI samples.
+Temperature also rescales gradients; no mediation/newgeneralalgorithm claim.
+
+STATUS current block was consolidated to completed-training and live-evaluation
+facts; detailed earlier receipts remain here. No manuscript/PDF change orcanonical
+promotion. Objective remains active; await all paired outcomes and independent
+fullstudyverification before judging playing strength or a confirmation design.

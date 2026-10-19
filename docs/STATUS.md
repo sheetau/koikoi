@@ -11,123 +11,86 @@ Old process handles mentioned in that history are historical, not live jobs.
 
 ## Current experiment and next actions
 
-**Koi-temperature comparison is running:** four original-WP initializations,
-two matched seeds x common-temperature/calibrated-koi conditions, each with
-20 critic-only + 500 policy updates. Learning rates, architecture, returns and
-budgets are fixed; only koi temperature differs within each seed. Deployment
-uses the original greedy singleton CPU path. [Frozen design](KOI_TEMPERATURE_STUDY.rst).
+**All koi-temperature learners complete; full evaluation is running.**
+The frozen comparison trains from original released WP with two matched seeds,
+each at common0.05 and calibrated-koi0.21989584747027907. Every arm completes
+20 critic-only +500 policy updates,8,519,680 decisions. Learning rates,actor
+architecture,returns and budgets are fixed. [Design](KOI_TEMPERATURE_STUDY.rst).
 
-Production-size capability and independent saved-state audit pass: matched
-initial weights/critic/Adam/environment/RNG, stationary warmup actor, later
-actor updates and exact resumed update22. Corrected capability has 720,896
-logical training decisions / 48,508 rounds / 6,093 matches; replay adds 32,768
-decisions / 2,217 rounds / 291 matches. Earlier checker failure is preserved
-separately: its fixed arm trained 360,448 decisions / 24,254 rounds / 3,052
-matches before a metadata-iteration error; calibrated training had not started.
-This is execution capability, not strength evidence. Independent capability SHA
+| Learner | Training round endings | Training matches | Final checkpoint SHA256 |
+| --- | --- | --- | --- |
+| seed1_fixed | 571,167 | 73,290 | e9c63e565982472994643625e4ef3bd574e97e54a125b157148818f54b95b156 |
+| seed1_calibrated | 571,529 | 73,374 | 9de43715d4b1805c45d8519d21dfb5b78ff15eb9c0524a927059220229e6ea4e |
+| seed2_fixed | 571,267 | 73,479 | 08a1293b6c560bf79b389b5d6ebcaf973f17e1cb8250592131c82f615f79d94c |
+| seed2_calibrated | 571,735 | 73,381 | 63003ace347d45af56adee6d85d9be4f7206da994c053c9c30a28e971fad84f9 |
+
+All saved stages and metric rows pass early independent training checks:
+original-WP ancestry,unchanged warmup actor,later actor changes,finite weights
+and Adam,correct counters and final520/final.pt identity. At each seed,fixed and
+calibrated initial actor,critic,Adam,environment,all RNG and runtime match;
+configs differ only in koi_temperature. Each value optimizer has49,920 steps,
+each actor head48,000. Four-arm totals:34,078,720 decisions /2,285,698 round
+endings /293,524 training matches. Warmup is included:1,310,720 decisions /
+88,244 rounds /11,088 matches. These counters are not evaluation or independent
+unique-deal counts. Early checks add0 neural calls or training replay.
+
+Early audit SHA256,under each arm's early_training_audit.json:
+seed1_fixed d7b87fcd5ca952a2c549c14c75b1e6b7cd26c6da91e32402a194e82a25a53f70;
+seed1_calibrated3669edfb5650d60dbae8ca584a23306e81fc04d62c6593f4d0d887023b8940c3;
+seed2_fixed e9d906190b32d9008cc0dcc6eda5023080a5a1cadbba2c0b1a6bc42d8e69498c;
+seed2_calibrated ea27afc48bd421111bcedab3b7447d4537a40eaa05b9d8c7b974710da1f6d019.
+They bind107/106/107/106 inputs. Full study audit remains required after matches.
+
+The four new policies plus retained A/B each face assisted WP/Point at both
+seats on2,048 duplicate pairs per opponent:49,152 full matches on4,096 shared
+97M development deal streams. Primary criterion requires allfour mixture-win
+lower bounds positive: calibrated-minus-fixed and-minus-retained-parent at
+both training seeds. Every18 contrast and18 absolute result remains in scope.
+Do not retune,extend,select a checkpoint or infer strength from partial outcomes.
+
+Study protocol b9075ac261ce6a3e681a64fa7845f031850ef20fba60f618435b3ad108a74d19
+binds91 inputs. Actual driver59656 (launcher54836) remains live; its original
+tool handle was lost. All training workers are gone. Strict CPU evaluation
+workers58596,61292,60952 are live at this snapshot. Finalizer session64818 /
+PID36936 (launcher36764) waits for all matches,then replays every recorded action,
+checks all training states and statistics,and writes one complete summary.
+Finalizer protocol f6180c6f94acadb02d7f907f1d145df24577189cf50d429b532bf6a41c7c6f87.
+Confirm OS processes and receipts before continuing;never restart this directory.
+
+**Final-policy mechanism diagnostic independently complete:** queue session10737
+exits0;formerPID13764/launcher9832 are gone. Seven policies receive the same
+3,045 old unforced validation inputs and481 unforced saved final snapshots.
+Producer adds24,682 singleton CPU neural calls,0 simulator steps/matches/updates.
+Independent scalar/population/native-mask/recorded-score-argmax verification
+passes,with0 new neural calls. It does not rerun network predictions.
+[All koi findings and scope](KOI_TEMPERATURE_MECHANISM_RESULTS.rst).
+
+On215 common validation koi states,the calibrated final models have normalized
+entropy0.253215/0.253104 at their declared temperature,versus0.200316/0.165775
+for matched controls. Their raw score gaps grow to1.462182/1.388870 versus
+0.590015/0.618418. Applying the already-fixed calibrated temperature to original
+stored scores gives0.446049: learning partly offsets the initial probability
+change. Greedy koi changes against originalWP are17/24 for calibrated versus
+20/22 for fixed. Snapshot results use just39 koi states. These descriptive
+probability/action effects do not establish stronger play or isolate visitation
+from gradient rescaling. No parameter or player is selected from them.
+
+Mechanism protocol a25292a03b0d343870fd2e3b3c829bd2834aa41a3cdf6f467bb6877fd571c941;
+report ad65e505430c175d78a51e32455f2be43824d18158be2ee1dd482f4ae22b04c4;
+scores f548966b5560d312568987c84da63df63d760ab28b3bda9733285cd5bbd90b79;
+audit bcda39c6f5abef07a79332676a33df841cd344072aff9a27966bd50b985ae214.
+Bindings98/108/113 for protocol/report/audit. Preserve these completed outputs.
+The separate old-calibration scalar check also passes all16 groups,receipt
+c094bc5039ace2d0c46104b17757c1eda4cff40ff4c39c31fd780c53caafb3d8.
+
+Implementation checks already pass:4 adapter tests (actual CUDA included),
+3 study tests,3 full-study-auditor tests,2 mechanism tests and2 scalar-auditor
+tests,all0 skips. Production-size warmup/update/exact-resume capability also
+passes; its corrected independent audit is
 0f37f1c43a10082bbbf6f892a1d28341e528c657751fb47332fa3825e1f7d0f1.
-
-Training uses seeds 96110001 and 96210001, from original released WP rather
-than retained A/B. After all four endpoints finish, evaluate them and A/B on
-2,048 duplicate deals per opponent, both seats: 49,152 full matches on 4,096
-shared development deals (97M). Primary criterion requires all four mixture
-win lower bounds to exceed zero: calibrated-minus-fixed and calibrated-minus-
-retained-parent at both seeds. Full trajectory/optimizer/statistics audit and
-summary are queued. No outcome-based retuning or endpoint selection. The
-sampling change also affects entropy/gradient scale, so this does not isolate
-visitation alone. The calibration itself is not a new general algorithm.
-
-Study protocol binds 91 inputs, SHA
-b9075ac261ce6a3e681a64fa7845f031850ef20fba60f618435b3ad108a74d19;
-it matches the prelaunch receipt. Original producer tool handle was lost,
-but actual driver PID59656 (launcher54836) is live. At the current snapshot,
-seed1_fixed has completed and its worker20924/launcher18484 are gone.
-seed1_calibrated also completes; worker16036/launcher9328 are gone.
-seed2_fixed also completes; worker64436/launcher55036 are gone.
-seed2_calibrated is training (worker25144,launcher5464); no evaluation is complete.
-Finalizer session64818 / PID36936 (launcher36764) is waiting; its eight-input
-protocol SHA f6180c6f94acadb02d7f907f1d145df24577189cf50d429b532bf6a41c7c6f87.
-Inspect process/finish_process and actual OS processes before any continuation;
-never start duplicate workers or overwrite this directory. All study-bound
-code, tests, XML and design are now frozen.
-
-New checks: four adapter tests pass (actual CUDA included), three evaluation/
-analysis tests pass, and three independent-auditor tests pass, all zero skips.
-The auditor tests cover paired-seat cancellation, primary failure despite
-point gains, per-head Adam counters and corruption rejection. Independent
-optimizer inspection also passes actual initial/warm20/update100 checkpoints.
-No new replicated improvement has yet been established. Canonical human-play
-model, dealer, reserved101M and the latest verified paper/PDF are unchanged.
-
-**First endpoint independently checked:** seed1_fixed finishes520 updates,
-8,519,680 decisions /571,167 round endings /73,290 training matches. Warmup20
-accounts for327,680 decisions /22,078 rounds /2,769 matches. Value Adam takes
-49,920 steps; every actor head takes48,000. All saved schedules, finite weights,
-initial original-WP identity, unchanged warmup actor, later actor changes and
-final520/final.pt equality pass. Final checkpoint SHA
- e9c63e565982472994643625e4ef3bd574e97e54a125b157148818f54b95b156.
-
-Early audit d7b87fcd5ca952a2c549c14c75b1e6b7cd26c6da91e32402a194e82a25a53f70
-binds107 inputs at seed1_fixed/early_training_audit.json. It also verifies
-fixed/calibrated initial actor,critic,Adam,environment,counters,all RNG and
-runtime equality; configs differ only in koi_temperature. No forward call or
-new training is performed by this audit. This is training integrity,not playing
-strength. Full final match replay/statistics remains queued after all arms.
-
-**Second endpoint independently checked:** seed1_calibrated finishes520
-updates,8,519,680 decisions /571,529 round endings /73,374 training matches.
-Warmup20:327,680 decisions /22,077 rounds /2,767 matches. Value Adam49,920;
-every actor head48,000. All saved stages,initial ancestry,warmup stationarity,
-later actor changes,finite state and final checkpoint identity pass. Checkpoint
-9de43715d4b1805c45d8519d21dfb5b78ff15eb9c0524a927059220229e6ea4e;
-early audit3669edfb5650d60dbae8ca584a23306e81fc04d62c6593f4d0d887023b8940c3
-binds106 inputs. First paired training seed is complete; the second seed's
-fixed/calibrated training and all strength evaluation remain outstanding.
-
-**Third endpoint independently checked:** seed2_fixed finishes520 updates,
-8,519,680 decisions /571,267 round endings /73,479 training matches. Warmup20:
-327,680 decisions /22,041 rounds /2,779 matches. Value Adam49,920; each actor
-head48,000. All saved stages,original-WP ancestry,warmup stationarity,head
-changes,finite states and final checkpoint identity pass. Checkpoint
-08a1293b6c560bf79b389b5d6ebcaf973f17e1cb8250592131c82f615f79d94c;
-early audite9d906190b32d9008cc0dcc6eda5023080a5a1cadbba2c0b1a6bc42d8e69498c
-binds107 inputs. It also verifies exact fixed/calibrated initial actor,critic,
-Adam,environment,counters,all RNG and runtime at seed2. Only koi_temperature
-differs in config. The fourth learner and all strength evaluation remain pending.
-
-**Final-policy mechanism diagnostic prepared, not run:** seven policies
-(original WP, retained A/B and four final learners) will be scored on common
-public inputs after all four training endpoints complete. One population is
-3,258 observations from25 old validation matches,3,045 unforced; another is
-all512 saved final environment snapshots. The latter were produced by the
-rollout preceding the final optimizer update, not a fresh rollout of the final
-policy. Neither population estimates complete training visitation. Report
-common-temperature and declared-training-temperature probabilities separately
-from greedy changes; no simulation, outcome labels or checkpoint selection.
-[Design and primary-source positioning](KOI_TEMPERATURE_MECHANISM.rst).
-
-Two checks pass,0 skips,2.73s: independent binary entropy / score-rescaling
-counterexample and actual public-feature hidden invariance plus deployment
-action equality on four phase examples. Diagnostic protocol binds98 inputs,
-SHA a25292a03b0d343870fd2e3b3c829bd2834aa41a3cdf6f467bb6877fd571c941.
-Do not edit its bound script,design,tests or XML. A one-shot local queue now
-waits for all four complete.json receipts, then runs the frozen diagnostic:
-session10737,actualPID13764,launcher9832. Source is the ignored local file
-runs/koi_temperature_mechanism_queue.py; queue protocol SHA
-fb9c21fc65153fed0ec07d6d0b99a748af432107492dbbe47258896710555edd.
-Do not launch a duplicate diagnostic. After completion, inspect its raw-score/
-scalar accounting before using findings. Main producer,calibrated worker and
-both waiting queues are live; no strength result is available yet.
-
-The independent mechanism auditor is also ready: `python -m
-scripts.audit_koi_temperature_mechanism --output runs/koi_temperature_mechanism`
-AFTER the scorer completes. It checks every population/phase,public masks and
-guards,recorded-score argmax and scalar probabilities/gaps/changes without
-rerunning neural predictions. Two tests pass,0 skips,1.30s. Independent scalar
-arithmetic matches all16 old calibration groups; receipt
-c094bc5039ace2d0c46104b17757c1eda4cff40ff4c39c31fd780c53caafb3d8
-binds11 inputs and adds0 neural calls/steps. This is an old-data cross-check,
-not the still-pending final-policy diagnostic or any new strength evidence.
+Earlier checker failure and all capability/replay work are preserved in
+EXPERIMENTS.md. No new replicated strength gain is established yet. Canonical
+human player,initial dealer,reserved101M and verified manuscript/PDF are unchanged.
 
 **Renewed-chance comparison independently complete:** allfour520-update arms,
 40,960matches and full replay/statistics audit pass. Producer58904/queue65372
