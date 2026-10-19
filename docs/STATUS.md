@@ -169,19 +169,19 @@ Protocol SHA1df245b6fea1799c0ed9f91518642ccb3d1e4bf9c0f7e682a1208819e609b7e7
 binds187inputs and all12training audits. The16cells use4,096paired deals per
 opponent,131,072planned matches, and the previously fixed bootstrap family.
 Evaluator launcher6284/actual53480 started04:45:17JST and remains live.
-The first ten cells are complete: all four parent1 policies and the retained
-parent2 policy against WP and Point with8,192matches per cell. Completed-cell
-producer totals are81,920matches /9,517,440decisions /635,544round endings.
-The two new retained-parent2 cells add16,384matches /1,906,486decisions /
-127,315round endings. Receipt hashes,raw-file hashes,complete row counts and
-protocol/checkpoint identities agree. This is producer completion,not the later
-native-action/statistics audit or strength evidence. No partial outcome means
-were inspected.
+The first twelve cells are complete: all four parent1 policies and the retained
+parent2 and parent2_wp_fixed policies against WP and Point with8,192matches
+per cell. Completed-cell producer totals are98,304matches /11,421,398decisions /
+762,300round endings. The two new WP-initialized cells add16,384matches /
+1,903,958decisions /126,756round endings. Receipt hashes,raw-file hashes,
+complete row counts and protocol/checkpoint identities agree. This is producer
+completion,not the later native-action/statistics audit or strength evidence.
+No partial outcome means were inspected.
 
-At07:47JST the next workers are OS-live: parent2_wp_fixed_wp
-launcher28856/actual30096(start07:44:07),and parent2_wp_fixed_point
-launcher14912/actual48240(start07:47:09). The preceding workers64892/24976
-have exited,and the parent log records both cell completions. Ten of16cells
+At08:23JST the next workers are OS-live: parent2_point_fixed_wp
+launcher31812/actual53044(start08:19:59),and parent2_point_fixed_point
+launcher30532/actual39900(start08:23:43). The preceding workers30096/48240
+have exited,and the parent log records both cell completions. Twelve of16cells
 are complete; do not rerun them. Later worker IDs are owned by evaluator53480
 and must be rediscovered.
 Monitor evaluation_complete.json/evaluation_failed.json in the evaluation root,
