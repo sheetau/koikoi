@@ -5895,3 +5895,60 @@ or stronger play. No learning-rate/temperature intervention or additional arm
 is selected from this diagnostic. The fixed full evaluation remains the next
 decision gate. No evaluation outcomes inspected;zero new inference calls,
 environment decisions,matches or optimizer updates. Goal remains unachieved.
+
+## 2026-10-20: administrative evaluator failure and preserved-data recovery
+
+The previously live evaluation terminates with PermissionError/WinError5 while
+scripts/run_arbitration_study.write replaces evaluation_process.json.tmp with
+evaluation_process.json. The traceback is preserved in the original queue's
+evaluate.log. Queue session21869 exits1;its process.json is failed. OS inspection
+confirms all original evaluator/queue/workers stopped. The error is a progress
+receipt replacement failure,not a game assertion or a model-selection event.
+Concurrent reader sharing is plausible but not proven. No original source,
+protocol,completed cell,partial row,log or failure receipt was changed.
+
+Recovery runs in a new directory,runs/published_duration_evaluation_recovery.
+The original evaluation protocol is copied byte-for-byte (SHA76e1b6af987e21f4e05e270aaabcd85ee9a89e68621589d1802a3a7543b24f18).
+All eight completed cells are verified and copied byte-for-byte. The four
+incomplete cells are rerun in full by the unchanged original evaluate_cell
+worker,with identical models,threads,greedy choices,deals,seats and schedule.
+No outcomes were inspected. Original saved partial records:short WP3,200
+matches/369,569decisions/24,959round endings;Point2,553/297,740/19,678.
+Neither file has an unterminated tail. All5,753 complete prefix records must
+match the repeated neural inference byte-for-byte before recovered completion.
+Their667,309decisions/44,637round endings are separately counted additional
+duplicate execution,not new independent evidence. Unrecorded interrupted work
+is unknown. The final analysis still uses exactly98,304 scheduled matches.
+
+scripts/recover_published_duration.py uses new exclusive receipts and standard
+worker logs;it does not periodically replace a polled progress file. A held
+original Windows process still live rejects preparation. Existing source and
+queue must both be failed. A source-bound recovery capability is required.
+A second launch refuses the existing start receipt. On worker failure,owned
+live process trees are terminated and logs remain;no automatic retry occurs.
+After all cells,verify copied identity and complete prefix equality,then invoke
+the unchanged full native replay/statistics auditor. Success writes a separate
+recovery_complete.json;the original queue stays failed. A result exporter must
+explicitly support this lineage rather than invent an old successful queue.
+
+Four tests pass0skips in2.06s (XML runs/published_duration_recovery_tests.xml):
+prefix order/corruption/tail handling,receipt preservation,original-live refusal,
+and actual failing-worker cleanup of another owned Windows worker. Ruff passes.
+Actual recovery capability executes original short fixtures against WP and
+Point:8matches/918decisions/64round endings. All saved row bytes exactly equal
+the original capability and every action/endpoint passes native CPU replay.
+Receipt06a1ecac96fb1874f71982424a38173d86acf87590e01c3278c3b5ea6d27872a.
+These are repeated capability deals,not strength evidence.
+
+Executed:
+
+    .venv/Scripts/python.exe -m scripts.recover_published_duration capability --output runs/published_duration_recovery_capability
+    .venv/Scripts/python.exe -m scripts.recover_published_duration prepare --output runs/published_duration_evaluation_recovery
+    .venv/Scripts/python.exe -m scripts.recover_published_duration run --output runs/published_duration_evaluation_recovery
+
+Recovery protocolbf1163339fdb52303344f118c92bb5c75204eea7e0211cdc295ab3ad9fca86c8
+binds130inputs. Session2601,launcher65496/actual54664 starts00:19:09JST.
+Workers short WP launcher23628/actual16776 andPoint launcher62112/actual60244
+start00:19:10JST;all OS-verified live. It will run both long cells next and the
+independent audit. No frozen evaluation/training code or source models changed.
+No strength conclusion,main export,promotion or101Mconfirmation occurred.

@@ -11,147 +11,95 @@ Old process handles mentioned in that history are historical, not live jobs.
 
 ## Current experiment and next actions
 
-The complete-only duration results exporter is ready and tested:
-`scripts/export_published_duration_results.py`. It requires the completed queue,
-all twelve cells, a passed audit pinned by SHA256 and unchanged dependencies.
-It presents all 72 secondary coordinates and four simultaneous primary bands;
-qualification uses unrounded bounds, including zero-SE refusal. Four synthetic
-presentation tests pass (0 skips); these add no strength evidence. The live
-incomplete run is correctly refused. No results have been exported yet.
-After the existing queue finishes, use a new output directory and the actual
-passed audit SHA with `python -m scripts.export_published_duration_results
---output runs/published_duration_results --audit-sha256 <completed-audit-sha256>`.
-Do not change frozen evaluation sources, restart workers or select partial scores.
+**Original evaluation failed; recovery is live in a fresh directory.**
+The original queue session21869 exits1. Its evaluator failed on Windows atomic
+replacement of evaluation_process.json (WinError5 access denied),not on a game
+or model assertion. Original queue/evaluator/workers are terminal and preserved.
+A concurrent reader sharing conflict is plausible but its cause is unproven.
+Do not restart the original queue or alter its failure receipts.
 
-A completed [initialization diagnostic](PUBLISHED_INITIALIZATION_COMPARISON.rst)
-finds all28stored published configs use WP. Archived Point scores at the same
-T0.05 have lower normalized entropy (koi0.028503 versusWP0.199169 on215old
-inputs). A naive initialization swap would also change exploration. No new
-training arm or temperature is selected;finish the live duration evaluation first.
+Recovery root:runs/published_duration_evaluation_recovery. Session2601;
+launcher65496/actual54664 starts2026-10-20 00:19:09JST. Actual workers16776
+(parent23628,short WP) and60244(parent62112,short Point) start00:19:10JST.
+All are OS-verified live. The fresh runner then evaluates parent2_long WP/Point
+and runs the unchanged independent native replay/statistics auditor. It creates
+new immutable launch/completion/failure receipts,without periodically replacing
+a polled progress file. Existing recovery_started.json prevents another launch.
+Read logs and actual OS processes;do not restart after an observation timeout.
 
-Completed training-log diagnostic:both seeds retain nonzero late approximate
-KL;pooled entropy changes from0.504221 to0.481882 and0.500358 to0.504529
-(short/long endpoint last100updates). This does not identify convergence or
-common entropy collapse. Gradient norms combine actor and value parameters,
-and cannot isolate actor signal. Report runs/published_duration_training_diagnostic.json
-(e42ebf46118ef3064d56ceba3048e79c59bc99db1f40e74f5f48c5612e753d75);
-see EXPERIMENTS for metric semantics. No new arm selected or evaluation outcomes
-inspected;the full evaluation remains the next decision gate.
+Recovery protocolbf1163339fdb52303344f118c92bb5c75204eea7e0211cdc295ab3ad9fca86c8
+binds130inputs. Eight completed cells are copied byte-for-byte. Four incomplete
+cells are rerun through the unchanged original worker on the original full
+schedule. Original short WP3,200 and Point2,553 complete rows are preserved;
+all5,753 prefix records must exactly match repeated neural inference before
+the recovered study can complete. Their667,309decisions/44,637round endings
+are additional recorded duplicate work,not additional independent evidence.
+Unrecorded in-flight work is unknown. No partial outcomes inspected or selected.
 
-**Both long adaptations complete and audited; main evaluation is live.**
-[Fixed design](PUBLISHED_DURATION_STUDY.rst). Training session99216 exits0;
-actualPID32540 is gone. Both fresh learners finish4,020updates. Total work:
-131,727,360decisions/8,804,257rounds/1,133,134completed trainingmatches,including
-both short prefixes and40warmup updates. Seed99110001:65,863,680decisions/
-4,405,193rounds/567,030matches. Seed99210001:65,863,680decisions/4,399,064rounds/
-566,104matches. Each runs4,000policyupdates after20warmup updates.
+Recovery implementation:scripts/recover_published_duration.py. Four tests pass
+0skips,including malformed/changed prefix refusal,non-overwriting receipts,
+live-process refusal and real owned-worker failure cleanup. Ruff passes.
+Capability repeats8existing small-study matches,918decisions/64round endings;
+all bytes equal earlier CPU inference and native CPU action replay agrees.
+Capability receipt06a1ecac96fb1874f71982424a38173d86acf87590e01c3278c3b5ea6d27872a.
+This verifies recovery mechanics,not strength. Keep recovery sources/tests frozen.
 
-All six planned saved-state checks(20/520/4,020 for bothseeds) pass. Final model
-hashes:seed99110001 506ff8738c304f15d71344c1d4038e7f84381a500f3f0931f56be63f11e3a150;
-seed99210001 9aa1b1b7f92289133b003dd86adc8685ed8f9c78b5042605a8797f0d26e602d0.
-Second final audit655c0caf695837749c116764130f1f5373c1af54be57cb5ffb9839098e708dfd.
+Next:monitor the recovery,then inspect its recovery_complete.json and passed
+audit. Adapt scripts/export_published_duration_results.py to explicitly verify
+this recovery lineage and disclose duplicate work before exporting. The existing
+exporter requires the old queue to complete and therefore intentionally refuses
+this failed queue;never fabricate a successful old receipt. No main results
+have been exported. No source-bound evaluation code,model,dealer or deployment
+has changed. Stronger play and the broader research objective remain unachieved.
+
+Both long adaptations are complete. [Fixed design](PUBLISHED_DURATION_STUDY.rst).
+Two fresh original-WP seeds99110001/99210001 each finish4,020updates:20critic
+warmup and4,000policy updates. Exact short prefixes are at520total updates.
+Total131,727,360decisions/8,804,257round endings/1,133,134training matches,
+including both prefixes once. Each seed uses65,863,680decisions. All six saved
+20/520/4,020 state/accounting audits pass;these do not establish playing strength.
+Final model SHA seed99110001:
+506ff8738c304f15d71344c1d4038e7f84381a500f3f0931f56be63f11e3a150;
+seed99210001:9aa1b1b7f92289133b003dd86adc8685ed8f9c78b5042605a8797f0d26e602d0.
 Training completionce033a7a2b2c870efa0269509981c5a7913bfef2caca83c388fd8314ad6197ca.
-These verify saved models,source,Adam and work,not playing strength.
+Training protocolafd19da343ae13624d949523b436a2ac85d6c3e00a42ecb0da0d8f655b27e4e6.
+Never restart completed training or count recovery inference as training.
 
-The existing queue(session21869,actualPID32628,parent22404) observes exact
-producer exit0 and completes prepare once. Main evaluator actualPID63224,
-launcher60412,starts2026-10-19 21:42JST. The first two cells now complete:
-parent1_parent_wp and parent1_parent_point each contain8,192matches; their
-completion reports, match counts and row SHA256 identities agree. The old
-workers33480/55700 have exited. Queue and evaluator remain OS-verified live.
-The next two cells,parent1_short_wp/point,also finish8,192matches each;
-completion reports,counts and row hashes agree. Their workers27980/54120 exit.
-Both parent1_long_wp/point now finish8,192matches each;completion reports,
-counts and row hashes agree. Workers50752/59432 exit. All six first-group cells
-are complete;their outcomes remain uninspected pending the full fixed study.
-Both parent2_parent_wp/point now finish8,192matches each;completion reports,
-counts and row hashes agree. Workers60516/14948 exit.
-Current workers start automatically on2026-10-20:parent2_short_wp
-launcher62760/actual32088 at00:00:40JST;parent2_short_point
-launcher36092/actual18716 at00:03:07JST. Both are OS-verified live with688/86
-complete rows at this checkpoint. Total66,310recorded matches;eight of twelve
-cells complete. No interim outcome means inspected. Read evaluation_process.json
-and actual child processes for subsequent workers;do not reuse old process
-handles or restart.
+The unchanged evaluation protocol
+76e1b6af987e21f4e05e270aaabcd85ee9a89e68621589d1802a3a7543b24f18
+is copied exactly to the recovery root. It fixes12cells x4,096paired deals:
+98,304analysis matches on8,192shared deal streams,greedy singleton CPU2threads,
+paper8 with public endgame assistance. Both short/long endpoints and retained
+parents play assisted WP/Point. Primary:both seeds' long-minus-short AND
+long-minus-retained-parent equal-mixture win lower bounds must be positive in
+one four-contrast simultaneous95% family. Use10,000whole-block bootstrap draws,
+seed99410001. Report all72 secondary coordinates. Only if all four pass is the
+fixed longseed99110001 candidate eligible for separate prospective101M
+confirmation.101M remains unused. This is an eightfold policy-update budget
+comparison,not a new algorithm or equal-compute gain.
 
-Main evaluation protocol76e1b6af987e21f4e05e270aaabcd85ee9a89e68621589d1802a3a7543b24f18
-binds92inputs and embeds all six passed training audits. All bindings verify,
-along with67training/108queue inputs. It fixes12cells x4,096duplicatepairs:
-98,304actualmatches on8,192shared deals. Initial open-file checks find325WP and
-326Point complete rows;these are progress only,not completed comparisons.
-Windows directory-entry sizes initially stayed0 while open-file reads showed
-written rows;do not diagnose a stalled producer from directory metadata alone.
-Next monitor the existing evaluator,then the queue's independent full replay/
-statistics audit. No partial score selection,model promotion or101Mtest.
+The unchanged auditor replays all recorded actions through native CPU and
+independently checks the compound-block statistics/accounting. Evaluation
+capability48matches/5,487decisions/383rounds passed (audit
+ ee47f2ae3c362365a1d1542c868cd90d3dc53c810586e73ae74b66a18e73cef1).
+The pending full audit must cover the complete recovered study;copying completed
+reports alone is not that audit. Prior original queue protocol
+371721bbebb20b08a256145a53fee851c5127d67a40c1ae1140855cf5db96588
+remains preserved with its failure. See EXPERIMENTS for historical process IDs,
+training capabilities and saved-state checks;these are not live processes.
 
-Two fresh original-WP learners preserve the existing actor,public critic,PPO,
-returns,temperature and learning rates. Each saved the same-trajectory short
-prefix at520 total updates(20 warmup+500 policy),then continued to4,020 total
-updates(4,000 policy). The experiment tests eightfold policy-update budget,
-not a novel algorithm or an equal-compute method. Total two-run decision budget
-131,727,360 includes both short prefixes. No inherited old endpoint is extended.
+Completed [initialization diagnostic](PUBLISHED_INITIALIZATION_COMPARISON.rst):
+all28stored published configs use WP. Archived Point scores atT0.05 have lower
+normalized entropy(koi0.028503 versusWP0.199169 on215old inputs). A naive
+initialization swap also changes exploration. No new arm selected before the
+fixed duration evaluation completes.
 
-The live evaluation compares both short/long endpoints and both retained parents
-against strict CPU assisted WP/Point:4,096 pairs/opponent,98,304 full matches
-on8,192 shared99M deals. Primary:both seeds' long-minus-short AND long-minus-
-retained-parent equal-mixture win lower bounds must be positive in one four-
-contrast simultaneous95% bootstrap family. All opponent/point results remain
-reported. Only the fixed endpoints are evaluated.101M confirmation stays unused.
-Evaluation and independent replay/statistics are implemented and capability-
-verified. scripts/evaluate_published_duration.py refuses main preparation until
-both learners finish and saved20/520/4,020 accounting audits pass. It binds all
-endpoint bytes and runs at most two owned CPU workers. A failure stops owned
-workers and preserves partial files;existing executions cannot silently restart.
-Main evaluation is running. The single-use completion queue remains live:
-session21869,actualPID32628(parent22404),runs/published_duration_completion.
-It verified exact trainingPID32540(creation FILETIME134368624471611284)
-exit0 plus completion. Prepare finished;run is active;the audit follows::
-
-    python -m scripts.evaluate_published_duration prepare --output runs/published_duration_evaluation
-    python -m scripts.evaluate_published_duration run --protocol runs/published_duration_evaluation/evaluation_protocol.json
-    python -m scripts.audit_published_duration_evaluation --input runs/published_duration_evaluation
-
-Queue protocol371721bbebb20b08a256145a53fee851c5127d67a40c1ae1140855cf5db96588
-binds108inputs,including frozen evaluation capability,source,tests and interpreter.
-Do not edit bound sources or restart this queue. On failure preserve its logs,
-process receipts and any existing evaluation. It never restarts training or
-promotes a model. Five tests pass0skips,including an actual Windows process
-handle surviving child exit,early-completion refusal,failed-job log preservation
-and prevention of downstream evaluation after preparation failure. Ruff passes.
-520 checkpoint audit8468d59cc53f0ffcc6490b92b77d851513193847efabf9ea16f67f5feffbc811;
-checkpoint0fefb96cd49bc887043e149001fec72884ffeb225d65a1e17c4c9b57d4df13a6.
-This audits saved state/accounting,not neural inference or training replay.
-
-Capability48 actual matches on4 shared deals completes:5,487 decisions/383 rounds.
-OriginalWP fixtures fill short/long slots;these are not trained endpoint scores.
-Native CPU replay verifies every action,initial/final state and point/work row.
-Separate scalar block construction and resampling verify all72 marginal result
-coordinates and the four simultaneous primary bands. Four tests pass0 skips:
-independent expanded-row statistics,draw/zero-variance/one-seed gates,seat/deal
-schedule and replay corruption,plus incomplete-training refusal. No inference
-rerun is claimed. All103 audit bindings and67 live training inputs verify.
-Capability audit ee47f2ae3c362365a1d1542c868cd90d3dc53c810586e73ae74b66a18e73cef1;
-readiness7708a4a90f1555fd9642fa94e5ff86a7a29798f973010c2e8e75a92d5c914af0.
-Keep the completed capability and evaluation sources frozen. The manuscript now
-integrates the completed temperature/directional studies;see Latest manuscript.
-
-Before launch,the actual CUDA capability tests production tensor shapes with a
-shortened warmup,actor stationarity/movement and exact saved-next-update model,
-Adam,environment and RNG restoration. Capability audit
-44b2bd5f3ed27aba655515c8035af1382bf5f0c79ddaa981d58d3578f949fe56 binds66 inputs.
-Main protocolafd19da343ae13624d949523b436a2ac85d6c3e00a42ecb0da0d8f655b27e4e6
-binds67. Seed scan of3,558 JSON files/465 relevant records finds no overlap with
-specified new source ranges;scope excludes unrecorded work/derived PRNG outputs.
-
-First20-update stored-state audit passes:327,680 decisions/22,055 rounds/2,767
-matches,1,920 value Adam steps,0 actor steps,actor bytes equal originalWP.
-Receipt ed9d59fd8fc1a3f6b061a2d108b55871f6ae6ae38b6c59f1252bb4b8f9aa4eb9.
-The new independent checkpoint adapter reuses generic accounting/tensor helpers,
-not the old study's hard-coded source identity. Four actual-artifact fault-
-injection tests reject corrupted Adam steps,episode counters,source hashes and
-metric decisions;4 pass0 skips. Ruff passes. The stronger-play objective remains
-active;no result or new-model promotion has occurred. Canonical play/dealer stay
-unchanged.
+Completed training-log diagnostic:late approximate KL stays nonzero in both
+seeds;pooled entropy changes0.504221 to0.481882 and0.500358 to0.504529
+(short/long endpoint last100updates). This establishes neither convergence nor
+an actor-gradient diagnosis. Report runs/published_duration_training_diagnostic.json,
+e42ebf46118ef3064d56ceba3048e79c59bc99db1f40e74f5f48c5612e753d75.
+See EXPERIMENTS for metric definitions and limitations.
 
 **Koi-temperature comparison independently complete; improvement criterion fails.**
 All four520-update learners and all49,152 full matches finish. Finalizer

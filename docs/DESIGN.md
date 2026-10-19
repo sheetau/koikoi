@@ -292,3 +292,17 @@ it does not alter the playable default. Frozen-model mixture training is an
 established technique, so a new method claim must rest on an identified mechanism
 and measured controls, not this integration alone. No equilibrium guarantee is
 asserted for a fixed two-opponent mixture.
+
+## Recovery of fixed duration evaluation
+
+Administrative failure of the duration evaluator preserves its original protocol,
+completed cells,partial rows,logs and failed queue. A separate recovery driver
+copies completed cells to a fresh directory and calls the unchanged worker for
+every incomplete cell on its full original schedule. All retained partial
+prefix rows must match repeated inference exactly. Recorded duplicate execution
+is separate from the fixed analysis count;unrecorded interrupted work is unknown.
+The original native replay/statistics audit covers the entire recovered study.
+New exclusive launch/failure/completion receipts avoid periodic replacement of
+a progress file opened by monitoring readers. Recovery does not alter model,
+rule,seed,inference or selection semantics and never promotes a model. See
+EXPERIMENTS for the frozen recovery protocol and actual capability evidence.
