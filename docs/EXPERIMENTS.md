@@ -5370,3 +5370,93 @@ AggreVaTe. No new branch-training experiment is launched on this overlap.
 The fixed diagnostic is closed. Stronger play remains unestablished beyond the
 retained baseline;the active goal is not complete. No live process remains.
 No model,canonical player,dealer,101M final range or verified PDF is changed.
+
+## 2026-10-19: fixed longer pretrained adaptation launched
+
+Previous goal turn was progress:the actual directional-return corpus and full
+CPU/scalar audit completed,all70 coordinates were reported,and40a9df9 was
+committed/pushed. Its primary reversal hypothesis was not established. No old
+job remained live at the start of this turn. The full objective is not achieved.
+
+Inspected current STATUS,training defaults,original warm/cold protocols and
+actual metric files. A scoped scan finds24 runs with kind=published config.json
+and metrics.jsonl;their largest within-run update count is520. This excludes
+other layouts and does not erase inherited training budgets. The18-billion-
+decision scale run is an MLP/research12 experiment,not longer pretrained
+paper8 adaptation. For retained seeds6710001/6720001,updates421--520 have mean
+entropy0.4887278756/0.4967298350,approximateKL0.00023430513/0.00023741243,
+gradient norm1.66170760/1.67984664 and value loss0.07612528/0.07665110. These
+show numerical updates;they do not prove convergence or a strength trend.
+
+Added docs/PUBLISHED_DURATION_STUDY.rst and scripts/published_duration_study.py.
+The unchanged PublishedTrainer starts fresh originalWP seeds99110001/99210001,
+with production defaults,20 critic-only warmups and4,000 policy updates. Save
+short-prefix520 and long4,020 endpoints,with exactly shared training/Adam/RNG
+history through the short point. Per-long-run65,863,680 decisions;increment
+from short57,344,000. Total131,727,360 includes both short prefixes. No learning-
+rate/temperature/return/architecture intervention and no extension of closed
+historical endpoints. Eightfold policy-update scaling is not claimed novel.
+
+Fixed later evaluation:short/long x2seeds plus retained parents,each against
+WP/Point,4,096 duplicate pairs/opponent,strict singleton greedyCPU2threads,
+paper8/public-endgame.98,304 full matches on8,192 shared deal streams:
+WP99310001..99314096,Point99320001..99324096. Bootstrap10,000 seed99410001.
+Primary four-coordinate simultaneous95% family is long-short and long-retained
+parent equal-mixture win difference at each seed. Resample4,096 compound blocks
+preserving both opponents,policies and seats;allfour lower bounds must exceed0.
+Report opponent/point results separately. No intermediate evaluation,reranking,
+parameter adjustment or conditional budget extension. Canonical candidate,if
+qualified,is seed99110001 long;101M confirmation remains separate and unused.
+Evaluation and analysis runner are still to be implemented while training runs.
+
+Stored JSON inventory:3,558 files,465 with relevant seed/range data;no unreadable
+files or overlap with the six proposed capability/training/evaluation ranges.
+It covers stored seed_start/first_seed+pairs/matches,recorded seed values and
+seed/envs fields,not unrecorded work or hidden derived PRNG draws. Receipt
+runs/published_duration_seed_scan.json SHA
+8cc8584984129a5e66145c43dbd3c85f3a577c3c49e20d59f28381c1152dc583.
+
+Actual CUDA capability uses seeds99010001/99020001 and production tensor shapes,
+shortened one-update warmup plus two policy updates. Original-WP actor tensors
+match at initialization;value output layer is zero. Warmup leaves actor exactly
+unchanged;policy learning changes it. After saving update2,update3 is executed,
+then rerun after restoration. Metrics,actor,value,Adam,environment,counters and
+all RNG/runtime/config contents match exactly. Unique work98,304 decisions,
+6,522 round endings and769 completed matches across both cases. Repeated
+verification adds32,768 processed decisions and two duplicate policy updates;
+it does not add independent source histories or count toward main training.
+Capability session83791 exits0. Audit
+44b2bd5f3ed27aba655515c8035af1382bf5f0c79ddaa981d58d3578f949fe56 binds66 inputs.
+
+Main protocol was created after capability,binds67 inputs and hashes to
+ afd19da343ae13624d949523b436a2ac85d6c3e00a42ecb0da0d8f655b27e4e6.
+Runner/design committed in b84c282 before launch. Command:
+`.venv/Scripts/python.exe -m scripts.published_duration_study run
+ --output runs/published_duration_study`.
+Session99216 and actualPID32540(parent18152) verified live. Firstseed reaches
+update57/4,020:933,888 decisions/63,010 rounds/8,017 matches;20warm+37policy.
+The second seed is pending sequential execution. No strength evaluation yet.
+Do not modify bound source/protocol or restart on observation timeout.
+
+Added independent scripts/audit_published_duration_checkpoint.py. An initial
+attempt to reuse the old full checkpoint auditor rejected its hard-coded old
+source identity. Corrected the adapter to derive the current bound native/
+Python source digest and retain generic independent accounting/tensor helpers;
+the historical helper and live trainer were not changed. The adapter checks
+immutable metric prefixes,simulator episode counters,model/initialization,
+finite tensors,runtime,actual per-parameter Adam steps/moments and warmup work.
+It does not rerun training,neural inference or trajectories. This is an audit-
+adapter correction,not a training failure or relaxed identity check.
+
+Actual first20 snapshot passes:327,680 decisions/22,055 rounds/2,767 matches;
+actor digest equals original7d684d9063b8c4bbe406c7b50f9b43ac90bb774f5917b13522d28be1a81925f4;
+valueAdam1,920/actorAdam0. Snapshot
+3a11bce4f9d56170d58e419ab775a377d8ef74ab77a4f45421e25608a1d325a1;
+audit ed9d59fd8fc1a3f6b061a2d108b55871f6ae6ae38b6c59f1252bb4b8f9aa4eb9.
+Four fault-injection tests use copies of this actual artifact and reject
+wrong Adam steps,episode counters,source identities and metric decisions.
+All4 pass0 skips,2.86s;Ruff passes. XML
+fd6725cf40f704fc86653a0b8afa403712a556de83da3f65a24592fac442dbf5.
+All67 live training bindings reverify unchanged. No canonical player,dealer,
+reserved final range or verified manuscript/PDF change. Continue evaluation/
+analysis preparation and concise paper integration during the fixed training.

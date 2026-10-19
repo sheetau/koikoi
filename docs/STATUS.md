@@ -11,6 +11,50 @@ Old process handles mentioned in that history are historical, not live jobs.
 
 ## Current experiment and next actions
 
+**Longer pretrained adaptation launched; actual GPU process live.**
+[Fixed design](PUBLISHED_DURATION_STUDY.rst),runner
+scripts/published_duration_study.py. Session99216,actual PID32540(parent18152)
+verified live by same-session polling and Win32_Process. Current first seed
+99110001 is at update57/4,020:933,888 decisions/63,010 rounds/8,017 completed
+matches. These are training counters,not strength evidence. Seed99210001 starts
+sequentially after the first finishes. Never restart from a timeout or old handle.
+
+Two fresh original-WP learners preserve the existing actor,public critic,PPO,
+returns,temperature and learning rates. Each saves the same-trajectory short
+prefix at520 total updates(20 warmup+500 policy),then continues to4,020 total
+updates(4,000 policy). The experiment tests eightfold policy-update budget,
+not a novel algorithm or an equal-compute method. Total two-run decision budget
+131,727,360 includes both short prefixes. No inherited old endpoint is extended.
+
+After all training,evaluate both short/long endpoints and both retained parents
+against strict CPU assisted WP/Point:4,096 pairs/opponent,98,304 full matches
+on8,192 shared99M deals. Primary:both seeds' long-minus-short AND long-minus-
+retained-parent equal-mixture win lower bounds must be positive in one four-
+contrast simultaneous95% bootstrap family. All opponent/point results remain
+reported. Only the fixed endpoints are evaluated.101M confirmation stays unused.
+Evaluation/analysis orchestration is not yet implemented;prepare it while this
+unchanged training runs. Also integrate completed temperature/directional
+findings concisely into Related Work/results during the next substantive paper
+revision,with full PDF rendering/QA;the current verified PDF is unchanged.
+
+Before launch,the actual CUDA capability tests production tensor shapes with a
+shortened warmup,actor stationarity/movement and exact saved-next-update model,
+Adam,environment and RNG restoration. Capability audit
+44b2bd5f3ed27aba655515c8035af1382bf5f0c79ddaa981d58d3578f949fe56 binds66 inputs.
+Main protocolafd19da343ae13624d949523b436a2ac85d6c3e00a42ecb0da0d8f655b27e4e6
+binds67. Seed scan of3,558 JSON files/465 relevant records finds no overlap with
+specified new source ranges;scope excludes unrecorded work/derived PRNG outputs.
+
+First20-update stored-state audit passes:327,680 decisions/22,055 rounds/2,767
+matches,1,920 value Adam steps,0 actor steps,actor bytes equal originalWP.
+Receipt ed9d59fd8fc1a3f6b061a2d108b55871f6ae6ae38b6c59f1252bb4b8f9aa4eb9.
+The new independent checkpoint adapter reuses generic accounting/tensor helpers,
+not the old study's hard-coded source identity. Four actual-artifact fault-
+injection tests reject corrupted Adam steps,episode counters,source hashes and
+metric decisions;4 pass0 skips. Ruff passes. The stronger-play objective remains
+active;no result or new-model promotion has occurred. Canonical play/dealer stay
+unchanged.
+
 **Koi-temperature comparison independently complete; improvement criterion fails.**
 All four520-update learners and all49,152 full matches finish. Finalizer
 session64818 exits0 after the complete training-state,recorded-action and
@@ -95,10 +139,10 @@ binds42 inputs. Report5085458b15947062550d3a0732cb6a30d02bd9f29b988909c6085f50c4
 audit0aa47825725adf0ed1d7142edf1214c42c0653cfea555e1a72511104c608da3c;
 summary5c63a84a8735520c73065e3a7e919f465ea5ddcea6b969794202430a6cf1c0c9.
 Five tests pass0 skips,Ruff passes. Producer84684 and auditor82239 exit0;
-no live research job remains. Preserve completed artifacts;do not restart.
+no directional-diagnostic job remains. Preserve completed artifacts;do not restart.
 
-The next research decision must identify a separate measurable learning signal,
-not repeat the closed return-decay or temperature sweeps. Existing paired
+The subsequent duration study above tests a different factor:training budget.
+Do not repeat the closed return-decay or temperature sweeps. Existing paired
 rollout selectors already used same-world branch outcomes,including larger-data
 and opponent-preserving controls;do not relabel that method as a new direction.
 The stronger-play objective remains active and unachieved. Canonical play,
