@@ -4940,3 +4940,52 @@ manuscript already distinguish its rule variant and internal benchmark; no new
 eligible comparator or outcome was added. This search is not an exhaustive
 absence-of-new-work claim. Ongoing training/evaluation conditions,canonical
 player,initial dealer and reserved101M remain unchanged. Goal remains active.
+
+## 2026-10-19: second temperature endpoint and independent mechanism arithmetic
+
+Previous goal turn made progress by connecting the frozen final-policy
+diagnostic to a one-shot live queue. This turn repeatedly confirmed actual
+worker16036 CPU activity and advancing update logs while waiting for the
+calibrated arm to finish; no inference from a lock/state file alone and no
+restart. It completes520 updates and disappears with launcher9328. Driver59656
+starts seed2_fixed worker64436 (launcher55036). Finalizer36936/session64818 and
+mechanism queue13764/session10737 remain waiting for their declared prerequisites.
+
+seed1_calibrated:8519680decisions,571529round endings,73374training matches;
+warmup20 accounts for327680decisions,22077rounds,2767matches. Value Adam49920,
+each actorhead48000. Final checkpoint9de43715d4b1805c45d8519d21dfb5b78ff15eb9c0524a927059220229e6ea4e.
+Independent audit_arm passes all520 metric rows and every saved stage,original
+WP ancestry,stationary warmup actor,later head changes,finite model/Adam values,
+and exact final520/final.pt identity. Saved receipt
+runs/koi_temperature_study/seed1_calibrated/early_training_audit.json binds106
+inputs,SHA3669edfb5650d60dbae8ca584a23306e81fc04d62c6593f4d0d887023b8940c3.
+No new neural calls or training replay. Together the first paired seed uses
+17039360decisions/1142696round endings/146664training matches,not evaluation.
+No intermediate checkpoint strength evaluation was performed.
+
+Implemented scripts/audit_koi_temperature_mechanism.py for the forthcoming
+final-policy diagnostic. It independently reselects old validation sources and
+all512 final environment snapshots,recreates public native masks/guards,
+verifies source/phase/population coverage,recorded float32 deployment argmax,
+raw gap and greedy-change counts,and recomputes entropy/probability statistics
+using scalar math.exp/log rather than the producer's vector implementation.
+Every7models x6populations x4phases is retained. Input hashes are checked before
+andafter; raw score inference is not rerun and no strength conclusion follows.
+Run this only after runs/koi_temperature_mechanism/report.json completes.
+
+Two independent fixtures pass,0skips,1.30s: exact binary/three-way probabilities,
+forced-row exclusion,stop/continue change counts,extreme gaps and maskedNaNs,
+plus corrupt scalar comparison rejection. XML
+1df8e56843d81b70ec70bccea5eab90bef29d4c37399942af7272bdc2b2d9eba.
+Ruff and diff checks pass. The same scalar arithmetic independently reproduces
+all16 baseline/calibrated groups from the earlier phase calibration data.
+Cross-check receipt runs/koi_temperature_scalar_crosscheck.json binds11 inputs,
+SHAc094bc5039ace2d0c46104b17757c1eda4cff40ff4c39c31fd780c53caafb3d8.
+It adds0 new neural calls/simulator steps/updates. Preserve its bound auditor
+source,tests and XML. This checks old calibration arithmetic,not final learned
+behavior; the final-policy report and complete strength comparison remain pending.
+
+The first learning-seed pair is now complete. The second pair and all49152
+strict CPU evaluation matches remain to be completed and independently audited.
+Canonical human player,dealer,101M and latest manuscript/PDF remain unchanged.
+Objective remains active; no new replicated strength or method novelty claimed.

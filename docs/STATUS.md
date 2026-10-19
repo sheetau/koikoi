@@ -42,7 +42,8 @@ b9075ac261ce6a3e681a64fa7845f031850ef20fba60f618435b3ad108a74d19;
 it matches the prelaunch receipt. Original producer tool handle was lost,
 but actual driver PID59656 (launcher54836) is live. At the current snapshot,
 seed1_fixed has completed and its worker20924/launcher18484 are gone.
-seed1_calibrated is training (worker16036,launcher9328); no evaluation is complete.
+seed1_calibrated also completes; worker16036/launcher9328 are gone.
+seed2_fixed is training (worker64436,launcher55036); no evaluation is complete.
 Finalizer session64818 / PID36936 (launcher36764) is waiting; its eight-input
 protocol SHA f6180c6f94acadb02d7f907f1d145df24577189cf50d429b532bf6a41c7c6f87.
 Inspect process/finish_process and actual OS processes before any continuation;
@@ -72,6 +73,16 @@ runtime equality; configs differ only in koi_temperature. No forward call or
 new training is performed by this audit. This is training integrity,not playing
 strength. Full final match replay/statistics remains queued after all arms.
 
+**Second endpoint independently checked:** seed1_calibrated finishes520
+updates,8,519,680 decisions /571,529 round endings /73,374 training matches.
+Warmup20:327,680 decisions /22,077 rounds /2,767 matches. Value Adam49,920;
+every actor head48,000. All saved stages,initial ancestry,warmup stationarity,
+later actor changes,finite state and final checkpoint identity pass. Checkpoint
+9de43715d4b1805c45d8519d21dfb5b78ff15eb9c0524a927059220229e6ea4e;
+early audit3669edfb5650d60dbae8ca584a23306e81fc04d62c6593f4d0d887023b8940c3
+binds106 inputs. First paired training seed is complete; the second seed's
+fixed/calibrated training and all strength evaluation remain outstanding.
+
 **Final-policy mechanism diagnostic prepared, not run:** seven policies
 (original WP, retained A/B and four final learners) will be scored on common
 public inputs after all four training endpoints complete. One population is
@@ -95,6 +106,16 @@ fb9c21fc65153fed0ec07d6d0b99a748af432107492dbbe47258896710555edd.
 Do not launch a duplicate diagnostic. After completion, inspect its raw-score/
 scalar accounting before using findings. Main producer,calibrated worker and
 both waiting queues are live; no strength result is available yet.
+
+The independent mechanism auditor is also ready: `python -m
+scripts.audit_koi_temperature_mechanism --output runs/koi_temperature_mechanism`
+AFTER the scorer completes. It checks every population/phase,public masks and
+guards,recorded-score argmax and scalar probabilities/gaps/changes without
+rerunning neural predictions. Two tests pass,0 skips,1.30s. Independent scalar
+arithmetic matches all16 old calibration groups; receipt
+c094bc5039ace2d0c46104b17757c1eda4cff40ff4c39c31fd780c53caafb3d8
+binds11 inputs and adds0 neural calls/steps. This is an old-data cross-check,
+not the still-pending final-policy diagnostic or any new strength evidence.
 
 **Renewed-chance comparison independently complete:** allfour520-update arms,
 40,960matches and full replay/statistics audit pass. Producer58904/queue65372
