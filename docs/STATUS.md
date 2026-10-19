@@ -56,6 +56,26 @@ optimizer inspection also passes actual initial/warm20/update100 checkpoints.
 No new replicated improvement has yet been established. Canonical human-play
 model, dealer, reserved101M and the latest verified paper/PDF are unchanged.
 
+**Final-policy mechanism diagnostic prepared, not run:** seven policies
+(original WP, retained A/B and four final learners) will be scored on common
+public inputs after all four training endpoints complete. One population is
+3,258 observations from25 old validation matches,3,045 unforced; another is
+all512 saved final environment snapshots. The latter were produced by the
+rollout preceding the final optimizer update, not a fresh rollout of the final
+policy. Neither population estimates complete training visitation. Report
+common-temperature and declared-training-temperature probabilities separately
+from greedy changes; no simulation, outcome labels or checkpoint selection.
+[Design and primary-source positioning](KOI_TEMPERATURE_MECHANISM.rst).
+
+Two checks pass,0 skips,2.73s: independent binary entropy / score-rescaling
+counterexample and actual public-feature hidden invariance plus deployment
+action equality on four phase examples. Diagnostic protocol binds98 inputs,
+SHA a25292a03b0d343870fd2e3b3c829bd2834aa41a3cdf6f467bb6877fd571c941.
+Do not edit its bound script,design,tests or XML. After all four complete.json
+receipts exist, run `python -m scripts.koi_temperature_mechanism --output
+runs/koi_temperature_mechanism` once, then inspect raw-score/scalar accounting.
+The main producer/finalizer remain live; no strength result is available yet.
+
 **Renewed-chance comparison independently complete:** allfour520-update arms,
 40,960matches and full replay/statistics audit pass. Producer58904/queue65372
 are gone;queue37463 exits0. The predeclared strength,public-memory and interaction

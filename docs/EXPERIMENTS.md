@@ -4823,3 +4823,55 @@ runs independent audit once and writes complete summary once. Protocol
 f6180c6f94acadb02d7f907f1d145df24577189cf50d429b532bf6a41c7c6f87.
 It does not change training, promote models or launch final confirmation.
 No completed outcome is available at this milestone. Goal remains active.
+
+## 2026-10-19: prospective final-policy mechanism diagnostic
+
+Previous goal turn made progress: implemented/froze the temperature comparison,
+added independent full-study audit/finalizer, verified checks and pushed6c3d063.
+Revalidated live OS driver59656,training20924 and finalizer36936. First fixed
+learner advances through update321; no restart, endpoint choice or outcome-based
+change. This continuation prepares an independent descriptive diagnostic while
+all four final endpoints and strength results are still pending.
+
+Read primary sources for the relation to entropy/temperature methods:
+Haarnoja et al., Soft Actor-Critic Algorithms and Applications,2019v2,
+https://arxiv.org/html/1812.05905,Section5 (average entropy constraints and
+learned temperature); Cesa-Bianchi et al., Boltzmann Exploration Done Right,
+NeurIPS2017,https://papers.nips.cc/paper/2017/hash/b299ad862b6f12cb57679f0538eca514-Abstract.html
+(bandit schedules and arm-dependent rates). These establish prior art, not a
+guarantee for this self-play PPO adaptation. No manuscript/bibliography/PDF edit
+or new general algorithm claim; exact positioning and interpretation are in
+KOI_TEMPERATURE_MECHANISM.rst.
+
+Implemented scripts/koi_temperature_mechanism.py. It prepares a protocol before
+final outcomes, then refuses to score until every fixed/calibrated arm has its
+complete520-update receipt and matching final hash. It evaluates only initial
+and final policies. The common populations are all3,258 public rows from25 old
+validation source matches (3,045 unforced:2,578discard/122pick-hand/130pick-draw/
+215koi) and pooled512 final saved environment states. The snapshot states follow
+the preceding rollout, not a fresh final-policy rollout; per-arm source strata
+remain visible. Forced/terminal counts are retained but entropy excludes them.
+No population is described as full training/deployment visitation.
+
+Seven policies use singleton CPUfloat32 scores,ordinary requires_grad flags,
+no_grad andtwo threads. Raw hidden states stay in the native public-feature
+extractor; the actor receives only existing public/own-hand features,phase,mask.
+Old feature hashes,raw masks andpublicguards must match the stored oracle.
+No environment step,terminal label or learning update is used. Scores/actions
+andpopulation/source indices are retained for scalar verification. Report
+rawgap,changesfromoriginal,stop/continue changes,entropy andgreedy probability
+at common0.05 and each model's declared trainingtemperature. Scoregap growth
+can counteract a higher temperature; neither mechanism result substitutes for
+the frozen paired strength criterion.
+
+Two tests pass,0skips,2.73s: independent binary entropy and fourfoldscore-gap
+rescaling, plusactual native hidden-input invariance and exact deployed-agent
+actions on one example of each phase. No new full match or training. TestXML
+8d58370ef7a3f77fd37d8b06300bac633c6d0dd4540ebe67a0b7ea3c7c2f5db0.
+Ruff checks pass. Command `python -m scripts.koi_temperature_mechanism --prepare
+--output runs/koi_temperature_mechanism` fixes98inputs; protocol
+ a25292a03b0d343870fd2e3b3c829bd2834aa41a3cdf6f467bb6877fd571c941.
+Preparation performs no score pass. Run the same module without --prepare only
+after allfour training receipts complete. It is not queued yet. The study and
+its original finalizer continue unchanged; canonical model,dealer,101M and
+verified manuscript/PDF remain unchanged. Stronger-play objective stays active.
