@@ -5837,3 +5837,24 @@ its retained comparator and short/long endpoints against both fixed opponents.
 No source,model,training,protocol,dealer,deployment orPDF changes. The fixed
 full evaluation and subsequent independent audit continue;the broader stronger-
 play and research objective remains active and unachieved.
+
+## 2026-10-20: second retained-comparator cells complete; short evaluation starts
+
+Verified waits on the same session21869 and live OS processes show both
+parent2_parent_wp and parent2_parent_point complete8,192matches. Saved report
+status/counts and actual JSONL SHA256 agree. WP producer work:
+942,911decisions/63,918round endings/8,192matches. Point producer work:
+956,532decisions/63,281round endings/8,192matches. This checks saved producer
+accounting,not the pending independent recorded-action/statistics audit. No
+win or point means inspected,no partial primary analysis or model selection.
+
+Workers60516/14948 exit. The existing evaluator63224 automatically launches
+parent2_short_wp launcher62760/actual32088 at2026-10-20 00:00:40JST and
+parent2_short_point launcher36092/actual18716 at00:03:07JST. Both are OS-verified
+live,along with evaluator63224 and queue32628. Open-file counts:short WP688/
+Point86;all eight finished cells each8,192. Total66,310recorded matches,eight
+of twelve cells complete. The second short/long endpoints remain in progress.
+
+No source,model,training,protocol,dealer,deployment orPDF changes. The fixed
+full evaluation and subsequent independent audit continue;the stronger-play
+and research objective remains active and unachieved.

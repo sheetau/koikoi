@@ -55,12 +55,15 @@ completion reports,counts and row hashes agree. Their workers27980/54120 exit.
 Both parent1_long_wp/point now finish8,192matches each;completion reports,
 counts and row hashes agree. Workers50752/59432 exit. All six first-group cells
 are complete;their outcomes remain uninspected pending the full fixed study.
-Current workers start automatically:parent2_parent_wp launcher21780/actual60516
-at23:26:47JST;parent2_parent_point launcher58936/actual14948 at23:28:21JST.
-Both are OS-verified live with451/66complete rows at this checkpoint.
-Total49,669recorded matches;six of twelve cells complete. No interim outcome
-means inspected. Read evaluation_process.json and actual child processes for
-subsequent workers;do not reuse old process handles or restart.
+Both parent2_parent_wp/point now finish8,192matches each;completion reports,
+counts and row hashes agree. Workers60516/14948 exit.
+Current workers start automatically on2026-10-20:parent2_short_wp
+launcher62760/actual32088 at00:00:40JST;parent2_short_point
+launcher36092/actual18716 at00:03:07JST. Both are OS-verified live with688/86
+complete rows at this checkpoint. Total66,310recorded matches;eight of twelve
+cells complete. No interim outcome means inspected. Read evaluation_process.json
+and actual child processes for subsequent workers;do not reuse old process
+handles or restart.
 
 Main evaluation protocol76e1b6af987e21f4e05e270aaabcd85ee9a89e68621589d1802a3a7543b24f18
 binds92inputs and embeds all six passed training audits. All bindings verify,
