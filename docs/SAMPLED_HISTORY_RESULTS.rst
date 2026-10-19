@@ -131,3 +131,53 @@ Exact artifacts under ``runs/sampled_history_exact_check``:
 * Protocol: a3169caff74a839e6e12e0a92e7be5d48ec65f70b58e8b1824f4dcfb26e88544.
 * Report: 8feae6976f43329e7816d1ec6a27119229387cc9f804ac8246ceed6266f7c0eb.
 * Scalar verification: c9a9b51f4f337bfc9bf70396ca14604679f0fa920cf5593b2cafda7d205e6bf9.
+
+
+Complete eligible-root follow-up
+-------------------------------
+
+Enumeration is now complete for all 25 eligible records from the original
+32 attempts. The seven ineligible attempts remain part of coverage reporting.
+There are 20 distinct public observations and eight shared development deals.
+The follow-up computes 17 new exact tables and reuses eight table lookups,
+including three distinct tables from the earlier four-case check.
+
+Mean card-membership Brier errors (lower is better):
+
+==========  ==============  =============  ==================
+Scope       Uniform exact   History exact  Identified history
+==========  ==============  =============  ==================
+All 25      0.155551        0.136122       0.131641
+Parent 1    0.155804        0.138891       0.133218
+Parent 2    0.155317        0.133566       0.130185
+WP          0.156446        0.134440       0.129045
+Point       0.154724        0.137674       0.134038
+==========  ==============  =============  ==================
+
+Both history variants improve on uniform inference at 23 of the 25 roots.
+The earlier 128-proposal estimates had pooled errors of 0.149846 and 0.158597
+for history and identified history, respectively. Exact inference reverses the
+apparent disadvantage of identified history in this small development set.
+This identifies approximation error as a material limitation of that sampled
+implementation; it does not establish a generalization or match-win benefit.
+
+Across root records, the computation covers 141,645 candidate hands, of which
+138,848 are valid. New tables take 969.04 seconds and add 484,673 hypothetical
+historical transitions and 451,774 strict CPU model calls. Source-prefix replay
+adds 953 decisions. Cached likelihood work is excluded from these new totals.
+There are no future rollouts, new evaluation deals or new training matches.
+
+Independent scalar verification reconstructs all valid candidate sets and
+checks every marginal, error, aggregate and work count. It adds another 953
+source-prefix transitions and zero model calls. It reuses the recorded neural
+compatibility tables rather than claiming a second full neural evaluation.
+
+Artifacts under runs/sampled_history_complete_exact:
+
+* Report: 24dfb447432d512a0a7df5f40ea9cb344c72a581007b37a524c78759b5f70a20.
+* Verification: 1dcb809be800cec9b528cd464fcf7448687a45ba0d5bdd7d1731c3757aad2341.
+* Verification binds 91 inputs; the producer protocol binds 66 inputs.
+
+The next diagnostic, specified in PREPARED_BELIEF_ACTION_CHECK.rst, separates
+public opponent identification from current-hand evidence in a four-condition
+paired action search. No model is promoted on the inference result alone.

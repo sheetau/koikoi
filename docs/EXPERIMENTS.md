@@ -4585,3 +4585,100 @@ FinalQA runs/manuscript_renewal_qa.json SHA038c62b5048139662f1788d4b68860c74c3f1
 No finalconfirmation,modelpromotion,dealerrule change orcurrent-hand strength
 claim. Goal remainsactive;stronger-player work continues after the exact inference
 diagnostic and independent arithmetic check.
+
+
+## 2026-10-19: complete public-history inference and action diagnostic
+
+The existing exact-enumeration job (session 67641) completed all 25 eligible
+roots and exited 0. Command `python -m scripts.audit_complete_sampled_history_exact
+--output runs/sampled_history_complete_exact` passed. Independent reconstruction
+covers 141,645 candidates / 138,848 valid hands, 20 distinct public roots and
+17 new tables. Seven ineligible attempts remain in the original 32-attempt
+coverage. Full pooled and grouped results are in SAMPLED_HISTORY_RESULTS.rst.
+
+Exact pooled Brier errors are uniform 0.1555509702, history 0.1361218703 and
+identified history 0.1316410089. Both history variants improve at 23/25 roots.
+New likelihood work is 484,673 hypothetical transitions / 451,774 CPU model
+calls, 969.04 seconds; source replay is 953 decisions. The scalar audit adds
+953 source decisions and zero model calls. It does not rerun neural likelihoods.
+Report 24dfb447432d512a0a7df5f40ea9cb344c72a581007b37a524c78759b5f70a20;
+audit 1dcb809be800cec9b528cd464fcf7448687a45ba0d5bdd7d1731c3757aad2341.
+The audit binds 91 inputs; the producer protocol binds 66.
+
+Added prepared_belief_search, a diagnostic adapter with four conditions on the
+same complete legal-hand space. A hand-calculated joint-distribution test and
+hidden-world invariance test pass: three CPU checks, zero skips, 1.432s. These
+replay 42 old source decisions and construct 256 unplayed hypothetical worlds.
+The CUDA/reference test checks every transition and signed terminal outcomes
+for four conditions, two particles and two actions (16 hypothetical branches).
+It passes twice, 3.65s and 3.67s; neither run is a strength evaluation. The first
+run had only lint findings (closure binding and dict literal); these were fixed.
+No skipped test is counted as verified. New auditor arithmetic tests pass twice
+hand-calculated return/sign and selected-alternative confirmation cases; two
+checks, zero skips, 1.51s, with no simulated games.
+
+Frozen design PREPARED_BELIEF_ACTION_CHECK.rst uses all 25 roots, 128 proposal
+particles, 512 fresh conditional confirmation particles and margin 2.5. Strict
+CPU parents remain the fallback. Fixed64 CUDA continuations are a separate
+numerical execution from strict singleton likelihood models. All 100 choices
+are written before any actual-hidden-world outcome assessment. Outcome branches
+are conditional completions of old roots, not new full evaluation matches.
+Command `python -m scripts.run_prepared_belief_actions --output
+runs/prepared_belief_actions` runs in session 76166. Do not duplicate it.
+
+The 130-input protocol includes the earlier source-study protocol with package
+aggregate hash 2b718198a4f7bc640f457c9fc12311dcb9a8689fba1ffcb09411234ba0920cdb.
+That hash includes all Python and native sources. The runner's additional native
+glob targets the wrong root directory; a supplementary per-file native receipt
+was therefore recorded after ten roots. It is explicitly not a pre-run receipt.
+The independent auditor additionally verifies the package aggregate against the
+already bound source protocol. No native source changed during this work.
+
+No new strength result, canonical-model change, initial-dealer change or reserved
+101M deal use. Paper/PDF remain the previously verified renewal edition pending
+results that warrant inclusion; inference precision alone is not described as
+stronger play or a new general Bayesian inference algorithm.
+
+
+### Both exact-belief action diagnostics complete
+
+First producer session 76166 exits 0. Independent command
+`python -m scripts.audit_prepared_belief_actions --output runs/prepared_belief_actions`
+passes all 25 roots / four conditions. All 372 alternative comparisons have
+nonpositive adoption margins, so all 100 choices retain the parent. Positive
+proposal means by condition are 16 / 10 / 9 / 14. First search uses 7,802,486
+hypothetical decisions, 573,452 round endings and 95,232 completed branches,
+428.36 recorded seconds. Actual-source assessment completes 25 unique actions
+(1,777 decisions / 145 round endings), reused for 100 additional lookups.
+Each condition has zero conditional win and point change. Producer prefix
+replay adds 1,906 decisions. Audit adds 953 prefix plus 1,777 completion replay
+decisions, zero neural calls. Audit binds 143 inputs and has SHA
+c39cdb170eaefd936c4ee35f827cdfb5d42f7b02d7458dafa93b445d7569e6c2.
+
+Added a separate fixed follow-up, PREPARED_BELIEF_CONFIRMATION_CHECK.rst and
+scripts.confirm_prepared_belief_choices. It leaves the first result intact,
+confirms all 49 previously fixed positive-mean alternatives on fresh 512-particle
+samples and keeps margin 2.5 for final adoption. No actual outcome selects a
+candidate. Command `python -m scripts.confirm_prepared_belief_choices --output
+runs/prepared_belief_confirmation` completes session 48350, exit 0.
+
+Only parent 2 / WP / case 0 / history changes: card 11 to 47. Confirmed mean
+win difference +0.0478515625, margin +0.0000686385. Actual-source completion
+changes draw to loss, point difference 0 to -38. All other choices retain the
+parent. Follow-up search uses 3,816,893 hypothetical decisions / 282,000 round
+endings / 50,176 completed branches, 95.56 seconds. It reuses 25 actual outcomes
+and adds one 18-decision / two-round conditional completion. Producer replays
+1,906 source decisions; no new historical likelihoods or fresh evaluation deals.
+
+Added independent follow-up auditor and two analytical checks (2 passed,
+zero skipped, 1.45s). Command `python -m scripts.audit_prepared_belief_confirmation
+--output runs/prepared_belief_confirmation` passes, binds 153 inputs and adds
+953 prefix plus 18 new-completion replay decisions, zero neural calls. Audit
+SHA a65cd98b73b8d56b95a9d94a26467cb81ed66eb9af947f4f7367e75f9830586b;
+report 7c7430802f9a61848bcffd46158d26b8d00c5bd223de40649020fa7c05be5819.
+All totals, scopes and artifact hashes are in PREPARED_BELIEF_ACTION_RESULTS.rst.
+
+No model promotion or stronger-play claim. The current-hand prediction gain
+survives complete enumeration, while these search settings do not convert it
+into demonstrated strength. The active research goal remains unfinished.
+No live job remains; do not rerun completed diagnostics or overwrite receipts.

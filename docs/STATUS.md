@@ -35,38 +35,69 @@ round endings,0fullmatches;133,120shared distinctchancekeys. Evaluation
 Public-model predictions399,624. Replay verifies290,156historical inputs with0new
 neural calls/independentdeals;root replay separately212,212dec/14,101round/192endings.
 
-The manuscript now includes the completed renewal result. Public
-identity conditioning has failed across the three completed memory studies;
-examine current-hand inference using public action history. First complete the
-existing exact-posterior diagnostic over all25eligible development roots to
-separate inference information from128-proposal sampling noise. This does not
-use fresh evaluation/final deals,select a winner or establish stronger play.
+The manuscript includes the completed renewal result. Public identity
+conditioning has failed across the three completed memory studies. Exact
+current-hand inference now improves descriptive prediction error, but two
+completed action-search diagnostics provide no stronger-player result.
 
-**Complete exact-hand diagnostic running:** session67641,launcher58808/actual
-Python64412,executes scripts.complete_sampled_history_exact on all25eligible
-roots from the existing32-attempt development diagnostic. Sevenineligible
-attempts stay in its coverage accounting. Protocol
-01ea7aef3844faf07aa4a6ac9bcf5c5e47dc87eb2c5f307d0ecd51c0af9be9f1 binds66inputs.
-Output runs/sampled_history_complete_exact;do not duplicate/restart this job.
-It reuses3distinct prior verified public-root tables and computes remaining
-complete hand spaces with strict CPU2 models,retaining all marginal/error results.
-No new evaluation deals,future rollouts,training or101M use. After completion,
-independently check all candidate sets and marginal/error arithmetic before
-using the result to design an action comparison. [Design](SAMPLED_HISTORY_COMPLETE_CHECK.rst).
-Four CPU checks pass,0skips,1.55s;XML
-6424fe47ddcc7648ca0f92ce037f0ae68dde3023e256ccfca98db000de25e141.
+**Complete exact-hand diagnostic verified:** all 25 eligible roots finish;
+seven ineligible attempts remain in coverage. Session 67641 exits 0. There are
+20 distinct public observations from eight shared development deals. Seventeen
+new exact tables and eight cache uses cover 141,645 candidates and 138,848
+valid hands across records. Mean Brier error: uniform 0.155551, history 0.136122,
+identified history 0.131641; both conditioned variants improve at 23/25 roots.
+Both parents and both opponent groups improve descriptively. These are old
+development roots, not held-out evidence or a strength gain.
 
-**Complete-hand scalar auditor ready:** scripts.audit_complete_sampled_history_exact
-checks all candidate sets,public keys,marginals,model weights,Brier/sampling
-errors,group averages and cached/new work accounting. Three checks pass,0skips,
-1.49s against a previously independently verified exact table and corrupted
-probability/candidate cases;XML
-ea88981cce558ee30c20624b1fbccb7b1446e0a4011a0bc78fd79ed5ea0d99a0.
-Initial scope-placement error was corrected;failed XML retained. Unit attempts
-replay210old-prefix decisions,0neural calls. Full25-root audit has not run.
-After67641 completes,run `python -m scripts.audit_complete_sampled_history_exact
---output runs/sampled_history_complete_exact` once. It does not independently
-rerun all neural likelihood predictions. Do not infer strength from this check.
+New inference takes 969.04 seconds, 484,673 hypothetical historical transitions
+and 451,774 strict CPU calls, plus 953 source replay decisions. Independent
+candidate/scalar/group/work verification passes, binds 91 inputs and adds
+953 replay decisions with zero neural calls. It does not rerun all likelihood
+networks. Report 24dfb447432d512a0a7df5f40ea9cb344c72a581007b37a524c78759b5f70a20;
+audit 1dcb809be800cec9b528cd464fcf7448687a45ba0d5bdd7d1731c3757aad2341.
+[Complete results](SAMPLED_HISTORY_RESULTS.rst).
+
+**Both exact-belief action diagnostics independently complete:** sessions
+76166 and 48350 exit 0. No live computation remains. The first comparison searches
+all 25 roots under four conditions with 128 proposal / 512 confirmation caps and
+margin 2.5. All 100 choices retain the parent; all proposal margins are nonpositive.
+There are 49 positive-mean proposals, but zero confirmations under this gate.
+
+A separately frozen follow-up confirms those 49 fixed alternatives with fresh
+512-particle samples, retaining the same final margin. One history-only action
+changes (parent 2 / WP, case 0). Its actual-source completion changes a draw to
+a loss, point difference 0 to -38. All other choices retain the parent. Neither
+study establishes a strength gain. All choices precede actual-hidden assessment;
+these are conditional old-root completions, not independent full-match trials.
+[Results and accounting](PREPARED_BELIEF_ACTION_RESULTS.rst).
+
+First search: 7,802,486 hypothetical decisions / 95,232 completed branches /
+573,452 round endings, 428.36s. Actual assessment: 25 conditional completions,
+1,777 decisions / 145 round endings, 100 reused lookups. Follow-up: 3,816,893
+hypothetical decisions / 50,176 completed branches / 282,000 round endings,
+95.56s. It reuses 25 actual completions and adds one with 18 decisions / two
+round endings. Each producer separately replays 1,906 source-prefix decisions.
+Each independent auditor adds 953 prefix decisions and replays only the new
+actual completions. No new historical neural calls or evaluation deals.
+
+First audit c39cdb170eaefd936c4ee35f827cdfb5d42f7b02d7458dafa93b445d7569e6c2
+binds 143 inputs; follow-up audit
+a65cd98b73b8d56b95a9d94a26467cb81ed66eb9af947f4f7367e75f9830586b binds 153.
+Both verify scalar search arithmetic and recorded completion actions; neither
+independently reruns all hypothetical neural policies. Preserve finished runs.
+Three CPU adapter checks, one actual CUDA/reference check, and two checks for
+each auditor pass with zero skips. The CUDA check ran twice, both passed.
+
+**Next stronger-play work:** exact public-hand information is useful for
+prediction, but identity-only training and the bounded policy-rollout route
+have not supplied a new replicated win gain. Investigate learning action values
+from the full posterior rather than repeating identity-only training or merely
+loosening the observed search threshold. First review existing value-learning
+attempts and numerical-policy mismatch evidence, then fix a distinct, bounded
+comparison with uniform-belief controls before training or fresh evaluation.
+The 25 old roots cannot serve as held-out evidence. Keep 101M unused unless a
+new, independently specified qualifying study justifies final confirmation.
+Canonical model, initial dealer, and the verified renewal PDF remain unchanged.
 
 **Fixed-root multi-round comparison independently complete:** producer46255
 and audit96354 exited0. All24,576 strict matches and all18 contrasts reproduce.
