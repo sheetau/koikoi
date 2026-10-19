@@ -6483,3 +6483,39 @@ At04:14JST learning23676 and queue42304 remain OS-live. Main evaluation output
 still does not exist. Five arms are complete; the queue will own preparation,
 evaluation and audit after final training success. Do not restart training,
 duplicate evaluation or change frozen inputs. The broader goal remains active.
+
+## 2026-10-20: all Point-initialization learning complete; main evaluation live
+
+Training session26829 exits0 after final arm seed2_point_matched completes520
+updates. Final arm work:8,519,680decisions /564,384round endings /73,084training
+matches. Its saved-state audit passes model/source identity, finite tensors,
+metrics prefix, simulator counters and actual Adam steps/moments (value49,920,
+actor heads48,000each). Final model
+e96385a464231b56612827cef2c6944aca20f86e67bd8f07374e76eddb425e6e;
+actorcb5508cb1c2911950f731b8ba493f499daebd13770676965d793e960eb533588;
+metricsbcaa209345ee75103dc7919abec16e5a2950da412843a9c449d6b93749858ab8;
+final audit056a4490bdcb90d74dd352bcbd69ae10e74e03137904c029ee02a365042b82a7.
+The unchanged auditor runs once for this new520snapshot. No training replay.
+
+All six arms total51,118,080decisions /3,398,982round endings /439,369training
+matches /3,120updates. Warmup is included once:1,966,080decisions /128,492rounds /
+16,375matches. Whole-training completion SHA
+14a61deb6a030701c9879650bbf27c0b59d218a898f3967ef01126cbf137d620.
+Actual23676 is gone; training is terminal and must not be restarted.
+
+Queue25193/actual42304 observes the exact held producer exit0 and matching
+completion, then prepares the fixed evaluation successfully. Preparation embeds
+all12warmup/endpoint audits; each exactly matches its standalone receipt and
+both seeds' initial-state equality checks pass. Evaluation protocol
+1df245b6fea1799c0ed9f91518642ccb3d1e4bf9c0f7e682a1208819e609b7e7 binds187inputs,
+16cells and4,096paired deals per opponent. Expected131,072full matches.
+Queue protocol and all frozen code/test inputs remain unchanged.
+
+Evaluator launcher6284/actual53480 starts04:45:17JST. First cells
+parent1_parent_wp (launcher6596/actual66036) and parent1_parent_point
+(launcher9624/actual2820) start04:45:19JST. Both workers are OS-live and produce
+newline-terminated full-match records. No partial outcome means are inspected.
+Main root:runs/point_initialization_evaluation. Queue stage receipts record
+prepare exit0 and evaluate started; the queue owns later evaluation and audit.
+Do not launch duplicate workers or change frozen inputs. No full main outcome
+summary, qualification decision, export or deployment change exists yet.

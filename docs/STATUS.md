@@ -57,7 +57,7 @@ No duration-study job is live. This is greater-compute adaptation,not a novel al
 The manuscript now includes the completed duration result (latest PDF below).
 Do not extend this closed comparison or repeat closed temperature/return sweeps.
 
-**Point initialization main learning is live; capability and calibration are complete.**
+**Point initialization training is complete; the fixed main evaluation is live.**
 [Specification](POINT_INITIALIZATION_STUDY.rst),[result](POINT_INITIALIZATION_CALIBRATION.rst).
 The old public CPU-score corpus supplies75calibration/25descriptive validation
 source groups,excluding forced choices. Four Point divisors match WP0.05phase
@@ -87,63 +87,37 @@ capability executions,not strength evidence. Independent audit
 f8d3036e9af6b55b21cf94275515fd0c19f61b737539931133f1e38b56538367 binds94inputs;
 producer receiptbe2b1c01539138582eaeeb89d7c9fb6262089f0b0efe1c9f3b91ac6835d02c1e.
 
-Main root runs/point_initialization_study. Session26829; launcher47112/actual23676
-started2026-10-20 01:56:02JST. The actual process remains OS-live. All three
-first-seed arms complete520updates and pass final saved-state audits:
+Main training root runs/point_initialization_study is terminal. Session26829
+exits0 after all six520-update learners; actual23676 is gone. Never restart it.
+All six20-update warmups and520-update endpoints pass saved-state audits.
 
-| First-seed arm | Decisions | Round endings | Training matches |
+| Arm | Decisions | Round endings | Training matches |
 | --- | ---: | ---: | ---: |
-| wp_fixed | 8,519,680 | 571,625 | 73,440 |
-| point_fixed | 8,519,680 | 562,510 | 73,153 |
-| point_matched | 8,519,680 | 566,059 | 73,381 |
+| seed1_wp_fixed | 8,519,680 | 571,625 | 73,440 |
+| seed1_point_fixed | 8,519,680 | 562,510 | 73,153 |
+| seed1_point_matched | 8,519,680 | 566,059 | 73,381 |
+| seed2_wp_fixed | 8,519,680 | 572,238 | 73,449 |
+| seed2_point_fixed | 8,519,680 | 562,166 | 72,862 |
+| seed2_point_matched | 8,519,680 | 564,384 | 73,084 |
 
-Total:25,559,040decisions /1,700,194round endings /219,974training matches /
-1,560updates. Included warmup:983,040decisions /64,232rounds /8,201matches.
-Each final model has valueAdam49,920steps and actor heads48,000each.
-The newly completed calibrated Point model is
-45cd3641955784e536dce2eeb644a9370cd2fcb9fb17b367f521de9c039f8167;
-its final audit SHA is
-e37bd7823e593cff9b14e3d23df464b6c24838504e42e096e1572c5b02180d1d.
-All earlier arm receipts and checkpoints remain unchanged; do not rerun them.
+Total51,118,080decisions /3,398,982round endings /439,369training matches /
+3,120updates. Included warmup:1,966,080decisions /128,492rounds /16,375matches.
+Each endpoint has valueAdam49,920steps and each actor head48,000steps.
+Last endpoint e96385a464231b56612827cef2c6944aca20f86e67bd8f07374e76eddb425e6e;
+last standalone audit056a4490bdcb90d74dd352bcbd69ae10e74e03137904c029ee02a365042b82a7.
+Complete receipt14a61deb6a030701c9879650bbf27c0b59d218a898f3967ef01126cbf137d620.
+Training protocoldefd0e993e2c85efb844164b0c1edfa4ac6bae917c31ea6a6eb33d7ba4618048
+and its102inputs remain frozen. The immutable complete receipt's evaluation
+field records its creation-time state, not the subsequent evaluator status.
 
-First-seed actual initial-state comparison remains passed: the two Point actors
-are equal, and all three arms have identical critic, optimizer, environment,
-counters, runtime and four RNG states. The Point config difference is only
-phase_temperatures. Receipt seed1_three_initial_check.json SHA
-639678df15809acbd0fc965f701a607124f50377963b0d1f730db8eee098b454.
-These saved-state checks add no inference or simulator work and establish
-neither equal exploration/gradients nor playing strength.
-
-The second-seed WP arm also completes520updates and passes its final audit:
-8,519,680decisions /572,238round endings /73,449training matches. Model
-447a8699c54428737d70d1d8a0a02bf6bacd6d999c297c9cbaeb1691768bde75;
-final auditb4663b0907442d7081a382123e106f19d65800a04330d3ba04e37b34eb4ff4f4.
-The second-seed Point fixed arm also completes520updates and passes its final
-audit:8,519,680decisions /562,166round endings /72,862training matches. Model
-03bdd4cfd6e33084c67d82a3bf5f2845d82c760babb54e3ad420445d0cba4ffe;
-final audit886037c3226839f29c0e0688f85fc49ed21c2fbbe9eb77d98735c8f790329549.
-All five completed arms total42,598,400decisions /2,834,598round endings /
-366,285training matches /2,600updates; warmup is included once.
-
-The same process now trains the final arm, seed2_point_matched(seed102210001).
-Its20-update warmup passes:327,680decisions /21,031rounds /2,691matches,
-originalPointactor unchanged, valueAdam1,920steps and actorAdam0. Warmup model
-2a444e728b217bbc126ad4241c28d6ea8eb9e1930998f6b137a7aad080d698e0;
-audit25a7d844a2c79cd5a5d66541670f7a241ba33988db7476b13928753591bf1850.
-The second-seed Point initial actors and all critic/optimizer/environment/RNG
-states match; only phase_temperatures differs in their configs. The prior
-WP/Point comparison is preserved and hash-checked, giving three-arm initial
-critic, optimizer, environment, counters, runtime and four-RNG equality.
-Receipt seed2_three_initial_check.json SHA
-ef28204f585796f30897dacbaea887d03347bdcf66f3069b771624ea39717fcd.
-These are zero-inference saved-state checks, not playing-strength evidence.
-Five of six arms are complete. No outcome evaluation has started.
-Actual learningPID23676 and queuePID42304 remain OS-live. The queue owns the
-next evaluation launch after the producer exits successfully; do not duplicate it.
-Protocol
- defd0e993e2c85efb844164b0c1edfa4ac6bae917c31ea6a6eb33d7ba4618048 binds102inputs,
-all verified unchanged. Keep these sources/tests/specifications frozen.
-Never restart because a wait expires;started.json prevents a second launch.
+Both seeds' actual initial-state comparisons pass. Within each seed all three
+arms share initial critic, optimizer, environment, counters, runtime and four
+RNG states; the two Point actors are identical. Three-arm comparison receipts:
+seed1 639678df15809acbd0fc965f701a607124f50377963b0d1f730db8eee098b454;
+seed2 ef28204f585796f30897dacbaea887d03347bdcf66f3069b771624ea39717fcd.
+All12standalone audits exactly equal the audits embedded by main preparation.
+Saved-state checking adds no inference, simulation or new training; it is not
+playing-strength evidence. No main outcome summary is available yet.
 
 [Fixed main design](POINT_INITIALIZATION_MAIN.rst):seeds102110001/102210001,
 three arms WP0.05/Point0.05/Pointcalibrated,each20warmup+500policy updates.
@@ -183,14 +157,23 @@ runs/point_initialization_study/seed1_wp_fixed/warmup_audit.json
 SHA12c8f04ae4dc91588c66dd72e9a82c7c2a0e2853d39c54c4cb9b7912eea30d86.
 It verifies only that saved prefix,not training convergence or playing strength.
 
-Completion queue runs/point_initialization_completion is live,session25193,
-launcher60448/actual42304 starts02:05:33JST. It holds a query-only handle to
-actual23676 with creationFILETIME134369025624284303;PID reuse cannot redirect it.
+Completion queue runs/point_initialization_completion remains live,session25193,
+launcher60448/actual42304. Its exact held producer handle reports exit0 and the
+matching training completion passes. Preparation exits0; evaluation is running.
 Queue protocol3419c9da7ec674828b8865ea61dddc6e253600586093c9a23c8d2d940864ac8a
-binds156inputs,allunchanged. It waits for exactproducerexit0 plusmatchingcomplete,
-then prepares main evaluation,executes it and independently audits it once.
-No promotion or training restart. Main output runs/point_initialization_evaluation
-doesnotexist yet;do not create it or launch another evaluator/queue.
+binds156unchanged inputs. It owns evaluation followed by the independent audit;
+do not launch another evaluator or queue. It never promotes a model.
+
+Main evaluation root runs/point_initialization_evaluation now exists.
+Protocol SHA1df245b6fea1799c0ed9f91518642ccb3d1e4bf9c0f7e682a1208819e609b7e7
+binds187inputs and all12training audits. The16cells use4,096paired deals per
+opponent,131,072planned matches, and the previously fixed bootstrap family.
+Evaluator launcher6284/actual53480 starts04:45:17JST. First workers
+parent1_parent_wp launcher6596/actual66036 and parent1_parent_point
+launcher9624/actual2820 start04:45:19JST and are producing complete match rows.
+These worker PIDs apply only to the first two cells; the parent owns later ones.
+Track process handles and newline-terminated record counts without interpreting
+partial outcomes. Final results and main replay/statistics audit are pending.
 
 The complete-only Point result exporter is ready:
 scripts/export_point_initialization_results.py. It requires the pinned training
@@ -212,9 +195,10 @@ After the queue and full audit complete,run once into a fresh directory:
 XML runs/point_initialization_export_tests_final.xml SHA
 43d77aa1f183edad22b48c73c93b040f3d427241161cbbf7dca63e3fa0ae2110.
 ExporterSHA7a282ec61e819ffdb6982bbe08fbed4528ec77da809e2fb53f514de0ea5f647f.
-All156frozen queue inputs remain unchanged. Actual23676and42304areOS-live.
+All156frozen queue inputs remain unchanged. Queue42304 and evaluator53480 are OS-live.
 
-Next monitor training session26829/actual23676 and queue25193/actual42304.
+Next monitor queue session25193/actual42304, evaluator53480 and its live workers.
+Training session26829 finished successfully; do not poll or restart it.
 Freeze both training and evaluation/queue sources,tests and XML receipts. If a
 wait expires,verify these exact processes;never restart solely from timeout.
 The full main result ispending. Main seed inventory scans3,642JSONfiles with956
