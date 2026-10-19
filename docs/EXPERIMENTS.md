@@ -5633,3 +5633,42 @@ change,without calling transfer or temperature calibration novel. Token-swap
 ensembling is deprioritized because the existing pointwise/position-free actor
 already has exact-arithmetic token equivariance;no numerical certificate claimed.
 Current methods/models/sources,101M confirmation andPDF unchanged. Goal active.
+
+## 2026-10-19: first duration endpoint complete, second learner running
+
+The preceding turns were verified waits:the exact producer32540 and completion
+queue32628 remained live while metrics advanced. This turn monitors3582through
+4020 and observes the same producer transition to seed99210001. No worker was
+restarted or intermediate strength evaluated. Session99216 remains active;
+completion session21869 remains waiting_training.
+
+Seed99110001 completes20warm+4000policyupdates in recorded12424.531seconds
+(includes loop/checkpoint work,not a controlled performance benchmark).
+65,863,680decisions/4,405,193rounds/567,030completed trainingmatches. The520prefix
+is included,not additional work. ValueAdam385,920steps;eachactorhead384,000.
+Independent audit_published_duration_checkpoint at4020 passes metric-prefix,
+actualsimulatorcounter,source/initialization/finite-model and per-parameter
+Adam checks. Completion receipt counters and endpoint digest agree exactly.
+Finalcheckpoint506ff8738c304f15d71344c1d4038e7f84381a500f3f0931f56be63f11e3a150;
+actorparameters2d60ed7cfb478b89f0e83da97d5b8beba125aab4576d832ebef6b744775bb4a0;
+auditb9c10748dce30e210fa070390ed3661200ac812350213571f8368b40ff069dc5;
+complete receipt17088878e419dcdd1def692357191d973562a3caf3fdc3c6371c5daa6c986667.
+
+Seed99210001 begins from its own fresh original-WP initialization. At20updates,
+327,680decisions/22,010rounds/2,769completedmatches;1,920valueAdamsteps/0actor.
+The independent saved20 audit passes,including originalWPactorstationarity.
+Snapshot15a11b8d5e3563bc6f2af6d4c862b15bbdfdd357f5b0e602b1538ad5184044cd;
+audit33724feea3b8157a8b7e46001a6d15ca2e50b5be5ff6a405c139aaf51c948877.
+Second learner advances to30updates at this observation. Both auditors exit0.
+All67trainingprotocol and108queueprotocol input digests independently rechecked.
+No new tests needed:the unchanged auditors are exercised on newly completed
+actual artifacts. These audits do not replay training or assess playing strength.
+
+Commands (each with --input runs/published_duration_study):
+python -m scripts.audit_published_duration_checkpoint --seed 99110001 --update
+4020 --output runs/published_duration_study/audit_seed99110001_update4020.json;
+python -m scripts.audit_published_duration_checkpoint --seed 99210001 --update
+20 --output runs/published_duration_study/audit_seed99210001_update20.json.
+Next verify second saved520prefix. Existing single-use completion queue must
+remain in charge of final preparation/evaluation/audit after both runs. No
+main evaluation or101M confirmation has run. Canonical/dealer/PDF unchanged.

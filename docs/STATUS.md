@@ -17,13 +17,26 @@ T0.05 have lower normalized entropy (koi0.028503 versusWP0.199169 on215old
 inputs). A naive initialization swap would also change exploration. No new
 training arm or temperature is selected;finish the live duration study first.
 
-**Longer pretrained adaptation launched; actual GPU process live.**
+**First long adaptation complete and audited; second learner is live.**
 [Fixed design](PUBLISHED_DURATION_STUDY.rst),runner
-scripts/published_duration_study.py. Session99216,actual PID32540(parent18152)
-verified live by same-session polling and Win32_Process. Current first seed
-99110001 has passed the saved update520/4,020:8,519,680 decisions/571,740
-rounds/73,426 completed matches. The independent520 checkpoint audit passes. These are training counters,not strength evidence. Seed99210001 starts
-sequentially after the first finishes. Never restart from a timeout or old handle.
+scripts/published_duration_study.py. Session99216,actualPID32540(parent18152)
+continues into seed99210001;Win32_Process and current updates verify liveness.
+First seed99110001 completes4,020updates:65,863,680decisions/4,405,193rounds/
+567,030matches,including the saved short prefix and20warmup updates. Its
+independent final checkpoint audit passes;complete receipt and audit counters
+and endpoint hash agree. Final checkpoint
+506ff8738c304f15d71344c1d4038e7f84381a500f3f0931f56be63f11e3a150;
+audit b9c10748dce30e210fa070390ed3661200ac812350213571f8368b40ff069dc5.
+
+Second seed reaches30/4,020updates at the recorded observation. Its20-update
+warmup audit passes:327,680decisions/22,010rounds/2,769matches,1,920value Adam
+steps and0actor steps;actor equals originalWP. Receipt
+33724feea3b8157a8b7e46001a6d15ca2e50b5be5ff6a405c139aaf51c948877.
+All67training and108completion-queue bindings reverify unchanged. The live queue
+still waits for both runs;no main evaluation,model selection or promotion occurs.
+These are training/state checks,not strength evidence. Never restart from a
+stale observation or timeout. Next audit second seed's saved520prefix,then
+allow the existing queue to prepare/evaluate/audit once both runs finish.
 
 Two fresh original-WP learners preserve the existing actor,public critic,PPO,
 returns,temperature and learning rates. Each saves the same-trajectory short
