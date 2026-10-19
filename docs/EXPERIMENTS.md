@@ -5858,3 +5858,40 @@ of twelve cells complete. The second short/long endpoints remain in progress.
 No source,model,training,protocol,dealer,deployment orPDF changes. The fixed
 full evaluation and subsequent independent audit continue;the stronger-play
 and research objective remains active and unachieved.
+
+## 2026-10-20: completed duration training-log diagnostic
+
+While the fixed full evaluation continues, summarized the completed training
+logs only. Each seed has exactly4,020 consecutive update rows;critic_only is
+true exactly for updates1..20. For windows21..120,421..520 and3921..4020,
+compute math.fsum of each stored metric divided by100. Full-precision report:
+`runs/published_duration_training_diagnostic.json`, SHA256
+`e42ebf46118ef3064d56ceba3048e79c59bc99db1f40e74f5f48c5612e753d75`.
+It binds both complete logs and the two training source files. Metric log hashes:
+seed99110001 `351939f2eeee055539429f4fec9290699bcbd9d371be542f09735c3a41320f9d`;
+seed99210001 `e0c13884bd40f6884e08ef2290ee54eae18963609044249d17665bd0169b8cfb`.
+
+| Seed | Updates (inclusive) | Approximate KL | Entropy | Gradient norm | Value loss |
+| --- | --- | --- | --- | --- | --- |
+| 99110001 | 421..520 | 0.000240119 | 0.504221 | 1.689801 | 0.076688 |
+| 99110001 | 3921..4020 | 0.000270367 | 0.481882 | 1.916042 | 0.076441 |
+| 99210001 | 421..520 | 0.000221693 | 0.500358 | 1.635386 | 0.077160 |
+| 99210001 | 3921..4020 | 0.000279682 | 0.504529 | 1.734340 | 0.076375 |
+
+Source inspection establishes metric semantics:Trainer.update averages96
+minibatch metrics per update. Approximate KL is the sampled (ratio-1)-log(ratio)
+quantity relative to the rollout policy,not short-to-long endpoint KL. Entropy
+is unnormalized and pools all visited decisions,including forced choices and
+changing state/phase frequencies. Gradient norm combines actor and value
+parameters before joint clipping to0.5;it is not an actor-only gradient norm
+or the fraction of minibatches clipped. Value loss uses changing bootstrapped
+training targets,not fixed held-out returns.
+
+Late approximate KL remains nonzero in both seeds;pooled entropy decreases
+modestly in one seed and increases modestly in the other. These logs do not
+show a common collapse of pooled entropy or vanishing numerical updates.
+They do not establish convergence,actor-gradient quality,per-phase exploration,
+or stronger play. No learning-rate/temperature intervention or additional arm
+is selected from this diagnostic. The fixed full evaluation remains the next
+decision gate. No evaluation outcomes inspected;zero new inference calls,
+environment decisions,matches or optimizer updates. Goal remains unachieved.

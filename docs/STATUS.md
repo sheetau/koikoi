@@ -29,6 +29,15 @@ T0.05 have lower normalized entropy (koi0.028503 versusWP0.199169 on215old
 inputs). A naive initialization swap would also change exploration. No new
 training arm or temperature is selected;finish the live duration evaluation first.
 
+Completed training-log diagnostic:both seeds retain nonzero late approximate
+KL;pooled entropy changes from0.504221 to0.481882 and0.500358 to0.504529
+(short/long endpoint last100updates). This does not identify convergence or
+common entropy collapse. Gradient norms combine actor and value parameters,
+and cannot isolate actor signal. Report runs/published_duration_training_diagnostic.json
+(e42ebf46118ef3064d56ceba3048e79c59bc99db1f40e74f5f48c5612e753d75);
+see EXPERIMENTS for metric semantics. No new arm selected or evaluation outcomes
+inspected;the full evaluation remains the next decision gate.
+
 **Both long adaptations complete and audited; main evaluation is live.**
 [Fixed design](PUBLISHED_DURATION_STUDY.rst). Training session99216 exits0;
 actualPID32540 is gone. Both fresh learners finish4,020updates. Total work:
