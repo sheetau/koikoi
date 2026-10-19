@@ -46,10 +46,16 @@ These verify saved models,source,Adam and work,not playing strength.
 
 The existing queue(session21869,actualPID32628,parent22404) observes exact
 producer exit0 and completes prepare once. Main evaluator actualPID63224,
-launcher60412,starts2026-10-19 21:42JST. First workers:parent1_parent_wp
-launcher18112/actual33480;parent1_parent_point launcher56492/actual55700.
-All are OS-verified live. Read evaluation_process.json and actual child
-processes for subsequent workers;do not reuse old process handles or restart.
+launcher60412,starts2026-10-19 21:42JST. The first two cells now complete:
+parent1_parent_wp and parent1_parent_point each contain8,192matches; their
+completion reports, match counts and row SHA256 identities agree. The old
+workers33480/55700 have exited. Queue and evaluator remain OS-verified live.
+Next workers start automatically:parent1_short_wp launcher26388/actual27980
+at22:16:58JST;parent1_short_point launcher46160/actual54120 at22:17:29JST.
+Both are OS-verified live with289/163complete rows at this checkpoint.
+Total16,836recorded matches;two of twelve cells complete. No interim outcome
+means inspected. Read evaluation_process.json and actual child processes for
+subsequent workers;do not reuse old process handles or restart.
 
 Main evaluation protocol76e1b6af987e21f4e05e270aaabcd85ee9a89e68621589d1802a3a7543b24f18
 binds92inputs and embeds all six passed training audits. All bindings verify,

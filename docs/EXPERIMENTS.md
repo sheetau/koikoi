@@ -5774,3 +5774,22 @@ previous opening counts; no interim outcome means were reviewed. The existing
 queue still owns all matches and the following independent audit. No new
 training, simulation, neural calls, deployment, dealer or manuscript changes.
 Goal remains active: this reporting preparation is not a strength improvement.
+
+## 2026-10-19: first duration evaluation cells complete
+
+Verified waits through advancing producer counters end with the first two cells
+complete: parent1_parent_wp and parent1_parent_point each have8,192complete
+recorded matches. Saved report status/counts and actual JSONL SHA256 match.
+WP work:938,994decisions/64,010round endings/8,192matches. Point work:
+952,996decisions/63,381round endings/8,192matches. This is producer accounting,
+not the final independent replay/statistics audit. No win or point means read.
+
+The first workers33480/55700 exit;the existing queue32628(session21869) and
+main evaluator63224 remain OS-verified live. The evaluator automatically starts
+parent1_short_wp launcher26388/actual27980 at22:16:58JST and
+parent1_short_point launcher46160/actual54120 at22:17:29JST. Both are live;
+opening their JSONL files finds289/163complete rows respectively. Total16,836
+recorded matches;two of twelve cells complete. These are progress counts only.
+No restart,source change,model selection,promotion or101Mconfirmation occurs.
+Continue the same frozen evaluation and subsequent independent audit. The
+stronger-play and research objective remains active and unachieved.
