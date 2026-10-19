@@ -5698,3 +5698,46 @@ Next await second4,020completion. The already-live single-use queue owns main
 preparation,the98,304-match comparison and independentaction/statisticsaudit.
 No new learning configuration,main evaluation,final101Mconfirmation,canonical
 model,dealer orPDF change. Goal remains active and improvement unproven.
+
+## 2026-10-19: duration training complete and fixed evaluation launched
+
+After verified waiting through secondseed3214..4020,training session99216 exits0
+and actualPID32540 is absent. Both learners finish the exact frozen budget.
+Seed99210001:65,863,680decisions/4,399,064rounds/566,104completedmatches,
+20warm+4,000policyupdates,385,920valueAdamsteps and384,000eachactorhead.
+Its recorded loop time12423.781s is not an isolated timing benchmark.
+Total twolearners:131,727,360decisions/8,804,257rounds/1,133,134matches,
+8,040updates of which40warm/8,000policy. Short prefixes are included once.
+This newpaper8 training work does not add again to the earlier100Mresearch12 gate.
+
+Unchanged independent checkpoint auditor atsecond4020 exits0 and passes.
+Final snapshot9aa1b1b7f92289133b003dd86adc8685ed8f9c78b5042605a8797f0d26e602d0;
+actorparameters5ed719113476509e5f35d1dc797db46f5ab014adc0c8500cdbcda4f108e17155;
+audit655c0caf695837749c116764130f1f5373c1af54be57cb5ffb9839098e708dfd;
+seedcomplete69fe8ee021b8489b7944abd80c2d18ff80c78445e50d43a3a3ad37be282d3bd0.
+Roottrainingcompletece033a7a2b2c870efa0269509981c5a7913bfef2caca83c388fd8314ad6197ca.
+Both per-seed completion counters/hashes match independent final audits.
+All67training and108completion-queue bindings reverify unchanged.
+
+The existing completion queue32628/21869 observes the held producer handle's
+exit0 and launches prepare once,then run automatically. No new manual evaluator
+or recovery is launched. Prepare passes all six20/520/4020stateaudits and binds
+92inputs into runs/published_duration_evaluation/evaluation_protocol.json,
+SHA76e1b6af987e21f4e05e270aaabcd85ee9a89e68621589d1802a3a7543b24f18.
+Mode main,pairs4096,12cells;the98,304-match schedule/8,192shareddealstreams,
+models,bootstrap and simultaneous4primarycontrastgate remain unchanged.
+Every92binding and all six embedded auditstatuses verify before result review.
+
+Evaluator starts2026-10-19 21:42JST:launcher60412,parent32628,actual63224.
+First cells parent1_parent_wp launcher18112/actual33480 and parent1_parent_point
+launcher56492/actual55700. Win32_Process confirms all live. Directoryentry sizes
+initially showed0 despite live CPU consumption;opening each JSONL read325/326
+complete rows respectively. This was Windows open-file metadata lag,not a
+terminal failure. Producer flush/progresslogs at512matches;no outcome means
+are inspected or interpreted midrun. Current evaluator/queue process receipts
+are authoritative;training_complete's evaluation=not started is its immutable
+training-time field,not current evaluation status.
+
+Queue remains responsible for finishing allcells and then independently
+replaying recordedactions and reproducing statistics. No newmodel promotion,
+101Mconfirmation orPDF edits. Full strength objective remains unachieved.

@@ -15,42 +15,48 @@ A completed [initialization diagnostic](PUBLISHED_INITIALIZATION_COMPARISON.rst)
 finds all28stored published configs use WP. Archived Point scores at the same
 T0.05 have lower normalized entropy (koi0.028503 versusWP0.199169 on215old
 inputs). A naive initialization swap would also change exploration. No new
-training arm or temperature is selected;finish the live duration study first.
+training arm or temperature is selected;finish the live duration evaluation first.
 
-**First long adaptation complete and audited; second learner is live.**
-[Fixed design](PUBLISHED_DURATION_STUDY.rst),runner
-scripts/published_duration_study.py. Session99216,actualPID32540(parent18152)
-continues into seed99210001;Win32_Process and current updates verify liveness.
-First seed99110001 completes4,020updates:65,863,680decisions/4,405,193rounds/
-567,030matches,including the saved short prefix and20warmup updates. Its
-independent final checkpoint audit passes;complete receipt and audit counters
-and endpoint hash agree. Final checkpoint
-506ff8738c304f15d71344c1d4038e7f84381a500f3f0931f56be63f11e3a150;
-audit b9c10748dce30e210fa070390ed3661200ac812350213571f8368b40ff069dc5.
+**Both long adaptations complete and audited; main evaluation is live.**
+[Fixed design](PUBLISHED_DURATION_STUDY.rst). Training session99216 exits0;
+actualPID32540 is gone. Both fresh learners finish4,020updates. Total work:
+131,727,360decisions/8,804,257rounds/1,133,134completed trainingmatches,including
+both short prefixes and40warmup updates. Seed99110001:65,863,680decisions/
+4,405,193rounds/567,030matches. Seed99210001:65,863,680decisions/4,399,064rounds/
+566,104matches. Each runs4,000policyupdates after20warmup updates.
 
-Second seed passes its saved520prefix and continues past535/4,020updates.
-The520audit passes:8,519,680decisions/570,785rounds/73,248matches,49,920value
-Adamsteps and48,000peractorhead. Both short prefixes are now verified.
-Second short checkpoint23a8bb514cb739ac44cb6a832a5a38dd5cd3f4c632ebc850081fa3609e695e77;
-audit 18d92b09ff98230b2c4c4041331e190b2ddf864702e545043797a051a6981f96.
-Its20-update
-warmup audit passes:327,680decisions/22,010rounds/2,769matches,1,920value Adam
-steps and0actor steps;actor equals originalWP. Receipt
-33724feea3b8157a8b7e46001a6d15ca2e50b5be5ff6a405c139aaf51c948877.
-All67training and108completion-queue bindings reverify unchanged. The live queue
-still waits for both runs;no main evaluation,model selection or promotion occurs.
-These are training/state checks,not strength evidence. Never restart from a
-stale observation or timeout. Next await the second4,020endpoint and
-allow the existing queue to prepare/evaluate/audit once both runs finish.
+All six planned saved-state checks(20/520/4,020 for bothseeds) pass. Final model
+hashes:seed99110001 506ff8738c304f15d71344c1d4038e7f84381a500f3f0931f56be63f11e3a150;
+seed99210001 9aa1b1b7f92289133b003dd86adc8685ed8f9c78b5042605a8797f0d26e602d0.
+Second final audit655c0caf695837749c116764130f1f5373c1af54be57cb5ffb9839098e708dfd.
+Training completionce033a7a2b2c870efa0269509981c5a7913bfef2caca83c388fd8314ad6197ca.
+These verify saved models,source,Adam and work,not playing strength.
+
+The existing queue(session21869,actualPID32628,parent22404) observes exact
+producer exit0 and completes prepare once. Main evaluator actualPID63224,
+launcher60412,starts2026-10-19 21:42JST. First workers:parent1_parent_wp
+launcher18112/actual33480;parent1_parent_point launcher56492/actual55700.
+All are OS-verified live. Read evaluation_process.json and actual child
+processes for subsequent workers;do not reuse old process handles or restart.
+
+Main evaluation protocol76e1b6af987e21f4e05e270aaabcd85ee9a89e68621589d1802a3a7543b24f18
+binds92inputs and embeds all six passed training audits. All bindings verify,
+along with67training/108queue inputs. It fixes12cells x4,096duplicatepairs:
+98,304actualmatches on8,192shared deals. Initial open-file checks find325WP and
+326Point complete rows;these are progress only,not completed comparisons.
+Windows directory-entry sizes initially stayed0 while open-file reads showed
+written rows;do not diagnose a stalled producer from directory metadata alone.
+Next monitor the existing evaluator,then the queue's independent full replay/
+statistics audit. No partial score selection,model promotion or101Mtest.
 
 Two fresh original-WP learners preserve the existing actor,public critic,PPO,
-returns,temperature and learning rates. Each saves the same-trajectory short
-prefix at520 total updates(20 warmup+500 policy),then continues to4,020 total
+returns,temperature and learning rates. Each saved the same-trajectory short
+prefix at520 total updates(20 warmup+500 policy),then continued to4,020 total
 updates(4,000 policy). The experiment tests eightfold policy-update budget,
 not a novel algorithm or an equal-compute method. Total two-run decision budget
 131,727,360 includes both short prefixes. No inherited old endpoint is extended.
 
-After all training,evaluate both short/long endpoints and both retained parents
+The live evaluation compares both short/long endpoints and both retained parents
 against strict CPU assisted WP/Point:4,096 pairs/opponent,98,304 full matches
 on8,192 shared99M deals. Primary:both seeds' long-minus-short AND long-minus-
 retained-parent equal-mixture win lower bounds must be positive in one four-
@@ -61,10 +67,10 @@ verified. scripts/evaluate_published_duration.py refuses main preparation until
 both learners finish and saved20/520/4,020 accounting audits pass. It binds all
 endpoint bytes and runs at most two owned CPU workers. A failure stops owned
 workers and preserves partial files;existing executions cannot silently restart.
-Main evaluation has not started. A single-use completion queue is now live:
+Main evaluation is running. The single-use completion queue remains live:
 session21869,actualPID32628(parent22404),runs/published_duration_completion.
-It holds a query-only handle for exact trainingPID32540 with creation FILETIME
-134368624471611284,waits for exit0 plus completion,then executes these commands::
+It verified exact trainingPID32540(creation FILETIME134368624471611284)
+exit0 plus completion. Prepare finished;run is active;the audit follows::
 
     python -m scripts.evaluate_published_duration prepare --output runs/published_duration_evaluation
     python -m scripts.evaluate_published_duration run --protocol runs/published_duration_evaluation/evaluation_protocol.json
