@@ -5952,3 +5952,39 @@ Workers short WP launcher23628/actual16776 andPoint launcher62112/actual60244
 start00:19:10JST;all OS-verified live. It will run both long cells next and the
 independent audit. No frozen evaluation/training code or source models changed.
 No strength conclusion,main export,promotion or101Mconfirmation occurred.
+
+## 2026-10-20: complete-only exporter supports explicit recovery lineage
+
+Updated scripts/export_published_duration_results.py with --recovered,without
+changing any of the130frozen recovery inputs. The option requires the exact
+pinned recovery protocol,completed recovery receipt and passed full audit;the
+original queue route continues to reject its failed receipt. It checks original
+failure preservation,eight unchanged copied cells,the four-cell rerun partition,
+both exact saved prefixes,recorded prefix work and the unknown interrupted work.
+All source/recovery/capability dependencies remain bound in the exported evidence.
+The existing72secondary/four-primary analysis and unrounded qualification gates
+are unchanged. The output separately discloses administrative recovery,
+additional recorded duplicate execution and the eight repeated capability
+matches. No repeats become additional independent deals or training work.
+
+Twelve synthetic tests pass0skips in0.92s,including complete recovered rendering,
+unchanged analysis,work separation,retained old failure,and refusals for missing
+completion,false prefix receipts,changed prefixes/copies,wrong work,changed
+source status and recovery failure. Existing incomplete/nonfinite/omission/
+zero-SE/all-four qualification tests remain. Ruff and git diff --check pass.
+XML runs/published_duration_recovered_export_tests.xml SHA256
+b5a08c4210f8a15db76084a31a900495a0e9be9e483843256b6435a52d692878.
+Actual incomplete recovery is also refused before any export directory exists.
+No main outcomes were inspected and no real result export was produced.
+
+Exporter SHA904b4d9292bbc760ad89ce479d4d758fe556907fa8b646c95e92030e2ea29254;
+test sourcee9275e473b9069944770e0cf0f7b8006596c0b081f0010516ef2f2a82fb95d81.
+All130recovery bindings still verify. Recovery54664 and short workers16776/60244
+are OS-live,with both logs past1,536matches. No new inference or matches are
+attributed to this export work;the ongoing evaluator continues independently.
+Next wait for recovery completion and full audit,then invoke:
+
+    python -m scripts.export_published_duration_results --recovered --study runs/published_duration_evaluation_recovery --output runs/published_duration_results --audit-sha256 <completed-audit-sha256>
+
+Use a fresh output directory and the actual completed audit SHA. Strength,
+prospective confirmation,model promotion and the broader objective remain open.

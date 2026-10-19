@@ -11,6 +11,8 @@ from scripts.export_koi_temperature_results import interval, read, require, sha,
 PROTOCOL_SHA = "76e1b6af987e21f4e05e270aaabcd85ee9a89e68621589d1802a3a7543b24f18"
 TRAINING = Path("runs/published_duration_study/training_complete.json")
 TRAINING_SHA = "ce033a7a2b2c870efa0269509981c5a7913bfef2caca83c388fd8314ad6197ca"
+RECOVERY_SHA = "bf1163339fdb52303344f118c92bb5c75204eea7e0211cdc295ab3ad9fca86c8"
+RECOVERY_CAPABILITY = Path("runs/published_duration_recovery_capability/receipt.json")
 POLICIES = ("parent", "short", "long")
 CONTRASTS = ("long-short", "long-parent", "short-parent")
 SCOPES = ("mixture", "wp", "point")
@@ -97,14 +99,127 @@ def validate_analysis(summary):
     )
 
 
-def load_completed(root, queue, audit_sha):
-    require(bool(re.fullmatch(r"[0-9a-f]{64}", audit_sha)), "Pin the audit SHA256")
-    finish = read(queue / "process.json")
+def recovery_lineage(root):
+    """Verify preserved data directly; never reinterpret the failed old queue."""
+    final_path = root / "recovery_complete.json"
+    require(final_path.exists(), "Wait for recovery completion and independent audit")
+    require(not (root / "recovery_failed.json").exists(), "Recovery failed")
+    finish = read(final_path)
+    plan_path = root / "recovery_protocol.json"
     require(
         finish["status"] == "complete"
-        and finish["completed"] == ["prepare", "evaluate", "audit"],
-        "Wait for the completion queue",
+        and sha(plan_path) == finish["recovery_protocol_sha256"] == RECOVERY_SHA,
+        "Recovery identity differs",
     )
+    plan = read(plan_path)
+    source, old_queue = Path(plan["source"]), Path(plan["failed_queue"])
+    require(plan["protocol_sha256"] == PROTOCOL_SHA, "Recovery protocol differs")
+    require(
+        read(source / "evaluation_process.json")["status"] == "failed"
+        and read(old_queue / "process.json")["status"] == "failed",
+        "Preserve original failed receipts",
+    )
+    copied = {c for c in CELLS if c.startswith(("parent1_", "parent2_parent_"))}
+    require(
+        len(plan["copied"]) == 8
+        and set(plan["copied"]) == copied
+        and len(plan["rerun_whole_cells"]) == 4
+        and set(plan["rerun_whole_cells"]) == CELLS - copied,
+        "Recovery cell partition differs",
+    )
+    partial = plan["preserved_partial"]
+    require(
+        set(partial) == {"parent2_short_wp", "parent2_short_point"}
+        and len(finish["prefixes_exact"]) == 2
+        and set(finish["prefixes_exact"]) == set(partial),
+        "Require both preserved prefixes",
+    )
+    inputs = dict(plan["inputs"])
+    required = [
+        source / "evaluation_protocol.json",
+        source / "evaluation_process.json",
+        old_queue / "process.json",
+        RECOVERY_CAPABILITY,
+    ]
+    for key in copied:
+        for suffix in (".json", ".jsonl"):
+            old = source / "evaluation" / (key + suffix)
+            require(
+                sha(old) == sha(root / "evaluation" / (key + suffix)),
+                "Copied cell differs",
+            )
+            required.append(old)
+    duplicate = {name: 0 for name in ("decisions", "round_endings", "full_matches")}
+    for key, info in partial.items():
+        old = source / "evaluation" / f"{key}.jsonl"
+        raw = old.read_bytes()
+        end = raw.rfind(b"\n") + 1
+        prefix = raw[:end]
+        rows = [json.loads(line) for line in prefix.splitlines()]
+        require(
+            end == info["prefix_bytes"]
+            and len(raw) - end == info["trailing_bytes"]
+            and len(rows) == info["complete_rows"],
+            "Saved prefix extent differs",
+        )
+        with (root / "evaluation" / f"{key}.jsonl").open("rb") as stream:
+            require(stream.read(end) == prefix, "Repeated inference prefix differs")
+        for name in duplicate:
+            total = sum(row["work"][name] for row in rows)
+            require(total == info["work"][name], "Saved prefix work differs")
+            duplicate[name] += total
+        required.append(old)
+    require(
+        duplicate == finish["additional_recorded_duplicate_work"]
+        and finish["unrecorded_interrupted_work"] == "unknown",
+        "Recovery work differs",
+    )
+    require(
+        sha(source / "evaluation_protocol.json") == PROTOCOL_SHA,
+        "Original protocol changed",
+    )
+    for path in required:
+        require(inputs.get(str(path)) == sha(path), f"Missing recovery binding: {path}")
+    capability = read(RECOVERY_CAPABILITY)
+    require(capability["status"] == "passed", "Recovery capability failed")
+    for name, digest in capability["inputs"].items():
+        require(
+            name not in inputs or inputs[name] == digest, "Conflicting recovery input"
+        )
+        inputs[name] = digest
+    for name, digest in inputs.items():
+        require(sha(name) == digest, f"Changed recovery dependency: {name}")
+    for path in (final_path, plan_path, root / "recovery_started.json"):
+        inputs[str(path)] = sha(path)
+    require(
+        read(root / "recovery_started.json")["protocol_sha256"] == RECOVERY_SHA,
+        "Recovery launch differs",
+    )
+    info = {
+        "copied_cells": sorted(copied),
+        "rerun_whole_cells": plan["rerun_whole_cells"],
+        "additional_recorded_duplicate_work": duplicate,
+        "unrecorded_interrupted_work": "unknown",
+        "separate_recovery_capability_work": capability["new_execution_work"],
+    }
+    return finish, inputs, info
+
+
+def load_completed(root, queue, audit_sha, *, recovered=False):
+    require(bool(re.fullmatch(r"[0-9a-f]{64}", audit_sha)), "Pin the audit SHA256")
+    recovery_inputs = {}
+    recovery_info = None
+    if recovered:
+        finish, recovery_inputs, recovery_info = recovery_lineage(root)
+        finish_path = root / "recovery_complete.json"
+    else:
+        finish_path = queue / "process.json"
+        finish = read(finish_path)
+        require(
+            finish["status"] == "complete"
+            and finish["completed"] == ["prepare", "evaluate", "audit"],
+            "Wait for the completion queue",
+        )
     process = read(root / "evaluation_process.json")
     require(
         process["status"] == "complete_awaiting_audit"
@@ -142,9 +257,15 @@ def load_completed(root, queue, audit_sha):
     require(sha(TRAINING) == TRAINING_SHA, "Training identity differs")
     for name, digest in inputs.items():
         require(sha(name) == digest, f"Changed dependency: {name}")
+    for name, digest in recovery_inputs.items():
+        require(
+            name not in inputs or inputs[name] == digest,
+            "Conflicting audit/recovery binding",
+        )
+        inputs[name] = digest
     for path in (
         audit_path,
-        queue / "process.json",
+        finish_path,
         root / "evaluation_process.json",
         Path(__file__),
         Path("scripts/export_koi_temperature_results.py"),
@@ -156,7 +277,7 @@ def load_completed(root, queue, audit_sha):
         key: sum(case["counters"][key] for case in training["cases"].values())
         for key in ("updates", "decisions", "rounds", "matches")
     }
-    return summary, audit["work"], work, inputs
+    return summary, audit["work"], work, inputs, recovery_info
 
 
 def render(summary, replay_work, training_work):
@@ -267,10 +388,28 @@ def render(summary, replay_work, training_work):
     return "\n".join(lines)
 
 
-def export(root, queue, folder, audit_sha):
+def export(root, queue, folder, audit_sha, *, recovered=False):
     require(not folder.exists(), "Preserve existing exports; use a fresh directory")
-    summary, replay_work, training_work, inputs = load_completed(root, queue, audit_sha)
+    summary, replay_work, training_work, inputs, recovery = load_completed(
+        root, queue, audit_sha, recovered=recovered
+    )
     content = render(summary, replay_work, training_work)
+    if recovered:
+        content += "\nAdministrative recovery\n-----------------------\n\n"
+        content += (
+            "The original evaluation stopped on a Windows progress-file replacement error.\n"
+            "Eight completed cells were copied unchanged; four incomplete cells were\n"
+            "rerun on the identical full schedule. All preserved complete prefix rows\n"
+            "match repeated neural inference exactly. The original failed receipts remain.\n"
+            "The 98,304 analysis matches and replay work above exclude the additional\n"
+            "recorded duplicate execution below; these repeats add no independent deals.\n"
+            "Additional recorded duplicate work: "
+            + json.dumps(recovery["additional_recorded_duplicate_work"], sort_keys=True)
+            + "\nUnrecorded interrupted work: unknown.\n"
+            "Separate recovery capability execution and native replay: "
+            + json.dumps(recovery["separate_recovery_capability_work"], sort_keys=True)
+            + "\nCapability matches repeat existing fixtures and are not strength evidence.\n"
+        )
     folder.mkdir(parents=True, exist_ok=False)
     (folder / "results.rst").write_bytes(content.encode("utf-8"))
     evidence = {
@@ -284,6 +423,8 @@ def export(root, queue, folder, audit_sha):
         "new_neural_calls": 0,
         "scope": "Presentation of audited results, not an independent analysis.",
     }
+    if recovered:
+        evidence["recovery"] = recovery
     (folder / "evidence.json").write_bytes(
         (json.dumps(evidence, indent=2) + "\n").encode("utf-8")
     )
@@ -300,5 +441,12 @@ if __name__ == "__main__":
     )
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--audit-sha256", required=True)
+    parser.add_argument(
+        "--recovered",
+        action="store_true",
+        help="Verify the pinned recovery lineage instead of the original completion queue",
+    )
     args = parser.parse_args()
-    export(args.study, args.queue, args.output, args.audit_sha256)
+    export(
+        args.study, args.queue, args.output, args.audit_sha256, recovered=args.recovered
+    )

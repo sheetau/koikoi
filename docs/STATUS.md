@@ -44,13 +44,18 @@ all bytes equal earlier CPU inference and native CPU action replay agrees.
 Capability receipt06a1ecac96fb1874f71982424a38173d86acf87590e01c3278c3b5ea6d27872a.
 This verifies recovery mechanics,not strength. Keep recovery sources/tests frozen.
 
-Next:monitor the recovery,then inspect its recovery_complete.json and passed
-audit. Adapt scripts/export_published_duration_results.py to explicitly verify
-this recovery lineage and disclose duplicate work before exporting. The existing
-exporter requires the old queue to complete and therefore intentionally refuses
-this failed queue;never fabricate a successful old receipt. No main results
-have been exported. No source-bound evaluation code,model,dealer or deployment
-has changed. Stronger play and the broader research objective remain unachieved.
+The complete-only exporter now explicitly supports this pinned recovery via
+--recovered. It verifies the completed recovery and full audit,unchanged source
+failure receipts,eight exact copies,both exact prefixes,and separately counted
+duplicate work. All72 secondary coordinates/four primary bands remain mandatory.
+Twelve synthetic tests pass0skips;the actual incomplete recovery is refused.
+No main results exported. After recovery_complete.json and the audit finish:
+
+    python -m scripts.export_published_duration_results --recovered --study runs/published_duration_evaluation_recovery --output runs/published_duration_results --audit-sha256 <completed-audit-sha256>
+
+The original route still rejects the failed old queue;never fabricate a success
+receipt. Frozen evaluation/recovery sources,models,dealer and deployment remain
+unchanged. Stronger play and the broader research objective remain unachieved.
 
 Both long adaptations are complete. [Fixed design](PUBLISHED_DURATION_STUDY.rst).
 Two fresh original-WP seeds99110001/99210001 each finish4,020updates:20critic
