@@ -1,7 +1,6 @@
-% Auxiliary-study methods and completed diagnostics; strength results pending.
-% Integrate with final evaluated results, auxiliary_related_work.tex and its bibliography.
-\subsection{Outcome and margin supervision}
-\label{sec:score-auxiliary}
+% Methods and fixed-state diagnostics for the completed auxiliary comparison.
+\section{Outcome and margin supervision}
+\label{app:score-auxiliary}
 We test whether predicting differences in final margin within the same match
 outcome improves a policy trained to win. In our PPO implementation, the critic
 has its own parameters, so its prediction loss does not train the actor's
@@ -90,10 +89,9 @@ indices, seats and models. All 120 secondary absolute and paired win/point quant
 descriptive marginal intervals. The first-seed margin model is the candidate
 specified before evaluation.
 
-\paragraph{Completed fixed-state diagnostics.}
+\paragraph{Policy changes on fixed inputs.}
 On 3,045 unforced inputs from the fixed 25-group validation corpus, the margin
 and outcome models disagree on 331 actions (10.87\%) at seed 1 and 249 (8.18\%)
 at seed 2. At score divisor 0.05, margin supervision gives lower mean entropy in
 discard and both capture phases at both seeds; the continuation-phase difference
-changes sign across seeds. These measurements establish changes on common
-inputs. The complete-match comparison assesses whether they improve play.
+changes sign across seeds.

@@ -85,19 +85,15 @@ CPU2singleton calls and no new matches. Independent audit:
 d619258403def4da3aa71cbc3b02b45179abe964a73c6ccb70e802da2ea5ab52.
 Do not repeat the completed mechanism commands.
 
-Next actions:
+The auxiliary results and six-reference prior-work review are integrated into
+the verified 38-page manuscript. The complete primary table is in Section 6.4;
+methods and work are in Appendix L. See the Latest manuscript section below.
 
-1. Integrate the verified result into the manuscript with the prepared
-   auxiliary_study.tex, auxiliary_related_work.tex and auxiliary_references.bib.
-   Keep the main account focused on what the matched comparison establishes;
-   put full work/recovery accounting and all comparisons in supporting evidence.
-   Update Abstract/Introduction/interpretation consistently, then rebuild and
-   visually inspect the PDF. The current35page PDF and source are unchanged.
-2. Select a further scientific intervention using the completed experiment
-   ledger. Retained-Transformer koi/card and conditional-world searches were
-   already studied; do not infer an untested Transformer-search gap from the
-   manuscript's abbreviated MLP-search discussion. Read those outcomes before
-   selecting new search work. No new experiment or strength claim is yet made.
+Next action: select a further scientific intervention using the completed
+experiment ledger. Retained-Transformer koi/card and conditional-world searches
+were already studied; read those actual outcomes before selecting new search
+work. The manuscript now distinguishes the older MLP match comparison from
+later Transformer diagnostics. No new experiment or strength claim is made.
 
 Canonical player and initial dealer selection remain unchanged. Stronger
 replicated play and substantive novelty are still open requirements.
@@ -290,34 +286,35 @@ their empirical fixes did not establish replicated Koi-Koi win improvement.
 
 ## Latest manuscript
 
-**Latest verified manuscript:** 35 pages including appendices,34references,
-188-word Abstract,467-word Introduction,139-word Conclusion. Main text6,045
-whitespace words;Conclusion on page14. The prior structure reduction remains:
-detailed return/observer/public-memory studies are retained in AppendicesC--E.
+**Latest verified manuscript:** 38 pages including appendices, 40 references,
+184-word Abstract, 514-word Introduction and 164-word Conclusion. Conclusion
+on page 15. The main account adds the auxiliary comparison in Section 6.4;
+its detailed loss, training, work and diagnostics are in Appendix L.
 
-Section6.3 adds the completed Point-initialization study with both primary win
-and secondary point tables,calibration design and pre-outcome mechanism.
-Abstract/Introduction/Conclusion explicitly report1.77--2.08point gains over
-matched WP controls and the lack of replicated additional win improvement.
-Original WP-initialized versus Point findings are scoped to those retained
-agents. Related Work positions both temperature controls without claiming a
-new entropy algorithm. AppendixA records work and full evidence bindings.
-All original tables,figures,citations and labels remain.
+Table 8 contains all six simultaneous primary comparisons. All intervals
+include zero; all 24 auxiliary win/point comparisons against matched controls
+also include zero. The point advantage over retained WP parents includes the
+no-auxiliary condition. Abstract/Introduction/Conclusion keep these results
+separate from the established adaptation gain and analytical information
+findings. Related Work adds six verified auxiliary/distributional references
+and corrects the abbreviated account of retained-Transformer search coverage.
+All earlier tables, figures, citations and labels remain.
 
-QA verifies1,581evidence inputs,35contact pages and full pages1,9,10,14,17.
-Final wording changes alter only rendered pages1/14,both rechecked. No TeX
-box/glyph/reference warnings,replacement characters or missing numbered
-references;all21font names are embedded. A decimal-line overfull warning in
-the first build was fixed by displaying six-digit divisors while retaining
-full precision in the bound calibration report. No new simulation or training.
-PDF SHA871b8afce615954c789a463a784158d4e273a70ca33c2f65d472cf67873f6bc6;
-TeX SHAee5a7766e11e1a3743b26bc6eb2aab5a94e1ac17e6c1c4cabef6cb309473092a.
-QA runs/manuscript_point_20261020_qa.json SHA
- d2de912a02ab580648abf11d65abc8d5175ee97341498ee2fc1b567817a3fdb0.
-Prior PDF/TeX/QA/guide: runs/manuscript_point_previous.
-Renders: runs/manuscript_point_render. Renderer uses system Python3.14,
-external/pdf_render PyMuPDF and Pillow;training uses .venv Python3.12.
-The PDF-skill artifact marker already ran earlier;never repeat it.
+The table exporter verifies 1,833 inputs. Final QA verifies 3,313 bindings,
+all six primary table rows and six auxiliary work rows. All 38 pages were
+visually reviewed; full pages 1,3,11,15,18,34,35,36,37,38 were checked. Final
+render changes on 11,35--38 were rechecked. Removing duplicate diagnostic
+interpretation resolves the short continuation before References. All 24 font
+names are embedded; no TeX box/glyph/reference or bibliography warnings remain.
+No new simulation, inference or training was used for this paper update.
+PDF SHA d4e6471cb00840cf9b773f0dc39f043db09a1782a42bd6fa0d85c1bfdd114758;
+TeX SHA 85c19bbd05057f3f021d96b27f0a7aede22b9cd012bdab9aa5af89a64aba9625.
+QA runs/manuscript_auxiliary_20261020_qa.json SHA
+0b3ed9c3301e6ea6125583ce5c0894b1a410638575f53ac84801a0632d06fc9a.
+Prior PDF/source: runs/manuscript_auxiliary_previous.
+Renders: runs/manuscript_auxiliary_render. Renderer uses system Python3.14,
+external/pdf_render PyMuPDF and Pillow; training uses .venv Python3.12.
+The PDF-skill artifact marker already ran earlier; never repeat it.
 
 ## Local human-play delivery
 

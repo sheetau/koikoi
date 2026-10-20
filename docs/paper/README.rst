@@ -3,34 +3,35 @@ Manuscript working files
 
 This is an English research manuscript, not a submitted or published paper.
 
-Current verified revision: 35 pages including appendices, 34 cited references,
-188-word Abstract, 467-word Introduction and 139-word Conclusion.
-Abstract and Introduction lead with terminal-match adaptation, point-margin
-transfer from Point initialization, the exact critic-conditioning counterexample
-and reconstruction from public history. Related Work covers Koi-Koi systems,
-action-score adaptation and exploration, self-play, opponent inference, critic
-information, temporal abstraction, search and policy composition.
+Current verified revision: 38 pages including appendices, 40 cited references,
+184-word Abstract, 514-word Introduction and 164-word Conclusion. The main text
+reaches its Conclusion on page 15. Abstract and Introduction lead with the
+measured adaptation and point-margin results, then state the critic and public-
+information findings. Related Work now includes auxiliary representation
+learning and distributional losses, with six additional primary references.
 
-Section 6.3 reports the completed Point-initialization comparison: all131,072
-matches and the independent action/statistics audit pass. Point initialization
-improves mixture point margins by1.77--2.08points over matched WP controls;
-all four primary simultaneous win-change intervals include zero. The pre-outcome
-mechanism diagnostic connects persistent probability differences with the lack
-of replicated greedy win benefit, without claiming causal mediation.
-Tables 6--7 are generated from the completed export; full values and dependencies
-are in generated/point_initialization_evidence.json. Section6.2 retains the
-completed longer-adaptation comparison. No candidate is promoted.
+Section 6.4 reports the completed auxiliary comparison. All six primary
+simultaneous win-change intervals include zero, as do all 24 descriptive
+margin-versus-control win/point intervals. The 18 point-margin contrasts against
+the retained WP parents are positive, including the no-auxiliary control.
+Table 8 is transcribed directly from the audited export. Appendix L gives the
+matched 65-output objectives, training procedure, work table and fixed-input
+policy diagnostics; Appendix A records recovery overhead separately.
+Section 6.3 retains the Point-initialization result, including its 1.77--2.08
+point-margin gains and failed primary win criterion. No candidate is promoted.
 
-The main text reaches its Conclusion on page14. Detailed return, fixed-observer
-and public-memory comparisons remain in AppendicesC--E, with their primary
-outcomes explicit in the main text. Latest QA:
-runs/manuscript_point_20261020_qa.json. All1,581evidence bindings verify; all35pages
-were visually reviewed and all fonts are embedded. Current PDF:
-output/pdf/manuscript.pdf, SHA256
-871b8afce615954c789a463a784158d4e273a70ca33c2f65d472cf67873f6bc6.
+The numerical source and all comparisons are bound in
+``generated/score_auxiliary_evidence.json``. Latest QA:
+``runs/manuscript_auxiliary_20261020_qa.json``. All 3,313 evidence bindings verify.
+All 38 pages were visually reviewed, changed pages were re-rendered and checked,
+and all 24 font names are embedded. The final build has no TeX box, glyph,
+reference or bibliography warnings. Current PDF: ``output/pdf/manuscript.pdf``;
+SHA256 d4e6471cb00840cf9b773f0dc39f043db09a1782a42bd6fa0d85c1bfdd114758.
+The preceding PDF and source remain in ``runs/manuscript_auxiliary_previous``.
 
-All current Point training/evaluation/audit processes are terminal. Current
-research status and the other completed follow-ups are in docs/STATUS.md.
+All Point and auxiliary training/evaluation/audit processes are terminal.
+The stronger-play objective remains active; current research status and the
+other completed follow-ups are in ``docs/STATUS.md``.
 The original archive and intermediate PDFs remain preserved. Sections below
 the build/source instructions record earlier revision milestones; their page
 counts and formerly active processes are historical, not the current manuscript
@@ -44,6 +45,7 @@ Author information and venue formatting remain decisions for submission.
 From the repository root, regenerate the numerical tables and evidence ledger::
 
     .venv/Scripts/python.exe -m scripts.export_paper_evidence
+    .venv/Scripts/python.exe -m scripts.export_score_auxiliary_paper_evidence
 
 The exporter verifies fixed input hashes and the hashes of development reports.
 If the final independent audit is absent, the final table remains empty and

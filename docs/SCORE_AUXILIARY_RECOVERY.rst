@@ -82,4 +82,7 @@ and secondary comparison, and adds a separate section for failed-run overhead.
 It does not produce matches or change analysis/qualification. Three synthetic
 adapter tests pass,0skips(1.66s): exact prefix identity and changed-receipt rejection,
 all contrast data retained, overhead reported separately and overwrite rejected.
-No main diagnostics or result export has executed yet.
+All mechanism commands and the result export are now complete. The four-stage
+queue exited0, the full evaluation audit passed, and all six primary intervals
+include zero. See SCORE_AUXILIARY_RESULTS.rst for the complete outcomes and
+receipts. Do not rerun these commands into the existing completed directories.

@@ -25,20 +25,19 @@ additional decisions each, two adapted agents achieve 51.480\% and 51.445\%
 draw-adjusted win scores against assisted RL-WP on 10,000 held-out duplicate
 deals; both 95\% intervals exclude 50\%. RL-Point remains competitive in wins
 and superior in expected points against these WP-initialized agents.
-A separate matched-budget study finds that Point initialization improves
-equal-opponent mixture point margins by 1.77--2.08 points over WP initialization,
-while further
-win gains remain unestablished. We also characterize a problem in estimating
-returns across players' different observations. An exact shared-parameter game
-shows that switching to the opponent's critic can reverse the expected policy
-update, even when both critics give exact conditional values. Learner-decision
-returns correct the complete example. In Koi-Koi, we reconstruct earlier policy
-inputs from completed public hands and identify the fixed WP/Point opponent
-in 86.1\% of natural final-round starts. Controlled comparisons separate these
-analytical and informational findings from playing strength: return repairs,
-a public-seat feature and public-memory adaptation yield no replicated win
-gain. Probes of the retained agents do not establish the critic reversal in
-Koi-Koi itself.
+Point initialization raises equal-opponent mixture point margins by
+1.77--2.08 points over matched WP controls. A fixed-head auxiliary comparison
+finds that finer terminal-margin labels change actions without a detectable
+gain over outcome-only labels. We also identify a failure in player-relative
+return estimation: an exact shared-parameter game shows that switching to the
+opponent's critic can reverse the expected policy update even with exact
+conditional values. Learner-decision returns correct the complete example.
+In Koi-Koi, completed public hands recover earlier actor inputs and identify
+the fixed WP/Point opponent in 86.1\% of natural final-round starts.
+Controlled learning comparisons distinguish these information and estimation
+results from playing strength: return, seat and public-memory repairs yield
+no replicated additional win gain, and agent probes do not establish the
+critic reversal in Koi-Koi itself.
 \end{abstract}
 
 \section{Introduction}
@@ -68,7 +67,12 @@ A matched-budget initialization comparison also improves point margins: starting
 mixture margin by 1.77--2.08 points over WP initialization across two seeds
 and two sampling settings. Neither calibrated sampling nor the initialization
 change establishes replicated additional win improvement
-(Section~\ref{sec:point-initialization}).
+(Section~\ref{sec:point-initialization}). We then test whether terminal-score
+prediction improves the actor while PPO continues to optimize wins. Outcome
+and margin supervision share the same categorical head; only the resolution
+of the target within loss/draw/win groups changes. Their complete-match
+comparison tests whether the additional score information improves decisions
+(Section~\ref{sec:score-auxiliary}).
 
 Second, exact conditional values can still give a harmful policy update when
 return estimation switches between players' observations. We demonstrate this
@@ -91,8 +95,8 @@ Reconstructing its earlier network inputs then eliminates inconsistent fixed
 opponent models, identifying WP or Point at 86.1\% of natural final-round
 starts (Section~\ref{sec:public-revelation}).
 
-We test the return, representation and public-memory changes against their
-starting models and matched controls on complete paired matches. None passes
+We test auxiliary prediction, return, representation and public-memory changes
+against their starting models and matched controls on complete paired matches. None passes
 its replicated primary win criterion. The demonstrated playing-strength gain
 comes from terminal-match adaptation; the counterexample and reconstruction
 results establish properties of the learning signal and available information.
@@ -138,6 +142,8 @@ from WP to Point initialization (Section~\ref{sec:point-initialization}).
 These controls change both sampling probabilities and policy-loss derivatives.
 They measure the transfer of published action scores into a match-trained
 policy rather than introduce a new entropy-control algorithm.
+
+\input{auxiliary_related_work.tex}
 
 \subsection{Self-play and strategic interaction}
 Neural Fictitious Self-Play combines learned best responses with supervised
@@ -205,10 +211,12 @@ Information Set Monte Carlo Tree Search organizes search around information
 sets \cite{cowling2012ismcts}; ReBeL combines learning and search through public
 belief states \cite{brown2020rebel}. Expert Iteration alternates search-based
 improvement with learning a policy that generalizes its decisions
-\cite{anthony2017expert}. Our earlier rollout-search experiments use MLP continuation policies that
-receive only acting-player observations inside sampled worlds. They did not
-replicate a match-level benefit. Those experiments predate the pretrained
-Transformer adaptations studied here.
+\cite{anthony2017expert}. Our complete-match rollout-search comparison uses MLP continuation policies
+that receive only acting-player observations inside sampled worlds; it did not
+replicate a match-level benefit. Later diagnostics apply retained Transformers
+to paired stop/continue and card-action rollouts, with fresh confirmation
+samples for proposed changes. These diagnostics extend the implementation
+coverage; their selected roots do not constitute a match-level comparison.
 
 Suzuki's Open Hanafuda AI provides a recent public implementation combining
 simulation with observable-information inference and heuristics
@@ -569,6 +577,39 @@ The diagnostic measures policy outputs on reused inputs, not causal mediation
 or equality of visited states. Appendix~\ref{app:reproduction} records the
 calibration, computation and complete result bindings.
 
+\subsection{Outcome and margin auxiliary prediction}
+\label{sec:score-auxiliary}
+We compare three Point-initialized conditions at each of two fresh seeds:
+ordinary PPO, auxiliary outcome prediction and auxiliary margin prediction.
+The two prediction tasks share a 65-output head and initialization. Margin
+supervision adds the conditional likelihood within the observed loss, draw or
+win group. Each condition receives the same 20 warmup and 500 policy updates
+and collects 12,800 auxiliary matches; the control performs no auxiliary
+optimization. Appendix~\ref{app:score-auxiliary} gives the losses and procedure.
+
+Margin supervision changes 10.87\% and 8.18\% of greedy choices relative to
+outcome supervision on the fixed validation inputs. Those changes do not
+establish a playing benefit. All six primary simultaneous win-change intervals
+include zero (Table~\ref{tab:aux-primary}). All 24 descriptive win/point
+contrasts against the no-auxiliary and outcome controls also include zero
+across both seeds, both opponents and their mixture.
+
+\begin{table}[htbp]
+\centering\small
+\input{generated/score_auxiliary_primary_table.tex}
+\caption{Equal-mixture development win changes from margin supervision. One simultaneous 95\%
+family covers all six contrasts; 131,072 matches use shared deals and both
+seats. The 10,000-replicate bootstrap resamples 4,096 compound blocks.}
+\label{tab:aux-primary}
+\end{table}
+
+All three Point-initialized conditions exceed the retained WP parents in point
+margin at both seeds and all opponent scopes: all 18 descriptive paired
+intervals have positive lower bounds. Because the no-auxiliary control shares
+this advantage, it does not identify an auxiliary-learning gain. The result
+separates a point-margin advantage from the additional hypothesis
+that finer terminal targets improve action selection at this training budget.
+
 \section{Critic conditioning across players}
 \label{sec:observer}
 Correct payoff signs do not ensure that the next acting player's observation
@@ -788,8 +829,11 @@ Both retained WP-initialized agents improve match wins against assisted
 RL-WP; RL-Point remains competitive in wins and superior in expected points
 against them. The new Point-initialized agents improve point margins over
 matched WP controls. Their primary win-improvement criterion still fails.
-Together with the fixed-role and paired-supervision results, these comparisons
-show that better point margins need not yield a detectable gain in match wins.
+The auxiliary study retains the point advantage across all three conditions,
+including its no-auxiliary control, but adds no detectable win or point gain
+from finer terminal-margin targets. Together with the fixed-role and paired-
+supervision results, these comparisons show that better point margins and
+changed actions need not yield a detectable gain in match wins.
 
 Two training seeds and fixed opponents limit generality: held-out deals measure
 endpoint performance, not robustness across optimization runs. The ledger
@@ -803,7 +847,10 @@ seeds while preserving its actor and greedy inference. Increasing policy
 updates eightfold and changing to Point initialization each improve mixture
 point margins at two fresh seeds. Point initialization gains 1.77--2.08 points
 over matched WP controls; calibrated sampling adds no replicated win benefit.
-Neither study establishes replicated additional win improvement.
+Neither study establishes replicated additional win improvement. A matched
+65-output auxiliary comparison further separates target resolution from head
+size: margin labels change greedy decisions, while all six primary win-change
+intervals include zero.
 
 An exact shared-parameter game shows that an opponent-conditioned critic can
 reverse the expected policy update, even with exact conditional values.
@@ -995,6 +1042,24 @@ cached. Calibrated-versus-fixed greedy actions differ on 232/200 discard rows
 and 3/6 continuation rows at the two seeds. The diagnostic adds no simulator
 steps, matches or learning. Its independent scalar audit checks population,
 probabilities and decisions from saved scores without repeating inference.
+
+The auxiliary study's 51,118,080 PPO decisions cover 3,369,134 round endings
+and 437,799 completed matches. Auxiliary collection adds 8,936,915 decisions,
+589,918 round endings and 76,800 matches. Evaluation uses 15,240,199 decisions,
+1,014,387 round endings and 131,072 complete matches. Independent action replay
+and scalar statistics check all 120 secondary quantities and six simultaneous
+bands. Full results and recovery accounting are in
+\path{docs/SCORE_AUXILIARY_RESULTS.rst}; table and diagnostic bindings are in
+\path{docs/paper/generated/score_auxiliary_evidence.json}.
+
+A Windows DLL-directory registration failure required process-isolated recovery
+of the auxiliary study. The failed prefix adds 2,703,360 PPO decisions; its 164
+logged updates record 174,865 round endings and 22,736 matches. Round/match
+counts for update 165 were not saved. Its 28 complete auxiliary collections
+add 421,608 decisions, 27,488 round endings and 3,584 matches. Saved parameters,
+optimizers, random states, numerical logs and collections agree with the
+repeated prefix. This repeated work is additional cost, not an independent
+replication.
 
 The new arbitration experiments freeze the inherited actors. A traced
 near-tie shows why this detail belongs to the inference specification: with
@@ -1866,10 +1931,12 @@ paired win-score changes in percentage points, with 95\% intervals.}
 \FloatBarrier
 \begingroup
 \raggedright\small
+\input{auxiliary_study.tex}
+
 \let\originalthebibliography\thebibliography
 \renewcommand{\thebibliography}[1]{%
   \originalthebibliography{#1}\setlength{\itemsep}{0pt}}
 \bibliographystyle{plain}
-\bibliography{references}
+\bibliography{references,auxiliary_references}
 \endgroup
 \end{document}

@@ -7825,3 +7825,45 @@ review also confirms retained-Transformer koi and all-action search adapters
 were already evaluated (entries near2890and3305); the manuscript's MLP-search
 paragraph is abbreviated and must not motivate a duplicate search experiment.
 Further method selection must use the actual search/conditional-world outcomes.
+
+
+## Auxiliary comparison integrated into the manuscript (2026-10-20)
+
+The verified manuscript now has 38 pages, 40 references and its Conclusion on
+page15. Abstract184/Introduction514/Conclusion164 whitespace words. Section6.4
+and Table8 report all six failed simultaneous win comparisons and the24
+inconclusive descriptive auxiliary win/point contrasts. AppendixL retains
+matched 65-output losses, training, the six-row work table and fixed-input
+policy diagnostics. AppendixA reports failed/repeated overhead separately.
+Six primary auxiliary/distributional references are integrated. Search-related
+wording distinguishes the earlier MLP match comparison from later retained-
+Transformer diagnostics. No novel auxiliary-RL principle or strength gain is
+claimed from this completed comparison.
+
+New scripts/export_score_auxiliary_paper_evidence.py transcribes the completed
+export without new analysis. Ruff format/check pass. It verifies1,833bindings;
+primary table e669c9242eda5cea845882764efe4967e70df0fef111d9f45da95f8a14943162;
+ledger fef95b843bade99665ea3413987b8d75ab5ed4d27bfedc03ab077970756db23e.
+Independent decimal-format checks reproduce all six primary rows, and all six
+auxiliary work rows match the completed training receipt. Existing citations,
+labels and input tables/figures are retained. The redundant number field in the
+AAAI proceedings BibTeX entry was removed to satisfy plain.bst; volume/pages
+and the primary DOI/URL remain. No bibliography warning remains.
+
+Build: external/tectonic/tectonic.exe --keep-logs --outdir output/pdf docs/paper/manuscript.tex.
+All38pages rendered and visually reviewed; full pages1,3,11,15,18,34--38 inspected.
+A short diagnostic continuation before References was removed by deleting
+repeated interpretation; changed pages11,35--38 were re-rendered and inspected.
+No unresolved layout issue, missing reference, replacement glyph or TeX box
+warning; all24font names embedded. The environment's Fontconfig configuration
+notice does not prevent rendering or embedding. No new matches/learning/inference.
+
+QA verifies3,313evidence bindings and is saved at
+runs/manuscript_auxiliary_20261020_qa.json:
+0b3ed9c3301e6ea6125583ce5c0894b1a410638575f53ac84801a0632d06fc9a.
+PDF d4e6471cb00840cf9b773f0dc39f043db09a1782a42bd6fa0d85c1bfdd114758;
+TeX85c19bbd05057f3f021d96b27f0a7aede22b9cd012bdab9aa5af89a64aba9625.
+Previous35pagePDF/source preserved in runs/manuscript_auxiliary_previous.
+Renders: runs/manuscript_auxiliary_render. No submission, publication or model
+promotion. This completes paper integration of the auxiliary study; stronger
+replicated play and substantive novelty remain open requirements.
