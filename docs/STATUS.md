@@ -872,3 +872,21 @@ targeted checks for changes;do not repeatedly rerun broad suites without a new
 failure or concern. Audit scope varies:read each receipt before asserting
 trajectory or neural-inference replay. The original release suite passed460
 tests with0 skips;that historical result does not replace checks of new work.
+## Prepared symbolic comparison runner (2026-10-21)
+
+scripts/symbolic_tail_replay.py now connects the verified symbolic planner,
+structural comparator and independent adoption/actual-tail interpreters. It
+compares all512 saved sources against the completed opponent-only version,
+under the original caps/order/fresh caches. It requires a completed predecessor
+audit/export, binds implementation/tests/protocol and refuses duplicate launch.
+No new cohort has been frozen or launched. See SYMBOLIC_TAIL_REPLAY.rst.
+Six tests pass,0skips,5.03s; Ruff passes. They cover both seats, exact adopted
+values under equal caps, rule identity for newly completed roots, incomplete
+predecessor rejection, digest tampering, a real native worker and a complete
+512-row synthetic accounting audit, including rejection of a false rehashed
+outcome. Synthetic accounting fixtures are not source-match evidence.
+The current opponent-only comparison remains31/32chunks complete. Its remaining
+worker57816 progressed from root_only to controller on source391; pipeline40713
+and queue35056 are live. Do not restart. Complete/audit/export it before deciding
+whether to launch the prepared symbolic comparison. Human play/dealer unchanged.
+

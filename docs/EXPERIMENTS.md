@@ -9373,3 +9373,39 @@ pass. Core symbolic planner/oracle and both fixed studies remain unchanged.
 No new natural source, inference study, canonical/dealer change or PDF edit.
 Goal active; complete/audit/export current opponent-only certificate comparison
 before deciding the next complete-cohort implementation/evaluation.
+## 2026-10-21: prepared whole-cohort symbolic program comparison
+
+The existing opponent-only study is still running,31/32chunks complete. Worker
+57816 progressed from root_only to controller on source391; CPU advanced from
+4013to4244s during this work. Pipeline40713/PowerShell49904 and queue35056 remain
+live. No restart, source subset analysis or interim candidate outcome inspection.
+
+Added scripts/symbolic_tail_replay.py and docs/SYMBOLIC_TAIL_REPLAY.rst. This
+separate runner preserves frozen predecessor code and compares all512 saved
+sources with the completed opponent-only implementation. It binds the audited
+predecessor/export, inherits input bindings, adds its own implementation/tests,
+retains all caps, fresh caches, source/arm order and worker limits. Freeze refuses
+an incomplete predecessor; launch refuses an existing queue. No freeze/launch
+has occurred and no new source matches or reserved seeds have been used.
+
+Each candidate phase must carry SymbolicPlan and its recognized leaf rule,
+including roots unavailable in the previous implementation. Common completed
+values/retained actions/omitted certificate regions are checked structurally.
+Every adoption independently replays its parent and candidate under Python
+rules, including default parent decisions. Plans are saved before actual tails;
+parent/fallback suffix identity and actual trace replay remain mandatory.
+Summary work now separately includes symbolic parent inference, all actual
+adapter calls and structural program-entry counts. Reused-cohort contrasts have
+no new strength gate or confidence intervals.
+
+Validation: .venv/Scripts/python.exe -m pytest tests/test_symbolic_tail_replay.py
+-q:6passed,0skips,5.03s. Equal-cap1258 synthetic tests for both seats recover
+parent204/275, controllergain53/550 and root-onlygain24/275. A native worker
+produces adopted executable programs; a synthetic512-row full audit checks their
+costs and tail traces, and rejects a tampered margin even after record rehashing.
+Other checks cover unknown rule, incomplete predecessor, changed bindings and
+duplicate worker directories. Initial integration test exposed a synthetic
+fixture seat mismatch with cases()[0]; corrected by swapping the fixture seat,
+preserving the complete-case audit. Ruff import/format issues corrected; final
+Ruff check passes. No production change or PDF edit. Stronger-play goal active.
+
