@@ -7419,3 +7419,21 @@ and120secondary comparisons,seeds,sample sizes and qualification remain fixed.
 Old failed queue preserved. Full training audit/evaluation/mechanism/export
 remain pending. No promotion,dealer change,reserved101M use or new strength
 claim. [Recovery instructions](SCORE_AUXILIARY_RECOVERY.rst).
+
+
+## Recovery diagnostic/export commands (2026-10-20)
+
+Added scripts/report_score_auxiliary_recovery.py without editing any bound
+learner,queue,analysis,auditor or exporter. It pins recovery protocol and queue
+identities,requires164-row/28-collection prefix agreement,and uses the original
+mechanism/export functions with the recovered training root. Mechanism inputs
+bind this adapter and recovery receipts before neural scoring. The export keeps
+all original contrast rows and adds failed-run work as a separate section and
+structured evidence,without new analysis or promotion.
+
+Three synthetic tests pass0skips(1.66s),including mismatched-prefix/receipt
+rejection,retention of all six primary/120secondary fixtures,separate restart
+costs and exclusive export. No simulator steps,neural calls or training. Final
+changes after tests are import sorting and replacing an empty-dict lambda with
+dict;ruff passes. Actual main mechanism/export execution remains gated on live
+training and evaluation. Current recovery learner and queue verified live.

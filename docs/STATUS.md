@@ -81,10 +81,13 @@ results. Do not rerun closed capabilities/tests while waiting.
 [Training audit](SCORE_AUXILIARY_TRAINING_AUDIT.rst),
 [mechanism diagnostics](SCORE_AUXILIARY_MECHANISM.rst) and
 [export](SCORE_AUXILIARY_EXPORT.rst) are implemented and tested. Main mechanism
-and export remain pending. After the training audit,adapt mechanism STUDY to
-the recovery root and bind recovery provenance. After queue completion,adapt
-export TRAINING and QUEUE_SHA to the exact recovery identities,export all fixed
-results,and integrate them into the manuscript. See recovery documentation.
+and export remain pending. The recovery reporting adapter now supplies exact
+commands in SCORE_AUXILIARY_RECOVERY.rst: prepare/run/audit after the full training
+audit,then export with the actual completed evaluation audit digest. It changes
+only artifact roots/provenance and reports failed-run overhead separately. Three
+synthetic tests pass0skips(1.66s),no matches/inference/training. Existing numerical
+analysis and six-primary/120secondary criteria remain unchanged. No main report
+has executed. After these stages,integrate the verified results into the paper.
 Interpret the comparisons before deciding the next scientific improvement.
 Canonical player,dealer and the latest35page manuscript are unchanged.
 

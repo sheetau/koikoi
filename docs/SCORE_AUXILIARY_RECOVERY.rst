@@ -63,13 +63,23 @@ files/tensors and perform no training, inference or simulation. Existing process
 ownership/waiting and evaluation capability tests are reused without rerunning
 their closed artifacts.
 
-After the full training audit, mechanism commands must set STUDY to
-Path("runs/score_auxiliary_recovery") in both score_auxiliary_mechanism and
-audit_score_auxiliary_mechanism before calling their existing functions. Bind
-the recovery protocol in the mechanism protocol before scoring. After the queue
-completes, export_score_auxiliary_results must use the recovery TRAINING root
-and the exact new QUEUE_SHA above, with the actual completed evaluation audit
-digest. These are path/provenance adaptations; numerical diagnostics and all
-six primary/120secondary coordinates remain fixed. Neither mechanism nor main
-result export has run yet. Integrate actual results into the manuscript only
-after these gates pass.
+After the full training audit, use the tested recovery adapter for the fixed
+mechanism diagnostics (each command once)::
+
+    .venv/Scripts/python.exe -m scripts.report_score_auxiliary_recovery prepare
+    .venv/Scripts/python.exe -m scripts.report_score_auxiliary_recovery run
+    .venv/Scripts/python.exe -m scripts.report_score_auxiliary_recovery audit
+
+After all four completion stages finish, pin the actual evaluation audit digest::
+
+    .venv/Scripts/python.exe -m scripts.report_score_auxiliary_recovery export --audit-sha256 <completed-main-audit-sha256>
+
+The adapter sets only the original modules' artifact roots and exact recovery
+queue identity. Before scoring, it binds its source, recovery protocol, complete
+receipt and passed repeated-prefix receipt. Existing complete-training and
+independent-audit gates remain in force. Export retains every original primary
+and secondary comparison, and adds a separate section for failed-run overhead.
+It does not produce matches or change analysis/qualification. Three synthetic
+adapter tests pass,0skips(1.66s): exact prefix identity and changed-receipt rejection,
+all contrast data retained, overhead reported separately and overwrite rejected.
+No main diagnostics or result export has executed yet.
