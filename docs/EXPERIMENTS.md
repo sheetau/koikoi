@@ -8611,3 +8611,27 @@ Original64sourcedenominatorand31missingretained. Additionalbudgetafteroriginal
 studymeansrecoveryisexploratory,notnewstrengthconfirmation. No automaticescalation.
 Stage1notlaunched;commitbeforelaunch. Stage2runnernotimplementedyet. Goalactive;
 no training,productionmodelchange,101Muse ormanuscriptrebuild.
+
+## 2026-10-20: ceiling equivalence complete; refusal recovery preflight passes
+
+python -m scripts.check_ceiling_tail completed0(session46597/PID22668).
+All18completedroots/36policies matchchosenaction/value/wholepolicy andevery
+computedrootvalue/map.20plansomitrootactions,allchosenQ1. IndependentPython
+oracle3404854transitions/3003624completions. Controlplanning5513147decisions/
+4856793terminalbranches;ceiling3535665/3119820. Newplanningtotal9048812/7976613,
+0newsources.1473actionsprunedacrossthetrees. Pairedtimes65.59745110012591s versus
+35.73219290014822s (-45.52807723%);physicaldecisions-35.86847947%. Per-planmax
+8.8072998s/4.7649414s. Alternatingorder/freshseparatecaches,matchedcaps. No new
+strengthresult. Stage1protocolaae5eec7dea9637385180462a96c00ad8b0f059355a5d3305a7b6c62a52bc140.
+Complete6efe77307aa016c8d6d4329f73540c0bf0dc3928262dfdfdbcdc019ee2d24308.
+
+Added scripts/recover_ceiling_tails.py and docs/CEILING_RECOVERY.rst. Actual
+preflightchecks26bindings,closedartifacts,all18verifiedcompletionindices,and
+exact15refusals0,1,4,18,20,21,25,26,34,36,50,52,53,55,59. FixedStage2wasalready
+specifiedbeforeStage1. All15attemptedwith500klive/2Mphysical/4096frontier/depth32,
+no newsourceorautomaticbudgetincrease. Bothfixed/optimizedvaluesindependently
+replayed;computed/unevaluatedactionskeptdistinct. Freezeplansbeforeactualtails.
+Parentmustreproducesourcesuffix. Existing18completedand31missingretainedin
+64sourcedenominator. This computationalextensionisexploratory,notnewprospective
+strengthconfirmation. Lint/formatpass. Commitbeforelaunch;notlaunchedatthisentry.
+No training,canonicalpromotion,reserved101M orPDFrebuild. Goalactive.

@@ -131,23 +131,27 @@ Protocol857196060cd8f3670676533f2883c58806940adbda86c4f0e4d72aa3d2de43e6.
 Completebca0c2086ba5a520c763de362354dc87cbf20d6a623d452ec68b4bee838cc835.
 Two newcoretests pass,0skips,2.99s. Results committed/pushed at1b9e1c2.
 
-Ceiling pruning is implemented in scripts/ceiling_belief_tail.py. Parent-first
-learner choices stop onlyat exact signedvalue=information-set mass; uncomputed
-rootactions stayexplicitlyunevaluated. Seven tests pass,0skips,2.76s (hidden/
-revealed tinygames, nonunitmass, parentties, both-seatKoi completecomparisons,
-independentPythonpolicyreplay andcaps). No productioncodechanged.
-[Fixed two-stage protocol](CEILING_BELIEF_TAIL.rst).
+Ceiling pruning Stage1 is complete:all18saved completed roots/36policies retain
+chosenaction/value/wholepolicy;everycomputedrootvalue/mapmatches. Independent
+Pythonreplaypasses.20plansomitrootactions,allwithchosenvalue1. Seven coretests
+pass,0skips,2.76s. Session46597/PID22668 exited0;no liveStage1 job.
+Pairedtimecontrol65.597451s/ceiling35.732193s (-45.5281%);physicaltransitions
+5513147/3535665 (-35.8685%). Oracle3404854decisions/3003624terminalcompletions.
+Stage1adds9048812planningdecisions/7976613terminalbranches,0sources;oraclework
+separate. Alternatingorder,freshseparatecaches,matchedcaps. No newstrengthgain.
+Protocolaae5eec7dea9637385180462a96c00ad8b0f059355a5d3305a7b6c62a52bc140.
+Complete6efe77307aa016c8d6d4329f73540c0bf0dc3928262dfdfdbcdc019ee2d24308.
 
-Stage1:paired terminal-reduced/ceiling comparison onall18complete savedroots,
-separatefreshcaches,alternatingmethodorder,fixedthenoptimized. Both500klive/
-2Mphysical/4096frontier/depth32. Exactselectedpolicy/value andallcomputedroot
-valuesmustmatch;independentPythonoracleverifiesallcomputedceilingpolicies.
-Notlaunchedyet;commitbeforelaunch. Stage2onlyafterbinding-verifiedStage1:
-attemptall15priorrefusals usingthesameexplicitcaps,saveallplansbeforeactualtails,
-retainallremainingrefusals. No newsourcecollection orautomaticbudgetextension.
-Stage2runnernotyetimplemented. Original64sources/31missingretained;anyrecovery
-isexploratorycapability,notnewprospectivereplicatedstrength. Goalactive;canonical
-play/PDFunchanged,101Munused. Priorresults committed/pushed through1b9e1c2.
+Stage2runner scripts/recover_ceiling_tails.py is implemented. Actualpreflight
+passes26inputbindings andall18completionindices;refusalsetisexactly
+0,1,4,18,20,21,25,26,34,36,50,52,53,55,59. [Recovery protocol](CEILING_RECOVERY.rst).
+All15attempted,nonewsource/replacement.500klive/2Mphysical/4096frontier/depth32
+perplan,originalfive-draw/1000handgates;allremainingrefusalsretained. Fixedthen
+optimized sharedcache,independentPythonvalueoracle,freezeallplansbeforeactual
+suffixeswithfreshstrictopponentcalls. Original18complete/31missingretainedin
+64sourcedenominator. Additionalbudgetisexplicitandexploratory,noprospective
+strengthclaim. Notlaunchedyet;commitbeforelaunch. No automaticescalation.
+Goalactive;canonicalplay/PDFunchanged,101Munused. Newwinreplicationstillopen.
 
 A saved-gradient block analysis is also closed: runs/branch_gradient_blocks.
 It verifies all four previous full-gradient totals by splitting 768 output
