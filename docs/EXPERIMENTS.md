@@ -8174,3 +8174,38 @@ No new training grid follows from this modest descriptive difference alone.
 Protocol SHA256 8a42b1d1feddc5785fc17cadeb0ce5124f38c726562fa70587f3f906502180e4.
 Summary SHA256 3043b0c4735cb489448ce518cabea19bca2b9165c9405c781f2b5e9cc8eb1617.
 The analysis is closed; do not repeat or overwrite it.
+
+
+## 2026-10-20: policy coupling prior art and exact marginal check
+
+Previous goal turn was progress: completed the opening revision and exact
+categorical sensitivity analysis. This turn revalidated live session92368 and
+PID33408; the original eight-arm study continues with unchanged bindings.
+
+Primary-source review found Hu et al., OSCC, arXiv2609.33543v2 (16October2026).
+It already characterizes gradient-projected return covariance and cost-aware
+coupling selection. Its C3 keeps policy draws branch-local. The local method
+shares policy uniforms and therefore does not instantiate that declared class.
+Also checked primary records for Oberst/Sontag ICML2019 Gumbel-Max SCMs,
+Fan et al. ICLR2020 correlated categorical rollouts, and Dong/Mnih/Tucker
+NeurIPS2021 coupled categorical gradient estimators. Primary links and exact
+scope distinctions are recorded in docs/POLICY_COUPLING_CONDITIONS.rst.
+No broad originality claim for categorical coupling or covariance geometry.
+
+Derived the sufficient fresh-innovation condition: each branch's own history
+is measurable before its next shared uniform, which remains independent of
+that history. Its action and full path marginals therefore agree with the
+original policy; expected fixed-root gradients are preserved by linearity.
+This permits cross-branch correlation without permitting within-branch reuse
+of an already observed draw. No claim of general optimizer or win improvement.
+
+Added exact rational variable-length example with a separate recursive
+probability-tree reference. `python -m pytest tests/test_policy_coupling_conditions.py
+-q`:3passed,0skips,0.06s. Ruff passes.
+`python -m scripts.check_policy_coupling`:exited0. Both fresh-shared marginal
+path laws and expected gradients agree exactly with independent policy draws;
+reusing a uniform within a branch fails. Two fixed reward cases have opposite
+variance differences: -5965/32768 and +5965/32768. New Koi-Koi decisions,
+training updates and independent samples are all0. Current study unchanged.
+Receipt runs/policy_coupling_conditions.json SHA256 6b50cbc10b68f4ded9c10ad2d6c9ccea41a4f97627c43308ed25657d4d90b533.
+The finite example is closed; do not rerun or overwrite it.

@@ -48,6 +48,17 @@ samples. This is neither a full-network variance guarantee nor a strength
 result. It does not change the running study or justify an automatic new grid.
 Do not repeat runs/categorical_sensitivity.
 
+New primary-source prior-art review identifies OSCC (arXiv2609.33543v2,
+16 October 2026), which already studies policy-gradient covariance and
+cost-aware coupling selection. Its C3 requires branch-local policy draws;
+the local shared-action sampler uses a different coupling class. The
+[condition/proof and exact example](POLICY_COUPLING_CONDITIONS.rst) show why
+fresh shared policy innovations can preserve marginal path laws and expected
+root gradients, while same-draw reuse within a branch can bias them. Three
+tests and the exact rational check pass; no new Koi-Koi simulations or training.
+This is a scope clarification, not a new variance-reduction or stronger-play claim.
+The running eight-arm study is unchanged.
+
 ## Completed uniform-root branch-gradient screen
 
 **The six-arm complete-match branch-gradient screen and its independent audits
