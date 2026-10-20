@@ -7636,3 +7636,24 @@ checkpoint. Raw row hashes and8,192line counts agree with each receipt. This
 milestone check adds no simulation,inference or tests; full action/statistical
 validation remains scheduled after all16cells. Strength export,paper integration
 and the broader stronger-play objective remain incomplete.
+
+
+## Four auxiliary evaluation cells complete (2026-10-20)
+
+Verified waits on queue56042/PID42884 observed parent1_none_wp/point complete
+and evaluator3068 start parent1_win_wp/point. Old workers37160/61760 exited;
+the evaluator recorded successful completion of both cells. Current actual
+workers66640/40848,launchers65172/41768. The evaluator and queue remain live;
+4of16cells complete. No restart,criterion change or interim strength analysis.
+
+Parent1_none_wp:8,192matches/944,980decisions/63,663round endings;
+rows5362f788bbf78e5bfaf57acf10b8654330446461d1d9dea29fc08e39f134124b;
+receiptaf55cdbcea7fbbee006b3b7ab79a54621abcc568ecba3b4530c73ddf1e38ef0c.
+Parent1_none_point:8,192matches/961,958decisions/63,074round endings;
+rowsb2d8fa280b1d81f78a390f624021a372d3349d8ee4ce7c2902188df8d1202983;
+receipt8474b007bff8c1bc58f0e8c7a1590e51c6a46c1a9fcf3a3c09670ba7ce2be746.
+Both receipts bind the fixed evaluation protocol and the same none endpoint
+2d04d2fc1a3ffb92946f281e859a56b3c7a9346c01946f2d6feb01ed0d654eb2.
+Raw row hashes and8,192line counts agree. This check adds no simulation,
+inference or tests. Full action/statistical validation remains scheduled after
+all16cells. Result export,paper integration and stronger-play work remain open.

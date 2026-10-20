@@ -42,9 +42,11 @@ This read-only check adds no training,matches or inference. The scheduled final
 full-arm prefix check also passes (receipt0915d3696196f62a5ae503b0240571ded3e1ee16593a6028949a151aa481200d).
 Queue session56042/PID42884 completed training_audit and evaluation preparation.
 The auditor19968/launcher61320 has exited0. Evaluation runner3068
-(launcher67876) is live; current cell workers37160/61760,launchers52408/564,
-parent1_none_wp/point. The first two parent1_parent cells completed8,192matches
-each and their old workers40936/36332 exited0. Two of16cells are complete.
+(launcher67876) is live; current cell workers66640/40848,launchers65172/41768,
+parent1_win_wp/point. The parent1_parent and parent1_none cells each completed
+8,192matches; their workers have exited. Four of16cells are complete. Raw row
+hashes and line counts match the completion receipts. Full evaluation and
+independent action/statistical validation remain pending.
 Recovery protocol b38aa097e1ce9a4f2989eab445025d7f4388fbf97d7dd0df8722860bddbe5294
 binds683inputs,including every original artifact. Six recovery tests pass0skips
 (1.67s),two relocation/queue tests pass0skips(1.75s),all synthetic/no simulation.
