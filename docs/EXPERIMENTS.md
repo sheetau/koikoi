@@ -7284,3 +7284,13 @@ Digests:
 - auditor:14a3f2176adc019ad7020a2d02943e339add42910bee8f9ecf5945a0cad323d3
 - tests:867c86550a7cce4fc63030bcbf688648951ec51be42559fcd441daa3216fcab5
 - XML:55bfca318d13a9f224696d38d99d621975e37613c437d49117abdd19ed297840
+
+
+First auxiliary main arm completed:seed1_none520updates/8,519,680PPO decisions/
+559,940round endings/72,763matches;100auxiliary cycles/1,490,245decisions/
+98,096round endings/12,800matches/96,442retained rows,no auxiliary optimization.
+Endpoint manifest6686205ff7d8aa08a5e70f04498efb1191de1f191db09378864206050f1a10c1.
+Runner20751 continues to seed1_win(update21 verified). Queue19901 continues
+waiting. All107training and170queue bindings verify;no failure receipts.
+Mechanism milestonecc5964f pushed. No full audit,main evaluation,mechanism
+execution or new strength result yet. Goal remains active and unachieved.

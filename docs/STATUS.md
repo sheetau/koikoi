@@ -96,7 +96,14 @@ implemented([scope](SCORE_AUXILIARY_MECHANISM.rst));4tests pass0skips1.50s,
 no inference/simulation. End-to-end diagnostic execution is pending full training
 audit. After that,run its prepare/run/audit commands once;it is separate from
 the existing queue. Preserve all completed and live bound sources.
-Actual first learner remains live;update510 was verified advancing.
+Main seed1_none is complete:520updates/8,519,680PPO decisions/559,940rounds/
+72,763matches;auxiliary100cycles/1,490,245decisions/98,096rounds/12,800matches/
+96,442rows,no auxiliary optimization. Endpoint manifest6686205ff7d8aa08a5e70f04498efb1191de1f191db09378864206050f1a10c1.
+The same runner is now on seed1_win(update21 verified). No failure receipts;
+107training and170queue bindings rechecked unchanged. Mechanism code/tests
+committed/pushed ascc5964f. Next monitor the live jobs,then run the mechanism
+commands after full training audit;interpret all predeclared results before
+claiming an improvement. Do not rerun closed tests/capabilities while waiting.
 Do not reopen closed sweeps or use reserved101M deals. Parent selection and the
 canonical player remain unchanged. Stronger play/substantive novelty remain open.
 
