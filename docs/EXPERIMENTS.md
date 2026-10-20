@@ -8635,3 +8635,30 @@ Parentmustreproducesourcesuffix. Existing18completedand31missingretainedin
 64sourcedenominator. This computationalextensionisexploratory,notnewprospective
 strengthconfirmation. Lint/formatpass. Commitbeforelaunch;notlaunchedatthisentry.
 No training,canonicalpromotion,reserved101M orPDFrebuild. Goalactive.
+
+## 2026-10-20: ceiling recovery completed and audited
+
+python -m scripts.recover_ceiling_tails completed0 (session3418/PID42192).
+All15 predefined refusals attempted, 10 recovered / 5 still physically capped.
+Original cohort:28 complete / 5 refused / 31 missing of64 sources,16 streams.
+No source extension or automatic budget increase. Fixed caps500k live/2M physical.
+python -m scripts.export_ceiling_recovery completed0; report and receipt bind
+old/new artifacts, exact Qs, omissions, counters and all30 actual-tail replays.
+Report docs/CEILING_RECOVERY_RESULTS.rst; receipt runs/ceiling_tail_recovery_export.json.
+Completed planning12,283,153 decisions/10,912,399 terminal branches; refused
+partial9,999,960/8,761,604. Independent oracle9,970,387/8,844,642. History42,540
+decisions; actual tails86/30, with a separate identical exporter replay.
+Combined conditional optimized-parent gain over32 sources per parent:
+73747/10982400 and2699329/457142400 (+0.6715/+0.5905pp). Actual win changes0.
+Sources18/50 share exactly the same root state and Point deal; earlier match
+prefixes differ. Both optimal Q25249/28600; parent/optimized rootaction0,
+fixed-continuation optimizer21. Main gains arise from future-policy changes
+and are not independent replications. All5 remaining partial attempts have0
+ceiling cutoffs;4 fail in fixed planning,1 in optimized planning.
+Protocol ca89d632709be3f25b5ce1c0ffe7f6f71628d9d4ad257c5c898b3a1f6e465eb9.
+Complete fa7c01ef7751624558c94c61cec01bbe306bbf0218ae1999c937d576ce27227c.
+Report002a12d637ac9d7e3443e674463696ff0d76e0d5040344d1cc8a46fefa6ddcba.
+Exporter8efd1d005c513ae84056d188435ac197319d47a7b2e39ee85247e39c6dbe1cca.
+No training, model promotion, reserved101M use or manuscript change. Goal active.
+Next investigate public admissible outcome bounds on saved data; no further
+source collection or larger-cap run is authorized by this analysis milestone.

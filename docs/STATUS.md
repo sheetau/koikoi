@@ -142,16 +142,38 @@ separate. Alternatingorder,freshseparatecaches,matchedcaps. No newstrengthgain.
 Protocolaae5eec7dea9637385180462a96c00ad8b0f059355a5d3305a7b6c62a52bc140.
 Complete6efe77307aa016c8d6d4329f73540c0bf0dc3928262dfdfdbcdc019ee2d24308.
 
-Stage2runner scripts/recover_ceiling_tails.py is implemented. Actualpreflight
-passes26inputbindings andall18completionindices;refusalsetisexactly
-0,1,4,18,20,21,25,26,34,36,50,52,53,55,59. [Recovery protocol](CEILING_RECOVERY.rst).
-All15attempted,nonewsource/replacement.500klive/2Mphysical/4096frontier/depth32
-perplan,originalfive-draw/1000handgates;allremainingrefusalsretained. Fixedthen
-optimized sharedcache,independentPythonvalueoracle,freezeallplansbeforeactual
-suffixeswithfreshstrictopponentcalls. Original18complete/31missingretainedin
-64sourcedenominator. Additionalbudgetisexplicitandexploratory,noprospective
-strengthclaim. Notlaunchedyet;commitbeforelaunch. No automaticescalation.
-Goalactive;canonicalplay/PDFunchanged,101Munused. Newwinreplicationstillopen.
+Ceiling recovery Stage2 is complete: all 15 old refusals were attempted under
+500k live-node / 2M physical-transition caps; 10 completed and 5 remain refused.
+Session3418 / PID42192 exited0. No live study. The original cohort now has
+28 completed, 5 refused and 31 missing roots among 64 sources / 16 deal streams.
+[Audited recovery and combined results](CEILING_RECOVERY_RESULTS.rst).
+No source matches were added; this is an exploratory computational extension.
+
+Combined optimized-minus-parent conditional expected win gains over all 32
+sources per parent are +0.6715pp and +0.5905pp. Every actual match-win difference
+is zero. Sources18 and50 have identical root states on the same Point deal,
+although earlier match action prefixes differ. Both exact optimal Qs are
+25249/28600. Their large conditional gains are not independent replications.
+At this root, both parents and the optimized policy choose action0; the fixed-
+continuation optimizer chooses21. The improvement requires future decisions.
+
+Recovery planning:12,283,153 decisions / 10,912,399 terminal branches completed;
+9,999,960 / 8,761,604 in partial refused plans. Independent Python oracle:
+9,970,387 decisions / 8,844,642 terminal completions. Actual tails:86 decisions /
+30 conditional completions; exporter separately replays these same tails.
+History replay42,540 decisions. All work categories are separate; no new samples.
+Refusals0,4,20,36,52 all hit physical caps, with zero ceiling cutoffs in their
+partial work. Four fail during fixed continuation, one during optimization.
+Do not automatically raise budgets or extend source collection.
+Protocol ca89d632709be3f25b5ce1c0ffe7f6f71628d9d4ad257c5c898b3a1f6e465eb9.
+Complete fa7c01ef7751624558c94c61cec01bbe306bbf0218ae1999c937d576ce27227c.
+Report002a12d637ac9d7e3443e674463696ff0d76e0d5040344d1cc8a46fefa6ddcba.
+Receipt runs/ceiling_tail_recovery_export.json binds the exporter and old/new
+artifacts, verifies all exact values and computed/omitted action sets, and
+independently replays actual suffixes. Export succeeds; lint/format pass.
+Goal active; canonical play/PDF unchanged, reserved101M unused. New replicated
+match-win improvement remains open. Next assess admissible public outcome
+bounds before changing the planner or launching another study.
 
 A saved-gradient block analysis is also closed: runs/branch_gradient_blocks.
 It verifies all four previous full-gradient totals by splitting 768 output
