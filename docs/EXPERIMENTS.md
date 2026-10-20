@@ -8938,3 +8938,48 @@ Next: let all fixed512 sources finish, run the complete-only exporter, inspect
 all four predeclared contrasts, and then integrate warranted results into the
 manuscript. No new claim of stronger play, no paper/PDF change this milestone.
 Goal remains active. Canonical play, dealer and reserved101M unchanged.
+
+## 2026-10-21: integrate exact public-information planning and simplify the paper
+
+Previous goal turn was progress:fixed fresh cohort launched and exporter added.
+Session89944 re-polled live; PID66280 verified via Get-Process. Latest observed
+snapshot:166/512 sources processed,9chunks complete,4workers running,0failed.
+The frozen comparison continues unchanged; no partial outcome selects a policy
+or changes the study. Main manuscript now adds the completed, closed64-source
+controller evidence only.
+
+New title:Match Adaptation and Public-Information Planning for Koi-Koi
+Transformers. Section9 describes exact history-conditioned hands/draw prefixes,
+common actions at own/public information sets, complete contingent maps, separate
+2M-phase caps, incumbent retention and strict comparison to the unchanged parent.
+Conditional-expectation proof states the matched-belief/model/commitment
+assumptions. Closed7adoptions and0.7969/0.5905pp mean conditional gains are
+separate from unchanged realized source wins. Witness55113/80080-1711/2640
+=4819/120120 rechecked exactly and bound to INCUMBENT_RECOVERY_RESULTS.rst.
+No new general theorem, prospective strength, minimax or deployment claim.
+
+Primary CMU HSVI2004 page and PMLR SPIBB2019/MCTS-SPIBB2023 pages reread for
+abstract-level scope and bibliography. Related Work adds allthree;43references.
+Abstract183words,Introduction499,Conclusion152; completed claims lead, repeated
+negative-result summaries removed from limitations. AppendixA compressed from
+1601 to339 whitespace words plus evidence map. Former appendix preserved in
+reproduction_ledger.tex; equality against c99f92d verified modulo CRLF-to-LF.
+No experimental work/cost information is discarded. README current state fixed.
+
+PDF skill reused; authoring marker already executed exactlyonce earlier, not
+repeated. Backup output/pdf/manuscript_before_incumbent_a896c9a9.pdf preserved.
+Tectonic build and full render/QA pass. Initial table had long filename boxes;
+changed to ragged columns and breakable paths. Final38pages;Conclusion ends17,
+reproduction map18. Allpages contact-reviewed;fullsize1,2,4,5,16,17,18,35,37,38.
+No page-bound,box,glyph,reference,bibliography warnings;all27fonts embed.
+Only the longstanding Fontconfig configuration notice remains.
+PDF 1682a81235ac72daf8151f5018e204b9747b4aaace16657fb2e62a82a938f242.
+TeX 4b992c1adf1f424f09d1c9101d2659b0c8f0f6f3e1bf682d9d0d40d7777222f9.
+Method b5acdc381e3638c578cbbd3ae042753f0e983f34969f881da9c4c674e156358f.
+Bibliography 1e421109020f6da49f51ce87e56c45693ee24ffe0f43ea184c295984a70df6b6.
+Companion ledger 5d0a0172c2cc68106db41c9ceb5d2da437a80337e62df8f7cebd1c46c9c737ff.
+QA146d751f1bd7ad43550cd9cc400dc223e10ba63a6529f0bdd7a419509e588f8e.
+Earlier evidence audits reused, not a full41GB-corpus rehash. Production and
+frozen study inputs unchanged. Next:finish512 and run complete-only export,
+then assess allfour fixed contrasts and integrate warranted prospective results.
+Goalactive;no reserved101M use or canonical-play/dealer change.

@@ -1,0 +1,75 @@
+\section{Executable improvement from public information}
+\label{sec:incumbent-tail}
+The recovered opponent model supports a direct alternative to learning a
+response: evaluate complete endgame policies under the hidden-card distribution
+consistent with public play. We implement this approach at the first learner
+decision in the final round with at most five draws remaining, provided a
+preceding round has already identified the opponent. The retained parent plays
+the entire prefix.
+
+\subsection{From compatible histories to complete policies}
+For each legal hidden hand, we replay the observed opponent actions with the
+identified deterministic policy. Compatible hands and the remaining stock
+permutations define a finite belief under a uniform valid-deal law. Integer
+multiplicities represent equivalent unused stock suffixes. Chance branches
+expand only when a draw occurs, and terminal branches contribute their weighted
+outcomes immediately.
+
+The planner groups worlds by the learner's own and public history before
+choosing an action. Indistinguishable worlds therefore share that choice.
+It returns a map from these histories to actions for the complete continuation,
+along with an exact rational match value. Executing the map preserves the
+information constraints used during evaluation.
+
+We first evaluate root actions followed by the unchanged parent, then search
+for policies that also optimize later decisions. Each phase receives a separate
+cap of 500,000 live nodes and two million native transitions. An unresolved
+branch can bound a candidate's value but cannot supply its executable policy.
+When a cap interrupts search, previously completed policies remain available.
+The controller adopts the best retained policy only if its exact value exceeds
+the unchanged parent's value under the same belief. Otherwise it follows the
+parent. A root-only control assigns the combined allowance to the first phase.
+
+\subsection{The conditional improvement guarantee}
+Let $H$ be the own/public history at the first eligible root, $\pi$ the parent,
+and $\sigma_H$ an adopted complete policy. For final match score
+$W\in\{0,\tfrac12,1\}$, the adoption test is
+\[
+  \Delta(H)
+  = \mathbb{E}_{\nu}[W(\sigma_H)\mid H]
+    -\mathbb{E}_{\nu}[W(\pi)\mid H] > 0.
+\]
+Here $\nu$ specifies the deal law, fixed opponent and game rules, and the
+evaluated belief is its conditional law given $H$. Set $\Delta(H)=0$ whenever
+the controller retains the parent, including unavailable roots or an incomplete
+parent evaluation. Because the controller and parent share their entire prefix,
+the law of total expectation gives
+\[
+  \mathbb{E}_{\nu}[W(\mathrm{controller})]
+  -\mathbb{E}_{\nu}[W(\pi)]
+  =\mathbb{E}_{\nu}[\Delta(H)]\geq 0.
+\]
+This argument requires commitment to the evaluated continuation and the stated
+conditional model. It needs neither a globally optimal policy nor a completed
+comparison of every action. Its role is to connect a verified local comparison
+to expected match performance.
+
+\subsection{Verified opportunities in the development cohort}
+In a closed exploratory cohort of 64 source matches on 16 shared deal streams,
+the controller adopts five policies for the first parent and two for the
+second. Averaged over all 32 sources per parent, including missing roots and
+fallbacks, exact conditional gains are 0.7969 and 0.5905 percentage points.
+Every realized win outcome on these source continuations is unchanged.
+
+One retained policy keeps the parent's first action while improving its later
+decisions. Its exact value rises from $1711/2640$ to $55113/80080$, a gain of
+$4819/120120$ (4.0118 percentage points) at that root. Search reaches its cap,
+but this policy and its parent reference are complete. Independent Python-rule
+replay verifies both values, and actual execution checks every selected action
+against the policy's own/public-history key.
+
+These witnesses establish usable conditional improvements under the declared
+belief. Their frequency and realized match benefit are separate empirical
+quantities. The uniform valid-deal belief is also distinct from a posterior over
+the simulator's finite PRNG seeds. The implementation, certificates and full
+work accounting are recorded in \texttt{docs/INCUMBENT\_RECOVERY\_RESULTS.rst}.

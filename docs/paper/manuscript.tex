@@ -12,10 +12,10 @@
 \widowpenalty=10000
 \clubpenalty=10000
 \brokenpenalty=10000
-\title{Adapting Published Koi-Koi Transformers:\\
-Match Wins and Critic Conditioning}
+\title{Match Adaptation and Public-Information Planning\\
+for Koi-Koi Transformers}
 \author{}
-\date{20 October 2026}
+\date{21 October 2026}
 \begin{document}
 \maketitle
 \begin{abstract}
@@ -30,7 +30,9 @@ information. In an exact shared-parameter game, switching between players'
 critics can reverse the expected policy update despite exact conditional
 values; learner-decision returns correct the complete example. In Koi-Koi,
 completed public hands recover earlier actor inputs and identify the fixed
-WP/Point opponent in 86.1\% of natural final-round starts. Controlled comparisons
+WP/Point opponent in 86.1\% of natural final-round starts. A bounded planner
+turns this information into executable endgame policies, adopting a change only
+when its exact conditional match value exceeds the parent's. Controlled comparisons
 connect these findings to agent design: additional return, representation,
 public-memory and auxiliary-prediction changes do not establish a replicated
 win gain. Together, the results demonstrate effective match adaptation and
@@ -48,9 +50,9 @@ are therefore distinct learning objectives.
 Guan et al. trained Transformer agents for these objectives: RL-WP for wins
 and RL-Point for points \cite{guan2023koikoi,pinnedkoikoi}. Their released agents
 provide a starting point for studying how match-level optimization improves
-play and which additional learning signals help. We investigate three aspects:
-terminal-match adaptation, the conditioning of critic estimates, and the
-information recoverable from public play.
+play and which additional learning signals help. We connect terminal-match
+adaptation, critic conditioning and information recovered from public play to
+the design of stronger agents.
 
 Terminal-match self-play improves the released win policy without changing
 its deployed architecture. We convert action scores into a stochastic policy
@@ -80,6 +82,13 @@ Across rounds, eight public hand discards reveal the opponent's initial hand.
 Reconstructing its earlier network inputs eliminates inconsistent fixed
 opponent models and identifies WP or Point in 86.1\% of natural final-round
 starts (Section~\ref{sec:public-revelation}).
+
+We then turn the recovered model into a finite belief over hidden cards and
+construct complete endgame policies. The controller changes play only when a
+candidate's exact conditional match value exceeds the unchanged parent's value.
+It can retain an improving policy even when the search budget prevents further
+comparison. This links public reconstruction to an executable improvement rule
+(Section~\ref{sec:incumbent-tail}), alongside the learned responses.
 
 Complete paired-match comparisons measure whether these additional signals
 improve play. The return, representation, public-memory and auxiliary changes
@@ -204,6 +213,17 @@ replicate a match-level benefit. Later diagnostics apply retained Transformers
 to paired stop/continue and card-action rollouts, with fresh confirmation
 samples for proposed changes. These diagnostics extend the implementation
 coverage; their selected roots do not constitute a match-level comparison.
+
+Exact planning and baseline improvement provide complementary precedents.
+HSVI returns an anytime POMDP policy together with a bound on its regret
+\cite{smith2004hsvi}. SPIBB studies improvement from fixed data without access
+to the true environment, using the baseline where uncertainty is high
+\cite{laroche2019spibb}; MCTS-SPIBB computes local online responses in that
+framework \cite{castellini2023mcts}. Our endgame controller uses known rules and
+a finite hidden-card belief. It compares completed policies exactly and keeps
+the parent when a strict gain cannot be established. The domain contribution is
+the path from reconstructed opponent inputs to verified executable policies,
+with explicit computation limits and complete-match assessment.
 
 Suzuki's Open Hanafuda AI provides a recent public implementation combining
 simulation with observable-information inference and heuristics
@@ -823,16 +843,13 @@ The distinction is operational: public reconstruction supplies information
 that the original representation or memory omitted; the tested learners have
 yet to turn that information into a consistent additional match-win gain.
 
+\input{incumbent_tail.tex}
+
 \section{Limitations and interpretation}
-Both retained WP-initialized agents improve match wins against assisted
-RL-WP; RL-Point remains competitive in wins and superior in expected points
-against them. The new Point-initialized agents improve point margins over
-matched WP controls. Their primary win-improvement criterion still fails.
-The auxiliary study retains the point advantage across all three conditions,
-including its no-auxiliary control, but adds no detectable win or point gain
-from finer terminal-margin targets. Together with the fixed-role and paired-
-supervision results, these comparisons show that better point margins and
-changed actions need not yield a detectable gain in match wins.
+The comparisons measure head-to-head performance under the pinned Koi-Koi
+rules. The exact planner's guarantee requires the evaluated belief to match
+the conditional deal and opponent model. Conditional improvement certificates
+and their exploratory frequency do not determine population win-rate gains.
 
 Two training seeds and fixed opponents limit generality: held-out deals measure
 endpoint performance, not robustness across optimization runs. The ledger
@@ -841,241 +858,83 @@ unmeasured. The original warm/cold comparison changes temperature and learning
 rate jointly. Latency covers one machine and a cached random-play workload.
 
 \section{Conclusion}
-Terminal-match self-play improves the released win policy at both adapted
-seeds while preserving its actor and greedy inference. Increasing policy
-updates eightfold and changing to Point initialization each improve mixture
-point margins at two fresh seeds. Point initialization gains 1.77--2.08 points
-over matched WP controls; calibrated sampling adds no replicated win benefit.
-Neither study establishes replicated additional win improvement. A matched
-65-output auxiliary comparison further separates target resolution from head
-size: margin labels change greedy decisions, while all six primary win-change
-intervals include zero.
+Terminal-match self-play improves the released Koi-Koi win policy at both
+adapted seeds while preserving its Transformer actor and greedy inference.
+Point initialization provides a second benefit: mixture point margins rise
+by 1.77--2.08 points over matched WP controls. Match wins and expected points
+thus provide complementary measures of adaptation.
 
-An exact shared-parameter game shows that an opponent-conditioned critic can
-reverse the expected policy update, even with exact conditional values.
-Learner-decision returns correct the complete example; five public directions
-measured in the retained agents do not establish that reversal.
+The exact shared-parameter example identifies a critic-conditioning failure:
+switching to the opponent's observation can reverse the expected policy update.
+Learner-decision returns correct the complete example. The tested return,
+representation and auxiliary-learning changes yield no replicated additional
+win gain in Koi-Koi.
 
-Public reconstruction exposes a missing seat distinction and identifies the
-fixed opponent at 86.1\% of natural final-round starts. Controlled learning
-tests separate these information repairs from playing strength: return repairs,
-seat features and public-memory adaptation yield no replicated additional win gain.
+Public reconstruction identifies the fixed opponent at 86.1\% of natural
+final-round starts. The bounded planner turns that information into complete
+contingent policies and adopts only verified conditional improvements. Seven
+policies pass this test in the exploratory cohort, including one that improves
+later decisions while keeping the first action. Their realized source-match
+wins remain unchanged, separating executable conditional improvements from
+measured gains in match play.
 
 \appendix
 \section{Reproduction and evidence}
 \label{app:reproduction}
-Source code and experiment documentation are available at
-\url{https://github.com/sheetau/koikoi}. The primary comparison uses the
-published implementation at the revision identified in Reference~\cite{pinnedkoikoi}.
-The completed adaptation
-study and its earlier manuscript are preserved in a local evidence archive
-from project snapshot \texttt{f5cf955}. The present manuscript revision adds
-related work, completed PPO and paired-supervision comparisons, and the
-subsequent fitting diagnostics, followed by the completed direct-response
-and learner-return comparisons. It also adds the exact critic-conditioning
-analysis and its CPU/CUDA verification, bound in
-\path{docs/paper/generated/observer_evidence.json}. The finite-cutoff extension
-and its exact fractions are bound in
-\path{docs/paper/generated/observer_trace_evidence.json}.
+Source code, fixed protocols and audit scripts are available at
+\url{https://github.com/sheetau/koikoi}. The comparator revision is pinned in
+Reference~\cite{pinnedkoikoi}. Machine-readable ledgers in
+\path{docs/paper/generated/} bind each study's protocols, checkpoints, raw
+outcomes, audit reports and numerical tables by SHA256. Table~\ref{tab:evidence-map}
+provides an entry point to those records.
 
-The final-round adaptation and public-opponent identification results are
-bound in \path{docs/paper/generated/public_revelation_evidence.json}. The
-tail comparison adds 1,908,865 evaluation decisions, 127,476 round endings
-and 16,384 complete matches on 2,048 fresh deals. Its 133,120 training tails
-are conditional continuations, not complete training matches. Identification
-reuses the training prefixes and performs 44,170 strict CPU predictions;
-the independent audit adds no new policy inference or independent deals.
+\begin{table}[ht]
+\centering\small
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.29\linewidth}>{\raggedright\arraybackslash}p{0.63\linewidth}}
+\toprule
+Result & Evidence files in \texttt{docs/paper/generated/} \\
+\midrule
+Primary adaptation & \path{evidence.json} \\
+Duration and initialization & \path{duration_evidence.json}, \path{point_initialization_evidence.json} \\
+Auxiliary targets & \path{score_auxiliary_evidence.json} \\
+Exact critic example & \path{observer_evidence.json}, \path{observer_trace_evidence.json} \\
+Critic and seat controls & \path{response_evidence.json}, \path{learner_evidence.json}, \path{observer_selfplay_evidence.json}, \path{seat_observer_evidence.json} \\
+Public identification and learning & \path{public_revelation_evidence.json}, \path{public_memory_evidence.json}, \path{public_continuation_evidence.json}, \path{renewed_continuation_evidence.json} \\
+Policy composition & \path{arbitration_evidence.json}, \path{paired_evidence.json}, \path{followup_evidence.json} \\
+Temperature and directions & \path{temperature_directional_evidence.json} \\
+\bottomrule
+\end{tabular}
+\caption{Evidence map. Each ledger identifies the underlying inputs and outputs;
+shared endpoints and deal streams are retained explicitly.}
+\label{tab:evidence-map}
+\end{table}
 
-The public-memory comparison is bound in
-\path{docs/paper/generated/public_memory_evidence.json}. Its four arms add
-3,725,648 training decisions and 266,240 conditional final-round completions.
-Evaluation adds 2,857,337 decisions, 191,262 round endings and 24,576 full
-matches on 2,048 fresh deals. Public-model elimination makes 355,486 strict
-predictions; independent replay checks 300,092 historical inputs and masks
-without new policy inference. The ledger retains all 18 contrasts.
+The primary adaptation used development deals 7,200,000--7,204,999 and held-out
+deals 100,000,000--100,009,999. The latter remain assigned to that completed
+comparison. Subsequent studies use separately recorded development ranges.
+Their paired arms share deals and, where applicable, source prefixes; these
+shared records are not independent samples.
 
-The multi-round comparison is bound in
-\path{docs/paper/generated/public_continuation_evidence.json}. Its four arms
-add 18,982,723 training decisions, 266,240 conditional match completions and
-1,277,944 conditional round endings. Full-match evaluation adds 2,856,503
-decisions, 191,108 round endings and 24,576 matches on 2,048 fresh deals.
-Public-model checks add 201,568 strict predictions. Independent replay verifies
-146,184 historical inputs and masks without new neural inference or independent
-deals. Root reconstruction is accounted for separately in the ledger.
+Work ledgers distinguish full source matches, conditional training or search
+completions, rounds, decisions and verification replay. They also retain
+interrupted and repeated work. The detailed reproduction ledger is preserved
+in \path{docs/paper/reproduction_ledger.tex}; the broader experiment history is
+in \path{docs/EXPERIMENTS.md}. The bounded endgame extension has its own records
+in \path{docs/INCUMBENT_RECOVERY_RESULTS.rst}, including the exact policy values
+and separate planning, oracle and actual-continuation counts.
 
-The renewed-chance comparison is bound in
-\path{docs/paper/generated/renewed_continuation_evidence.json}. New training
-adds 19,033,187 decisions, 266,240 conditional completions and 1,276,266
-conditional round endings, using 133,120 distinct chance keys shared between
-public and masked conditions. Evaluation adds 4,754,060 decisions, 318,260
-round endings and 40,960 full matches on 2,048 fresh deals. Identification
-uses 399,624 strict predictions. Independent replay checks 290,156 historical
-inputs and masks and reproduces all 66 contrasts without new neural inference
-or independent deals. All three replication criteria fail; the reserved final
-confirmation remains unused.
+Audit scope matters for reproduction. Recorded-action replay checks rule
+transitions and final outcomes; scalar reanalysis checks the reported
+comparisons. Neither operation repeats training or every neural inference.
+The fixed inference specification includes device, endgame assistance and
+parameter-freezing state: a recorded near-tie changes after freezing the same
+weights. Both compared controller arms use the same frozen-expert path.
 
-The machine-readable evidence ledger,
-\path{docs/paper/generated/evidence.json}, binds the completed studies'
-protocols, checkpoints, raw outcomes, audits and numerical tables. It records
-SHA256 digests for each source artifact.
-The completed development runner is \path{scripts.run_cold_ppo_screen};
-the held-out evaluation runner is \path{scripts.run_final_published_test}.
-Their audit modules verify artifact identities, accounting and paired
-statistics. Full trajectory reproduction uses the recorded runtime and pinned
-comparator dependencies.
-
-Development used deals 7,200,000--7,204,999, while the completed held-out
-comparison used 100,000,000--100,009,999. Those held-out deals remain assigned
-to the completed study. The new arbitration protocol records fresh training
-and development ranges in \path{runs/arbitration_study/protocol.json}.
-\path{docs/ARBITRATION.md} describes the arms, budgets and evaluation criteria.
-\path{docs/paper/generated/arbitration_evidence.json} separately binds the
-completed PPO extension's audit, raw paired outcomes and figure.
-\path{docs/paper/generated/paired_evidence.json} binds the paired-supervision
-table, recomputed raw match comparisons, datasets, fitted models and diagnostic
-reports. The paired study uses development deals 22,000,000--22,000,999.
-Its two datasets share 623,232 source decisions across all fitted controllers;
-branch generation adds 15,406,127 decisions and 262,144 branch completions.
-Evaluation adds 5,551,259 decisions. These are distinct computation categories.
-
-The completed fixed-role hybrids and continuation-target diagnostics are bound
-separately in \path{docs/paper/generated/followup_evidence.json}. Static changes
-are recomputed from raw matches. The target-control results retain dataset,
-feature-cache and checkpoint identities. The completed direct-response comparison is bound in
-\path{docs/paper/generated/response_evidence.json}. It uses 34,078,720 training
-decisions and 13,947,308 evaluation decisions, with all 120,000 evaluation
-matches on 5,000 shared deals. The learner-return comparison is bound separately
-in \path{docs/paper/generated/learner_evidence.json}. Its four new training runs
-use 34,078,720 decisions, 2,274,630 round endings and 294,469 completed matches.
-The two reused signed-response endpoints add a separate pre-existing dependency
-of 17,039,360 training decisions. Evaluation uses 18,542,184 decisions across
-160,000 matches on 5,000 shared deals, numbered 24,000,000--24,004,999.
-The independent audit recomputes all 16 outcomes and 24 paired contrasts from
-the raw seat-swapped records.
-
-The fixed-observer ledger is \texttt{observer\_selfplay\_evidence.json}.
-Its four new arms
-use 34,078,720 decisions, 2,278,384 round endings, 292,470 completed matches and
-68,157,440 value rows. The two historical self-play endpoints supply a separate
-17,039,360-decision dependency. Evaluation uses 18,571,664 decisions across
-160,000 matches on 5,000 shared deals, numbered 27,000,000--27,004,999. The
-independent audit reproduces all 16 outcomes and 24 paired contrasts, including
-the failed primary conjunction.
-
-The public-seat comparison is bound in \texttt{seat\_observer\_evidence.json}.
-Four new arms use 34,078,720 decisions, 2,277,571 round endings,
-292,388 completed matches and 68,157,440 value rows. The archived observer
-endpoints supply 17,039,360 pre-existing training decisions. Evaluation uses
-18,586,219 decisions across 160,000 matches on 5,000 shared deals, numbered
-28,000,000--28,004,999. The independent audit reproduces all 16 outcomes and
-24 paired contrasts, the matched warmup checks and the failed primary
-conjunction. No endpoint is promoted and the reserved confirmation deals remain
-unused.
-
-The seat-label and actor-input audits are recorded in
-\path{runs/observer_seat_information_v2/independent_audit.json} and
-\path{runs/seat_feature_reconstruction/audit.json}. The latter checks 862
-discard, 52 hand-capture, 28 draw-capture and 82 stop/continue observations,
-adding no simulator decisions. The original seat-label collection used 512
-decisions, 33 round endings and 4 completed matches; a first collection that
-failed during JSON serialization adds 256 decisions, 17 round endings and
-2 matches. The reported 1,024 probes come from the successful saved collection
-and its relabelings, not from additional independent games.
-
-
-The temporal checks are recorded in
-\path{runs/observer_temporal_reconstruction/audit.json} and
-\path{runs/observer_score_reconstruction/audit.json}. They verify all 3,764
-same-round pairs against native earlier actor inputs and recorded actions:
-3,259 discard, 286 hand-capture, 82 draw-capture and 137 continuation roots.
-These pairs overlap within the retained trajectories. The input/action decoder
-also rejects 512 requests for actions not yet taken and 512 different-round
-requests. The caller enforces both match and round identity because displayed
-round numbers repeat between matches. Both checks add zero simulator decisions,
-round endings, completed matches, policy inferences and training updates.
-
-The continuation-temperature study uses 34,078,720 training decisions and
-5,706,119 evaluation decisions; its complete learning and recorded-action audit
-is \path{runs/koi_temperature_study/independent_audit.json}.
-The directional diagnostic uses 952,157 decisions and 64,067 round endings,
-with no learning updates. Its native-CPU replay and scalar audit is
-\path{runs/directional_return_diagnostic/audit.json}. These completed results
-and their source/raw-data dependencies are bound in
-\path{docs/paper/generated/temperature_directional_evidence.json}.
-
-The duration comparison trains on 131,727,360 decisions, including both short
-prefixes once, and records 1,133,134 completed training matches. Evaluation uses
-11,376,824 decisions, 762,598 round endings and 98,304 complete matches.
-A Windows progress-file replacement error interrupted the first evaluation.
-Eight complete cells were copied unchanged; four incomplete cells were rerun
-on the identical schedule. All 5,753 preserved complete prefix rows match
-repeated inference exactly. Those additional 667,309 recorded decisions and
-44,637 round endings are duplicate work, not extra evidence; interrupted
-unrecorded work is unknown. A separate recovery capability repeats eight
-existing matches. Native CPU replay verifies all scheduled evaluation actions,
-endpoints and work; separate scalar calculations reproduce the statistics.
-The audit does not repeat training or neural inference. All 72 secondary
-coordinates and four primary comparisons are in
-\path{docs/PUBLISHED_DURATION_RESULTS.rst}; the source and table bindings are in
-\path{docs/paper/generated/duration_evidence.json}.
-
-
-The Point-initialization comparison uses 51,118,080 training decisions,
-3,398,982 round endings, 439,369 completed matches and 3,120 updates, including
-warmup once. Evaluation uses 15,229,803 decisions, 1,016,240 round endings and
-131,072 complete matches. Independent native replay checks every recorded
-action; separate scalar calculations reproduce all 120 secondary coordinates
-and four simultaneous bands. Replay adds no independent matches or neural
-inference. All results are in \path{docs/POINT_INITIALIZATION_RESULTS.rst};
-bindings and table values are in
-\path{docs/paper/generated/point_initialization_evidence.json}.
-
-The four calibrated divisors are approximately 0.168081, 0.194835, 0.219496
-and 0.235761 for discard, hand capture, draw capture and continuation;
-the bound calibration report retains full precision. The source-group split uses identifier modulo four;
-group remainder three is validation. Forced actions are excluded. The final
-probability diagnostic reuses 3,258 validation rows with 3,045 unforced choices:
-2,578 discard, 122 hand capture, 130 draw capture and 215 continuation rows.
-Six endpoints require 18,270 singleton CPU calls; original WP/Point scores are
-cached. Calibrated-versus-fixed greedy actions differ on 232/200 discard rows
-and 3/6 continuation rows at the two seeds. The diagnostic adds no simulator
-steps, matches or learning. Its independent scalar audit checks population,
-probabilities and decisions from saved scores without repeating inference.
-
-The auxiliary study's 51,118,080 PPO decisions cover 3,369,134 round endings
-and 437,799 completed matches. Auxiliary collection adds 8,936,915 decisions,
-589,918 round endings and 76,800 matches. Evaluation uses 15,240,199 decisions,
-1,014,387 round endings and 131,072 complete matches. Independent action replay
-and scalar statistics check all 120 secondary quantities and six simultaneous
-bands. Full results and recovery accounting are in
-\path{docs/SCORE_AUXILIARY_RESULTS.rst}; table and diagnostic bindings are in
-\path{docs/paper/generated/score_auxiliary_evidence.json}.
-
-A Windows DLL-directory registration failure required process-isolated recovery
-of the auxiliary study. The failed prefix adds 2,703,360 PPO decisions; its 164
-logged updates record 174,865 round endings and 22,736 matches. Round/match
-counts for update 165 were not saved. Its 28 complete auxiliary collections
-add 421,608 decisions, 27,488 round endings and 3,584 matches. Saved parameters,
-optimizers, random states, numerical logs and collections agree with the
-repeated prefix. This repeated work is additional cost, not an independent
-replication.
-
-The new arbitration experiments freeze the inherited actors. A traced
-near-tie shows why this detail belongs to the inference specification: with
-identical weights and observations, changing only parameter requires-grad
-flags changes a stop/continue score by about $10^{-6}$ and breaks a tie.
-The first parent's phase-only controller always selects its frozen parent
-proposal, yet one of 1,000 Point pairs differs from the older deployed wrapper
-in points; its aggregate win score is unchanged and mean points differ by 0.002.
-Both learned controller arms share the frozen expert path. The diagnostic in
-\path{docs/ARBITRATION.md} records the state and reproducible flag intervention.
-
-Build instructions are in \path{docs/paper/README.rst};
-\path{docs/ARTIFACTS.rst} describes the existing local archive, permitted
-comparator files and verification commands. The archive preserves the completed
-study rather than the ongoing extension. The broader exploratory record,
-including unsuccessful experiments, is retained in \path{docs/EXPERIMENTS.md}.
-
+Build commands are in \path{docs/paper/README.rst}. The local evidence archive
+and its verification workflow are described in \path{docs/ARTIFACTS.rst}.
+That archive preserves the completed adaptation snapshot; later extensions
+have their own bound records. Rebuilding the paper does not rerun or extend
+any experiment.
 
 \section{Observer-bootstrap calculation and learner-decision returns}
 \label{app:observer}

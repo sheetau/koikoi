@@ -3,50 +3,43 @@ Manuscript working files
 
 This is an English research manuscript, not a submitted or published paper.
 
-Current verified revision: 38 pages including appendices, 40 cited references,
-160-word Abstract, 436-word Introduction and 164-word Conclusion. The main text
-reaches its Conclusion on page 15. The opening now presents the measured
-adaptation, critic-conditioning counterexample and public-information recovery
-before consolidating their empirical limits. It removes repeated caveats while
-preserving the distinction between stronger play and information properties.
-Related Work includes auxiliary representation learning and distributional
-losses, with six additional primary references.
+Current verified revision: 38 pages including appendices, 43 cited references,
+183-word Abstract, 499-word Introduction and 152-word Conclusion. The main text
+ends on page 17. The title is now "Match Adaptation and Public-Information
+Planning for Koi-Koi Transformers." Abstract and Introduction state the added
+controller directly; the Conclusion retains the measured adaptation results
+and the exact-critic and public-information contributions in three paragraphs.
 
-Section 6.4 reports the completed auxiliary comparison. All six primary
-simultaneous win-change intervals include zero, as do all 24 descriptive
-margin-versus-control win/point intervals. The 18 point-margin contrasts against
-the retained WP parents are positive, including the no-auxiliary control.
-Table 8 is transcribed directly from the audited export. Appendix L gives the
-matched 65-output objectives, training procedure, work table and fixed-input
-policy diagnostics; Appendix A records recovery overhead separately.
-Section 6.3 retains the Point-initialization result, including its 1.77--2.08
-point-margin gains and failed primary win criterion. No candidate is promoted.
+Section 9 explains the finite-belief controller, complete contingent-policy
+execution, bounded incumbent retention and conditional-expectation guarantee.
+It reports the closed exploratory 64-source cohort:seven adopted policies,
+conditional mean gains 0.7969/0.5905 pp, unchanged realized win outcomes. The
+prospective 512-source comparison is still running and supplies no results to
+this PDF. Related Work now credits HSVI 2004, SPIBB 2019 and MCTS-SPIBB 2023.
+The guarantee is elementary conditional expectation under a specified model,
+not a new general safe-improvement theorem.
 
-The numerical source and all comparisons are bound in
-``generated/score_auxiliary_evidence.json``. Latest QA:
-``runs/manuscript_priority_opening_20261020_qa.json``. All 3,313 evidence bindings
-verify. All source from Related Work onward is unchanged by the opening edit,
-as are citations, labels, cross-references and included tables. Changed pages
-1--11 were re-rendered and visually reviewed; pages 12--38 are pixel-identical
-to the preceding verified PDF. All 24 font names are embedded and the build
-has no TeX box, glyph, reference or bibliography warnings.
-Current PDF: ``output/pdf/manuscript.pdf``;
-SHA256 40e14e9132163e154704581c75bef31ffbe5c52e2115d126c6d053fd7fc3d0a3.
-The preceding PDF and source remain in
-``runs/manuscript_priority_opening_previous``.
+Appendix A is a concise evidence map and reproduction guide. Its former 1,601-word
+ledger is preserved, content-identical modulo line endings, in
+``reproduction_ledger.tex``. The compact 339-word replacement links the underlying
+records and distinguishes sources, branches and verification work. Recovery
+overhead and detailed negative results remain in the companion ledger.
 
-All Point and auxiliary training/evaluation/audit processes are terminal.
-The stronger-play objective remains active; current research status and the
-other completed follow-ups are in ``docs/STATUS.md``.
-The original archive and intermediate PDFs remain preserved. Sections below
-the build/source instructions record earlier revision milestones; their page
-counts and formerly active processes are historical, not the current manuscript
-or live-job inventory.
-The final two-model/two-comparator evaluation and isolated latency measurement
-are complete and independently audited. Both selected models clear the fixed
-RL-WP win criterion; the separate RL-Point criterion does not replicate, and
-both models have negative expected point differences against RL-Point.
-Author information and venue formatting remain decisions for submission.
+Latest QA: ``runs/manuscript_incumbent_qa.json``. All 38 pages were rendered and
+contact-reviewed; pages 1, 2, 4, 5, 16, 17, 18, 35, 37 and 38 were reviewed at full size.
+All 27 fonts embed; no page-bound violations or TeX box, glyph, reference or
+bibliography warnings remain. The original Fontconfig notice is unchanged.
+The new method's numbers bind ``docs/INCUMBENT_RECOVERY_RESULTS.rst``. Earlier
+audited results are reused without rehashing the complete old experiment corpus.
+Current PDF: ``output/pdf/manuscript.pdf``; SHA256
+1682a81235ac72daf8151f5018e204b9747b4aaace16657fb2e62a82a938f242.
+The preceding PDF is ``output/pdf/manuscript_before_incumbent_a896c9a9.pdf``.
+
+The stronger-play objective remains active. Current job state is in
+``docs/STATUS.md``; later historical revision notes are not a live-job inventory.
+Both retained models pass the original RL-WP criterion. Additional replicated
+win improvement and the separate RL-Point criterion remain unestablished.
+Initial dealer selection and canonical human-play deployment are unchanged.
 
 From the repository root, regenerate the numerical tables and evidence ledger::
 
@@ -419,7 +412,7 @@ Fixed-observer results and public-seat diagnosis
 ------------------------------------------------
 
 The24-page revision adds the completed fixed-observer self-play comparison
-(Section9),its primary win table,and point/historical controls (AppendixG).
+(Section 9),its primary win table,and point/historical controls (AppendixG).
 All8 primary intervals include zero. The same section reports the diagnosed
 public-seat ambiguity and exact actor-input reconstruction on1,024 probes.
 The separate public/masked strength comparison is still running.

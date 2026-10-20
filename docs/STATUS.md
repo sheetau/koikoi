@@ -26,6 +26,17 @@ Four protocol/execution/accounting tests pass,0skips,2.43s; Ruff passes.
 Protocol SHA256 700e11608e3ced60919ca7ef31da460785ff9391459ac83c7e8a16f4a1a0c170.
 The old64-source corpus stays closed. Reserved101M and canonical play unchanged.
 
+Manuscript updated while the prospective study runs:38 pages,43 references;
+new Section9 explains the executable finite-belief controller and its conditional
+guarantee. Abstract/Introduction present the mechanism directly; Conclusion is
+152 words. AppendixA is a concise evidence map; its former1601-word ledger is
+preserved in docs/paper/reproduction_ledger.tex. The PDF includes only the closed
+64-source exploratory results, not partial prospective outcomes. All38pages
+rendered/reviewed,27fonts embedded, no TeX/layout/reference warnings.
+PDF SHA256 1682a81235ac72daf8151f5018e204b9747b4aaace16657fb2e62a82a938f242.
+QA runs/manuscript_incumbent_qa.json. Next: complete and audit the fixed512
+comparison before adding prospective results or making a new strength claim.
+
 ### Completed diagnostics and supporting history
 
 **The eight-arm root-allocation/step-size study is complete. Its predefined
