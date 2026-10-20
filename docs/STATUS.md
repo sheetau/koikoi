@@ -17,9 +17,14 @@ It accepts only complete policies with exact improvement over the unchanged pare
 under the same finite belief. Combined conditional gains are +0.7969/+0.5905pp;
 all realized win changes remain zero. This is not a new replicated strength result.
 See INCUMBENT_RECOVERY_RESULTS.rst and INCUMBENT_GUARANTEE.rst.
-Next: define and run a costed prospective comparison on unused development deals,
-including parent and a root-only control with matched total computation. The old
-64-source corpus is closed for these diagnostics. No fresh seed block is allocated.
+A fixed prospective development comparison is now implemented and frozen; launch
+is next. See PROSPECTIVE_INCUMBENT.rst. It uses512 new sources/128 deal streams,
+both parents, WP/Point and both seats: seeds123110001--123110064 and
+123111001--123111064. Contingent search receives two2M-transition phases;
+root-only receives one4M phase. Empty caches per arm, no outcome-based extension.
+Four protocol/execution/accounting tests pass,0skips,2.43s; Ruff passes.
+Protocol SHA256 700e11608e3ced60919ca7ef31da460785ff9391459ac83c7e8a16f4a1a0c170.
+The old64-source corpus stays closed. Reserved101M and canonical play unchanged.
 
 ### Completed diagnostics and supporting history
 

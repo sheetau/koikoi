@@ -8880,3 +8880,33 @@ This is not a new general theorem. No manuscript/PDF change or reserved101Muse.
 Next:costed prospective comparison with parent and matched-compute root-only
 control on unused development deals; no new sourcebudget/seedblock allocated yet.
 Goalactive. All diagnosticprocesses terminal; do not rerun them or raise theircaps.
+
+## 2026-10-21: freeze a fresh matched-allowance endgame comparison
+
+Implemented scripts/prospective_incumbent.py and PROSPECTIVE_INCUMBENT.rst.
+Fixed512 sources/128 streams:2parents x WP/Point x2seats x64replicates,
+seeds123110001--123110064 and123111001--123111064. No old122M sources,
+no training/promotion and no reserved101M use. Contingent schedule:fixed2M +
+optimized2M physical transitions,500k live nodes each; root-only:4M transitions,
+1M live nodes. Both use fresh separate caches, same belief/gate/depth/frontier.
+Maximum planning allowance across both arms4,096,000,000 native transitions;
+history/source/oracle/actual conditional completions are additional separate work.
+Every adoption independently verifies parent and selected policy values; both
+arm choices freeze before actual tails. Three-arm actual traces replay separately.
+Four workers x16sources per process; compressed policy artifacts;20GiB free-disk
+gate before each chunk. All512 cases fixed before any new outcome, no extensions.
+Primary four actual-score contrasts use paired-seat, opponent-stratified deal
+cluster bootstrap:20000 resamples, Bonferroni simultaneous95% intervals. All four
+lower bounds must exceed0; conditional expected gains remain secondary. This
+budget-limited development cohort is not claimed powered for sub-pp effects.
+
+python -m pytest tests/test_prospective_incumbent.py -q:4passed,0skips,2.43s.
+Checks include independent native/Python values and three-arm execution, equal
+allowances with retained incumbents, complete factorial/seat clustering, and
+complete-only summary/hash tamper rejection. First test revision incorrectly
+expected13 rather than14 toy transitions; changed it to verify the meaningful
+cap/completion properties. No production planner change. Ruff format/check and
+git diff --check pass.
+python -m scripts.prospective_incumbent --freeze completed0.
+Protocol 700e11608e3ced60919ca7ef31da460785ff9391459ac83c7e8a16f4a1a0c170; 89 bound inputs.
+No new source matches collected at this freeze milestone. Launch is next.
