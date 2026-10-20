@@ -7764,3 +7764,27 @@ Raw row hashes,8,192line counts and endpoint hashes agree. This check adds no
 simulation,inference or tests. Full action/statistical validation remains
 scheduled after all16cells. Result export,paper integration and stronger-play
 work remain open.
+
+
+## All sixteen auxiliary evaluation cells complete (2026-10-20)
+
+Verified waits on queue56042/PID42884 observed parent2_score_wp/point complete.
+Old workers43464/34188 exited. Evaluator3068/launcher67876 completed aggregation
+and exited0; evaluate_complete.json records exit_code0. Queue then launched
+independent evaluation auditor30044/launcher64380. It is live and has verified
+the first cell's recorded actions. No restart,criterion change or interim
+strength analysis. Main analysis has not yet been interpreted; final independent
+validation remains pending.
+
+Parent2_score_wp:8,192matches/943,293decisions/63,496round endings;
+rowsbcaeb689fbdca04120922e89034c2feb4ef37a67108fc806225ade19d49b3112;
+receipt9d213597d67a27c5da89cac72363b9f6be6218af066c94103664c54f97640e8b.
+Parent2_score_point:8,192matches/961,264decisions/62,988round endings;
+rowsb77c44ec04876702b46e7e4bf565dcb5e03c3b5ad6f1b66b99cd13bb37288502;
+receipt6edf546716824554515392bb091624608b21d5f92e4adf5715eb93c396157ef4.
+Both receipts bind the fixed evaluation protocol and same score endpoint
+a0e904d7ce7ff5c030d924d61b13750f75b04332328994c3e7d46a71c6354006.
+Raw row hashes,8,192line counts and endpoint hashes agree. Across all16complete
+receipts:131,072matches/15,240,199decisions/1,014,387round endings.
+These metadata checks add no simulation,inference or tests. Result export,
+paper integration and stronger-play work remain open.

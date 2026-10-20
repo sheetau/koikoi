@@ -11,8 +11,9 @@ Old process handles mentioned in that history are historical, not live jobs.
 
 ## Current experiment and next actions
 
-**All six score-auxiliary learning conditions and their independent training
-audit are complete. Main strength evaluation is running.** The original
+**All six score-auxiliary learning conditions, their independent training
+audit and all16fixed evaluation cells are complete. Independent evaluation
+validation is running.** The original
 runner20751/PID17896 failed during seed2_none update165 with WinError206 in
 os.add_dll_directory. Its queue19901/PID59480 also exited1. Both original
 folders and all failure/partial/completed artifacts remain untouched. They are
@@ -40,14 +41,14 @@ wall time/git provenance.104immutable files are bound;receipt
 c8515b32cdf810d91a365e2c9485399ea18c8dcb370091e4303dd9303a4ff569.
 This read-only check adds no training,matches or inference. The scheduled final
 full-arm prefix check also passes (receipt0915d3696196f62a5ae503b0240571ded3e1ee16593a6028949a151aa481200d).
-Queue session56042/PID42884 completed training_audit and evaluation preparation.
-The auditor19968/launcher61320 has exited0. Evaluation runner3068
-(launcher67876) is live; current cell workers43464/34188,launchers52844/63148,
-parent2_score_wp/point. All eight parent1 cells and the parent2_parent,
-parent2_none and parent2_win pairs each completed8,192matches; their workers
-have exited. Fourteen of16cells are complete. Raw row hashes and line counts
-match the completion receipts. Full
-evaluation and independent action/statistical validation remain pending.
+Queue session56042/PID42884 completed training_audit, evaluation preparation
+and evaluation (all stages exited0). Evaluation runner3068/launcher67876 and
+all cell workers have exited. All16cells each completed8,192matches, totaling
+131,072matches/15,240,199decisions/1,014,387round endings. Raw row hashes,
+line counts and endpoint hashes agree with the completion receipts.
+Independent evaluation auditor30044/launcher64380 is live and has verified
+the first cell's recorded actions. Full action/statistical validation, result
+export and the stronger-play conclusion remain pending.
 Recovery protocol b38aa097e1ce9a4f2989eab445025d7f4388fbf97d7dd0df8722860bddbe5294
 binds683inputs,including every original artifact. Six recovery tests pass0skips
 (1.67s),two relocation/queue tests pass0skips(1.75s),all synthetic/no simulation.
