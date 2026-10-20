@@ -9,19 +9,19 @@ on page20. The title is "Match Adaptation and Public-Information Planning for
 Koi-Koi Transformers." The opening leads with public reconstruction,executable
 endgame policies and certificate compression,followed by measured match adaptation.
 
-Section9.6 now states the matching-law population evaluation;AppendixL derives
+Section6.6 now states the matching-law population evaluation;AppendixL derives
 the hand posterior and simultaneous lower bound from fixed threshold counts.
 The8192-source study is running,with no interim estimates in this draft.
-Figure2 on page16 connects public evidence,finite belief,capped search and exact
+Figure1 on page10 connects public evidence,finite belief,capped search and exact
 adoption to execution of the retained program or unchanged parent. The overview
 makes the inference/execution boundary visible without adding an empirical claim.
-All42pages/contact sheets checked;the new figure page16reviewed at full size;
+All42pages/contact sheets checked;pages9/10/13reviewed at full size;
 32embedded fonts,no TeX/BibTeX/layout defects. Opening,conclusion and numerical
 results are unchanged.
 
-Section9 includes the closed exploratory64-source witnesses and complete
+Section6 includes the closed exploratory64-source witnesses and complete
 prospective512-source comparison. Its predefined actual-win criterion fails.
-Section9.5/Table11 now includes the complete512-source symbolic comparison:
+Section6.5/Table3 now includes the complete512-source symbolic comparison:
 the own-win parent rule reduces controller/root-only physical planning
 transitions by8.84/19.11% relative to the opponent-only certificate baseline.
 Controller parent references rise226to231,adoptions83to86;every actual win score
@@ -36,17 +36,19 @@ and executable-policy pipeline;the conditional-expectation argument is not a
 new general safe-improvement theorem. AppendixA maps evidence to reproduction
 artifacts. Its former full ledger remains in reproduction_ledger.tex.
 
-Latest QA: ``runs/manuscript_controller_overview_qa.json``. All42pages rendered
-and contact-reviewed;page16reviewed at full size.32embedded fonts,no page-bound,
+Latest QA: ``runs/manuscript_method_order_qa.json``. All42pages rendered
+and contact-reviewed;pages9/10/13reviewed at full size.32embedded fonts,no page-bound,
 TeX box,glyph,reference or bibliography warning. The existing Fontconfig notice
-is unchanged. ``generated/controller_overview_evidence.json`` binds this editorial
-revision and its QA. The uniform-method and symbolic-comparison ledgers retain
-their original snapshot bindings;all numerical results are unchanged. Previous
+is unchanged. ``generated/method_order_evidence.json`` binds this revision and
+a byte-preserving proof of whole-section reordering. Public reconstruction and
+executable policies now follow parent construction (Sections5--6,pages7--13),
+before parent evaluation/results and critic analysis (Sections7--9). All earlier
+evidence ledgers retain their original snapshot bindings. Previous
 experiment audits are reused without rehashing the entire old corpus.
 
 Current PDF: ``output/pdf/manuscript.pdf``;SHA256
-c4e6e06c054b4ab786762d6370ab384da823b29e60bdfaa7c3de4c6bc7b1bfcf.
-Previous PDF: ``output/pdf/manuscript_before_controller_overview_23f4054f.pdf``.
+60fff4a3616bafe8ae5234f5fa0a301065bc2061ab1ce9362faa70db2e8aa54c.
+Previous PDF: ``output/pdf/manuscript_before_method_order_c4e6e06c.pdf``.
 
 The stronger-play objective remains active. The symbolic pipeline is complete;
 the independent-uniform8192-source evaluation is now running under its frozen

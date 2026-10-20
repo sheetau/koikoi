@@ -386,6 +386,130 @@ decision, including feature construction and public assistance. The original
 RL-WP agent averages 1.974 ms on the same corpus. Appendix~\ref{app:systems}
 reports the validation corpus, separate training budgets and timing procedure.
 
+\section{Information recovered from public play}
+\label{sec:public-information}
+The fixed-observer critic uses 561 viewer-relative features
+(Appendix~\ref{sec:observer-selfplay}). Public history supports two concrete
+reconstructions. A viewer-seat bit makes
+the critic representation distinguish actor inputs that it previously merged.
+Completed hand discards reveal enough information to reconstruct an opponent's
+earlier inputs and identify it within a fixed model class. We verify these
+information properties before testing their use in learning.
+
+\subsection{Aligning actor and critic inputs}
+The actor and critic also differ in their input representations. The published
+actor records the absolute dealer seat, whereas the 561-input critic records
+dealer status relative to its viewer. Exchanging seat labels preserves the
+critic input but changes two actor feature rows. On 256 retained source
+decisions per parent, this relabeling changes 4 and 5 greedy actions,
+respectively. All nine changes occur at discard decisions. Legal actions and
+public endgame assistance are unchanged, and the actor features agree with
+the pinned upstream implementation on all 1,024 original/relabeled probes.
+
+A public viewer-seat bit resolves this ambiguity. With that bit and the
+relative-dealer feature, an observation-only decoder recovers the absolute
+dealer and exactly reconstructs the complete $300\times50$ actor input from
+the 562-element critic row on all 1,024 probes. The probes span discard,
+hand-capture, draw-capture and stop/continue decisions. Reconstruction uses
+only that active viewer's features, without stepping the saved states or
+running the actor. This diagnoses a concrete actor--critic information
+mismatch and supplies an explicit repair.
+
+\subsection{Retaining earlier decision information}
+\label{sec:temporal-information}
+We next test whether later critic features retain the input and action of an
+earlier decision. An observation-only decoder receives a later 562-element
+row and the public round, turn and phase of
+an earlier decision by the same viewer, and reconstructs that decision's actor
+input and chosen action. The viewer's initial hand is recovered from its
+remaining cards and recorded hand plays. Starting from the recorded initial
+field, the decoder replays public card, capture and continuation events up to
+the requested address. It receives no simulator state, hidden opponent hand,
+stock order, earlier observation or policy output.
+
+All 3,764 chronological pairs within the same played round in the saved
+trajectories match exactly: 1,864 pairs for the first parent and 1,900 for the
+second. In 1,968 pairs the later actor is the opponent. The checks cover all
+four earlier decision phases and separations up to 19 decisions. They reuse
+the 512 source positions and add no simulator steps or policy inference.
+
+For a fixed differentiable policy, the score
+$\nabla_\theta\log\pi_\theta(a\mid o)$ is determined by its input and chosen
+action. Recovering both arguments at a supplied public address determines the
+earlier score on these checked pairs. This is measured within-round retention, rather than a
+proof for every trajectory or across round boundaries. Stop actions end a round
+and have no same-round successor. Appendix~\ref{sec:seat-comparison} tests whether this representation repair
+improves playing strength.
+
+\begin{samepage}
+\subsection{Recovering opponent information after a hand is revealed}
+\label{sec:public-revelation}
+A player's eight hand cards are discarded one by one; stock draws never enter
+the hand. Once all eight hand discards have been observed, their set reveals
+that round's initial hand. Combining it with the public board, captures and
+action history reconstructs the player's earlier inputs. This reconstruction
+becomes available after the eighth discard, including when that action ends
+the round. It cannot be used to choose any earlier action.
+\end{samepage}
+
+We retain the two fixed assisted CPU opponents as candidate models. At each
+revelation, we reconstruct their inputs at earlier opponent decisions and
+remove any candidate whose predicted action disagrees with the observed one.
+The candidate set carries across rounds. An unresolved set remains unresolved;
+an empty set records model mismatch. The true opponent label is used only for
+scoring the diagnostic, never for prediction.
+
+Across all 2,048 retained training prefixes, the procedure identifies the true
+opponent in 1,746 cases and leaves 302 unresolved. It makes no incorrect
+identification or exclusion of the true model. At the 1,856 natural final-round
+starts, 1,598 have an identified opponent (86.1\%;
+Table~\ref{tab:public-revelation}). All 36,977 reconstructed historical inputs
+and assistance masks agree with the original upstream builders. Independent
+replay verifies the time of each revelation and every candidate exclusion.
+These prefixes share 512 deals; they are not 2,048 independent full matches.
+
+\begin{table}[ht]
+\centering\small
+\input{generated/public_revelation_table.tex}
+\caption{Identification from public training histories within the fixed
+WP/Point candidate class. Every identified case is correct. The last column
+conditions on reaching the final round; all earlier terminations remain in
+the preceding columns.}
+\label{tab:public-revelation}
+\end{table}
+
+Identification assumes that the opponent belongs to the specified deterministic
+class. Unlisted or changing policies can violate that assumption.
+
+\subsection{Playing-strength tests of the recovered information}
+The seat reconstruction and opponent identification are exact on the checked
+inputs. We test their value for learning with public and masked information
+conditions that share architecture, initialization and training schedules.
+Every comparison evaluates complete matches from their natural beginnings;
+conditional training tails are counted separately.
+
+Adding the public-seat bit yields one positive lower win-change bound among
+eight primary comparisons in 160,000 evaluation matches. That gain is against
+Point at parent 2. All four public-minus-masked win intervals include zero,
+so the comparison does not attribute a replicated gain to the added bit.
+Appendix~\ref{sec:seat-comparison} reports the controls and secondary outcomes.
+
+For opponent memory, three studies test progressively earlier and more varied
+adaptation: the final round, all rounds after identification, and the same
+public starting contexts with freshly sampled cards and future chance.
+They evaluate 24,576, 24,576 and 40,960 full matches, respectively, on separate
+shared deal sets. Every primary win interval includes zero in all three
+studies. Earlier activation and renewed chance therefore do not produce a
+replicated improvement under these schedules. Appendix~\ref{app:memory-learning}
+retains every primary comparison and the secondary point findings.
+
+The distinction is operational: public reconstruction supplies information
+that the original representation or memory omitted; the tested learners have
+yet to turn that information into a consistent additional match-win gain.
+
+\input{incumbent_tail.tex}
+\input{uniform_evaluation.tex}
+
 \section{Evaluation and selection}
 \subsection{Duplicate deals and uncertainty}
 For each seed we play two matches with candidate/opponent seats exchanged,
@@ -732,130 +856,6 @@ primary intervals. These results separate the exact analytical repair from
 an additional playing-strength gain. Appendices~\ref{sec:training}
 and~\ref{sec:observer-selfplay} retain the complete training protocols,
 matched controls, point outcomes and comparison tables.
-
-\section{Information recovered from public play}
-\label{sec:public-information}
-The fixed-observer critic uses 561 viewer-relative features
-(Appendix~\ref{sec:observer-selfplay}). Public history supports two concrete
-reconstructions. A viewer-seat bit makes
-the critic representation distinguish actor inputs that it previously merged.
-Completed hand discards reveal enough information to reconstruct an opponent's
-earlier inputs and identify it within a fixed model class. We verify these
-information properties before testing their use in learning.
-
-\subsection{Aligning actor and critic inputs}
-The actor and critic also differ in their input representations. The published
-actor records the absolute dealer seat, whereas the 561-input critic records
-dealer status relative to its viewer. Exchanging seat labels preserves the
-critic input but changes two actor feature rows. On 256 retained source
-decisions per parent, this relabeling changes 4 and 5 greedy actions,
-respectively. All nine changes occur at discard decisions. Legal actions and
-public endgame assistance are unchanged, and the actor features agree with
-the pinned upstream implementation on all 1,024 original/relabeled probes.
-
-A public viewer-seat bit resolves this ambiguity. With that bit and the
-relative-dealer feature, an observation-only decoder recovers the absolute
-dealer and exactly reconstructs the complete $300\times50$ actor input from
-the 562-element critic row on all 1,024 probes. The probes span discard,
-hand-capture, draw-capture and stop/continue decisions. Reconstruction uses
-only that active viewer's features, without stepping the saved states or
-running the actor. This diagnoses a concrete actor--critic information
-mismatch and supplies an explicit repair.
-
-\subsection{Retaining earlier decision information}
-\label{sec:temporal-information}
-We next test whether later critic features retain the input and action of an
-earlier decision. An observation-only decoder receives a later 562-element
-row and the public round, turn and phase of
-an earlier decision by the same viewer, and reconstructs that decision's actor
-input and chosen action. The viewer's initial hand is recovered from its
-remaining cards and recorded hand plays. Starting from the recorded initial
-field, the decoder replays public card, capture and continuation events up to
-the requested address. It receives no simulator state, hidden opponent hand,
-stock order, earlier observation or policy output.
-
-All 3,764 chronological pairs within the same played round in the saved
-trajectories match exactly: 1,864 pairs for the first parent and 1,900 for the
-second. In 1,968 pairs the later actor is the opponent. The checks cover all
-four earlier decision phases and separations up to 19 decisions. They reuse
-the 512 source positions and add no simulator steps or policy inference.
-
-For a fixed differentiable policy, the score
-$\nabla_\theta\log\pi_\theta(a\mid o)$ is determined by its input and chosen
-action. Recovering both arguments at a supplied public address determines the
-earlier score on these checked pairs. This is measured within-round retention, rather than a
-proof for every trajectory or across round boundaries. Stop actions end a round
-and have no same-round successor. Appendix~\ref{sec:seat-comparison} tests whether this representation repair
-improves playing strength.
-
-\begin{samepage}
-\subsection{Recovering opponent information after a hand is revealed}
-\label{sec:public-revelation}
-A player's eight hand cards are discarded one by one; stock draws never enter
-the hand. Once all eight hand discards have been observed, their set reveals
-that round's initial hand. Combining it with the public board, captures and
-action history reconstructs the player's earlier inputs. This reconstruction
-becomes available after the eighth discard, including when that action ends
-the round. It cannot be used to choose any earlier action.
-\end{samepage}
-
-We retain the two fixed assisted CPU opponents as candidate models. At each
-revelation, we reconstruct their inputs at earlier opponent decisions and
-remove any candidate whose predicted action disagrees with the observed one.
-The candidate set carries across rounds. An unresolved set remains unresolved;
-an empty set records model mismatch. The true opponent label is used only for
-scoring the diagnostic, never for prediction.
-
-Across all 2,048 retained training prefixes, the procedure identifies the true
-opponent in 1,746 cases and leaves 302 unresolved. It makes no incorrect
-identification or exclusion of the true model. At the 1,856 natural final-round
-starts, 1,598 have an identified opponent (86.1\%;
-Table~\ref{tab:public-revelation}). All 36,977 reconstructed historical inputs
-and assistance masks agree with the original upstream builders. Independent
-replay verifies the time of each revelation and every candidate exclusion.
-These prefixes share 512 deals; they are not 2,048 independent full matches.
-
-\begin{table}[ht]
-\centering\small
-\input{generated/public_revelation_table.tex}
-\caption{Identification from public training histories within the fixed
-WP/Point candidate class. Every identified case is correct. The last column
-conditions on reaching the final round; all earlier terminations remain in
-the preceding columns.}
-\label{tab:public-revelation}
-\end{table}
-
-Identification assumes that the opponent belongs to the specified deterministic
-class. Unlisted or changing policies can violate that assumption.
-
-\subsection{Playing-strength tests of the recovered information}
-The seat reconstruction and opponent identification are exact on the checked
-inputs. We test their value for learning with public and masked information
-conditions that share architecture, initialization and training schedules.
-Every comparison evaluates complete matches from their natural beginnings;
-conditional training tails are counted separately.
-
-Adding the public-seat bit yields one positive lower win-change bound among
-eight primary comparisons in 160,000 evaluation matches. That gain is against
-Point at parent 2. All four public-minus-masked win intervals include zero,
-so the comparison does not attribute a replicated gain to the added bit.
-Appendix~\ref{sec:seat-comparison} reports the controls and secondary outcomes.
-
-For opponent memory, three studies test progressively earlier and more varied
-adaptation: the final round, all rounds after identification, and the same
-public starting contexts with freshly sampled cards and future chance.
-They evaluate 24,576, 24,576 and 40,960 full matches, respectively, on separate
-shared deal sets. Every primary win interval includes zero in all three
-studies. Earlier activation and renewed chance therefore do not produce a
-replicated improvement under these schedules. Appendix~\ref{app:memory-learning}
-retains every primary comparison and the secondary point findings.
-
-The distinction is operational: public reconstruction supplies information
-that the original representation or memory omitted; the tested learners have
-yet to turn that information into a consistent additional match-win gain.
-
-\input{incumbent_tail.tex}
-\input{uniform_evaluation.tex}
 
 \section{Limitations and interpretation}
 The comparisons measure head-to-head performance under the pinned Koi-Koi

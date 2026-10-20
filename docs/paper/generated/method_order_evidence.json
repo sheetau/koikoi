@@ -1,0 +1,64 @@
+{
+  "status": "passed",
+  "scope": "Whole-section reordering only; all source bytes and result values retained; frozen study inputs unchanged.",
+  "bindings": {
+    "output/pdf/manuscript.pdf": "60fff4a3616bafe8ae5234f5fa0a301065bc2061ab1ce9362faa70db2e8aa54c",
+    "docs/paper/manuscript.tex": "21d45eda74cd1e7137308db815111c78d15d0413eb6d5b4b95f8a7bc9b2df1c9",
+    "docs/paper/incumbent_tail.tex": "6a3596def9aa559e6b4947591b3d9ace787bc7752c6ad20aa8f13777a21922a0",
+    "docs/paper/controller_overview.tex": "8b0d0dfae859e9bf01596f0169ffcdd6481a39da8eff8c9e459c1ec5c9da3f9f",
+    "runs/manuscript_method_order_proof.json": "b3de6f7787abcdc57431915b1e6c319a2d641b484c78eefb0e176c43f101f70c",
+    "runs/manuscript_controller_overview_qa.json": "50355f62f657bb77497ef94b6f700a40381c7e300acd8847cdcd850de58e2afb",
+    "runs/uniform_controller_evaluation/protocol.json": "bc5fce90a1fefb146f766e2be7177c67992292307cf896413b525ba1183dbfc9",
+    "runs\\manuscript_method_order_qa.json": "6d4b8aa0a0f785ec01298ce83667b73b2df39e81a4a27c2d8655995d7a377577"
+  },
+  "section_pages": {
+    "Information recovered from public play": [
+      7
+    ],
+    "Executable improvement from public information": [
+      9
+    ],
+    "Evaluating population improvement": [
+      13
+    ],
+    "Evaluation and selection": [
+      13
+    ],
+    "Match results": [
+      14
+    ],
+    "Critic conditioning across players": [
+      18
+    ],
+    "Conclusion": [
+      20
+    ],
+    "Reproduction and evidence": [
+      20
+    ]
+  },
+  "reordering_proof": {
+    "before_sha256": "a9e42c6afe004447468ea071267ea1e65daa171a2934c32df07ce63e05322437",
+    "after_sha256": "21d45eda74cd1e7137308db815111c78d15d0413eb6d5b4b95f8a7bc9b2df1c9",
+    "bytes_unchanged": 104137,
+    "block_order_before": [
+      "front",
+      "baseline_results_and_critic",
+      "public_reconstruction_and_controller",
+      "back"
+    ],
+    "block_order_after": [
+      "front",
+      "public_reconstruction_and_controller",
+      "baseline_results_and_critic",
+      "back"
+    ],
+    "blocks_sha256": {
+      "front": "a2836b4dc5ac18e5978ad7db8532683fcecccb99507596865b3dc19450875fae",
+      "baseline_results_and_critic": "9e74b3afbc5518a81998221acf2d6b2b9203ae0f0f4676dd5266b838131e87cd",
+      "public_reconstruction_and_controller": "1bf66631831d392b95992f5c860fe01b61ec0f27fcae58ab54bcbe2dc1050b20",
+      "back": "dbc35d6d64a14ed4526394e5182153ea4864cf47d2aea17e2feb852825862e0e"
+    }
+  },
+  "previous_pdf_sha256": "c4e6e06c054b4ab786762d6370ab384da823b29e60bdfaa7c3de4c6bc7b1bfcf"
+}

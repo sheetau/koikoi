@@ -120,20 +120,23 @@ Historical implementation/test details are in
 EXPERIMENTS.md. The108frozen symbolic inputs remain intact.
 
 Current manuscript includes the complete symbolic result in Abstract,
-Introduction,Section9.5/Table11 and Conclusion. It leads with public
+Introduction,Section6.5/Table3 and Conclusion. It leads with public
 reconstruction and executable policy compression,stating measured coverage
-and actual performance separately. Section9.6 and AppendixL now explain the
+and actual performance separately. Section6.6 and AppendixL now explain the
 matching source/posterior law and exact simultaneous population-gain bounds;
 Related Work adds AIVAT. The ongoing8192-source study contributes design only,
 with no interim estimates. PDF42pages/46refs;Abstract171/Intro425/Conclusion167
-words unchanged. Main text ends20. Figure2 on page16 now maps public evidence,
+words unchanged. Main text ends20. Figure1 on page10 maps public evidence,
 finite belief,capped search,exact adoption,and retained-program/parent execution.
-All42pages rendered/contact-reviewed;new figure page16full size;32embedded fonts,
+Public reconstruction/controller now follow parent construction in Sections5--6
+(pages7--13);parent evaluation/results and critic analysis follow in Sections7--9.
+The reordering preserves every source byte within each moved section.
+All42pages rendered/contact-reviewed;pages9/10/13full size;32embedded fonts,
 no TeX/layout/BibTeX warnings. PDF SHA256
-c4e6e06c054b4ab786762d6370ab384da823b29e60bdfaa7c3de4c6bc7b1bfcf;
-QA runs/manuscript_controller_overview_qa.json passed. New editorial ledger:
-docs/paper/generated/controller_overview_evidence.json. The prior uniform-method
-ledger remains a historical snapshot with its original PDF/source bindings.
+60fff4a3616bafe8ae5234f5fa0a301065bc2061ab1ce9362faa70db2e8aa54c;
+QA runs/manuscript_method_order_qa.json passed. New editorial ledger:
+docs/paper/generated/method_order_evidence.json. Prior editorial/method ledgers
+remain historical snapshots with their original PDF/source bindings.
 Prior table/evidence:
 docs/paper/generated/symbolic_comparison_table.tex and
 docs/paper/generated/symbolic_comparison_evidence.json. Earlier experiment
