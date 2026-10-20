@@ -57,7 +57,7 @@ No duration-study job is live. This is greater-compute adaptation,not a novel al
 The manuscript now includes the completed duration result (latest PDF below).
 Do not extend this closed comparison or repeat closed temperature/return sweeps.
 
-**Point initialization training is complete; the fixed main evaluation is live.**
+**Point initialization training and evaluation are complete; the independent audit is live.**
 [Specification](POINT_INITIALIZATION_STUDY.rst),[result](POINT_INITIALIZATION_CALIBRATION.rst).
 The old public CPU-score corpus supplies75calibration/25descriptive validation
 source groups,excluding forced choices. Four Point divisors match WP0.05phase
@@ -159,7 +159,7 @@ It verifies only that saved prefix,not training convergence or playing strength.
 
 Completion queue runs/point_initialization_completion remains live,session25193,
 launcher60448/actual42304. Its exact held producer handle reports exit0 and the
-matching training completion passes. Preparation exits0; evaluation is running.
+matching training completion passes. Preparation and evaluation exit0; audit is running.
 Queue protocol3419c9da7ec674828b8865ea61dddc6e253600586093c9a23c8d2d940864ac8a
 binds156unchanged inputs. It owns evaluation followed by the independent audit;
 do not launch another evaluator or queue. It never promotes a model.
@@ -168,25 +168,21 @@ Main evaluation root runs/point_initialization_evaluation now exists.
 Protocol SHA1df245b6fea1799c0ed9f91518642ccb3d1e4bf9c0f7e682a1208819e609b7e7
 binds187inputs and all12training audits. The16cells use4,096paired deals per
 opponent,131,072planned matches, and the previously fixed bootstrap family.
-Evaluator launcher6284/actual53480 started04:45:17JST and remains live.
-The first fourteen cells are complete: all four parent1 policies and the retained
-parent2, parent2_wp_fixed and parent2_point_fixed policies against WP and Point
-with8,192matches per cell. Completed-cell producer totals are114,688matches /
-13,327,226decisions /889,231round endings. The two new Point-initialized cells
-add16,384matches /1,905,828decisions /126,931round endings. Receipt hashes,
-raw-file hashes,complete row counts and protocol/checkpoint identities agree.
-This is producer completion,not the later native-action/statistics audit or
-strength evidence. No partial outcome means were inspected.
+All16evaluation cells are complete with8,192matches each. Producer totals are
+131,072matches /15,229,803decisions /1,016,240round endings. The final two
+Point-calibrated cells add16,384matches /1,902,577decisions /127,009round endings.
+Receipt hashes,raw-file hashes,complete row counts and protocol/checkpoint
+identities agree. No partial outcome means were inspected.
 
-At09:00JST the final workers are OS-live: parent2_point_matched_wp
-launcher64044/actual31196(start08:55:00),and parent2_point_matched_point
-launcher61980/actual61892(start08:59:25). The preceding workers53044/39900
-have exited. Fourteen of16cells are complete; do not rerun them. The remaining
-two cells are owned by evaluator53480.
-Monitor evaluation_complete.json/evaluation_failed.json in the evaluation root,
-and complete.json/failed.json in the completion-queue root. Track actual process
-handles and newline-terminated row counts without interpreting partial outcomes.
-Final results and the main native-action/statistics audit remain pending.
+Evaluation exits0 and evaluation_complete.json records complete_awaiting_audit.
+Evaluator53480 and both final workers31196/61892 have exited. Do not restart
+or duplicate evaluation. Queue session25193/actual42304 starts the independent
+native-action/statistics audit at09:36:06JST,launcher14540/actual52920.
+The audit is OS-live and has verified the first two complete recorded cells.
+Replay adds no new independent matches or neural action selection.
+Monitor audit.json/summary.json in the evaluation root and complete.json/failed.json
+in the completion-queue root. Final results,qualification and complete-only
+export remain pending until the independent audit and queue finish.
 
 The complete-only Point result exporter is ready:
 scripts/export_point_initialization_results.py. It requires the pinned training
@@ -208,9 +204,9 @@ After the queue and full audit complete,run once into a fresh directory:
 XML runs/point_initialization_export_tests_final.xml SHA
 43d77aa1f183edad22b48c73c93b040f3d427241161cbbf7dca63e3fa0ae2110.
 ExporterSHA7a282ec61e819ffdb6982bbe08fbed4528ec77da809e2fb53f514de0ea5f647f.
-All156frozen queue inputs remain unchanged. Queue42304 and evaluator53480 are OS-live.
+All156frozen queue inputs remain unchanged. Queue42304 and audit52920 are OS-live.
 
-Next monitor queue session25193/actual42304, evaluator53480 and its live workers.
+Next monitor queue session25193/actual42304 and audit52920. Evaluation is terminal.
 Training session26829 finished successfully; do not poll or restart it.
 Freeze both training and evaluation/queue sources,tests and XML receipts. If a
 wait expires,verify these exact processes;never restart solely from timeout.

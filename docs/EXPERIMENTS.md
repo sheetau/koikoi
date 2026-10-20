@@ -6802,3 +6802,32 @@ workers53044/39900 are gone. These are the final two evaluation cells.
 Queue session25193/actual42304 remains live,with no failure/terminal receipt.
 Do not restart or duplicate evaluation. Native replay,statistics export and
 any candidate qualification remain pending. Canonical player/dealer unchanged.
+
+## All Point-initialization evaluation cells complete, 20 October 2026
+
+parent2_point_matched_wp and parent2_point_matched_point each finish8,192matches.
+Their producer counters are944,934/957,643decisions and63,916/63,093round endings.
+Combined new work:16,384matches /1,902,577decisions /127,009round endings.
+All16cells are complete:131,072matches /15,229,803decisions /1,016,240round endings.
+
+Verified completion status,exact newline-terminated row counts,rawSHA,
+protocolSHA,checkpointSHA and checkpoint,parent,policy,opponent and first-seed
+identity against the fixed protocol. No partial outcome means were inspected.
+This verifies producer metadata only. Receipt hashes:
+- WP:fd78ad6ee94f34ed10f005eeb3c57bac61e6f6e06f7844d2cbe86a4cdaf53e27
+- Point:a2d3276ab3bc39c52ab05d6fca7673ce9972ab762b1106d36ab888db4bf1cf92
+Raw record hashes:
+- WP:605052c651ab7405d9b78a73ff15107901089d311fa53dcb2b531122da656b47
+- Point:fc000e52cbe406416db8dc3915115810c2a164c76771e731feed016c3eb5983b
+Metadata check runs/point_initialization_second_matched_cells_check.json
+SHA 0d70463dcd5fe20bf634b22ea382880adf53c407022c956a8f8d1f418c842f1b.
+The check adds no inference or simulated work.
+
+Queue records evaluate_complete.json with exit0. evaluation_complete.json
+lists all16cells and the fixed protocolSHA with status complete_awaiting_audit.
+Evaluator53480 and final workers31196/61892 have exited. At09:36:06JST the
+queue starts audit launcher14540/actual52920; OS process and first two complete
+cell verifications confirm progress. Queue session25193/actual42304 remains live.
+No queue completion/failure receipt yet. Do not duplicate evaluation or audit.
+Native-action/statistics audit,qualification and complete-only export remain
+pending. Canonical player,dealer and reserved confirmation remain unchanged.
