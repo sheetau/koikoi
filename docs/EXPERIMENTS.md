@@ -8426,3 +8426,34 @@ all plans before actual-tail assessment. Sources/history replay/planning/policy
 replay/assessment are separate work. No training,101M use or strength claim.
 Design docs/BELIEF_TAIL.rst; default runs/belief_tail_capability must be fresh.
 Implementation milestone precedes launch. Broader stronger-play goal active.
+
+## 2026-10-20: finite belief-tail capability closed
+
+Command .venv/Scripts/python.exe -m scripts.check_belief_tail completed0,
+session14083/PID59532.64sources,16distinctstreams,16complete roots,48missing,
+0refusals. Export command python -m scripts.export_belief_tail passed all
+bindings and independently replayed source matches,selected prefixes,actualtails.
+All root-action policies had already passed full independent-rule replay across
+all enumerated worlds (cached opponent predictions,not neural-forward replay).
+Parent1 exact gains0at7roots. Parent2 gain1/110at1of9roots; all32source mean
++0.028409pp. Fixed-continuation gain0atboth; actualwinchanges0. This is exact
+conditional opportunity, not a replicated prospective strength improvement.
+
+Sources7629decisions/511rounds/64matches; nativeverification separatelysame.
+History6795replayed decisions/3173teacher calls/200guarded. Planning660758
+transitions/255492terminal branches. Policyoracle650714transitions/248760
+completions. Actualtails114transitions/48completions. Exportsource/prefixaudit
+9586transitions/623rounds/64completions;exporttailaudit114/48/48.
+Planningfixed1.736486s total(max.878361);optimized1.346955s(max.718470),
+warmsharedcacheafterfixed; support7.140921s(max1.231978). Excludesoraclework.
+No extension ofsourcebudget,modelpromotion,training or reserved101M use.
+Protocolfc7a318560d7b294a41d057fa349de84d45ba1fbef64b2fb61b845598e52173f.
+Complete320758c9c0fb79367423509c1f715d752e97680e9ae9473bf8b443195c616f7a.
+Report docs/BELIEF_TAIL_RESULTS.rst,receipt runs/belief_tail_export.json.
+
+Three-draw gate's observed opportunities are too limited to justify scaling its
+strength evaluation. Next computational question: exact delayed chance expansion
+can avoid replicating all never-reached stock suffixes. Establish equivalence to
+the eager planner on the closed corpus before any earlier-tail source study.
+No such new study launched. This is standard exact planning engineering,not a
+new general algorithm. Goal remainsactive; published canonicalplay unchanged.

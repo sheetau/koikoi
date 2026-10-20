@@ -65,21 +65,32 @@ or automatically add another root-allocation/learning-rate grid. The standard
 full-trajectory REINFORCE control closes a missing comparison; it is not a new
 algorithm. The broader stronger-play objective remains active.
 
-Finite belief-tail planning is implemented and its six correctness tests pass
-(no skips,11.70s). It optimizes executable observation-contingent continuations
-instead of only comparing first actions under frozen future policies. Both-seat
-Koi fixtures enumerate4,950worlds each; all native transitions and every root
-policy value agree with the independent reference engine. Four tiny-game tests
-independently enumerate pure strategies and reject hidden-world optimization.
-[Design and fixed capability protocol](BELIEF_TAIL.rst).
+Finite belief-tail capability is complete:64sources/16distinct deal streams,
+16eligible roots,48missing,0budget refusals. Session14083/PID59532 exited0.
+[All roots, costs and work](BELIEF_TAIL_RESULTS.rst). No live capability job.
+Every root-action contingent policy passed independent Python transition replay;
+source/actual-tail traces and bindings passed the complete-only export audit.
+Six core tests pass,0skips. Implementation/protocol commit c282020.
 
-The next fixed check uses64complete unchanged-parent sources on16distinct deal
-streams (121110001+1000*WP/Point_index+replicate). It measures natural-root
-coverage, model-conditional exact gains and cost, with fixed-continuation control.
-All plans freeze before actual-tail assessment. No study is launched yet; commit
-before launch. This is established POMDP planning, not a general algorithmic
-novelty claim or a demonstrated prospective match-win improvement. No training,
-production-policy change or reserved101M use.
+Parent1:0exact expected gain at7roots. Parent2:1/110gain at1of9roots, mean
+1/3520(+0.028409pp) over its32sources. Fixed-continuation gains0at both.
+All actual win outcomes unchanged. This establishes one model-conditional
+future-decision opportunity, not prospective replicated match-win improvement.
+It does not justify a large strength evaluation of this three-draw gate.
+Sources7,629decisions/511rounds/64matches; native verification separately same.
+Planning660,758decisions/255,492terminal branches; independent policy replay
+650,714decisions/248,760terminal completions. Actual assessment114decisions/
+48conditional completions. Full separate history/export audit counts in report.
+Protocol fc7a318560d7b294a41d057fa349de84d45ba1fbef64b2fb61b845598e52173f.
+Complete320758c9c0fb79367423509c1f715d752e97680e9ae9473bf8b443195c616f7a.
+
+Next: remove eager enumeration of stock suffixes by expanding a chance draw
+only when reached. Preserve exact suffix multiplicities and common decisions
+for indistinguishable histories. First compare all rational values/executable
+policies against the closed eager implementation before earlier-tail capability.
+This is a computational extension of established POMDP planning, not an already
+measured strength gain or a new general algorithm claim. No new source study
+is launched. No training,production-policy change or reserved101M use.
 
 A saved-gradient block analysis is also closed: runs/branch_gradient_blocks.
 It verifies all four previous full-gradient totals by splitting 768 output
