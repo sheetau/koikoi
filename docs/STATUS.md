@@ -25,18 +25,20 @@ own process, with at most101 backend instances. Bound learner/native sources,
 seeds, budgets and evaluation criteria remain unchanged.
 
 Recovery root: runs/score_auxiliary_recovery. Runner session39422/PID67840;
-first worker67148,seed2_none. Completed seed1_none/win/score artifacts are copied
+current worker41768 (launcher11460),seed2_win. Four of six arms are complete.
+Completed seed1_none/win/score artifacts are copied
 byte-for-byte,except relocated endpoint paths in completion receipts. Seed2_none
 reruns from its original seed; all recorded numerical metrics, checkpoint
 states/RNG/optimizers and28old collections must match. Seed2_win/score then run
 once each. No result-dependent selection or additional study arm is introduced.
-Recovery seed2_none has passed the original failure point (update176 observed).
+Recovery seed2_none is complete; its worker15392/launcher67148 has exited0.
 An early closed-prefix check passes: all164logged numerical rows,8saved
 checkpoints (models/optimizers/RNG) and28collections match exactly,excluding
 wall time/git provenance.104immutable files are bound;receipt
 c8515b32cdf810d91a365e2c9485399ea18c8dcb370091e4303dd9303a4ff569.
 This read-only check adds no training,matches or inference. The scheduled final
-prefix check remains in force;the recovery learner,supervisor and queue are live.
+full-arm prefix check also passes (receipt0915d3696196f62a5ae503b0240571ded3e1ee16593a6028949a151aa481200d).
+The seed2_win learner,recovery supervisor and queue are live.
 Recovery protocol b38aa097e1ce9a4f2989eab445025d7f4388fbf97d7dd0df8722860bddbe5294
 binds683inputs,including every original artifact. Six recovery tests pass0skips
 (1.67s),two relocation/queue tests pass0skips(1.75s),all synthetic/no simulation.
@@ -52,6 +54,14 @@ win-only objective. Public features only; terminal margins are training labels.
 This extends established auxiliary-learning ideas. Playing gain and substantive
 novelty still require results; implementation and audit tests do not establish
 those claims. [Component/capability](SCORE_AUXILIARY.rst).
+
+Seed2_none completed520updates/8,519,680PPO decisions/561,106rounds/72,896matches.
+Its100auxiliary collections contain1,492,804decisions/98,476rounds/12,800matches/
+96,697rows and no auxiliary optimizer steps. Endpoint manifest
+ed64f0c2e8e10e1e4f7418a37ebbec986149dfcbc7c120127279a64232ecb16d;
+metrics2c2bcd7316f79af3c3cc53a1fde2fda543d38ead4828665b9a3fcf2f256fa9d5.
+All748combined recovery/queue input bindings verify unchanged. Main evaluation
+and full six-arm training audit remain pending. Do not restart completed arms.
 
 Restart overhead is counted separately: failed seed2_none executed165PPO
 updates/2,703,360decisions,of which164updates were logged. Those logs contain

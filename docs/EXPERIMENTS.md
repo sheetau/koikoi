@@ -7453,3 +7453,32 @@ SHA256 c8515b32cdf810d91a365e2c9485399ea18c8dcb370091e4303dd9303a4ff569.
 No new learning,neural calls or simulator steps;this is saved-state comparison,
 not gradient or policy replay. The runner's scheduled full-arm prefix check is
 unchanged. No strength evaluation/result or model promotion has occurred.
+
+
+## Fourth auxiliary condition completes after recovery (2026-10-20)
+
+Verified waits on recovery session39422 and queue56042 continued through
+seed2_none update520. The worker exits0; saved-state/log/collection prefix
+verification passes and the same supervisor starts seed2_win. Four of six arms
+are complete. Current actual Python worker41768,launcher11460;supervisor67840,
+queue42884 remain live. Original failed processes are historical,not live.
+
+Seed2_none retained work:520PPOupdates,20warmup/500policy;8,519,680decisions/
+561,106round endings/72,896matches. Warmup327,680decisions/21,127rounds/2,714matches.
+Value Adam49,920 and each actor48,000steps. Auxiliary100collections:
+1,492,804decisions/98,476round endings/12,800matches/96,697retained rows;
+zero presentations/auxiliary optimizer calls. Failed-run overhead remains
+separate as previously recorded; the full endpoint adds no new independent seed.
+
+Endpoint manifested64f0c2e8e10e1e4f7418a37ebbec986149dfcbc7c120127279a64232ecb16d;
+metrics2c2bcd7316f79af3c3cc53a1fde2fda543d38ead4828665b9a3fcf2f256fa9d5;
+complete receipt9c8b86ae155da2a125e51539915832ef7c35617945390ba7819117fc06a2dea9.
+Scheduled prefix receipt0915d3696196f62a5ae503b0240571ded3e1ee16593a6028949a151aa481200d:
+all164old numerical rows,8saved checkpoint pairs and28collections match;
+wall time/git provenance excluded. No neural or gradient replay by this check.
+
+All748combined recovery/queue bindings,endpoint file digests and full metric
+log digest verify unchanged. No additional tests,training runs or strength
+matches were launched during this milestone check. No main six-arm audit,
+evaluation,mechanism or export yet. Dealer/canonical model/manuscript unchanged;
+stronger play and substantive novelty still require actual comparison results.
