@@ -54,7 +54,15 @@ Commands after reviewing the completed predecessor
     python -m scripts.symbolic_tail_replay --freeze
     python -m scripts.symbolic_tail_replay --launch
     python -m scripts.symbolic_tail_replay --audit
+    python -m scripts.export_symbolic_tail_replay
 
 Freeze and launch refuse existing output/queue paths. A failed process must be
 inspected rather than silently overwritten. No command is scheduled by this
 document.
+
+The complete-only exporter checks audit/chunk/artifact bindings and recomputes
+all source-denominator outcome means with exact fractions. It exports coverage,
+planning work, certified mass, program structure, independent replay and actual
+adapter calls. Its receipt retains exact contrasts as well as report hashes.
+Existing output paths, incomplete queues, changed records and inconsistent
+aggregate means are rejected. Export adds no simulation or inference.

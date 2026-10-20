@@ -9409,3 +9409,29 @@ fixture seat mismatch with cases()[0]; corrected by swapping the fixture seat,
 preserving the complete-case audit. Ruff import/format issues corrected; final
 Ruff check passes. No production change or PDF edit. Stronger-play goal active.
 
+## 2026-10-21: complete-only symbolic comparison export
+
+Previous turn was a verified wait on pipeline40713 and worker57816. This turn
+confirmed the same three live processes; worker CPU advanced4686to4831s while
+source391/controller continued. No restart or interim outcome inspection.
+
+Added scripts/export_symbolic_tail_replay.py and two integration tests. The
+exporter requires a complete queue and passed512-source audit, checks all bound
+chunk/artifact records, and recomputes every contrast with exact fractions using
+all256 sources per parent, including absent roots. Its report distinguishes
+conditional gains, actual outcomes, coverage, physical/represented/certified
+work and program entries; parent-default calls remain a subset of all parent
+calls. The receipt retains exact contrasts and report/summary/chunk hashes.
+Original prospective strength gate is read from the original source study and
+remains unchanged. No fresh confidence intervals, strength claim, simulation,
+inference or source matches are created by export.
+
+Tests cover incomplete-queue refusal, full synthetic512-source report generation,
+exact positive conditional gain alongside negative actual gain, unchanged failed
+original gate, duplicate output refusal, rejection of inconsistent means before
+writing and record digest tampering. Initial2tests passed in2.44s; after binding
+the exporter/tests in the unfrozen runner, freeze+export3tests passed in2.58s.
+Ruff import/format findings corrected; final checks pass. No active-study input
+changed, no new freeze/launch and no paper/PDF or production change. Next action
+remains completion/audit/export of the opponent-only comparison before deciding
+on the prepared symbolic evaluation.

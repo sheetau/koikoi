@@ -11,6 +11,16 @@ Old process handles mentioned in that history are historical, not live jobs.
 
 ## Current experiment and next actions
 
+Prepared symbolic comparison now has a complete-only exporter,
+scripts/export_symbolic_tail_replay.py. It recomputes exact whole-cohort means,
+checks audit/chunk/artifact bindings and reports coverage, physical/represented
+planning work, both certificate types, program entries and separate inference
+counts. Receipt preserves exact contrasts. Export tests2passed in2.44s; after
+adding exporter/test dependencies to the unfrozen protocol, targeted freeze plus
+export tests3passed in2.58s; Ruff passes. No natural comparison frozen/launched.
+Current opponent-only worker57816 remains active on source391/controller,
+CPU4831s;31/32chunks complete. Pipeline40713 remains the sole completion owner.
+
 The fixed prospective512 comparison is complete and independently exported.
 All512sources/128deal streams are included;237eligible roots,275missing roots.
 The four-contrast development strength gate fails. Controller-minus-parent
