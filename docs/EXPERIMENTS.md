@@ -9194,3 +9194,53 @@ opponent-only preservation and pickle roundtrip are covered. Ruffformat/check
 and gitdiffcheck pass. Production, both fixed studies, dealer, model and
 reserved101M unchanged. Natural coverage is not evaluated or scheduled by this
 milestone; complete and inspect the two existing comparisons first. Goalactive.
+
+## 2026-10-21: close prospective512 comparison and report its fixed decision
+
+Original queue66280 finished; pipeline40713/PID49904 entered auditing_original
+at2026-10-20T18:05:03Z, then certificate freeze18:05:32Z and launch18:05:34Z.
+No outcomes were inspected before full original completion. Export passed,
+binding all32chunks and replaying all512sources(59512decisions/4002rounds)
+and711conditional continuations(2514decisions). This is verification, not new
+matches. Receipt runs/prospective_incumbent_export.json SHA
+76b552fc78c61f3f47f3eb729fe2f621c1f1236cb6f0854f8b173506e0e1ece9.
+Report docs/PROSPECTIVE_INCUMBENT_RESULTS.rst SHA
+a896b1daa7e85f95c2be4cb077f1eba5470eb6cf7a5992576767e5e0b745baf9.
+
+512sources/128streams,237evaluated roots/275missing. Controller-parent actual
+means+.390625/0pp; simultaneous95% intervals[0,1.5625]/[-1.953125,1.953125].
+Controller-root-only means-.1953125/0pp, intervals[-.78125,0]/[0,0].
+The fixed four-lower-bounds-positive gate fails; no cap/sample extension.
+Conditional means versus parent+.2619271/+.3246074pp; versus root-only
++.0209508/+.0253794pp. Controller adoptions41/42,root-only28/28.
+Changed actual scores1/4(controller),2/4(root-only);second-parent controller
+improvements/deteriorations cancel. Conditional benefit is not relabeled as a
+realized or independently replicated strength gain.
+
+Physical search227608204controller/150686381root-only; capped phases53/16.
+Both have equal maximum4Mdecisions/1Mnodes per eligible root, not equal work.
+All378294585physical planning decisions and330675612terminal completions remain
+separate from represented mass and oracle work. Independent policy replay used
+61821861physical decisions/54051761completions. Source and tail counts are
+reported in the completed export. New training, promotion and reserved101M:none.
+
+Prepared certificate comparison launched automatically only after export passed.
+Its queuePID35056 is live, four workers,32chunks. It reuses all512sources with
+unchanged caps/selection, fresh actor caches, independent oracle and trace
+checks. The pipeline will audit after completion; final report exporter remains
+to run once afterwards. Do not duplicate any live queue or freeze.
+
+Manuscript adds Section9.4 and a generated four-contrast table bound to the
+audited complete summary/report/receipt. Abstract/Introduction/Conclusion use
+these prospective results instead of relying solely on exploratory witnesses.
+Reproduction table links prospective_incumbent_evidence.json. Existing old
+evidence audits reused; no full raw-corpus rehash. PDF skill reused; exactly-once
+marker not repeated. Backup manuscript_before_prospective_ebeec207.pdf.
+Tectonic build succeeds. Render helper initially pointed priorQA at its new
+output; corrected that path and reran. Final mechanical checks pass:
+38pages/44refs/27embeddedfonts, no outside-page spans or TeX/BibTeX warnings.
+All38contact pages and full1/17/18/19 visually checked. Abstract195words,
+Introduction513,Conclusion169. PDF SHA
+bc0d2f6374f0549217d8cb4bd26abb44d2a965cec3083171886eaf086bfbdfd6.
+QA runs/manuscript_prospective_qa.json statuspassed. Canonical model/dealer
+unchanged. Broader goal remains active; new replicated win gain unresolved.

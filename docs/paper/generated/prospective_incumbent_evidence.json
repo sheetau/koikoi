@@ -1,0 +1,190 @@
+{
+  "status": "passed",
+  "scope": "Complete prospective development comparison; original gate unchanged.",
+  "bindings": {
+    "runs\\prospective_incumbent\\summary.json": "c80bbcbc67b1923632ea2480bacb06df8066f1e587ad83e843458fc782298f1e",
+    "runs\\prospective_incumbent_export.json": "76b552fc78c61f3f47f3eb729fe2f621c1f1236cb6f0854f8b173506e0e1ece9",
+    "docs\\PROSPECTIVE_INCUMBENT_RESULTS.rst": "a896b1daa7e85f95c2be4cb077f1eba5470eb6cf7a5992576767e5e0b745baf9",
+    "docs\\paper\\generated\\prospective_incumbent_table.tex": "49d95d0e16fff3ed6a82fd77ab608fabdf82e2959cd180d6e382e8836b361b9e"
+  },
+  "sources": 512,
+  "streams": 128,
+  "summary": {
+    "status": "complete",
+    "protocol_sha256": "700e11608e3ced60919ca7ef31da460785ff9391459ac83c7e8a16f4a1a0c170",
+    "chunk_bindings": {
+      "runs\\prospective_incumbent\\chunk_000\\complete.json": "eadc31fe11869a3a865087fe713b0fcfe310e68329c16dce5f1fda56238abe0b",
+      "runs\\prospective_incumbent\\chunk_001\\complete.json": "a70e008ba4723f785c0413397fac77ee08e89aee96a48466cab60c1ee31db1bc",
+      "runs\\prospective_incumbent\\chunk_002\\complete.json": "306bf4ed4ff112a4ed3c76353fa614495a215ffc64e47dbccefcf078c7acbdce",
+      "runs\\prospective_incumbent\\chunk_003\\complete.json": "a768cf0289867e58b2fb1d74c5a1de3a6fb21084e95933d4c1d398084d0fa250",
+      "runs\\prospective_incumbent\\chunk_004\\complete.json": "e895b01cdce82e24fd8e75dcdaf0ce643fa9b6e85418c47d3e231c9e4406ca87",
+      "runs\\prospective_incumbent\\chunk_005\\complete.json": "280c705fbc2485ff76efb80634baa7427e981cde8f695e0ee19e2c42938e2a6c",
+      "runs\\prospective_incumbent\\chunk_006\\complete.json": "813e765ce61225ea15450f3930b4d993d6624d85e8871addeb184eeac525aa1d",
+      "runs\\prospective_incumbent\\chunk_007\\complete.json": "d5cc2f83f868a26d2da9a93457f28a179a00364a5042fc1b9bb27cd97c0c494f",
+      "runs\\prospective_incumbent\\chunk_008\\complete.json": "34f26d3a2288f850cc37404379425b5200bb60b19908c556350f20d40a8ae49d",
+      "runs\\prospective_incumbent\\chunk_009\\complete.json": "b739d74625c36cc5188f408600616e02a7142955078314f60a78869311143ee7",
+      "runs\\prospective_incumbent\\chunk_010\\complete.json": "40ce3e988ea4139a87186638bc6587a1832e36a02b952e6177f963d4a596ce37",
+      "runs\\prospective_incumbent\\chunk_011\\complete.json": "bf139eaf75e47ad2399e7cf2251a59a6aacaac100ad7aaa11a42a3f48b6212c7",
+      "runs\\prospective_incumbent\\chunk_012\\complete.json": "8a439b5fd90eb3a2e951f7ecceaa2635d02f78926f0798c982f2cdec0a31cd93",
+      "runs\\prospective_incumbent\\chunk_013\\complete.json": "265bcf415aa186968af51376cf049102ab82f0d29a2f4a70ca502502c1d7691d",
+      "runs\\prospective_incumbent\\chunk_014\\complete.json": "32004888a864bc5b7f5066b7c8030b3bf91f4c1087fd1413bbe719762e557881",
+      "runs\\prospective_incumbent\\chunk_015\\complete.json": "17022fed8ead3f4ae89f26506afe0daf662076d80e4f8613207bc8793cd329d8",
+      "runs\\prospective_incumbent\\chunk_016\\complete.json": "76af9ea8a824e460ba44352b0cd63be5fa15b4f0e84bb4f061e04c8d8454f424",
+      "runs\\prospective_incumbent\\chunk_017\\complete.json": "56b2cc4620a59c8451e8bc5e62de7fbf0f855e2bc9c5f2b2f4fea2d6a5ab5ac4",
+      "runs\\prospective_incumbent\\chunk_018\\complete.json": "8b877f1d68e2b3d1f97b7fd3d1a24dc3206f0e6e51e8884f8a5c2767ff68ca9b",
+      "runs\\prospective_incumbent\\chunk_019\\complete.json": "8f4c374681e03039684bd205425514f145bfc08f22cae08fc1a38e5c92d837cf",
+      "runs\\prospective_incumbent\\chunk_020\\complete.json": "cbb91c6a9c0b9e7ae42f8da677726e6ab1eeb41aecd8c93f04856b979d680f21",
+      "runs\\prospective_incumbent\\chunk_021\\complete.json": "178363ecc7392f5813e1505a02e3c7c00936fab29a858d57c62aec4acad677e1",
+      "runs\\prospective_incumbent\\chunk_022\\complete.json": "6f1e4c1399af4aa5a6ea4b20e7b7383e62d30a1dff11cf566be8c7eebbd5b140",
+      "runs\\prospective_incumbent\\chunk_023\\complete.json": "8c2934b4e1af3e68263df8613d8ceecd192d088fa3d96be31b87ef9040f8b8e2",
+      "runs\\prospective_incumbent\\chunk_024\\complete.json": "380a00cec7dcc1add1703d4e667f965a9c54f9980c783a0de01fcf6f15bcbf08",
+      "runs\\prospective_incumbent\\chunk_025\\complete.json": "f3deb0af64bc7cab7446004423742ea0504267def7be4d2598a1c29c6885be31",
+      "runs\\prospective_incumbent\\chunk_026\\complete.json": "011fcdd8f4569c220a3be7d812290ac4cbcc5c99d6b0dd86eb13f1ed51d7c0ff",
+      "runs\\prospective_incumbent\\chunk_027\\complete.json": "4702835b158b55c412003a937afbbe39a4c65387de4f85f1812ed1f49a01f5b9",
+      "runs\\prospective_incumbent\\chunk_028\\complete.json": "147b127c09935477b2a2dca8b472070aae694715436841b353c277aeec9989a7",
+      "runs\\prospective_incumbent\\chunk_029\\complete.json": "5a2e7cf4e1ba18560e4f845003ee15ae366534f159e21a1c7ab6d9c63b9571b7",
+      "runs\\prospective_incumbent\\chunk_030\\complete.json": "fa10d67e9e197bdacfed7fdf5c69c697c639a457a5fd210ead23066bbf0ce2a0",
+      "runs\\prospective_incumbent\\chunk_031\\complete.json": "945aaf55f6e762a12fe041f0125edac461ef2685b6ba2280ddc068d08704ac45"
+    },
+    "sources": 512,
+    "streams": 128,
+    "status_counts": {
+      "missing_root": 275,
+      "evaluated": 237
+    },
+    "contrast_order": [
+      "parent1:controller-parent",
+      "parent1:controller-root_only",
+      "parent2:controller-parent",
+      "parent2:controller-root_only"
+    ],
+    "actual_mean": [
+      0.00390625,
+      -0.001953125,
+      0.0,
+      0.0
+    ],
+    "actual_simultaneous95_lower": [
+      0.0,
+      -0.0078125,
+      -0.01953125,
+      0.0
+    ],
+    "actual_simultaneous95_upper": [
+      0.015625,
+      0.0,
+      0.01953125,
+      0.0
+    ],
+    "conditional_mean": [
+      0.0026192712060696508,
+      0.00020950844768953742,
+      0.0032460738290348706,
+      0.00025379436012490565
+    ],
+    "conditional_secondary_lower": [
+      0.000671780872037966,
+      5.46854499337326e-05,
+      0.0016001357363710459,
+      -0.00109374992516965
+    ],
+    "conditional_secondary_upper": [
+      0.005661809218729562,
+      0.0004094484293062435,
+      0.005217534811905122,
+      0.0012954411180815615
+    ],
+    "development_strength_gate": false,
+    "adoptions": {
+      "parent1:root_only": 28,
+      "parent1:controller": 41,
+      "parent2:root_only": 28,
+      "parent2:controller": 42
+    },
+    "changed_actual_win_scores": {
+      "parent1:root_only": 2,
+      "parent1:controller": 1,
+      "parent2:root_only": 4,
+      "parent2:controller": 4
+    },
+    "arm_costs": {
+      "controller": {
+        "planning_seconds": 8508.237989300746,
+        "parent_adapter_calls": 2261097,
+        "opponent_adapter_calls": 733960,
+        "physical_decisions": 227608204,
+        "capped_phases": 53
+      },
+      "root_only": {
+        "planning_seconds": 6565.888675098657,
+        "parent_adapter_calls": 1928011,
+        "opponent_adapter_calls": 687613,
+        "physical_decisions": 150686381,
+        "capped_phases": 16
+      }
+    },
+    "public_identification_calls": {
+      "wp": 5618,
+      "point": 5805
+    },
+    "work": {
+      "source": {
+        "decisions": 59512,
+        "round_endings": 4002,
+        "completions": 512
+      },
+      "native_source_verification": {
+        "decisions": 59512,
+        "round_endings": 4002,
+        "completions": 512
+      },
+      "history": {
+        "replay_decisions": 478512,
+        "candidate_decisions": 239395,
+        "opponent_decisions": 239117,
+        "teacher_calls": 231362,
+        "guarded_decisions": 7755,
+        "feature_checks": 0,
+        "feature_teacher_calls": 0
+      },
+      "planning": {
+        "decisions": 378294585,
+        "round_endings": 330675612,
+        "completions": 330675612,
+        "live_observation_nodes": 40478303,
+        "own_decision_nodes": 33866483,
+        "chance_rows_added": 329389102,
+        "represented_decisions": 4870265843,
+        "represented_round_endings": 1577997484,
+        "represented_completions": 1577997484,
+        "terminal_rows_valued": 330675612,
+        "terminal_mass_valued": 1577997484,
+        "ceiling_cutoffs": 410907,
+        "pruned_actions": 410928,
+        "continuation_cutoffs": 24352,
+        "bounded_actions": 24352
+      },
+      "actual_tails": {
+        "decisions": 2514,
+        "round_endings": 711,
+        "completions": 711
+      },
+      "tail_replay": {
+        "decisions": 2514,
+        "round_endings": 711,
+        "completions": 711
+      },
+      "oracle_physical": {
+        "decisions": 61821861,
+        "round_endings": 54051761,
+        "completions": 54051761
+      },
+      "oracle_represented": {
+        "decisions": 741008054,
+        "round_endings": 176513040,
+        "completions": 176513040
+      }
+    },
+    "scope": "Fixed development comparison; no automatic sample extension or promotion."
+  }
+}

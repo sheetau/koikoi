@@ -32,10 +32,11 @@ values; learner-decision returns correct the complete example. In Koi-Koi,
 completed public hands recover earlier actor inputs and identify the fixed
 WP/Point opponent in 86.1\% of natural final-round starts. A bounded planner
 turns this information into executable endgame policies, adopting a change only
-when its exact conditional match value exceeds the parent's. Controlled comparisons
-connect these findings to agent design: additional return, representation,
-public-memory and auxiliary-prediction changes do not establish a replicated
-win gain. Together, the results demonstrate effective match adaptation and
+when its exact conditional match value exceeds the parent's. On 512 prospective
+sources, conditional gains average 0.2619 and 0.3246 percentage points; the
+replicated actual-win criterion is not met. Additional return, representation,
+public-memory and auxiliary-prediction changes likewise do not establish a
+replicated win gain. Together, the results demonstrate effective match adaptation and
 explain why informative observations or exact value estimates alone need not
 produce stronger policies.
 \end{abstract}
@@ -88,7 +89,9 @@ construct complete endgame policies. The controller changes play only when a
 candidate's exact conditional match value exceeds the unchanged parent's value.
 It can retain an improving policy even when the search budget prevents further
 comparison. This links public reconstruction to an executable improvement rule
-(Section~\ref{sec:incumbent-tail}), alongside the learned responses.
+(Section~\ref{sec:incumbent-tail}). A fixed 512-source comparison finds
+conditional gains for both parents, but does not meet its replicated
+actual-win criterion.
 
 Complete paired-match comparisons measure whether these additional signals
 improve play. The return, representation, public-memory and auxiliary changes
@@ -858,7 +861,9 @@ yet to turn that information into a consistent additional match-win gain.
 The comparisons measure head-to-head performance under the pinned Koi-Koi
 rules. The exact planner's guarantee requires the evaluated belief to match
 the conditional deal and opponent model. Conditional improvement certificates
-and their exploratory frequency do not determine population win-rate gains.
+do not by themselves determine population win-rate gains. The prospective
+comparison has 128 distinct deal streams; it does not resolve sub-percentage-
+point effects reliably.
 
 Two training seeds and fixed opponents limit generality: held-out deals measure
 endpoint performance, not robustness across optimization runs. The ledger
@@ -881,11 +886,12 @@ win gain in Koi-Koi.
 
 Public reconstruction identifies the fixed opponent at 86.1\% of natural
 final-round starts. The bounded planner turns that information into complete
-contingent policies and adopts only verified conditional improvements. Seven
-policies pass this test in the exploratory cohort, including one that improves
-later decisions while keeping the first action. Their realized source-match
-wins remain unchanged, separating executable conditional improvements from
-measured gains in match play.
+contingent policies and adopts only verified conditional improvements. It can
+improve later decisions while keeping the first action. On 512 prospective
+sources, conditional gains average 0.2619 and 0.3246 percentage points for the
+two parents. Actual-score gains of 0.3906 and 0.0000 points do not meet the
+replicated strength criterion. The resulting controller makes public inference
+actionable; its additional match-win benefit remains unresolved.
 
 \appendix
 \section{Reproduction and evidence}
@@ -911,6 +917,7 @@ Critic and seat controls & \path{response_evidence.json}, \path{learner_evidence
 Public identification and learning & \path{public_revelation_evidence.json}, \path{public_memory_evidence.json}, \path{public_continuation_evidence.json}, \path{renewed_continuation_evidence.json} \\
 Policy composition & \path{arbitration_evidence.json}, \path{paired_evidence.json}, \path{followup_evidence.json} \\
 Temperature and directions & \path{temperature_directional_evidence.json} \\
+Prospective endgame planning & \path{prospective_incumbent_evidence.json} \\
 \bottomrule
 \end{tabular}
 \caption{Evidence map. Each ledger identifies the underlying inputs and outputs;
