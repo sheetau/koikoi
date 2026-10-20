@@ -193,6 +193,16 @@ Report43df90f6bb98deba1c11b126a9f80ab96805f0c64198521d97a57d2e4a129030.
 The analysis is closed. Any tighter bound needs new reasoning and verification;
 do not simply repeat this check or raise the closed recovery budget.
 
+Next diagnostic scripts/profile_refused_tails.py passively replays exactly the
+five remaining refusals at unchanged limits, recording completed/partial root
+actions and turn/phase transition counts. It preserves fixed-then-optimized
+order and verifies all old work/call counters. Support worlds and partial policy
+caches are saved for reuse. [Protocol](REFUSED_TAIL_PROFILE.rst).
+One equivalence/accounting test passes,0 skips,1.90s. This adds explicit diagnostic
+planning/history work,0 new source or strength samples. Commit before launch;
+not launched at this entry. The previous goal turn made progress by completing
+the public-bound implementation, tests and negative coverage analysis.
+
 A saved-gradient block analysis is also closed: runs/branch_gradient_blocks.
 It verifies all four previous full-gradient totals by splitting 768 output
 weights,3biases and4,018,944encoder parameters. It does not support adopting

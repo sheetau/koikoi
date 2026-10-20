@@ -8691,3 +8691,16 @@ Report docs/PUBLIC_TAIL_BOUND_COVERAGE.rst is byte-identical to saved report.
 Complete06dc246eb69c23621dd71e15b80922785acffb0218b8fe279eede22556db44a7.
 Report43df90f6bb98deba1c11b126a9f80ab96805f0c64198521d97a57d2e4a129030.
 No model promotion, reserved101M use or manuscript rebuild. Goal remains active.
+
+## 2026-10-20: passive refusal profiler ready
+
+Added scripts/profile_refused_tails.py and docs/REFUSED_TAIL_PROFILE.rst.
+All5 remaining refusals, unchanged500k live/2M physical/4096 frontier/depth32.
+Passive subclass records root-action completions and turn/phase transitions;
+old work/call counters and failure stages must reproduce. Save support worlds,
+partial policy caches and complete fixed plans, but no Q for an incomplete action.
+python -m pytest tests/test_refused_tail_profile.py -q:1 passed,0 skips,1.90s.
+Complete and capped fixtures preserve values/policies/counters; histogram totals
+and root-action sums equal physical decisions. Lint/format pass. Commit before
+launch; no diagnostic job yet. New diagnostic work will be counted separately;
+no new source collection, actual-tail assessment, training or strength claim.
