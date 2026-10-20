@@ -11,6 +11,30 @@ Old process handles mentioned in that history are historical, not live jobs.
 
 ## Current experiment and next actions
 
+A direct terminal-outcome actor-gradient experiment is now implemented. The
+completed two-parent diagnostic compares shared versus independent continuation
+uniforms while holding each root world fixed. Conditional root-logit variance
+ratios are0.29824and0.64505. This is promising learning-signal evidence, not a
+playing-strength result. No actor was trained in that diagnostic.
+
+Source work:14,609decisions/985round endings/128matches. Branch work:
+553,186decisions/40,707round endings/9,600completions. Seven tests passed,
+including exact variable-length-game gradients and CPU/CUDA reference replay.
+The independent full diagnostic audit verifies every recorded transition and
+recomputes all conditional variances. Audit SHA:
+3b99cc11482ab3d94f05f465fe4d101e69a916bdbe69d2d3ed67e7b21b260ecf.
+Completed artifacts: runs/branch_policy_gradient_diagnostic. Do not rerun.
+[Method and prior work](BRANCH_POLICY_GRADIENT.rst).
+
+Next: execute the verified fixed six-arm actor-training screen, then evaluate
+all final endpoints on fresh paired deals. Shared branches, independent branches
+and root-sampled REINFORCE are compared at matched source-match/update budgets.
+Their simulation costs differ and will be reported separately. No new strength
+or novelty-priority claim is established; canonical play and dealer are unchanged.
+[Fixed training/evaluation design](BRANCH_POLICY_GRADIENT_TRAINING.rst).
+
+## Recently completed score-auxiliary study
+
 **The six-arm score-auxiliary study, independent training/evaluation audits,
 fixed-state diagnostics and result export are complete. The primary win-gain
 criterion fails: all six simultaneous intervals include zero. No study job is

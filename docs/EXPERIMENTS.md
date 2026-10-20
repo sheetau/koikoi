@@ -7867,3 +7867,77 @@ Previous35pagePDF/source preserved in runs/manuscript_auxiliary_previous.
 Renders: runs/manuscript_auxiliary_render. No submission, publication or model
 promotion. This completes paper integration of the auxiliary study; stronger
 replicated play and substantive novelty remain open requirements.
+
+
+## 2026-10-20: complete-match branch-gradient implementation and diagnostic
+
+Read existing VRPO/Q-boosting, paired-rollout selector implementations and the
+experiment ledger before selecting the intervention. Primary literature includes
+Expected Policy Gradients (Ciosek/Whiteson, arXiv1801.03326), Mean Actor Critic
+(Allen et al.,1709.00503), rollout policy iteration (0805.2027), common-random-number
+planning (2605.04732) and Fan/Farina VRPO (2605.19235v1). All-action expectations,
+rollout improvement and common random numbers have antecedents. The local
+experimental distinction is a full public actor updated with actual terminal
+all-action outcomes, without a learned critic or fixed expert-action restriction.
+
+New scripts/branch_policy_gradient.py implements stochastic public continuation,
+complete-match per-match reservoir sampling weighted by eligible-decision count,
+all-legal-action branch workspaces reusing one backend, and a detached expected-
+return actor gradient. Same-world/future-deal coupling is present in both arms;
+only continuation-action uniform sharing differs. Self-play updates optimize each
+acting player's return against the frozen opposing policy. No equilibrium claim.
+
+Command: .venv/Scripts/python.exe -m pytest tests/test_branch_policy_gradient.py -q.
+Result7 passed,0 skipped,2 expected upstream Transformer warnings,3.47s. Covers
+exact variable-length-game gradients, inverse-CDF boundaries, scalar independent
+variance computation, source/root/branch replay against Python rules on CPU/CUDA,
+workspace reuse, hidden-world input invariance and actual pretrained backward.
+Initial test failure was a test counter omitting terminal round endings; final
+rounds do not increment ROUND. Corrected the independent counter; production
+transitions were not changed. Ruff checks pass.
+
+Command: .venv/Scripts/python.exe -m scripts.diagnose_branch_policy_gradient.
+Completed session30560 exited0. Fixed64source matches per parent,8replicates per
+coupling condition, T0.05, no updates. Protocol SHA:
+62c90e86e2e6f0940a7ef3dd1d935dba8891fb3fdd633f478330114a3eb7217d.
+Summary SHA84b0d890d586925039a174f2cbec5f515eb9ff394089f90a3d67f5776813e095.
+All128root weights positive; each parent supplies300legal branches per replicate.
+Source work14,609decisions/985round endings/128matches; branch work553,186decisions/
+40,707round endings/9,600completed branches. Elapsed25.25s includes collection,
+forward/backward probes and serialization; not a deployment timing benchmark.
+
+Parent1 shared/independent mean conditional weighted-logit variance:
+148.0598474862/496.4454621595, ratio0.2982399050. Parent2:
+259.5917957657/402.4380181232, ratio0.6450478933. Unweighted ratios also lower.
+Shared outcomes differ across actions on40/64and46/64roots in at least one
+replicate. Both unchanged parameter digests were verified after backward probes.
+Conditional variance excludes root/world sampling and is not full parameter-
+gradient variance. These are descriptive small-sample ratios, not match results.
+
+Command: .venv/Scripts/python.exe -m scripts.audit_branch_policy_gradient.
+Exited0; verifies all saved initial deals using independent Python initialization,
+allsource/branch actions and selected roots with native CPU, exact work/points,
+and independently recomputes variances with NumPy. Replay567,795decisions/
+41,692round endings/9,728completions adds no independent matches. No neural
+inference replay. Audit SHA:
+3b99cc11482ab3d94f05f465fe4d101e69a916bdbe69d2d3ed67e7b21b260ecf.
+All diagnostic artifacts closed; no rerun or canonical/paper changes.
+
+The positive signal diagnostic motivates a fixed six-arm learning screen,
+documented in BRANCH_POLICY_GRADIENT_TRAINING.rst before any training run.
+It compares both parents under shared branches, independent branches and a
+sampled-return gradient at identical source/update budgets. Implementation and
+checkpoint-restart verification are in progress; no trained endpoint yet.
+
+
+The direct actor trainer is implemented with a distinct checkpoint format,
+matched source/update budgets and explicit shared/independent/sampled controls.
+Seven trainer tests pass on CPU/CUDA,0skips,6expected upstream warnings,25.91s.
+They include exact sampled-gradient enumeration and bit-identical continuation
+of actor, Adam, environment, all dedicated RNG streams, counters and complete
+source/branch transcripts after checkpoint restore. A first test assumption that
+every four-match batch must change weights failed: CPU shared branches had
+identical outcomes for every legal action. The corrected check permits unchanged
+weights only for that zero-signal fixture with gradient norm below1e-6. No
+production fix or favorable-seed substitution was needed. Both retained parents,
+three modes and all128final updates are fixed before the actual study starts.
