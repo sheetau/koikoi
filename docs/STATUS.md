@@ -11,21 +11,44 @@ Old process handles mentioned in that history are historical, not live jobs.
 
 ## Current experiment and next actions
 
-The root-allocation/step-size factorial study is running in session 92368,
-worker PID 33408, under runs/priority_branch_study. Training, training audit,
-evaluation and evaluation audit run sequentially in that process. Do not start
-a duplicate. [Fixed design and prior work](PRIORITY_BRANCH_GRADIENT.rst).
-Protocol SHA256 4543224c95c1ec5e9c24cfa0ed6f4450eda956e3d8e5bf79f125bd9fa105e79b.
-Both parents receive uniform/priority roots x Adam1e-5/1e-4,128updates per arm.
-The predefined candidate is priority/high; all8endpoints and both parents will
-be evaluated on fresh118M GPU development deals. No mid-run selection.
+**The eight-arm root-allocation/step-size study is complete. Its predefined
+strength criterion fails; one candidate-minus-parent primary interval is
+wholly negative. All training/evaluation audits pass. No study job remains live.**
+[Full results, all comparisons and work](PRIORITY_BRANCH_RESULTS.rst).
+Session 92368 / PID 33408 exited0. Do not restart runs/priority_branch_study.
+Training protocol SHA256 4543224c95c1ec5e9c24cfa0ed6f4450eda956e3d8e5bf79f125bd9fa105e79b.
 
-The new sampler computes priorities from public action probabilities, retains
-one weighted-reservoir root per complete match and applies its exact conditional
-inclusion correction. Uniform mode reproduces the prior implementation exactly.
-Six estimator/sampler/restart tests pass on CPU/CUDA. A complete reduced8-arm
-training/evaluation/audit pipeline also passes, including80evaluation matches.
-These are capability results, not strength evidence.
+Priority/high minus parent, percentage points with simultaneous95% intervals:
+parent1 -0.3906[-2.2583,+1.4771]; parent2 -2.0874[-3.9551,-0.2197].
+Priority/high minus uniform/high: parent1 +3.2349[+1.3672,+5.1025];
+parent2 -0.6226[-2.4902,+1.2451]. All four lower bounds were required positive.
+The first-parent advantage over a weaker high-rate control does not establish
+improvement over the retained parent or replicated priority benefit.
+No promotion or reserved101M use.
+
+Training source:7,619,431decisions/512,651rounds/65,536matches,1,024updates.
+Branches:19,943,108decisions/1,458,051rounds/326,506completions.
+Evaluation:4,783,517decisions/318,537rounds/40,960matches,2,048distinct streams.
+Training audit8fb3967cfb3af9e4fd0c50e7e9b4e2cb407faa0fb059aff89c94826fda19c5d7.
+Evaluation auditf6dafc4c4d7609026822ce268ae8efd13b8710ebc778e9656f72674887da01c8.
+Priority roots reduce confidence>=.99 from about30%to5--6%, but constant sampled
+branch outcomes remain about68--70%. Larger updates did not produce stronger play.
+
+**Next action:** implement the missing retained-Transformer full-source Monte
+Carlo control, using all eligible decisions from each already-collected complete
+match before one optimizer step. [Evidence and exact variance identity](BRANCH_GRADIENT_BLOCKS.rst).
+The old complete-MC training study was MLP/PPO; retained-Transformer complete-return
+probes were diagnostics, not this learner. Compare full-source versus root-sampled
+and branch estimators before attributing failure to the all-action target itself.
+This removes root-selection covariance from the sampled-return estimator; it does
+not guarantee lower variance than all-action branches or a win gain.
+
+A saved-gradient block analysis is also closed: runs/branch_gradient_blocks.
+It verifies all four previous full-gradient totals by splitting 768 output
+weights,3biases and4,018,944encoder parameters. It does not support adopting
+head-only updates: signal estimates are uncertain at parent1 in both blocks.
+No new simulations, forwards/backwards, updates or independent samples were added.
+Do not repeat it, and do not automatically launch another priority/head-only grid.
 
 Completed saved-data coverage analysis: runs/branch_update_coverage. Both old
 shared arms reconstruct exactly at all16saved actor/Adam checkpoints.256replayed
@@ -45,7 +68,7 @@ bounded terminal outcomes. Three independent numerical/closed-form tests pass.
 Replacing the Gini proxy by this bound lowers the hypothetical saved-pool
 second moment a further 6.34%/4.11%; no new simulations, updates or independent
 samples. This is neither a full-network variance guarantee nor a strength
-result. It does not change the running study or justify an automatic new grid.
+result. It did not change the now-completed study or justify an automatic new grid.
 Do not repeat runs/categorical_sensitivity.
 
 New primary-source prior-art review identifies OSCC (arXiv2609.33543v2,
@@ -57,7 +80,7 @@ fresh shared policy innovations can preserve marginal path laws and expected
 root gradients, while same-draw reuse within a branch can bias them. Three
 tests and the exact rational check pass; no new Koi-Koi simulations or training.
 This is a scope clarification, not a new variance-reduction or stronger-play claim.
-The running eight-arm study is unchanged.
+The eight-arm study completed without changing its bound sources.
 
 ## Completed uniform-root branch-gradient screen
 
@@ -97,7 +120,7 @@ conditional variance(0.620943and0.341429), using the same eight replicates and
 Both diagnostic roots remain closed: runs/branch_policy_gradient_diagnostic and
 runs/branch_parameter_variance. Parent models and dealer remain unchanged.
 
-The next fixed intervention is the root-allocation/step-size study above.
+The root-allocation/step-size follow-up above is now also complete.
 Do not describe variance reduction as stronger play or as invention of all-action
 policy gradients. Assess root-sampling efficiency and update/coverage limitations
 before committing to another training budget; a larger learning rate is not yet

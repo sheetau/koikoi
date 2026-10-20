@@ -8209,3 +8209,79 @@ variance differences: -5965/32768 and +5965/32768. New Koi-Koi decisions,
 training updates and independent samples are all0. Current study unchanged.
 Receipt runs/policy_coupling_conditions.json SHA256 6b50cbc10b68f4ded9c10ad2d6c9ccea41a4f97627c43308ed25657d4d90b533.
 The finite example is closed; do not rerun or overwrite it.
+
+
+## 2026-10-20: priority/step-size study completed, negative strength result
+
+Original session92368/PID33408 exited0 after all8 training arms, training replay,
+all20 endpoint/opponent cells and evaluation replay/statistical audit. The
+protocol, sources, endpoints and fixed criterion were never changed. No live
+study worker remains. runs/priority_branch_study is closed; never restart it.
+All four primary contrasts, eight secondary contrast means,20absolute matchups,
+8work rows and8logged diagnostic rows are in docs/PRIORITY_BRANCH_RESULTS.rst.
+
+Primary win changes in pp, simultaneous95% family covering all four:
+parent1 priority/high minus parent -0.390625[-2.25830078125,+1.47705078125];
+minus uniform/high +3.23486328125[+1.3671875,+5.1025390625].
+parent2 priority/high minus parent -2.08740234375[-3.955078125,-0.2197265625];
+minus uniform/high -0.62255859375[-2.490234375,+1.2451171875].
+Criterion false. The first-parent improvement over the weaker high-rate control
+does not replicate or establish superiority over the parent. The second-parent
+candidate significantly regresses under the fixed simultaneous criterion.
+High-minus-low within-sampler means are all nonpositive. No canonical promotion.
+
+Source training7,619,431decisions/512,651round endings/65,536matches;
+branches19,943,108decisions/1,458,051round endings/326,506completions;
+1,024optimizer updates,1,641.024051s elapsed including I/O, not isolated throughput.
+Evaluation4,783,517decisions/318,537round endings/40,960matches,2,048distinct
+paired streams. Eight trained endpoints and2parents use the same GPUbatch128
+path against WP/Point, with1,024pairs per opponent. No101M final-test use.
+All source/branch/evaluation transitions and independent primary bootstrap pass;
+audits do not repeat full neural inference or optimizer histories.
+
+The sampler changes its intended allocation: confidence>=.99 roots drop from
+about30%to5--6%. Constant sampled action outcomes remain68--70%. The larger
+step size increases logged local KL and greedy changes, without stronger play.
+These metrics do not isolate the cause of the failed strength result.
+Training protocol4543224c95c1ec5e9c24cfa0ed6f4450eda956e3d8e5bf79f125bd9fa105e79b.
+Training complete29ab49b2d19ed122db8c397f0fa229300142a19ec30aca4b034577af3531d425.
+Training audit8fb3967cfb3af9e4fd0c50e7e9b4e2cb407faa0fb059aff89c94826fda19c5d7.
+Evaluation protocol78c133875b4efd9d8d5037d2fa7683053fb9a0e8d68f1b0fb45f4d91d0056d8f.
+Evaluation summaryc824076bb5af7e745dd22c1b284de28c41ac45d652a1a0d55be8dd22077a5b78.
+Evaluation auditf6dafc4c4d7609026822ce268ae8efd13b8710ebc778e9656f72674887da01c8.
+Finished receipt397eab0cc34387e96a8e09e42f439f6bcae7009eaf08025d128db819a16e8626.
+
+## 2026-10-20: saved gradient blocks and full-source control gap
+
+Command `python -m scripts.branch_gradient_blocks` exited0 in3.46s including
+imports;1expected upstream Transformer warning. It reuses all4existing8-replicate
+full-gradient matrices, verifies their hashes and production/parent identities,
+and reconstructs the exact parameter flattening order. Split:768output weights,
+3output biases,4,018,944encoder parameters. Independent block sums agree with
+all prior whole-gradient variance and mean-norm totals. Ruff passes. No new
+simulation,forward/backward pass,optimizer update or independent observation.
+
+Shared output-weight variance/mean-norm: parent1 178.410476/9.726821;
+parent2 1502.949931/469.338397. Encoder:29618.818516/2557.051484;
+54955.133459/17031.034972. Head-only raw variance is smaller, but signal is
+removed too; both corrected estimates at parent1 are negative, both at parent2
+positive. Eight-replicate conditional values do not establish preferable
+head-only learning or characterize Adam update noise. No such learner launched.
+All12block rows, interpretation and exact next-control identity are recorded
+in docs/BRANCH_GRADIENT_BLOCKS.rst. The analysis is closed.
+Block protocol SHA256 682f27a594436313a44a67beca95da019fe72c697b057b618208af177154c2d4.
+Block summary SHA256 28c18f8df7eff06854981784176b25e419da38e3b837d8e17a8f6a00cbb2d278.
+
+Actual source inspection identifies a missing control: current sampled_return
+uses only one selected decision per complete source match, weighted by K.
+Conditional on the source trajectory, E[K*g_T]=sum_t g_t. Full-source Monte
+Carlo therefore removes the root-selection covariance by total covariance,
+without changing its expected gradient. This does not order full-source versus
+all-action branch variance, or guarantee stronger play. The old complete-MC
+training screen used MLP/PPO, not this retained-Transformer single-step learner;
+retained-agent complete-return direction probes did not train this variant.
+Next implementation should keep all eligible source states/actions, accumulate
+per-match-normalized Monte Carlo gradients, and compare against both existing
+root estimators. This is an established full-trajectory baseline, not a novel
+RL algorithm. It is not yet implemented or launched. The stronger-play/research
+goal remains active. The verified opening-revision PDF is unchanged this turn.
