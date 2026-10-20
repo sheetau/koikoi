@@ -7350,3 +7350,26 @@ complete;full training audit/evaluation remain unstarted. All107training and
 170queue bindings verify unchanged,no failure receipts. Preserve both live
 jobs and all completed artifacts. Canonical/dealer/manuscript unchanged;goal
 active,with strength/novelty conclusions still pending real comparison results.
+
+
+## First auxiliary learner seed complete (2026-10-20)
+
+Verified waits on actual runner17896/session20751 and queue59480/session19901
+continued through seed1_score update520. Its complete receipt now exists and
+the same runner entered seed2_none(update18 verified). Three of six conditions
+complete;no main strength evaluation or full training audit yet. No restarts,
+new tests or inference were performed during waiting.
+
+Seed1_score:PPO8,519,680decisions/562,889round endings/73,152matches;520updates
+including20warmup/500policy. Value Adam49,920,each actor48,000. Auxiliary100cycles:
+1,484,689decisions/98,184round endings/12,800matches/96,497retained rows;
+578,982presentations/4,800Adam calls for each discard/pick/koi model.
+Endpoint manifest287505f567c192e6de2c168c058c47ecc05b677a4aaa5f7c41085c5b15d0c663.
+Metricsaf2995ce219f7e023cef07b8c9626771eb954b8ac3099e5be21313d3648e201a.
+
+All107training and170queue bindings rechecked unchanged,no failure receipts.
+Both original process handles remain live. Finish the second learner seed,
+then follow the already-connected training audit/evaluation queue and separate
+mechanism/export commands. Canonical,dealer and manuscript unchanged. Goal
+active;no new playing-strength or novelty conclusion follows from completion
+of learning alone.
