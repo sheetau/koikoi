@@ -4,10 +4,12 @@ Manuscript working files
 This is an English research manuscript, not a submitted or published paper.
 
 Current verified revision: 39 pages including appendices, 44 cited references,
-159-word Abstract, 389-word Introduction and 169-word Conclusion. The main text
+164-word Abstract, 418-word Introduction and 169-word Conclusion. The main text
 ends on page19. The title is "Match Adaptation and Public-Information Planning
-for Koi-Koi Transformers." Abstract and Introduction state the adaptation,
-public-information controller and exact-critic contributions directly.
+for Koi-Koi Transformers." Abstract and Introduction now lead with the public
+reconstruction-to-executable-policy contribution and certificate compression.
+Synthetic capped recovery, conditional gains, measured match adaptation and
+the exact-critic example are stated separately.
 
 Section9 explains complete contingent policies, retained completed candidates
 under search caps and the conditional-expectation guarantee. It includes the
@@ -27,16 +29,17 @@ ledger is preserved, modulo line endings, in ``reproduction_ledger.tex``.
 Detailed negative results and work accounting remain in that companion ledger
 and ``docs/EXPERIMENTS.md``.
 
-Latest QA: ``runs/manuscript_symbolic_method_qa.json``. All39pages were rendered
-and contact-reviewed; changed pages18/19 inspected at full size. All27fonts embed;
+Latest QA: ``runs/manuscript_program_opening_qa.json``. All39pages were rendered
+and contact-reviewed; changed pages1/2 inspected at full size. All27fonts embed;
 no page-bound, TeX box, glyph, reference or bibliography warning remains. The
-existing Fontconfig notice is unchanged. ``generated/symbolic_method_evidence.json``
-binds the new method and completed comparison. Every474eligible arm selection
-descriptor is unchanged in the opponent-only comparison. Earlier experiment
+existing Fontconfig notice is unchanged. ``generated/program_opening_evidence.json``
+binds this revision to the previous method/results QA. Related Work and every
+later section are unchanged. ``generated/symbolic_method_evidence.json`` retains
+the completed comparison and synthetic capability evidence. Earlier experiment
 audits are reused without rehashing the complete old corpus.
 Current PDF: ``output/pdf/manuscript.pdf``; SHA256
-f6a7f81b0684b2708649a772c2413ca01deea8ca97ecb726e546afd994e0b66a.
-The preceding PDF is ``output/pdf/manuscript_before_symbolic_method_4c32ce14.pdf``.
+a6580dbb05a5b64f0689c9ac410210a9ecbf3dd67dc43c3dc6de62dab10b8f07.
+The preceding PDF is ``output/pdf/manuscript_before_program_opening_f6a7f81b.pdf``.
 
 The stronger-play objective remains active. Current job state is in
 ``docs/STATUS.md``; later historical revision notes are not a live-job inventory.

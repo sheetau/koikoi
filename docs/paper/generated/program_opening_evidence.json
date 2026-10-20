@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "scope": "Lead Abstract/Introduction with public reconstruction and executable endgame programs; distinguish synthetic recovery, conditional gains and measured match adaptation.",
+  "manuscript_sha256": "0ab4abbb206c184df5f752f7941eadd9340ef3359c1e1f5f7f62333dabde79b0",
+  "pdf_sha256": "a6580dbb05a5b64f0689c9ac410210a9ecbf3dd67dc43c3dc6de62dab10b8f07",
+  "qa_sha256": "4621f3e35d796369084254f144f0d96731c653cb637d766bf77aa52525d759db",
+  "prior_qa_sha256": "d05c2c9ede86d78b469a36261438f26a1f1097112df78d8e38135405b3d29208",
+  "prospective_evidence_sha256": "f7948cdb0ba9220e00b286670baec803f437b7f2f8fbe2bb7fd0034323b7dc63",
+  "symbolic_method_evidence_sha256": "da59b6300d052a36888b2dc6421f6b66c1f5e5019dfa7083f8d2dccb1c15c716",
+  "body_from_related_work_unchanged": true,
+  "pages": 39,
+  "references": 44,
+  "abstract_words": 164,
+  "introduction_words": 418,
+  "new_simulator_work": 0,
+  "pending_symbolic_outcomes_used": false
+}

@@ -9585,3 +9585,29 @@ complete. All108frozen inputs verified unchanged using symbolic_tail_replay.chec
 No interim outcome inspection, duplicate launch/audit/export, reserved101M use,
 or selected-subset recovery. Complete comparison evidence remains the next
 prerequisite before deciding a future evaluation.
+
+
+## Lead the manuscript with executable public-information policies (2026-10-21)
+
+Revised only Abstract and Introduction in docs/paper/manuscript.tex. They now
+lead with public opponent reconstruction, shared hidden-world decisions,
+complete executable policies and public-score certificate compression. The
+synthetic capped recovery,512-source conditional gains and the actual-win
+criterion are distinct from the original held-out match-adaptation result.
+The exact critic counterexample remains stated with its empirical boundary.
+No new algorithm-priority claim or interim symbolic outcome is introduced.
+Abstract164words;Introduction418words;Related Work and all later TeX unchanged.
+
+Built with external/tectonic/tectonic.exe --keep-logs --outdir output/pdf
+docs/paper/manuscript.tex. Rendered all39pages using
+python runs/render_program_opening.py; reviewed seven contact sheets and pages1/2
+at full size.44references,27embedded fonts,no page-bound or TeX/BibTeX warnings.
+The prior passed method/results bindings remain unchanged. QA
+runs/manuscript_program_opening_qa.json passed and tracked evidence
+docs/paper/generated/program_opening_evidence.json binds the revision.
+PDFa6580dbb05a5b64f0689c9ac410210a9ecbf3dd67dc43c3dc6de62dab10b8f07;
+backup output/pdf/manuscript_before_program_opening_f6a7f81b.pdf.
+No source matches, planning transitions, neural inference or current-study
+outcome inspection. Pipeline99772/queue64312 and worker66784 remain live;
+31/32chunks complete,last observed source391/root_only. Complete symbolic
+comparison and audit remain prerequisites for the next evaluation decision.

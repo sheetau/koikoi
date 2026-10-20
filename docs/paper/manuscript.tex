@@ -19,22 +19,22 @@ for Koi-Koi Transformers}
 \begin{document}
 \maketitle
 \begin{abstract}
-Terminal-match self-play improves the published Koi-Koi win policy while
-preserving its Transformer architecture and greedy inference. After 8.52 million
-additional decisions each, two adapted agents achieve 51.480\% and 51.445\%
-draw-adjusted win scores against assisted RL-WP on 10,000 held-out duplicate
-deals; both 95\% intervals exclude 50\%. Starting from RL-Point instead raises
-equal-opponent mixture point margins by 1.77--2.08 points over matched
-WP-initialized controls. We also build an executable endgame controller from
-public play. Completed hands identify the fixed WP/Point opponent in 86.1\% of
-natural final-round starts. The controller reconstructs a belief over hidden
-cards and retains complete policies whose exact conditional value exceeds the
-parent's, including policies recovered before search reaches its computation
-limit. On 512 prospective sources, conditional gains average 0.2619 and 0.3246
-percentage points; the actual-win criterion is not met. Finally, an exact
-shared-parameter counterexample shows how switching between players' critics
-can reverse the expected policy update despite exact conditional values.
-Returns between learner decisions correct the complete example.
+We construct a public-information endgame controller for Koi-Koi that identifies
+a fixed WP/Point opponent from completed hands, reconstructs hidden-card
+beliefs, and commits to a complete contingent policy. Exact comparisons retain
+improvements over a parent actor under a computation cap. Public score
+certificates compact these policies into explicit decisions plus a checked
+parent continuation; a synthetic capped example recovers an improvement that
+explicit search cannot certify. On 512 prospective source matches, the explicit
+controller's mean conditional gains are 0.2619 and 0.3246 percentage points for
+two parents, while the predefined actual-win criterion is not met. The parent
+actors are obtained by terminal-match self-play from the published win policy.
+After 8.52 million additional decisions each, they achieve 51.480\% and
+51.445\% draw-adjusted win scores against assisted RL-WP on 10,000 held-out
+duplicate deals; both 95\% intervals exclude 50\%. They retain the published
+Transformer architecture and greedy inference. An exact shared-parameter
+counterexample also shows why switching between players' critics can reverse
+the expected policy update, motivating returns between learner decisions.
 \end{abstract}
 
 \section{Introduction}
@@ -45,45 +45,50 @@ change the best decision for the same hand. Expected points and match wins
 are therefore distinct learning objectives.
 
 Guan et al. trained Transformer agents for these objectives: RL-WP for wins
-and RL-Point for points \cite{guan2023koikoi,pinnedkoikoi}. We use their released
-agents to study match adaptation and the information needed for further
-improvement. The resulting system combines a match-trained actor with an
-endgame controller that reconstructs the opponent from public play. A separate
-exact analysis identifies how player-relative critic inputs can misdirect
-learning.
+and RL-Point for points \cite{guan2023koikoi,pinnedkoikoi}. We adapt their
+released actors and build an endgame controller that uses public play to
+improve their decisions. The central task is to connect opponent inference
+to an executable continuation: a hidden-card search must share each learner
+decision across indistinguishable deals and execute the policy it evaluated.
 
-Terminal-match self-play improves the released win policy without changing
-its deployed architecture. We convert action scores into a stochastic policy
-and optimize it with PPO \cite{schulman2017ppo}, using match-end rewards and
-retaining value across round boundaries. After 8.52 million additional decisions
-each, both adapted agents beat assisted RL-WP on held-out duplicate deals with
-greedy action selection. Starting from RL-Point raises equal-opponent mixture
-point margins by 1.77--2.08 points over matched WP-initialized controls
+Our controller makes this connection in three steps. Eight public hand
+discards reveal the opponent's initial hand. Reconstructing its earlier
+network inputs identifies WP or Point in 86.1\% of natural final-round starts
+(Section~\ref{sec:public-revelation}). Current-round action likelihoods then
+filter the possible hidden hands. Finally, search retains complete contingent
+policies and exact comparisons against the unchanged parent. A retained
+improvement remains executable when the computation limit prevents further
+search (Section~\ref{sec:incumbent-tail}).
+
+Public outcome certificates make these programs smaller. Where the final-round
+score and turn guarantee a win under every legal continuation, the program
+calls its parent instead of storing each remaining decision. Search accounts
+for that region's belief mass directly. A synthetic capped example completes
+a parent reference and an improving continuation that explicit search cannot
+retain under the same cap; independent replay verifies the entire program
+(Section~\ref{sec:symbolic-tail}).
+
+A fixed comparison on 512 new source matches evaluates the explicit controller
+against parent and root-only controls. Mean conditional gains over the parents
+are 0.2619 and 0.3246 percentage points. The predefined replicated actual-win
+criterion is not met. Reporting both quantities separates improvement under
+the reconstructed model from the realized match outcomes.
+
+The parent actors themselves improve through terminal-match self-play. We
+convert the released action scores into a stochastic policy and optimize it
+with PPO \cite{schulman2017ppo}, retaining value across round boundaries.
+After 8.52 million additional decisions each, both adapted agents beat
+assisted RL-WP on held-out duplicate deals with greedy action selection.
+Starting from RL-Point instead raises equal-opponent mixture point margins
+by 1.77--2.08 points over matched WP-initialized controls
 (Section~\ref{sec:point-initialization}).
 
-The critic analysis explains why exact value estimates can still produce an
-incorrect policy update. In a two-step shared-parameter game, the opponent's
-observation omits information used by the learner's earlier action. Switching
-to that opponent's critic reverses the expected update. Returns between learner
-decisions correct the complete example (Section~\ref{sec:observer}).
-The Koi-Koi experiments test this return construction and a fixed-viewer
-alternative; they do not establish an additional replicated win gain.
-
-Public reconstruction supplies a different route to improvement. Eight public
-hand discards reveal the opponent's initial hand. Reconstructing its earlier
-network inputs then eliminates inconsistent fixed opponent models, identifying
-WP or Point in 86.1\% of natural final-round starts
-(Section~\ref{sec:public-revelation}).
-
-The controller uses this recovered model to evaluate hidden-card hypotheses
-consistent with the observed history. Indistinguishable worlds share every
-learner decision. Search retains complete contingent policies and their exact
-values, so an improving policy remains executable even when the computation
-limit prevents further comparison. Adoption requires an exact gain over the
-unchanged parent under the same belief (Section~\ref{sec:incumbent-tail}).
-A fixed comparison on 512 new source matches measures both this conditional
-gain and realized win scores against parent and root-only controls. Conditional
-gains occur for both parents; the replicated actual-win criterion is not met.
+An exact two-step analysis explains a separate learning failure: switching
+between players' critics reverses the expected update when their observations
+contain different information. Returns between learner decisions correct the
+complete shared-parameter example (Section~\ref{sec:observer}). Koi-Koi tests
+of this construction and a fixed-viewer alternative establish no additional
+replicated win gain.
 
 \section{Related work}
 \subsection{Learning to play Koi-Koi}

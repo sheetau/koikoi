@@ -89,21 +89,22 @@ All-source conditional gains versus parent are+.2619/+.3246pp. See
 PROSPECTIVE_INCUMBENT_RESULTS.rst. Original protocol700e11608e3ced60919ca7ef31da460785ff9391459ac83c7e8a16f4a1a0c170;
 summaryc80bbcbc67b1923632ea2480bacb06df8066f1e587ad83e843458fc782298f1e.
 
-Current manuscript now includes Section9.5: executable certificate compression,
-its public margin proof, complete-program semantics, synthetic capped recovery
-and completed opponent-only comparison. It includes no interim symbolic results.
-PDF39pages/44refs;Abstract159/Intro389/Conclusion169words unchanged. All39pages
-rendered/contact-reviewed,18/19full size;27fonts embedded,no TeX/layout/BibTeX
-warnings. PDFf6a7f81b0684b2708649a772c2413ca01deea8ca97ecb726e546afd994e0b66a;
-QA runs/manuscript_symbolic_method_qa.json passed. Evidence ledger
-docs/paper/generated/symbolic_method_evidence.json binds the section, comparison
-and synthetic capability. All474eligible arm selection descriptors verified
-unchanged for the completed opponent-only comparison. Updated paper README's
-stale headline/QA/counts. No new simulation. All108running-study inputs intact;
-pipeline99772/queue64312 live,7/32chunks observed complete during this edit.
-After the symbolic comparison completes, incorporate its complete results and
-determine the remaining stronger-play work. Keep the goal active.
-Canonical human play and initial dealer selection are unchanged.
+Current manuscript leads its Abstract/Introduction with public reconstruction,
+complete executable endgame policies and certificate compression. Synthetic
+capped recovery, conditional gains and measured match adaptation are separated;
+the actual-win criterion remains failed. Related Work and every later section
+are unchanged, including Section9.5's method and completed opponent-only result.
+No interim symbolic outcomes enter this revision. PDF39pages/44refs;
+Abstract164/Introduction418/Conclusion169words. All39pages rendered/contact-
+reviewed,1/2full size;27embedded fonts,no TeX/layout/BibTeX warnings.
+PDFa6580dbb05a5b64f0689c9ac410210a9ecbf3dd67dc43c3dc6de62dab10b8f07;
+QA runs/manuscript_program_opening_qa.json passed; evidence
+docs/paper/generated/program_opening_evidence.json binds the revision to the
+previous passed method/results QA. README headline and current artifact updated.
+No new simulation. Pipeline99772/queue64312/worker66784 remain live,31/32chunks
+complete,last observed source391/root_only. After the comparison completes,
+incorporate its complete results and decide the next stronger-play evaluation.
+Keep the goal active. Canonical human play and initial dealer remain unchanged.
 
 ### Completed diagnostics and supporting history
 
