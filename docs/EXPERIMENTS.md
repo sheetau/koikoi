@@ -8590,3 +8590,24 @@ omittedones explicitly. Comparechosenpolicy/value withall18savedcomplete roots
 andindependentPythonoracle before15refusalrecovery orfreshsourcecollection.
 Explicitlive-node/physicalcapsremain. StandardboundedDP,nopriorityclaim.
 No suchpruningimplementation or recoveryrunexists atthismilestone.
+
+## 2026-10-20: exact ceiling pruning verified and two-stage protocol fixed
+
+Added scripts/ceiling_belief_tail.py. Parent-first action order retains oldties;
+value=totalmass certifies that no remaining action can improve. All computed
+valuesareexact;uncomputedrootactionsareexplicit,notfabricated. Node choices
+remaininformation-consistent. Physical/live-node/frontier/depthcapsretained.
+python -m pytest tests/test_ceiling_belief_tail.py -q:7passed,0skips,2.76s.
+Hidden/revealed tinygames withnonunitmass;rootceilingparenttie;both-seatnative
+values/policiesagreewithfullplanner;independentPythonreplayandbudgetfailures.
+
+Fixed docs/CEILING_BELIEF_TAIL.rst:Stage1 scripts/check_ceiling_tail.py compares
+all18completedfive-drawroots withterminalreduction, freshseparatecaches and
+alternatingorder. Allchosenpolicies/values andcomputedrootvaluesmatch;newPython
+oracleforallcomputedceilingpolicies. Both500klive/2Mphysical/4096frontier/depth32.
+Stage2onlyafterStage1bindingspass:all15oldrefusals,nonechosenbygain,nonewsource,
+allremainingrefusalskept, exactoracle/saveallplansbeforeactualtailassessment.
+Original64sourcedenominatorand31missingretained. Additionalbudgetafteroriginal
+studymeansrecoveryisexploratory,notnewstrengthconfirmation. No automaticescalation.
+Stage1notlaunched;commitbeforelaunch. Stage2runnernotimplementedyet. Goalactive;
+no training,productionmodelchange,101Muse ormanuscriptrebuild.

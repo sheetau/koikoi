@@ -129,19 +129,25 @@ Bothcap2Mphysical;control2Mallnodes/reduced500klive,nonbinding onthese18roots.
 The15previouslyrefusedroots were notsolvedhere. No newstrengthgainclaimed.
 Protocol857196060cd8f3670676533f2883c58806940adbda86c4f0e4d72aa3d2de43e6.
 Completebca0c2086ba5a520c763de362354dc87cbf20d6a623d452ec68b4bee838cc835.
-Two newcoretests pass,0skips,2.99s. Allchangesverifiedandreadytocommit.
+Two newcoretests pass,0skips,2.99s. Results committed/pushed at1b9e1c2.
 
-Next optimization: exact value-ceiling pruning at learner choices. Evaluate
-parent action first, then remaining legal-order actions; once signed value equals
-that information group's totalmass, no alternative can improve it. This preserves
-parent-favoring ties and the optimal chosen contingentpolicy. Atroot, omitted
-actions must remain explicitly unevaluated,notassigned fabricatedexactvalues.
-Verify chosenaction/policy/value and all actuallycomputed actionvalues against
-savedcomplete18roots, with independentPythonoracle, before recoveryof15refusals
-or newsourcecollection. Keep physical-transition andlive-node budgets explicit.
-This is standard bounded dynamicprogramming;no priorityclaim ornewstrengthstudy.
-No ceilingpruning implementation orrecoveryrunexistsyet. Broadergoalactive;
-canonicalplay/PDFunchanged,101Munused. Newreplicatedmatch-win gain remainsopen.
+Ceiling pruning is implemented in scripts/ceiling_belief_tail.py. Parent-first
+learner choices stop onlyat exact signedvalue=information-set mass; uncomputed
+rootactions stayexplicitlyunevaluated. Seven tests pass,0skips,2.76s (hidden/
+revealed tinygames, nonunitmass, parentties, both-seatKoi completecomparisons,
+independentPythonpolicyreplay andcaps). No productioncodechanged.
+[Fixed two-stage protocol](CEILING_BELIEF_TAIL.rst).
+
+Stage1:paired terminal-reduced/ceiling comparison onall18complete savedroots,
+separatefreshcaches,alternatingmethodorder,fixedthenoptimized. Both500klive/
+2Mphysical/4096frontier/depth32. Exactselectedpolicy/value andallcomputedroot
+valuesmustmatch;independentPythonoracleverifiesallcomputedceilingpolicies.
+Notlaunchedyet;commitbeforelaunch. Stage2onlyafterbinding-verifiedStage1:
+attemptall15priorrefusals usingthesameexplicitcaps,saveallplansbeforeactualtails,
+retainallremainingrefusals. No newsourcecollection orautomaticbudgetextension.
+Stage2runnernotyetimplemented. Original64sources/31missingretained;anyrecovery
+isexploratorycapability,notnewprospectivereplicatedstrength. Goalactive;canonical
+play/PDFunchanged,101Munused. Priorresults committed/pushed through1b9e1c2.
 
 A saved-gradient block analysis is also closed: runs/branch_gradient_blocks.
 It verifies all four previous full-gradient totals by splitting 768 output
