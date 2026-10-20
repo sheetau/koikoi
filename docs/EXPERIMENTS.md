@@ -7192,3 +7192,44 @@ Milestone digests:
 - tests/test_score_auxiliary_evaluation.py: 8f8825246f805f2c282228500dd571767974c5d2dbda38f67d89cdb17940ce3e
 - runs/score_auxiliary_analysis_tests.xml: 4dedc0adb38fdfe9ec29e53eba88ec154e7c710b488576ccc8081de8d0c1dd5c
 - runs/score_auxiliary_evaluation_tests.xml: 2a3c31c8523f273da5aad2e926029548f0876660e03a8658dafcdbdfbe366f08
+
+
+## Score-auxiliary independent training auditor (2026-10-20)
+
+Implemented scripts/audit_score_auxiliary_collection.py and
+scripts/audit_score_auxiliary_training.py without learner/collector imports.
+Scope and commands:docs/SCORE_AUXILIARY_TRAINING_AUDIT.rst. Native action replay
+reconstructs reservoir row selection, public features, terminal margin labels,
+visits, legal masks and actual work. Separate shuffle reconstruction checks
+both Adam optimizers' phase call counts, moment shapes/finiteness and counters.
+All saved stages/metrics/collections and original Point identities are bound.
+Logged training losses are only checked for finite valid values; no gradient,
+PPO trajectory or neural action replay is claimed. No new method/strength claim.
+
+Focused pytest10pass0skips4.87s,twelve closed capability checkpoints; corruption
+rejection and four independent Python/upstream feature fixtures. Expected
+Transformer and pytest record_property warnings only. Tests add60,680native
+recorded decisions/3,892round endings/512terminations plus155Python prefix
+decisions; an earlier one-off valid replay adds15,170/973/128. All native replay
+uses the same128already-recorded capability deals,with no new policy matches.
+Ruff lint/format pass. Auditors/tests are new files; frozen sources untouched.
+
+The closed main seed1_none prefix through25 passes three checkpoints and one
+128match collection:15,095replayed decisions/980round endings/968retained rows.
+PPO409,600stored decisions inspected,not replayed. Prefix log hash binds only
+closed rows,not the growing live metrics file. Receipt31ede13ab447d643419a3b24779eaa1c43904bf4487390476821bfef9b9a8213.
+All107protocol bindings verify unchanged. Session20751/PID17896 continues:
+update394;PPO6,455,296decisions/423,261round endings/55,056matches;auxiliary74
+cycles/1,105,031decisions/72,518round endings/9,472matches/71,357retained rows.
+No auxiliary optimization in none. No main strength evaluation or promotion.
+
+Full audit requires complete six-arm receipts and passing test XML,checks
+all artifacts and bindings twice,then writes an exclusive training_audit.json.
+No full audit issued yet. Next completion queue and fixed mechanism diagnostics.
+Canonical/dealer and manuscript unchanged; goal active and unachieved.
+
+Milestone digests:
+- training auditor:82e38fc2c81d56ef357386a51268c86ab2fb9ab75aa07ebca55a8d72edafec81
+- collection auditor:de15d23fa2fba5771783b81b17539b447f1d513698ac639594b68b89fa474653
+- tests:ba16c53cfedf949b0eb93daf09b77b71fe5ae41fe5a57669ecd0a3658c556cf7
+- XML:c8cd4f0398068b4f47502ff058588a96069434cf9137fc09a7deb9d545e07862
