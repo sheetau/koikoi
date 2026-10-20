@@ -11,6 +11,25 @@ Old process handles mentioned in that history are historical, not live jobs.
 
 ## Current experiment and next actions
 
+**Next intervention: outcome-coarsened score auxiliary learning.**
+[Design and capability](SCORE_AUXILIARY.rst). A new isolated component reuses the
+published actor encoders with65-category terminal-margin heads. The matched
+win-only loss aggregates identical logits into loss/draw/win; the score loss
+adds within-outcome information. Deployment action heads and PPO match rewards
+remain unchanged. This applies established auxiliary-learning ideas; neither
+algorithmic novelty nor a playing gain has yet been established.
+
+Five CPU/CUDA component tests pass,0skips,4.91s. Each device executes2complete
+reference-checked matches/251decisions/16round endings on the same2capability
+deals, plus4auxiliary optimizer steps. Scores match the original actor exactly;
+finite gradients reach its encoders. This is not a training endpoint or strength
+result. Earlier duplicate test work is separately recorded in EXPERIMENTS.
+No full study is running. Next connect complete-outcome collection, auxiliary
+training/checkpoint persistence and exact resume; then freeze the three-arm,
+two-seed PPO/outcome-auxiliary/score-auxiliary comparison before strength runs.
+Do not reopen closed sweeps or use reserved101M deals. Parent selection and the
+canonical player remain unchanged. Stronger play/substantive novelty remain open.
+
 **Longer adaptation and recovered evaluation are independently complete.**
 [All results](PUBLISHED_DURATION_RESULTS.rst). Session2601 exits0 after all12cells
 and the full native-action/statistics audit. Training, evaluation and recovery
@@ -109,8 +128,8 @@ Export evidence9de59a0b52764c5a823f63c8dcb0f5cf30bb294417f9298aaa233c9d2a03b647.
 Queue completionf84db1b43691c1641a04a4c7bbc879d1f1ed8ceaacbf310609a4b50c9f74e5f3.
 
 The manuscript now includes the complete Point comparison and its pre-outcome
-mechanism (latest PDF below). Next identify a distinct evidence-supported
-intervention for stronger match play and a substantive research contribution.
+mechanism (latest PDF below). The distinct auxiliary-representation intervention
+above is now implemented at component level; full training integration is next.
 Do not reopen closed duration/temperature sweeps or promote a failed candidate.
 The broader stronger-play/novelty objective remains unachieved.
 

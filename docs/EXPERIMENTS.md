@@ -6899,3 +6899,54 @@ TeXee5a7766e11e1a3743b26bc6eb2aab5a94e1ac17e6c1c4cabef6cb309473092a;
 QAd2de912a02ab580648abf11d65abc8d5175ee97341498ee2fc1b567817a3fdb0
 at runs/manuscript_point_20261020_qa.json. No model/dealer change or new game work.
 The broader stronger-play/novelty goal remains active;no study is currently live.
+
+
+## Outcome-coarsened score auxiliary component, 20 October 2026
+
+The completed Point manuscript is committed/pushed as5d7411a. No manuscript
+numbers or PDF change in this component milestone. The next hypothesis concerns
+learning useful score features in the actor while retaining win rewards.
+Existing Point/temperature/duration/selector trials remain closed.
+
+Added scripts/score_auxiliary.py and docs/SCORE_AUXILIARY.rst. The actor retains
+its original score head and public inputs; three auxiliary65-category heads
+predict sign-preserving compressed terminal margins. A matched outcome-only
+loss marginalizes those same logits into loss/draw/win. Full score cross entropy
+adds the within-outcome term exactly. Same parameters/initialization, equal
+initial outcome mass, legal-token pooling, masked clone KL atT0.05. The initial
+head attachment preserves CPU RNG. There is no change to production learning,
+native rules, canonical inference or dealer selection.
+
+Primary prior art checked: Phasic Policy Gradient (PMLR139,Algorithm1/Section2),
+UNREAL (arXiv1611.05397), distributional RL (PMLR70,Bellemare2017). Auxiliary
+phases and categorical returns are established; the decomposition is ordinary
+conditional likelihood. A new method/strength claim requires actual comparative
+evidence. The previous categorical selector froze expert representations;
+this proposed intervention trains the inherited encoder itself.
+
+Command .venv/Scripts/python.exe -m pytest tests/test_score_auxiliary.py -q
+-o junit_family=xunit1 --junitxml=runs/score_auxiliary_capability_final_tests.xml
+passes5,0skips,4.91s,two expected upstream Transformer warnings. CPU/CUDA each
+execute2complete capability matches/251decisions/16round endings on the same
+105010001/105010002streams, and4auxiliary optimizer steps/16example presentations.
+Total verified final execution502decisions/32round endings/4matches on2distinct
+deals,8optimizer steps/32presentations. Independent Python/native transitions
+and endpoint labels agree, all4phases are covered, inherited scores agree exactly
+with and without autograd, finite gradients reach the encoders. Scalar tests
+independently check likelihoods, clipping/seat symmetry, KL and forced masks.
+A fixture explicitly disproves probability preservation from the conditional
+loss, preventing a false win-safety claim.
+
+Earlier preliminary test run:5passes0skips6.01s,another502decisions/4matches/
+8auxiliary optimizer steps on the same deals. Its round reporting incorrectly
+counted positive terminal rewards; fixed before final run. Earlier round counts
+are not treated as verified. Both XML files remain separate. Ruff lint/format
+pass. No full actor training endpoint, fresh strength comparison or promotion.
+Next integrate complete frozen-policy outcome collection, separate auxiliary
+phases, saved optimizer/head state and exact resume before fixing a main study.
+
+Input digests:
+- scripts/score_auxiliary.py: 3ba9ed2a3bed740bf271642cd6dc1d0565cea6075edea0a67539136890aa92a2
+- tests/test_score_auxiliary.py: 6193f416f5e7ff8b2aa27cc25f7d84b39f5633802dcf4b2680de5a08bf68048d
+- docs/SCORE_AUXILIARY.rst: 30ed06e007fdee1397bfa387ff427aeb6e85b9c76a634598de822c9712b6130a
+- runs/score_auxiliary_capability_final_tests.xml: a1b317b13a73ccfed0054941a577609d9a5dd9f5d205c0fcc79360ed012cb056
