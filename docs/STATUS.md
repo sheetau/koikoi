@@ -11,6 +11,18 @@ Old process handles mentioned in that history are historical, not live jobs.
 
 ## Current experiment and next actions
 
+Latest milestone (2026-10-21): the capped incumbent controller is implemented,
+verified and executed on the saved cohort. All planned diagnostic jobs are closed.
+It accepts only complete policies with exact improvement over the unchanged parent
+under the same finite belief. Combined conditional gains are +0.7969/+0.5905pp;
+all realized win changes remain zero. This is not a new replicated strength result.
+See INCUMBENT_RECOVERY_RESULTS.rst and INCUMBENT_GUARANTEE.rst.
+Next: define and run a costed prospective comparison on unused development deals,
+including parent and a root-only control with matched total computation. The old
+64-source corpus is closed for these diagnostics. No fresh seed block is allocated.
+
+### Completed diagnostics and supporting history
+
 **The eight-arm root-allocation/step-size study is complete. Its predefined
 strength criterion fails; one candidate-minus-parent primary interval is
 wholly negative. All training/evaluation audits pass. That study has no live job.**
@@ -279,18 +291,45 @@ Completec5bc93283539291ecd67cb7af7ae634131a98bf90e8fb4932fc460f596606eb4.
 Protocol5e806932b7cd4f4794700b6462e46cff6cc0423bebd08e62da75a7c53a4bcf9e.
 Report11b2146894da59e12f8b7373308b47e7708d65f80940b682c9259a5a1f1fa0d4.
 
-Next scripts/check_incumbent_recovery.py preflight passes133 bindings and exactly
-five roots0/4/20/36/52. [Fixed protocol](INCUMBENT_RECOVERY.rst). Run the actual
-controller schedule,2Mphysical/500klive/depth32 perphase, at most4M/root. Reuse
-verified support/worlds and observation-keyed action caches. Fixed phases and
-previously attempted optimized phases must reproduce old work with0newcalls.
-Three newly eligible optimized phases are explicit additional work. Verify every
-newly retained completed root policy independently; prior complete fixed maps
-must match exactly to reuse old oracle evidence. Freeze all five selections
-before actualtails, retain all64 source outcomes. Assessment helper reproduces
-frozen source0 exactly:1test passed,0skips,1.90s (existing upstream Torch warning).
-Commit before launch; not yet launched at this entry. No source/cap escalation,
-canonical model, reserved101M or manuscript change. Goal active.
+Actual retained-incumbent evaluation is complete (session18992/PID25980 exited0).
+All five roots ran both phases. Previously attempted phases reproduce exact work
+with zero new adapter calls; optimized phases4/20/52 add explicit new work.
+Parent references match the profile. Two old complete fixed policies reuse their
+oracle evidence; five newly retained root policies pass independent Python replay.
+[All attempts and combined results](INCUMBENT_RECOVERY_RESULTS.rst).
+Source0 now adopts an optimized continuation of rootaction39:Q55113/80080 versus
+parent1711/2640, gain4819/120120 (+4.0118pp locally). Search remains capped with
+within-optimized-phase gap24967/80080. The chosen policy itself is complete.
+Other4 roots retain parent. All10 actual parent/controller tails and separate
+replays pass; point margins and wins are unchanged. Seven total adoptions remain
+in the original64source/16stream cohort. Combined conditional gains per32sources:
+204203/25625600 (+0.796871pp) and2699329/457142400 (+0.590479pp); realized gains0.
+Completed-phase work3,725,271decisions/3,303,427terminalbranches; capped-phase
+work15,999,927/14,074,152 (19,725,198/17,377,579 combined). New independentoracle
+5,732,910/5,040,902;represented oracle68,628,933decisions/13,590,720completions.
+New adapters38,319parent/12,029opponent. Actual46decisions/10completions, separate
+replay same; actualactor24parent/22opponent calls. No newsource/history/training.
+Fixed107.516820s,optimized199.313384s,oracle187.030644s with reused caches;
+these are not a paired speed comparison. Complete-only export audit passes.
+Protocol2365bf2ff39b69e38ba973f18da10fdb265a9e9e351b0dd958497e1cf4517b94.
+Complete76c56afcc94ea8aaa2d7116766d193161a65676b09ede430b8e33b23eea49380.
+Report0192337e0ef33d4f85829acc7db54a8810e92314ef19ac442bbba69920d810aa.
+No live job. Do not repeat this closed diagnostic or automatically raise caps.
+
+[Expected-match guarantee and prior work](INCUMBENT_GUARANTEE.rst) states the
+conditional-expectation policy-switching argument under the declared model,
+including correct posterior and committed continuation assumptions. A finite
+check passes1test,0skips,1.40s:conditional gain1/4 with gateprobability3/10 gives
+populationgain3/40, can lose on an individual world, and reverses under a changed
+true prior. This does not prove superiority under the finite seed distribution.
+Primary HSVI2004, SPIBB2019 and MCTS-SPIBB2023 sources were read and credited;
+anytime policies/bounds and safe baseline improvement are established ideas.
+No new-general-algorithm or world-best claim. Manuscript/PDF remain unchanged.
+Next fix a prospective comparison on unused development deals, with parent and
+root-only control, explicit matched total computation, source budget and cost/
+feasibility checks. No new seeds or source budget have been allocated yet.
+Do not infer population effect size or replication from the16 saved streams.
+Goal remains active; canonical play, dealer and reserved101M remain unchanged.
 
 A saved-gradient block analysis is also closed: runs/branch_gradient_blocks.
 It verifies all four previous full-gradient totals by splitting 768 output

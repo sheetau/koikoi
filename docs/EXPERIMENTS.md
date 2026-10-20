@@ -8842,3 +8842,41 @@ New assessment helper tests against frozen adoptedsource0:1passed,0skips,1.90s;
 existing upstream Torch nested-tensor warning only. Lint/format pass.
 Commit beforelaunch; not yet launched at this entry. No newsource/historyreplay,
 training, promotion, final101M or manuscript change. Goal active.
+
+## 2026-10-21: incumbent controller recovery and export complete
+
+python -m scripts.check_incumbent_recovery completed0(session18992/PID25980).
+All5 roots run both phases; old phases exactly reproduce work with0newadaptercalls.
+New optimized4/20/52 phases are explicit additionalwork. All parentreferences
+match the profile;2completefixed maps reuse oldoracle,5newlyretainedpolicies pass
+independent Python replay. Source0 adopts complete optimized root39 policy with
+Q55113/80080 versusparent1711/2640,gain4819/120120(+4.0118pp),while its search
+remains capped and gap24967/80080 remains. Other4roots retainparent. All10actual
+parent/controller continuations and separate replay pass; margins/wins unchanged.
+Combined64source/16stream cohort still7adoptions; per32source conditionalgains
+204203/25625600(+0.796871pp),2699329/457142400(+0.590479pp);realizedgains0.
+Completedphase3,725,271decisions/3,303,427branches;capped15,999,927/14,074,152;
+total19,725,198/17,377,579. Neworacle5,732,910/5,040,902;represented68,628,933/
+13,590,720. Newadapters38,319parent/12,029opponent. Actual46/10,separatereplaysame;
+actualactor24parent/22opponent. Nonewsource/history/training. Fixed107.5168204s,
+optimized199.3133839s,oracle187.0306439s;cache reuse prevents speed comparison.
+python -m scripts.export_incumbent_recovery completed0(session87429).
+Selection/context/values/maps/hashes and
+combined replacement accounting verified. Report INCUMBENT_RECOVERY_RESULTS.rst.
+Protocol2365bf2ff39b69e38ba973f18da10fdb265a9e9e351b0dd958497e1cf4517b94.
+Complete76c56afcc94ea8aaa2d7116766d193161a65676b09ede430b8e33b23eea49380.
+Report0192337e0ef33d4f85829acc7db54a8810e92314ef19ac442bbba69920d810aa.
+
+Added docs/INCUMBENT_GUARANTEE.rst: exact conditional-expectation switching identity
+with explicit same-generative-law/posterior/committed-policy assumptions. Strict
+reachable witnesses imply no useful population magnitude without history weights;
+finite PRNG-seed superiority and arbitrary opponent robustness are not proved.
+python -m pytest tests/test_incumbent_guarantee.py -q:1passed,0skips,1.40s. Exact
+four-world check shows localgain1/4,global3/40 atgate3/10,possible realizedloss,
+and negativegain-6/11 under a changed trueprior. No newKoiKoimatches fromthischeck.
+Primary HSVI2004 (CMU author page),SPIBB2019 (PMLR97),MCTS-SPIBB2023(PMLR202)
+read and linked; established anytime bounds/safe improvement clearly credited.
+This is not a new general theorem. No manuscript/PDF change or reserved101Muse.
+Next:costed prospective comparison with parent and matched-compute root-only
+control on unused development deals; no new sourcebudget/seedblock allocated yet.
+Goalactive. All diagnosticprocesses terminal; do not rerun them or raise theircaps.
