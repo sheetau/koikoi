@@ -7941,3 +7941,55 @@ identical outcomes for every legal action. The corrected check permits unchanged
 weights only for that zero-signal fixture with gradient norm below1e-6. No
 production fix or favorable-seed substitution was needed. Both retained parents,
 three modes and all128final updates are fixed before the actual study starts.
+
+
+## 2026-10-20: six-arm branch-gradient screen running; full-gradient signal analysis
+
+Committed/pushed6ffc627 contains the implemented estimator, closed diagnostic,
+training recipe and14passing estimator/trainer checks. Launched exactly once:
+`.venv/Scripts/python.exe -m scripts.train_branch_policy_gradient`;
+session64742, workerPID19268/launcher44224. Training protocol SHA:
+81e364a8254a5bc50e418e88907bb6e6c848bd3770556ee25dd2f3e37d08e59b.
+Both parents have fixed128update endpoints for shared/independent/sampled-return
+conditions;64source matches/update. Source/branch accounting and all action
+transcripts are retained. No intermediate evaluation or model selection.
+
+Implemented separate GPU development evaluator with duplicate deals/both seats,
+original WP/Point opponents, fixed six-coordinate max-absolute simultaneous
+bootstrap and all final endpoints. Independent CPU audit covers every recorded
+training/evaluation transition and initial deal, root selection, labels/counters,
+and independently reconstructs primary statistics. It does not replay neural
+updates/inference. Evaluation tests3passed,0skips,2.43s; actual reduced training
+audit plus corruption rejection1passed,0skips,4.17s. Ruff passes. Capability
+fixtures are separate from study work. No substantive numerical sources of the
+running training study were edited.
+
+Completion queue command:
+`.venv/Scripts/python.exe -m scripts.finish_branch_policy_study --training-pid 19268`.
+Session15164/PID55284 waits for the existing trainer and then executes training
+audit, evaluation and evaluation audit. It binds all implementation inputs and
+fails on changed bindings or trainer exit without completion. Protocol SHA:
+acdc3d9eb0195d9a1e338017c1ab3ddc4317f433509ab0651f10ba67efbf10c3.
+No duplicate training/evaluation launch. At this milestone parent1 all3arms and
+parent2 shared have completed; parent2 independent is running. Early root action
+changes are sparse; no strength conclusion from these training metrics.
+
+While training proceeds, post-hoc analysis uses all closed diagnostic outcomes
+to measure batch-mean full-actor gradient variance. Command:
+`.venv/Scripts/python.exe -m scripts.branch_parameter_variance`; exited0.
+Output runs/branch_parameter_variance. Both parents, both modes, all8replicates,
+all4,019,715parameters retained.32backward passes;0new decisions/rounds/matches/
+branches. Saved root probabilities agree exactly with original diagnostic;
+both parent parameter digests remain unchanged. Four complete gradient matrices
+are hash-bound; NumPy and Torch independent scalar variance calculations agree.
+
+Parent1 shared/independent variance29,797.22899214353/47,987.06052225022,
+ratio0.6209429931. Parent2:56,458.08338973405/165,358.3057129745,
+ratio0.3414287728. Thus conditional variance is also lower after the actor
+Jacobian. This is post-hoc reuse of eight replicates on the same roots, not
+independent replication, total training-gradient variance or strength evidence.
+Protocol SHAab5580640eac614bf94a915a25e3b2d993f0c3b6f152eb211c35cb00398199a3.
+Summary SHAab0b2063cc63db13a7393f266fe83a07a560d1f5241922505f302c766b06b53c.
+The saved-data analysis is closed; do not rerun. Results are recorded in
+BRANCH_POLICY_GRADIENT_RESULTS.rst. The verified manuscript remains unchanged
+until actual learned-policy evaluation is available.

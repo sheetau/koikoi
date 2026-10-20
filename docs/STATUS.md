@@ -26,12 +26,24 @@ recomputes all conditional variances. Audit SHA:
 Completed artifacts: runs/branch_policy_gradient_diagnostic. Do not rerun.
 [Method and prior work](BRANCH_POLICY_GRADIENT.rst).
 
-Next: execute the verified fixed six-arm actor-training screen, then evaluate
-all final endpoints on fresh paired deals. Shared branches, independent branches
-and root-sampled REINFORCE are compared at matched source-match/update budgets.
-Their simulation costs differ and will be reported separately. No new strength
-or novelty-priority claim is established; canonical play and dealer are unchanged.
+The six-arm screen is live: training session64742/PID19268 and completion
+queue session15164/PID55284. Both shared-action arms and parent1 independent/
+sampled arms have completed128updates; parent2 independent is in progress.
+The queue waits for all six endpoints, then runs the independent training audit,
+fixed GPU development evaluation and independent evaluation/statistics audit.
+Do not launch duplicate jobs or edit their bound implementation files.
+Training protocol81e364a8254a5bc50e418e88907bb6e6c848bd3770556ee25dd2f3e37d08e59b.
+Queue protocolacdc3d9eb0195d9a1e338017c1ab3ddc4317f433509ab0651f10ba67efbf10c3.
 [Fixed training/evaluation design](BRANCH_POLICY_GRADIENT_TRAINING.rst).
+No evaluated endpoint or canonical promotion exists yet.
+
+A post-hoc analysis of the saved diagnostic outcomes also finds lower conditional
+full-actor gradient variance: ratios0.620943and0.341429. It includes all4,019,715
+parameters, both parents and all eight replicates.32backward passes, no new
+simulation. This reuses the original samples and is not independent replication.
+Both parent digests remain unchanged. [Signal results](BRANCH_POLICY_GRADIENT_RESULTS.rst).
+Closed outputs: runs/branch_parameter_variance. Summary SHA:
+ab0b2063cc63db13a7393f266fe83a07a560d1f5241922505f302c766b06b53c.
 
 ## Recently completed score-auxiliary study
 
@@ -112,12 +124,6 @@ Do not repeat the completed mechanism commands.
 The auxiliary results and six-reference prior-work review are integrated into
 the verified 38-page manuscript. The complete primary table is in Section 6.4;
 methods and work are in Appendix L. See the Latest manuscript section below.
-
-Next action: select a further scientific intervention using the completed
-experiment ledger. Retained-Transformer koi/card and conditional-world searches
-were already studied; read those actual outcomes before selecting new search
-work. The manuscript now distinguishes the older MLP match comparison from
-later Transformer diagnostics. No new experiment or strength claim is made.
 
 Canonical player and initial dealer selection remain unchanged. Stronger
 replicated play and substantive novelty are still open requirements.
