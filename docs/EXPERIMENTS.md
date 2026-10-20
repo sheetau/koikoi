@@ -9511,3 +9511,46 @@ Updated stale README headline counts/results/QA to the actual current revision.
 No main manuscript.tex/Abstract/Introduction rewrite in this milestone; no
 production, dealer or frozen evaluation changes. The ongoing symbolic comparison
 must complete before adding its results or deciding the next stronger-play step.
+
+## 2026-10-21: independent valid-deal source capability
+
+Previous goal turn was a verified wait. This turn confirmed pipeline99772/
+PowerShell25468 and queue64312 live at13/32complete chunks, and verified all108
+frozen inputs. No interim candidate outcome analysis, changed input or new study.
+
+Inspected ReferenceEnv.deal/RNG and INCUMBENT_GUARANTEE.rst. Current cohorts use
+small fixed seeds; the evaluator conditions uniformly on valid deals, not on
+those finite seeds. Added scripts/uniform_deal_source.py as an isolated source
+capability for a possible future evaluation under the stated uniform deal law.
+It does not change or retroactively reinterpret any completed/running study.
+Fisher--Yates/rejection uniformity is conditional on independent uniform bounded
+entropy; default secrets.randbelow is not a proof of operating-system entropy.
+No new evaluation protocol, sample size, endpoint or launch is defined here.
+
+LoggedDealSource keeps sampling/logs outside the actor-facing original
+ReferenceEnv, preserves the existing initial dealer rule, replaces only a new
+round's valid deal before observation and records accepted permutations plus
+sampling counts. ReferenceEnv's seeded auto-deal is discarded at each boundary.
+Every game transition and scoring rule stays unchanged. Failed sampling poisons
+the harness, preventing later continuation on the discarded seeded fallback.
+Complete replay requires exactly the used ordered round deals and rejects
+invalid/missing/extra/out-of-order records. Sampling counts are separate from
+decisions, round endings and completions.
+
+.venv/Scripts/python.exe -m pytest tests/test_uniform_deal_source.py -q:
+5passed,0skips,1.40s. Enumerated all24 four-card bounded-choice tapes, each giving
+one distinct permutation. Tested rejection counts and attempt/domain errors;
+failure at a new round cannot continue with a seeded deal. Two deterministic
+fixtures(paper8/research12) match native results/states at every decision with
+the same explicit new-round decks, and Python log replay reproduces terminal
+states/work. Corrupt replay inputs are rejected. These are simulator capability
+fixtures, not naturally sampled benchmark matches. Ruff loop-binding/import/
+format findings corrected; final check passes.
+
+Documented the future conditional-expectation estimand and remaining obligations
+in UNIFORM_DEAL_SOURCE.rst: matching full posterior/model law, all-prefix
+denominator, fixed computation/selection, independent values and a prospectively
+specified study. No transfer of old conditional means into empirical win claims,
+cross-law result combination, additional training, reserved seeds or deployment.
+No PDF change. Current symbolic comparison must complete before deciding the
+next evaluation; broader stronger-play goal remains active.

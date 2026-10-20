@@ -51,6 +51,21 @@ evidence, not natural match strength. Complete-only exporter checks bindings and
 exact whole-source mean arithmetic; it adds no simulation/inference. The new
 comparison has no fresh confidence interval or strength gate on reused sources.
 
+A separate source-law capability now prepares uniform-valid-deal sampling:
+scripts/uniform_deal_source.py and docs/UNIFORM_DEAL_SOURCE.rst. It uses bounded
+Fisher--Yates draws plus the existing valid-deal rejection, records accepted
+decks outside the unchanged actor-facing ReferenceEnv, and replays complete
+matches from those decks. Initial dealer/rules remain unchanged; sampling
+failure forbids seeded fallback. Uniformity assumes independent uniform bounded
+entropy; deterministic tests do not certify entropy or strength. This changes
+no existing study's law and is not a scheduled evaluation. Five tests pass,
+0skips,1.40s,including exhaustive4-card permutation choices, rejection/failure,
+two fixed fixture matches with native/Python transition parity and logged replay.
+Ruff passes. All108frozen symbolic-study inputs remain intact;pipeline99772 and
+queue64312 live,13/32chunks complete. Inspect its complete results before choosing
+a future evaluation law/estimator/sample size. Do not relabel prior conditional
+gains as empirical wins or combine evidence from mismatched deal laws.
+
 The original prospective strength criterion remains FAILED. Controller-minus-
 parent actual win-score differences are+.3906pp[0,+1.5625] and0pp[-1.9531,+1.9531]
 for parents1/2, with nominal simultaneous95% intervals; controller-minus-root-only
