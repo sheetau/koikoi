@@ -9641,3 +9641,55 @@ actors, complete cohort and posterior/value verification.
 All108symbolic comparison inputs checked intact. Pipeline99772,queue64312 and
 worker66784 remain live,31/32chunks complete,last observed source391/controller.
 No current outcome inspection, duplicate execution or reserved101M use.
+
+
+## Completed symbolic whole-cohort comparison and manuscript (2026-10-21)
+
+Pipeline99772/PowerShell25468 finished with exit0 after all32chunks,full audit
+and automatic export at2026-10-20T21:19:35Z. Queue time6163.80s. Do not restart.
+All512sources/128streams reused,237eligible/275missing,0new source matches.
+Protocolf8e2d65097b327102dde82c5ec89a338ae53c3c441b8bdf92b58846b8cc4d3c5;
+summary13d1e4b952e48778006b934108084c803b9929d5c66a85f279cc0cfbe434a6e9;
+reportc49d4129a93be3e26ab068ad4f2b4690ad067ee7f3c243c7475534a0bca7af7e;
+export031e00fd20a2049b0e8e3ade2d1e171821daeed741e77805aeb547f5b87bde43.
+
+Against opponent-only certificates,controller parent values226->231,adoptions
+83->86(42/44by parent);root-only233->236,56unchanged. Physical planning decisions
+223012606->203294310(-8.841785%)and148865177->120421328(-19.107121%). Capped phases
+53->43and16->10. Operational planning7599/5745s versus7076/5494s is not an
+isolated latency comparison and does not show a speedup. All978common complete
+root values/retained actions match;3217165omitted entries checked,not unique
+histories. Independent Python oracle74652353physical decisions/65460267completions;
+represented857295308decisions/200605680completions. Oracle26090new parent calls,
+0new opponent calls. Actual2514decisions/711tails;separate replay/export replay
+each has the same work. Actual symbolic-parent calls9included in total parent
+calls. Full counters in docs/SYMBOLIC_TAIL_REPLAY_RESULTS.rst.
+
+Exact controller mean gains per256source denominator:
+parent1=3097041720623/1168288734412800(+.2651pp);
+parent2=22864683476447/6948857051136000(+.3290pp).
+All actual scores and final margins equal the predecessor;two controller action
+traces differ. All512record identities and outcome comparisons independently
+checked in runs/symbolic_complete_review.json. New controller parent values
+124/126/296/298/304;new adoptions86/296/298,no lost value/adoption. These indices
+are descriptive evidence,not a selected new cohort. The original prospective
+actual-win criterion stays failed;no freshCI/gate on reused sources.
+
+Updated Abstract/Introduction,Section9.5/Table11 and Conclusion with complete
+results. Main TeX elsewhere and prior experiment results unchanged. Initial
+edit helper refused an LF section while preserving the CRLF main file;resumed
+only the remaining edit with detected line endings. No study files changed.
+Built with Tectonic;python runs/render_symbolic_results.py rendered40pages.
+Seven contact sheets reviewed,1/18/19full size;44refs,27embedded fonts,no
+layout/TeX/BibTeX warnings. Abstract171/Intro425/Conclusion167words. QA
+runs/manuscript_symbolic_results_qa.json passed. Tracked generated table/evidence
+bind the complete comparison and review. PDF21254b53e5efd6a85d458c727df9db9c2e2711d0b191b99c52db686f1c481a9e;
+backup output/pdf/manuscript_before_symbolic_results_a6580dbb.pdf. Editorial
+review adds no simulation/inference. STATUS and README updated to completed state.
+
+Next direction:match source generation to the exact belief law,using prepared
+uniform-deal source,logged public collector and rational nonnegative-gain bounds.
+Validate the full source/posterior composition and prospectively fix population,
+sample size,thresholds,error allocation and practical criterion before launch.
+No new study is frozen/scheduled;no101Mreserved use. Additional strength remains
+unproven and the user goal remains active.

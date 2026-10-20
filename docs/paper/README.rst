@@ -3,49 +3,46 @@ Manuscript working files
 
 This is an English research manuscript, not a submitted or published paper.
 
-Current verified revision: 39 pages including appendices, 44 cited references,
-164-word Abstract, 418-word Introduction and 169-word Conclusion. The main text
-ends on page19. The title is "Match Adaptation and Public-Information Planning
-for Koi-Koi Transformers." Abstract and Introduction now lead with the public
-reconstruction-to-executable-policy contribution and certificate compression.
-Synthetic capped recovery, conditional gains, measured match adaptation and
-the exact-critic example are stated separately.
+Current verified revision:40pages including appendices,44cited references,
+171-word Abstract,425-word Introduction and167-word Conclusion. Main text ends
+on page19. The title is "Match Adaptation and Public-Information Planning for
+Koi-Koi Transformers." The opening leads with public reconstruction,executable
+endgame policies and certificate compression,followed by measured match adaptation.
 
-Section9 explains complete contingent policies, retained completed candidates
-under search caps and the conditional-expectation guarantee. It includes the
-closed exploratory64-source witnesses and complete prospective512-source
-comparison. The latter does not meet its predefined actual-win strength gate.
-Section9.5 now defines executable certificate compression: an explicit history
-map plus an unchanged-parent rule in the public own-final-turn win region.
-It presents the synthetic capped-recovery witness and completed opponent-only
-comparison, which reduces transitions by2.0191/1.2086% without changing selections
-or outcomes. The whole-cohort symbolic comparison is running and supplies no
-results to this PDF. Related Work includes HSVI, SPIBB, MCTS-SPIBB and the2023
-POMDP safe-improvement paper. The guarantee uses conditional expectation under
-the specified model; it is not a new general safe-improvement theorem.
+Section9 includes the closed exploratory64-source witnesses and complete
+prospective512-source comparison. Its predefined actual-win criterion fails.
+Section9.5/Table11 now includes the complete512-source symbolic comparison:
+the own-win parent rule reduces controller/root-only physical planning
+transitions by8.84/19.11% relative to the opponent-only certificate baseline.
+Controller parent references rise226to231,adoptions83to86;every actual win score
+and final margin stays unchanged. Conditional gains rise to+.2651/+.3290pp.
+This is a descriptive reused-source computational result,not a new strength test.
+The separate synthetic example explains capped recovery and executable semantics.
 
-Appendix A is a concise evidence map and reproduction guide. Its former1,601-word
-ledger is preserved, modulo line endings, in ``reproduction_ledger.tex``.
-Detailed negative results and work accounting remain in that companion ledger
-and ``docs/EXPERIMENTS.md``.
+Related Work includes HSVI,SPIBB,MCTS-SPIBB and the2023POMDP safe-improvement
+paper among44references. The contribution is the verified Koi-Koi reconstruction
+and executable-policy pipeline;the conditional-expectation argument is not a
+new general safe-improvement theorem. AppendixA maps evidence to reproduction
+artifacts. Its former full ledger remains in reproduction_ledger.tex.
 
-Latest QA: ``runs/manuscript_program_opening_qa.json``. All39pages were rendered
-and contact-reviewed; changed pages1/2 inspected at full size. All27fonts embed;
-no page-bound, TeX box, glyph, reference or bibliography warning remains. The
-existing Fontconfig notice is unchanged. ``generated/program_opening_evidence.json``
-binds this revision to the previous method/results QA. Related Work and every
-later section are unchanged. ``generated/symbolic_method_evidence.json`` retains
-the completed comparison and synthetic capability evidence. Earlier experiment
-audits are reused without rehashing the complete old corpus.
-Current PDF: ``output/pdf/manuscript.pdf``; SHA256
-a6580dbb05a5b64f0689c9ac410210a9ecbf3dd67dc43c3dc6de62dab10b8f07.
-The preceding PDF is ``output/pdf/manuscript_before_program_opening_f6a7f81b.pdf``.
+Latest QA: ``runs/manuscript_symbolic_results_qa.json``. All40pages rendered and
+contact-reviewed;1/18/19reviewed at full size.27embedded fonts,no page-bound,
+TeX box,glyph,reference or bibliography warning. The existing Fontconfig notice
+is unchanged. ``generated/symbolic_comparison_evidence.json`` binds the complete
+audit/export,all-source outcome review,table,method section and current PDF QA.
+Previous experiment audits are reused without rehashing the entire old corpus.
 
-The stronger-play objective remains active. Current job state is in
-``docs/STATUS.md``; later historical revision notes are not a live-job inventory.
-Both retained models pass the original RL-WP criterion. Additional replicated
-win improvement and the separate RL-Point criterion remain unestablished.
-Initial dealer selection and canonical human-play deployment are unchanged.
+Current PDF: ``output/pdf/manuscript.pdf``;SHA256
+21254b53e5efd6a85d458c727df9db9c2e2711d0b191b99c52db686f1c481a9e.
+Previous PDF: ``output/pdf/manuscript_before_symbolic_results_a6580dbb.pdf``.
+
+The stronger-play objective remains active. The symbolic pipeline is complete;
+no next evaluation is scheduled. Prepared source-law/collector/statistical
+components still require a frozen population,full posterior verification and
+prospective criterion. Current decisions are in ``docs/STATUS.md``;historical
+notes below are not a live-job inventory. Dealer selection and human play remain
+unchanged. Both retained actors pass the original RL-WP criterion;the separate
+RL-Point criterion and additional replicated win gain remain unestablished.
 
 From the repository root, regenerate the numerical tables and evidence ledger::
 

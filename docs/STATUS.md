@@ -11,115 +11,89 @@ Old process handles mentioned in that history are historical, not live jobs.
 
 ## Current experiment and next actions
 
-Both the original prospective512 study and its opponent-only certificate
-comparison are COMPLETE, audited and exported. Do not restart either cohort.
-Completion pipeline40713/PowerShell49904 and queue35056 finished successfully.
-Opponent-only report: CERTIFIED_TAIL_REPLAY_RESULTS.rst. All512sources remain;
-237eligible roots/275missing, with no new source matches.
+The complete512-source symbolic comparison is COMPLETE, audited and exported.
+Pipeline session99772/PowerShell25468,queue64312 and last worker66784 finished;
+the pipeline exited0 after audit/export. DO NOT restart this cohort or either
+predecessor. runs/symbolic_completion_pipeline.json is complete at
+2026-10-20T21:19:35Z. No research evaluation is currently scheduled.
 
-Opponent-only certification reduces physical planning decisions from227608204
-to223012606(controller,2.0191%) and150686381to148865177(root-only,1.2086%).
-It changes no parent-value coverage, adoption, conditional gain or actual score.
-Controller parent values226/237, adoptions83(41/42 by parent), capped phases53;
-root-only233/237,56(28/28),16. Common complete values/maps match. Adopted pairs
-have full independent Python replay, including omitted opponent moves. Its
-61,821,861 oracle transitions and2,514 actual-tail transitions are separate from
-planning work. Operational times are not an isolated latency benchmark.
-Protocol8b91c528ca2f0883821a3435104058bdf7435cce4951b95a52b0a69f0bd53e40;
-summary8ac783d5873c626436e373488e3cf8af6a96192473a1b3c585979e047299e9d0;
-exporte50832fbb9e43668031a806edffb9971a9a6d211928ba6abbcabbc6abddd39a0.
+The executable own-win rule expands certified coverage under unchanged caps.
+Against the completed opponent-only baseline, controller parent values rise
+226to231of237eligible roots and adoptions83to86(42/44by parent). Root-only values
+rise233to236,adoptions remain56. No parent value or adoption is lost. Physical
+planning decisions decrease223012606to203294310(controller,8.841785%) and
+148865177to120421328(root-only,19.107121%). These reductions are relative to the
+opponent-only version, not the original uncompressed prospective solver.
 
-The next whole-cohort symbolic comparison is FROZEN AND RUNNING after reviewing
-those complete results. It adds the own-final-turn win regionD>2 and an executable
-unchanged-parent continuation for omitted decisions. This tests natural coverage
-of the previously verified synthetic capability. All512 sources, both arms,
-caps/order/fresh caches remain fixed. No outcome-selected subset, new seed,
-phase-budget transfer or reserved101M use. See SYMBOLIC_TAIL_REPLAY.rst.
-Protocolf8e2d65097b327102dde82c5ec89a338ae53c3c441b8bdf92b58846b8cc4d3c5,
-108bound inputs. Base runs/symbolic_tail_replay; queuePID64312.
-Pipeline session99772/PowerShellPID25468, state runs/symbolic_completion_pipeline.json.
-It launches32chunks/four concurrent workers, then audits and exports automatically,
-checking every exit. DO NOT duplicate freeze/launch/audit/export or edit bound
-inputs. First workers53216/57472 confirmed running on sources3/16. A failed stage
-stops for inspection. The20GiB free-space guard was satisfied with140GiB free.
+All512saved sources/128deal streams remain,including275missing roots. Each
+parent's denominator is256. Controller conditional means rise from+.2619/+.3246pp
+to+.2651/+.3290pp. Every actual win score AND final point margin is unchanged
+between versions; only two controller action traces change. Thus this is a
+coverage/computation improvement, not a newly established match-win gain.
+There is no fresh strength gate or confidence interval on these reused sources.
+The original prospective actual-win criterion remains FAILED.
 
-Symbolic implementation verification: planner/oracle12tests; assessment4tests;
-structural comparator4tests; whole-cohort runner6tests; exporter2tests. Most
-recent combined freeze/export3tests pass in2.58s and Ruff passes. Synthetic
-cap1258perphase recovers parent204/275 and controller461/550; this is capability
-evidence, not natural match strength. Complete-only exporter checks bindings and
-exact whole-source mean arithmetic; it adds no simulation/inference. The new
-comparison has no fresh confidence interval or strength gate on reused sources.
+The audit matches978common completed root values and15646702retained explicit
+entries;3217165omitted entries each satisfy the public own-win certificate.
+Entries count across root programs,not unique histories. Independent full Python
+verification uses74652353physical transitions/65460267completions;represented
+work and certified mass remain separate. Actual tails use2514decisions and
+711completions,with separate replay/export replay. Oracle parent adapter calls
+26090,new opponent calls0;actual symbolic parent calls9are included in total
+parent calls. Operational planning times7599/5745s versus7076/5494s do not
+demonstrate a latency reduction across these separate concurrent runs.
 
-A separate source-law capability now prepares uniform-valid-deal sampling:
-scripts/uniform_deal_source.py and docs/UNIFORM_DEAL_SOURCE.rst. It uses bounded
-Fisher--Yates draws plus the existing valid-deal rejection, records accepted
-decks outside the unchanged actor-facing ReferenceEnv, and replays complete
-matches from those decks. Initial dealer/rules remain unchanged; sampling
-failure forbids seeded fallback. Uniformity assumes independent uniform bounded
-entropy; deterministic tests do not certify entropy or strength. This changes
-no existing study's law and is not a scheduled evaluation. Five tests pass,
-0skips,1.40s,including exhaustive4-card permutation choices, rejection/failure,
-two fixed fixture matches with native/Python transition parity and logged replay.
-Ruff passes. All108frozen symbolic-study inputs remain intact;pipeline99772 and
-queue64312 live,13/32chunks complete. Inspect its complete results before choosing
-a future evaluation law/estimator/sample size. Do not relabel prior conditional
-gains as empirical wins or combine evidence from mismatched deal laws.
+Report: docs/SYMBOLIC_TAIL_REPLAY_RESULTS.rst.
+Protocolf8e2d65097b327102dde82c5ec89a338ae53c3c441b8bdf92b58846b8cc4d3c5;
+summary13d1e4b952e48778006b934108084c803b9929d5c66a85f279cc0cfbe434a6e9;
+reportc49d4129a93be3e26ab068ad4f2b4690ad067ee7f3c243c7475534a0bca7af7e;
+export031e00fd20a2049b0e8e3ade2d1e171821daeed741e77805aeb547f5b87bde43.
+runs/symbolic_complete_review.json independently compares all512record identities
+and actual outcomes. New controller parent values:124,126,296,298,304;new
+adoptions:86,296,298. These are descriptive witnesses,not a selected next cohort.
 
-A separate exact statistical component is now available in
-scripts/certified_gain_bounds.py; see CERTIFIED_GAIN_BOUNDS.rst. For IID exact
-nonnegative conditional gains under a matching law, fixed threshold counts,
-one-sided exact binomial lower limits and a simultaneous survival staircase
-give a conservative population mean lower bound. Rational arithmetic rounds
-limits downward. Complete source counts include fallback/missing-root zeros;
-negative contrasts and floating inputs are rejected. Thresholds, sample size,
-error allocation and effect criterion still require a future frozen protocol.
-No existing cohort has been reanalysed and no study is scheduled. Five tests
-pass,0skips,0.08s; exhaustive small-sample coverage and rational boundary checks
-are included. Ruff check/format pass. These fixtures add no game simulation or
-neural inference. All108symbolic bindings are intact. Pipeline99772 remains
-running with31/32chunks complete;last worker66784 is on source389/controller.
-Wait for complete symbolic results before choosing the next study.
+The preceding opponent-only comparison remains complete: it reduced physical
+decisions by2.0191/1.2086% without changing coverage,selections or outcomes.
+Its report is CERTIFIED_TAIL_REPLAY_RESULTS.rst. The original prospective512
+report is PROSPECTIVE_INCUMBENT_RESULTS.rst;actual controller-parent contrasts
+were+.3906pp[0,+1.5625]and0pp[-1.9531,+1.9531],with simultaneous95% intervals.
+Neither subsequent computational comparison changes that failed criterion.
 
-The logged-deal collector is now implemented in scripts/logged_public_source.py
-with a complete replay/policy-action audit; see LOGGED_PUBLIC_SOURCE.rst.
-It integrates public opponent reconstruction, selects the first eligible root,
-retains missing-root matches, and checks every transition against native rules.
-Round-boundary metadata is checked before inserting the same logged deck.
-Source/native/replay decisions, round endings and completions remain separate
-from external sampling counts, policy adapter calls and identification calls.
-Six tests pass,0skips,1.70s; Ruff check/format pass. Deterministic fixture matches
-and native/Python replays include both seats, real delayed public revelation,
-synthetic gate wiring and rejection of tampered actions/events/root addresses.
-No neural inference or newly sampled benchmark matches. The collector does not
-declare IID sampling or replace full posterior/value/cohort verification.
-No new study is scheduled. All108frozen symbolic inputs remain unchanged;
-pipeline99772/queue64312/worker66784 are live,31/32chunks complete,source391/controller.
+Next: evaluate the executable controller under a source law that matches its
+exact conditional belief, using the prepared independent valid-deal sampler,
+logged public collector and exact nonnegative-gain bounds. First verify the
+full source/history/posterior composition,then specify the population,strata,
+fixed sample size,threshold grid,error allocation and practical effect criterion
+before freezing a fresh protocol. Keep all missing-root/fallback prefixes in
+the denominator. No new protocol is frozen or launched. No reserved101M use.
+This targets expected match improvement under the declared law; it must not
+relabel conditional values as observed wins or combine different sampling laws.
+If that evaluation is insufficient,continue substantive stronger-play work;
+the goal remains active and is not satisfied by the computational result alone.
 
-The original prospective strength criterion remains FAILED. Controller-minus-
-parent actual win-score differences are+.3906pp[0,+1.5625] and0pp[-1.9531,+1.9531]
-for parents1/2, with nominal simultaneous95% intervals; controller-minus-root-only
-is-.1953pp[-.7812,0] and0pp[0,0]. Zero observed differences do not prove equality.
-All-source conditional gains versus parent are+.2619/+.3246pp. See
-PROSPECTIVE_INCUMBENT_RESULTS.rst. Original protocol700e11608e3ced60919ca7ef31da460785ff9391459ac83c7e8a16f4a1a0c170;
-summaryc80bbcbc67b1923632ea2480bacb06df8066f1e587ad83e843458fc782298f1e.
+Prepared components: uniform_deal_source.py(5tests,1.40s) samples/logs valid round
+decks and preserves dealer/rules;logged_public_source.py(6tests,1.70s) checks
+native transitions and replays every actor action/public inference/root gate;
+certified_gain_bounds.py(5tests,.08s) uses exact rational binomial inversion and
+a simultaneous survival staircase. All pass Ruff. Tests use deterministic
+fixtures and finite enumerations,not naturally sampled strength evidence.
+See UNIFORM_DEAL_SOURCE.rst,LOGGED_PUBLIC_SOURCE.rst,CERTIFIED_GAIN_BOUNDS.rst.
+Their correctness does not by itself establish IID sampling,full posterior-law
+agreement,or stronger play. Historical implementation/test details are in
+EXPERIMENTS.md. The108frozen symbolic inputs remain intact.
 
-Current manuscript leads its Abstract/Introduction with public reconstruction,
-complete executable endgame policies and certificate compression. Synthetic
-capped recovery, conditional gains and measured match adaptation are separated;
-the actual-win criterion remains failed. Related Work and every later section
-are unchanged, including Section9.5's method and completed opponent-only result.
-No interim symbolic outcomes enter this revision. PDF39pages/44refs;
-Abstract164/Introduction418/Conclusion169words. All39pages rendered/contact-
-reviewed,1/2full size;27embedded fonts,no TeX/layout/BibTeX warnings.
-PDFa6580dbb05a5b64f0689c9ac410210a9ecbf3dd67dc43c3dc6de62dab10b8f07;
-QA runs/manuscript_program_opening_qa.json passed; evidence
-docs/paper/generated/program_opening_evidence.json binds the revision to the
-previous passed method/results QA. README headline and current artifact updated.
-No new simulation. Pipeline99772/queue64312/worker66784 remain live,31/32chunks
-complete,last observed source391/root_only. After the comparison completes,
-incorporate its complete results and decide the next stronger-play evaluation.
-Keep the goal active. Canonical human play and initial dealer remain unchanged.
+Current manuscript includes the complete symbolic result in Abstract,
+Introduction,Section9.5/Table11 and Conclusion. It leads with public
+reconstruction and executable policy compression,stating measured coverage
+and actual performance separately. PDF40pages/44refs;Abstract171/Intro425/
+Conclusion167words. Main text ends19. All40pages rendered/contact-reviewed;
+1/18/19full size;27embedded fonts,no TeX/layout/BibTeX warnings.
+PDF21254b53e5efd6a85d458c727df9db9c2e2711d0b191b99c52db686f1c481a9e;
+QA runs/manuscript_symbolic_results_qa.json passed. Tracked table/evidence:
+docs/paper/generated/symbolic_comparison_table.tex and
+docs/paper/generated/symbolic_comparison_evidence.json. Earlier experiment
+audits are reused;this editorial review adds no simulation/inference.
+Initial dealer and canonical human-play deployment remain unchanged.
 
 ### Completed diagnostics and supporting history
 

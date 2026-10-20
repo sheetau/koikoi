@@ -49,5 +49,28 @@ planning transitions by 2.0191\% for the controller and 1.2086\% for root-only
 search. Parent-value coverage, adopted policies, conditional gains and realized
 scores are unchanged. This complete-cohort computational comparison adds no
 source matches; its report is \path{docs/CERTIFIED_TAIL_REPLAY_RESULTS.rst}.
-The synthetic own-turn witness establishes executable compression and capped
-recovery; its frequency in naturally occurring play remains to be measured.
+
+Adding the executable own-win rule to that baseline expands coverage under
+the same caps (Table~\ref{tab:symbolic-comparison}). Controller parent references
+increase from 226 to 231 of 237 eligible roots, and adoptions from 83 to 86.
+Root-only parent references increase from 233 to 236, with 56 adoptions in both
+versions. Physical planning transitions fall by 8.84\% and 19.11\%, respectively.
+All 978 common completed root values and their retained explicit decisions
+match. Compression omits 3,217,165 entries across these programs, each checked
+against the public certificate; this count is not a count of unique histories.
+
+\input{generated/symbolic_comparison_table.tex}
+
+The controller's mean conditional gains over its two parents rise to 0.2651 and
+0.3290 percentage points, retaining all 256 sources per parent in the denominator.
+Every realized win score and final point margin is unchanged from the
+opponent-only baseline. Independent Python verification executes 74,652,353
+transitions through terminal scoring, separately from planning. Operational
+planning times are 7,599 and 5,745 seconds versus 7,076 and 5,494 for the baseline;
+these separate concurrent runs do not establish a latency reduction. The result
+is greater certified coverage with fewer native planning transitions. It adds
+no source matches or fresh strength test; the original actual-win criterion
+remains unmet.
+
+Full counts appear in
+\path{docs/SYMBOLIC_TAIL_REPLAY_RESULTS.rst}.

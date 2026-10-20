@@ -22,19 +22,20 @@ for Koi-Koi Transformers}
 We construct a public-information endgame controller for Koi-Koi that identifies
 a fixed WP/Point opponent from completed hands, reconstructs hidden-card
 beliefs, and commits to a complete contingent policy. Exact comparisons retain
-improvements over a parent actor under a computation cap. Public score
-certificates compact these policies into explicit decisions plus a checked
-parent continuation; a synthetic capped example recovers an improvement that
-explicit search cannot certify. On 512 prospective source matches, the explicit
-controller's mean conditional gains are 0.2619 and 0.3246 percentage points for
-two parents, while the predefined actual-win criterion is not met. The parent
-actors are obtained by terminal-match self-play from the published win policy.
-After 8.52 million additional decisions each, they achieve 51.480\% and
-51.445\% draw-adjusted win scores against assisted RL-WP on 10,000 held-out
-duplicate deals; both 95\% intervals exclude 50\%. They retain the published
-Transformer architecture and greedy inference. An exact shared-parameter
-counterexample also shows why switching between players' critics can reverse
-the expected policy update, motivating returns between learner decisions.
+improvements over a parent actor under a computation cap. Replacing explicit
+decisions in guaranteed-win regions with a checked parent continuation reduces
+controller planning transitions by 8.84\% on 512 saved source matches, while
+increasing adopted improvements from 83 to 86 under unchanged caps. Mean
+conditional gains over the two parents are 0.2651 and 0.3290 percentage points;
+every realized win score remains unchanged from the preceding controller.
+Additional match-win improvement remains unconfirmed. The parent actors are
+obtained by terminal-match self-play from the published win policy. After 8.52
+million additional decisions each, they achieve 51.480\% and 51.445\%
+draw-adjusted win scores against assisted RL-WP on 10,000 held-out duplicate
+deals; both 95\% intervals exclude 50\%. They retain the published Transformer
+architecture and greedy inference. An exact shared-parameter counterexample
+also shows why switching between players' critics can reverse the expected
+policy update, motivating returns between learner decisions.
 \end{abstract}
 
 \section{Introduction}
@@ -63,9 +64,10 @@ search (Section~\ref{sec:incumbent-tail}).
 Public outcome certificates make these programs smaller. Where the final-round
 score and turn guarantee a win under every legal continuation, the program
 calls its parent instead of storing each remaining decision. Search accounts
-for that region's belief mass directly. A synthetic capped example completes
-a parent reference and an improving continuation that explicit search cannot
-retain under the same cap; independent replay verifies the entire program
+for that region's belief mass directly. Across all 512 saved sources,
+this compression reduces controller planning transitions by 8.84\%, completes
+five additional parent references and retains three additional improvements
+under the same caps. Independent replay verifies the entire adopted programs
 (Section~\ref{sec:symbolic-tail}).
 
 A fixed comparison on 512 new source matches evaluates the explicit controller
@@ -860,26 +862,26 @@ unmeasured. The original warm/cold comparison changes temperature and learning
 rate jointly. Latency covers one machine and a cached random-play workload.
 
 \section{Conclusion}
+Public reconstruction identifies WP or Point in 86.1\% of natural final-round
+starts and supports exact comparisons of executable endgame policies.
+Search retains complete contingent improvements under computation caps.
+Public score certificates compress these programs into explicit decisions and
+checked parent continuations. On the same 512 saved sources, compression
+reduces controller planning transitions by 8.84\% and raises adopted improvements
+from 83 to 86. Every realized win score and final point margin remains unchanged
+from the preceding controller. Certified planning coverage increases; an
+additional match-win gain remains unconfirmed.
+
+The exact shared-parameter example identifies a separate critic-conditioning
+failure: switching to the opponent's observation can reverse the expected
+policy update. Learner-decision returns correct the complete example. Their
+Koi-Koi tests establish no replicated additional win gain.
+
 Terminal-match self-play improves the released Koi-Koi win policy at both
 adapted seeds while preserving its Transformer actor and greedy inference.
-Point initialization provides a second benefit: mixture point margins rise
-by 1.77--2.08 points over matched WP controls. Match wins and expected points
-thus provide complementary measures of adaptation.
-
-The exact shared-parameter example identifies a critic-conditioning failure:
-switching to the opponent's observation can reverse the expected policy update.
-Learner-decision returns correct the complete example. The tested return,
-representation and auxiliary-learning changes yield no replicated additional
-win gain in Koi-Koi.
-
-Public reconstruction identifies the fixed opponent at 86.1\% of natural
-final-round starts. The bounded planner turns that information into complete
-contingent policies and adopts only verified conditional improvements. It can
-improve later decisions while keeping the first action. On 512 prospective
-sources, conditional gains average 0.2619 and 0.3246 percentage points for the
-two parents. Actual-score gains of 0.3906 and 0.0000 points do not meet the
-replicated strength criterion. The resulting controller makes public inference
-actionable; its additional match-win benefit remains unresolved.
+Point initialization also raises mixture point margins by 1.77--2.08 points
+over matched WP controls. These measured adaptation gains provide the parent
+actors for the public-information controller.
 
 \appendix
 \section{Reproduction and evidence}
