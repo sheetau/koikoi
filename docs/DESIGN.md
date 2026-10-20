@@ -67,6 +67,17 @@ fixed candidate reaches1. [INCUMBENT_CONTROLLER.rst](INCUMBENT_CONTROLLER.rst)
 specifies the saved-plan execution audit, which does not run that fresh schedule.
 Production play remains unchanged pending strength and execution evidence.
 
+The isolated `scripts/opponent_last_turn_tail.py` certifies a final-round loss
+when only the opponent's last turn remains and the learner's margin is below-2.
+The remaining opponent-only subtree has signed value minus its integer mass
+and needs no learner-map entries. Removing it adjusts the continuation cutoff
+by the same mass, preserving exact values and executable learner maps. Physical
+simulated completions and symbolic certificates are separate counters. A full
+Python replay oracle resolves omitted opponent actions from declared public-
+observation actors and does not use the certificate. This module is not active
+in production or the frozen prospective512 comparison. See
+[OPPONENT_LAST_TURN_CERTIFICATE.rst](OPPONENT_LAST_TURN_CERTIFICATE.rst).
+
 ## Local human play
 
 `koikoi.play` is a Tkinter desktop client over the unchanged `ReferenceEnv` and existing CPU inference adapters. `PlaySession` owns one paper8 match, rejects out-of-turn input, pauses at every round boundary and stops at match termination. It creates fresh casual deals outside the reserved final-test seed range and writes no research/evaluation records. The selected checkpoint is identity-checked, runs greedy with public endgame assistance, and is never retrained or replaced implicitly. Original WP/Point and a greedy practice agent are explicit alternatives.

@@ -8983,3 +8983,46 @@ Earlier evidence audits reused, not a full41GB-corpus rehash. Production and
 frozen study inputs unchanged. Next:finish512 and run complete-only export,
 then assess allfour fixed contrasts and integrate warranted prospective results.
 Goalactive;no reserved101M use or canonical-play/dealer change.
+
+## 2026-10-21: exact final-opponent-turn certificate, isolated capability
+
+Added scripts/opponent_last_turn_tail.py and its independent Python policy
+oracle. Public final-round/turn/actor/point fields certify unavoidable loss
+when opponent alone remains and learner margin<-2. The maximum learner score
+transfer is one point, increasing margin by2; the strict boundary excludes a
+possible draw. No learner decision remains under a certified node, so the
+complete learner map needs no synthetic key or runtime fallback.
+
+Continuation removes certified rows, adjusts cutoff by their integer mass and
+records the recombined root value/bound. Physical/represented simulator work
+and certified opponent rows/mass are separate. Oracle replays every omitted
+move with reference rules; missing opponent actions are supplied by declared
+strict actors using observation keys, with new adapter calls counted. Missing
+learner keys still fail. No production or frozen study file is modified.
+
+.venv/Scripts/python.exe -m pytest tests/test_opponent_last_turn_tail.py -q:
+9passed,0skips,26.83s (session67842 exited0). Ruff format/check pass.
+Tests cover both seats, fixed/optimized continuations, unequal integer weights,
+strict-2 boundary, excluded rounds/turns/actors, hidden-card insensitivity,
+full root-map/value equality and independent full Python replay.
+Two-draw fixture:374to50physical transitions; exact parentQ7/25. At cap50,
+old controller cannot value parent; new fixed+optimized phases complete but
+find no strict gain. New physical completions14, represented126, certified
+mass324; represented plus certified450 equals old simulated mass450.
+Four-draw fixture:698133to152994physical transitions; exactQ1411/10560 at
+root36 and bound4933/36960 at42, same complete learner policies. Certificate
+mass561339; old182 versus new3 continuation cutoffs because exact negative
+mass permits earlier subtree elimination. Both independent oracles agree.
+These are synthetic fixtures (seed31010001, altered final-round scores), not
+new natural sources, match-win improvement or isolated wall-time benchmarks.
+Manual fixture checks also ran during development; no research cohort added.
+
+The prospective512 comparison continues under its original frozen planner.
+Live queuePID66280 and session89944; latest snapshot376processed/22complete
+chunks,4active workers,0failures. All89 protocol input bindings rechecked
+unchanged after adding the isolated module/tests. No partial outcome motivated
+this certificate or alters the fixed primary tests. A mistakenly broad read of
+one progress file exposed source metadata; no partial score analysis performed.
+Natural-root coverage/cost remains unevaluated; evaluate only after the fixed
+study closes. Canonical play/dealer, reserved101M and manuscript unchanged.
+Goal remains active; next complete and audit prospective512 results.

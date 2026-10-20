@@ -37,6 +37,19 @@ PDF SHA256 1682a81235ac72daf8151f5018e204b9747b4aaace16657fb2e62a82a938f242.
 QA runs/manuscript_incumbent_qa.json. Next: complete and audit the fixed512
 comparison before adding prospective results or making a new strength claim.
 
+An isolated final-opponent-turn certificate is now implemented and tested in
+scripts/opponent_last_turn_tail.py. When only the opponent can act in the final
+round and the learner trails by more than two points, all remaining outcomes
+lose; the planner can resolve that mass without simulator transitions. Nine
+capability tests pass,0skips,26.83s, including both seats, unequal weights,
+strict boundary cases and independent full Python policy replay. Synthetic
+fixtures reduce transitions374to50 and698133to152994 with identical exact
+values and complete learner maps. This is computational capability, not a new
+strength result. Symbolic resolutions are counted separately from simulations.
+See OPPONENT_LAST_TURN_CERTIFICATE.rst. The running512 comparison retains its
+original frozen planner; all89 bound inputs are unchanged. Latest status:
+376/512 sources processed,22/32 chunks complete; four live workers,0failed.
+
 ### Completed diagnostics and supporting history
 
 **The eight-arm root-allocation/step-size study is complete. Its predefined
