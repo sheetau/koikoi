@@ -9089,3 +9089,34 @@ This follows the already committed all-source computational protocol regardless
 of the primary comparison's outcomes; no new source matches or seedrange added.
 The original four-comparison decision will be inspected after full export.
 Goal remains active; no stronger-play claim, model promotion or dealer change.
+
+## 2026-10-21: add the POMDP safe-improvement precedent and verify the PDF
+
+Original queue66280 and remaining worker53444 verified live; completion pipeline
+49904 still waiting on the original process. No partial outcome analysis.
+Reviewed primary AAAI2023 paper Simao/Suilen/Jansen, Safe Policy Improvement for
+POMDPs via Finite-State Controllers (37(12):15109--15117), DOI
+10.1609/aaai.v37i12.26763. Primary publisher landing page and PDF:
+https://ojs.aaai.org/index.php/AAAI/article/view/26763
+https://ojs.aaai.org/index.php/AAAI/article/download/26763/26535
+Read its finite-history equivalence assumption and finite-data improvement
+bounds (Assumption1,Theorem2,Corollary1). Related Work now distinguishes that
+offline estimation guarantee from the current exact specified-model comparison.
+This closes a relevant prior-work omission; no general novelty claim added.
+Focused Koi-Koi searches (English/Japanese,including IPSJ/J-STAGE) returned
+previously covered research; this is not an exhaustive absence-of-prior proof.
+
+PDF skill reused; artifact marker already executed exactlyonce earlier and not
+repeated. Backup output/pdf/manuscript_before_pomdp_spi_1682a812.pdf preserved.
+Tectonic build then systemPython runs/render_pomdp_spi_manuscript.py rendered
+all38pages. New bibliography entry initially conflicted volume/number under
+plain.bst; use journal/proceedings article entry and rebuild. Final BibTeX and
+TeX warning checks pass,27fonts embedded,no text outside page. Existing
+Fontconfig notice remains. All38contact pages reviewed;full5/16/17/37 reviewed.
+44references,Abstract183/Introduction499/Conclusion152words unchanged.
+PDFebeec207aef7744ee320588148a6ee547121496598f90c6a192dd136fbb23f32.
+TeX490078830135089582ebff8346e3a2da4001a7dd000e937cbc5d49498d427e98.
+Bib821634f2169e9ed956a2a42050c8cb8e091ba9285103d93343cfe433882b53c4.
+QA runs/manuscript_pomdp_spi_qa.json statuspassed. Previous full evidence audits
+and closed64-root planning results remain the PDF evidence; no partial512 data.
+Original study, canonical play, dealer and reserved101M unchanged. Goalactive.

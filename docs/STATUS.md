@@ -34,7 +34,7 @@ preserved in docs/paper/reproduction_ledger.tex. The PDF includes only the close
 64-source exploratory results, not partial prospective outcomes. All38pages
 rendered/reviewed,27fonts embedded, no TeX/layout/reference warnings.
 PDF SHA256 1682a81235ac72daf8151f5018e204b9747b4aaace16657fb2e62a82a938f242.
-QA runs/manuscript_incumbent_qa.json. Next: complete and audit the fixed512
+QA runs/manuscript_incumbent_qa.json (preceding version). Next: complete and audit the fixed512
 comparison before adding prospective results or making a new strength claim.
 
 An isolated final-opponent-turn certificate is now implemented and tested in
@@ -73,6 +73,17 @@ Any nonzero exit or failed state stops the pipeline. Latest original status:
 source389,PID53444 live with increasing CPU usage. No partial result is used to
 alter the source budget, acceptance test or follow-up cohort. Inspect both live
 handles and their state files on continuation before taking any launch action.
+
+Latest manuscript revision adds the directly relevant POMDP safe-improvement
+precedent by Simao/Suilen/Jansen(AAAI2023), distinguishing finite-data guarantees
+from exact comparison under specified rules/opponent/deal models. Current PDF:
+38pages,44references; Abstract183/Introduction499/Conclusion152words unchanged.
+All38pages rendered/contact-reviewed,full5/16/17/37 inspected;27fonts embedded;
+no TeX or bibliography warning after fixing the new entry format. Existing
+Fontconfig notice only. PDFebeec207aef7744ee320588148a6ee547121496598f90c6a192dd136fbb23f32;
+QA runs/manuscript_pomdp_spi_qa.json. Prospective results remain pending and are
+not included in this PDF. Completion pipeline40713/PID49904 still waits on the
+live original queue; never duplicate its export/freeze/launch actions.
 
 ### Completed diagnostics and supporting history
 

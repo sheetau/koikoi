@@ -219,8 +219,17 @@ HSVI returns an anytime POMDP policy together with a bound on its regret
 \cite{smith2004hsvi}. SPIBB studies improvement from fixed data without access
 to the true environment, using the baseline where uncertainty is high
 \cite{laroche2019spibb}; MCTS-SPIBB computes local online responses in that
-framework \cite{castellini2023mcts}. Our endgame controller uses known rules and
-a finite hidden-card belief. It compares completed policies exactly and keeps
+framework \cite{castellini2023mcts}.
+
+Sim\~{a}o et al. extend SPIBB to POMDPs through finite-state controllers
+\cite{simao2023pomdpspi}. They estimate a history MDP from offline trajectories
+and bound the possible performance loss with high probability, assuming that
+finite histories preserve the required transition and reward information.
+Their guarantee accounts for uncertainty from finite data.
+
+Our endgame controller takes the game rules and identified opponent model as
+given, and constructs a finite hidden-card belief. Its guarantee conditions on
+that model and deal law. It compares completed policies exactly and keeps
 the parent when a strict gain cannot be established. The domain contribution is
 the path from reconstructed opponent inputs to verified executable policies,
 with explicit computation limits and complete-match assessment.
