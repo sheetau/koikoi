@@ -2,9 +2,10 @@ Prospective evaluation under the controller's conditional deal law
 ================================================================
 
 Design selected on 21 October 2026, before generating any new source matches.
-The runner and complete audit still need integration tests and a hash-bound
-protocol freeze. This document and uniform_controller_design.py specify the
-planned evaluation; they do not launch it or report a new strength result.
+The runner, complete audit and statistical export have passed fixed-fixture
+validation. This document and uniform_controller_design.py specify the design;
+the hash-bound protocol and execution state are recorded separately in STATUS.md.
+The design and capability checks alone report no new strength result.
 
 Question and population
 -----------------------
@@ -126,3 +127,47 @@ executions and statistical export. The complete audit must reproduce the full
 8,192-source denominator and all four population counts before calculating a
 study result. Pending work and freeze status belong in STATUS.md. Human play,
 dealer logic, previous cohorts and the reserved101M cohort remain unchanged.
+
+
+Validated implementation
+------------------------
+
+uniform_controller_study.py persists each seat and accepted round deck before
+using it, and refuses an existing source directory even after a partial failure.
+Actors receive only the unchanged environment. Every complete source is saved
+before planning. Each program/selection is saved before actual tail execution.
+Sixteen-source collection/planning workers and separate audit workers run in
+bounded processes. The audit recomputes actor actions, public inference, root
+selection and the complete hand posterior; it compares reconstructed worlds,
+phase bindings/caps, strict selection and saved executable tail behavior.
+Complete chunk receipts bind every source/deck/program/selection file. The final
+reduction requires every declared case in order and its matching audit, then
+exports exact rational bounds, a readable report and a binding receipt.
+
+uniform_controller_assessment.py independently evaluates the unchanged parent
+by invoking its actor directly. It does not read the native planner's parent
+map or action caches. It evaluates the candidate's explicit map and recognized
+parent-default rule with separate reference-built caches, expanding every stock
+chance and reaching terminal states without outcome shortcuts. This independently
+checks both Qs supporting adoption. The historical implementation remains intact.
+
+On21October2026,36 sampler/collector/statistical/design/runner/assessment tests
+passed in4.36s. Eight additional pinned neural pipeline fixtures passed in126.06s,
+with only the upstream Transformer performance warning. The eight fixtures use
+the mechanically chosen indices in LOGGED_POSTERIOR_COMPOSITION.rst. They retain
+their historical public dealer contexts and fixed tapes, not fresh entropy.
+Their computed selections exactly match the closed symbolic comparison: two
+strict adoptions, five no-gain fallbacks and one unvalued-parent fallback.
+The synthetic assessment tests separately exercise the own-win parent-default
+rule and both viewer seats. No fixture is a new strength observation.
+
+For the eight neural fixtures, source/native/source-audit work is970decisions,
+64round endings and8matches each, separately counted. Planning uses3,549,448
+physical decisions and3,119,002completions; represented work is31,925,565decisions
+and6,833,106completions. The independent two-value oracle uses398,803physical
+decisions/353,500completions and2,875,140represented decisions/617,760completions,
+with1,209new parent and101new opponent calls. No native action cache is imported.
+Actual parent/controller tails use52decisions/16completions, with a separate
+identical trace replay. Each support pass and audit reconstruction uses10,101
+decisions/5,117opponent calls. These are verification costs, not independent
+sample counts or a latency benchmark.

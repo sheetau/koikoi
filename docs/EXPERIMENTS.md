@@ -9763,3 +9763,55 @@ The design is selected but no study protocol is frozen and no evaluation has
 started. Next integrate/test runner,independent source/posterior audit and
 parent/controller tail execution,then hash-bind dependencies before fresh data.
 No canonical model/dealer change,no reserved101M use. Goal remains active.
+
+
+## 2026-10-21: independent-uniform runner, auditor and true-parent verifier
+
+Implemented uniform_controller_study.py and uniform_controller_assessment.py.
+Persist each sampled seat and accepted deck before use; refuse existing source
+directories, including partial failures. Save complete source and then program/
+selection before actual conditional execution. Bounded16-source workers have
+separate audit processes. Recompute all source actions, public identification,
+first eligible root, complete posterior/world arrays, phase schedule/bindings/
+caps and saved tail execution. Bind all immutable files and require the complete
+declared denominator before exact inference/report export. Frozen dependency
+checks include transitive test fixtures and reject removed dependency bindings.
+Opponent identities recomputed from pinned checkpoint/adapter/guard hashes.
+
+Independent verify_pair evaluates the true unchanged parent actor rather than
+its saved fixed-phase map. Parent/opponent caches are built only in reference
+replays and never imported from native planning. Candidate explicit/symbolic
+programs traverse every future chance to terminal. The two Qs must equal the
+selection certificate. Fallbacks execute unchanged parent tails. No historical
+study implementation was modified.
+
+Command:.venv/Scripts/python.exe -m pytest tests/test_uniform_controller_study.py
+tests/test_uniform_controller_assessment.py tests/test_uniform_controller_design.py
+tests/test_uniform_deal_source.py tests/test_logged_public_source.py
+tests/test_certified_gain_bounds.py -q --junitxml=runs/uniform_controller_unit_validation.xml
+36passed,4.36s;Ruff check/format pass. An initial synthetic test incorrectly
+expected nonforced opponent inference in its last-three-draw fixture; all its
+opponent choices are forced, so the expected count was corrected to0. No game
+or planner behavior changed. Tests reject sampling retries, altered roots/Qs/
+world weights/work, missing audits, partial denominators and changed bindings.
+
+Additional command:.venv/Scripts/python.exe -m pytest
+tests/test_uniform_controller_neural_pipeline.py -q -s -x:
+8passed,126.06s,one upstream Transformer performance warning. Fixed historical
+tapes/contexts at indices1,3,4,5,7,8,10,46;two adoptions (1/15444,4/19305),five
+no-strict-gain fallbacks,one parent-unvalued fallback. Every selection equals
+the closed symbolic comparison. No fresh source samples. Reference true-parent
+and candidate Qs agree independently on both adopted fixtures.
+Per eight-fixture run:source970decisions/64rounds/8matches;native/source audit/
+seed-tape recovery each separate970/64/8. History and independent reconstruction
+each10101decisions/5117opponent calls. Planning3549448physical decisions/
+3119002completions,represented31925565decisions/6833106completions;9783parent/
+13295opponent adapter calls. Oracle398803physical decisions/353500completions,
+represented2875140decisions/617760completions;1209parent/101opponent fresh calls.
+Actual tails52decisions/16completions and separate identical trace replay;
+27parent/22opponent adapter calls,30learner decisions,0symbolic-parent calls
+in these neural fixtures (synthetic tests cover that branch). Source/audit each
+486parent/484opponent calls plus102Point/105WPidentification calls.
+
+No new strength claim;next freeze and launch the preselected8192-source design.
+The goal stays active,canonical human play/dealer and reserved101M unchanged.

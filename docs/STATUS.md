@@ -71,8 +71,12 @@ parent/opponent populations, each with2,048independently randomized-seat sources
 lower bounds>0 and both equal-opponent parent mixture lower bounds>.1pp.
 Keep every missing-root/fallback zero in the denominator. Eight statistical/
 design tests pass. No new source samples, frozen protocol or live evaluation.
-Next implement/test runner and complete audit,bind dependencies,then launch
-the fixed study. No reserved101M use.
+The runner/auditor/export are now implemented:36component tests plus eight
+pinned neural pipeline fixtures pass. The latter exactly match all eight old
+selections and independently replay the true parent actor (no native action
+caches). Source/deck/program ledgers and complete-only statistical export are
+verified. Next freeze the dependency graph and launch the fixed study.
+No reserved101M use.
 This targets expected match improvement under the declared law; it must not
 relabel conditional values as observed wins or combine different sampling laws.
 If that evaluation is insufficient,continue substantive stronger-play work;
