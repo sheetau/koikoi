@@ -1,10 +1,11 @@
-Branch-gradient signal diagnostic
-=================================
+Complete-match branch-gradient results
+======================================
 
 Sharing continuation-action uniforms reduced the observed conditional gradient
-variance for both retained parents. This supports testing the learning method.
-The diagnostic did not update either model or measure a playing-strength gain.
-The subsequent six-arm training study is a separate experiment.
+variance for both retained parents. The subsequent six-arm learning screen did
+not establish a win-rate improvement: all six primary simultaneous intervals
+include zero. No model is promoted. The signal and playing-strength results are
+reported separately below.
 
 Design and scope
 ---------------
@@ -100,8 +101,184 @@ gradients, rollout policy improvement and common random numbers have prior
 work; see ``BRANCH_POLICY_GRADIENT.rst``. The diagnostic establishes a measured
 effect in this implementation, not a new general theorem.
 
-The fixed learning screen compares shared branches, independent branches and
-root-sampled REINFORCE for both parents. It retains all final endpoints and uses
-fresh paired development deals. Its design, work distinction and simultaneous
-primary criterion are in ``BRANCH_POLICY_GRADIENT_TRAINING.rst``. A claim of
-stronger play requires that evaluation, beyond the signal measurements here.
+The fixed learning screen compared shared branches, independent branches and
+root-sampled REINFORCE for both parents. All final endpoints were evaluated on
+fresh paired development deals. Its design and primary criterion are recorded
+in ``BRANCH_POLICY_GRADIENT_TRAINING.rst``.
+
+
+Completed learning screen
+-------------------------
+
+Every arm received 128 single-step Adam updates from 64 complete source matches
+per update. This matches source-match counts and optimizer steps, not total
+simulation cost. All six final endpoints and both parents faced original WP
+and Point on 1,024 paired streams per opponent, with both seats. This GPU
+batch-128 development path is distinct from the strict CPU singleton paper
+comparison. The evaluation adds 32,768 matches on 2,048 distinct deal streams.
+
+The six primary comparisons use equal WP/Point mixtures and draw-adjusted wins.
+A maximum-absolute-deviation bootstrap provides simultaneous 95% intervals.
+All intervals include zero; the fixed progression criterion fails. Neither a
+replicated gain nor a statistically established harm is identified here.
+
+.. list-table:: Primary win changes in percentage points
+   :header-rows: 1
+
+   * - Comparison
+     - Change
+     - Simultaneous 95% interval
+   * - Parent 1: shared minus parent
+     - -0.7080
+     - [-1.8799, +0.4639]
+   * - Parent 1: shared minus independent
+     - -0.1343
+     - [-1.3062, +1.0376]
+   * - Parent 1: shared minus sampled
+     - -0.4883
+     - [-1.6602, +0.6836]
+   * - Parent 2: shared minus parent
+     - +0.0366
+     - [-1.1353, +1.2085]
+   * - Parent 2: shared minus independent
+     - +0.4517
+     - [-0.7202, +1.6235]
+   * - Parent 2: shared minus sampled
+     - +0.6348
+     - [-0.5371, +1.8066]
+
+.. list-table:: All secondary matchup means (descriptive)
+   :header-rows: 1
+
+   * - Model
+     - Opponent
+     - Win percent
+     - Final point margin
+   * - parent1_shared_actions
+     - wp
+     - 49.4141
+     - +0.472656
+   * - parent1_shared_actions
+     - point
+     - 50.7812
+     - -1.906250
+   * - parent1_independent_actions
+     - wp
+     - 49.5605
+     - +0.794922
+   * - parent1_independent_actions
+     - point
+     - 50.9033
+     - -1.598633
+   * - parent1_sampled_return
+     - wp
+     - 49.7314
+     - +1.000977
+   * - parent1_sampled_return
+     - point
+     - 51.4404
+     - -1.432617
+   * - parent2_shared_actions
+     - wp
+     - 49.8291
+     - +1.420898
+   * - parent2_shared_actions
+     - point
+     - 50.1221
+     - -1.991211
+   * - parent2_independent_actions
+     - wp
+     - 49.4141
+     - +1.203125
+   * - parent2_independent_actions
+     - point
+     - 49.6338
+     - -2.227539
+   * - parent2_sampled_return
+     - wp
+     - 49.5117
+     - +1.512695
+   * - parent2_sampled_return
+     - point
+     - 49.1699
+     - -2.403320
+   * - parent1
+     - wp
+     - 49.6338
+     - +1.141602
+   * - parent1
+     - point
+     - 51.9775
+     - -0.897461
+   * - parent2
+     - wp
+     - 49.4629
+     - +1.101562
+   * - parent2
+     - point
+     - 50.4150
+     - -2.381836
+
+.. list-table:: Training work by arm
+   :header-rows: 1
+
+   * - Arm
+     - Source decisions / rounds / matches
+     - Branch decisions / rounds / completions
+   * - parent1_shared_actions
+     - 943,284 / 64,289 / 8,192
+     - 2,372,739 / 175,872 / 39,399
+   * - parent1_independent_actions
+     - 949,889 / 64,004 / 8,192
+     - 2,391,902 / 175,613 / 39,227
+   * - parent1_sampled_return
+     - 946,537 / 64,204 / 8,192
+     - 0 / 0 / 0
+   * - parent2_shared_actions
+     - 956,535 / 63,796 / 8,192
+     - 2,437,789 / 176,745 / 39,361
+   * - parent2_independent_actions
+     - 964,105 / 63,670 / 8,192
+     - 2,483,054 / 178,367 / 39,478
+   * - parent2_sampled_return
+     - 962,630 / 64,086 / 8,192
+     - 0 / 0 / 0
+
+Totals: 5,722,980 source decisions, 384,049 round endings and 49,152 matches;
+9,685,484 branch decisions, 706,597 round endings and 157,465 branch completions.
+The evaluation uses 3,787,953 decisions and 254,310 round endings.
+
+Training and evaluation audits passed. They replay every recorded transition
+on native CPU, verify initial deals and root/outcome accounting, and independently
+recompute all primary simultaneous intervals. These are transition/statistics
+audits, not full neural-update replay. Eighteen implementation tests passed,
+including CPU/CUDA exact checkpoint continuation and Python-rules replay.
+
+A post-hoc check compares the first four paired streams from each of the four
+baseline matchup cells with the original CPU singleton adapters. All 3,843
+recorded action requests agree. The check covers 32 saved match trajectories;
+it does not make the complete GPU evaluation interchangeable with CPU evaluation.
+
+Training session 64742 and completion session 15164 exited successfully. No
+study job remains live. All artifacts are closed; do not restart these jobs.
+The playable model, initial dealer and reserved 101M deal block remain unchanged.
+
+Receipts under ``runs/branch_policy_gradient_training``:
+
+* Training completion:
+  ``e8a28db0e045b87054df96ebe2106873e9d6e96764a74083e8a896cc3ea1472a``.
+* Training audit:
+  ``6c95abeba7d2a2a447298c9402c4f72cbaa341c14501c2d07e97fb35b9e03658``.
+* Evaluation summary:
+  ``3b03a2f902b70d40be14e1756e3ed92b3ebcd502cb481f7432956c171297976f``.
+* Evaluation audit:
+  ``7d87dfd2a6a71eae875fa12f641f12092078966cd7714ab54f2d59d0dc5475f3``.
+* Baseline CPU check:
+  ``70b4704d7aa03603350c63f8588e0ec4eef26781d76e96476ef5308f3f45d60d``.
+
+The present contribution is a measured reduction of conditional gradient noise
+and a completed controlled learning test. Stronger play and a distinct broader
+methodological contribution remain open. This small screen does not decide
+convergence or the best allocation of the simulation budget. Changing the
+learning rate, root sampling or training duration would require a new experiment;
+none is retrospectively substituted for these fixed results.

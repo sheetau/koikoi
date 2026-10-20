@@ -7993,3 +7993,55 @@ Summary SHAab0b2063cc63db13a7393f266fe83a07a560d1f5241922505f302c766b06b53c.
 The saved-data analysis is closed; do not rerun. Results are recorded in
 BRANCH_POLICY_GRADIENT_RESULTS.rst. The verified manuscript remains unchanged
 until actual learned-policy evaluation is available.
+
+
+## 2026-10-20: branch-gradient learning screen closed, no established win gain
+
+Training64742/PID19268 exited0 after all6fixed128-update arms. Queue15164/PID55284
+then completed the full training audit, fixed evaluation and independent evaluation
+statistics audit, and exited0. No study job remains live. All outputs are retained;
+no restart, endpoint selection, canonical promotion or reserved101M use.
+
+Training completion SHAe8a28db0e045b87054df96ebe2106873e9d6e96764a74083e8a896cc3ea1472a.
+Audit SHA6c95abeba7d2a2a447298c9402c4f72cbaa341c14501c2d07e97fb35b9e03658.
+Source work5,722,980decisions/384,049round endings/49,152matches. Branch work
+9,685,484decisions/706,597round endings/157,465completions.768single Adam updates.
+The sampled-return arms use zero additional branches; source/update matching
+is not equal total simulation cost. Wall time963.53s is a practical run time,
+including I/O and overlapping small checks, not an isolated throughput benchmark.
+
+GPU development evaluation completes32,768matches on2,048distinct paired streams,
+3,787,953decisions and254,310round endings. All6trained models plus both parents
+face WP/Point with both seats. Protocol SHA:
+0c4be0395c6b25a4f47dc5069cd59566a7cbc764ac600f48d86abf2446664663.
+Summary SHA3b03a2f902b70d40be14e1756e3ed92b3ebcd502cb481f7432956c171297976f.
+Audit SHA7d87dfd2a6a71eae875fa12f641f12092078966cd7714ab54f2d59d0dc5475f3.
+Allsource/evaluation transitions and primary statistics verify. Full neural
+training/inference is not replayed by these audits.
+
+All6primary simultaneous95%win-change intervals include zero; criterionfalse.
+In percentage points, parent1 shared minus parent -0.7080[-1.8799,+0.4639],
+minus independent -0.1343[-1.3062,+1.0376], minus sampled -0.4883[-1.6602,+0.6836].
+Parent2: +0.0366[-1.1353,+1.2085], +0.4517[-0.7202,+1.6235],
++0.6348[-0.5371,+1.8066], respectively. No replicated strength gain or confirmed
+harm is established. The signal-variance gain does not become a demonstrated
+match-performance gain under this fixed128-update recipe. Complete primary,
+all16secondary matchup means and all6work rows are transcribed from the receipts
+in BRANCH_POLICY_GRADIENT_RESULTS.rst. No better-seed selection.
+
+Additional compatibility check: `.venv/Scripts/python.exe -m scripts.check_branch_evaluation_cpu`.
+For the first4pairs of each of the4baseline cells, the original CPU singleton
+parent/WP/Point adapters agree on all3,843recorded GPU action requests.32saved
+trajectories/8distinct deal streams, no new independent matches. It follows
+recorded trajectories and is not a complete CPU match reevaluation. Receipt SHA:
+70b4704d7aa03603350c63f8588e0ec4eef26781d76e96476ef5308f3f45d60d.
+The check is closed. Ruff passes; no additional broad test rerun was needed.
+
+The broader user objective is still active. The implemented estimator and its
+measured conditional variance reduction are useful research outcomes, but neither
+strength nor general methodological priority has been established. Further
+intervention selection must distinguish source-root/parameter-gradient variance,
+update size, sampling coverage and simulation cost; do not infer that simply
+increasing duration or learning rate is sufficient. Existing round-continuation,
+Q-boosting and search outcomes must be read before proposing overlapping work.
+The manuscript remains at its verified auxiliary-study version, unchanged here.

@@ -11,39 +11,49 @@ Old process handles mentioned in that history are historical, not live jobs.
 
 ## Current experiment and next actions
 
-A direct terminal-outcome actor-gradient experiment is now implemented. The
-completed two-parent diagnostic compares shared versus independent continuation
-uniforms while holding each root world fixed. Conditional root-logit variance
-ratios are0.29824and0.64505. This is promising learning-signal evidence, not a
-playing-strength result. No actor was trained in that diagnostic.
+**The six-arm complete-match branch-gradient screen and its independent audits
+are complete. All six primary simultaneous win-change intervals include zero.
+No study job remains live. The stronger-play/research objective remains active.**
+[Complete signal and match results](BRANCH_POLICY_GRADIENT_RESULTS.rst).
 
-Source work:14,609decisions/985round endings/128matches. Branch work:
-553,186decisions/40,707round endings/9,600completions. Seven tests passed,
-including exact variable-length-game gradients and CPU/CUDA reference replay.
-The independent full diagnostic audit verifies every recorded transition and
-recomputes all conditional variances. Audit SHA:
-3b99cc11482ab3d94f05f465fe4d101e69a916bdbe69d2d3ed67e7b21b260ecf.
-Completed artifacts: runs/branch_policy_gradient_diagnostic. Do not rerun.
-[Method and prior work](BRANCH_POLICY_GRADIENT.rst).
+Both retained parents were trained with shared-action branches, independent-action
+branches and root-sampled REINFORCE. Each arm received128updates/8,192source
+matches. All six final endpoints and both parents were evaluated on fresh GPU
+paired development deals. No checkpoint selection, promotion or reserved101M use.
 
-The six-arm screen is live: training session64742/PID19268 and completion
-queue session15164/PID55284. Both shared-action arms and parent1 independent/
-sampled arms have completed128updates; parent2 independent is in progress.
-The queue waits for all six endpoints, then runs the independent training audit,
-fixed GPU development evaluation and independent evaluation/statistics audit.
-Do not launch duplicate jobs or edit their bound implementation files.
-Training protocol81e364a8254a5bc50e418e88907bb6e6c848bd3770556ee25dd2f3e37d08e59b.
-Queue protocolacdc3d9eb0195d9a1e338017c1ab3ddc4317f433509ab0651f10ba67efbf10c3.
-[Fixed training/evaluation design](BRANCH_POLICY_GRADIENT_TRAINING.rst).
-No evaluated endpoint or canonical promotion exists yet.
+Primary shared-minus-parent win changes in percentage points, simultaneous95%:
+parent1 -0.7080[-1.8799,+0.4639]; parent2 +0.0366[-1.1353,+1.2085].
+All four shared-minus-control intervals also include zero. The matched-source
+screen does not establish a gain from the branching or coupling intervention.
 
-A post-hoc analysis of the saved diagnostic outcomes also finds lower conditional
-full-actor gradient variance: ratios0.620943and0.341429. It includes all4,019,715
-parameters, both parents and all eight replicates.32backward passes, no new
-simulation. This reuses the original samples and is not independent replication.
-Both parent digests remain unchanged. [Signal results](BRANCH_POLICY_GRADIENT_RESULTS.rst).
-Closed outputs: runs/branch_parameter_variance. Summary SHA:
-ab0b2063cc63db13a7393f266fe83a07a560d1f5241922505f302c766b06b53c.
+Source training:5,722,980decisions/384,049round endings/49,152matches.
+Additional branches:9,685,484decisions/706,597round endings/157,465completions.
+Evaluation:3,787,953decisions/254,310round endings/32,768matches on2,048distinct
+paired streams. Branch simulations and replay are not independent fresh matches.
+
+Training audit6c95abeba7d2a2a447298c9402c4f72cbaa341c14501c2d07e97fb35b9e03658.
+Evaluation audit7d87dfd2a6a71eae875fa12f641f12092078966cd7714ab54f2d59d0dc5475f3.
+They replay all recorded actions and verify roots/labels/counters/primary statistics.
+A separate32-trajectory baseline check agrees on all3,843CPU singleton action
+requests. This subset does not replace a complete strict-CPU evaluation.
+Training session64742/PID19268 and queue15164/PID55284 exited0. Their artifact
+roots runs/branch_policy_gradient_training and runs/branch_policy_gradient_completion
+are closed. Do not rerun completed commands or overwrite outputs.
+
+The earlier frozen-root diagnostic did find lower conditional root-logit variance
+(shared/independent0.29824and0.64505). Post-hoc full-actor gradients also have lower
+conditional variance(0.620943and0.341429), using the same eight replicates and
+4,019,715parameters. This is signal evidence, not a replicated match-win gain.
+Both diagnostic roots remain closed: runs/branch_policy_gradient_diagnostic and
+runs/branch_parameter_variance. Parent models and dealer remain unchanged.
+
+Next action: use the completed results to select a further scientific intervention.
+Do not describe variance reduction as stronger play or as invention of all-action
+policy gradients. Assess root-sampling efficiency and update/coverage limitations
+before committing to another training budget; a larger learning rate is not yet
+shown to solve the problem. Read existing round-continuation/Q-boosting/search
+results before proposing a supposedly new variant. The paper remains at its
+verified38-page auxiliary-study revision; no unchanged PDF rebuild is needed.
 
 ## Recently completed score-auxiliary study
 
