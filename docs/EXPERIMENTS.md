@@ -8525,3 +8525,40 @@ Keepallmissing/refusals, fixedthenoptimizedsharedcache, allrootvaluesverified,
 freezeallplansbeforefreshstrictactualtailassessment. Defaultfreshoutput
 runs/earlier_belief_tail_capability. Commitbeforelaunch;notlaunchedatthisentry.
 No training,modelpromotion orreserved101M use. Goalactive.
+
+## 2026-10-20: five-draw capability completed and terminal aggregation tested
+
+python -m scripts.check_earlier_belief_tail completed0(session26188/PID26632).
+64sources/16distinctstreams;18complete roots,15node-cap refusals,31missing.
+Exporter python -m scripts.export_earlier_belief_tail passed allbindings,
+source/prefix/actualtailreplays, savedpolicyvalueandphysical/representedwork
+checks. Parent1onegain79/8580(all32sourcemean+0.028773pp);parent2onegain68/54945
+(mean+0.003868pp). Parent1fromfutureoptimization,parent2alreadyfixedrootchoice.
+All actualwinchanges0. No canonicalpromotion orreplicated strengthclaim.
+
+Sources7350decisions/496rounds/64matches; nativeverificationseparatelysame.
+History70827transitions/33552teachercalls/1694guarded. Completedplanning6175862
+physicaldecisions/5427006terminalbranches; refusedpartial7894917/6922198.
+Representeddecisionunits94971915completed/208092960partial are notsimulations.
+Independentpolicyoracle4967546physicaldecisions/4362358completions, represented
+85258053/28060560. Actualtails168decisions/54completions. Exportsource+prefix
+11159decisions/727rounds/64completions;exporttail168/54/54.
+Timesfixed64.601474s,optimized56.638458s,support68.862582s;oracles92.793662+
+67.443409s;refusedpartial229.382716s. Sharedcachefixedfirst;notcoldthroughput.
+Protocol5cd1ab2345649ed83656c5f81cefd2cf44d2036a4c7b2cf2464aa4ff7da701fa.
+Complete5357cb51bd8696db1824bec20aa4a62cdc8cfb3b842259ac28c269f436f5a9fc.
+Report6171c12bc0cee74c99058f035f0fdb3f7363dbc54c5730b84ab8e76f6b9cca43.
+Receipt runs/earlier_belief_tail_export.json. Allsources/missing/refusalsretained.
+
+TerminalReducedPlanner is a separate implementation which sums terminalmass
+before liveinformationgroups. No transitionorpolicychange; physicalworksame
+forcompleteplans. Budgetsnow500klivenodes+2Mphysicaltransitions,not500kallnodes.
+Two tests pass,0skips,2.99s:bothseats/nonunitprior/allvalues+policy+workequal,
+independentPythonoracleandcaps. No rule/productionmodelchange.
+Newfixed check scripts/check_terminal_reduced_tail.py will comparebothmethods
+onall18completedroots, freshseparatecaches andalternatingmethodorder, fixedthen
+optimizedwithinmethod. Both2Mphysicalcaps; control2Mallnodes/reduced500klive,
+nonbinding onsavedcompletedroots. Exactvalues/policies/work/callcountrequired.
+No newsourceorrefusedroot inthisregression; oldoracleevidenceisboundandreused.
+Design docs/TERMINAL_REDUCED_TAIL.rst; commitbeforelaunch,notlaunchedatthisentry.
+Broadergoalactive. No training/reserved101M/unchangedPDFrebuild.

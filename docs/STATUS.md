@@ -97,21 +97,35 @@ Protocol a451f2605fb4e02fa16f532101d38f2babc79e56857da7cb8d7b3416a38f7de8.
 Complete7ad4de1a0bd4b1dffff83ec55934cc84bbb9a7975b1a764f224dd05b8e5cd95a.
 The eager source and all its closed-study bindings remain unchanged.
 
-The five-draw capability runner and independent weighted Python policy oracle
-are implemented. Three tests pass,0skips,4.60s. Both-seat nonunit-mass policy
-values agree;corrupted values are rejected. A closed-source regression preserves
-all actions/finalstate/publicidentification at both gates and selects an earlier
-root with5draws. Test source verification replays2matches on1alreadyused stream;
-no fresh study source consumed. [Fixed protocol](EARLIER_BELIEF_TAIL.rst).
+The five-draw capability check is complete:64sources/16freshstreams,
+18complete roots,15node-budget refusals,31missing. Session26188/PID26632 exited0.
+[All results/refusals/costs](EARLIER_BELIEF_TAIL_RESULTS.rst).
+Independent weighted Python replay verifies every completed root-policy value;
+export separately replays source/prefix/actual-tail traces and checks bindings.
+Parent1 gains79/8580at1of8completedroots (all32source mean+0.028773pp);
+parent2 gains68/54945at1of10 (mean+0.003868pp). Parent1gain is from future
+optimization;parent2gain is already obtained by the fixed-continuation control.
+All actualmatch outcomes unchanged. No replicated match-win improvement.
 
-Before launch:64sources/16freshstreams122110001+1000*WPPointindex+replicate,
-2parents x2opponents x2seats x8replicates. First final-round learner root<=5draws
-with identity publicly established in an earlier round;allmissing/refused kept.
-Caps1000hands/4096frontierrows/500000nodes/depth32. Fixed thenoptimized withshared
-caches;independentPython oracle discoversdraws through actualstockpointerchange.
-All plans freeze beforeactualtailassessment. No newstudy launched yet;commit
-beforelaunch. No training,productionpolicychange orreserved101M use. Broader
-goalactive;no new replicated match-win gain.
+Source7350decisions/496rounds/64matches; nativeverification separatelysame.
+Completed planning6175862physicaldecisions/5427006terminalbranches;refused
+partialplanning7894917/6922198. Oracle4967546decisions/4362358completions;
+actualtails168/54. All represented-prefix units and support/exportwork separate
+inreport. Protocol5cd1ab2345649ed83656c5f81cefd2cf44d2036a4c7b2cf2464aa4ff7da701fa.
+Complete5357cb51bd8696db1824bec20aa4a62cdc8cfb3b842259ac28c269f436f5a9fc.
+Do not restart this closed study or automatically extend its sourcebudget.
+
+Terminal aggregation is implemented separately and passes2tests,0skips,2.99s.
+It values terminal mass before constructing live information groups. Both-seat
+nonunit-prior comparisons preserveallvalues/policies/physicalwork;independent
+Python policy replay agrees. It uses an explicit2Mphysical-transition cap plus
+500klive-node cap;this is not the old500kall-node budget.
+[Fixed paired regression/cost protocol](TERMINAL_REDUCED_TAIL.rst).
+Next check usesall18completedroots andbothmethods withfreshseparatecaches,
+alternatingmethodorder. It checksall savedvalues/policies/work/callcounts and
+measurespairedcost. No previouslyrefusedroot ornewsourceis evaluated by this
+check. Commitbeforelaunch;notlaunchedyet. Productionplay/PDFunchanged,101Munused.
+The broader stronger-play/new-contribution goal remainsactive.
 
 A saved-gradient block analysis is also closed: runs/branch_gradient_blocks.
 It verifies all four previous full-gradient totals by splitting 768 output
