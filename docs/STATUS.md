@@ -211,12 +211,27 @@ and upper bounds are disjoint; chosen contingent policies remain complete.
 Ten tests pass,0 skips,3.32s: hidden information, nonunit masses, actual partial
 cutoffs below the ceiling, propagated cutoffs, both-seat native comparisons and
 independent Python policy replay. [Proof and protocol](BOUNDED_BELIEF_TAIL.rst).
-scripts/check_bounded_tail.py will compare all28 completed roots at unchanged
-caps, alternating14first each, fresh separate caches, fixed then optimized.
-Require all chosen policies/values equal, computed values/maps equal and every
-partial upper bound valid against control. Existing independent oracle evidence
-is reused through exact whole-policy equality. Commit before launch; not yet
-launched at this entry. No new sources, larger cap, production or PDF change.
+The paired all28-root comparison is complete (session66474/PID52964 exited0).
+All56 chosen policies/values, computed root maps and partial upper bounds pass;
+all physical/adapter-call monotonicity checks pass. [Results](BOUNDED_TAIL_RESULTS.rst).
+Control13,896,524 / bounded12,422,529 physical decisions (-10.6069%); terminal
+branches12,333,528 /11,003,741. Total155.243126s /139.910682s (-9.8764%).
+Maximum individual plan21.064108s /21.528018s; not every plan is faster.
+There are26 root bounds below1 and2,330 partial candidate cutoffs across trees.
+New paired work26,319,053 decisions /23,337,269 terminal branches,0 source matches.
+Prior independent Python oracle evidence reused through whole-policy/value
+identity; no new full Python/neural replay or strength result. Export audit passes.
+Protocol110dd1c58a9d89e5073dd0835852fc9930d8b5777b13141afb1e90dd58268df5.
+Complete7770f4879c856119ffcca0547544fcaf547b3d39241396375a5f449eef9938c2.
+Report2a93fa7eff67fff0842c35c3a2922628fcea79ebdc8957d184e8e901c87ce718.
+
+scripts/recover_bounded_tails.py preflight passes111bindings and exactly five
+refusals0,4,20,36,52. [Protocol](BOUNDED_RECOVERY.rst). Reuse verified support,
+reconstruct identical worlds, fresh policy caches, unchanged caps. Independently
+verify every completed exact policy; save all attempts before actual assessment.
+Retain all old28 completed/31 missing and remaining refusals in64source cohort.
+Commit before launch; not yet launched at this entry. No automatic escalation,
+source extension, production model change, reserved101M or manuscript rebuild.
 
 A saved-gradient block analysis is also closed: runs/branch_gradient_blocks.
 It verifies all four previous full-gradient totals by splitting 768 output

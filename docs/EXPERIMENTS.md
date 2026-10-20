@@ -8733,3 +8733,28 @@ all28-root comparison, unchangedcaps, alternatingorder14each, freshcaches.
 Old Python oracle evidence reused through complete map/value equality; new full
 oracle is not claimed. Commit before launch; no comparison job yet at this entry.
 No new source, training, model promotion, reserved101M use or paper rebuild.
+
+## 2026-10-21: bounded comparison complete; five-root recovery preflight passes
+
+python -m scripts.check_bounded_tail completed0 (session66474/PID52964).
+All28 saved roots/56 policies match chosen values/actions/wholepolicies, every
+computed rootmap/value and valid partial upper bounds. Alternating14firsteach,
+freshseparatecaches, fixedthenoptimized, matchedcaps. Physicaldecisions13,896,524
+versus12,422,529 (-10.606933%); terminalbranches12,333,528 versus11,003,741.
+Totals155.24312610016204s versus139.91068249987438s (-9.876407%). Maximumplan
+21.06410830002278s versus21.5280175000662s, so not a uniform latency improvement.
+26rootboundsbelow1;2,330 partial candidate cutoffs across trees. Newpairedwork
+26,319,053 decisions/23,337,269 terminalbranches,0 new sources. Old independent
+Pythonoracle evidence reused through exact wholepolicy/value equality; no full
+new Python/neural replay. python -m scripts.export_bounded_tail audit passes.
+Protocol110dd1c58a9d89e5073dd0835852fc9930d8b5777b13141afb1e90dd58268df5.
+Complete7770f4879c856119ffcca0547544fcaf547b3d39241396375a5f449eef9938c2.
+Report2a93fa7eff67fff0842c35c3a2922628fcea79ebdc8957d184e8e901c87ce718.
+
+Added scripts/recover_bounded_tails.py and docs/BOUNDED_RECOVERY.rst. Preflight
+passes111bindings and exact5refusals0/4/20/36/52; supportworlds reconstructed and
+compared exactly, no new history replay, fresh policy caches, same caps. Every
+computed completed policy receives independent Python verification. All attempts
+freeze before actualtail assessment; original64 denominator preserved. Lint and
+format pass. Commit before launch; not yet launched at this entry. Goalactive;
+no training, model promotion, final101M or manuscript change.
