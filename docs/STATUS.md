@@ -34,14 +34,24 @@ Evaluation auditf6dafc4c4d7609026822ce268ae8efd13b8710ebc778e9656f72674887da01c8
 Priority roots reduce confidence>=.99 from about30%to5--6%, but constant sampled
 branch outcomes remain about68--70%. Larger updates did not produce stronger play.
 
-**Next action:** implement the missing retained-Transformer full-source Monte
-Carlo control, using all eligible decisions from each already-collected complete
-match before one optimizer step. [Evidence and exact variance identity](BRANCH_GRADIENT_BLOCKS.rst).
-The old complete-MC training study was MLP/PPO; retained-Transformer complete-return
-probes were diagnostics, not this learner. Compare full-source versus root-sampled
-and branch estimators before attributing failure to the all-action target itself.
-This removes root-selection covariance from the sampled-return estimator; it does
-not guarantee lower variance than all-action branches or a win gain.
+**Full-source Monte Carlo control is implemented and verified; main launch is
+next.** [Fixed twelve-arm design](FULL_SOURCE_STUDY.rst). All eligible decisions
+from each complete source match contribute before one optimizer step. Gradients
+are normalized by matches, accumulated in chunks, then clipped once. Root-sampled
+and shared-branch controls retain their old numerical implementation. Both
+parents x three estimators x two rates receive128updates/64matches, with full/high
+predefined as candidate. Six simultaneous primary contrasts compare it with its
+parent and both high-rate controls. No promotion or reserved101M use.
+
+Core tests passed8 (CPU/CUDA source/reference replay, exact continuation,
+old-control equivalence and analytic gradients); the separate12-arm capability
+pipeline passed1, including112evaluation matches, complete transition/statistical
+audits and deliberate corrupted-return rejection. These are capability checks,
+not strength evidence. Ruff passes. No main study has run yet.
+
+This control removes conditional root-selection covariance from sampled-return
+learning; it does not guarantee lower variance than all-action branches or a win
+gain. It is standard complete-trajectory REINFORCE, not an algorithmic novelty.
 
 A saved-gradient block analysis is also closed: runs/branch_gradient_blocks.
 It verifies all four previous full-gradient totals by splitting 768 output

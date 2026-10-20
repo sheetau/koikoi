@@ -8285,3 +8285,31 @@ per-match-normalized Monte Carlo gradients, and compare against both existing
 root estimators. This is an established full-trajectory baseline, not a novel
 RL algorithm. It is not yet implemented or launched. The stronger-play/research
 goal remains active. The verified opening-revision PDF is unchanged this turn.
+
+## 2026-10-20: complete-source retained-Transformer learner verified
+
+Added scripts/full_source_policy_gradient.py and full_source_study.py, with the
+fixed protocol in docs/FULL_SOURCE_STUDY.rst. Full-source collection preserves
+old source actions/reservoir draws and additionally retains all eligible states,
+actions and own-player terminal returns. Chunk losses sum over decisions and
+normalize by source matches; clip/Adam once after all chunks. No critic/PPO or
+new simulator branches. Root and branch controls delegate to the old learner.
+
+`python -m pytest tests/test_full_source_policy_gradient.py -q`:8passed,
+0skips,4expected upstream warnings,19.09s. Includes exact finite-game gradient,
+unequal chunks, independent Python state/action/return replay on CPU/CUDA,
+checkpoint continuation, and exact old root/branch numerical compatibility.
+`python -m pytest tests/test_full_source_study.py -q`:1passed,0skips,
+2expected warnings,45.94s. Actual reduced12-arm pipeline:2updates x4source matches
+per arm,96source matches/24updates,112evaluation matches. Training and evaluation
+audits pass; altered full-source return rejected; existing-directory restart
+rejected. These are implementation checks, not strength measurements.
+Ruff format/check pass for all4new Python files. Main study not yet launched.
+
+Fixed main design:12arms,128updates each,64source matches/update (98,304total,
+1,536updates),2parents,full/root/branch estimators and1e-5/1e-4 rates. Candidate
+full/high must exceed parent and both high-rate controls at both parents using
+six simultaneous95% bounds. All12endpoints+2parents evaluate57,344matches on
+2,048distinct streams. Branch work and gradient rows counted separately; source
+matching does not equalize compute. No canonical promotion or101M final use.
+Standard full-trajectory REINFORCE supplies a missing control, not novelty.
