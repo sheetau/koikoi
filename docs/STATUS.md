@@ -84,19 +84,31 @@ Planning660,758decisions/255,492terminal branches; independent policy replay
 Protocol fc7a318560d7b294a41d057fa349de84d45ba1fbef64b2fb61b845598e52173f.
 Complete320758c9c0fb79367423509c1f715d752e97680e9ae9473bf8b443195c616f7a.
 
-Deferred chance expansion is implemented in a separate module; the closed
-eager source and its bindings remain unchanged. It keeps integer multiplicity
-for unexpanded stock prefixes and draws only at reached transitions. Three
-tests pass,0skips,94.47s:both-seat three-draw and a four-draw fixture agree with
-eager enumeration in all rational values,whole policies and represented work.
-Every new transition matches Python;all four decision phases are exercised.
-[Design and equivalence protocol](DEFERRED_BELIEF_TAIL.rst).
-Next check: all16closed natural roots,32fixed/optimized plans,4096frontier cap,
-no new sources. Fresh strict actors, all deferred transitions compared with
-Python,all plans and represented counters compared with saved eager results.
-No earlier-tail source study launched. No training,production-policy change or
-reserved101M use. General POMDP construction is established; stronger-play
-objective remains active.
+Deferred chance equivalence is complete:all16closed roots/32fixed+optimized
+plans match every eager rational value,action,wholepolicy and represented work.
+Session14613/PID66820 exited0. No live job. Physical transitions fall660,758to
+134,091(-79.7065%);terminalbranches255,492to118,941. Initialrows63,000to80;
+maximumfrontier407. Observationnodes126,181 andowndecisionnodes4,706 unchanged.
+All134,091new transitions independently match Python. Instrumented time8.113025s
+includes5.686892s oracleverification;transition reduction is not latency speedup.
+[Results](DEFERRED_BELIEF_TAIL_RESULTS.rst). Three coretests pass,0skips,94.47s,
+including a full four-draw eager/deferred comparison and nonunit priors.
+Protocol a451f2605fb4e02fa16f532101d38f2babc79e56857da7cb8d7b3416a38f7de8.
+Complete7ad4de1a0bd4b1dffff83ec55934cc84bbb9a7975b1a764f224dd05b8e5cd95a.
+The eager source and all its closed-study bindings remain unchanged.
+
+Next implementation: an earlier-tail capability runner using deferred chance,
+with first eligible final-round learner root at<=5draws and identity established
+publicly in an earlier round. Keep fixed-continuation control,all missing/refused
+sources,freeze complete policies before actual-tail assessment. Use64sources on
+16fresh streams122110001+1000*opponent_index+replicate (WP0,Point1),2parents x
+2opponents x2seats x8replicates. Proposed caps1000hands,4096frontierrows,
+500000nodes,depth32. Implement independent weighted-policy replay using Python
+step/stock-pointer changes to identify draws; do not reuse the deferred draw
+predicate for that oracle. Validate before launch and fix the protocol in git.
+This runner is not yet implemented or launched; those fresh streams are unused.
+No training,production-policy change or reserved101M use. No new replicated
+match-win gain; the broader stronger-play/new-contribution goal stays active.
 
 A saved-gradient block analysis is also closed: runs/branch_gradient_blocks.
 It verifies all four previous full-gradient totals by splitting 768 output

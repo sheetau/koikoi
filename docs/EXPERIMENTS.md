@@ -8478,3 +8478,27 @@ Fixed next check scripts/check_deferred_belief_tail.py uses all16closedroots,
 transition comparison and exact savedpolicy/value/work equality. No new sources
 or strengthsample. Design docs/DEFERRED_BELIEF_TAIL.rst. Earlier-tail naturalroot
 study notlaunched; goalactive. No training,101M use orcanonicalpromotion.
+
+## 2026-10-20: deferred expansion complete on all closed natural roots
+
+python -m scripts.check_deferred_belief_tail completed0;session14613/PID66820.
+All16roots,32plans match saved eager values/actions/rootpolicy maps andweighted
+work. Physical transitions134091vs660758 (-79.7064886%);terminalbranches118941
+vs255492. Initialrows80vs63000;maxfrontier407.126181observation/4706ownchoice
+nodes unchanged. Separate Pythonoracle134091decisions/118941terminations;all
+states/work agree. Instrumentedplanning8.1130247s includesoracle5.6868921s.
+No new source matches,neuraltraining,winmeasurement orindependentsamples.
+Three-draw conditional gains unchanged (parent1zero,parent2one1/110gain);
+actualoutcomes unchanged. No promotion/101M use or unchangedPDFrebuild.
+Protocol a451f2605fb4e02fa16f532101d38f2babc79e56857da7cb8d7b3416a38f7de8.
+Complete7ad4de1a0bd4b1dffff83ec55934cc84bbb9a7975b1a764f224dd05b8e5cd95a.
+Reportdocs/DEFERRED_BELIEF_TAIL_RESULTS.rst. Allbindings/counterschecked after
+completion. Closed eagerbindings remain unchanged. Do notrerunclosedcorpus.
+
+Nextproposed earlier-tail check:64sources/16fresh122110001+1000*WPPointindex+rep
+streams,2parents x2opponents x2seats x8replicates. Firsteligible final-round root
+with<=5draws and earlier-round publicidentity.1000hands/4096frontier/500000nodes/
+depth32. Samefixed/optimized controls;allmissing/refusalskept. IndependentPython
+policyvalueoracle will detectdraws by actualstockpointerchange and expandchance
+itself,notcalltheplannerpredicate. Implement,validate,fixprotocolbeforelaunch.
+No suchrunner or newsource collection yet. Stronger-play objectiveactive.
