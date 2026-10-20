@@ -8114,3 +8114,31 @@ streams each,118110001/118210001; bootstrap118310001,10,000replicates. Allcases
 are retained; source/update budgets match but actual branch costs may differ.
 The combined runner trains, audits, evaluates and audits in sequence. No
 canonical model change, game/dealer change, manuscript rebuild or101M use.
+
+
+## 2026-10-20: priority study launched; manuscript opening revised
+
+Launched `.venv/Scripts/python.exe -m scripts.priority_branch_study` in session
+92368, PID 33408, output runs/priority_branch_study. The worker remains live
+and performs training, training audit, evaluation and evaluation audit in
+sequence. Protocol SHA256 4543224c95c1ec5e9c24cfa0ed6f4450eda956e3d8e5bf79f125bd9fa105e79b.
+Do not start a second copy or modify its bound implementation/design files.
+No interim results were used to change the fixed study design.
+
+Revised only the manuscript Abstract and Introduction. Their whitespace word
+counts fall from 184/514 to 160/436. Lead with adaptation strength, exact critic
+conditioning and recoverable public information; consolidate empirical limits.
+No new strength or novelty claim is added. RL-Point's advantage against the
+WP-initialized agents and the absence of an established Koi-Koi critic reversal
+remain explicit in the Introduction. All source from Related Work onward,
+citations, cross-references, labels and included tables remain unchanged.
+
+Tectonic build succeeds. All 3,313 previous evidence bindings verify; no TeX
+box/glyph/reference warnings, no replacement characters, 40 numbered references,
+24 embedded font names. The PDF remains 38 pages with Conclusion on page 15.
+Rendered all pages; reviewed changed pages 1--11 on contact sheets and pages
+1,2,11 at full size. Pages 12--38 are pixel-identical to the verified preceding
+PDF. No unresolved visual issue. QA runs/manuscript_priority_opening_20261020_qa.json
+SHA256 94336c1e2822ab3b80488f3537b3ad6c3855b6c4c57df94f325a0ea37a2f31a0. PDF SHA256 40e14e9132163e154704581c75bef31ffbe5c52e2115d126c6d053fd7fc3d0a3.
+Previous source/PDF/QA preserved in runs/manuscript_priority_opening_previous.
+The running priority experiment does not bind or consume the manuscript.

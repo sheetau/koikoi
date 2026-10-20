@@ -20,24 +20,22 @@ Match Wins and Critic Conditioning}
 \maketitle
 \begin{abstract}
 Terminal-match self-play improves the published Koi-Koi win policy while
-retaining its Transformer architecture and greedy inference. After 8.52 million
+preserving its Transformer architecture and greedy inference. After 8.52 million
 additional decisions each, two adapted agents achieve 51.480\% and 51.445\%
 draw-adjusted win scores against assisted RL-WP on 10,000 held-out duplicate
-deals; both 95\% intervals exclude 50\%. RL-Point remains competitive in wins
-and superior in expected points against these WP-initialized agents.
-Point initialization raises equal-opponent mixture point margins by
-1.77--2.08 points over matched WP controls. A fixed-head auxiliary comparison
-finds that finer terminal-margin labels change actions without a detectable
-gain over outcome-only labels. We also identify a failure in player-relative
-return estimation: an exact shared-parameter game shows that switching to the
-opponent's critic can reverse the expected policy update even with exact
-conditional values. Learner-decision returns correct the complete example.
-In Koi-Koi, completed public hands recover earlier actor inputs and identify
-the fixed WP/Point opponent in 86.1\% of natural final-round starts.
-Controlled learning comparisons distinguish these information and estimation
-results from playing strength: return, seat and public-memory repairs yield
-no replicated additional win gain, and agent probes do not establish the
-critic reversal in Koi-Koi itself.
+deals; both 95\% intervals exclude 50\%. Starting from RL-Point instead raises
+equal-opponent mixture point margins by 1.77--2.08 points over matched
+WP-initialized controls. We then establish two properties of the learning
+information. In an exact shared-parameter game, switching between players'
+critics can reverse the expected policy update despite exact conditional
+values; learner-decision returns correct the complete example. In Koi-Koi,
+completed public hands recover earlier actor inputs and identify the fixed
+WP/Point opponent in 86.1\% of natural final-round starts. Controlled comparisons
+connect these findings to agent design: additional return, representation,
+public-memory and auxiliary-prediction changes do not establish a replicated
+win gain. Together, the results demonstrate effective match adaptation and
+explain why informative observations or exact value estimates alone need not
+produce stronger policies.
 \end{abstract}
 
 \section{Introduction}
@@ -48,60 +46,49 @@ change the best decision for the same hand. Expected points and match wins
 are therefore distinct learning objectives.
 
 Guan et al. trained Transformer agents for these objectives: RL-WP for wins
-and RL-Point for points \cite{guan2023koikoi,pinnedkoikoi}. We use their released
-agents to study terminal-match optimization, the information needed to estimate
-its returns, and the opponent information recoverable from public play.
+and RL-Point for points \cite{guan2023koikoi,pinnedkoikoi}. Their released agents
+provide a starting point for studying how match-level optimization improves
+play and which additional learning signals help. We investigate three aspects:
+terminal-match adaptation, the conditioning of critic estimates, and the
+information recoverable from public play.
 
-First, terminal-match self-play improves the released win policy. We convert
-its action scores into a stochastic policy and optimize it with PPO
-\cite{schulman2017ppo}, using match-end rewards and retaining value across round
-boundaries. After 8.52 million additional decisions each, both adapted models
-beat assisted RL-WP on held-out duplicate deals. Deployment preserves the
-original actor architecture and greedy action selection. The gain transfers
-unevenly to RL-Point, which retains an expected-points advantage. Increasing
-policy updates eightfold at two fresh seeds improves mixture point margins,
-but does not establish a replicated additional win gain
-(Section~\ref{sec:duration}).
+Terminal-match self-play improves the released win policy without changing
+its deployed architecture. We convert action scores into a stochastic policy
+and optimize it with PPO \cite{schulman2017ppo}, using match-end rewards and
+retaining value across round boundaries. After 8.52 million additional decisions
+each, both adapted models beat assisted RL-WP on held-out duplicate deals with
+greedy action selection. RL-Point remains competitive in wins and superior in
+expected points against these WP-initialized agents. Starting from RL-Point
+raises the equal-opponent mixture point margin by 1.77--2.08 points over matched
+WP controls (Section~\ref{sec:point-initialization}). We also compare longer
+training and outcome-versus-margin auxiliary prediction while keeping the
+policy objective fixed (Sections~\ref{sec:duration} and~\ref{sec:score-auxiliary}).
 
-A matched-budget initialization comparison also improves point margins: starting from RL-Point raises the equal-opponent
-mixture margin by 1.77--2.08 points over WP initialization across two seeds
-and two sampling settings. Neither calibrated sampling nor the initialization
-change establishes replicated additional win improvement
-(Section~\ref{sec:point-initialization}). We then test whether terminal-score
-prediction improves the actor while PPO continues to optimize wins. Outcome
-and margin supervision share the same categorical head; only the resolution
-of the target within loss/draw/win groups changes. Their complete-match
-comparison tests whether the additional score information improves decisions
-(Section~\ref{sec:score-auxiliary}).
+Critic accuracy must be assessed relative to the information used by the
+policy update. An exactly enumerable two-step game shows that switching to the
+opponent's critic can reverse the expected update even with exact conditional
+values and shared policy parameters. The opponent's observation omits information
+used by the learner's earlier action. A nonterminal rollout cutoff preserves
+the failure even at $\lambda=1$. Returns between learner decisions correct the
+complete example (Section~\ref{sec:observer}). We implement this correction and
+an alternative that maintains the learner's viewpoint at every primitive step.
 
-Second, exact conditional values can still give a harmful policy update when
-return estimation switches between players' observations. We demonstrate this
-in an exactly enumerable two-step game with shared policy parameters. The
-opponent's observation omits information used by the learner's earlier action;
-using its critic can therefore make the expected update reduce true payoff.
-A nonterminal rollout cutoff preserves the failure even at $\lambda=1$.
-Returns between learner decisions correct the complete example
-(Section~\ref{sec:observer}). We implement these returns and an alternative
-that maintains the learner's viewpoint through every primitive step. Five
-public policy-direction probes on 8,192 complete matches do not establish
-the reversal in the retained Koi-Koi agents (Section~\ref{sec:directional}).
-
-Third, public play reveals information that the current critic input omits.
-A missing public-seat distinction can hide changes in actor behavior;
-adding the viewer's seat resolves this ambiguity. Within a round,
-observation-only decoders recover earlier actor inputs and actions. Across
-rounds, eight public hand discards reveal the opponent's initial hand.
-Reconstructing its earlier network inputs then eliminates inconsistent fixed
-opponent models, identifying WP or Point at 86.1\% of natural final-round
+Public play also supplies information beyond the current critic input.
+Adding the viewer's seat resolves an ambiguity in actor behavior. Within a
+round, observation-only decoders recover earlier actor inputs and actions.
+Across rounds, eight public hand discards reveal the opponent's initial hand.
+Reconstructing its earlier network inputs eliminates inconsistent fixed
+opponent models and identifies WP or Point in 86.1\% of natural final-round
 starts (Section~\ref{sec:public-revelation}).
 
-We test auxiliary prediction, return, representation and public-memory changes
-against their starting models and matched controls on complete paired matches. None passes
-its replicated primary win criterion. The demonstrated playing-strength gain
-comes from terminal-match adaptation; the counterexample and reconstruction
-results establish properties of the learning signal and available information.
-The controlled comparisons measure whether those properties translate into
-further improvement.
+Complete paired-match comparisons measure whether these additional signals
+improve play. The return, representation, public-memory and auxiliary changes
+do not pass their replicated primary win criteria. Five policy-direction probes
+on 8,192 complete Koi-Koi matches also do not establish the critic reversal
+(Section~\ref{sec:directional}); that result is an exact counterexample, not an
+identified failure of the retained agents. The experiments thus distinguish
+the demonstrated adaptation gain from the estimation and information properties
+that motivate further agent design.
 
 \section{Related work}
 \subsection{Learning to play Koi-Koi}

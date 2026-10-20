@@ -4,11 +4,13 @@ Manuscript working files
 This is an English research manuscript, not a submitted or published paper.
 
 Current verified revision: 38 pages including appendices, 40 cited references,
-184-word Abstract, 514-word Introduction and 164-word Conclusion. The main text
-reaches its Conclusion on page 15. Abstract and Introduction lead with the
-measured adaptation and point-margin results, then state the critic and public-
-information findings. Related Work now includes auxiliary representation
-learning and distributional losses, with six additional primary references.
+160-word Abstract, 436-word Introduction and 164-word Conclusion. The main text
+reaches its Conclusion on page 15. The opening now presents the measured
+adaptation, critic-conditioning counterexample and public-information recovery
+before consolidating their empirical limits. It removes repeated caveats while
+preserving the distinction between stronger play and information properties.
+Related Work includes auxiliary representation learning and distributional
+losses, with six additional primary references.
 
 Section 6.4 reports the completed auxiliary comparison. All six primary
 simultaneous win-change intervals include zero, as do all 24 descriptive
@@ -22,12 +24,16 @@ point-margin gains and failed primary win criterion. No candidate is promoted.
 
 The numerical source and all comparisons are bound in
 ``generated/score_auxiliary_evidence.json``. Latest QA:
-``runs/manuscript_auxiliary_20261020_qa.json``. All 3,313 evidence bindings verify.
-All 38 pages were visually reviewed, changed pages were re-rendered and checked,
-and all 24 font names are embedded. The final build has no TeX box, glyph,
-reference or bibliography warnings. Current PDF: ``output/pdf/manuscript.pdf``;
-SHA256 d4e6471cb00840cf9b773f0dc39f043db09a1782a42bd6fa0d85c1bfdd114758.
-The preceding PDF and source remain in ``runs/manuscript_auxiliary_previous``.
+``runs/manuscript_priority_opening_20261020_qa.json``. All 3,313 evidence bindings
+verify. All source from Related Work onward is unchanged by the opening edit,
+as are citations, labels, cross-references and included tables. Changed pages
+1--11 were re-rendered and visually reviewed; pages 12--38 are pixel-identical
+to the preceding verified PDF. All 24 font names are embedded and the build
+has no TeX box, glyph, reference or bibliography warnings.
+Current PDF: ``output/pdf/manuscript.pdf``;
+SHA256 40e14e9132163e154704581c75bef31ffbe5c52e2115d126c6d053fd7fc3d0a3.
+The preceding PDF and source remain in
+``runs/manuscript_priority_opening_previous``.
 
 All Point and auxiliary training/evaluation/audit processes are terminal.
 The stronger-play objective remains active; current research status and the

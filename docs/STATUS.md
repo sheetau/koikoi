@@ -11,8 +11,11 @@ Old process handles mentioned in that history are historical, not live jobs.
 
 ## Current experiment and next actions
 
-The root-allocation/step-size factorial study is implemented and verified, ready
-to launch. [Fixed design and prior work](PRIORITY_BRANCH_GRADIENT.rst).
+The root-allocation/step-size factorial study is running in session 92368,
+worker PID 33408, under runs/priority_branch_study. Training, training audit,
+evaluation and evaluation audit run sequentially in that process. Do not start
+a duplicate. [Fixed design and prior work](PRIORITY_BRANCH_GRADIENT.rst).
+Protocol SHA256 4543224c95c1ec5e9c24cfa0ed6f4450eda956e3d8e5bf79f125bd9fa105e79b.
 Both parents receive uniform/priority roots x Adam1e-5/1e-4,128updates per arm.
 The predefined candidate is priority/high; all8endpoints and both parents will
 be evaluated on fresh118M GPU development deals. No mid-run selection.
@@ -78,8 +81,11 @@ Do not describe variance reduction as stronger play or as invention of all-actio
 policy gradients. Assess root-sampling efficiency and update/coverage limitations
 before committing to another training budget; a larger learning rate is not yet
 shown to solve the problem. Read existing round-continuation/Q-boosting/search
-results before proposing a supposedly new variant. The paper remains at its
-verified38-page auxiliary-study revision; no unchanged PDF rebuild is needed.
+results before proposing a supposedly new variant. The paper has a verified 38-page opening revision: Abstract 160 words and
+Introduction 436 words, with empirical limits consolidated after the main
+contributions. Related Work onward is unchanged; all 3,313 evidence bindings
+verify. QA: runs/manuscript_priority_opening_20261020_qa.json.
+PDF SHA256 40e14e9132163e154704581c75bef31ffbe5c52e2115d126c6d053fd7fc3d0a3.
 
 ## Recently completed score-auxiliary study
 
