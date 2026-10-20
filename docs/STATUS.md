@@ -38,6 +38,16 @@ Summary SHA8c873e04c1ea39fe430784393527aed8174a3cc9de9283dc7e4f11eab6815f20.
 This analysis is closed; do not repeat it. The recent VSR preprint and active
 importance-sampling literature are explicitly credited in the new design.
 
+A separate saved-pool categorical-sensitivity analysis is complete:
+[Exact bound and results](CATEGORICAL_SENSITIVITY.rst). Enumerating at most
+128 sign partitions gives the exact maximum root-logit gradient norm for
+bounded terminal outcomes. Three independent numerical/closed-form tests pass.
+Replacing the Gini proxy by this bound lowers the hypothetical saved-pool
+second moment a further 6.34%/4.11%; no new simulations, updates or independent
+samples. This is neither a full-network variance guarantee nor a strength
+result. It does not change the running study or justify an automatic new grid.
+Do not repeat runs/categorical_sensitivity.
+
 ## Completed uniform-root branch-gradient screen
 
 **The six-arm complete-match branch-gradient screen and its independent audits

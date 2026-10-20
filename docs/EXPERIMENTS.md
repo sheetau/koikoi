@@ -8142,3 +8142,35 @@ PDF. No unresolved visual issue. QA runs/manuscript_priority_opening_20261020_qa
 SHA256 94336c1e2822ab3b80488f3537b3ad6c3855b6c4c57df94f325a0ea37a2f31a0. PDF SHA256 40e14e9132163e154704581c75bef31ffbe5c52e2115d126c6d053fd7fc3d0a3.
 Previous source/PDF/QA preserved in runs/manuscript_priority_opening_previous.
 The running priority experiment does not bind or consume the manuscript.
+
+
+## 2026-10-20: exact categorical sensitivity, saved-pool analysis
+
+While the fixed priority study trains, derived an exact normalized-logit
+sensitivity envelope for q in [-1,1]^k. Convexity reduces the maximum to sign
+vertices; complementary subsets halve the work to at most 128 partitions.
+The bound is 2*sqrt(2)*p*(1-p) for binary policies and <= the current Gini
+square-root envelope. The proof, allocation interpretation and full-network
+limitation are in docs/CATEGORICAL_SENSITIVITY.rst. No claim of inventing
+importance sampling; no running-study source, formula or criterion changed.
+
+Fixed three proposals before inspecting this new result: uniform, original
+0.05+Gini envelope, and 0.05+exact envelope. Saved legal probabilities are
+renormalized in float64; original K weights remain in the empirical gradients.
+`python -m pytest tests/test_categorical_sensitivity.py -q`: 3 passed, 0 skips,
+0.18s. Includes closed forms and independent softmax finite differences over
+all ternary outcome assignments. Ruff passes.
+`python -m scripts.diagnose_categorical_sensitivity`: exited0, output
+runs/categorical_sensitivity. Both 8,192-root pools reuse the closed coverage
+analysis. Zero new simulation, optimization or independent observations.
+
+Gini/exact-envelope relative second moments: parent1 0.6455107821/0.6045907253;
+parent2 0.6654026332/0.6380281976. About 6.34%/4.11% lower than Gini on these
+pools, not measured within-match variance or future playing strength. All
+sampled gradients satisfy the bound. Maximum probability renormalizations
+2.068129e-7/1.784195e-7 account for the change from summaries computed on
+unrenormalized stored probabilities. Both analyses use float64 arithmetic.
+No new training grid follows from this modest descriptive difference alone.
+Protocol SHA256 8a42b1d1feddc5785fc17cadeb0ce5124f38c726562fa70587f3f906502180e4.
+Summary SHA256 3043b0c4735cb489448ce518cabea19bca2b9165c9405c781f2b5e9cc8eb1617.
+The analysis is closed; do not repeat or overwrite it.
