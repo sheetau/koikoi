@@ -7328,3 +7328,25 @@ Digests:
 - exporter11f04bd13030f4f158ad79ae16fa628c7509190d10aa53af07bb38919e4298e2
 - tests92892ed97e39215b3df962c7966781717d1a67fa27812f947a7c37106cd6117c
 - XMLc3efbe9a1c654da23ad6eefc3183591e2d44b7bfa211d550d6655518bdda6508
+
+
+## Second auxiliary main arm completed (2026-10-20)
+
+Several preceding goal turns were verified waits:actual runner17896/session20751
+and query-handle queue59480/session19901 remained live and update logs advanced.
+This turn polled both specific sessions with55-second bounded waits through
+seed1_win update520 and verified the complete receipt. No restarts or changes
+to fixed learning/evaluation were made;no additional tests/inference ran.
+
+Seed1_win completed520updates:8,519,680PPO decisions/562,218round endings/
+72,935matches;20warmup/500policy updates;value Adam49,920and actor48,000per phase.
+Auxiliary100cycles:1,489,727decisions/98,393round endings/12,800matches/96,553rows,
+579,318presentations and4,800Adam calls for each discard/pick/koi model.
+Endpoint manifest865bcc4a228418a6d9ce590876e3fcecf7ca5b0a57091fc71dbc7304c612f024.
+Metrics604940ec2574f93fd3f643016d9d501b9fa6c7daa762edd2ad449eaf271f3157.
+
+The same runner advanced to seed1_score(update22 verified). Two of six arms
+complete;full training audit/evaluation remain unstarted. All107training and
+170queue bindings verify unchanged,no failure receipts. Preserve both live
+jobs and all completed artifacts. Canonical/dealer/manuscript unchanged;goal
+active,with strength/novelty conclusions still pending real comparison results.

@@ -99,7 +99,7 @@ the existing queue. Preserve all completed and live bound sources.
 Main seed1_none is complete:520updates/8,519,680PPO decisions/559,940rounds/
 72,763matches;auxiliary100cycles/1,490,245decisions/98,096rounds/12,800matches/
 96,442rows,no auxiliary optimization. Endpoint manifest6686205ff7d8aa08a5e70f04498efb1191de1f191db09378864206050f1a10c1.
-The same runner is now on seed1_win(update21 verified). No failure receipts;
+The same runner has now completed seed1_win and entered seed1_score. No failure receipts;
 107training and170queue bindings rechecked unchanged. Mechanism code/tests
 committed/pushed ascc5964f. Next monitor the live jobs,then run the mechanism
 commands after full training audit;interpret all predeclared results before
@@ -110,8 +110,13 @@ coordinates and per-arm PPO/auxiliary work. Ten synthetic tests pass0skips1.59s,
 no inference/simulation. No actual main export exists. After queue completion,
 export with the exact final audit digest,run the fixed mechanism diagnostic,
 and integrate the verified results into the manuscript. Current learner and
-queue handles were re-polled live;seed1_win update84 verified. All107training
-and170queue bindings remain unchanged;no failure receipt.
+queue handles remain live. Seed1_win completed520updates/8,519,680PPO decisions/
+562,218round endings/72,935matches;auxiliary100cycles/1,489,727decisions/98,393round
+endings/12,800matches/96,553rows/579,318presentations/4,800Adam calls per phase.
+Its endpoint manifest is865bcc4a228418a6d9ce590876e3fcecf7ca5b0a57091fc71dbc7304c612f024.
+Seed1_score update22 was verified advancing. Two of six arms are complete;
+no main evaluation has started. All107training and170queue bindings rechecked
+unchanged;no failure receipts. Do not restart either live job.
 Do not reopen closed sweeps or use reserved101M deals. Parent selection and the
 canonical player remain unchanged. Stronger play/substantive novelty remain open.
 
