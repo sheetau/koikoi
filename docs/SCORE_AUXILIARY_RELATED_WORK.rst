@@ -4,7 +4,7 @@ Auxiliary learning: prior work and manuscript placement
 Primary sources inspected on 20 October 2026. The main six-condition strength
 comparison is running under its frozen protocol. This literature review changes
 neither that protocol nor its criteria. The verified manuscript PDF remains the
-previous version; the two new manuscript fragments are integration drafts.
+previous version; the new manuscript fragments are integration drafts.
 
 The question to carry into the paper is whether supervision that distinguishes
 margins within the same match outcome improves a policy optimized for match wins.
@@ -54,13 +54,17 @@ Alternative explanations to preserve
 Integration materials
 ---------------------
 
+* docs/paper/auxiliary_study.tex: methods, audited training-work table, fixed
+  evaluation design and completed fixed-state diagnostics. Strength results
+  remain pending; there are no placeholder result values.
 * docs/paper/auxiliary_related_work.tex: concise three-paragraph subsection.
 * docs/paper/auxiliary_references.bib: six primary-source references, with
   bibliographic metadata checked against the publisher or authors' record.
 * docs/SCORE_AUXILIARY_MECHANISM_RESULTS.rst: completed fixed-state evidence.
 
-Merge the subsection and references when adding the completed strength study
-and its methods to the manuscript. The current draft makes no strength claim
+Merge these fragments with the completed strength results. Report failed-run
+recovery overhead separately using the final audited export; the training table
+contains only the retained six-condition comparison. The current draft makes no strength claim
 and introduces no placeholder result. After integration, rebuild and inspect
 the PDF, including citations and pagination. Current manuscript.tex,
 references.bib and the verified 35-page PDF are unchanged.

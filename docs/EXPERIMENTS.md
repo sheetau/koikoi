@@ -7596,3 +7596,24 @@ and braces/UTF8-no-BOM/LF checks pass. Existing manuscript.tex,references.bib an
 verified PDF remain unchanged. Integrate the fragments with completed strength
 methods/results,then build and perform layout/citation QA. No closed tests or
 diagnostics were repeated. Main evaluation/audit/export remain outstanding.
+
+
+## Auxiliary methods and accounting manuscript fragment (2026-10-20)
+
+Evaluation queue56042,runner3068 and first cell workers40936/36332 remain live;
+both first cells have logged3,072matches. No trial/configuration changes.
+Created docs/paper/auxiliary_study.tex from the fixed design and implementation:
+outcome/margin likelihoods,balanced common heads,public inputs and label-only
+terminal margins,KL cloning,sampling/training schedule and six-primary criterion.
+Six table rows are generated directly from the completed training record after
+matching its digest against the passed training audit. PPO/auxiliary work is
+separated and excludes failed-run overhead,which remains separately required
+in final exported accounting. Completed fixed-state diagnostics are included;
+strength results remain pending with no placeholder or inferred gain.
+
+Read the frozen design and loss/encoder implementation to check the description.
+Citation/label targets and balanced delimiters pass; new text remains UTF8
+without BOM/LF. Existing manuscript/PDF are unchanged; no PDF render is claimed.
+Integrate this fragment and the related-work references after final strength
+results,then build/render/inspect. This drafting work adds no training,inference,
+simulation or new tests and does not complete the stronger-play objective.

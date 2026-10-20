@@ -158,6 +158,14 @@ ICLR2025). The draft positions the matched target-resolution intervention; it
 makes no strength or priority claim. Merge with the completed strength results,
 then rebuild/inspect the paper. The fragments are not yet included by manuscript.tex.
 
+The auxiliary methods fragment docs/paper/auxiliary_study.tex now describes
+matched losses/heads,collection/training and the fixed evaluation criterion.
+Its six-row work table is generated from the audited completion record; the
+completed fixed-state diagnostic numbers are included. No strength result or
+placeholder is supplied. Merge with final evaluated results and the prior-work
+fragment,then render/inspect; final recovery overhead belongs in the exported
+accounting. Current PDF/manuscript source is unchanged.
+
 Canonical player,dealer and the latest35page manuscript are unchanged.
 
 ## Earlier implementation milestones

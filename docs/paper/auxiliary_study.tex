@@ -1,0 +1,99 @@
+% Auxiliary-study methods and completed diagnostics; strength results pending.
+% Integrate with final evaluated results, auxiliary_related_work.tex and its bibliography.
+\subsection{Outcome and margin supervision}
+\label{sec:score-auxiliary}
+We test whether predicting differences in final margin within the same match
+outcome improves a policy trained to win. In our PPO implementation, the critic
+has its own parameters, so its prediction loss does not train the actor's
+Transformer encoders. We add auxiliary prediction directly to those encoders,
+using the phase separation and policy-cloning penalty of PPG
+\cite{cobbe2021phasic}. PPO continues to optimize terminal match outcomes.
+
+\paragraph{Matched targets.}
+Let $d$ be the terminal own-minus-opponent point margin and
+$y=(\operatorname{clip}(d,-64,64)+64)/2$. Margins are even under the benchmark
+rules, giving 65 labels. Let $q_j$ be the categorical prediction and
+$G(y)=\{j:\operatorname{sign}(j-32)=\operatorname{sign}(y-32)\}$.
+The two auxiliary objectives are
+\begin{align}
+ L_{\mathrm{outcome}}&=-\log\sum_{j\in G(y)}q_j,\\
+ L_{\mathrm{margin}}&=-\log q_y
+ =L_{\mathrm{outcome}}
+  -\log\frac{q_y}{\sum_{j\in G(y)}q_j}.
+\end{align}
+Thus margin supervision adds the conditional likelihood within the observed
+loss, draw or win group. Draws have a single label. Clipping preserves the
+outcome group and merges extreme margins into the endpoint labels.
+
+Both objectives use the same 65-output head and initialization, assigning equal
+initial probability to loss, draw and win and uniform probability within each
+nonzero group. Three linear heads operate on mean-pooled legal action-token
+embeddings; hand and draw captures share an encoder and auxiliary head. The
+heads add 50,115 training parameters and are discarded for play. Inputs contain
+only public information and the acting player's cards. Final margins enter as
+training labels. During auxiliary optimization, both conditions add
+$D_{\mathrm{KL}}(\pi_{\mathrm{ref}}\Vert\pi_\theta)$ on the sampled legal actions,
+with coefficient one and score divisor 0.05. This comparison changes target
+resolution and the gradients it induces while holding head size fixed.
+
+\paragraph{Training comparison.}
+For each of two seeds, we train three RL-Point-initialized conditions: ordinary
+PPO, outcome supervision and margin supervision. They begin with identical
+actor, critic, optimizer and environment states. Each runs 20 critic-only
+warmup updates and 500 policy updates, totaling 8,519,680 PPO decisions. Every
+five policy updates, each condition collects 128 complete self-play matches.
+A reservoir retains one uniformly sampled observation for each visited
+match/player/decision-phase stratum, including forced choices. The two auxiliary
+conditions train for six epochs with 128-row minibatches; the control collects
+the data without auxiliary optimization. The first collection is identical
+within each seed, while later trajectories follow the resulting policies.
+
+Auxiliary Adam uses learning rates $3\times10^{-6}$ for the actor and $10^{-4}$
+for the added heads, $\epsilon=10^{-5}$ and gradient-norm clipping at 0.5.
+The 100 auxiliary phases use 12,800 matches per condition. Table~\ref{tab:aux-work}
+reports their actual work separately from PPO. Across all conditions, PPO uses
+51,118,080 decisions in 437,799 completed matches; auxiliary collection uses
+8,936,915 decisions in 76,800 matches. Requested match budgets are equal even
+though trajectory lengths differ.
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{llrrr}
+\toprule
+Seed & Supervision & Aux. decisions & Retained rows & Presentations\\
+\midrule
+1 & None & 1,490,245 & 96,442 & 0\\
+1 & Outcome & 1,489,727 & 96,553 & 579,318\\
+1 & Margin & 1,484,689 & 96,497 & 578,982\\
+2 & None & 1,492,804 & 96,697 & 0\\
+2 & Outcome & 1,488,898 & 96,745 & 580,470\\
+2 & Margin & 1,490,552 & 96,558 & 579,348\\
+\bottomrule
+\end{tabular}
+\caption{Auxiliary work in the retained comparison. Each row contains 100
+collections and 12,800 matches. Presentations count repeated use across six
+training epochs. The control performs no auxiliary optimization.}
+\label{tab:aux-work}
+\end{table}
+
+\paragraph{Playing-strength comparison.}
+We evaluate all six endpoints and the two retained WP-initialized parents against
+assisted RL-WP and RL-Point, using 4,096 shared deal streams per opponent in both
+seats: 131,072 matches on 8,192 distinct streams. Greedy inference uses the
+original action heads and public endgame assistance. The primary family contains
+six differences in equal-opponent-mixture draw-adjusted win score: margin minus
+control, outcome and retained parent at both seeds. The fixed criterion requires
+all six simultaneous 95\% lower bounds to exceed zero. A 10,000-replicate
+bootstrap resamples 4,096 compound blocks, preserving the shared WP/Point deal
+indices, seats and models. All 120 secondary absolute and paired win/point quantities use
+descriptive marginal intervals. The first-seed margin model is the candidate
+specified before evaluation.
+
+\paragraph{Completed fixed-state diagnostics.}
+On 3,045 unforced inputs from the fixed 25-group validation corpus, the margin
+and outcome models disagree on 331 actions (10.87\%) at seed 1 and 249 (8.18\%)
+at seed 2. At score divisor 0.05, margin supervision gives lower mean entropy in
+discard and both capture phases at both seeds; the continuation-phase difference
+changes sign across seeds. These measurements establish changes on common
+inputs. The complete-match comparison assesses whether they improve play.
