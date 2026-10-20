@@ -11,11 +11,24 @@ Old process handles mentioned in that history are historical, not live jobs.
 
 ## Current experiment and next actions
 
+The independent-uniform controller evaluation is RUNNING at
+runs/uniform_controller_evaluation. Launched2026-10-20T21:58:38Z after fixed-fixture
+validation;launcher62408,actual queue67440. Four initial workers33648/58108/
+65884/25892 were confirmed live with growing CPU time and source progress.
+Use current queue/process records and live process identities;DO NOT restart.
+Protocolbc5fce90a1fefb146f766e2be7177c67992292307cf896413b525ba1183dbfc9
+binds114inputs and8,192cases. Command: .venv/Scripts/python.exe -m
+scripts.uniform_controller_study --base runs/uniform_controller_evaluation --run.
+The queue collects16-source chunks, audits each in a separate process, then
+summarizes/exports only after all512chunks complete. No interim strength claim.
+Next monitor this exact job, inspect failures without resampling, and evaluate
+the frozen criterion only after the complete audit. Human play stays unchanged.
+
 The complete512-source symbolic comparison is COMPLETE, audited and exported.
 Pipeline session99772/PowerShell25468,queue64312 and last worker66784 finished;
 the pipeline exited0 after audit/export. DO NOT restart this cohort or either
 predecessor. runs/symbolic_completion_pipeline.json is complete at
-2026-10-20T21:19:35Z. No research evaluation is currently scheduled.
+2026-10-20T21:19:35Z. These historical comparisons must remain closed.
 
 The executable own-win rule expands certified coverage under unchanged caps.
 Against the completed opponent-only baseline, controller parent values rise
@@ -70,13 +83,12 @@ parent/opponent populations, each with2,048independently randomized-seat sources
 (8,192total), fixed seven-threshold grid, family error.05. Require all four
 lower bounds>0 and both equal-opponent parent mixture lower bounds>.1pp.
 Keep every missing-root/fallback zero in the denominator. Eight statistical/
-design tests pass. No new source samples, frozen protocol or live evaluation.
-The runner/auditor/export are now implemented:36component tests plus eight
+design tests pass. The new protocol is frozen and its source collection is now
+live, as recorded above. The runner/auditor/export passed36component tests plus eight
 pinned neural pipeline fixtures pass. The latter exactly match all eight old
 selections and independently replay the true parent actor (no native action
 caches). Source/deck/program ledgers and complete-only statistical export are
-verified. Next freeze the dependency graph and launch the fixed study.
-No reserved101M use.
+verified. The114frozen inputs remain intact. No reserved101M use.
 This targets expected match improvement under the declared law; it must not
 relabel conditional values as observed wins or combine different sampling laws.
 If that evaluation is insufficient,continue substantive stronger-play work;

@@ -9815,3 +9815,31 @@ in these neural fixtures (synthetic tests cover that branch). Source/audit each
 
 No new strength claim;next freeze and launch the preselected8192-source design.
 The goal stays active,canonical human play/dealer and reserved101M unchanged.
+
+
+## 2026-10-21: freeze and launch independent-uniform8192 evaluation
+
+Verified all108historical symbolic inputs unchanged,committed/pushed runner
+milestone44352e5,then executed --freeze in a new directory. Frozen protocol
+bc5fce90a1fefb146f766e2be7177c67992292307cf896413b525ba1183dbfc9 binds114
+inputs and8192fixed cases;the selected population/grid/budget/criterion is unchanged.
+No new study source was sampled before freeze. Fixed neural fixtures and unit
+tests are separate,as recorded above. Preflight receipt at
+runs/uniform_controller_preflight.json;unit XML also retained.
+
+Launched once via hidden Start-Process at2026-10-20T21:58:38.5884568Z:
+.venv/Scripts/python.exe -m scripts.uniform_controller_study
+--base runs/uniform_controller_evaluation --run.
+Venv launcher62408,actual queue67440;initial actual workers33648/58108/65884/
+25892 confirmed live by CIM/process inspection,CPU time and advancing source
+indices. Wrapper child PIDs are not additional workers. Launch receipt,
+queue.stdout.log/queue.stderr.log and per-chunk worker/audit logs are retained.
+No error traceback in initial logs. The queue performs separate audit processes
+per16-source chunk,then complete-only inference and report export. Do not
+restart on a timeout or lack of new stdout. If a source fails, preserve its
+seat/accepted-deck ledger;never substitute new randomness.
+
+The evaluation is running,not a completed strength result. All old fixed-seed
+actual-win results and their failed criterion remain unchanged. No canonical
+human-play/dealer or reserved101M changes. Continue monitoring the exact job;
+goal remains active pending stronger-play evidence and paper integration.
