@@ -7233,3 +7233,22 @@ Milestone digests:
 - collection auditor:de15d23fa2fba5771783b81b17539b447f1d513698ac639594b68b89fa474653
 - tests:ba16c53cfedf949b0eb93daf09b77b71fe5ae41fe5a57669ecd0a3658c556cf7
 - XML:c8cd4f0398068b4f47502ff058588a96069434cf9137fc09a7deb9d545e07862
+
+
+## Score-auxiliary completion queue attached (2026-10-20)
+
+Source3c7d380 committed/pushed before launch. Five queue tests pass0skips1.53s,
+no simulation or learning. Command:.venv/Scripts/python.exe -m
+scripts.finish_score_auxiliary --output runs/score_auxiliary_completion
+--producer-pid 17896. Session19901 remains live,waiting. Actual queuePID
+59480;held producer17896 creation_filetime134369330193593253 matches
+CIM command scripts.train_score_auxiliary_study run and training started receipt.
+Protocol14a3eb5fed234ade9ce2bc5bd6d8e3b510f702f3cfbc32e4a880bca4486309cf
+binds170inputs,all verified. It will require exact producer exit0,
+matching completion,and successful full training audit before fixed16-cell
+131,072-match evaluation; then native/statistical audit. No promotion/restart.
+Preserve this queue and all frozen dependencies. Quiet waiting log is expected.
+Mechanism diagnostic and result interpretation remain separate unfinished work.
+Main first arm update436:PPO7,143,424decisions/468,998round endings/60,980matches;
+auxiliary83cycles/1,237,616decisions/81,335round endings/10,624matches/80,032rows.
+No main evaluation started. Canonical,dealer and manuscript unchanged.

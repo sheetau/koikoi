@@ -85,9 +85,13 @@ independent Python/upstream feature checks. No new learning or policy matches.
 Main first-arm initial/update20/update25 prefix passes,including128complete
 auxiliary matches/968retained rows. Prefix receipt31ede13ab447d643419a3b24779eaa1c43904bf4487390476821bfef9b9a8213.
 All107main input hashes remain unchanged. Full training_audit.json is gated on
-all six arms completing;it has not been issued. Next connect the completion
-queue and predeclared mechanism. Preserve completed capability sources/outputs.
-Actual first learner remains live;update394 was verified advancing.
+all six arms completing;it has not been issued. The completion queue is now
+live(session19901),holding the exact learner17896 handle;source3c7d380 is pushed.
+It waits for exit0/matching completion,then full training audit,prepare,evaluate
+and native/statistical audit. Five queue tests pass0skips1.53s,no simulation.
+[Queue details](SCORE_AUXILIARY_COMPLETION.rst). Next implement the fixed
+mechanism diagnostic. Preserve completed capability and live bound sources.
+Actual first learner remains live;update436 was verified advancing.
 Do not reopen closed sweeps or use reserved101M deals. Parent selection and the
 canonical player remain unchanged. Stronger play/substantive novelty remain open.
 
