@@ -36,7 +36,7 @@ checkpoints (models/optimizers/RNG) and28collections match exactly,excluding
 wall time/git provenance.104immutable files are bound;receipt
 c8515b32cdf810d91a365e2c9485399ea18c8dcb370091e4303dd9303a4ff569.
 This read-only check adds no training,matches or inference. The scheduled final
-prefix check remains in force;the three original process handles are live.
+prefix check remains in force;the recovery learner,supervisor and queue are live.
 Recovery protocol b38aa097e1ce9a4f2989eab445025d7f4388fbf97d7dd0df8722860bddbe5294
 binds683inputs,including every original artifact. Six recovery tests pass0skips
 (1.67s),two relocation/queue tests pass0skips(1.75s),all synthetic/no simulation.
