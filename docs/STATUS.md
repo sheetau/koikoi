@@ -11,6 +11,32 @@ Old process handles mentioned in that history are historical, not live jobs.
 
 ## Current experiment and next actions
 
+The root-allocation/step-size factorial study is implemented and verified, ready
+to launch. [Fixed design and prior work](PRIORITY_BRANCH_GRADIENT.rst).
+Both parents receive uniform/priority roots x Adam1e-5/1e-4,128updates per arm.
+The predefined candidate is priority/high; all8endpoints and both parents will
+be evaluated on fresh118M GPU development deals. No mid-run selection.
+
+The new sampler computes priorities from public action probabilities, retains
+one weighted-reservoir root per complete match and applies its exact conditional
+inclusion correction. Uniform mode reproduces the prior implementation exactly.
+Six estimator/sampler/restart tests pass on CPU/CUDA. A complete reduced8-arm
+training/evaluation/audit pipeline also passes, including80evaluation matches.
+These are capability results, not strength evidence.
+
+Completed saved-data coverage analysis: runs/branch_update_coverage. Both old
+shared arms reconstruct exactly at all16saved actor/Adam checkpoints.256replayed
+optimizer steps,0new simulations/trained endpoints. About30%of sampled roots have
+max action probability>=.99 but contribute only0.0145%/0.0163%of empirical weighted
+logit-gradient energy. A fixed public sensitivity proxy gives finite-pool second-
+moment ratios0.6455/0.6654; these do not guarantee future variance reduction.
+Final shared actors differ from their parents at1/64and3/64fixed diagnostic roots.
+Summary SHA8c873e04c1ea39fe430784393527aed8174a3cc9de9283dc7e4f11eab6815f20.
+This analysis is closed; do not repeat it. The recent VSR preprint and active
+importance-sampling literature are explicitly credited in the new design.
+
+## Completed uniform-root branch-gradient screen
+
 **The six-arm complete-match branch-gradient screen and its independent audits
 are complete. All six primary simultaneous win-change intervals include zero.
 No study job remains live. The stronger-play/research objective remains active.**
@@ -47,7 +73,7 @@ conditional variance(0.620943and0.341429), using the same eight replicates and
 Both diagnostic roots remain closed: runs/branch_policy_gradient_diagnostic and
 runs/branch_parameter_variance. Parent models and dealer remain unchanged.
 
-Next action: use the completed results to select a further scientific intervention.
+The next fixed intervention is the root-allocation/step-size study above.
 Do not describe variance reduction as stronger play or as invention of all-action
 policy gradients. Assess root-sampling efficiency and update/coverage limitations
 before committing to another training budget; a larger learning rate is not yet

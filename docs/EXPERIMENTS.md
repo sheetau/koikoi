@@ -8045,3 +8045,72 @@ update size, sampling coverage and simulation cost; do not infer that simply
 increasing duration or learning rate is sufficient. Existing round-continuation,
 Q-boosting and search outcomes must be read before proposing overlapping work.
 The manuscript remains at its verified auxiliary-study version, unchanged here.
+
+
+## 2026-10-20: root-allocation/step-size factorial implementation
+
+Previous goal turn was progress: completed and independently audited the6-arm
+branch-gradient learning screen, which did not establish a win gain. Re-read
+currentSTATUS, original numerical sources and the relevant prior experiment
+ledger before selecting the next intervention. No old job was restarted.
+
+Saved-data diagnostic command:
+`.venv/Scripts/python.exe -m scripts.diagnose_branch_update_coverage`.
+Output runs/branch_update_coverage; exited0 in9.24s including process/import time.
+Reconstructs both shared arms from all256saved root/outcome batches, verifies
+exact actor and Adam tensors at all16original saved checkpoints, and records
+16,384public-root probability/outcome summaries.256replayed optimizer steps,
+0new simulator decisions or trained endpoints. All6endpoints are additionally
+compared on their parent's existing64-root diagnostic bank; no new matches.
+
+Parent1/2 constant sampled action-outcome fractions0.6887207031/0.6767578125.
+Maxprobability>=.99 root fractions0.3004150391/0.2941894531; their fractions of
+weighted root-logit gradient squared norm0.0001450738/0.0001633735.
+The proxy w=.05+sqrt(max(0,1-sum(pi**2))) was fixed in the script before reading
+results. Hypothetical finite-pool second-moment ratios0.6455059025/0.6653976556;
+this is not a future-sampling or full-parameter-gradient variance guarantee.
+Final shared-model greedy differences1/64and3/64,meanKL.005682094/.003635936.
+Independent endpoints0/64and3/64; sampled-return1/64and3/64. Root-bank results
+are descriptive and cannot attribute the failed win screen to step size alone.
+Protocol SHAbe68f688081a6660721c1a64a766d90d5458e2bc9da1240bc25f0b63650394e0.
+Summary SHA8c873e04c1ea39fe430784393527aed8174a3cc9de9283dc7e4f11eab6815f20.
+The diagnostic is closed; do not rerun or overwrite.
+
+Primary-source prior-work review: Papini et al.,Policy Gradient with Active
+Importance Sampling,arXiv2405.05630; Huang/Jiang,From Importance Sampling to
+Doubly Robust Policy Gradient,ICML2020,PMLR119:4434--4443; and Wang/Liu/Wang,
+Variance-Optimal State Resampling for Reinforcement Learning with Verifiable
+Rewards,arXiv2610.15888v1,submitted11October2026. The last directly studies
+state-allocation variance and uses a recent prefix replay buffer with a proxy
+in VSR/GRPO. The local implementation instead uses fresh complete trajectories
+and known conditional reservoir probabilities with explicit correction. Neither
+importance sampling nor prioritized states/reservoirs is claimed as an invention.
+Primary links and experimental distinction are in PRIORITY_BRANCH_GRADIENT.rst.
+
+Added priority_branch_roots/trainer/study modules without editing any completed
+numerical sources. Weighted reservoir selects t with probabilityw_t/W and uses
+detachedW/w_t in the all-action terminal gradient. Uniform preserves the old
+Kweight. The actor sees no new inputs. Source behavior is unchanged by the root
+sampler; full source/action and priority/uniform streams are retained. Positive
+priority floor preserves support; no correction clipping/self-normalization.
+
+Tests: `python -m pytest tests/test_priority_branch.py -q`:6passed,0skips,
+2expected upstream warnings,19.12s. Includes exact weighted variable-length-game
+gradients, exact reservoir probability partitions, independent scalar sampling
+reconstruction, unchanged source trajectories, original uniform model/Adam updates,
+and weighted full-data/model/optimizer/RNG checkpoint continuation on CPU/CUDA.
+`python -m pytest tests/test_priority_branch_study.py -q`:1passed,0skips,
+2expected warnings,36.79s. Actual reduced8-arm training, final-checkpoint evaluation,
+all-transition/importance/statistics audits,80evaluation matches, fresh-run guard
+and correction-corruption rejection. Capability fixtures are separate from study
+budgets; they do not establish strength. Ruff passes. A post-test documentation
+edit only inserts readable spacing; numerical sources are unchanged.
+
+Fixed scientific plan: both parents, uniform/priority roots x learning rates
+1e-5/1e-4,128updates of64matches/arm. Four primary simultaneous comparisons:
+priority/high minus parent and minus uniform/high for each parent. All4lower
+bounds must exceed0. All8endpoints+2parents face WP/Point on1,024fresh paired
+streams each,118110001/118210001; bootstrap118310001,10,000replicates. Allcases
+are retained; source/update budgets match but actual branch costs may differ.
+The combined runner trains, audits, evaluates and audits in sequence. No
+canonical model change, game/dealer change, manuscript rebuild or101M use.
