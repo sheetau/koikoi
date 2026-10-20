@@ -9611,3 +9611,33 @@ No source matches, planning transitions, neural inference or current-study
 outcome inspection. Pipeline99772/queue64312 and worker66784 remain live;
 31/32chunks complete,last observed source391/root_only. Complete symbolic
 comparison and audit remain prerequisites for the next evaluation decision.
+
+
+## Connect logged deals to public-history collection (2026-10-21)
+
+Added scripts/logged_public_source.py, tests/test_logged_public_source.py and
+LOGGED_PUBLIC_SOURCE.rst. The collector uses a fresh LoggedDealSource, public
+source identifier and existing delayed revelation, retaining the first eligible
+final-round root and every complete source including missing-root matches.
+Native results/states match every transition; round metadata is compared before
+replacing native's seeded auto-deal with the same logged valid deck. Actors
+receive the ordinary ReferenceEnv rather than the sampler or external log.
+The separate audit replays saved deals/actions, reevaluates every parent/opponent
+action and public model reconstruction, and verifies root address/state, full
+terminal state, source/native counters and sampling metadata. Work and adapter
+calls remain separate; no fresh external chance is sampled during replay.
+
+Command: .venv/Scripts/python.exe -m pytest tests/test_logged_public_source.py -q
+Result:6passed,0skips,1.70s. Both seats/native parity, actual delayed revelation
+between rule actors, synthetic first-eligible gate fixtures, and tampered
+actions/events/roots/work are covered. Ruff check/format pass. Tests execute
+deterministic fixture matches and their native/Python replays, including invalid
+record attempts. A preceding fixed eight-deck wiring fixture used111decisions,
+8round endings and1completion. None is a natural benchmark, planning rollout
+or neural inference. No study design, sample size or strength criterion selected.
+The collector is a component; the future protocol must bind its source law,
+actors, complete cohort and posterior/value verification.
+
+All108symbolic comparison inputs checked intact. Pipeline99772,queue64312 and
+worker66784 remain live,31/32chunks complete,last observed source391/controller.
+No current outcome inspection, duplicate execution or reserved101M use.

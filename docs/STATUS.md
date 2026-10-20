@@ -81,6 +81,21 @@ neural inference. All108symbolic bindings are intact. Pipeline99772 remains
 running with31/32chunks complete;last worker66784 is on source389/controller.
 Wait for complete symbolic results before choosing the next study.
 
+The logged-deal collector is now implemented in scripts/logged_public_source.py
+with a complete replay/policy-action audit; see LOGGED_PUBLIC_SOURCE.rst.
+It integrates public opponent reconstruction, selects the first eligible root,
+retains missing-root matches, and checks every transition against native rules.
+Round-boundary metadata is checked before inserting the same logged deck.
+Source/native/replay decisions, round endings and completions remain separate
+from external sampling counts, policy adapter calls and identification calls.
+Six tests pass,0skips,1.70s; Ruff check/format pass. Deterministic fixture matches
+and native/Python replays include both seats, real delayed public revelation,
+synthetic gate wiring and rejection of tampered actions/events/root addresses.
+No neural inference or newly sampled benchmark matches. The collector does not
+declare IID sampling or replace full posterior/value/cohort verification.
+No new study is scheduled. All108frozen symbolic inputs remain unchanged;
+pipeline99772/queue64312/worker66784 are live,31/32chunks complete,source391/controller.
+
 The original prospective strength criterion remains FAILED. Controller-minus-
 parent actual win-score differences are+.3906pp[0,+1.5625] and0pp[-1.9531,+1.9531]
 for parents1/2, with nominal simultaneous95% intervals; controller-minus-root-only
