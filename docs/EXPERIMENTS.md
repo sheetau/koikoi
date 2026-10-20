@@ -9304,3 +9304,40 @@ QA runs/manuscript_focused_opening_qa.json statuspassed. PDF SHA
 4c32ce1413ea29f27c5a42acd4b9abe7a053c08e97b47100f499b957dd50b21b.
 Goal remains active:complete/audit/export current certificate study before the
 next natural-evaluation decision. New replicated strength benefit unresolved.
+
+## 2026-10-21: locate unresolved planning opportunities in the closed cohort
+
+Previous goal turn classified as progress:executable symbolic-tail assessment
+adapter and focused paper opening committed/pushedb300dd5. This turn re-read
+STATUS and polled the existing live pipeline40713; queue35056 and workers8160,
+68060,66616,66828 had increasing CPU usage. Pipeline advanced11to12complete
+chunks during a60-second handle wait. No restart, partial outcome inspection,
+new source match or alteration of either frozen comparison.
+
+Added scripts/diagnose_prospective_opportunities.py and generated
+PROSPECTIVE_OPPORTUNITIES.rst. It requires the completed queue/summary/export,
+checks protocol hash and2Mphase cap, every chunk/record hash, unique complete
+indices0..511, and256sources per parent. Pure aggregation:zero new simulator
+transitions, policy calls or source matches. The all-source partition is
+275missing roots,83adopted,55parent-value-one,74completed optimization/no gain,
+11parent-unvalued,14incomplete optimization/no retained gain. Counts by parent
+are135/140missing,41/42adopted,31/24value-one,38/36complete-no-gain,5/6unvalued,
+6/8incomplete-no-gain. These sum to256each and512overall.
+
+All11unvalued-parent roots leave approximately2M of the original4M native
+allowance unused because the original fixed/optimized phases have separate
+caps and optimization is skipped when the parent cannot be valued. Four of
+14incomplete-optimization nonadoptions retain at least10k transitions; the
+other10retain at most27. Thus15of25unresolved nonadoptions have10kremaining.
+This threshold is descriptive and neither reallocates computation nor defines
+a new cohort. Completed no-gain roots must be distinguished from budget failures
+when assessing the already running certificate comparison. Any later retry or
+budget-transfer method would be a new controller and needs its own comparison.
+No selected-root recovery job is launched from these25cases.
+
+The reproducible diagnosis matches the independent initial read-only counts;
+Ruff and diff checks pass. Receipt runs/prospective_opportunities.json binds
+protocol,summary,export,chunks,script and report. PDF unchanged at4c32ce14.
+Next:complete/audit/export current certificate study, use its whole-cohort
+coverage/work outcomes to decide implementation. New replicated strength remains
+unresolved and goal active. Canonical play/dealer/reserved101M unchanged.

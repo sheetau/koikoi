@@ -72,6 +72,17 @@ rejection are covered. This adapter has no natural evaluation launch. The frozen
 opponent-only comparison's95 inputs remain unchanged;10/32chunks complete,
 queue35056 and all four workers confirmed live during this milestone.
 
+Closed-cohort opportunity diagnosis now partitions all512sources without new
+simulation/inference. Controller:275missing,83adopted,55parent-value-one,
+74completed-optimization-no-gain,11parent-unvalued,14incomplete-optimization-no-gain.
+The25unresolved nonadoptions include15with at least10k unused native transitions
+under the original4M total ceiling. This descriptive threshold does not change
+phase allocation or authorize outcome-selected evaluation. See
+PROSPECTIVE_OPPORTUNITIES.rst and scripts/diagnose_prospective_opportunities.py.
+All original protocol/summary/export/chunk/record hashes checked; parent totals
+256each and full partition512. Current comparison progressed12/32chunks;
+pipeline40713 and queue35056 plus remaining workers confirmed live. No restart.
+
 Next: complete/audit/export the already running certificate comparison, then
 decide the next implementation from its coverage and computational results.
 Keep the broader stronger-play goal active. Canonical play and dealer unchanged.
