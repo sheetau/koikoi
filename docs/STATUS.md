@@ -65,14 +65,21 @@ or automatically add another root-allocation/learning-rate grid. The standard
 full-trajectory REINFORCE control closes a missing comparison; it is not a new
 algorithm. The broader stronger-play objective remains active.
 
-Next technical question: existing retained-agent searches enumerate first
-choices and then use fixed continuation policies. They do not optimize future
-choices jointly by the information available at those decisions. Assess a
-finite-tail belief-state controller with a fixed-continuation control, retaining
-posterior conditioning and separating observable histories to prevent strategy
-fusion. First establish exactness, opportunity coverage and computational cost.
-This is established POMDP planning, not an already implemented novel algorithm
-or a demonstrated Koi-Koi gain. No such new study is launched.
+Finite belief-tail planning is implemented and its six correctness tests pass
+(no skips,11.70s). It optimizes executable observation-contingent continuations
+instead of only comparing first actions under frozen future policies. Both-seat
+Koi fixtures enumerate4,950worlds each; all native transitions and every root
+policy value agree with the independent reference engine. Four tiny-game tests
+independently enumerate pure strategies and reject hidden-world optimization.
+[Design and fixed capability protocol](BELIEF_TAIL.rst).
+
+The next fixed check uses64complete unchanged-parent sources on16distinct deal
+streams (121110001+1000*WP/Point_index+replicate). It measures natural-root
+coverage, model-conditional exact gains and cost, with fixed-continuation control.
+All plans freeze before actual-tail assessment. No study is launched yet; commit
+before launch. This is established POMDP planning, not a general algorithmic
+novelty claim or a demonstrated prospective match-win improvement. No training,
+production-policy change or reserved101M use.
 
 A saved-gradient block analysis is also closed: runs/branch_gradient_blocks.
 It verifies all four previous full-gradient totals by splitting 768 output

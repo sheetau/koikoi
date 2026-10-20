@@ -17,6 +17,19 @@ Build a reproducible Koi-Koi research system; exceed the published RL-WP baselin
 - Public match-outcome dominance rules are an explicit inference wrapper, also applied to the published comparison opponent. Optional `endgame=true` training restricts the policy mask before action sampling and records the same mask for PPO; no off-policy post-sampling replacement occurs. Such checkpoints automatically retain this assistance in inference and search, with actual assistance settings in reports. The restriction preserves best attainable match outcome; it is disallowed for point-reward training. Simulator rules and rewards are unchanged.
 - Search compares paired particle returns against the deployment policy's base action. The standard-error margin can reduce noisy action changes but does not remove critic bias or establish equilibrium or strength guarantees. Search remains disabled unless measured improvement justifies its cost.
 
+## Experimental finite belief-tail controller
+
+`scripts/belief_tail.py` enumerates complete history-compatible hand/model worlds
+and ordered remaining draw prefixes in a bounded final-round tail. Unused stock
+suffix multiplicities cancel. Integer masses and reference-verified terminal
+outcomes yield rational action values. The planner partitions by own/public
+history before each learner choice and returns an executable contingent policy;
+it never selects separate learner actions inside indistinguishable worlds.
+A fixed-continuation control isolates the effect of optimizing future decisions.
+Public computation caps refuse incomplete trees. This is standard finite POMDP
+planning; [BELIEF_TAIL.rst](BELIEF_TAIL.rst) specifies assumptions, verification
+and the separate natural-root capability protocol. Production play is unchanged.
+
 ## Local human play
 
 `koikoi.play` is a Tkinter desktop client over the unchanged `ReferenceEnv` and existing CPU inference adapters. `PlaySession` owns one paper8 match, rejects out-of-turn input, pauses at every round boundary and stops at match termination. It creates fresh casual deals outside the reserved final-test seed range and writes no research/evaluation records. The selected checkpoint is identity-checked, runs greedy with public endgame assistance, and is never retrained or replaced implicitly. Original WP/Point and a greedy practice agent are explicit alternatives.

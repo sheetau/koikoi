@@ -8399,3 +8399,30 @@ ab2a982de405a2a36b1aff0d0d1fa9514464a168dfeb78b770fd4013ce39abdc.
 Figure6fbd269ab6f8d083d63953c756c075a5dcd9d02b1c962ce8cd464941e0629a0e.
 Backup runs/manuscript_observer_figure_previous; renders
 runs/manuscript_observer_figure_render. Stronger-play goal remains active.
+
+## 2026-10-20: finite belief-tail implementation and fixed capability protocol
+
+Added scripts/belief_tail.py, tests/test_belief_tail.py and the natural-root runner
+scripts/check_belief_tail.py. Exact integer-mass planning separates visible
+histories and returns every first action's complete contingent policy. Complete
+history-conditioned hands and all ordered remaining draw prefixes define its
+finite posterior worlds. Fixed future-parent decisions provide the control.
+This uses established POMDP planning, not a new general optimization algorithm.
+
+Core command: .venv/Scripts/python.exe -m pytest tests/test_belief_tail.py -q
+Six passed,0skipped,11.70s. Four tiny-game cases independently enumerate all pure
+information-contingent strategies. Two Koi fixtures (both seats,4,950worlds each)
+check all native transitions and all root-policy rational values against the
+Python reference. Hidden-root substitutions, mass/order invariance, caps and
+strategy-fusion rejection are checked. Ruff lint/format pass after runner format.
+
+Before new outcomes:64complete source matches,16distinctstreams,2parents x
+WP/Point x2seats x8replicates. Seed121110001+1000*opponent_index+replicate.
+First final-round learner root with<=3draws and opponent identity established
+publicly in an earlier round. Missing roots/refusals retained. Caps100hands,
+100,000worlds,500,000nodes,depth32. Compare fixed then optimized with shared
+caches, replay all contingent policies using independent transitions, freeze
+all plans before actual-tail assessment. Sources/history replay/planning/policy
+replay/assessment are separate work. No training,101M use or strength claim.
+Design docs/BELIEF_TAIL.rst; default runs/belief_tail_capability must be fresh.
+Implementation milestone precedes launch. Broader stronger-play goal active.
