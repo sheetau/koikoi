@@ -225,13 +225,36 @@ Protocol110dd1c58a9d89e5073dd0835852fc9930d8b5777b13141afb1e90dd58268df5.
 Complete7770f4879c856119ffcca0547544fcaf547b3d39241396375a5f449eef9938c2.
 Report2a93fa7eff67fff0842c35c3a2922628fcea79ebdc8957d184e8e901c87ce718.
 
-scripts/recover_bounded_tails.py preflight passes111bindings and exactly five
-refusals0,4,20,36,52. [Protocol](BOUNDED_RECOVERY.rst). Reuse verified support,
-reconstruct identical worlds, fresh policy caches, unchanged caps. Independently
-verify every completed exact policy; save all attempts before actual assessment.
-Retain all old28 completed/31 missing and remaining refusals in64source cohort.
-Commit before launch; not yet launched at this entry. No automatic escalation,
-source extension, production model change, reserved101M or manuscript rebuild.
+Bounded recovery is complete (session14768/PID28228 exited0); no live job.
+All5 attempts retain budget refusals:0/36 in optimized,4/20/52 in fixed planning.
+Source0 newly completes its fixed control: action12 Q161723/240240 versus parent
+39 Q1711/2640, exact gain3011/120120 (+2.5067pp locally). Source36 fixed gain0.
+[Audited attempts and work](BOUNDED_RECOVERY_RESULTS.rst). No actual tails were
+assessed because no full fixed+optimized comparison completed. The original
+28complete/5refused/31missing cohort and combined realized results are unchanged.
+Source0's feasible fixed improvement is not yet an executed controller gain.
+Completed planning3,725,271 decisions/3,303,427 terminalbranches; partial refused
+9,999,949/8,754,799. Independent Python oracle3,419,559/3,031,396. No new source
+or history-support replay. Fixed planning52.533664s;oracle111.643012s;partial
+375.385298s. All bindings/plan values/upperbounds/counters pass export audit.
+Protocol31da8e14da6b2fb3c669b541fa75b532f620f0d8120d456bb05f8d4da96ee2b4.
+Complete05c3b1ce713f975c7f60dd1167a88abc645150ad0348e565c6daae9fa5a99201.
+Report13937c64654d93e15a7abd28151d75641193f96e71afb2046ee5c5d49261d804.
+Do not restart this closed study or automatically raise its budgets.
+
+Added separate IncumbentBeliefPlanner to retain only completed root policies
+when a later candidate exhausts the cap. Exact Qs, unfinished upper bounds,
+refusal and optimality gap remain distinct. No incomplete policy is executable.
+[Semantics and adoption requirement](INCUMBENT_BELIEF_TAIL.rst). Three tests
+pass,0 skips,2.18s: a retained Q3/4 policy improves on the Q1/4 parent while
+leaving gap1/4, with caps before/during another candidate; native full plans and
+Python oracle match, empty refusals retain accounting. This adds no study or
+production model change. Next implement the controller's same-belief exact
+parent-value comparison and validate incumbent execution on the saved cohort,
+with a fixed resource schedule and frozen policies before any actual assessment.
+The full-refusal comparison stays unchanged. Retaining feasible incumbents is
+standard anytime search, not a general algorithm priority claim. Goal remains
+active; replicated empirical win improvement, deployment and paper update open.
 
 A saved-gradient block analysis is also closed: runs/branch_gradient_blocks.
 It verifies all four previous full-gradient totals by splitting 768 output

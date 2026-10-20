@@ -8758,3 +8758,34 @@ computed completed policy receives independent Python verification. All attempts
 freeze before actualtail assessment; original64 denominator preserved. Lint and
 format pass. Commit before launch; not yet launched at this entry. Goalactive;
 no training, model promotion, final101M or manuscript change.
+
+## 2026-10-21: bounded recovery closed; completed incumbents retained in new component
+
+python -m scripts.recover_bounded_tails completed0 (session14768/PID28228).
+Five remaining refusals:0/36 optimized;4/20/52 fixed. Source0's fixed plan now
+completes:parent39 Q1711/2640,chosen12 Q161723/240240,gain3011/120120 (+2.5067pp).
+Source36 fixed gain0. No full fixed+optimized comparison completed, so no actual
+tail assessment occurred and the original28/5/31 cohort results are unchanged.
+Completed planning3,725,271 decisions/3,303,427 terminalbranches; partial refused
+9,999,949/8,754,799. Independent Python oracle3,419,559/3,031,396. Zero new source
+matches/historyreplay/training. Fixed52.5336645s;oracle111.6430121s;partial375.3852985s.
+python -m scripts.export_bounded_recovery passes hashes, artifacts, values,
+upper bounds and counters. Report docs/BOUNDED_RECOVERY_RESULTS.rst.
+Protocol31da8e14da6b2fb3c669b541fa75b532f620f0d8120d456bb05f8d4da96ee2b4.
+Complete05c3b1ce713f975c7f60dd1167a88abc645150ad0348e565c6daae9fa5a99201.
+Report13937c64654d93e15a7abd28151d75641193f96e71afb2046ee5c5d49261d804.
+No restart or automatic budget increase. No new realized-strength claim.
+
+Added scripts/incumbent_belief_tail.py as a separate component. Complete search
+is unchanged; on cap, only completed exact root policies survive, unknown actions
+retain upperbound1 and partial policies are discarded. An explicit gap preserves
+unresolved optimality. Empty incumbents return no plan and retain partial work.
+python -m pytest tests/test_incumbent_belief_tail.py -q:3 passed,0 skips,2.18s.
+Toy Q3/4 improves onparent1/4 but gap1/4 remains; caps before/during nextaction;
+full native bothmodes equality, independent Python replay and emptycap accounting.
+Same-belief exact parent-policy evaluation is required before controller use;
+optimized parent-root action is not itself the unchanged parent policy. No actual
+controller/execution study exists yet. docs/INCUMBENT_BELIEF_TAIL.rst records this.
+Next implement that adoption rule and fixed-resource incumbent validation on the
+saved cohort before fresh strength evaluation. Canonical model, dealer,101M and
+manuscript remain unchanged; broader goal active. No study job remains live.

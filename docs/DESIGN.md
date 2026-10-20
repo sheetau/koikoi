@@ -51,6 +51,13 @@ chosen contingent policies retain the original information constraints and tie
 rule. [BOUNDED_BELIEF_TAIL.rst](BOUNDED_BELIEF_TAIL.rst) specifies proof and the
 paired all-completed-root regression. Production play is unchanged.
 
+`scripts/incumbent_belief_tail.py` retains completed executable root policies
+when a later comparison exhausts the cap, with exact values and an explicit
+remaining optimality gap. Acceptance requires the unchanged parent policy's
+exact value under the same belief; an optimized parent-root continuation is not
+that reference. [INCUMBENT_BELIEF_TAIL.rst](INCUMBENT_BELIEF_TAIL.rst) specifies
+the boundary. This is not yet an execution controller or deployment change.
+
 ## Local human play
 
 `koikoi.play` is a Tkinter desktop client over the unchanged `ReferenceEnv` and existing CPU inference adapters. `PlaySession` owns one paper8 match, rejects out-of-turn input, pauses at every round boundary and stops at match termination. It creates fresh casual deals outside the reserved final-test seed range and writes no research/evaluation records. The selected checkpoint is identity-checked, runs greedy with public endgame assistance, and is never retrained or replaced implicitly. Original WP/Point and a greedy practice agent are explicit alternatives.
