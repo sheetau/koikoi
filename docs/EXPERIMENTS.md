@@ -6831,3 +6831,40 @@ cell verifications confirm progress. Queue session25193/actual42304 remains live
 No queue completion/failure receipt yet. Do not duplicate evaluation or audit.
 Native-action/statistics audit,qualification and complete-only export remain
 pending. Canonical player,dealer and reserved confirmation remain unchanged.
+
+## Point-initialization study independently complete, 20 October 2026
+
+Queue session25193 exits0. All16cells/131,072matches pass native recorded-action
+replay and independent scalar compound-block statistics for120secondary
+coordinates and4simultaneous primary intervals. Queue42304,audit52920 and
+evaluator53480 are gone; no live job remains. Do not restart or repeat the study.
+Audit6fa668b21f7422677c16892ca7f39429895387955e4e5ff2105760bd833584c8;
+summaryb1ce6a1e59eb7c4aef4494ab3a02ba5cbe7e825bdd52cc4840aead61767a0fd9;
+queuef84db1b43691c1641a04a4c7bbc879d1f1ed8ceaacbf310609a4b50c9f74e5f3.
+
+Ran .venv/Scripts/python.exe -m scripts.export_point_initialization_results
+--output runs/point_initialization_results --audit-sha256
+6fa668b21f7422677c16892ca7f39429895387955e4e5ff2105760bd833584c8.
+Exit0. Export evidence9de59a0b52764c5a823f63c8dcb0f5cf30bb294417f9298aaa233c9d2a03b647
+binds233inputs; every input and output hash verifies. Tables copied unchanged
+to POINT_INITIALIZATION_RESULTS.rst with a separate interpretation.
+
+All4primary simultaneous95% bounds include zero. CalibratedPoint minus WPfixed
+mixture wins:+0.2350[-0.7334,+1.2034]/+0.2716[-0.6764,+1.2196]pp;
+minus retained:+0.4486[-0.5250,+1.4222]/-0.0366[-0.9674,+0.8942]pp.
+qualified=false. Temperature's matched-minus-fixed Point mixture win change
+is+0.7385/-0.3387pp and does not replicate. In contrast,all24secondary point
+contrasts for both Point arms minus WPfixed/retained across seeds and scopes
+have positive descriptive marginal lower bounds (minimum+0.67503662109375).
+This is a point-margin improvement,not win noninferiority or equivalence.
+CalibratedPoint versus published Point scores50.9155%/50.8240%,both marginal
+lower bounds above50%;these do not substitute for the failed primary criterion.
+Point mean margins-0.0498/+0.0383have intervals containing zero.
+
+Main work:51,118,080training decisions /3,398,982rounds /439,369matches /
+3,120updates,including warmup once. Evaluation15,229,803decisions /
+1,016,240round endings /131,072matches. Native replay repeats recorded work,
+not independent matches or inference;export adds none. No endpoint promoted,
+no seed reranked,no canonical player/dealer change,no101Mconfirmation consumed.
+Next integrate full results and mechanism into the manuscript,then choose a
+new evidence-supported intervention. The broader requested objective is active.
