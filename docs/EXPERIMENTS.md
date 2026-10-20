@@ -6950,3 +6950,85 @@ Input digests:
 - tests/test_score_auxiliary.py: 6193f416f5e7ff8b2aa27cc25f7d84b39f5633802dcf4b2680de5a08bf68048d
 - docs/SCORE_AUXILIARY.rst: 30ed06e007fdee1397bfa387ff427aeb6e85b9c76a634598de822c9712b6130a
 - runs/score_auxiliary_capability_final_tests.xml: a1b317b13a73ccfed0054941a577609d9a5dd9f5d205c0fcc79360ed012cb056
+
+
+## Complete-outcome auxiliary trainer and production capability, 20 October 2026
+
+Previous turn made verified component progress (b9773c3); no live job or blocker.
+Implemented complete frozen-current-policy auxiliary collection, auxiliary
+phases on the unchanged published PPO, and immutable complete-cycle checkpoints.
+No paper/rules/dealer/canonical changes and no strength trial in this milestone.
+Details and primary prior-art positioning are in SCORE_AUXILIARY.rst.
+
+The collector uses one uniform reservoir observation per match/player/phase,
+separate local action/reservoir RNGs, public endgame masks,T0.05 and final own-
+relative public point labels. All requested matches finish; hitting the bound
+raises with work/actions evidence and supplies no partial labels. Compact
+checkpoints retain source actions/row indices/input hash rather than duplicate
+large feature tensors. These samples weight visited strata equally, not all
+individual decisions. No hidden input reaches actor/auxiliary forward.
+
+A separate persistent Adam updates the shared actor at its PPO LR and auxiliary
+heads at the critic LR,eps1e-5,global gradient clipping0.5. Both loss coefficients
+are1. Ordinary PPO optimizer/critic/rewards are unchanged. The none control
+collects requested matches but takes no auxiliary steps. The checkpoint manifest
+binds files, config, counters and source; failed partial cycles cannot save or
+continue. Existing ppo.pt format preserves the ordinary deployment route.
+
+Collector command: .venv/Scripts/python.exe -m pytest
+tests/test_collect_score_auxiliary.py -q -o junit_family=xunit1
+--junitxml=runs/score_auxiliary_collection_fixed_tests.xml
+passes3,0skips,4.20s. Independent reference replays actions, reconstructs retained
+upstream public features/masks, checks signs/stratum coverage/counts. Local RNG
+repeatability holds within each device; CPU/CUDA sampled trajectories differ.
+Executed work including repetitions876decisions/54round endings/8matches,with
+2additional nonterminal decisions included in the876 from a forced-bound case.
+The two deal streams are reused across devices and repetitions. A prior import
+error in the test harness executed no simulation/training and remains in its
+separate XML. No failed learning experiment is hidden by that correction.
+
+Integration command: .venv/Scripts/python.exe -m pytest
+tests/test_score_auxiliary_trainer.py -q -o junit_family=xunit1
+--junitxml=runs/score_auxiliary_trainer_tests.xml
+passes6,0skips,14.84s. Checks ordinary-PPO exactness, full CPU/CUDA next-cycle
+resume for win/score conditions, optimizer parameter ownership/phase Adam counts,
+state/RNG/data equality, digest rejection and incomplete-cycle rejection.
+Actual small-test PPO736decisions/48round endings/6matches; auxiliary including
+resume repeats2,916decisions/187round endings/28matches,of which2decisions are
+an intentional incomplete failure fixture. This is verification work only.
+
+Production command: .venv/Scripts/python.exe -m
+scripts.check_score_auxiliary_training --output runs/score_auxiliary_training_capability
+Session12969 exits0. All3conditions use128env x128horizon,512PPO minibatch,
+3PPO epochs,128complete auxiliary matches/6auxiliary epochs. Capability only:
+1critic-only+2policy updates,auxiliary interval1,to exercise two complete phases.
+Initial/warmup PPO states and first auxiliary collections match across arms.
+Each second cycle repeats exactly from the first checkpoint. The none condition
+also matches an additional ordinary-PPO control update at production shape.
+
+Unique main-capability PPO147,456decisions/9,301round endings/1,107matches;
+auxiliary91,178decisions/5,870round endings/768matches. Repeated-resume PPO
+49,152decisions/3,124rounds/405matches;auxiliary45,533decisions/2,924rounds/
+384matches. Extra ordinary-PPO control16,384decisions/1,042rounds/135matches.
+Auxiliary source deals256distinct streams shared across conditions/repeats.
+Unique/repeated auxiliary optimizer steps192/96;example presentations
+23,028/11,496. None has no auxiliary optimizer steps. These are capability
+endpoints and learning computations,not a win-rate estimate or selected model.
+Runner elapsed62.8509s includes all saving/checks. Peak CUDA allocated bytes
+none2,279,875,072;win2,313,819,136;score2,313,032,704. All49report-bound files verify.
+Ruff lint/format and diff checks pass. No full study is live. Next fix cadence,
+budgets, mechanism/evaluation protocols, then launch the actual two-seed study.
+Default component interval25 is not yet a selected main hyperparameter. Match
+PPO decision budget and requested auxiliary match counts; do not claim identical
+auxiliary decisions, row counts, optimizer steps or runtime after policies diverge.
+Goal remains active: additional strength and substantive contribution unproven.
+
+Milestone digests:
+- scripts/collect_score_auxiliary.py: cc09d70458e3b6faf0e182d679a23686b8aa691572094c46a3ec437d61562c48
+- scripts/score_auxiliary_trainer.py: 9eda3208037c3aabb424305e23292607b16aa21ec1f32af38ff78487f737d4ed
+- scripts/check_score_auxiliary_training.py: 58ee2a57fa4c8f45706706fbffdb80d85d93f4cf62a37349d5e75d49ce3edf13
+- tests/test_collect_score_auxiliary.py: d6f836bb85fa79dad56f835bc79ce2e09f68ea1ff2aec1aab653cb3aff9f9671
+- tests/test_score_auxiliary_trainer.py: f8166c2d96479e9fb7878717a11539389fcfaf123b9d6d7ce50e5fe7c8ed755c
+- runs/score_auxiliary_collection_fixed_tests.xml: 52a7864f8b6b88a5f8083a281dafa7386b4114b30aa4b68cf5f3db63f6c69aac
+- runs/score_auxiliary_trainer_tests.xml: 1669391ef61c1058e73e87be84b0844665ed01e69a06c098e4c96d5a2104e093
+- runs/score_auxiliary_training_capability/report.json: 49e24dc6f33247b69b8922d71d2716fcdaf676220b75c2630785ea829b833f9e

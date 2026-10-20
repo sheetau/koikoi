@@ -19,14 +19,29 @@ adds within-outcome information. Deployment action heads and PPO match rewards
 remain unchanged. This applies established auxiliary-learning ideas; neither
 algorithmic novelty nor a playing gain has yet been established.
 
-Five CPU/CUDA component tests pass,0skips,4.91s. Each device executes2complete
-reference-checked matches/251decisions/16round endings on the same2capability
-deals, plus4auxiliary optimizer steps. Scores match the original actor exactly;
-finite gradients reach its encoders. This is not a training endpoint or strength
-result. Earlier duplicate test work is separately recorded in EXPERIMENTS.
-No full study is running. Next connect complete-outcome collection, auxiliary
-training/checkpoint persistence and exact resume; then freeze the three-arm,
-two-seed PPO/outcome-auxiliary/score-auxiliary comparison before strength runs.
+Complete-outcome collection and auxiliary training are now connected to PPO.
+Three collector tests and six integration tests pass,0skips. Public inputs and
+terminal label signs agree with independent reference replay. Sampling RNG is
+isolated; unfinished collection supplies no labels. CPU/CUDA complete-cycle
+checkpoints reproduce models, both optimizers, environments, RNG and data exactly.
+The none control preserves ordinary PPO exactly. Prior component tests remain
+closed; all test/duplicate work is separately recorded in EXPERIMENTS.
+
+Production capability session12969 exits0:all3conditions,128env x128horizon,
+512PPO minibatch/3epochs,128complete auxiliary matches/6epochs per phase.
+One warmup+two policy updates,auxiliary interval1,with second-cycle resume checks
+and an ordinary-PPO control. Initial/warmup states and first auxiliary datasets
+match across arms. Peak allocated CUDA memory is about2.31GB. Report
+runs/score_auxiliary_training_capability/report.json SHA256
+49e24dc6f33247b69b8922d71d2716fcdaf676220b75c2630785ea829b833f9e;
+all49saved file digests verify. Capability endpoints are not strength evidence.
+
+No full study is running. Next freeze and launch the three-arm/two-seed
+PPO/outcome-auxiliary/score-auxiliary comparison, including auxiliary cadence,
+mechanism diagnostics and fresh paired evaluation. The bounded per-player/phase
+sample is smaller than a full PPG observation buffer; account for that when
+fixing cadence. Match PPO decisions and requested auxiliary complete matches;
+actual auxiliary decisions/rows/optimizer work can differ as policies change.
 Do not reopen closed sweeps or use reserved101M deals. Parent selection and the
 canonical player remain unchanged. Stronger play/substantive novelty remain open.
 

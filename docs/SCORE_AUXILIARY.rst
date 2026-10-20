@@ -1,7 +1,8 @@
 Separating outcome and within-outcome score supervision
 ======================================================
 
-Status: experimental component implemented and checked; no strength trial or
+Status: complete-outcome collection, auxiliary training and exact resume are
+implemented and checked at production batch sizes; no strength trial or
 promotion. The current manuscript reports completed studies and does not include
 this proposal as a result. Initial dealer selection is unchanged.
 
@@ -90,23 +91,19 @@ coefficient1; this is not yet a frozen full-study configuration.
 Required next implementation
 ----------------------------
 
-Connect complete-outcome collection, a separate auxiliary phase and exact
-checkpoint/resume to the existing published PPO trainer. Keep policy rewards
-and the original critic unchanged. Use complete matches under a frozen current
-policy to label public observations, with a bounded sample per player/phase;
-do not silently label unfinished matches or select only short completed ones.
-Keep auxiliary sampling on a separate reproducible RNG stream. Count its
-additional decisions, rounds and matches separately from PPO collection.
+The collection/training/resume requirements below are now checked. Next freeze
+and execute a three-arm, two-seed comparison: PPO alone, outcome auxiliary and
+full-score auxiliary. Fix initialization, auxiliary cadence, all learning
+budgets, mechanism diagnostics and paired fresh-deal evaluation before strength
+outcomes. The default component interval25 has not been selected as the main
+study cadence. A bounded sample per player/phase is much smaller than a PPG
+buffer retaining every policy observation; budget that distinction explicitly.
 
-Before a strength run, verify label signs across player changes and match
-termination, auxiliary head/optimizer persistence, identical no-auxiliary
-control behavior, and actual production-shape execution. Then freeze a matched
-three-arm, two-seed comparison: PPO alone, outcome auxiliary, full-score
-auxiliary. Include a learning-curve mechanism diagnostic, equal auxiliary
-collection work, all endpoint results and paired fresh-deal evaluation. Freeze
-budgets and success criteria before inspecting any strength outcomes. Do not
-consume the reserved101M confirmation deals or promote a candidate from a
-capability check. The broader research objective remains active.
+Use equal PPO decisions and equal requested complete auxiliary matches across
+arms. The resulting auxiliary decisions, retained rows, minibatches and runtime
+can differ as policies change; do not call these identical total compute.
+Keep every final endpoint. Do not consume the reserved101M confirmation deals
+or promote from capability outcomes. The broader research objective is active.
 
 Completed capability
 --------------------
@@ -131,3 +128,87 @@ before the final run. Its separately executed work is another502decisions,
 4matches on the same deals and8auxiliary optimizer steps; its round count was
 not correctly recorded and is not added to verified totals. The obsolete XML
 remains preserved. No trained endpoint was saved or evaluated.
+
+Complete-outcome collection and training integration
+---------------------------------------------------
+
+scripts/collect_score_auxiliary.py now finishes one frozen-current-policy match
+per lane atT0.05 with public endgame masks. Local action and reservoir generators
+leave PPO RNG streams untouched. Uniform reservoir sampling retains one public
+observation per visited match/player/phase stratum. Every eligible observation
+within that stratum has inclusion probability1/n; strata, not all individual
+decisions, receive equal sample weight. Forced decisions remain eligible.
+Completed public scores label each observer in its own perspective. A hard
+step-bound failure returns no partial training labels.
+
+The in-memory features are used for learning; compact checkpoint evidence saves
+their hash, selected decision indices, all executed actions, public masks,
+reference probabilities and terminal points. Independent replay can reconstruct
+the large input tensor without storing another copy at every cycle.
+
+scripts/score_auxiliary_trainer.py composes the existing PublishedTrainer with
+an auxiliary phase. Ordinary PPO rewards, critic and optimizer are unchanged.
+A separate persistent Adam uses the PPO actor learning rate for the encoders
+and action heads, and the value learning rate for auxiliary heads; epsilon1e-5,
+global auxiliary gradient clipping0.5, clone coefficient1, auxiliary coefficient1.
+Outcome and score arms use the same6epochs and128-row minibatches by default.
+The none arm collects the same requested number of full matches but performs
+no auxiliary optimization. It has no auxiliary Adam steps.
+
+Checkpoints are immutable directories containing standard ppo.pt, auxiliary.pt
+and a final manifest. The manifest binds source, state-file digests, configuration
+and counters. The auxiliary file retains heads, optimizer and last collection.
+A partial failed cycle cannot be saved or continued. Restore checks digests and
+runtime and reproduces the next full cycle exactly. The ordinary ppo.pt actor
+can use the existing inference path; auxiliary heads are not inference inputs.
+
+Three collector tests pass with0skips(4.20s). CPU/CUDA native action traces,
+sampled inputs reconstructed through upstream public features, masks, labels,
+stratum coverage and counts agree with the Python reference. Repeating with
+different global RNG states gives the same within-device result. CPU and CUDA
+multinomial samplers can generate different trajectories; cross-device action
+identity is not claimed. Final XML: runs/score_auxiliary_collection_fixed_tests.xml.
+Work including repeat calls:876decisions/54round endings/8complete matches,
+including2deliberately incomplete decisions, on2distinct capability deal streams.
+An earlier import error executed no collection or training.
+
+Six integration tests pass with0skips(14.84s), including ordinary-PPO identity,
+CPU/CUDA exact next-cycle model/optimizer/RNG/environment/data resume for both
+auxiliary conditions, phase-specific Adam counters, changed-digest rejection
+and failed-cycle handling. XML: runs/score_auxiliary_trainer_tests.xml. Actual
+test PPO work:736decisions/48round endings/6matches; auxiliary work including
+repeated resumes:2,916decisions/187round endings/28matches, including2unfinished
+failure-fixture decisions. These small tests are not a strength experiment.
+
+Production-shape capability
+--------------------------
+
+Command::
+
+    .venv/Scripts/python.exe -m scripts.check_score_auxiliary_training --output runs/score_auxiliary_training_capability
+
+All three conditions complete one critic-only and two policy updates at
+128environments x128horizon,512PPO minibatch,3PPO epochs. The capability uses
+interval1 to exercise both auxiliary cycles, each128complete matches and
+6auxiliary epochs. This intentionally differs from a main-study schedule.
+Initial/warmup PPO states and first auxiliary collections match across arms.
+Each second cycle is repeated by restoring the first; all learning states and
+collection evidence match exactly. The none arm also matches an ordinary-PPO
+update without the wrapper at production shape.
+
+Unique per-arm learning work summed across three arms:
+147,456PPO decisions/9,301round endings/1,107matches and91,178auxiliary
+decisions/5,870round endings/768matches. Resume verification additionally
+executes49,152PPO decisions/3,124rounds/405matches and45,533auxiliary
+decisions/2,924rounds/384matches. The ordinary-PPO control executes another
+16,384decisions/1,042rounds/135matches. Auxiliary collection uses256distinct
+deal streams shared across arms; repeats do not add independent deals.
+Unique/repeated auxiliary optimizer steps192/96; example presentations
+23,028/11,496. PPO optimizer accounting remains in the separate saved states.
+
+Runner elapsed62.8509s includes saving and verification. Peak allocated CUDA
+memory is2,279,875,072/2,313,819,136/2,313,032,704bytes for none/win/score.
+This is capability timing, not an inference-latency benchmark or strength claim.
+All49saved file digests verify. Report runs/score_auxiliary_training_capability/report.json,
+SHA256 49e24dc6f33247b69b8922d71d2716fcdaf676220b75c2630785ea829b833f9e.
+The runner session12969 exits0. No full study is live and no candidate is promoted.
