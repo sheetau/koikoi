@@ -9727,3 +9727,39 @@ strength certification. New evaluation design is under consideration; no source
 samples generated, no protocol frozen, no old cohort/reserved101M reopened.
 Closed-cohort sample-size projections are only planning, not power calculations
 or inferential results under the different source law. Goal remains active.
+
+
+## 2026-10-21: select independent-uniform controller evaluation design
+
+Added UNIFORM_CONTROLLER_EVALUATION.rst, uniform_controller_design.py and eight
+tests. Fixed future design:2parents x2opponents, independent uniform learner seat
+per source,2,048sources per population/8,192total. ReferenceEnv seed1 fixes the
+unchanged initial dealer0;fresh valid round decks replace all seeded auto-deals.
+Same symbolic controller/caps as the completed comparison,controller-parent
+only. Seven thresholds1/1000,1/250,1/100,1/50,1/25,2/25,4/25;family error1/20,
+population1/80,threshold1/560. Require all four lower bounds>0 and both fixed
+equal-opponent parent mixture lower bounds>1/1000(.1pp). Missing roots/fallbacks
+remain zero;no outcome-based extension or failed-source resampling. The claim
+targets expected incremental improvement,not observed wins or absolute>50%.
+
+Design projections used only the closed512-source/different-law results.
+Eight fixed-seat strata at128/256/512/1024sources each gave projected parent
+mixture lower bounds .0264/.0530,.0508/.0858,.0796/.1187,.1074/.1477pp.
+Randomized-seat four-population design at2,048each projects parent1 WP/Point
+.15517/.09606pp,parent2 .21092/.12987pp;mixtures .12561/.17039pp. These are
+planning calculations,not power calculations or inferential results. Their
+law differs and they neither promise success nor alter the old failed gate.
+Artifacts:runs/uniform_evaluation_design_projection.json and
+runs/uniform_random_seat_projection.json;no new chance sampling in either.
+
+Tests cover fixed schedule/dealer,exact full-denominator mixture aggregation,
+family-error allocation,requiring both replicas and each opponent,missing/extra
+populations,and rejection of negatives/floats/bools/out-of-range gains. Command
+.venv/Scripts/python.exe -m pytest tests/test_uniform_controller_design.py -q:
+8passed,.16s. Ruff check/format check pass. The statistical reducer requires
+separate full source/certificate audit and cannot itself mark a study passed.
+
+The design is selected but no study protocol is frozen and no evaluation has
+started. Next integrate/test runner,independent source/posterior audit and
+parent/controller tail execution,then hash-bind dependencies before fresh data.
+No canonical model/dealer change,no reserved101M use. Goal remains active.

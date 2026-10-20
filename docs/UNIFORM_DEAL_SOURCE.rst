@@ -12,7 +12,8 @@ scripts/uniform_deal_source.py prepares a separate source generator for a future
 evaluation under the guarantee's stated deal law. No evaluation is scheduled or
 launched by this module. The symbolic comparison is complete. LOGGED_POSTERIOR_COMPOSITION.rst gives
 the subsequent source/posterior argument and pinned-actor integration checks.
-A fresh study still needs its population, estimator, sample size and criterion.
+UNIFORM_CONTROLLER_EVALUATION.rst selects those design elements; the full
+runner/auditor and immutable protocol still need validation before launch.
 
 Sampling and replay
 -------------------

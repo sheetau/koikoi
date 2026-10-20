@@ -64,10 +64,15 @@ exact conditional belief, using the prepared independent valid-deal sampler,
 logged public collector and exact nonnegative-gain bounds. The source/history/
 posterior composition is now documented and checked on
 eight pinned real-actor fixtures (nine tests, including finite counting).
-See LOGGED_POSTERIOR_COMPOSITION.rst. Next specify the population,strata,
-fixed sample size,threshold grid,error allocation and practical effect criterion
-before freezing a fresh protocol. Keep all missing-root/fallback prefixes in
-the denominator. No new protocol is frozen or launched. No reserved101M use.
+See LOGGED_POSTERIOR_COMPOSITION.rst. The next design is now selected in
+UNIFORM_CONTROLLER_EVALUATION.rst and uniform_controller_design.py: four
+parent/opponent populations, each with2,048independently randomized-seat sources
+(8,192total), fixed seven-threshold grid, family error.05. Require all four
+lower bounds>0 and both equal-opponent parent mixture lower bounds>.1pp.
+Keep every missing-root/fallback zero in the denominator. Eight statistical/
+design tests pass. No new source samples, frozen protocol or live evaluation.
+Next implement/test runner and complete audit,bind dependencies,then launch
+the fixed study. No reserved101M use.
 This targets expected match improvement under the declared law; it must not
 relabel conditional values as observed wins or combine different sampling laws.
 If that evaluation is insufficient,continue substantive stronger-play work;

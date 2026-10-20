@@ -4,9 +4,9 @@ Finite-sample bounds for certified expected improvement
 scripts/certified_gain_bounds.py computes a conservative lower confidence bound
 on mean nonnegative conditional improvement. Together with a matching deal law,
 it provides a way to measure the population effect of exact local improvements.
-It is a statistical component, with no study, threshold grid or sample size yet
-selected. The symbolic comparison is complete; the next evaluation remains
-to be frozen. Existing fixed-seed results and their failed strength criterion stay
+It is a statistical component. UNIFORM_CONTROLLER_EVALUATION.rst now specifies
+the selected prospective design; its runner/auditor integration and protocol
+freeze remain pending. Existing fixed-seed results and their failed strength criterion stay
 as recorded; this component has not been applied to them.
 
 Population and observations
