@@ -24,6 +24,18 @@ summarizes/exports only after all512chunks complete. No interim strength claim.
 Next monitor this exact job, inspect failures without resampling, and evaluate
 the frozen criterion only after the complete audit. Human play stays unchanged.
 
+The post-completion manuscript exporter is ready in
+scripts/export_uniform_paper_evidence.py. Run .venv/Scripts/python.exe -m
+scripts.export_uniform_paper_evidence only after the study finishes. It requires
+the exact frozen protocol and complete export, rechecks every chunk's immutable
+artifacts/audit bindings and source order, and recomputes the four population
+bounds and descriptive actual contrasts before writing separate TeX tables and
+a provenance ledger. Lower bounds are rounded down for display; exact fractions
+still decide success. Nine export tests pass, including rejection of rehashed
+incorrect summaries and incomplete cohorts. A probe against this live study
+correctly refused export without creating artifacts; all114frozen inputs and
+8,192cases remain intact. No new result or manuscript PDF is produced yet.
+
 The complete512-source symbolic comparison is COMPLETE, audited and exported.
 Pipeline session99772/PowerShell25468,queue64312 and last worker66784 finished;
 the pipeline exited0 after audit/export. DO NOT restart this cohort or either
