@@ -11,7 +11,8 @@ Old process handles mentioned in that history are historical, not live jobs.
 
 ## Current experiment and next actions
 
-**Score-auxiliary learning is running in a new recovery directory.** The original
+**All six score-auxiliary learning conditions are complete; the independent
+training audit is running.** The original
 runner20751/PID17896 failed during seed2_none update165 with WinError206 in
 os.add_dll_directory. Its queue19901/PID59480 also exited1. Both original
 folders and all failure/partial/completed artifacts remain untouched. They are
@@ -20,16 +21,17 @@ not live jobs. Detailed previous setup is retained at commit dca731f.
 [Recovery design and commands](SCORE_AUXILIARY_RECOVERY.rst). An isolated probe
 reproduced the DLL-registration failure after332 registrations of the same
 Torch directory; closing registrations restored success. No simulation or
-learning was needed for that probe. Each remaining condition now runs in its
+learning was needed for that probe. Each remaining condition ran in its
 own process, with at most101 backend instances. Bound learner/native sources,
 seeds, budgets and evaluation criteria remain unchanged.
 
-Recovery root: runs/score_auxiliary_recovery. Runner session39422/PID67840;
-current worker40312 (launcher62540),seed2_score. Five of six arms are complete.
+Recovery root: runs/score_auxiliary_recovery. Runner session39422/PID67840
+exited0 after seed2_score update520; all six arms are complete. Worker40312 and
+launcher62540 are no longer live training jobs.
 Completed seed1_none/win/score artifacts are copied
 byte-for-byte,except relocated endpoint paths in completion receipts. Seed2_none
-reruns from its original seed; all recorded numerical metrics, checkpoint
-states/RNG/optimizers and28old collections must match. Seed2_win/score then run
+reran from its original seed; all recorded numerical metrics, checkpoint
+states/RNG/optimizers and28old collections match. Seed2_win/score then ran
 once each. No result-dependent selection or additional study arm is introduced.
 Recovery seed2_none is complete; its worker15392/launcher67148 has exited0.
 An early closed-prefix check passes: all164logged numerical rows,8saved
@@ -38,7 +40,7 @@ wall time/git provenance.104immutable files are bound;receipt
 c8515b32cdf810d91a365e2c9485399ea18c8dcb370091e4303dd9303a4ff569.
 This read-only check adds no training,matches or inference. The scheduled final
 full-arm prefix check also passes (receipt0915d3696196f62a5ae503b0240571ded3e1ee16593a6028949a151aa481200d).
-The seed2_score learner,recovery supervisor and queue are live;update20 observed.
+Queue session56042/PID42884 started training_audit (worker19968,launcher61320).
 Recovery protocol b38aa097e1ce9a4f2989eab445025d7f4388fbf97d7dd0df8722860bddbe5294
 binds683inputs,including every original artifact. Six recovery tests pass0skips
 (1.67s),two relocation/queue tests pass0skips(1.75s),all synthetic/no simulation.
@@ -61,7 +63,8 @@ Its100auxiliary collections contain1,492,804decisions/98,476rounds/12,800matches
 ed64f0c2e8e10e1e4f7418a37ebbec986149dfcbc7c120127279a64232ecb16d;
 metrics2c2bcd7316f79af3c3cc53a1fde2fda543d38ead4828665b9a3fcf2f256fa9d5.
 All748combined recovery/queue input bindings verify unchanged. Main evaluation
-and full six-arm training audit remain pending. Do not restart completed arms.
+remains pending; the full six-arm training audit is running. Do not restart
+completed arms.
 
 Seed2_win also completed520updates/8,519,680PPO decisions/562,644rounds/
 73,092matches. Auxiliary100collections contain1,488,898decisions/98,510rounds/
@@ -69,8 +72,19 @@ Seed2_win also completed520updates/8,519,680PPO decisions/562,644rounds/
 Endpoint manifestb0b2e10a66900dc947a7a895fe4a4f06c3d87b92000c15fe291b17ac8a32dacf;
 metricsb89773dd78823578f567feb4cf87ddb595e5ed09ae2db367c270c9518b1d352c.
 Its worker41768/launcher11460 exited0. All748recovery/queue bindings and endpoint
-file/metric digests verify unchanged. The final score arm is now training;
-no main strength evaluation or full six-arm audit has started.
+file/metric digests verified unchanged at that milestone. The final score arm
+is now complete; main strength evaluation has not started.
+
+Seed2_score completed520updates/8,519,680PPO decisions/560,337rounds/
+72,961matches. Its100auxiliary collections contain1,490,552decisions/
+98,259rounds/12,800matches/96,558rows/579,348presentations and4,800Adam calls
+per phase. Endpoint manifestd922f0e5bc375612768b6f0aaa0d9e3f13741c999b51f3fd2a618493878a4114;
+metricsfe4f4b41e9433270b185d6590849f19d1f2e65e1fc464703c1b151aeeb6b2c8d.
+Final endpoint files,manifest,metrics and repeated-prefix digest verify.
+Study completion45f7f24a83cfcb99ff09b83e5bada606560aaec1c4e0dab812de4749ba66f486.
+Retained totals: PPO51,118,080decisions/3,369,134rounds/437,799matches;
+auxiliary8,936,915decisions/589,918rounds/76,800matches. These are training
+work counts,not evidence of improved strength. Mechanism/export remain pending.
 
 Restart overhead is counted separately: failed seed2_none executed165PPO
 updates/2,703,360decisions,of which164updates were logged. Those logs contain
@@ -79,14 +93,14 @@ counts are unavailable. Auxiliary28collections contain421,608decisions/
 27,488rounds/3,584matches. The failure occurred before collection29 environment
 creation. Repeating the prefix does not increase independent sample size.
 
-Recovery queue session56042/PID42884 holds the exact runner67840 creation
+Recovery queue session56042/PID42884 observed exit0 of exact runner67840,creation
 FILETIME134369397674275076. Root runs/score_auxiliary_recovery_completion,
 protocol81de97227a5a280e31ecbc797bcaeb2e40f8fe189e51443f58191ac2213fc5c7,
 748bindings. After successful completion/prefix equality: original independent
 training audit,prepare fixed evaluation,run evaluation,independent native and
 statistical audit. Training root alone is relocated; the new evaluation protocol
-binds recovery provenance before outcomes. No full training audit or main
-strength evaluation exists yet. Do not restart either live process.
+binds recovery provenance before outcomes. Full training audit is running; main
+strength evaluation remains pending. Do not restart the live queue or its auditor.
 
 [Evaluation](SCORE_AUXILIARY_EVALUATION.rst): six endpoints plus two retained
 parents versus strict assisted WP/Point;4,096paired streams per opponent/both

@@ -7505,3 +7505,32 @@ verify unchanged. Full six-arm training audit,main strength evaluation,mechanism
 and export remain pending. No tests,inference or simulator work was added by
 this milestone verification. Dealer,canonical player and manuscript unchanged;
 no additional strength or novelty conclusion follows from learning completion.
+
+
+## Six auxiliary conditions complete; full training audit starts (2026-10-20)
+
+Verified waits on39422/56042 reached seed2_score update520. Recovery supervisor
+67840/session39422 exited0. Queue42884/session56042 observed the exact successful
+producer exit and started the existing full training auditor (worker19968,launcher61320).
+Main evaluation,mechanism and result export remain pending. No restart or new
+experimental condition was introduced.
+
+Seed2_score:520updates,20warmup/500policy;8,519,680PPO decisions/560,337round
+endings/72,961matches. Warmup327,680decisions/21,127rounds/2,714matches.
+Value Adam49,920,each actor48,000steps. Auxiliary100collections:
+1,490,552decisions/98,259rounds/12,800matches/96,558retained rows;
+579,348presentations and4,800Adam calls for each discard/pick/koi model.
+Endpoint manifestd922f0e5bc375612768b6f0aaa0d9e3f13741c999b51f3fd2a618493878a4114;
+metricsfe4f4b41e9433270b185d6590849f19d1f2e65e1fc464703c1b151aeeb6b2c8d;
+arm completion570c82eeac78b133118b28f9ff841038943572b9b110ba4ceb35a66f27ea3a01.
+Final endpoint payload/manifest and metric hashes checked; its individual and
+study completion entries agree. All six entries report520updates. Repeated
+prefix receipt is passed and its digest agrees with study completion.
+
+Study complete45f7f24a83cfcb99ff09b83e5bada606560aaec1c4e0dab812de4749ba66f486.
+Retained totals: PPO51,118,080decisions/3,369,134rounds/437,799matches;
+auxiliary8,936,915decisions/589,918rounds/76,800matches. Failed-run overhead remains
+separate as recorded above. Full independent replay/checkpoint verification is
+running,not yet passed. No new tests,inference or matches were added by the
+milestone checks. Dealer,canonical player and manuscript remain unchanged.
+Learning completion does not establish playing superiority or substantive novelty.
