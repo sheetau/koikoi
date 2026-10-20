@@ -7373,3 +7373,49 @@ then follow the already-connected training audit/evaluation queue and separate
 mechanism/export commands. Canonical,dealer and manuscript unchanged. Goal
 active;no new playing-strength or novelty conclusion follows from completion
 of learning alone.
+
+
+## Auxiliary process failure and isolated recovery (2026-10-20)
+
+Original learner20751/PID17896 and queue19901/PID59480 both exited1.
+Seed1_none/win/score are complete. Seed2_none logged164updates; update165 PPO
+finished before auxiliary collection29 failed at os.add_dll_directory with
+WinError206. Original runs/score_auxiliary_study and score_auxiliary_completion
+are untouched,including failures and partial work.
+
+An isolated registration probe repeated the same97-character Torch DLL path.
+332registrations succeeded; the next raised WinError206. Closing all handles
+allowed registration again. No learning/inference/simulation was performed.
+Probe receipt5cae1b76e15e5589f0545e15c1361a4f4b46ed2b9225f51f014943cbc06ac559.
+
+New scripts/recover_score_auxiliary.py copies all completed seed1 artifacts,
+changing only endpoint paths in receipts,and runs each remaining original arm
+in a fresh process. No bound learner/native/evaluation algorithm is edited.
+Each process creates at most101backends. Seed2_none starts at its original seed;
+all164logged numerical rows,saved states/RNG/optimizers and28collections must
+match before the next arm runs. Original artifact hashes bind every source copy.
+Repeated-prefix cost is separate:165PPOupdates/2,703,360decisions;164logged
+updates cover2,686,976decisions/174,865rounds/22,736matches. Round/match counts
+for unlogged update165 are unavailable.28auxiliary collections contain
+421,608decisions/27,488rounds/3,584matches. This is repeated work,not new evidence.
+
+Recovery tests6pass0skip1.67s,XMLf223c8f6474be68157e106f3c826d378958d95c75655221bf5f7554d12d0ee27;
+relocation/queue tests2pass0skip1.75s,XML756c6d8543817ca7b48b2bbf5cda7ed674d8bd97b3ec88ee6052bbde0f753b43.
+Synthetic fixtures only,no neural calls/training/matches. Ruff and diff checks
+pass. The XML pass gate and removal of redundant list(sorted(...)) were added
+after the first test run;the real prepare command successfully exercised that
+gate. No numerical recovery logic changed afterward.
+
+Commands: python -m scripts.recover_score_auxiliary prepare,then run;
+python -m scripts.finish_score_auxiliary_recovery wait --producer-pid67840
+(the actual CLI uses a space before67840). Recovery prepare session18651 exits0.
+Runner39422/PID67840 with worker67148 is live;seed2_none has passed update20.
+Recovery protocolb38aa097e1ce9a4f2989eab445025d7f4388fbf97d7dd0df8722860bddbe5294 binds683inputs.
+Queue56042/PID42884 holds exact creationFILETIME134369397674275076;protocol
+81de97227a5a280e31ecbc797bcaeb2e40f8fe189e51443f58191ac2213fc5c7 binds748inputs.
+It reuses original training/evaluation/audit implementations with the recovery
+training root,then binds wrapper/recovery provenance before scoring. Six primary
+and120secondary comparisons,seeds,sample sizes and qualification remain fixed.
+Old failed queue preserved. Full training audit/evaluation/mechanism/export
+remain pending. No promotion,dealer change,reserved101M use or new strength
+claim. [Recovery instructions](SCORE_AUXILIARY_RECOVERY.rst).
