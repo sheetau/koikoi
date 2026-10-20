@@ -104,6 +104,14 @@ The same runner is now on seed1_win(update21 verified). No failure receipts;
 committed/pushed ascc5964f. Next monitor the live jobs,then run the mechanism
 commands after full training audit;interpret all predeclared results before
 claiming an improvement. Do not rerun closed tests/capabilities while waiting.
+The complete-results exporter is now implemented ([details](SCORE_AUXILIARY_EXPORT.rst)).
+It requires the finished queue/audits and preserves all6primary/120secondary
+coordinates and per-arm PPO/auxiliary work. Ten synthetic tests pass0skips1.59s,
+no inference/simulation. No actual main export exists. After queue completion,
+export with the exact final audit digest,run the fixed mechanism diagnostic,
+and integrate the verified results into the manuscript. Current learner and
+queue handles were re-polled live;seed1_win update84 verified. All107training
+and170queue bindings remain unchanged;no failure receipt.
 Do not reopen closed sweeps or use reserved101M deals. Parent selection and the
 canonical player remain unchanged. Stronger play/substantive novelty remain open.
 

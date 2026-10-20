@@ -7294,3 +7294,37 @@ Runner20751 continues to seed1_win(update21 verified). Queue19901 continues
 waiting. All107training and170queue bindings verify;no failure receipts.
 Mechanism milestonecc5964f pushed. No full audit,main evaluation,mechanism
 execution or new strength result yet. Goal remains active and unachieved.
+
+
+## Auxiliary complete-results export implementation (2026-10-20)
+
+Implemented scripts/export_score_auxiliary_results.py and focused tests.
+Scope/command:docs/SCORE_AUXILIARY_EXPORT.rst. Requires completed four-stage queue,
+all16cells,full6-arm training audit and pinned evaluation-audit digest. Exports
+all6primary simultaneous bands and120secondary coordinates without selection;
+PPO/auxiliary work separate,win units explicit,degeneracy nonqualifying. It reuses
+completed statistics and creates no new matches. No actual main export exists.
+
+Command:.venv/Scripts/python.exe -m pytest tests/test_export_score_auxiliary_results.py
+-q --junitxml=runs/score_auxiliary_export_tests.xml. Ten tests pass0skips1.59s.
+Synthetic fixtures cover full export/units/all coordinates/stream accounting,
+non-overwrite,missing completion/cell,failure,changed raw/training audit,wrong
+identities,missing outcome-only gain,degeneracy,nonfinite/capability refusal.
+No inference,simulation or learning. Final post-test edit only repairs ordinary
+prose spacing;ruff/diff checks pass. Main sources remain frozen and unchanged.
+
+Previous goal turn classified progress:independent collection/checkpoint audit,
+completion queue and fixed mechanism were implemented,tested,committed/pushed.
+This turn verified live runner17896/session20751 and queue59480/session19901;
+seed1_win update84:PPO1,376,256decisions/89,535round endings/11,623matches;
+auxiliary12cycles/179,696decisions/11,707round endings/1,536matches/11,581rows,
+69,486presentations/576auxiliary Adam calls for every phase. All107training and
+170queue input hashes rechecked unchanged,no failure receipts. No new playing
+result. Main manuscript still reports only completed studies,35pages/34refs.
+Next actual mechanism execution/export/result integration after all6arms and
+audits finish. Do not rerun closed capability/tests while waiting.
+
+Digests:
+- exporter11f04bd13030f4f158ad79ae16fa628c7509190d10aa53af07bb38919e4298e2
+- tests92892ed97e39215b3df962c7966781717d1a67fa27812f947a7c37106cd6117c
+- XMLc3efbe9a1c654da23ad6eefc3183591e2d44b7bfa211d550d6655518bdda6508
