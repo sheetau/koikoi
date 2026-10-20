@@ -30,6 +30,13 @@ byte-for-byte,except relocated endpoint paths in completion receipts. Seed2_none
 reruns from its original seed; all recorded numerical metrics, checkpoint
 states/RNG/optimizers and28old collections must match. Seed2_win/score then run
 once each. No result-dependent selection or additional study arm is introduced.
+Recovery seed2_none has passed the original failure point (update176 observed).
+An early closed-prefix check passes: all164logged numerical rows,8saved
+checkpoints (models/optimizers/RNG) and28collections match exactly,excluding
+wall time/git provenance.104immutable files are bound;receipt
+c8515b32cdf810d91a365e2c9485399ea18c8dcb370091e4303dd9303a4ff569.
+This read-only check adds no training,matches or inference. The scheduled final
+prefix check remains in force;the three original process handles are live.
 Recovery protocol b38aa097e1ce9a4f2989eab445025d7f4388fbf97d7dd0df8722860bddbe5294
 binds683inputs,including every original artifact. Six recovery tests pass0skips
 (1.67s),two relocation/queue tests pass0skips(1.75s),all synthetic/no simulation.

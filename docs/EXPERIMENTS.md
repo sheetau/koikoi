@@ -7437,3 +7437,19 @@ costs and exclusive export. No simulator steps,neural calls or training. Final
 changes after tests are import sorting and replacing an empty-dict lambda with
 dict;ruff passes. Actual main mechanism/export execution remains gated on live
 training and evaluation. Current recovery learner and queue verified live.
+
+
+## Recovered learner passes the original failure point (2026-10-20)
+
+Verified learner15392,parent67840 and queue42884 live. Seed2_none reached
+update176,exceeding the old update165 failure. A read-only early prefix check
+using verify_repeated_prefix confirms exact agreement for all164old logged
+numerical rows,8saved PPO/auxiliary checkpoints including optimizers and RNG,
+and28auxiliary collections. Wall time and git provenance are excluded;source
+identity remains equal. The check binds104immutable files and hashes both
+164-line log prefixes. Original recovery input bindings also verify.
+Receipt runs/score_auxiliary_recovery_prefix_early.json,
+SHA256 c8515b32cdf810d91a365e2c9485399ea18c8dcb370091e4303dd9303a4ff569.
+No new learning,neural calls or simulator steps;this is saved-state comparison,
+not gradient or policy replay. The runner's scheduled full-arm prefix check is
+unchanged. No strength evaluation/result or model promotion has occurred.
