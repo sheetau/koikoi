@@ -34,8 +34,7 @@ Evaluation auditf6dafc4c4d7609026822ce268ae8efd13b8710ebc778e9656f72674887da01c8
 Priority roots reduce confidence>=.99 from about30%to5--6%, but constant sampled
 branch outcomes remain about68--70%. Larger updates did not produce stronger play.
 
-**Full-source Monte Carlo control is implemented and verified; main launch is
-next.** [Fixed twelve-arm design](FULL_SOURCE_STUDY.rst). All eligible decisions
+**Full-source Monte Carlo study is running (training).** [Fixed twelve-arm design](FULL_SOURCE_STUDY.rst). All eligible decisions
 from each complete source match contribute before one optimizer step. Gradients
 are normalized by matches, accumulated in chunks, then clipped once. Root-sampled
 and shared-branch controls retain their old numerical implementation. Both
@@ -47,7 +46,12 @@ Core tests passed8 (CPU/CUDA source/reference replay, exact continuation,
 old-control equivalence and analytic gradients); the separate12-arm capability
 pipeline passed1, including112evaluation matches, complete transition/statistical
 audits and deliberate corrupted-return rejection. These are capability checks,
-not strength evidence. Ruff passes. No main study has run yet.
+not strength evidence. Ruff passes. Main session98245 / PID58904 is live in
+runs/full_source_study, launched from commit17a684c. Protocol SHA256
+d878e4c8307f711e4fb1a3460502bf1fa6de353ede85b168f81a1d725ab00447.
+Next: await training, transition audits, evaluation and statistical audit; then
+report every predefined comparison. Do not restart the directory or alter bound
+implementation/protocol files while it is running.
 
 This control removes conditional root-selection covariance from sampled-return
 learning; it does not guarantee lower variance than all-action branches or a win

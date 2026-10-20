@@ -8313,3 +8313,7 @@ six simultaneous95% bounds. All12endpoints+2parents evaluate57,344matches on
 2,048distinct streams. Branch work and gradient rows counted separately; source
 matching does not equalize compute. No canonical promotion or101M final use.
 Standard full-trajectory REINFORCE supplies a missing control, not novelty.
+
+Main launched: `python -m scripts.full_source_study`, session98245 / PID58904,
+commit17a684c. Process reports training; no main strength result yet. Protocol
+SHA256 d878e4c8307f711e4fb1a3460502bf1fa6de353ede85b168f81a1d725ab00447.
