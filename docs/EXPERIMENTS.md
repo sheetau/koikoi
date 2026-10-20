@@ -7534,3 +7534,40 @@ separate as recorded above. Full independent replay/checkpoint verification is
 running,not yet passed. No new tests,inference or matches were added by the
 milestone checks. Dealer,canonical player and manuscript remain unchanged.
 Learning completion does not establish playing superiority or substantive novelty.
+
+
+## Full auxiliary audit and fixed-state diagnostics complete (2026-10-20)
+
+Queue56042/PID42884 completed the full training auditor19968/launcher61320,
+then evaluation preparation,both exit0. Training audit08ae5b97cfcc885e9835dfaf33b79552110f21cda440d9d643667bfe34b28e8f
+binds1,143inputs. All six conditions pass stored parameter/Adam checks,600complete
+auxiliary action replays,reservoir/public-feature/terminal-label checks and
+cross-arm initial/warmup/first-collection equality. No neural/gradient replay.
+Stored PPO work51,118,080decisions/3,369,134rounds/437,799matches. Replayed
+auxiliary work8,936,915decisions/589,918rounds/76,800matches adds no fresh deals.
+
+Main evaluation started: runner3068/launcher67876,current cell workers40936and
+36332(launchers39312/7868),parent1_parent_wp/point. Fixed protocol
+b49a9f06a9757f54e39f089cac1587f21786c6d7c07c786cbb35cc20d8f24c4b binds1,200inputs.
+All16cells/131,072matches and six primary simultaneous intervals remain fixed.
+No strength conclusion or endpoint promotion yet.
+
+Executed the three recovery adapter commands once in order:
+`.venv/Scripts/python.exe -m scripts.report_score_auxiliary_recovery prepare`,
+then `run`,then `audit`. Sessions65413/1612/1333all exited0.
+Mechanism protocol889c2225555e8723040c73d7415a2ccd57979cb1091d17630b8de5eb9c05d1aa;
+reporta291e87f5505f26679c02927989bb8ad6bcef287a4d25a58e4c485fd9f9d8fd5;
+scores76c454c3cf99d653921b1c2e262989422714d7398a0606ea38ac9f9739c5b76a;
+auditd619258403def4da3aa71cbc3b02b45179abe964a73c6ccb70e802da2ea5ab52,
+1,160bindings. Audit independently checks scalar statistics and all100logged
+loss-phase summaries per arm; no neural inference replay.
+
+Work18,270singleton CPU2neural calls,0newmatches/simulator steps/training updates.
+Fixed old25groups:3,258public rows,3,045unforced and213forced. Score-versus-win
+models differ on331/3,045(10.87%)and249/3,045(8.18%)unforced states. Score entropy
+is lower in discard/hand/draw at both seeds; continuation entropy has mixed
+signs. Full phase counts/directions and all7model entropy rows are in
+SCORE_AUXILIARY_MECHANISM_RESULTS.rst,derived from the audited report. Descriptive
+fixed-state changes do not establish on-policy visitation,held-out prediction,
+causal mediation or playing strength. No additional tests were needed for this
+report. Main evaluation/export and paper integration remain pending.

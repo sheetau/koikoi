@@ -11,8 +11,8 @@ Old process handles mentioned in that history are historical, not live jobs.
 
 ## Current experiment and next actions
 
-**All six score-auxiliary learning conditions are complete; the independent
-training audit is running.** The original
+**All six score-auxiliary learning conditions and their independent training
+audit are complete. Main strength evaluation is running.** The original
 runner20751/PID17896 failed during seed2_none update165 with WinError206 in
 os.add_dll_directory. Its queue19901/PID59480 also exited1. Both original
 folders and all failure/partial/completed artifacts remain untouched. They are
@@ -40,7 +40,9 @@ wall time/git provenance.104immutable files are bound;receipt
 c8515b32cdf810d91a365e2c9485399ea18c8dcb370091e4303dd9303a4ff569.
 This read-only check adds no training,matches or inference. The scheduled final
 full-arm prefix check also passes (receipt0915d3696196f62a5ae503b0240571ded3e1ee16593a6028949a151aa481200d).
-Queue session56042/PID42884 started training_audit (worker19968,launcher61320).
+Queue session56042/PID42884 completed training_audit and evaluation preparation.
+The auditor19968/launcher61320 has exited0. Evaluation runner3068
+(launcher67876) is live; current cell workers40936/36332,launchers39312/7868.
 Recovery protocol b38aa097e1ce9a4f2989eab445025d7f4388fbf97d7dd0df8722860bddbe5294
 binds683inputs,including every original artifact. Six recovery tests pass0skips
 (1.67s),two relocation/queue tests pass0skips(1.75s),all synthetic/no simulation.
@@ -62,9 +64,9 @@ Its100auxiliary collections contain1,492,804decisions/98,476rounds/12,800matches
 96,697rows and no auxiliary optimizer steps. Endpoint manifest
 ed64f0c2e8e10e1e4f7418a37ebbec986149dfcbc7c120127279a64232ecb16d;
 metrics2c2bcd7316f79af3c3cc53a1fde2fda543d38ead4828665b9a3fcf2f256fa9d5.
-All748combined recovery/queue input bindings verify unchanged. Main evaluation
-remains pending; the full six-arm training audit is running. Do not restart
-completed arms.
+All748combined recovery/queue input bindings verified unchanged at completion.
+The full six-arm training audit passed; main evaluation is running. Do not
+restart completed arms or the live queue.
 
 Seed2_win also completed520updates/8,519,680PPO decisions/562,644rounds/
 73,092matches. Auxiliary100collections contain1,488,898decisions/98,510rounds/
@@ -73,7 +75,7 @@ Endpoint manifestb0b2e10a66900dc947a7a895fe4a4f06c3d87b92000c15fe291b17ac8a32dac
 metricsb89773dd78823578f567feb4cf87ddb595e5ed09ae2db367c270c9518b1d352c.
 Its worker41768/launcher11460 exited0. All748recovery/queue bindings and endpoint
 file/metric digests verified unchanged at that milestone. The final score arm
-is now complete; main strength evaluation has not started.
+is now complete; main strength evaluation has started.
 
 Seed2_score completed520updates/8,519,680PPO decisions/560,337rounds/
 72,961matches. Its100auxiliary collections contain1,490,552decisions/
@@ -84,7 +86,8 @@ Final endpoint files,manifest,metrics and repeated-prefix digest verify.
 Study completion45f7f24a83cfcb99ff09b83e5bada606560aaec1c4e0dab812de4749ba66f486.
 Retained totals: PPO51,118,080decisions/3,369,134rounds/437,799matches;
 auxiliary8,936,915decisions/589,918rounds/76,800matches. These are training
-work counts,not evidence of improved strength. Mechanism/export remain pending.
+work counts,not evidence of improved strength. Mechanism diagnostics passed;
+strength-result export awaits the complete evaluation and audit.
 
 Restart overhead is counted separately: failed seed2_none executed165PPO
 updates/2,703,360decisions,of which164updates were logged. Those logs contain
@@ -99,8 +102,13 @@ protocol81de97227a5a280e31ecbc797bcaeb2e40f8fe189e51443f58191ac2213fc5c7,
 748bindings. After successful completion/prefix equality: original independent
 training audit,prepare fixed evaluation,run evaluation,independent native and
 statistical audit. Training root alone is relocated; the new evaluation protocol
-binds recovery provenance before outcomes. Full training audit is running; main
-strength evaluation remains pending. Do not restart the live queue or its auditor.
+binds recovery provenance before outcomes. Full training audit passed:
+08ae5b97cfcc885e9835dfaf33b79552110f21cda440d9d643667bfe34b28e8f,1,143inputs.
+It verifies stored parameters/Adam state,all600auxiliary collections via action
+replay,reservoir/public-feature/terminal-label agreement and common initial/
+warmup states. It does not replay neural actions or gradients. Main strength
+evaluation is live under protocolb49a9f06a9757f54e39f089cac1587f21786c6d7c07c786cbb35cc20d8f24c4b
+with1,200inputs. Do not restart the live queue or evaluation.
 
 [Evaluation](SCORE_AUXILIARY_EVALUATION.rst): six endpoints plus two retained
 parents versus strict assisted WP/Point;4,096paired streams per opponent/both
@@ -121,14 +129,27 @@ results. Do not rerun closed capabilities/tests while waiting.
 [Training audit](SCORE_AUXILIARY_TRAINING_AUDIT.rst),
 [mechanism diagnostics](SCORE_AUXILIARY_MECHANISM.rst) and
 [export](SCORE_AUXILIARY_EXPORT.rst) are implemented and tested. Main mechanism
-and export remain pending. The recovery reporting adapter now supplies exact
+diagnostics and independent audit are complete; strength export remains pending.
+The recovery reporting adapter supplies exact
 commands in SCORE_AUXILIARY_RECOVERY.rst: prepare/run/audit after the full training
 audit,then export with the actual completed evaluation audit digest. It changes
 only artifact roots/provenance and reports failed-run overhead separately. Three
 synthetic tests pass0skips(1.66s),no matches/inference/training. Existing numerical
-analysis and six-primary/120secondary criteria remain unchanged. No main report
-has executed. After these stages,integrate the verified results into the paper.
+analysis and six-primary/120secondary criteria remain unchanged. After the
+strength evaluation and export,integrate the verified results into the paper.
 Interpret the comparisons before deciding the next scientific improvement.
+[Completed fixed-state diagnostics](SCORE_AUXILIARY_MECHANISM_RESULTS.rst):
+18,270CPU2singleton calls on3,045unforced public rows from25oldvalidation groups;
+no new matches,simulator steps or learning. All six endpoints and Point analyzed.
+Score-versus-win greedy disagreement331/3,045and249/3,045at seeds1/2. Discard and
+both capture entropy are lower for score at both seeds under commonT0.05;koi
+entropy differs in direction. These describe fixed inputs,not visitation or
+playing gain. Protocol889c2225555e8723040c73d7415a2ccd57979cb1091d17630b8de5eb9c05d1aa;
+reporta291e87f5505f26679c02927989bb8ad6bcef287a4d25a58e4c485fd9f9d8fd5;
+independent auditd619258403def4da3aa71cbc3b02b45179abe964a73c6ccb70e802da2ea5ab52
+passes1,160bindings. Preparation65413,scoring1612,audit1333all exited0. Do not
+rerun completed diagnostics. No new tests or training were needed.
+
 Canonical player,dealer and the latest35page manuscript are unchanged.
 
 ## Earlier implementation milestones
