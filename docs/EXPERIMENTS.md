@@ -9064,3 +9064,28 @@ rejection even after its record is rehashed. Ruff format/check and diff-check
 pass. Transitive import scan finds only the three explicitly added script files
 beyond the original89 input bindings. No production, paper, checkpoint or dealer
 changes. Next: close/audit the original512 result before freezing this extension.
+
+## 2026-10-21: verified wait and automatic complete-only continuation
+
+Previous turn progressed:certificate replay runner/tests/protocol committed and
+pushed atea96c72. Current turn read STATUS and confirmed queuePID66280 plus all
+remaining workers live. Original study advanced29to30to31complete chunks; at
+494processed,remaining workers were53444(chunk024) and57116(chunk028). Chunk028
+then completed. Slow source389 progressed from root_only to controller, with
+PID53444CPU increasing1637to2126seconds; not stalled and not restarted.
+Session89944 re-polled live; no partial outcome analysis or cohort change.
+Manuscript's abstract/introduction/planning section reviewed; no edit yet, since
+complete prospective outcomes and cost accounting remain pending.
+
+Launched a guarded PowerShell continuation, session40713/PID49904, at
+2026-10-20T17:24:58Z. State runs/incumbent_completion_pipeline.json initially
+waiting_for_original. It waits for originalPID66280 to terminate, requires
+queue.json complete, runs scripts.export_prospective_incumbent, then freezes
+scripts.certified_tail_replay and launches it, then runs its complete-only audit.
+Every command's exit code is checked; any failure stops and marks failed.
+Initial guards reject preexisting pipeline,certificate directory or export
+receipt. Do not launch duplicate exports/queues while this process is alive.
+This follows the already committed all-source computational protocol regardless
+of the primary comparison's outcomes; no new source matches or seedrange added.
+The original four-comparison decision will be inspected after full export.
+Goal remains active; no stronger-play claim, model promotion or dealer change.

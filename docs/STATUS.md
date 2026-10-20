@@ -63,6 +63,17 @@ native planning allowance4,096,000,000; no new sources or reserved101M use.
 Latest live original-study snapshot:462/512 processed,27/32 chunks complete,
 four live workers and no failure; all89 original input bindings still match.
 
+Completion pipeline is now live:session40713,PowerShellPID49904; state file
+runs/incumbent_completion_pipeline.json. Do not launch a duplicate exporter or
+certificate queue. It waits for originalPID66280 to exit, requires its queue to
+be complete, runs the complete-only prospective exporter, and only on success
+freezes/launches the prepared certificate comparison and audits its completion.
+Any nonzero exit or failed state stops the pipeline. Latest original status:
+31/32chunks complete; remaining chunk024 moved from root-only to controller at
+source389,PID53444 live with increasing CPU usage. No partial result is used to
+alter the source budget, acceptance test or follow-up cohort. Inspect both live
+handles and their state files on continuation before taking any launch action.
+
 ### Completed diagnostics and supporting history
 
 **The eight-arm root-allocation/step-size study is complete. Its predefined
