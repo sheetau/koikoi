@@ -96,6 +96,18 @@ strength gate or convert the reused cohort into independent confirmation.
 Original queue66280,remaining worker53444 and completion pipeline49904 remain
 live; source389 is still in its controller phase. All89 frozen inputs match.
 
+An additional isolated symbolic-program capability is implemented in
+scripts/symbolic_final_turn_tail.py with a separate full Python interpreter.
+At guaranteed own final-turn wins, omitted keys use the unchanged parent only
+inside the checked public region; other missing keys remain errors. This is
+not integrated into either fixed comparison. Twelve tests pass,0skips,8.08s;
+Ruff passes. Synthetic three-draw fixed cost9034to1258decisions; optimized
+9082to1306. At cap1258perphase, old parent reference is unavailable while the
+new complete parent204/275 and retained candidate461/550 give gain53/550.
+See SYMBOLIC_FINAL_TURN_POLICY.rst. This is synthetic capability, not natural
+coverage, a new strength result, or a deployment change. Original512 and its
+scheduled opponent-only certificate comparison remain unchanged.
+
 ### Completed diagnostics and supporting history
 
 **The eight-arm root-allocation/step-size study is complete. Its predefined

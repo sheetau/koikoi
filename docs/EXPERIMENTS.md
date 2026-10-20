@@ -9148,3 +9148,49 @@ fractions and record-hash tamper rejection. Ruffformat/check pass.
 Next:let pipeline40713 finish original export and certificate computation/audit,
 inspect original four contrasts when available, then run the new exporter.
 Do not duplicate the live pipeline's export/freeze/launch actions. Goalactive.
+
+## 2026-10-21: symbolic parent continuations in guaranteed own final-turn wins
+
+Previous turn was verified wait; this turn confirmed original queue66280,
+worker53444 and pipeline49904 live. Source390 advanced through oracle/root-only
+and completed; source391 then entered root-only. No restart, partial outcome
+analysis or source extension. Original89 input bindings revalidated unchanged.
+
+Implemented isolated SymbolicFinalTurnPlanner/SymbolicPlan/SymbolicExecutor and
+verify_symbolic_tail.py. On own last turn of the final round, marginD>2 implies
+terminal margin>=D-2>0 for every legal action/draw. Add that integer winning
+mass and adjust the remaining cutoff downward; retain the old opponent-only
+loss certificate as a separate negative mass. Explicit map plus versioned
+parent-continuation rule defines a complete program. Executor checks root,
+rule, actor, public region and legality. Missing keys elsewhere still fail.
+Independent Python replay validates the default domain but never substitutes
+its outcome:all omitted moves/draws are executed to terminal scoring. Separate
+physical/represented counts and actor calls remain available.
+
+Synthetic seed31010001 three-draw final-round lead6: fixed9034to1258physical
+transitions; optimized9082to1306. Same exact root values/actions. Fixed selected
+explicit map462to6entries, optimized251to6; the additional symbolic rule is
+part of the program. Full fixed rootQ29=204/275,Q47=228/275; optimizedQ29=461/550,
+Q47=97/110. With cap1258perphase, original fixed phase cannot value parent;
+new fixed parent204/275 completes, optimized phase hits cap but retainsQ461/550
+at unchanged parent root29, gain53/550. Independent replay verifies all retained
+policies. Fixed new simulated mass2124 plus symbolic7776 equals original9900;
+optimized represented work differs from the selected-policy oracle because
+planning evaluates alternative continuations. No simulated work is fabricated.
+
+Initial one-draw fixture auto-completed before any live continuation, so tests
+correctly failed to exercise the certificate. Replaced it with the earlier
+three-draw fixture. Separate deterministic fixture search found seed31010004,
+decision33, with a two-way final-turn capture; after declared round/score changes,
+both extremal parent choices preserve the win under full Python replay. These
+are synthetic capability checks and fixture preparation, not new research source
+matches or an empirically improved playing policy.
+
+.venv/Scripts/python.exe -m pytest tests/test_symbolic_final_turn_tail.py -q:
+12passed,0skips,8.08s. Both seats/unequal weights/strict boundary, real strict
+selection and execution in the synthetic fixture, independent values, missing
+key/rule/root rejection, nonforced default actions, capped incumbent recovery,
+opponent-only preservation and pickle roundtrip are covered. Ruffformat/check
+and gitdiffcheck pass. Production, both fixed studies, dealer, model and
+reserved101M unchanged. Natural coverage is not evaluated or scheduled by this
+milestone; complete and inspect the two existing comparisons first. Goalactive.

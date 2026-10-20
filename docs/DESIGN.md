@@ -78,6 +78,17 @@ observation actors and does not use the certificate. This module is not active
 in production or the frozen prospective512 comparison. See
 [OPPONENT_LAST_TURN_CERTIFICATE.rst](OPPONENT_LAST_TURN_CERTIFICATE.rst).
 
+The separate `scripts/symbolic_final_turn_tail.py` adds a symbolic parent
+continuation for guaranteed wins when only the learner's final turn remains
+and its point margin exceeds2. `SymbolicPlan` contains the ordinary explicit
+map plus a versioned leaf rule; `SymbolicExecutor` permits a missing key only
+inside that public win region, then uses the unchanged parent and validates
+legality. The independent `verify_symbolic_tail.py` checks the default domain
+and executes all moves/draws with Python rules, never substituting a certified
+outcome. This makes the compact program complete without relaxing ordinary
+map execution. It is isolated from both fixed studies and production. See
+[SYMBOLIC_FINAL_TURN_POLICY.rst](SYMBOLIC_FINAL_TURN_POLICY.rst).
+
 ## Local human play
 
 `koikoi.play` is a Tkinter desktop client over the unchanged `ReferenceEnv` and existing CPU inference adapters. `PlaySession` owns one paper8 match, rejects out-of-turn input, pauses at every round boundary and stops at match termination. It creates fresh casual deals outside the reserved final-test seed range and writes no research/evaluation records. The selected checkpoint is identity-checked, runs greedy with public endgame assistance, and is never retrained or replaced implicitly. Original WP/Point and a greedy practice agent are explicit alternatives.
