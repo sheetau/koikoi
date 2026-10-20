@@ -83,6 +83,15 @@ All original protocol/summary/export/chunk/record hashes checked; parent totals
 256each and full partition512. Current comparison progressed12/32chunks;
 pipeline40713 and queue35056 plus remaining workers confirmed live. No restart.
 
+A separate structural comparator now checks complete explicit versus symbolic
+programs: scripts/compare_symbolic_programs.py. Common phases must share bindings;
+common completed root values and retained actions match, and every omitted key
+must satisfy the public own-final-turn win certificate. The first action remains
+explicit. Incomplete roots are excluded from equivalence evidence. Four tests
+pass,0skips,2.17s; Ruff passes. This complements independent full replay and adds
+no natural evaluation. All95 frozen comparison inputs still match. Latest queue
+progress24/32chunks; pipeline40713 remains live.
+
 Next: complete/audit/export the already running certificate comparison, then
 decide the next implementation from its coverage and computational results.
 Keep the broader stronger-play goal active. Canonical play and dealer unchanged.

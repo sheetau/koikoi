@@ -9341,3 +9341,35 @@ protocol,summary,export,chunks,script and report. PDF unchanged at4c32ce14.
 Next:complete/audit/export current certificate study, use its whole-cohort
 coverage/work outcomes to decide implementation. New replicated strength remains
 unresolved and goal active. Canonical play/dealer/reserved101M unchanged.
+
+## 2026-10-21: structural verification of compressed endgame programs
+
+Previous goal turn was a verified wait:polled live pipeline40713 and observed
+23complete chunks, with four workers progressing. This turn re-read STATUS,
+confirmed the same pipeline/worker processes and observed24complete chunks.
+No restart, partial outcome analysis or change to the fixed evaluation. All95
+frozen input hashes still match. Main worktree initially clean at6cc7b32.
+
+Added scripts/compare_symbolic_programs.py for the isolated symbolic extension.
+For every root action completed by both implementations in a common phase it
+checks exact value equality, common belief/actor/mode bindings, identical retained
+explicit actions and explicit first action. A checked key reader uses only the
+certificate's public fields from the current160-int own/public-history key.
+Every omitted explicit entry must be inside the own-final-turn margin>2 region.
+Extra histories, unknown rules and mismatches fail. Uncompleted roots contribute
+no equivalence count. Retained/omitted entry totals count program entries across
+root policies, not unique histories or any simulated/represented work.
+This structural comparison complements the existing independent full Python
+interpreter; it does not replace value replay or establish natural coverage.
+
+.venv/Scripts/python.exe -m pytest tests/test_compare_symbolic_programs.py -q:
+4passed,0skips,2.17s. Tests cover both seats/key-state certificate agreement,
+strict margin/turn/round/actor/terminal boundaries, hidden-card changes not
+altering the predicate, malformed/wrong-viewer keys, both fixed/optimized full
+programs(four common root values), omitted-entry counts, root retention, changed
+values/actions, extra histories, out-of-region omission, rule/binding corruption,
+and incomplete-root exclusion. Ruff import/format findings fixed; final checks
+pass. Core symbolic planner/oracle and both fixed studies remain unchanged.
+No new natural source, inference study, canonical/dealer change or PDF edit.
+Goal active; complete/audit/export current opponent-only certificate comparison
+before deciding the next complete-cohort implementation/evaluation.

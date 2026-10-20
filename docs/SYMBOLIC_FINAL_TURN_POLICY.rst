@@ -71,3 +71,22 @@ included in total parent adapter calls and also reported separately. These are
 conditional executions; they add no source matches. Four integration tests cover
 both seats, differing adopted root actions, exact values and unequal-reference
 rejection. No natural cohort is launched by this adapter.
+
+Structural comparison with explicit policies
+-------------------------------------------
+
+scripts/compare_symbolic_programs.py compares root actions completed by both
+implementations in a common phase. Belief, actor identities and mode must match.
+Each exact root value and retained explicit action must be identical. The first
+action remains explicit. Every omitted key must encode the learner's own final
+turn with a margin above two; a checked reader extracts only the required public
+fields from the current complete-history key. New explicit histories, changed
+actions/values, unknown rules and omissions outside the region are rejected.
+
+The comparison counts common completed root values and retained/omitted explicit
+entries. An unfinished root is excluded from equivalence evidence. These counts
+are program entries across root policies, not distinct histories, simulator
+work or represented chance mass. This structural check complements full Python
+replay; it does not supply an independent value or a match-strength result.
+Four tests pass, including both seats, key/state predicate agreement, strict
+boundaries and deliberate corruption. No natural comparison is launched here.
