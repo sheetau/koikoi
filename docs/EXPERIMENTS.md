@@ -9026,3 +9026,41 @@ one progress file exposed source metadata; no partial score analysis performed.
 Natural-root coverage/cost remains unevaluated; evaluate only after the fixed
 study closes. Canonical play/dealer, reserved101M and manuscript unchanged.
 Goal remains active; next complete and audit prospective512 results.
+
+## 2026-10-21: prepare whole-cohort certificate comparison without changing the live study
+
+Previous goal turn was progress: exact opponent-only loss certificate committed
+and pushed at442c9a0,9tests passed. This turn confirmed queuePID66280 live and
+re-polled session89944; workers continued, no duplicate launch or input change.
+Latest original-study snapshot462/512processed,27/32complete chunks,4liveworkers,
+0failures,elapsed3733s. Slow root-only worker53444 remains live with increasing
+CPU usage; no timeout-based restart. All89 original input bindings revalidated.
+
+Implemented scripts/certified_tail_replay.py and docs/CERTIFIED_TAIL_REPLAY.rst.
+Freeze refuses incomplete or unaudited original sources and binds the completed
+source summary/chunks/export receipt plus original and added input files.
+Comparison includes every original source and both original arms. Missing roots
+remain in512 denominator. Each new arm has fresh caches and unchanged2M+2M or
+4M caps. Complete common root values/maps must match; partial bounds can tighten.
+Every adoption independently replays parent and selected values, including
+omitted opponent moves. Save selections before actual conditional execution;
+parent/fallback traces must match. Symbolic mass, simulated work, oracle work,
+new oracle actor calls and conditional completions remain separate.
+
+Complete-only audit checks source/record/artifact bindings, recomputes all common
+policy comparisons and selections, replays actual tails, rejects false margins,
+and reconciles work. All512 cases/128streams required. No bootstrap gate or CI
+is produced for this reused development cohort. Original saved artifacts are
+computational controls; elapsed times cannot support isolated latency claims.
+Additional worst-case native allowance4,096,000,000; no sourcebudget extension.
+No new experiment is frozen/launched while the original comparison is running.
+
+.venv/Scripts/python.exe -m pytest tests/test_certified_tail_replay.py -q:
+6passed,0skips,4.14s. Tests cover equal caps/parent recovery, independent oracle,
+common-map/value tamper rejection, complete/audited freeze preconditions,
+binding changes, source-record hashes, all512fallback accounting, a real native
+worker and saved-artifact audit, no-source-count inflation, and altered outcome
+rejection even after its record is rehashed. Ruff format/check and diff-check
+pass. Transitive import scan finds only the three explicitly added script files
+beyond the original89 input bindings. No production, paper, checkpoint or dealer
+changes. Next: close/audit the original512 result before freezing this extension.

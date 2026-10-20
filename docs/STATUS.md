@@ -50,6 +50,19 @@ See OPPONENT_LAST_TURN_CERTIFICATE.rst. The running512 comparison retains its
 original frozen planner; all89 bound inputs are unchanged. Latest status:
 376/512 sources processed,22/32 chunks complete; four live workers,0failed.
 
+A complete-cohort certificate comparison runner is prepared, not launched:
+scripts/certified_tail_replay.py and CERTIFIED_TAIL_REPLAY.rst. It can freeze
+only after the original512 comparison is complete and its export passes. It
+reuses all512 sources and both arms with the same caps, fresh actor caches,
+independent adopted-policy replay and complete-only trace/binding audits.
+Completed common root values and full learner maps must match. Six tests pass,
+0skips,4.14s, including a native worker through complete-cohort accounting and
+false-outcome rejection. Ruff passes. Reused-cohort results will be descriptive,
+with no new strength gate or independent-evaluation claim. Maximum additional
+native planning allowance4,096,000,000; no new sources or reserved101M use.
+Latest live original-study snapshot:462/512 processed,27/32 chunks complete,
+four live workers and no failure; all89 original input bindings still match.
+
 ### Completed diagnostics and supporting history
 
 **The eight-arm root-allocation/step-size study is complete. Its predefined
