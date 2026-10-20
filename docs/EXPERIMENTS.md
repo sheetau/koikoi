@@ -7617,3 +7617,22 @@ without BOM/LF. Existing manuscript/PDF are unchanged; no PDF render is claimed.
 Integrate this fragment and the related-work references after final strength
 results,then build/render/inspect. This drafting work adds no training,inference,
 simulation or new tests and does not complete the stronger-play objective.
+
+
+## First two auxiliary evaluation cells complete (2026-10-20)
+
+Verified waits on queue56042/PID42884 observed parent1_parent_wp/point complete
+and evaluator3068 start parent1_none_wp/point. Old workers40936/36332 and their
+launchers39312/7868 exited0. Current actual workers37160/61760,launchers52408/564.
+The evaluator and queue remain live;2of16cells complete. No restart or criterion
+change and no interim strength analysis was performed.
+
+Parent1_parent_wp:8,192matches/940,459decisions/64,046round endings;
+rowsa6e66949b77a1c8a6ba3b7458593dede3f6247740b8f53cc188d0442a0cd27e6.
+Parent1_parent_point:8,192matches/955,475decisions/63,349round endings;
+rows512eae56b2c6557597af6d8f95871c113bec90cd48acf211eda002daed9982d9.
+Both completion receipts bind the fixed evaluation protocol and canonical parent
+checkpoint. Raw row hashes and8,192line counts agree with each receipt. This
+milestone check adds no simulation,inference or tests; full action/statistical
+validation remains scheduled after all16cells. Strength export,paper integration
+and the broader stronger-play objective remain incomplete.
