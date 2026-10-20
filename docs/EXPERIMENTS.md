@@ -9554,3 +9554,34 @@ specified study. No transfer of old conditional means into empirical win claims,
 cross-law result combination, additional training, reserved seeds or deployment.
 No PDF change. Current symbolic comparison must complete before deciding the
 next evaluation; broader stronger-play goal remains active.
+
+
+## Exact lower bounds for future conditional-gain evaluation (2026-10-21)
+
+Added scripts/certified_gain_bounds.py, tests/test_certified_gain_bounds.py and
+CERTIFIED_GAIN_BOUNDS.rst. This is a statistical capability, not a new study or
+a reanalysis of the fixed-seed cohorts. It takes exact nonnegative conditional
+advantages over the declared complete prefix denominator, including fallback
+zeros. A fixed threshold grid yields binomial success counts; one-sided
+Clopper--Pearson limits at alpha/grid_size and the survival staircase give a
+simultaneous lower confidence bound on the population mean. All arithmetic is
+rational; inverse limits round downward to the specified dyadic precision.
+The method requires IID prefixes from the evaluator's law, independent exact
+value verification, and prespecified thresholds, sample size, error family and
+practical effect criterion. The calculator does not verify those assumptions.
+Reference: https://www.itl.nist.gov/div898/software/dataplot/refman2/auxillar/exacbino.htm.
+
+Command: .venv/Scripts/python.exe -m pytest tests/test_certified_gain_bounds.py -q
+Result:5passed,0skips,0.08s. Tail sums match independent exhaustive Bernoulli
+sequence enumeration through n=6; inverse limits bracket their exact rational
+roots through n=100; small binomial populations and all81ordered samples from
+two three-point populations satisfy the stated coverage. Denominator, zeros,
+threshold equality and malformed inputs are checked. Ruff check and format
+verification pass. No source matches, planning transitions or neural calls.
+
+The whole-cohort symbolic comparison remains live: pipeline session99772,
+PowerShell25468,queue64312,last worker66784 on source389/controller,31/32chunks
+complete. All108frozen inputs verified unchanged using symbolic_tail_replay.check.
+No interim outcome inspection, duplicate launch/audit/export, reserved101M use,
+or selected-subset recovery. Complete comparison evidence remains the next
+prerequisite before deciding a future evaluation.

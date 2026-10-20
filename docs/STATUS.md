@@ -66,6 +66,21 @@ queue64312 live,13/32chunks complete. Inspect its complete results before choosi
 a future evaluation law/estimator/sample size. Do not relabel prior conditional
 gains as empirical wins or combine evidence from mismatched deal laws.
 
+A separate exact statistical component is now available in
+scripts/certified_gain_bounds.py; see CERTIFIED_GAIN_BOUNDS.rst. For IID exact
+nonnegative conditional gains under a matching law, fixed threshold counts,
+one-sided exact binomial lower limits and a simultaneous survival staircase
+give a conservative population mean lower bound. Rational arithmetic rounds
+limits downward. Complete source counts include fallback/missing-root zeros;
+negative contrasts and floating inputs are rejected. Thresholds, sample size,
+error allocation and effect criterion still require a future frozen protocol.
+No existing cohort has been reanalysed and no study is scheduled. Five tests
+pass,0skips,0.08s; exhaustive small-sample coverage and rational boundary checks
+are included. Ruff check/format pass. These fixtures add no game simulation or
+neural inference. All108symbolic bindings are intact. Pipeline99772 remains
+running with31/32chunks complete;last worker66784 is on source389/controller.
+Wait for complete symbolic results before choosing the next study.
+
 The original prospective strength criterion remains FAILED. Controller-minus-
 parent actual win-score differences are+.3906pp[0,+1.5625] and0pp[-1.9531,+1.9531]
 for parents1/2, with nominal simultaneous95% intervals; controller-minus-root-only
