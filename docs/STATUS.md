@@ -115,17 +115,33 @@ inreport. Protocol5cd1ab2345649ed83656c5f81cefd2cf44d2036a4c7b2cf2464aa4ff7da701
 Complete5357cb51bd8696db1824bec20aa4a62cdc8cfb3b842259ac28c269f436f5a9fc.
 Do not restart this closed study or automatically extend its sourcebudget.
 
-Terminal aggregation is implemented separately and passes2tests,0skips,2.99s.
-It values terminal mass before constructing live information groups. Both-seat
-nonunit-prior comparisons preserveallvalues/policies/physicalwork;independent
-Python policy replay agrees. It uses an explicit2Mphysical-transition cap plus
-500klive-node cap;this is not the old500kall-node budget.
-[Fixed paired regression/cost protocol](TERMINAL_REDUCED_TAIL.rst).
-Next check usesall18completedroots andbothmethods withfreshseparatecaches,
-alternatingmethodorder. It checksall savedvalues/policies/work/callcounts and
-measurespairedcost. No previouslyrefusedroot ornewsourceis evaluated by this
-check. Commitbeforelaunch;notlaunchedyet. Productionplay/PDFunchanged,101Munused.
-The broader stronger-play/new-contribution goal remainsactive.
+Terminal aggregation comparison is complete:all18completed five-draw roots,
+36fixed/optimizedpolicies per method match every value/action/wholepolicy,
+physical/representedwork andadaptercalls. Session99274/PID68548 exited0.
+[Paired results](TERMINAL_REDUCED_TAIL_RESULTS.rst). No live job.
+Alternatingmethodorder(9firsteach),separatefreshcaches;fixedthenoptimizedwithin
+method. Control99.440871s,reduced63.783373s (-35.8580% observedtotal);maximumplan
+10.236094s versus8.502455s. Both5513147physicaldecisions/4856793terminalbranches;
+this comparison adds11026294decisions/9713586branches,0sources. Groupednodes
+5023163all versus339711live. Ownnodes89673unchanged. Previous independentpolicy
+oracle reused through exactmap/valueequality;no newfull Pythontransitionreplay.
+Bothcap2Mphysical;control2Mallnodes/reduced500klive,nonbinding onthese18roots.
+The15previouslyrefusedroots were notsolvedhere. No newstrengthgainclaimed.
+Protocol857196060cd8f3670676533f2883c58806940adbda86c4f0e4d72aa3d2de43e6.
+Completebca0c2086ba5a520c763de362354dc87cbf20d6a623d452ec68b4bee838cc835.
+Two newcoretests pass,0skips,2.99s. Allchangesverifiedandreadytocommit.
+
+Next optimization: exact value-ceiling pruning at learner choices. Evaluate
+parent action first, then remaining legal-order actions; once signed value equals
+that information group's totalmass, no alternative can improve it. This preserves
+parent-favoring ties and the optimal chosen contingentpolicy. Atroot, omitted
+actions must remain explicitly unevaluated,notassigned fabricatedexactvalues.
+Verify chosenaction/policy/value and all actuallycomputed actionvalues against
+savedcomplete18roots, with independentPythonoracle, before recoveryof15refusals
+or newsourcecollection. Keep physical-transition andlive-node budgets explicit.
+This is standard bounded dynamicprogramming;no priorityclaim ornewstrengthstudy.
+No ceilingpruning implementation orrecoveryrunexistsyet. Broadergoalactive;
+canonicalplay/PDFunchanged,101Munused. Newreplicatedmatch-win gain remainsopen.
 
 A saved-gradient block analysis is also closed: runs/branch_gradient_blocks.
 It verifies all four previous full-gradient totals by splitting 768 output

@@ -37,6 +37,13 @@ work and represented prefix work are separate. Both return entire executable
 policies with identical information constraints; see
 [DEFERRED_BELIEF_TAIL.rst](DEFERRED_BELIEF_TAIL.rst) for equivalence checks.
 
+`scripts/terminal_reduced_belief_tail.py` sums terminal weighted outcomes before
+constructing live information groups. Complete values and policies are identical
+to deferred planning, with unchanged physical transitions. Its node budget counts
+live groups; a separate physical-transition cap prevents treating the old and new
+node limits as equivalent. [TERMINAL_REDUCED_TAIL_RESULTS.rst](TERMINAL_REDUCED_TAIL_RESULTS.rst)
+reports the paired implementation comparison on all completed five-draw roots.
+
 ## Local human play
 
 `koikoi.play` is a Tkinter desktop client over the unchanged `ReferenceEnv` and existing CPU inference adapters. `PlaySession` owns one paper8 match, rejects out-of-turn input, pauses at every round boundary and stops at match termination. It creates fresh casual deals outside the reserved final-test seed range and writes no research/evaluation records. The selected checkpoint is identity-checked, runs greedy with public endgame assistance, and is never retrained or replaced implicitly. Original WP/Point and a greedy practice agent are explicit alternatives.

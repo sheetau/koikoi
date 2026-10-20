@@ -8562,3 +8562,31 @@ nonbinding onsavedcompletedroots. Exactvalues/policies/work/callcountrequired.
 No newsourceorrefusedroot inthisregression; oldoracleevidenceisboundandreused.
 Design docs/TERMINAL_REDUCED_TAIL.rst; commitbeforelaunch,notlaunchedatthisentry.
 Broadergoalactive. No training/reserved101M/unchangedPDFrebuild.
+
+## 2026-10-20: terminal aggregation paired comparison completed
+
+python -m scripts.check_terminal_reduced_tail completed0(session99274/PID68548).
+All18completedfive-drawroots/36policiespermethod matchsaved exactvalues,root
+choices,wholecontingentpolicies,physical/representedwork andadaptercallcounts.
+Methodorderalternates9firsteach;freshseparatecaches,fixedthenoptimizedwithin.
+Observedtotaltime99.44087070017122s versus63.7833730999846s (-35.8579901293%);
+maximumplan10.23609390005s versus8.50245489995s. Noisolated latencydistribution.
+Eachmethod5513147physicaltransitions/4856793terminalbranches. Newcomparison
+work11026294transitions/9713586branches,0newsources. Groupednodes5023163all
+versus339711live;ownnodes89673both. This reduces groupingwork,nottransitions.
+Savedindependentoracleisreused viawholepolicy/valueequality;notreplayedagain.
+Both2Mphysicalcaps;control2Mallnodes/reduced500klive,allnonbinding.15refused
+roots remainunsolvedbythischeck. Sourcegainfindingsunchanged,notnewstrength.
+Protocol857196060cd8f3670676533f2883c58806940adbda86c4f0e4d72aa3d2de43e6.
+Completebca0c2086ba5a520c763de362354dc87cbf20d6a623d452ec68b4bee838cc835.
+Inputbindings,methodorderbalanceandaggregatecounterssubsequentlyverified.
+Report docs/TERMINAL_REDUCED_TAIL_RESULTS.rst. No training,101Muse,canonical
+promotion orPDFrebuild. Broaderobjectiveactive; no empiricalwinimprovement.
+
+Nextproposed optimization:parent-first learner-action enumeration with exact
+signed-value ceiling mass. Stop alternatives onlywhen ceilingattained;fixed
+tiepreferencepreserved. Returnexactvaluesonlyforcomputedrootactions and mark
+omittedones explicitly. Comparechosenpolicy/value withall18savedcomplete roots
+andindependentPythonoracle before15refusalrecovery orfreshsourcecollection.
+Explicitlive-node/physicalcapsremain. StandardboundedDP,nopriorityclaim.
+No suchpruningimplementation or recoveryrunexists atthismilestone.
