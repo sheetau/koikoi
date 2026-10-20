@@ -89,9 +89,14 @@ all six arms completing;it has not been issued. The completion queue is now
 live(session19901),holding the exact learner17896 handle;source3c7d380 is pushed.
 It waits for exit0/matching completion,then full training audit,prepare,evaluate
 and native/statistical audit. Five queue tests pass0skips1.53s,no simulation.
-[Queue details](SCORE_AUXILIARY_COMPLETION.rst). Next implement the fixed
-mechanism diagnostic. Preserve completed capability and live bound sources.
-Actual first learner remains live;update436 was verified advancing.
+[Queue details](SCORE_AUXILIARY_COMPLETION.rst). QueuePID59480,protocol
+14a3eb5fed234ade9ce2bc5bd6d8e3b510f702f3cfbc32e4a880bca4486309cf,
+170bindings verified. The fixed mechanism producer/scalar auditor is now
+implemented([scope](SCORE_AUXILIARY_MECHANISM.rst));4tests pass0skips1.50s,
+no inference/simulation. End-to-end diagnostic execution is pending full training
+audit. After that,run its prepare/run/audit commands once;it is separate from
+the existing queue. Preserve all completed and live bound sources.
+Actual first learner remains live;update510 was verified advancing.
 Do not reopen closed sweeps or use reserved101M deals. Parent selection and the
 canonical player remain unchanged. Stronger play/substantive novelty remain open.
 

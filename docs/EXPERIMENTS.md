@@ -7252,3 +7252,35 @@ Mechanism diagnostic and result interpretation remain separate unfinished work.
 Main first arm update436:PPO7,143,424decisions/468,998round endings/60,980matches;
 auxiliary83cycles/1,237,616decisions/81,335round endings/10,624matches/80,032rows.
 No main evaluation started. Canonical,dealer and manuscript unchanged.
+
+
+## Fixed auxiliary mechanism implementation (2026-10-20)
+
+Implemented scripts/score_auxiliary_mechanism.py and separate scalar/population
+checker scripts/audit_score_auxiliary_mechanism.py. Scope/commands in
+SCORE_AUXILIARY_MECHANISM.rst. Full training audit gates preparation. Preserves
+all100training-phase losses per arm and compares all6final actors with original
+Point on the previously fixed25old validation source groups,commonT0.05.
+All3,258rows retained,3,045unforced/213forced separated; within-seed disagreement
+and koi directions explicit. Existing public extraction/singleton helper reused.
+No endpoint,threshold or parameter selection. Main diagnostic not prepared/run.
+
+Four tests pass0skips1.50s. Analytic entropy and both koi direction changes,
+forced exclusion,all matched contrasts,complete-cycle retention and cached Point
+population statistics verified separately. No network calls,simulation or new
+learning in these tests. End-to-end execution remains pending all6learners and
+their full audit. Do not describe this implementation as a strength result.
+
+Queue session19901/PID59480 remains waiting on exact17896. Its protocol
+14a3eb5fed234ade9ce2bc5bd6d8e3b510f702f3cfbc32e4a880bca4486309cf binds170
+inputs. Main first arm reachedupdate510,auxiliary98cycles/1,460,635decisions/
+96,122round endings/12,544matches/94,513retained rows. No main evaluation yet.
+An incidental read-only status glob included seed_scan.json as a folder and
+raised FileNotFoundError after printing the valid arm status; no files changed
+or job interrupted. Canonical/dealer and verified paper unchanged.
+
+Digests:
+- producer:ddc23c6706f5a719093405d87b513c4b47b73eb11549826097890df78ec128d1
+- auditor:14a3f2176adc019ad7020a2d02943e339add42910bee8f9ecf5945a0cad323d3
+- tests:867c86550a7cce4fc63030bcbf688648951ec51be42559fcd441daa3216fcab5
+- XML:55bfca318d13a9f224696d38d99d621975e37613c437d49117abdd19ed297840
