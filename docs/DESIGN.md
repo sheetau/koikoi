@@ -58,6 +58,15 @@ exact value under the same belief; an optimized parent-root continuation is not
 that reference. [INCUMBENT_BELIEF_TAIL.rst](INCUMBENT_BELIEF_TAIL.rst) specifies
 the boundary. This is not yet an execution controller or deployment change.
 
+The separate `scripts/incumbent_tail_controller.py` binds evaluation context and
+requires a strict exact gain over the unchanged parent's fixed-continuation value.
+Execution uses the complete selected map with explicit errors for missing keys;
+no adoption falls back to the original parent. Its fresh two-phase schedule has
+separate caps and skips optimization when the parent value is unavailable or the
+fixed candidate reaches1. [INCUMBENT_CONTROLLER.rst](INCUMBENT_CONTROLLER.rst)
+specifies the saved-plan execution audit, which does not run that fresh schedule.
+Production play remains unchanged pending strength and execution evidence.
+
 ## Local human play
 
 `koikoi.play` is a Tkinter desktop client over the unchanged `ReferenceEnv` and existing CPU inference adapters. `PlaySession` owns one paper8 match, rejects out-of-turn input, pauses at every round boundary and stops at match termination. It creates fresh casual deals outside the reserved final-test seed range and writes no research/evaluation records. The selected checkpoint is identity-checked, runs greedy with public endgame assistance, and is never retrained or replaced implicitly. Original WP/Point and a greedy practice agent are explicit alternatives.

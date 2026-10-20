@@ -8789,3 +8789,27 @@ controller/execution study exists yet. docs/INCUMBENT_BELIEF_TAIL.rst records th
 Next implement that adoption rule and fixed-resource incumbent validation on the
 saved cohort before fresh strength evaluation. Canonical model, dealer,101M and
 manuscript remain unchanged; broader goal active. No study job remains live.
+
+## 2026-10-21: certified incumbent adoption/execution ready
+
+Added scripts/incumbent_tail_controller.py. Evaluation binding includes world
+hypotheses/masses/models,viewer,horizon,parent/opponent identities and rootkey.
+Reject context/mode mismatches. Exact unchanged-parent reference comes only from
+fixed continuation; accept strict exact gains, keep parent on ties. Fixed/optimized
+candidate ties prefer fixed. Freshschedule2Mphysical/500klive/depth32 perphase,
+fixed then optimized, skipping optimized for unvalued parent or fixedQ1. All
+partialwork retained and unused phase allowance never transferred. Execution
+uses own/public keys only, with wrong-root/seat/identity and missing-map errors.
+python -m pytest tests/test_incumbent_tail_controller.py -q:4passed,0skips,1.64s.
+Tests cover caps, strict adoption, mismatch rejection, phase semantics/skips,
+both-seat native execution and explicit fallback; routing fixture is not strength.
+
+Added docs/INCUMBENT_CONTROLLER.rst and scripts/check_incumbent_execution.py.
+Actualpreflight120bindings/33availableroots/64originalsources. Freeze saved-plan
+selections before66parent/controller conditional completions. Full sourcecohort
+retained;3available roots lack saved parentvalues and31missingroots fallback.
+No new search/history/source work. Existing independent Q evidence reused only
+through unchanged maps/values/hashbindings. Actualtails get freshstrictopponents
+and separate complete trace replay. This does not test the full newsearchschedule
+or reconstruct unsaved incumbents. Commit beforelaunch; notyetlaunched here.
+Goalactive; no model promotion, reserved101M or manuscript change.

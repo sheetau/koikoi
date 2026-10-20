@@ -256,6 +256,23 @@ The full-refusal comparison stays unchanged. Retaining feasible incumbents is
 standard anytime search, not a general algorithm priority claim. Goal remains
 active; replicated empirical win improvement, deployment and paper update open.
 
+The previous goal turn made progress: bounded comparison/recovery completed and
+incumbent retention was implemented/tested. A separate selection/execution
+controller now binds hypothesis arrays/weights, parent/opponent identities,
+viewer, horizon and root observation. Require the exact unchanged-parent value
+from fixed continuation; strict gains only, equal candidates prefer fixed.
+Fresh schedule:fixed then optimized,2M decisions/500k live/depth32 each; skip
+optimized if parent unvalued or fixed value1; no transfer between phase caps.
+Execution uses own/public keys and rejects missing keys/wrong root/seat/identity.
+Four tests pass,0 skips,1.64s. [Protocol](INCUMBENT_CONTROLLER.rst).
+Saved-plan audit scripts/check_incumbent_execution.py preflight passes120 input
+bindings and all33 available roots. Reuse existing28 complete and2 completed
+fixed plans;3 roots lack saved parent values,31 lack roots. Freeze all selections
+before66 parent/controller conditional completions, fresh strict opponents, then
+separate trace replay. This tests available saved plans, not the full fresh
+search schedule or unsaved incumbents. No search/history/source extension.
+Commit before launch; audit not yet launched. Canonical play/PDF unchanged.
+
 A saved-gradient block analysis is also closed: runs/branch_gradient_blocks.
 It verifies all four previous full-gradient totals by splitting 768 output
 weights,3biases and4,018,944encoder parameters. It does not support adopting
