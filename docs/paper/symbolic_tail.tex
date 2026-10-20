@@ -1,0 +1,53 @@
+\subsection{Certified completion of endgame programs}
+\label{sec:symbolic-tail}
+A complete policy need not list every future action. We extend the explicit
+history map with a checked rule that calls the unchanged parent in a region
+where every legal continuation has the same match outcome. If $M$ is the stored
+map and $C_+$ the certified region, the executed policy is
+\[
+ \sigma(h)=
+ \begin{cases}
+   M(h), & h\in\operatorname{dom}(M),\\
+   \pi(h), & h\notin\operatorname{dom}(M),\ h\in C_+.
+ \end{cases}
+\]
+The first action remains explicit. Every reachable learner decision must satisfy
+one of these cases; the executor rejects any other missing entry. The rule is
+part of the evaluated program, so compression preserves commitment to a complete
+continuation in the conditional improvement argument.
+
+Let $D$ be the learner's point margin. When only the learner's last turn remains
+in the final round, the opponent has no scoring turn. The only adverse transfer
+is the exhausted-round dealer award of one point, which changes the margin by
+two. Thus $D_{\mathrm{final}}\geq D-2$, and $D>2$ defines $C_+$: every legal
+continuation wins. Conversely, when only the opponent's last turn remains,
+$D_{\mathrm{final}}\leq D+2$; $D<-2$ certifies a loss and leaves no learner
+decision to represent. Both conditions use public turn, round and score fields.
+
+For a certified branch with integer belief mass $m$, search contributes $+m$
+or $-m$ directly to its signed outcome sum. It shifts the remaining search
+threshold by this contribution and recombines the result before recording a
+root value. The executable parent rule supplies the actions omitted in a win
+region. Independent Python replay then executes those actions and enumerates
+all remaining draws through terminal scoring, rather than reusing the
+certificate's predicted outcome. Common completed roots must also retain their
+exact values and explicit actions; every omitted history is checked against
+the public certificate.
+
+A synthetic three-draw fixture illustrates the resulting coverage change.
+With a final-round six-point lead, fixed-continuation evaluation falls from
+9,034 to 1,258 native transitions, and contingent evaluation from 9,082 to 1,306.
+The selected maps shrink from 462 to six entries and from 251 to six entries,
+respectively, plus the parent rule. At a cap of 1,258 transitions per phase,
+the explicit controller cannot complete its parent reference. The compressed
+program completes that reference at $204/275$ and retains a candidate valued
+$461/550$, an independently verified gain of $53/550$ at the same first action.
+
+We separately evaluated the opponent-only loss certificate on all 512 saved
+prospective sources under their original allowances. It reduces physical
+planning transitions by 2.0191\% for the controller and 1.2086\% for root-only
+search. Parent-value coverage, adopted policies, conditional gains and realized
+scores are unchanged. This complete-cohort computational comparison adds no
+source matches; its report is \path{docs/CERTIFIED_TAIL_REPLAY_RESULTS.rst}.
+The synthetic own-turn witness establishes executable compression and capped
+recovery; its frequency in naturally occurring play remains to be measured.

@@ -59,14 +59,20 @@ All-source conditional gains versus parent are+.2619/+.3246pp. See
 PROSPECTIVE_INCUMBENT_RESULTS.rst. Original protocol700e11608e3ced60919ca7ef31da460785ff9391459ac83c7e8a16f4a1a0c170;
 summaryc80bbcbc67b1923632ea2480bacb06df8066f1e587ad83e843458fc782298f1e.
 
-Current manuscript includes the original prospective results, not the new
-certificate comparisons. Related Work44refs;38pages;Abstract159/Intro389/
-Conclusion169words. All38pages rendered/contact-reviewed,full1/2/16/17 checked,
-27fonts embedded,no TeX/layout/bibliography warning. Existing Fontconfig notice
-only. PDF4c32ce1413ea29f27c5a42acd4b9abe7a053c08e97b47100f499b957dd50b21b;
-QA runs/manuscript_focused_opening_qa.json. Consolidate complete computational
-results/methods into the paper after the running symbolic comparison completes.
-Keep the broader goal active; replicated extra match strength remains unproven.
+Current manuscript now includes Section9.5: executable certificate compression,
+its public margin proof, complete-program semantics, synthetic capped recovery
+and completed opponent-only comparison. It includes no interim symbolic results.
+PDF39pages/44refs;Abstract159/Intro389/Conclusion169words unchanged. All39pages
+rendered/contact-reviewed,18/19full size;27fonts embedded,no TeX/layout/BibTeX
+warnings. PDFf6a7f81b0684b2708649a772c2413ca01deea8ca97ecb726e546afd994e0b66a;
+QA runs/manuscript_symbolic_method_qa.json passed. Evidence ledger
+docs/paper/generated/symbolic_method_evidence.json binds the section, comparison
+and synthetic capability. All474eligible arm selection descriptors verified
+unchanged for the completed opponent-only comparison. Updated paper README's
+stale headline/QA/counts. No new simulation. All108running-study inputs intact;
+pipeline99772/queue64312 live,7/32chunks observed complete during this edit.
+After the symbolic comparison completes, incorporate its complete results and
+determine the remaining stronger-play work. Keep the goal active.
 Canonical human play and initial dealer selection are unchanged.
 
 ### Completed diagnostics and supporting history

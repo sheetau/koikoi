@@ -1,0 +1,56 @@
+{
+  "status": "passed",
+  "scope": "Completed opponent-only comparison and synthetic own-win capability; no interim symbolic study results.",
+  "manuscript_section_sha256": "e1604c923cba1466c8bf183117bf95dc6a0101f747c0e22284cf3a6d74ac9ddd",
+  "certificate_report_sha256": "c7800c7f59dce0697195ff2d6b2ec88dcb096514a877a48d1937891ad52bf64c",
+  "certificate_export_sha256": "e50832fbb9e43668031a806edffb9971a9a6d211928ba6abbcabbc6abddd39a0",
+  "certificate_summary_sha256": "8ac783d5873c626436e373488e3cf8af6a96192473a1b3c585979e047299e9d0",
+  "certificate_protocol_sha256": "8b91c528ca2f0883821a3435104058bdf7435cce4951b95a52b0a69f0bd53e40",
+  "selected_descriptors_checked_unchanged": 474,
+  "controller_physical_transitions": {
+    "original": 227608204,
+    "certificate": 223012606
+  },
+  "root_only_physical_transitions": {
+    "original": 150686381,
+    "certificate": 148865177
+  },
+  "synthetic_capability": {
+    "round_and_scores_modified": true,
+    "draws": 3,
+    "learner_margin": 6,
+    "fixed_transitions": [
+      9034,
+      1258
+    ],
+    "optimized_transitions": [
+      9082,
+      1306
+    ],
+    "fixed_selected_map_entries": [
+      462,
+      6
+    ],
+    "optimized_selected_map_entries": [
+      251,
+      6
+    ],
+    "additional_program_rule": "final-own-turn-margin-above-two-v1",
+    "phase_cap": 1258,
+    "parent_value": "204/275",
+    "candidate_value": "461/550",
+    "gain": "53/550",
+    "natural_match_strength_evidence": false
+  },
+  "implementation_bindings": {
+    "scripts/symbolic_final_turn_tail.py": "b2be093371dfa260c07ac19da085ee4837a0ece2ed49f79dc76b6660fda61247",
+    "scripts/verify_symbolic_tail.py": "0f5e59f6a12d4fd73fabf2d40853ccf3ed875ffe4cc12d065f71facdf23e9f61",
+    "scripts/symbolic_tail_assessment.py": "35bfc9bdfb5310566f7c9e2d696fc3fca0a875feb32a6a10e216645311f3d091",
+    "scripts/compare_symbolic_programs.py": "9f2a5b59c131b8295218d4f305b8270720f9cdaa5764c0234a82e622fafe0e12",
+    "tests/test_symbolic_final_turn_tail.py": "a5c38b70a46e11be46d6ab39b48346a6dde23c542c07bcc410710aaf88660ad0",
+    "tests/test_symbolic_tail_assessment.py": "58f58fb5b87a7b9c52f230dc9f2c5f75e15c5ea12a4f85c2be3f328711c7660a",
+    "docs/SYMBOLIC_FINAL_TURN_POLICY.rst": "3986e7bd725aead2f86da1883efcf5a1ac5ba3622d87f290150291493e8c968c"
+  },
+  "qa_sha256": "d05c2c9ede86d78b469a36261438f26a1f1097112df78d8e38135405b3d29208",
+  "new_simulator_work": 0
+}

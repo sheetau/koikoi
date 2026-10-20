@@ -9480,3 +9480,34 @@ do not restart them. Do not duplicate the new pipeline or edit bound files.
 No production or PDF change. Next:complete new whole-cohort comparison, inspect
 its audit/export, then incorporate verified method and computational results in
 the paper and determine the remaining path toward stronger play.
+
+## 2026-10-21: manuscript method for executable certificate compression
+
+Previous turn completed/audited/exported the opponent-only comparison and started
+the symbolic all-source comparison. This turn confirmed live pipeline99772/
+PowerShell25468 and queue64312, observed1then7complete chunks, and checked all108
+frozen inputs unchanged. No interim candidate outcome inspection or new launch.
+
+Added docs/paper/symbolic_tail.tex as Section9.5,455source words. It defines the
+explicit-map/parent-rule executable policy, mandatory explicit first action,
+public final-turn margin certificates(D>2 own-win,D<-2 opponent-loss), signed
+mass/cutoff accounting and independent full Python replay. The synthetic fixture
+is explicitly separated from natural strength evidence. The completed512-source
+opponent-only result reports2.0191/1.2086% fewer native transitions and unchanged
+coverage/selections/outcomes. Independently compared all474eligible arm selection
+descriptors between completed versions; all equal. No new simulation/inference.
+
+Tectonic build succeeds, existing Fontconfig notice only. CurrentPDF39pages,
+44refs,27embeddedfonts; unchanged opening/conclusion counts159/389/169. Rendered
+all39pages, reviewed7contact sheets and full18/19. No clipping, overlap, malformed
+equations, page-bound violation, TeX box/glyph/reference or bibliography warnings.
+QA runs/manuscript_symbolic_method_qa.json passed; PDF SHA
+f6a7f81b0684b2708649a772c2413ca01deea8ca97ecb726e546afd994e0b66a.
+Previous4c32ce14PDF preserved as manuscript_before_symbolic_method_4c32ce14.pdf.
+Tracked generated/symbolic_method_evidence.json binds method, completed report/
+audit/export/protocol, synthetic source/test hashes and visual QA receipt.
+Updated stale README headline counts/results/QA to the actual current revision.
+
+No main manuscript.tex/Abstract/Introduction rewrite in this milestone; no
+production, dealer or frozen evaluation changes. The ongoing symbolic comparison
+must complete before adding its results or deciding the next stronger-play step.

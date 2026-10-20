@@ -3,37 +3,40 @@ Manuscript working files
 
 This is an English research manuscript, not a submitted or published paper.
 
-Current verified revision: 38 pages including appendices, 43 cited references,
-183-word Abstract, 499-word Introduction and 152-word Conclusion. The main text
-ends on page 17. The title is now "Match Adaptation and Public-Information
-Planning for Koi-Koi Transformers." Abstract and Introduction state the added
-controller directly; the Conclusion retains the measured adaptation results
-and the exact-critic and public-information contributions in three paragraphs.
+Current verified revision: 39 pages including appendices, 44 cited references,
+159-word Abstract, 389-word Introduction and 169-word Conclusion. The main text
+ends on page19. The title is "Match Adaptation and Public-Information Planning
+for Koi-Koi Transformers." Abstract and Introduction state the adaptation,
+public-information controller and exact-critic contributions directly.
 
-Section 9 explains the finite-belief controller, complete contingent-policy
-execution, bounded incumbent retention and conditional-expectation guarantee.
-It reports the closed exploratory 64-source cohort:seven adopted policies,
-conditional mean gains 0.7969/0.5905 pp, unchanged realized win outcomes. The
-prospective 512-source comparison is still running and supplies no results to
-this PDF. Related Work now credits HSVI 2004, SPIBB 2019 and MCTS-SPIBB 2023.
-The guarantee is elementary conditional expectation under a specified model,
-not a new general safe-improvement theorem.
+Section9 explains complete contingent policies, retained completed candidates
+under search caps and the conditional-expectation guarantee. It includes the
+closed exploratory64-source witnesses and complete prospective512-source
+comparison. The latter does not meet its predefined actual-win strength gate.
+Section9.5 now defines executable certificate compression: an explicit history
+map plus an unchanged-parent rule in the public own-final-turn win region.
+It presents the synthetic capped-recovery witness and completed opponent-only
+comparison, which reduces transitions by2.0191/1.2086% without changing selections
+or outcomes. The whole-cohort symbolic comparison is running and supplies no
+results to this PDF. Related Work includes HSVI, SPIBB, MCTS-SPIBB and the2023
+POMDP safe-improvement paper. The guarantee uses conditional expectation under
+the specified model; it is not a new general safe-improvement theorem.
 
-Appendix A is a concise evidence map and reproduction guide. Its former 1,601-word
-ledger is preserved, content-identical modulo line endings, in
-``reproduction_ledger.tex``. The compact 339-word replacement links the underlying
-records and distinguishes sources, branches and verification work. Recovery
-overhead and detailed negative results remain in the companion ledger.
+Appendix A is a concise evidence map and reproduction guide. Its former1,601-word
+ledger is preserved, modulo line endings, in ``reproduction_ledger.tex``.
+Detailed negative results and work accounting remain in that companion ledger
+and ``docs/EXPERIMENTS.md``.
 
-Latest QA: ``runs/manuscript_incumbent_qa.json``. All 38 pages were rendered and
-contact-reviewed; pages 1, 2, 4, 5, 16, 17, 18, 35, 37 and 38 were reviewed at full size.
-All 27 fonts embed; no page-bound violations or TeX box, glyph, reference or
-bibliography warnings remain. The original Fontconfig notice is unchanged.
-The new method's numbers bind ``docs/INCUMBENT_RECOVERY_RESULTS.rst``. Earlier
-audited results are reused without rehashing the complete old experiment corpus.
+Latest QA: ``runs/manuscript_symbolic_method_qa.json``. All39pages were rendered
+and contact-reviewed; changed pages18/19 inspected at full size. All27fonts embed;
+no page-bound, TeX box, glyph, reference or bibliography warning remains. The
+existing Fontconfig notice is unchanged. ``generated/symbolic_method_evidence.json``
+binds the new method and completed comparison. Every474eligible arm selection
+descriptor is unchanged in the opponent-only comparison. Earlier experiment
+audits are reused without rehashing the complete old corpus.
 Current PDF: ``output/pdf/manuscript.pdf``; SHA256
-1682a81235ac72daf8151f5018e204b9747b4aaace16657fb2e62a82a938f242.
-The preceding PDF is ``output/pdf/manuscript_before_incumbent_a896c9a9.pdf``.
+f6a7f81b0684b2708649a772c2413ca01deea8ca97ecb726e546afd994e0b66a.
+The preceding PDF is ``output/pdf/manuscript_before_symbolic_method_4c32ce14.pdf``.
 
 The stronger-play objective remains active. Current job state is in
 ``docs/STATUS.md``; later historical revision notes are not a live-job inventory.
