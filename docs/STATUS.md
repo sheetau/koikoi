@@ -193,15 +193,30 @@ Report43df90f6bb98deba1c11b126a9f80ab96805f0c64198521d97a57d2e4a129030.
 The analysis is closed. Any tighter bound needs new reasoning and verification;
 do not simply repeat this check or raise the closed recovery budget.
 
-Next diagnostic scripts/profile_refused_tails.py passively replays exactly the
-five remaining refusals at unchanged limits, recording completed/partial root
-actions and turn/phase transition counts. It preserves fixed-then-optimized
-order and verifies all old work/call counters. Support worlds and partial policy
-caches are saved for reuse. [Protocol](REFUSED_TAIL_PROFILE.rst).
-One equivalence/accounting test passes,0 skips,1.90s. This adds explicit diagnostic
-planning/history work,0 new source or strength samples. Commit before launch;
-not launched at this entry. The previous goal turn made progress by completing
-the public-bound implementation, tests and negative coverage analysis.
+Passive five-refusal profiling is complete (session82737/PID17896 exited0).
+All old counters/calls/stopping stages reproduce exactly. Every parent-first
+root action completes; later comparisons exhaust the unchanged physical cap.
+[All root actions and costs](REFUSED_TAIL_PROFILE_RESULTS.rst).
+Additional planning11,922,254 transitions /10,460,295 terminal branches; history
+6,615 decisions (3,255 teacher calls /105 guarded). No new source matches.
+96.62998% of physical transitions occur on turns14/15. Profiled source36 includes
+its complete fixed control before optimized refusal. No new strength result.
+Completecd59d2d09e21d94b0502ec59efebe5469416731351658e8e72bf353dc0543f73.
+Protocol668b3cb3b49e79257cd7d7599f2cb70dc59c0bb11d49f38fdb93a0b3c5a09f42.
+Bound support-world and partial-cache artifacts are available for reuse.
+
+Added BoundedBeliefPlanner: resolved value plus remaining mass bounds a candidate
+continuation; prune only when it cannot beat an exact incumbent. Root exact Qs
+and upper bounds are disjoint; chosen contingent policies remain complete.
+Ten tests pass,0 skips,3.32s: hidden information, nonunit masses, actual partial
+cutoffs below the ceiling, propagated cutoffs, both-seat native comparisons and
+independent Python policy replay. [Proof and protocol](BOUNDED_BELIEF_TAIL.rst).
+scripts/check_bounded_tail.py will compare all28 completed roots at unchanged
+caps, alternating14first each, fresh separate caches, fixed then optimized.
+Require all chosen policies/values equal, computed values/maps equal and every
+partial upper bound valid against control. Existing independent oracle evidence
+is reused through exact whole-policy equality. Commit before launch; not yet
+launched at this entry. No new sources, larger cap, production or PDF change.
 
 A saved-gradient block analysis is also closed: runs/branch_gradient_blocks.
 It verifies all four previous full-gradient totals by splitting 768 output

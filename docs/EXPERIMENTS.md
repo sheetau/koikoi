@@ -8704,3 +8704,32 @@ Complete and capped fixtures preserve values/policies/counters; histogram totals
 and root-action sums equal physical decisions. Lint/format pass. Commit before
 launch; no diagnostic job yet. New diagnostic work will be counted separately;
 no new source collection, actual-tail assessment, training or strength claim.
+
+## 2026-10-21: refusal profile complete; partial-action bounds implemented
+
+python -m scripts.profile_refused_tails completed0 (session82737/PID17896).
+All5 failures reproduce old counters/calls/stages exactly. All first root actions
+complete; later comparisons exhaust physical caps. Source36 also completes its
+fixed control. Additional planning11,922,254 decisions/10,460,295 terminalbranches;
+represented153,638,226 decisions/32,982,282 completions; history6,615 decisions,
+3,255 teacher calls/105 guarded. No new source or actual-tail assessment.
+96.62998% of physical transitions occur on turns14/15. Profile/artifact hashes
+are recorded in docs/REFUSED_TAIL_PROFILE_RESULTS.rst and the export receipt.
+Completecd59d2d09e21d94b0502ec59efebe5469416731351658e8e72bf353dc0543f73.
+Protocol668b3cb3b49e79257cd7d7599f2cb70dc59c0bb11d49f38fdb93a0b3c5a09f42.
+python -m scripts.export_refused_tail_profile passed; input/artifact hashes and
+all histogram/action totals verified. Partial caches/worlds saved for reuse.
+
+Added scripts/bounded_belief_tail.py. Candidate upper bound S+remainingmass can
+certify inability to beat the exact incumbent before finishing the candidate.
+Cutoffs propagate through opponent groups; own information sets stay shared and
+are optimized exactly. Chosen policy/value/tie rule preserved. Exact root values
+and partial upper bounds are separate; partial policies never escape as choices.
+python -m pytest tests/test_bounded_belief_tail.py -q:10 passed,0 skips,3.32s.
+Both-seat native/full-enumeration/independent-Python checks; hidden/revealed games,
+nonunit masses, genuine sub-ceiling cutoffs, nested opponent propagation and caps.
+Protocol docs/BOUNDED_BELIEF_TAIL.rst and scripts/check_bounded_tail.py fix a paired
+all28-root comparison, unchangedcaps, alternatingorder14each, freshcaches.
+Old Python oracle evidence reused through complete map/value equality; new full
+oracle is not claimed. Commit before launch; no comparison job yet at this entry.
+No new source, training, model promotion, reserved101M use or paper rebuild.
