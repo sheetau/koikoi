@@ -30,6 +30,13 @@ Public computation caps refuse incomplete trees. This is standard finite POMDP
 planning; [BELIEF_TAIL.rst](BELIEF_TAIL.rst) specifies assumptions, verification
 and the separate natural-root capability protocol. Production play is unchanged.
 
+The separate `scripts/deferred_belief_tail.py` module retains unused draw-prefix
+multiplicity as integer mass, expanding stock chance only when a draw is reached.
+It preserves the eager module and its closed-study bindings. Physical simulator
+work and represented prefix work are separate. Both return entire executable
+policies with identical information constraints; see
+[DEFERRED_BELIEF_TAIL.rst](DEFERRED_BELIEF_TAIL.rst) for equivalence checks.
+
 ## Local human play
 
 `koikoi.play` is a Tkinter desktop client over the unchanged `ReferenceEnv` and existing CPU inference adapters. `PlaySession` owns one paper8 match, rejects out-of-turn input, pauses at every round boundary and stops at match termination. It creates fresh casual deals outside the reserved final-test seed range and writes no research/evaluation records. The selected checkpoint is identity-checked, runs greedy with public endgame assistance, and is never retrained or replaced implicitly. Original WP/Point and a greedy practice agent are explicit alternatives.

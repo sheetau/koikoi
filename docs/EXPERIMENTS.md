@@ -8457,3 +8457,24 @@ can avoid replicating all never-reached stock suffixes. Establish equivalence to
 the eager planner on the closed corpus before any earlier-tail source study.
 No such new study launched. This is standard exact planning engineering,not a
 new general algorithm. Goal remainsactive; published canonicalplay unchanged.
+
+## 2026-10-20: deferred chance implementation verified
+
+New separate scripts/deferred_belief_tail.py preserves the closed eager solver.
+One row per currenthand/model carries prior*nPd integer mass. Draw transitions
+split that mass equally across remaining stockcards;early terminals retain all
+unseen-prefix multiplicity. Own choices remain grouped by visiblehistory.
+Physical and represented-prefix work are counted separately;frontier caps refuse.
+
+Command python -m pytest tests/test_deferred_belief_tail.py -q:
+3passed,0skipped,94.47s. Both-seat three-draw fixtures withprior3 and four-draw
+fixture match eager values,allrootpolicies,weightedwork. All deferred transitions
+agree with independentPython;all4decisionphases exercised. Hidden-root/RNG,
+incomplete-support andcap tests included. Subsequent edits onlydictliteral
+format; Ruff lint/format pass. No productionengine change.
+
+Fixed next check scripts/check_deferred_belief_tail.py uses all16closedroots,
+32fixed/optimized plans,4096frontiercap. Freshstrictpolicies,full native/reference
+transition comparison and exact savedpolicy/value/work equality. No new sources
+or strengthsample. Design docs/DEFERRED_BELIEF_TAIL.rst. Earlier-tail naturalroot
+study notlaunched; goalactive. No training,101M use orcanonicalpromotion.

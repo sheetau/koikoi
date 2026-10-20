@@ -84,13 +84,19 @@ Planning660,758decisions/255,492terminal branches; independent policy replay
 Protocol fc7a318560d7b294a41d057fa349de84d45ba1fbef64b2fb61b845598e52173f.
 Complete320758c9c0fb79367423509c1f715d752e97680e9ae9473bf8b443195c616f7a.
 
-Next: remove eager enumeration of stock suffixes by expanding a chance draw
-only when reached. Preserve exact suffix multiplicities and common decisions
-for indistinguishable histories. First compare all rational values/executable
-policies against the closed eager implementation before earlier-tail capability.
-This is a computational extension of established POMDP planning, not an already
-measured strength gain or a new general algorithm claim. No new source study
-is launched. No training,production-policy change or reserved101M use.
+Deferred chance expansion is implemented in a separate module; the closed
+eager source and its bindings remain unchanged. It keeps integer multiplicity
+for unexpanded stock prefixes and draws only at reached transitions. Three
+tests pass,0skips,94.47s:both-seat three-draw and a four-draw fixture agree with
+eager enumeration in all rational values,whole policies and represented work.
+Every new transition matches Python;all four decision phases are exercised.
+[Design and equivalence protocol](DEFERRED_BELIEF_TAIL.rst).
+Next check: all16closed natural roots,32fixed/optimized plans,4096frontier cap,
+no new sources. Fresh strict actors, all deferred transitions compared with
+Python,all plans and represented counters compared with saved eager results.
+No earlier-tail source study launched. No training,production-policy change or
+reserved101M use. General POMDP construction is established; stronger-play
+objective remains active.
 
 A saved-gradient block analysis is also closed: runs/branch_gradient_blocks.
 It verifies all four previous full-gradient totals by splitting 768 output
