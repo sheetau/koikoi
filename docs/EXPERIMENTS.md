@@ -8502,3 +8502,26 @@ depth32. Samefixed/optimized controls;allmissing/refusalskept. IndependentPython
 policyvalueoracle will detectdraws by actualstockpointerchange and expandchance
 itself,notcalltheplannerpredicate. Implement,validate,fixprotocolbeforelaunch.
 No suchrunner or newsource collection yet. Stronger-play objectiveactive.
+
+## 2026-10-20: five-draw runner and independent weighted oracle verified
+
+Added scripts/check_earlier_belief_tail.py and scripts/reference_tail_policy.py.
+The independentPython oracle executes an action to detectstockpointerdecrement,
+then branchesallremainingtopcards with integerweights. It doesnotuse theplanner
+chancepredicate ornativeengine. It checks everyrootpolicyvalue, countsphysical
+andrepresented work separately,andreuses theprobeasoneactualsuccessor.
+
+python -m pytest tests/test_reference_tail_policy.py -q:3passed,0skips,4.60s.
+Both-seat nonunitmass fixed/optimizedpolicychecks andcorruptedvaluerejection;
+closedsource regression at3/5drawgates preservesactions/final/publicidentity and
+selectsearlierat5. Testsource replaywork{"completions": 2, "decisions": 246, "round_endings": 16};
+nativeverification separatelysame,on1alreadyconsumedstream. No newsourceevidence.
+Ruff lint/formatpass. Productionrule/actorcodeunchanged.
+
+Protocol docs/EARLIER_BELIEF_TAIL.rst:64sources,16fresh122110001+1000*WPPointindex+rep
+streams,2parents x2opponents x2seats x8replicates;firsteligiblefinalroot<=5draws,
+publicidentityfromearlierround.1000hands/4096frontier/500000nodes/depth32.
+Keepallmissing/refusals, fixedthenoptimizedsharedcache, allrootvaluesverified,
+freezeallplansbeforefreshstrictactualtailassessment. Defaultfreshoutput
+runs/earlier_belief_tail_capability. Commitbeforelaunch;notlaunchedatthisentry.
+No training,modelpromotion orreserved101M use. Goalactive.

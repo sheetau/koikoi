@@ -97,18 +97,21 @@ Protocol a451f2605fb4e02fa16f532101d38f2babc79e56857da7cb8d7b3416a38f7de8.
 Complete7ad4de1a0bd4b1dffff83ec55934cc84bbb9a7975b1a764f224dd05b8e5cd95a.
 The eager source and all its closed-study bindings remain unchanged.
 
-Next implementation: an earlier-tail capability runner using deferred chance,
-with first eligible final-round learner root at<=5draws and identity established
-publicly in an earlier round. Keep fixed-continuation control,all missing/refused
-sources,freeze complete policies before actual-tail assessment. Use64sources on
-16fresh streams122110001+1000*opponent_index+replicate (WP0,Point1),2parents x
-2opponents x2seats x8replicates. Proposed caps1000hands,4096frontierrows,
-500000nodes,depth32. Implement independent weighted-policy replay using Python
-step/stock-pointer changes to identify draws; do not reuse the deferred draw
-predicate for that oracle. Validate before launch and fix the protocol in git.
-This runner is not yet implemented or launched; those fresh streams are unused.
-No training,production-policy change or reserved101M use. No new replicated
-match-win gain; the broader stronger-play/new-contribution goal stays active.
+The five-draw capability runner and independent weighted Python policy oracle
+are implemented. Three tests pass,0skips,4.60s. Both-seat nonunit-mass policy
+values agree;corrupted values are rejected. A closed-source regression preserves
+all actions/finalstate/publicidentification at both gates and selects an earlier
+root with5draws. Test source verification replays2matches on1alreadyused stream;
+no fresh study source consumed. [Fixed protocol](EARLIER_BELIEF_TAIL.rst).
+
+Before launch:64sources/16freshstreams122110001+1000*WPPointindex+replicate,
+2parents x2opponents x2seats x8replicates. First final-round learner root<=5draws
+with identity publicly established in an earlier round;allmissing/refused kept.
+Caps1000hands/4096frontierrows/500000nodes/depth32. Fixed thenoptimized withshared
+caches;independentPython oracle discoversdraws through actualstockpointerchange.
+All plans freeze beforeactualtailassessment. No newstudy launched yet;commit
+beforelaunch. No training,productionpolicychange orreserved101M use. Broader
+goalactive;no new replicated match-win gain.
 
 A saved-gradient block analysis is also closed: runs/branch_gradient_blocks.
 It verifies all four previous full-gradient totals by splitting 768 output
