@@ -11,168 +11,96 @@ Old process handles mentioned in that history are historical, not live jobs.
 
 ## Current experiment and next actions
 
-**All six score-auxiliary learning conditions, their independent training
-audit and all16fixed evaluation cells are complete. Independent evaluation
-validation is running.** The original
-runner20751/PID17896 failed during seed2_none update165 with WinError206 in
-os.add_dll_directory. Its queue19901/PID59480 also exited1. Both original
-folders and all failure/partial/completed artifacts remain untouched. They are
-not live jobs. Detailed previous setup is retained at commit dca731f.
+**The six-arm score-auxiliary study, independent training/evaluation audits,
+fixed-state diagnostics and result export are complete. The primary win-gain
+criterion fails: all six simultaneous intervals include zero. No study job is
+live. The broader stronger-play and research objective remains active.**
 
-[Recovery design and commands](SCORE_AUXILIARY_RECOVERY.rst). An isolated probe
-reproduced the DLL-registration failure after332 registrations of the same
-Torch directory; closing registrations restored success. No simulation or
-learning was needed for that probe. Each remaining condition ran in its
-own process, with at most101 backend instances. Bound learner/native sources,
-seeds, budgets and evaluation criteria remain unchanged.
+[Complete results and all comparisons](SCORE_AUXILIARY_RESULTS.rst).
+The two-seed comparison holds the 65-logit head and initialization fixed while
+adding within-outcome margin likelihood to outcome supervision. All three
+conditions begin from original Point. Each receives20warmup+500policy updates
+and100auxiliary collections of128matches; none collects without optimizing.
+Public inputs only; terminal margins are training labels.
 
-Recovery root: runs/score_auxiliary_recovery. Runner session39422/PID67840
-exited0 after seed2_score update520; all six arms are complete. Worker40312 and
-launcher62540 are no longer live training jobs.
-Completed seed1_none/win/score artifacts are copied
-byte-for-byte,except relocated endpoint paths in completion receipts. Seed2_none
-reran from its original seed; all recorded numerical metrics, checkpoint
-states/RNG/optimizers and28old collections match. Seed2_win/score then ran
-once each. No result-dependent selection or additional study arm is introduced.
-Recovery seed2_none is complete; its worker15392/launcher67148 has exited0.
-An early closed-prefix check passes: all164logged numerical rows,8saved
-checkpoints (models/optimizers/RNG) and28collections match exactly,excluding
-wall time/git provenance.104immutable files are bound;receipt
-c8515b32cdf810d91a365e2c9485399ea18c8dcb370091e4303dd9303a4ff569.
-This read-only check adds no training,matches or inference. The scheduled final
-full-arm prefix check also passes (receipt0915d3696196f62a5ae503b0240571ded3e1ee16593a6028949a151aa481200d).
-Queue session56042/PID42884 completed training_audit, evaluation preparation
-and evaluation (all stages exited0). Evaluation runner3068/launcher67876 and
-all cell workers have exited. All16cells each completed8,192matches, totaling
-131,072matches/15,240,199decisions/1,014,387round endings. Raw row hashes,
-line counts and endpoint hashes agree with the completion receipts.
-Independent evaluation auditor30044/launcher64380 is live and has verified
-the first cell's recorded actions. Full action/statistical validation, result
-export and the stronger-play conclusion remain pending.
-Recovery protocol b38aa097e1ce9a4f2989eab445025d7f4388fbf97d7dd0df8722860bddbe5294
-binds683inputs,including every original artifact. Six recovery tests pass0skips
-(1.67s),two relocation/queue tests pass0skips(1.75s),all synthetic/no simulation.
+Primary equal-mixture win changes in percentage points, simultaneous95%:
 
-The original study protocol remains
-9ba0bd7b1d187d59269af336537ceab890bf8884a969a9df073dcd626e686f46.
-[Main design](SCORE_AUXILIARY_MAIN.rst): two seeds106110001/106210001,original
-Point initialization,none/win/score arms,20warmup+500policy updates each;
-51,118,080PPO decisions. Each arm collects128complete auxiliary matches every
-5policy updates:100cycles/12,800matches;76,800total. None collects without
-optimizing. Score adds within-outcome information to the matched categorical
-win-only objective. Public features only; terminal margins are training labels.
-This extends established auxiliary-learning ideas. Playing gain and substantive
-novelty still require results; implementation and audit tests do not establish
-those claims. [Component/capability](SCORE_AUXILIARY.rst).
+- Seed1 score-none: -0.1953 [-1.1108,+0.7202].
+- Seed1 score-win: -0.0305 [-0.9607,+0.8997].
+- Seed1 score-parent: +0.8209 [-0.2281,+1.8699].
+- Seed2 score-none: +0.3510 [-0.5326,+1.2345].
+- Seed2 score-win: -0.1709 [-1.0401,+0.6983].
+- Seed2 score-parent: +0.6805 [-0.3703,+1.7314].
 
-Seed2_none completed520updates/8,519,680PPO decisions/561,106rounds/72,896matches.
-Its100auxiliary collections contain1,492,804decisions/98,476rounds/12,800matches/
-96,697rows and no auxiliary optimizer steps. Endpoint manifest
-ed64f0c2e8e10e1e4f7418a37ebbec986149dfcbc7c120127279a64232ecb16d;
-metrics2c2bcd7316f79af3c3cc53a1fde2fda543d38ead4828665b9a3fcf2f256fa9d5.
-All748combined recovery/queue input bindings verified unchanged at completion.
-The full six-arm training audit passed; main evaluation is running. Do not
-restart completed arms or the live queue.
+All24 descriptive score-versus-none/score-versus-win win/point intervals also
+include zero across both seeds and all opponent scopes. All18 point contrasts
+of none/win/score against retained WP-initialized parents have positive marginal
+lower bounds; the no-auxiliary control shares this benefit. These results do
+not identify an auxiliary-learning gain. Small gains or harms remain compatible
+with the intervals. No promotion, better-seed selection or reserved101M use.
 
-Seed2_win also completed520updates/8,519,680PPO decisions/562,644rounds/
-73,092matches. Auxiliary100collections contain1,488,898decisions/98,510rounds/
-12,800matches/96,745rows/580,470presentations and4,800Adam calls per phase.
-Endpoint manifestb0b2e10a66900dc947a7a895fe4a4f06c3d87b92000c15fe291b17ac8a32dacf;
-metricsb89773dd78823578f567feb4cf87ddb595e5ed09ae2db367c270c9518b1d352c.
-Its worker41768/launcher11460 exited0. All748recovery/queue bindings and endpoint
-file/metric digests verified unchanged at that milestone. The final score arm
-is now complete; main strength evaluation has started.
+Retained training:51,118,080PPO decisions/3,369,134round endings/437,799matches.
+Auxiliary collection:8,936,915decisions/589,918round endings/76,800matches.
+Evaluation:131,072matches/15,240,199decisions/1,014,387round endings on8,192
+shared deal streams, both seats. Six primary simultaneous comparisons and
+all120descriptive marginal quantities were fixed before evaluation.
 
-Seed2_score completed520updates/8,519,680PPO decisions/560,337rounds/
-72,961matches. Its100auxiliary collections contain1,490,552decisions/
-98,259rounds/12,800matches/96,558rows/579,348presentations and4,800Adam calls
-per phase. Endpoint manifestd922f0e5bc375612768b6f0aaa0d9e3f13741c999b51f3fd2a618493878a4114;
-metricsfe4f4b41e9433270b185d6590849f19d1f2e65e1fc464703c1b151aeeb6b2c8d.
-Final endpoint files,manifest,metrics and repeated-prefix digest verify.
-Study completion45f7f24a83cfcb99ff09b83e5bada606560aaec1c4e0dab812de4749ba66f486.
-Retained totals: PPO51,118,080decisions/3,369,134rounds/437,799matches;
-auxiliary8,936,915decisions/589,918rounds/76,800matches. These are training
-work counts,not evidence of improved strength. Mechanism diagnostics passed;
-strength-result export awaits the complete evaluation and audit.
+Recovery queue session56042/PID42884 exited0 after training_audit, prepare,
+evaluate and evaluation_audit. Auditor30044/launcher64380 and all evaluator
+workers have exited. Export session18695 also exited0. Never restart these
+completed jobs or overwrite their outputs. Detailed setup and progression are
+preserved in EXPERIMENTS and at commit ca3fe92.
 
-Restart overhead is counted separately: failed seed2_none executed165PPO
-updates/2,703,360decisions,of which164updates were logged. Those logs contain
-2,686,976decisions/174,865rounds/22,736matches. Unlogged update165 round/match
-counts are unavailable. Auxiliary28collections contain421,608decisions/
-27,488rounds/3,584matches. The failure occurred before collection29 environment
-creation. Repeating the prefix does not increase independent sample size.
+Evaluation protocol:
+b49a9f06a9757f54e39f089cac1587f21786c6d7c07c786cbb35cc20d8f24c4b.
+Training audit passed1,143bindings:
+08ae5b97cfcc885e9835dfaf33b79552110f21cda440d9d643667bfe34b28e8f.
+Evaluation audit passed1,235bindings:
+cf5f8fc9c5873dca98893ae3abac13722ec4e71f7c091f98464e5ca59d868ceb.
+It replays all recorded actions through native CPU, checks initial deals,
+legality/work/points and independently reproduces all intervals. Replay is
+validation work, not new independent matches; neural inference is not replayed.
+Export evidence binds1,825inputs:
+a8f3ac919fba4cfe1e10f0e3caa1fb23b5542fcb5e76beac2d10cfa5ecbaf311.
+The complete export remains in runs/score_auxiliary_results. Unrounded values
+are retained there; the result document reproduces every contrast.
 
-Recovery queue session56042/PID42884 observed exit0 of exact runner67840,creation
-FILETIME134369397674275076. Root runs/score_auxiliary_recovery_completion,
-protocol81de97227a5a280e31ecbc797bcaeb2e40f8fe189e51443f58191ac2213fc5c7,
-748bindings. After successful completion/prefix equality: original independent
-training audit,prepare fixed evaluation,run evaluation,independent native and
-statistical audit. Training root alone is relocated; the new evaluation protocol
-binds recovery provenance before outcomes. Full training audit passed:
-08ae5b97cfcc885e9835dfaf33b79552110f21cda440d9d643667bfe34b28e8f,1,143inputs.
-It verifies stored parameters/Adam state,all600auxiliary collections via action
-replay,reservoir/public-feature/terminal-label agreement and common initial/
-warmup states. It does not replay neural actions or gradients. Main strength
-evaluation is live under protocolb49a9f06a9757f54e39f089cac1587f21786c6d7c07c786cbb35cc20d8f24c4b
-with1,200inputs. Do not restart the live queue or evaluation.
+[Recovery provenance](SCORE_AUXILIARY_RECOVERY.rst): original runner20751 and
+queue19901 failed with WinError206 after repeated DLL-directory registration.
+Original artifacts remain untouched. Recovery uses fresh processes without
+changing numerical sources/seeds/budgets. The repeated164logged updates,
+8checkpoints and28collections agree exactly. Failed-run overhead is separate:
+2,703,360executed PPO decisions; only164updates have round/match logs, giving
+174,865rounds/22,736matches. Auxiliary overhead421,608decisions/27,488rounds/
+3,584matches. Missing update165 round/match counts are not imputed. Repeated
+prefix work adds no independent evidence. All numerical/source protocols and
+failure receipts remain preserved. Do not rerun closed capabilities or audits.
 
-[Evaluation](SCORE_AUXILIARY_EVALUATION.rst): six endpoints plus two retained
-parents versus strict assisted WP/Point;4,096paired streams per opponent/both
-seats,131,072matches. Seeds109110001/109210001,bootstrap109310001/10,000replicates.
-All six simultaneous95% mixture-win lower bounds must exceed0: score-minus-none,
-score-minus-win and score-minus-retained at both seeds. All120secondary
-coordinates remain descriptive. Candidate seed1_score was named prospectively;
-no better-seed selection,promotion or reserved101M consumption.
-
-Completed seed1 models retain their original endpoint manifest digests:
-none6686205ff7d8aa08a5e70f04498efb1191de1f191db09378864206050f1a10c1;
-win865bcc4a228418a6d9ce590876e3fcecf7ca5b0a57091fc71dbc7304c612f024;
-score287505f567c192e6de2c168c058c47ecc05b677a4aaa5f7c41085c5b15d0c663.
-Each has8,519,680PPO decisions/12,800auxiliary matches. Full work counts are in
-completion receipts and EXPERIMENTS. Completed models alone are not strength
-results. Do not rerun closed capabilities/tests while waiting.
-
-[Training audit](SCORE_AUXILIARY_TRAINING_AUDIT.rst),
-[mechanism diagnostics](SCORE_AUXILIARY_MECHANISM.rst) and
-[export](SCORE_AUXILIARY_EXPORT.rst) are implemented and tested. Main mechanism
-diagnostics and independent audit are complete; strength export remains pending.
-The recovery reporting adapter supplies exact
-commands in SCORE_AUXILIARY_RECOVERY.rst: prepare/run/audit after the full training
-audit,then export with the actual completed evaluation audit digest. It changes
-only artifact roots/provenance and reports failed-run overhead separately. Three
-synthetic tests pass0skips(1.66s),no matches/inference/training. Existing numerical
-analysis and six-primary/120secondary criteria remain unchanged. After the
-strength evaluation and export,integrate the verified results into the paper.
-Interpret the comparisons before deciding the next scientific improvement.
 [Completed fixed-state diagnostics](SCORE_AUXILIARY_MECHANISM_RESULTS.rst):
-18,270CPU2singleton calls on3,045unforced public rows from25oldvalidation groups;
-no new matches,simulator steps or learning. All six endpoints and Point analyzed.
-Score-versus-win greedy disagreement331/3,045and249/3,045at seeds1/2. Discard and
-both capture entropy are lower for score at both seeds under commonT0.05;koi
-entropy differs in direction. These describe fixed inputs,not visitation or
-playing gain. Protocol889c2225555e8723040c73d7415a2ccd57979cb1091d17630b8de5eb9c05d1aa;
-reporta291e87f5505f26679c02927989bb8ad6bcef287a4d25a58e4c485fd9f9d8fd5;
-independent auditd619258403def4da3aa71cbc3b02b45179abe964a73c6ccb70e802da2ea5ab52
-passes1,160bindings. Preparation65413,scoring1612,audit1333all exited0. Do not
-rerun completed diagnostics. No new tests or training were needed.
+score/outcome policies disagree on331/3,045and249/3,045unforced public inputs.
+Score entropy is lower in discard and both capture phases at both seeds under
+commonT0.05; koi entropy differs in direction. These policy-output changes did
+not establish an auxiliary match-performance gain. The diagnostic adds18,270
+CPU2singleton calls and no new matches. Independent audit:
+d619258403def4da3aa71cbc3b02b45179abe964a73c6ccb70e802da2ea5ab52.
+Do not repeat the completed mechanism commands.
 
-[Auxiliary prior-work review](SCORE_AUXILIARY_RELATED_WORK.rst) and three-paragraph
-LaTeX/BibTeX integration drafts are ready. Six primary references include PPG,
-UNREAL,C51,distributional-loss optimization (Imani/White2018),nonlinear learning
-(Lyle et al.2019) and actor/critic specialization/data diversity (Garcin et al.,
-ICLR2025). The draft positions the matched target-resolution intervention; it
-makes no strength or priority claim. Merge with the completed strength results,
-then rebuild/inspect the paper. The fragments are not yet included by manuscript.tex.
+Next actions:
 
-The auxiliary methods fragment docs/paper/auxiliary_study.tex now describes
-matched losses/heads,collection/training and the fixed evaluation criterion.
-Its six-row work table is generated from the audited completion record; the
-completed fixed-state diagnostic numbers are included. No strength result or
-placeholder is supplied. Merge with final evaluated results and the prior-work
-fragment,then render/inspect; final recovery overhead belongs in the exported
-accounting. Current PDF/manuscript source is unchanged.
+1. Integrate the verified result into the manuscript with the prepared
+   auxiliary_study.tex, auxiliary_related_work.tex and auxiliary_references.bib.
+   Keep the main account focused on what the matched comparison establishes;
+   put full work/recovery accounting and all comparisons in supporting evidence.
+   Update Abstract/Introduction/interpretation consistently, then rebuild and
+   visually inspect the PDF. The current35page PDF and source are unchanged.
+2. Select a further scientific intervention using the completed experiment
+   ledger. Retained-Transformer koi/card and conditional-world searches were
+   already studied; do not infer an untested Transformer-search gap from the
+   manuscript's abbreviated MLP-search discussion. Read those outcomes before
+   selecting new search work. No new experiment or strength claim is yet made.
 
-Canonical player,dealer and the latest35page manuscript are unchanged.
+Canonical player and initial dealer selection remain unchanged. Stronger
+replicated play and substantive novelty are still open requirements.
 
 ## Earlier implementation milestones
 

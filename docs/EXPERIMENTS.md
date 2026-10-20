@@ -7788,3 +7788,40 @@ Raw row hashes,8,192line counts and endpoint hashes agree. Across all16complete
 receipts:131,072matches/15,240,199decisions/1,014,387round endings.
 These metadata checks add no simulation,inference or tests. Result export,
 paper integration and stronger-play work remain open.
+
+
+## Auxiliary study independently complete and exported (2026-10-20)
+
+Queue56042/PID42884 and auditor30044/launcher64380 exited0. All16cells replayed
+through native CPU, including15,240,199decisions/1,014,387round endings/
+131,072matches. Independent scalar statistics reproduce all120marginal
+intervals and six simultaneous bands. Audit passes1,235bound inputs:
+cf5f8fc9c5873dca98893ae3abac13722ec4e71f7c091f98464e5ca59d868ceb.
+No neural-inference replay or new independent evaluation matches are implied.
+Queue completion2d1fc7fe8523d6981e3c5ebf0c6fe16d8d11cc9709419fc7a95698cca762f387
+records all four completed stages, qualified=false and deployment_changed=false.
+
+Export ran once via the tested recovery adapter:
+`.venv/Scripts/python.exe -m scripts.report_score_auxiliary_recovery export --audit-sha256 cf5f8fc9c5873dca98893ae3abac13722ec4e71f7c091f98464e5ca59d868ceb`.
+Session18695 exited0. Evidence1,825bindings:
+a8f3ac919fba4cfe1e10f0e3caa1fb23b5542fcb5e76beac2d10cfa5ecbaf311;
+results.rstbcea0e5022aec1ef0052fb90637368b2579dd86e0551c4ac778b335cad1c9abc.
+All unrounded comparisons and failed-run overhead remain in the export.
+No extra matches, learning, neural calls or repeat capability tests.
+
+All six simultaneous primary intervals include zero. Mixture score-minus-none
+is -0.1953/+0.3510pp at seeds1/2; score-minus-win is -0.0305/-0.1709pp;
+score-minus-parent is +0.8209/+0.6805pp. None passes its simultaneous lower bound.
+All24 descriptive score-none/score-win win/point intervals include zero. All18
+none/win/score point contrasts against retained WP parents have positive marginal
+lower bounds, including the no-auxiliary control. Thus fixed-input changes in
+entropy and actions do not establish an auxiliary playing gain. This is not
+proof of zero effect; small gains/harms remain compatible with the intervals.
+[Complete results](SCORE_AUXILIARY_RESULTS.rst) retains every reported comparison.
+No model promotion, best-seed selection or reserved101M consumption.
+
+Paper integration and the stronger-play/research objective remain open. A ledger
+review also confirms retained-Transformer koi and all-action search adapters
+were already evaluated (entries near2890and3305); the manuscript's MLP-search
+paragraph is abbreviated and must not motivate a duplicate search experiment.
+Further method selection must use the actual search/conditional-world outcomes.
