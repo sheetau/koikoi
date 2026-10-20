@@ -9244,3 +9244,19 @@ Introduction513,Conclusion169. PDF SHA
 bc0d2f6374f0549217d8cb4bd26abb44d2a965cec3083171886eaf086bfbdfd6.
 QA runs/manuscript_prospective_qa.json statuspassed. Canonical model/dealer
 unchanged. Broader goal remains active; new replicated win gain unresolved.
+
+## 2026-10-21: reject unsupported symbolic-oracle cache optimization
+
+While the fixed certificate comparison ran, tested a local parent-action cache
+in the isolated symbolic oracle, keyed by complete own/public histories. All13
+capability tests passed(7.39s), including duplicated-world execution retaining
+all physical/represented transitions. However, direct before/after measurement
+on the final-turn two-capture fixture gave1nonforced parent call in both versions,
+with10physical/18represented decisions and9completions. The three-draw fixture
+also did not demonstrate a strict inference reduction. Duplicate synthetic worlds
+can reuse calls but do not establish repetition in the actual support.
+The cache and its extra regression were removed; both tracked files restored
+byte-for-byte fromHEAD1bbe60d. No claimed speedup or new capability retained.
+Receipt runs/symbolic_oracle_cache_check.json records the failed cost hypothesis.
+The fixed certificate comparison remains live and unchanged; no new source or
+outcome-based adaptation. Prospective results/paper milestone1bbe60d pushed.
