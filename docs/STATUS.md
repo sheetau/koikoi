@@ -25,7 +25,7 @@ own process, with at most101 backend instances. Bound learner/native sources,
 seeds, budgets and evaluation criteria remain unchanged.
 
 Recovery root: runs/score_auxiliary_recovery. Runner session39422/PID67840;
-current worker41768 (launcher11460),seed2_win. Four of six arms are complete.
+current worker40312 (launcher62540),seed2_score. Five of six arms are complete.
 Completed seed1_none/win/score artifacts are copied
 byte-for-byte,except relocated endpoint paths in completion receipts. Seed2_none
 reruns from its original seed; all recorded numerical metrics, checkpoint
@@ -38,7 +38,7 @@ wall time/git provenance.104immutable files are bound;receipt
 c8515b32cdf810d91a365e2c9485399ea18c8dcb370091e4303dd9303a4ff569.
 This read-only check adds no training,matches or inference. The scheduled final
 full-arm prefix check also passes (receipt0915d3696196f62a5ae503b0240571ded3e1ee16593a6028949a151aa481200d).
-The seed2_win learner,recovery supervisor and queue are live.
+The seed2_score learner,recovery supervisor and queue are live;update20 observed.
 Recovery protocol b38aa097e1ce9a4f2989eab445025d7f4388fbf97d7dd0df8722860bddbe5294
 binds683inputs,including every original artifact. Six recovery tests pass0skips
 (1.67s),two relocation/queue tests pass0skips(1.75s),all synthetic/no simulation.
@@ -62,6 +62,15 @@ ed64f0c2e8e10e1e4f7418a37ebbec986149dfcbc7c120127279a64232ecb16d;
 metrics2c2bcd7316f79af3c3cc53a1fde2fda543d38ead4828665b9a3fcf2f256fa9d5.
 All748combined recovery/queue input bindings verify unchanged. Main evaluation
 and full six-arm training audit remain pending. Do not restart completed arms.
+
+Seed2_win also completed520updates/8,519,680PPO decisions/562,644rounds/
+73,092matches. Auxiliary100collections contain1,488,898decisions/98,510rounds/
+12,800matches/96,745rows/580,470presentations and4,800Adam calls per phase.
+Endpoint manifestb0b2e10a66900dc947a7a895fe4a4f06c3d87b92000c15fe291b17ac8a32dacf;
+metricsb89773dd78823578f567feb4cf87ddb595e5ed09ae2db367c270c9518b1d352c.
+Its worker41768/launcher11460 exited0. All748recovery/queue bindings and endpoint
+file/metric digests verify unchanged. The final score arm is now training;
+no main strength evaluation or full six-arm audit has started.
 
 Restart overhead is counted separately: failed seed2_none executed165PPO
 updates/2,703,360decisions,of which164updates were logged. Those logs contain

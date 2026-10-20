@@ -7482,3 +7482,26 @@ log digest verify unchanged. No additional tests,training runs or strength
 matches were launched during this milestone check. No main six-arm audit,
 evaluation,mechanism or export yet. Dealer/canonical model/manuscript unchanged;
 stronger play and substantive novelty still require actual comparison results.
+
+
+## Fifth auxiliary condition complete; final score arm starts (2026-10-20)
+
+Verified waits on recovery39422 and queue56042 continued through seed2_win
+update520. Worker41768/launcher11460 exits0;supervisor67840 starts seed2_score.
+Current actual worker40312,launcher62540,with update20 observed;queue42884 remains
+live. Five of six arms are complete. No additional run or evaluation was started.
+
+Seed2_win retained PPO:520updates,20warmup/500policy;8,519,680decisions/
+562,644round endings/73,092matches. Warmup327,680decisions/21,127rounds/2,714matches.
+Value Adam49,920,each actor48,000steps. Auxiliary100collections:
+1,488,898decisions/98,510rounds/12,800matches/96,745retained rows;
+580,470presentations and4,800Adam calls for each discard/pick/koi model.
+
+Endpoint manifestb0b2e10a66900dc947a7a895fe4a4f06c3d87b92000c15fe291b17ac8a32dacf;
+metricsb89773dd78823578f567feb4cf87ddb595e5ed09ae2db367c270c9518b1d352c;
+complete receiptcfacd389dc5ceb2cc6091eae47cb99d49ef7e2768204709005dfc33555236586.
+All748combined recovery/queue inputs,endpoint file digests and metric digest
+verify unchanged. Full six-arm training audit,main strength evaluation,mechanism
+and export remain pending. No tests,inference or simulator work was added by
+this milestone verification. Dealer,canonical player and manuscript unchanged;
+no additional strength or novelty conclusion follows from learning completion.
