@@ -11,100 +11,63 @@ Old process handles mentioned in that history are historical, not live jobs.
 
 ## Current experiment and next actions
 
-Prepared symbolic comparison now has a complete-only exporter,
-scripts/export_symbolic_tail_replay.py. It recomputes exact whole-cohort means,
-checks audit/chunk/artifact bindings and reports coverage, physical/represented
-planning work, both certificate types, program entries and separate inference
-counts. Receipt preserves exact contrasts. Export tests2passed in2.44s; after
-adding exporter/test dependencies to the unfrozen protocol, targeted freeze plus
-export tests3passed in2.58s; Ruff passes. No natural comparison frozen/launched.
-Current opponent-only worker57816 remains active on source391/controller,
-CPU4831s;31/32chunks complete. Pipeline40713 remains the sole completion owner.
+Both the original prospective512 study and its opponent-only certificate
+comparison are COMPLETE, audited and exported. Do not restart either cohort.
+Completion pipeline40713/PowerShell49904 and queue35056 finished successfully.
+Opponent-only report: CERTIFIED_TAIL_REPLAY_RESULTS.rst. All512sources remain;
+237eligible roots/275missing, with no new source matches.
 
-The fixed prospective512 comparison is complete and independently exported.
-All512sources/128deal streams are included;237eligible roots,275missing roots.
-The four-contrast development strength gate fails. Controller-minus-parent
-actual win-score differences are +0.3906pp[0,+1.5625] and0pp[-1.9531,+1.9531]
-for parents1/2, with nominal simultaneous95% intervals. Controller-minus-root-only
-is -0.1953pp[-.7812,0] and0pp[0,0]. Zero observed differences do not prove equality.
-All-source model-conditional gains versus parent are +.2619/+.3246pp;
-adoptions41/42 versus root-only28/28. See PROSPECTIVE_INCUMBENT_RESULTS.rst.
-Protocol700e11608e3ced60919ca7ef31da460785ff9391459ac83c7e8a16f4a1a0c170;
+Opponent-only certification reduces physical planning decisions from227608204
+to223012606(controller,2.0191%) and150686381to148865177(root-only,1.2086%).
+It changes no parent-value coverage, adoption, conditional gain or actual score.
+Controller parent values226/237, adoptions83(41/42 by parent), capped phases53;
+root-only233/237,56(28/28),16. Common complete values/maps match. Adopted pairs
+have full independent Python replay, including omitted opponent moves. Its
+61,821,861 oracle transitions and2,514 actual-tail transitions are separate from
+planning work. Operational times are not an isolated latency benchmark.
+Protocol8b91c528ca2f0883821a3435104058bdf7435cce4951b95a52b0a69f0bd53e40;
+summary8ac783d5873c626436e373488e3cf8af6a96192473a1b3c585979e047299e9d0;
+exporte50832fbb9e43668031a806edffb9971a9a6d211928ba6abbcabbc6abddd39a0.
+
+The next whole-cohort symbolic comparison is FROZEN AND RUNNING after reviewing
+those complete results. It adds the own-final-turn win regionD>2 and an executable
+unchanged-parent continuation for omitted decisions. This tests natural coverage
+of the previously verified synthetic capability. All512 sources, both arms,
+caps/order/fresh caches remain fixed. No outcome-selected subset, new seed,
+phase-budget transfer or reserved101M use. See SYMBOLIC_TAIL_REPLAY.rst.
+Protocolf8e2d65097b327102dde82c5ec89a338ae53c3c441b8bdf92b58846b8cc4d3c5,
+108bound inputs. Base runs/symbolic_tail_replay; queuePID64312.
+Pipeline session99772/PowerShellPID25468, state runs/symbolic_completion_pipeline.json.
+It launches32chunks/four concurrent workers, then audits and exports automatically,
+checking every exit. DO NOT duplicate freeze/launch/audit/export or edit bound
+inputs. First workers53216/57472 confirmed running on sources3/16. A failed stage
+stops for inspection. The20GiB free-space guard was satisfied with140GiB free.
+
+Symbolic implementation verification: planner/oracle12tests; assessment4tests;
+structural comparator4tests; whole-cohort runner6tests; exporter2tests. Most
+recent combined freeze/export3tests pass in2.58s and Ruff passes. Synthetic
+cap1258perphase recovers parent204/275 and controller461/550; this is capability
+evidence, not natural match strength. Complete-only exporter checks bindings and
+exact whole-source mean arithmetic; it adds no simulation/inference. The new
+comparison has no fresh confidence interval or strength gate on reused sources.
+
+The original prospective strength criterion remains FAILED. Controller-minus-
+parent actual win-score differences are+.3906pp[0,+1.5625] and0pp[-1.9531,+1.9531]
+for parents1/2, with nominal simultaneous95% intervals; controller-minus-root-only
+is-.1953pp[-.7812,0] and0pp[0,0]. Zero observed differences do not prove equality.
+All-source conditional gains versus parent are+.2619/+.3246pp. See
+PROSPECTIVE_INCUMBENT_RESULTS.rst. Original protocol700e11608e3ced60919ca7ef31da460785ff9391459ac83c7e8a16f4a1a0c170;
 summaryc80bbcbc67b1923632ea2480bacb06df8066f1e587ad83e843458fc782298f1e.
-Original session89944/PID66280 is finished. Do not restart or extend this cohort.
 
-Completion pipeline40713/PowerShellPID49904 completed the original export and
-started the prewritten all-source opponent-only certificate comparison.
-State runs/incumbent_completion_pipeline.json is running_certificate_comparison;
-queue runs/certified_tail_replay/queue.json,PID35056. Four workers/32chunks.
-Do not duplicate export/freeze/launch. Pipeline will audit after computation.
-After its audit passes, run scripts.export_certified_tail_replay once; the
-pipeline does not call this final report exporter. Reused-cohort computational
-results are descriptive, with no fresh strength gate or confidence interval.
-No new sources, cap extension or reserved101M use.
-
-The opponent-only certificate resolves final-turn losses with public marginD<-2,
-without simulated transitions. Nine tests pass; synthetic costs374to50 and
-698133to152994 with identical exact values/maps. The frozen comparison applies
-it to both arms under the original equal maximum allowances (not equal realized
-work/time). Common completed policies must match; every adoption has independent
-full Python replay. See CERTIFIED_TAIL_REPLAY.rst and
-OPPONENT_LAST_TURN_CERTIFICATE.rst. Runner6tests/exporter4tests pass,0skips.
-
-An isolated SymbolicFinalTurnPlanner adds an own-win regionD>2 and a checked,
-versioned unchanged-parent continuation for omitted keys. It defines a complete
-program, with all other missing keys rejected. Twelve tests pass,0skips.
-Synthetic fixed9034to1258 and optimized9082to1306decisions; cap1258perphase
-recovers parent204/275 and candidate461/550. Full independent Python replay
-executes omitted decisions. See SYMBOLIC_FINAL_TURN_POLICY.rst.
-This capability is not active in either fixed comparison and has no natural
-coverage evaluation scheduled. Inspect the ongoing certificate comparison first.
-
-Current manuscript includes the complete prospective result and its cost table,
-as well as the previously closed exploratory64-source witnesses. Abstract and
-Conclusion now distinguish the prospective conditional gains from the failed
-actual-win criterion. Related Work has44references including POMDP safe policy
-improvement (AAAI2023). PDF38pages;Abstract159/Introduction389/Conclusion169words.
-All38pages rendered/contact-reviewed,full1/2/16/17 inspected,27fonts embedded,
-no TeX/layout/bibliography warning; existing Fontconfig notice only.
-PDF4c32ce1413ea29f27c5a42acd4b9abe7a053c08e97b47100f499b957dd50b21b.
-QA runs/manuscript_focused_opening_qa.json; bound source/summary/export/table record
-docs/paper/generated/prospective_incumbent_evidence.json. Prior audits reused;
-no full old-corpus rehash or training rerun.
-
-The symbolic program now has a separate adoption/three-tail assessment adapter,
-scripts/symbolic_tail_assessment.py. It independently replays parent/candidate
-programs with their leaf rule intact, executes divergent fixed/contingent roots,
-and separately counts symbolic parent calls within all parent inference calls.
-Four tests pass,0skips,2.35s; Ruff passes. Both seats, exact values, source/fallback
-identity, independent action-call counters and mismatched selection/binding
-rejection are covered. This adapter has no natural evaluation launch. The frozen
-opponent-only comparison's95 inputs remain unchanged;10/32chunks complete,
-queue35056 and all four workers confirmed live during this milestone.
-
-Closed-cohort opportunity diagnosis now partitions all512sources without new
-simulation/inference. Controller:275missing,83adopted,55parent-value-one,
-74completed-optimization-no-gain,11parent-unvalued,14incomplete-optimization-no-gain.
-The25unresolved nonadoptions include15with at least10k unused native transitions
-under the original4M total ceiling. This descriptive threshold does not change
-phase allocation or authorize outcome-selected evaluation. See
-PROSPECTIVE_OPPORTUNITIES.rst and scripts/diagnose_prospective_opportunities.py.
-All original protocol/summary/export/chunk/record hashes checked; parent totals
-256each and full partition512. Current comparison progressed12/32chunks;
-pipeline40713 and queue35056 plus remaining workers confirmed live. No restart.
-
-A separate structural comparator now checks complete explicit versus symbolic
-programs: scripts/compare_symbolic_programs.py. Common phases must share bindings;
-common completed root values and retained actions match, and every omitted key
-must satisfy the public own-final-turn win certificate. The first action remains
-explicit. Incomplete roots are excluded from equivalence evidence. Four tests
-pass,0skips,2.17s; Ruff passes. This complements independent full replay and adds
-no natural evaluation. All95 frozen comparison inputs still match. Latest queue
-progress24/32chunks; pipeline40713 remains live.
-
-Next: complete/audit/export the already running certificate comparison, then
-decide the next implementation from its coverage and computational results.
-Keep the broader stronger-play goal active. Canonical play and dealer unchanged.
+Current manuscript includes the original prospective results, not the new
+certificate comparisons. Related Work44refs;38pages;Abstract159/Intro389/
+Conclusion169words. All38pages rendered/contact-reviewed,full1/2/16/17 checked,
+27fonts embedded,no TeX/layout/bibliography warning. Existing Fontconfig notice
+only. PDF4c32ce1413ea29f27c5a42acd4b9abe7a053c08e97b47100f499b957dd50b21b;
+QA runs/manuscript_focused_opening_qa.json. Consolidate complete computational
+results/methods into the paper after the running symbolic comparison completes.
+Keep the broader goal active; replicated extra match strength remains unproven.
+Canonical human play and initial dealer selection are unchanged.
 
 ### Completed diagnostics and supporting history
 

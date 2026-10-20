@@ -4,8 +4,11 @@ Complete-cohort comparison of executable endgame programs
 This prepared computational comparison evaluates SymbolicFinalTurnPlanner
 against the completed opponent-only certificate comparison. It reuses every
 one of the same512 sources, including missing roots, under the same maximum
-allowances. It has not been frozen or launched. The existing comparison must
-finish, pass its audit and be exported before this protocol can be frozen.
+allowances. The predecessor must finish, pass its audit and be exported before
+this protocol can be frozen. Its completed comparison reduced physical planning
+transitions without changing parent-value coverage, adoptions or outcomes. This
+comparison tests whether adding the own-win continuation can expand coverage
+under the same allowances; the synthetic fixture established that capability.
 
 The new program adds a public own-final-turn win certificate and an executable
 unchanged-parent continuation. An explicit first action remains mandatory;
@@ -46,8 +49,8 @@ defined on these reused sources; the original prospective gate remains failed.
 Completing more parent values or adopting additional exact improvements is a
 coverage result, not by itself evidence of greater sampled match strength.
 
-Commands after reviewing the completed predecessor
--------------------------------------------------
+Commands for the completed predecessor
+-------------------------------------
 
 ::
 

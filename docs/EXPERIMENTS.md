@@ -9435,3 +9435,48 @@ Ruff import/format findings corrected; final checks pass. No active-study input
 changed, no new freeze/launch and no paper/PDF or production change. Next action
 remains completion/audit/export of the opponent-only comparison before deciding
 on the prepared symbolic evaluation.
+
+## 2026-10-21: completed opponent-only comparison and launched symbolic extension
+
+Previous turn was a verified wait. This turn observed worker57816 advance from
+source394 through396 to completion. Pipeline40713 then independently audited
+all32chunks and exited0; state complete at2026-10-20T19:34:40Z. Ran the previously
+prepared final exporter once: .venv/Scripts/python.exe -m
+scripts.export_certified_tail_replay exited0 in2.48s. Only then inspected complete
+candidate means/coverage. All512sources/128streams retained; no new matches.
+
+No parent values/adoptions/conditional gains/actual outcomes changed in either
+arm. Controller decisions227608204to223012606(-2.019083%), root-only150686381to
+148865177(-1.208606%). Parent-valued226/233, adoptions83/56, capped phases53/16
+unchanged. Certified rows510622/202356 and mass4595598/1821204 are separate from
+simulated completions. Full independent oracle work61821861 physical decisions,
+54051761 completions; represented741008054 decisions/176513040 completions.
+Actual conditional tails2514decisions/711completions, separately replayed. No
+new uncached opponent oracle calls. Saved-control operational times are not an
+isolated latency comparison. Original prospective strength gate remains failed.
+
+Report docs/CERTIFIED_TAIL_REPLAY_RESULTS.rst SHA
+c7800c7f59dce0697195ff2d6b2ec88dcb096514a877a48d1937891ad52bf64c;
+summary8ac783d5873c626436e373488e3cf8af6a96192473a1b3c585979e047299e9d0;
+protocol8b91c528ca2f0883821a3435104058bdf7435cce4951b95a52b0a69f0bd53e40;
+exporte50832fbb9e43668031a806edffb9971a9a6d211928ba6abbcabbc6abddd39a0.
+
+Decision: opponent-only compression saves transitions without resolving the
+natural coverage bottleneck. Proceed with the already tested own-win symbolic
+continuation on the same complete512-source cohort. Its synthetic fixture
+recovers a capped parent reference and strict adopted improvement; whether this
+extends natural coverage is unresolved. No new training/source seeds, selected
+subset, budget transfer, interim outcome-dependent tuning or confirmation claim.
+
+Updated the unfrozen protocol rationale, then ran scripts.symbolic_tail_replay
+--freeze successfully. Protocol SHA
+f8e2d65097b327102dde82c5ec89a338ae53c3c441b8bdf92b58846b8cc4d3c5,
+108bound inputs.140GiB free. Started ignored orchestration script
+runs/symbolic_completion_pipeline.ps1: session99772/PowerShell25468; queue64312.
+It executes launch, audit and final exporter sequentially, checking each exit
+and recording state; failure stops. Four workers,32chunks; first workers53216/
+57472 confirmed live on sources3/16. Existing pipeline and studies are complete;
+do not restart them. Do not duplicate the new pipeline or edit bound files.
+No production or PDF change. Next:complete new whole-cohort comparison, inspect
+its audit/export, then incorporate verified method and computational results in
+the paper and determine the remaining path toward stronger play.
