@@ -3,11 +3,19 @@ Manuscript working files
 
 This is an English research manuscript, not a submitted or published paper.
 
-Current verified revision:40pages including appendices,44cited references,
+Current verified revision:42pages including appendices,46cited references,
 171-word Abstract,425-word Introduction and167-word Conclusion. Main text ends
-on page19. The title is "Match Adaptation and Public-Information Planning for
+on page20. The title is "Match Adaptation and Public-Information Planning for
 Koi-Koi Transformers." The opening leads with public reconstruction,executable
 endgame policies and certificate compression,followed by measured match adaptation.
+
+Section9.6 now states the matching-law population evaluation;AppendixL derives
+the hand posterior and simultaneous lower bound from fixed threshold counts.
+The8192-source study is running,with no interim estimates in this draft.
+The new method ledger is generated/uniform_method_evidence.json. PDF SHA256
+23f4054ffa0b7a80093cc56ba6881c299deaf844288b411353bb8346fdddc5fc.
+All42pages/contact sheets checked;5/19/37/38/40/41full size;27embedded fonts,
+no TeX/BibTeX/layout defects. Opening and conclusion source text are unchanged.
 
 Section9 includes the closed exploratory64-source witnesses and complete
 prospective512-source comparison. Its predefined actual-win criterion fails.
@@ -20,27 +28,28 @@ This is a descriptive reused-source computational result,not a new strength test
 The separate synthetic example explains capped recovery and executable semantics.
 
 Related Work includes HSVI,SPIBB,MCTS-SPIBB and the2023POMDP safe-improvement
-paper among44references. The contribution is the verified Koi-Koi reconstruction
+paper among46references,with AIVAT and exact binomial limits now added. The
+contribution is the verified Koi-Koi reconstruction
 and executable-policy pipeline;the conditional-expectation argument is not a
 new general safe-improvement theorem. AppendixA maps evidence to reproduction
 artifacts. Its former full ledger remains in reproduction_ledger.tex.
 
-Latest QA: ``runs/manuscript_symbolic_results_qa.json``. All40pages rendered and
-contact-reviewed;1/18/19reviewed at full size.27embedded fonts,no page-bound,
+Latest QA: ``runs/manuscript_uniform_method_qa.json``. All42pages rendered and
+contact-reviewed;5/19/37/38/40/41reviewed at full size.27embedded fonts,no page-bound,
 TeX box,glyph,reference or bibliography warning. The existing Fontconfig notice
-is unchanged. ``generated/symbolic_comparison_evidence.json`` binds the complete
-audit/export,all-source outcome review,table,method section and current PDF QA.
+is unchanged. ``generated/uniform_method_evidence.json`` binds the current
+method,draft,protocol and QA. The symbolic comparison ledger retains its earlier
+snapshot binding;its completed result table and method text are unchanged.
 Previous experiment audits are reused without rehashing the entire old corpus.
 
 Current PDF: ``output/pdf/manuscript.pdf``;SHA256
-21254b53e5efd6a85d458c727df9db9c2e2711d0b191b99c52db686f1c481a9e.
-Previous PDF: ``output/pdf/manuscript_before_symbolic_results_a6580dbb.pdf``.
+23f4054ffa0b7a80093cc56ba6881c299deaf844288b411353bb8346fdddc5fc.
+Previous PDF: ``output/pdf/manuscript_before_uniform_method_21254b53.pdf``.
 
 The stronger-play objective remains active. The symbolic pipeline is complete;
-no next evaluation is scheduled. Prepared source-law/collector/statistical
-components still require a frozen population,full posterior verification and
-prospective criterion. Current decisions are in ``docs/STATUS.md``;historical
-notes below are not a live-job inventory. Dealer selection and human play remain
+the independent-uniform8192-source evaluation is now running under its frozen
+protocol. Current process identities and decisions are in ``docs/STATUS.md``;
+Historical notes below are not a live-job inventory. Dealer selection and human play remain
 unchanged. Both retained actors pass the original RL-WP criterion;the separate
 RL-Point criterion and additional replicated win gain remain unestablished.
 

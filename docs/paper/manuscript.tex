@@ -262,6 +262,15 @@ Development and held-out confirmation use distinct deals. These intervals
 measure deal variation; two model seeds offer limited evidence about future
 training-run variation.
 
+AIVAT combines heuristic value estimates with known player strategies to
+reduce variance from chance events and player actions while preserving an
+unbiased performance estimate \cite{burch2018aivat}. Our population evaluation
+integrates a bounded continuation exactly, averaging the resulting conditional
+improvement over independent parent prefixes. This calculation requires the
+source's conditional deal and opponent laws to match the evaluator. It uses
+direct conditional expectation; it does not implement AIVAT's trajectory
+correction terms.
+
 \section{Rules, observations, and comparator}
 \subsection{Versioned game protocols}
 The primary protocol, \texttt{paper8}, follows the pinned public implementation:
@@ -846,6 +855,7 @@ that the original representation or memory omitted; the tested learners have
 yet to turn that information into a consistent additional match-win gain.
 
 \input{incumbent_tail.tex}
+\input{uniform_evaluation.tex}
 
 \section{Limitations and interpretation}
 The comparisons measure head-to-head performance under the pinned Koi-Koi
@@ -1792,6 +1802,8 @@ paired win-score changes in percentage points, with 95\% intervals.}
 \label{tab:seat-historical}
 \end{table}
 
+\FloatBarrier
+\input{uniform_evaluation_appendix.tex}
 \FloatBarrier
 \begingroup
 \raggedright\small

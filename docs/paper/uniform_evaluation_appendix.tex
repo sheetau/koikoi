@@ -1,0 +1,82 @@
+\section{Source law and population improvement bounds}
+\label{app:uniform-law}
+\subsection{Matching the hand posterior to sampled deals}
+Each round starts with a uniform permutation of 48 cards, rejected if either
+initial hand or the initial field contains all four cards of a month. Independent
+bounded uniform draws implement Fisher--Yates sampling and rejection. The
+accepted deck is logged before play; scores and dealers follow the existing
+rules. Source replay reads these logs. Independence and uniformity of the
+underlying entropy are assumptions of the generative law.
+
+Fix a parent, opponent and learner seat. A fresh round deal is independent of
+the preceding rounds. The opponent is a fixed deterministic member of the
+declared class. Exact reconstruction after its eight discards never eliminates
+the true member; a preceding-round singleton therefore identifies it. At an
+eligible root, condition on the learner's own/public history $H$. A possible
+remaining opponent hand determines its initial hand when combined with its
+observed discards. Each valid candidate has the same number of consistent
+initial-slot arrangements and remaining-stock orders. Conditioning on stored
+field order changes only a common multiplicity.
+
+Let $\mathcal{V}(H)$ be the valid candidate hands and let $\ell(h,H)$ indicate
+agreement with every observed current-round opponent action. Deterministic
+action replay gives
+\[
+ P(h\mid H)=\frac{\ell(h,H)}{\sum_{g\in\mathcal{V}(H)}\ell(g,H)},
+ \qquad h\in\mathcal{V}(H).
+\]
+The learner's past inputs are identical across these candidates, so its past
+choices add no hand-dependent likelihood factor. The first-eligible gate is
+also determined by $H$. With $r$ stock cards and at most $d$ further draws,
+each ordered draw prefix has $(r-d)!$ suffixes. Here $r-d=8$; cancelling that
+common factor assigns each compatible hand the integer mass
+$r!/(r-d)!$. Early termination retains its unused-prefix mass.
+
+The common parent prefix then gives
+$\mathbb{E}[W(\mathrm{controller})-W(\pi)]=\mathbb{E}[\Delta(H)]$,
+with zero on all fallbacks. This expectation is taken under the source law
+above. The finite-seed cohorts in the preceding comparisons retain their own
+sampling laws and realized-outcome analyses.
+
+\subsection{A finite-sample lower bound on mean improvement}
+For one parent/opponent population, let $X_i=\Delta(H_i)\in[0,1]$ for
+$N=2,048$ independent sources, including fallback zeros. Before collection we
+fixed $t_0=0$ and
+\[
+ (t_1,\ldots,t_7)=
+ (0.001,\ 0.004,\ 0.01,\ 0.02,\ 0.04,\ 0.08,\ 0.16).
+\]
+At threshold $t_j$, count $k_j=\sum_i\mathbf{1}\{X_i\geq t_j\}$.
+The one-sided exact binomial lower limit $L_j$ uses error probability $1/560$:
+for $k_j>0$ it solves
+\[
+ \Pr_{p=L_j}\{\operatorname{Bin}(N,p)\geq k_j\}=1/560,
+\]
+and $L_j=0$ for $k_j=0$ \cite{nist2015exactbinomial}. Integer arithmetic evaluates
+the binomial tails; rounding the solution down to a $2^{-32}$ grid preserves
+the lower-bound direction.
+
+For every $x\in[0,1]$, the threshold staircase is at most $x$. On the event
+that every $L_j$ bounds its survival probability, taking expectations gives
+\[
+ B=\sum_{j=1}^{7}(t_j-t_{j-1})L_j
+ \ \leq\ \mathbb{E}[X].
+\]
+The union bound makes all 28 survival bounds, and hence all four population
+bounds, simultaneous with probability at least $1-28/560=0.95$. It requires
+no independence between thresholds. Averaging a parent's WP and Point bounds
+with weights $1/2$ gives its mixture bound on the same simultaneous event.
+The fixed success criterion is $B>0$ in every population and a mixture bound
+greater than $0.001$ for each parent. Complete-cohort counts and exact fractions
+determine this decision, with no outcome-based sample extension.
+
+\subsection{Implementation checks and provenance}
+Eight hash-pinned neural fixtures reproduce complete source trajectories,
+public identification, the selected roots, reconstructed posteriors and saved
+selections. The independent true-parent evaluator agrees on both adopted
+value pairs. A further 36 component tests cover sampling, source replay,
+execution, statistical reduction and rejection of incomplete or altered
+records. These are fixed implementation fixtures. The prospective protocol
+binds 114 files and all 8,192 cases; the declaration and code are recorded in
+\path{docs/UNIFORM_CONTROLLER_EVALUATION.rst} and
+\path{scripts/uniform_controller_study.py}.

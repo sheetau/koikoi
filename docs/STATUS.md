@@ -85,7 +85,7 @@ lower bounds>0 and both equal-opponent parent mixture lower bounds>.1pp.
 Keep every missing-root/fallback zero in the denominator. Eight statistical/
 design tests pass. The new protocol is frozen and its source collection is now
 live, as recorded above. The runner/auditor/export passed36component tests plus eight
-pinned neural pipeline fixtures pass. The latter exactly match all eight old
+pinned neural pipeline fixtures. The latter exactly match all eight old
 selections and independently replay the true parent actor (no native action
 caches). Source/deck/program ledgers and complete-only statistical export are
 verified. The114frozen inputs remain intact. No reserved101M use.
@@ -110,11 +110,15 @@ EXPERIMENTS.md. The108frozen symbolic inputs remain intact.
 Current manuscript includes the complete symbolic result in Abstract,
 Introduction,Section9.5/Table11 and Conclusion. It leads with public
 reconstruction and executable policy compression,stating measured coverage
-and actual performance separately. PDF40pages/44refs;Abstract171/Intro425/
-Conclusion167words. Main text ends19. All40pages rendered/contact-reviewed;
-1/18/19full size;27embedded fonts,no TeX/layout/BibTeX warnings.
-PDF21254b53e5efd6a85d458c727df9db9c2e2711d0b191b99c52db686f1c481a9e;
-QA runs/manuscript_symbolic_results_qa.json passed. Tracked table/evidence:
+and actual performance separately. Section9.6 and AppendixL now explain the
+matching source/posterior law and exact simultaneous population-gain bounds;
+Related Work adds AIVAT. The ongoing8192-source study contributes design only,
+with no interim estimates. PDF42pages/46refs;Abstract171/Intro425/Conclusion167
+words unchanged. Main text ends20. All42pages rendered/contact-reviewed;
+5/19/37/38/40/41full size;27embedded fonts,no TeX/layout/BibTeX warnings.
+PDF23f4054ffa0b7a80093cc56ba6881c299deaf844288b411353bb8346fdddc5fc;
+QA runs/manuscript_uniform_method_qa.json passed. New method ledger:
+docs/paper/generated/uniform_method_evidence.json. Prior table/evidence:
 docs/paper/generated/symbolic_comparison_table.tex and
 docs/paper/generated/symbolic_comparison_evidence.json. Earlier experiment
 audits are reused;this editorial review adds no simulation/inference.
@@ -786,9 +790,10 @@ Public-seat and within-round reconstruction audits identify measured information
 loss and verify representations. These are theoretical/representation results;
 their empirical fixes did not establish replicated Koi-Koi win improvement.
 
-## Latest manuscript
+## Historical manuscript checkpoint
 
-**Latest verified manuscript:**38pages,40references,160-word Abstract,
+This earlier checkpoint is superseded by the current revision listed above.
+**Earlier verified manuscript:**38pages,40references,160-word Abstract,
 436-word Introduction and164-word Conclusion, now on page16. The opening
 foregrounds adaptation, critic conditioning and public-input recovery.
 A new Figure1 on page12 shows the exact complete-game expected update versus

@@ -1,0 +1,71 @@
+{
+  "status": "passed",
+  "scope": "Source-law composition and prespecified inference method only; no interim study results or changed policy.",
+  "bindings": {
+    "output/pdf/manuscript.pdf": "23f4054ffa0b7a80093cc56ba6881c299deaf844288b411353bb8346fdddc5fc",
+    "docs/paper/manuscript.tex": "a9e42c6afe004447468ea071267ea1e65daa171a2934c32df07ce63e05322437",
+    "docs/paper/references.bib": "46efd560a2a3e398393cd6cbc9558cdc38aa3cf3d066c52c85419ebad44b93a6",
+    "docs/paper/uniform_evaluation.tex": "bc699a097139249948038d31fe3d742d2b00ca3a781b6bc63217551f2cc57efa",
+    "docs/paper/uniform_evaluation_appendix.tex": "a31bd6300dcc1b5515217b5f47e0120485b5cdac63aa728b6715791a9e77450d",
+    "docs/paper/incumbent_tail.tex": "754bd1252e54f7c99d38f3427d055150e6cfc4d21e75306a0a1be92add9cff38",
+    "docs/paper/symbolic_tail.tex": "b39711c6077f4594a7ecba79b0a619e5ed3151044423850ff81857da9c501b6d",
+    "docs/paper/generated/symbolic_comparison_table.tex": "e539bc71e5a8d971a44085b93b8002fc3b5012e36db944e468fbfec19555b052",
+    "docs/paper/generated/symbolic_comparison_evidence.json": "2930cb48098c9ac1a86129de62488186ddce051ad17482668705ab845e8eb246",
+    "docs/LOGGED_POSTERIOR_COMPOSITION.rst": "ece4ce523525279c035bf0a3ac5b8cc62833d36ab24f00ee3d632b00a32fab65",
+    "docs/UNIFORM_CONTROLLER_EVALUATION.rst": "d0075c79932e2ae7b5c394172ada6cccfddc506bf7b97e04205152bbfdf234f1",
+    "runs/uniform_controller_evaluation/protocol.json": "bc5fce90a1fefb146f766e2be7177c67992292307cf896413b525ba1183dbfc9",
+    "runs/uniform_controller_preflight.json": "30524a0bdbee4bc9ac250c17dbed1b778d5e2b0fa8552d17b62f730519af332e",
+    "runs/manuscript_symbolic_results_qa.json": "4c978a51ff2d35722a0426ed4e0541431422516e8930779067c21fc438cb7132",
+    "runs\\manuscript_uniform_method_qa.json": "f389332410a9e1826745afb82e0414e745f8640d7e98ddb99e3ceaf484b73621"
+  },
+  "design": {
+    "version": "independent-uniform-controller-v1",
+    "populations": [
+      "0:wp",
+      "0:point",
+      "1:wp",
+      "1:point"
+    ],
+    "sources_per_population": 2048,
+    "source_matches": 8192,
+    "profile": "paper8",
+    "environment_seed": 1,
+    "initial_dealer": 0,
+    "learner_seat": "independent uniform randbelow(2) per source",
+    "round_deals": "independent uniform permutations conditional on valid_deal",
+    "entropy": "secrets.randbelow",
+    "thresholds": [
+      "1/1000",
+      "1/250",
+      "1/100",
+      "1/50",
+      "1/25",
+      "2/25",
+      "4/25"
+    ],
+    "family_error": "1/20",
+    "population_error": "1/80",
+    "bound_bits": 32,
+    "opponent_mixture_weights": {
+      "wp": "1/2",
+      "point": "1/2"
+    },
+    "practical_mixture_gain": "1/1000",
+    "criterion": "each population lower > 0 and each parent mixture lower > 1/1000",
+    "max_draws": 5,
+    "max_hands": 1000,
+    "capacity": 4096,
+    "phase_nodes": 500000,
+    "phase_decisions": 2000000,
+    "depth": 32,
+    "chunk_size": 16,
+    "workers": 4,
+    "extension": "none; source/audit failures stop inference, never resample"
+  },
+  "literature_sources": [
+    "https://ojs.aaai.org/index.php/AAAI/article/view/11481",
+    "https://poker.cs.ualberta.ca/publications/aaai18-burch-aivat.pdf",
+    "https://www.itl.nist.gov/div898/software/dataplot/refman2/auxillar/exacbino.htm"
+  ],
+  "no_interim_strength_results": true
+}

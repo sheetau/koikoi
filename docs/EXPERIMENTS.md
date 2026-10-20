@@ -9843,3 +9843,49 @@ The evaluation is running,not a completed strength result. All old fixed-seed
 actual-win results and their failed criterion remain unchanged. No canonical
 human-play/dealer or reserved101M changes. Continue monitoring the exact job;
 goal remains active pending stronger-play evidence and paper integration.
+
+
+## 2026-10-21: matching-law evaluation method and prior-work attribution in paper
+
+The preceding goal turn made concrete progress:runner/auditor implemented and
+validated,protocol frozen,8192-source evaluation launched. This turn verified
+queue67440 and exact child identities live,with advancing CPU/source progress;
+the first complete16-source chunk passed its independent audit. No restart and
+no interim gain estimates used. The job continued through further audited chunks
+while the paper method was prepared;results remain pending.
+
+Added Section9.6 and AppendixL:uniform-valid-deal/current-history posterior,
+integer suffix multiplicities,total-expectation target and prespecified threshold
+survival lower bound. Stated the simultaneous coverage event explicitly before
+the random lower-bound inequality. Kept all fallback zeros,2048per population,
+8192total,seventext thresholds,error1/560,allfour lower>0 and both mixture
+lower>.001 as frozen. The new method section states that evaluation is running;
+no empirical results are invented or imported from interim records.
+
+Related Work adds AIVAT's unbiased variance-reduction context and distinguishes
+direct exact conditional expectations from its trajectory correction terms.
+Read primary AAAI2018 article DOI10.1609/aaai.v32i1.11481 and Alberta PDF;
+NIST Dataplot exact-binomial documentation supplies the one-sided inversion
+reference. Bibliography now46entries. Original Clopper--Pearson DOI lookup was
+inaccessible;it was not added as an unread primary reference. All derived bounds
+also match the independently checked local rational calculator.
+
+Edited only paper files outside the114frozen study inputs. Existing main text,
+Abstract/Introduction/Conclusion and numerical results remain;new inputs add
+the method subsections and appendix. Prior symbolic evidence/QA reused with its
+old main-file binding treated as a historical snapshot. Tectonic build succeeds;
+Fontconfig notice unchanged. python runs/render_uniform_method.py renders42pages;
+all contact sheets and full pages5/19/37/38/40/41 visually checked. After a precise
+coverage-event wording edit,rerendered and rechecked the last contact sheet.
+27fonts embedded,no bounds/box/glyph/reference/BibTeX warnings. The initial
+mechanical text check expected title-case `Exact Binomial`;BibTeX sentence-case
+output is `Exact binomial`,so only that case-sensitive lookup was corrected.
+
+PDF23f4054ffa0b7a80093cc56ba6881c299deaf844288b411353bb8346fdddc5fc;
+backup output/pdf/manuscript_before_uniform_method_21254b53.pdf. Main text ends20;
+Abstract171/Intro425/Conclusion167words unchanged. QA
+runs/manuscript_uniform_method_qa.json passed;tracked ledger
+docs/paper/generated/uniform_method_evidence.json binds draft,method,protocol,
+preflight and sources. Paper README/STATUS updated,including labeling an old
+38page status entry historical. No new simulation for this editorial work.
+The independent-uniform evaluation remains active and the goal is not complete.

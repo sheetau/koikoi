@@ -1,0 +1,26 @@
+\subsection{Evaluating population improvement}
+\label{sec:uniform-evaluation}
+The conditional-improvement identity supplies a population target when source
+generation and the evaluated posterior agree. We implement a source that samples
+each round independently and uniformly from valid deals, retaining the existing
+initial-month rule. The learner's seat is assigned independently with probability
+$1/2$. Earlier-round public identification supplies the fixed opponent, and
+complete current-round replay supplies the hand posterior. Appendix~\ref{app:uniform-law}
+derives the correspondence between this source and the planner's integer masses.
+
+The evaluation has four populations: each of the two parents against each of
+WP and Point, with 2,048 sources per population. Every source contributes one
+$\Delta(H)$, including zero for missing roots and all parent fallbacks. Its mean
+estimates the expected match-win improvement over that parent under the declared
+law. Independent Python evaluation invokes the parent actor directly and executes
+the candidate's complete program through all remaining draws; it checks both
+values without importing native search action caches.
+
+For inference, seven prespecified gain thresholds provide exact binomial lower
+bounds on the frequency of improvements of different sizes. Their weighted sum
+gives a lower bound on the population mean. We allocate a total error probability
+of $0.05$ across all four populations and seven thresholds. Success requires
+positive lower bounds in all four populations and a lower bound above
+$0.1$ percentage point for each parent's equal WP/Point mixture. The sample
+size, thresholds, policy and budgets were frozen before collection. This
+8,192-source evaluation is in progress; the draft reports its design only.
