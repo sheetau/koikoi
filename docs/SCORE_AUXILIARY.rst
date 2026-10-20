@@ -2,8 +2,9 @@ Separating outcome and within-outcome score supervision
 ======================================================
 
 Status: complete-outcome collection, auxiliary training and exact resume are
-implemented and checked at production batch sizes; no strength trial or
-promotion. The current manuscript reports completed studies and does not include
+implemented and checked at production batch sizes. The fixed main learning
+study in SCORE_AUXILIARY_MAIN.rst is now running; strength evaluation and
+promotion have not occurred. The current manuscript reports completed studies and does not include
 this proposal as a result. Initial dealer selection is unchanged.
 
 Motivation and distinction
@@ -91,13 +92,13 @@ coefficient1; this is not yet a frozen full-study configuration.
 Required next implementation
 ----------------------------
 
-The collection/training/resume requirements below are now checked. Next freeze
-and execute a three-arm, two-seed comparison: PPO alone, outcome auxiliary and
-full-score auxiliary. Fix initialization, auxiliary cadence, all learning
-budgets, mechanism diagnostics and paired fresh-deal evaluation before strength
-outcomes. The default component interval25 has not been selected as the main
-study cadence. A bounded sample per player/phase is much smaller than a PPG
-buffer retaining every policy observation; budget that distinction explicitly.
+The collection/training/resume requirements below are now checked. The fixed
+three-arm,two-seed main study is documented in SCORE_AUXILIARY_MAIN.rst and
+running at runs/score_auxiliary_study. Its auxiliary interval5 replaces the
+provisional component default25 for this experiment, based on bounded sample
+volume rather than strength outcomes. Main initialization, budgets, mechanism
+diagnostics and paired evaluation are fixed before results. Next implement
+separate evaluation/auditing while preserving all learning endpoints.
 
 Use equal PPO decisions and equal requested complete auxiliary matches across
 arms. The resulting auxiliary decisions, retained rows, minibatches and runtime

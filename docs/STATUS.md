@@ -11,7 +11,7 @@ Old process handles mentioned in that history are historical, not live jobs.
 
 ## Current experiment and next actions
 
-**Next intervention: outcome-coarsened score auxiliary learning.**
+**Score-auxiliary main learning is active.**
 [Design and capability](SCORE_AUXILIARY.rst). A new isolated component reuses the
 published actor encoders with65-category terminal-margin heads. The matched
 win-only loss aggregates identical logits into loss/draw/win; the score loss
@@ -36,12 +36,38 @@ runs/score_auxiliary_training_capability/report.json SHA256
 49e24dc6f33247b69b8922d71d2716fcdaf676220b75c2630785ea829b833f9e;
 all49saved file digests verify. Capability endpoints are not strength evidence.
 
-No full study is running. Next freeze and launch the three-arm/two-seed
-PPO/outcome-auxiliary/score-auxiliary comparison, including auxiliary cadence,
-mechanism diagnostics and fresh paired evaluation. The bounded per-player/phase
-sample is smaller than a full PPG observation buffer; account for that when
-fixing cadence. Match PPO decisions and requested auxiliary complete matches;
-actual auxiliary decisions/rows/optimizer work can differ as policies change.
+[Frozen main protocol](SCORE_AUXILIARY_MAIN.rst) is committed as8e4510a.
+Runner session20751,actual Python PID17896 is verified live in
+runs/score_auxiliary_study. It runs seed1_none/win/score,then seed2_none/win/score
+sequentially. Do not restart from a quiet log or change bound learning sources.
+The first arm has completed20critic-only updates and entered policy learning;
+the first full auxiliary-collection checkpoint(update25) exists. A stored-state
+check confirms unchanged actor,changed critic and correct warmup counters:
+327,680decisions/21,010round endings/2,689matches;value Adam1,920steps,actor0.
+This is not a strength or endpoint result.
+
+Main:two fresh seeds106110001/106210001,all original Point initialization,
+20warmup+500policy updates each. Total51,118,080PPO decisions. Auxiliary
+interval5,128complete matches/phase,6epochs,128-row minibatches:100phases and
+12,800auxiliary matches per arm,76,800total. None collects but does not optimize.
+The cadence accounts for the bounded reservoir dataset; it is fixed before
+strength outcomes. Actual auxiliary decisions/rows/steps can differ by policy.
+
+Protocol9ba0bd7b1d187d59269af336537ceab890bf8884a969a9df073dcd626e686f46
+binds107inputs. Prior recorded seed scan:3,764JSON files/759seed-bearing files,
+zero overlaps/unreadable after BOM-aware reading of9legacy UTF16benchmarks.
+Old files are unchanged. Scan7ac1594d4eb01c4d42faad10649bde06dfb9a9b194ce8216b91c91448438d022.
+Runner tests5pass0skip(5.61s);additional encoding scan test1pass4deselected,
+0skip(1.38s). Test execution work is separately recorded in EXPERIMENTS.
+
+Fixed evaluation:all6endpoints+2retained parents,strict assistedWP/Point,
+4,096shared paired deals per opponent,both seats,131,072actual matches.
+WP109110001/Point109210001,bootstrap109310001/10kreplicates. Six simultaneous
+mixture-win lower bounds must all exceed zero:score minus none,win and retained
+at both seeds. All120secondary coordinates remain descriptive;seed1_score is
+prospectively named if the full development criterion passes. No automatic
+promotion or101Mconsumption. Next implement the separate evaluation/auditor and
+predeclared mechanism reporting while learning runs; preserve all endpoints.
 Do not reopen closed sweeps or use reserved101M deals. Parent selection and the
 canonical player remain unchanged. Stronger play/substantive novelty remain open.
 

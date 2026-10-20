@@ -7032,3 +7032,85 @@ Milestone digests:
 - runs/score_auxiliary_collection_fixed_tests.xml: 52a7864f8b6b88a5f8083a281dafa7386b4114b30aa4b68cf5f3db63f6c69aac
 - runs/score_auxiliary_trainer_tests.xml: 1669391ef61c1058e73e87be84b0844665ed01e69a06c098e4c96d5a2104e093
 - runs/score_auxiliary_training_capability/report.json: 49e24dc6f33247b69b8922d71d2716fcdaf676220b75c2630785ea829b833f9e
+
+
+## Fixed score-auxiliary main learning launched, 20 October 2026
+
+Previous turn made verified integration/capability progress(007209b). Added
+SCORE_AUXILIARY_MAIN.rst and scripts/train_score_auxiliary_study.py. Main design
+fixes two fresh original-Point seeds106110001/106210001 x none/win/score,
+20critic-only+500policy updates per arm,128env/horizon,512minibatch/3epochs,
+standard published PPO rates/entropy/lambda. Total51,118,080PPO decisions.
+Auxiliary interval5,128complete matches per phase,6epochs/128minibatch,
+100phases/12,800matches per arm;76,800auxiliary matches total. Same architecture,
+initialization,initial critic/environment/optimizer/RNG,first collection and
+local chance schedules within each seed. None collects without auxiliary steps.
+
+Cadence5 is based on data accounting before outcomes: at most1,024retained rows
+and48auxiliary steps per phase versus480PPO steps in5policy updates; auxiliary
+example presentations at most2.5% of PPO's. This accounts for bounded reservoir
+sampling rather than importing PPG's full-buffer cadence. It is not proof of
+sufficient learning or a new general auxiliary algorithm. Matched requested
+matches do not imply equal actual decisions/rows/minibatches/runtime.
+
+Fixed evaluation:6final endpoints+2retained parents x strict assistedWP/Point,
+4,096shared paired deals per opponent,both seats,131,072matches on8,192streams.
+WP109110001--109114096,Point109210001--109214096;bootstrap109310001/10kreplicates.
+Primary6simultaneous95% mixture-win differences:score minus none,outcome-only,
+retained parent at both seeds,all lower bounds strictly positive. Report all120
+secondary absolute/paired win/point coordinates. Candidate seed1_score fixed;
+no better-seed selection or automatic promotion. Reserved101M remains unused.
+Mechanism:all100training-phase NLL/KL records plus final-actor outputs on the old
+25validation source groups,not training/visitation/causal/generalization proof.
+
+Runner checks hashes,first-state/warmup/first-collection equivalence across arms,
+PPO environment/counter accounting and auxiliary work/step arithmetic. Saves
+initial,warmup,first auxiliary,every25policy update and final checkpoints,plus
+all100compact collection records per arm. A started receipt prevents automatic
+restart; partial failure remains preserved. No evaluation is run by this learner.
+
+Five runner tests pass0skips5.61s. Includes two actual small CPU arms through
+20warmup+5policy updates and first auxiliary phase,stage persistence,ordinary
+accounting,matched first collection,seed ranges,corruption and restart rejection.
+Verification PPO400decisions/24round endings/0completed matches;auxiliary
+522decisions/32round endings/4matches,shared2deal streams. These are capability
+computations and not main learning or strength evidence. An additional targeted
+BOM-aware scanner test passes1,4deselected,0skips1.38s with no simulation.
+Ruff lint/format/diff checks pass.
+
+First prepare attempt(session10783) exits1 because9old benchmark JSON files
+have UTF16BOMs,not UTF8. No seed overlap,learning or source-data modification.
+The rejected scan remains runs/score_auxiliary_seed_scan_rejected.json. The
+scanner now honors UTF8/16/32BOMs; a fixture verifies legacy input. Second prepare
+session23831 exits0:3,764JSON files/759seed-bearing files,zero overlap/unreadable.
+The scan covers recorded seed-named integer fields,not unrecorded work or all
+implicit schedules. Scan SHA7ac1594d4eb01c4d42faad10649bde06dfb9a9b194ce8216b91c91448438d022.
+
+Prepared protocol runs/score_auxiliary_study/protocol.json
+9ba0bd7b1d187d59269af336537ceab890bf8884a969a9df073dcd626e686f46 binds107inputs.
+Code/protocol committed/pushed8e4510a before launch. Commands:
+.venv/Scripts/python.exe -m scripts.train_score_auxiliary_study prepare
+--output runs/score_auxiliary_study
+.venv/Scripts/python.exe -m scripts.train_score_auxiliary_study run
+--output runs/score_auxiliary_study
+Actual training session20751/Python17896 is live and finite metrics advance.
+At inspected update38 of first none arm:PPO622,592decisions/40,165rounds/
+5,186matches;auxiliary45,153decisions/2,952rounds/384matches. This is an advancing
+snapshot,not an endpoint. The update25checkpoint completes successfully.
+
+Stored warmup check separately verifies all original actor tensors unchanged,
+critic changed,20updates/327,680decisions/21,010rounds/2,689matches,value Adam
+1,920steps/actor0. Initial manifest427f1f72ae852c2d402ede2797e772077ffb581c5bc1737fc5cbdf356412f3e8;
+warmup1515cc26c891aba1605248e8ae591c23740a16ec46511fc0299a138ed5086d00.
+This reads existing states,adds no learning/simulation,and is not a full endpoint
+audit. Next prepare evaluation and mechanism tooling while fixed learning runs.
+Canonical player/dealer and the35-page verified manuscript are unchanged.
+The stronger-play/substantive-novelty objective remains active and unachieved.
+
+Milestone digests:
+- scripts/train_score_auxiliary_study.py: 760af135b1c4a865cb9193868b0f2788652a530cd98a0bf176150f354fc47a62
+- tests/test_train_score_auxiliary_study.py: c2be9d2c662348e0bcf52cc6e673bcd35ef6c02191c3ee7cdbacfdf8041c55d3
+- docs/SCORE_AUXILIARY_MAIN.rst: 31fb6bafc7cb5f2890406b9b83dd6c22f3d54c4c04856587037b5cfe89360b75
+- runs/score_auxiliary_study_runner_tests.xml: abf32ffa53f7b9e72e2a88e08ffb2791bd734a4a0cee11e7d26f46353fa786b6
+- runs/score_auxiliary_seed_scan_tests.xml: 320f18b0c9be40f0f6d278bf13bcfb99c295ce573293198e0bb6f1c5ace0afb1
+- runs/score_auxiliary_launch_check.json: d40b126333f05a57a9d7cdd34c0e060c35db53d506e1eede7ab62622afcfb95e
