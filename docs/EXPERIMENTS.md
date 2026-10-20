@@ -8662,3 +8662,32 @@ Exporter8efd1d005c513ae84056d188435ac197319d47a7b2e39ee85247e39c6dbe1cca.
 No training, model promotion, reserved101M use or manuscript change. Goal active.
 Next investigate public admissible outcome bounds on saved data; no further
 source collection or larger-cap run is authorized by this analysis milestone.
+
+## 2026-10-20: public final-round bound verified; saved coverage is limited
+
+Added scripts/public_tail_bounds.py: optimistic capturable-card superset and
+maximum over all remaining possible koi counts bound final round awards.
+Public score margins then certify strict final wins/losses independently of
+opponent policy. docs/PUBLIC_TAIL_BOUNDS.rst gives the argument and scope.
+python -m pytest tests/test_public_tail_bounds.py -q:7 passed,0 skips,1.93s.
+Tests cover component monotonicity, the nonmonotone3-to4 declaration formula,
+strict bounds, seat reversal, private-state invariance and all legal continuations
+on eight late fixtures with every next stock card and three synthetic margins.
+Initial fixtures lacked draw-capture phases; expanded fixtures cover all4 phases.
+
+python -m scripts.check_public_tail_bounds completed0 (session71770).
+All28 completed roots' policy/cached-action keys and33 source roots checked.
+Hashes bind inputs and each artifact; no new simulator decisions, policy calls,
+source matches, training or strength evidence. Unit-test work is separate.
+Fixed certificates25,801/305,425 keys; optimized25,801/299,564;opponent13,220/552,339.
+Sources2/34 certify already at the root and account for25,715 of25,801 learner
+certificates; only86 learner keys elsewhere qualify. None of six positive-gain
+roots has any certified saved keys. None of five remaining refused roots is
+certified; their partial interior caches were not saved, so coverage is unknown.
+Unweighted key coverage is not physical transition savings or measured latency.
+This coarse bound is correct but the observed coverage does not support making
+it the next recovery optimization. No planner integration or larger-cap run.
+Report docs/PUBLIC_TAIL_BOUND_COVERAGE.rst is byte-identical to saved report.
+Complete06dc246eb69c23621dd71e15b80922785acffb0218b8fe279eede22556db44a7.
+Report43df90f6bb98deba1c11b126a9f80ab96805f0c64198521d97a57d2e4a129030.
+No model promotion, reserved101M use or manuscript rebuild. Goal remains active.

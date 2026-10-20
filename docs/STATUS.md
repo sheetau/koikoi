@@ -172,8 +172,26 @@ Receipt runs/ceiling_tail_recovery_export.json binds the exporter and old/new
 artifacts, verifies all exact values and computed/omitted action sets, and
 independently replays actual suffixes. Export succeeds; lint/format pass.
 Goal active; canonical play/PDF unchanged, reserved101M unused. New replicated
-match-win improvement remains open. Next assess admissible public outcome
-bounds before changing the planner or launching another study.
+match-win improvement remains open. A saved-data public-outcome bound check is now complete (session71770 exited0).
+[Bound and proof](PUBLIC_TAIL_BOUNDS.rst); [coverage](PUBLIC_TAIL_BOUND_COVERAGE.rst).
+Seven tests pass,0 skips,1.93s. Every possible next stock card and all subsequent
+legal choices are checked on eight late fixtures at three synthetic margins;
+this is finite verification, not exhaustive hidden-deck enumeration.
+Public captures plus remaining declaration opportunities give conservative
+final margin intervals; strict one-sided intervals certify a fixed win/loss.
+No rules or production policy change. No new simulation/model-call/source work
+in the saved-data coverage check (unit-test transitions are correctness work).
+Coverage:25,801/305,425 fixed learner keys;25,801/299,564 optimized learner keys;
+13,220/552,339 opponent keys. Counts are per-root/method unique keys, unweighted.
+25,715 of25,801 certified learner keys belong to sources2/34, already certified
+at the root. Only86 learner keys elsewhere qualify. None of the six positive-
+gain roots has certified saved keys. No remaining refused root is certified;
+no partial-tree interior cache exists. These results do not justify integrating
+this coarse bound as the next recovery optimization. No speedup was measured.
+Complete06dc246eb69c23621dd71e15b80922785acffb0218b8fe279eede22556db44a7.
+Report43df90f6bb98deba1c11b126a9f80ab96805f0c64198521d97a57d2e4a129030.
+The analysis is closed. Any tighter bound needs new reasoning and verification;
+do not simply repeat this check or raise the closed recovery budget.
 
 A saved-gradient block analysis is also closed: runs/branch_gradient_blocks.
 It verifies all four previous full-gradient totals by splitting 768 output
