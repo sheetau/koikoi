@@ -8317,3 +8317,15 @@ Standard full-trajectory REINFORCE supplies a missing control, not novelty.
 Main launched: `python -m scripts.full_source_study`, session98245 / PID58904,
 commit17a684c. Process reports training; no main strength result yet. Protocol
 SHA256 d878e4c8307f711e4fb1a3460502bf1fa6de353ede85b168f81a1d725ab00447.
+
+## 2026-10-20: full-source complete-only results exporter
+
+Added scripts/export_full_source_results.py while the fixed main study runs.
+It requires completed training/evaluation receipts and both passing audits,
+checks their identity chain and metrics hashes, and exports all6primary,
+12secondary and28absolute matchup rows plus source/branch/gradient work.
+It does not repeat neural inference, optimizer steps or the transition audits.
+Ruff format/check and diff check pass. Calling it against the unfinished main
+run rejects missing finished.json and writes neither report nor receipt.
+The actual complete-data export remains pending; no result or promotion follows
+from this capability check. Main session98245 / PID58904 remains live.

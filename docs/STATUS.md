@@ -13,7 +13,7 @@ Old process handles mentioned in that history are historical, not live jobs.
 
 **The eight-arm root-allocation/step-size study is complete. Its predefined
 strength criterion fails; one candidate-minus-parent primary interval is
-wholly negative. All training/evaluation audits pass. No study job remains live.**
+wholly negative. All training/evaluation audits pass. That study has no live job.**
 [Full results, all comparisons and work](PRIORITY_BRANCH_RESULTS.rst).
 Session 92368 / PID 33408 exited0. Do not restart runs/priority_branch_study.
 Training protocol SHA256 4543224c95c1ec5e9c24cfa0ed6f4450eda956e3d8e5bf79f125bd9fa105e79b.
@@ -50,7 +50,9 @@ not strength evidence. Ruff passes. Main session98245 / PID58904 is live in
 runs/full_source_study, launched from commit17a684c. Protocol SHA256
 d878e4c8307f711e4fb1a3460502bf1fa6de353ede85b168f81a1d725ab00447.
 Next: await training, transition audits, evaluation and statistical audit; then
-report every predefined comparison. Do not restart the directory or alter bound
+report every predefined comparison with scripts/export_full_source_results.py.
+The exporter is linted and rejects the unfinished main run without output; its
+complete-data export has not run yet. Do not restart the directory or alter bound
 implementation/protocol files while it is running.
 
 This control removes conditional root-selection covariance from sampled-return
