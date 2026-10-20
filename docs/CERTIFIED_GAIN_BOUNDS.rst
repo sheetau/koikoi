@@ -5,8 +5,8 @@ scripts/certified_gain_bounds.py computes a conservative lower confidence bound
 on mean nonnegative conditional improvement. Together with a matching deal law,
 it provides a way to measure the population effect of exact local improvements.
 It is a statistical component, with no study, threshold grid or sample size yet
-selected. The running symbolic comparison must finish before the next evaluation
-is chosen. Existing fixed-seed results and their failed strength criterion stay
+selected. The symbolic comparison is complete; the next evaluation remains
+to be frozen. Existing fixed-seed results and their failed strength criterion stay
 as recorded; this component has not been applied to them.
 
 Population and observations
@@ -24,8 +24,8 @@ When the evaluator's full posterior is the conditional law of the source,
 INCUMBENT_GUARANTEE.rst gives E[Delta] as the expected match-win improvement.
 This is a conditional-expectation estimate, distinct from a count of observed
 wins. UNIFORM_DEAL_SOURCE.rst supplies the deal-sampling component; integrating
-it with a fully checked history/opponent posterior remains part of any future
-study. Deterministic seeds alone do not supply independent draws from that law.
+it with the history/opponent posterior is documented and tested in
+LOGGED_POSTERIOR_COMPOSITION.rst. Deterministic seeds alone do not supply independent draws from that law.
 
 Bound and computation
 ---------------------

@@ -2,7 +2,7 @@ Sampling the deal law used by the conditional guarantee
 ======================================================
 
 The current conditional evaluator uses a uniform distribution over valid deals
-and fixed deterministic opponents. The completed and running512-source studies
+and fixed deterministic opponents. The completed512-source studies
 instead reproduce deals from small fixed seeds. Uniform remaining-card weights
 are not the posterior over those finite seeds. Their actual outcomes and exact
 conditional values must therefore remain distinct evidence. None of the existing
@@ -10,8 +10,9 @@ protocols, outcomes or strength criteria changes here.
 
 scripts/uniform_deal_source.py prepares a separate source generator for a future
 evaluation under the guarantee's stated deal law. No evaluation is scheduled or
-launched by this module. The existing symbolic comparison must complete before
-choosing the next study, its population, estimator, sample size and criterion.
+launched by this module. The symbolic comparison is complete. LOGGED_POSTERIOR_COMPOSITION.rst gives
+the subsequent source/posterior argument and pinned-actor integration checks.
+A fresh study still needs its population, estimator, sample size and criterion.
 
 Sampling and replay
 -------------------

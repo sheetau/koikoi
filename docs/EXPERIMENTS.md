@@ -9693,3 +9693,37 @@ Validate the full source/posterior composition and prospectively fix population,
 sample size,thresholds,error allocation and practical criterion before launch.
 No new study is frozen/scheduled;no101Mreserved use. Additional strength remains
 unproven and the user goal remains active.
+
+
+## 2026-10-21: logged-source/posterior composition validation
+
+Added tests/test_logged_source_posterior.py and LOGGED_POSTERIOR_COMPOSITION.rst.
+Eight fixed fixtures are the first eligible record in each old parent/opponent/
+seat cell:1,3,4,5,7,8,10,46. No outcome/gain selection and no fresh evaluation.
+Protocol/checkpoints/chunk bindings checked; recovered round tapes reproduce all
+source actions, terminal states, public identity events/calls and selected roots.
+Separate audit recomputes actors and gate without new external chance. Complete
+hand supports have1/1/1/5/5/1/43/4compatible candidates. Deferred weights and
+own/public information agree;52historical packed-input/mask checks pass under
+alternative hands. Reduced-deck exhaustive counting checks uniform posterior
+and next-draw multiplicities after validity and deterministic-action filtering.
+
+Command:.venv/Scripts/python.exe -m pytest tests/test_logged_source_posterior.py
+-q -s;9passed, one upstream Transformer performance warning. Ruff check and
+format check pass. Initial test-only status/path assumptions corrected to match
+the bound complete record and POSIX checkpoint keys; invariants not weakened.
+One successful diagnostic rerun captured separate work;both runs use the same
+fixed tapes and add no independent samples. Per run:970source decisions,64rounds,
+8matches;seed recovery/native/audit each separate970/64/8. Hand enumeration
+10101replay decisions/5117opponent calls;alternative histories210decisions.
+Source and audit each486parent/484opponent calls;identification102Point/105WP.
+Receipt:runs/logged_source_posterior_validation.json. PowerShell-redirected
+diagnostic log converted from UTF16 to UTF8 without BOM; new tracked files LF.
+
+Documented the uniform-valid-deal/current-history posterior factorization,
+earlier-round model identification, constant learner-action likelihood and
+P(n,d) stock multiplicities. Tests are implementation fixtures, not entropy or
+strength certification. New evaluation design is under consideration; no source
+samples generated, no protocol frozen, no old cohort/reserved101M reopened.
+Closed-cohort sample-size projections are only planning, not power calculations
+or inferential results under the different source law. Goal remains active.

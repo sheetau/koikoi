@@ -61,8 +61,10 @@ Neither subsequent computational comparison changes that failed criterion.
 
 Next: evaluate the executable controller under a source law that matches its
 exact conditional belief, using the prepared independent valid-deal sampler,
-logged public collector and exact nonnegative-gain bounds. First verify the
-full source/history/posterior composition,then specify the population,strata,
+logged public collector and exact nonnegative-gain bounds. The source/history/
+posterior composition is now documented and checked on
+eight pinned real-actor fixtures (nine tests, including finite counting).
+See LOGGED_POSTERIOR_COMPOSITION.rst. Next specify the population,strata,
 fixed sample size,threshold grid,error allocation and practical effect criterion
 before freezing a fresh protocol. Keep all missing-root/fallback prefixes in
 the denominator. No new protocol is frozen or launched. No reserved101M use.
@@ -78,8 +80,10 @@ certified_gain_bounds.py(5tests,.08s) uses exact rational binomial inversion and
 a simultaneous survival staircase. All pass Ruff. Tests use deterministic
 fixtures and finite enumerations,not naturally sampled strength evidence.
 See UNIFORM_DEAL_SOURCE.rst,LOGGED_PUBLIC_SOURCE.rst,CERTIFIED_GAIN_BOUNDS.rst.
-Their correctness does not by itself establish IID sampling,full posterior-law
-agreement,or stronger play. Historical implementation/test details are in
+The law-composition argument and fixed neural-actor integration fixtures are
+now recorded separately. They establish neither OS entropy quality nor stronger
+play; fresh inference still requires the declared independent sampling law.
+Historical implementation/test details are in
 EXPERIMENTS.md. The108frozen symbolic inputs remain intact.
 
 Current manuscript includes the complete symbolic result in Abstract,
