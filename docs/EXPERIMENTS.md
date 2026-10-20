@@ -6771,3 +6771,34 @@ workers30096/48240 are gone; parent log records completion and successor starts.
 Queue session25193/actual42304 remains live,with no failure/terminal receipt.
 Do not restart or duplicate evaluation. Native replay,statistics export and
 any candidate qualification remain pending. Canonical player/dealer unchanged.
+
+## Second Point-initialized main evaluation cells complete, 20 October 2026
+
+parent2_point_fixed_wp and parent2_point_fixed_point each finish8,192matches.
+Their producer counters are945,444/960,384decisions and63,765/63,166round
+endings. Combined new work:16,384matches /1,905,828decisions /126,931rounds.
+Fourteen of16cells are now complete:114,688matches /13,327,226decisions /
+889,231round endings.
+
+Verified completion status,exact newline-terminated row counts,rawSHA,
+protocolSHA,checkpointSHA and checkpoint,parent,policy,opponent and first-seed
+identity against the fixed protocol. No partial outcome means were inspected.
+This verifies producer metadata only; the full native-action/statistics audit
+remains pending. Receipt hashes:
+- WP:422c240911c555ef428c40b190bbb8c0cad4661e73f056aa882be3d3c4d55203
+- Point:b868fb46cf7eb14b6160fde0216f6809ae02560665e533ee10498a5570938672
+Raw record hashes:
+- WP:57777a27070412fc5843a340eb58cb7081df416f9cb33d38d625f8be247d4258
+- Point:39f0253c56b97035c217ba2a7c68686177d929d58c0252bc5cef769a1b3d9710
+Metadata check runs/point_initialization_second_point_cells_check.json
+SHA c2d4979f730766234051d2adb89b70951db0f37c6c3ec25ebe6390295c5ec5e5.
+The check hashes the raw files and checkpoint and compares protocol identities;
+it performs no neural inference or native replay and adds no simulated work.
+
+Evaluator53480 starts parent2_point_matched_wp at08:55:00JST,
+launcher64044/actual31196,and parent2_point_matched_point at08:59:25JST,
+launcher61980/actual61892. Both are OS-live and writing records. Previous
+workers53044/39900 are gone. These are the final two evaluation cells.
+Queue session25193/actual42304 remains live,with no failure/terminal receipt.
+Do not restart or duplicate evaluation. Native replay,statistics export and
+any candidate qualification remain pending. Canonical player/dealer unchanged.

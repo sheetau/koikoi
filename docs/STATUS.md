@@ -169,21 +169,20 @@ Protocol SHA1df245b6fea1799c0ed9f91518642ccb3d1e4bf9c0f7e682a1208819e609b7e7
 binds187inputs and all12training audits. The16cells use4,096paired deals per
 opponent,131,072planned matches, and the previously fixed bootstrap family.
 Evaluator launcher6284/actual53480 started04:45:17JST and remains live.
-The first twelve cells are complete: all four parent1 policies and the retained
-parent2 and parent2_wp_fixed policies against WP and Point with8,192matches
-per cell. Completed-cell producer totals are98,304matches /11,421,398decisions /
-762,300round endings. The two new WP-initialized cells add16,384matches /
-1,903,958decisions /126,756round endings. Receipt hashes,raw-file hashes,
-complete row counts and protocol/checkpoint identities agree. This is producer
-completion,not the later native-action/statistics audit or strength evidence.
-No partial outcome means were inspected.
+The first fourteen cells are complete: all four parent1 policies and the retained
+parent2, parent2_wp_fixed and parent2_point_fixed policies against WP and Point
+with8,192matches per cell. Completed-cell producer totals are114,688matches /
+13,327,226decisions /889,231round endings. The two new Point-initialized cells
+add16,384matches /1,905,828decisions /126,931round endings. Receipt hashes,
+raw-file hashes,complete row counts and protocol/checkpoint identities agree.
+This is producer completion,not the later native-action/statistics audit or
+strength evidence. No partial outcome means were inspected.
 
-At08:23JST the next workers are OS-live: parent2_point_fixed_wp
-launcher31812/actual53044(start08:19:59),and parent2_point_fixed_point
-launcher30532/actual39900(start08:23:43). The preceding workers30096/48240
-have exited,and the parent log records both cell completions. Twelve of16cells
-are complete; do not rerun them. Later worker IDs are owned by evaluator53480
-and must be rediscovered.
+At09:00JST the final workers are OS-live: parent2_point_matched_wp
+launcher64044/actual31196(start08:55:00),and parent2_point_matched_point
+launcher61980/actual61892(start08:59:25). The preceding workers53044/39900
+have exited. Fourteen of16cells are complete; do not rerun them. The remaining
+two cells are owned by evaluator53480.
 Monitor evaluation_complete.json/evaluation_failed.json in the evaluation root,
 and complete.json/failed.json in the completion-queue root. Track actual process
 handles and newline-terminated row counts without interpreting partial outcomes.
