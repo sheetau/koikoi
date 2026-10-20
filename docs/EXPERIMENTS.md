@@ -8813,3 +8813,32 @@ through unchanged maps/values/hashbindings. Actualtails get freshstrictopponents
 and separate complete trace replay. This does not test the full newsearchschedule
 or reconstruct unsaved incumbents. Commit beforelaunch; notyetlaunched here.
 Goalactive; no model promotion, reserved101M or manuscript change.
+
+## 2026-10-21: saved-plan execution complete; actual incumbent schedule ready
+
+python -m scripts.check_incumbent_execution completed0 (session96041).
+All64 sources retained:33available/31missing,3available without saved parentvalues.
+Seven strict adoptions:parent1five,parent2two. Conditional mean gains over32sources
+576449/76876800 (+0.749835pp) and2699329/457142400 (+0.590479pp). Realized win changes0.
+All66 parent/controller tails execute and separately replay; every parent matches
+its original suffix and fallback traces match exactly. Actual214decisions/66
+completions, separate replay same. Parentactor130/opponent84 calls. No newsearch,
+history, source, training or independent sample. This uses only saved complete
+plans; it does not test fresh search or unsaved incumbents.
+Completec5bc93283539291ecd67cb7af7ae634131a98bf90e8fb4932fc460f596606eb4.
+Protocol5e806932b7cd4f4794700b6462e46cff6cc0423bebd08e62da75a7c53a4bcf9e.
+Report11b2146894da59e12f8b7373308b47e7708d65f80940b682c9259a5a1f1fa0d4.
+Report docs/INCUMBENT_EXECUTION_RESULTS.rst is byte-identical to saved report.
+
+Added scripts/check_incumbent_recovery.py and docs/INCUMBENT_RECOVERY.rst.
+Actualpreflight133bindings/all5rootindices. Use actual fixedthenoptimized schedule
+at2Mphysical/500klive/depth32 perphase,4M/rootmaximum. Reuse bound supportworlds and
+partial public-keyed caches. Require oldfixed and oldattemptedoptimized work/calls
+reproduce exactly; newly attemptedoptimized4/20/52 phases are explicit newwork.
+Independent Python verifies newly retained completed policies; unchanged complete
+fixed maps reuse old oracle evidence. All5 selections freeze before freshstrict
+actualtails and separate replay. Full64 denominator and all fallbacks retained.
+New assessment helper tests against frozen adoptedsource0:1passed,0skips,1.90s;
+existing upstream Torch nested-tensor warning only. Lint/format pass.
+Commit beforelaunch; not yet launched at this entry. No newsource/historyreplay,
+training, promotion, final101M or manuscript change. Goal active.

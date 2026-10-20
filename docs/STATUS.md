@@ -265,13 +265,32 @@ Fresh schedule:fixed then optimized,2M decisions/500k live/depth32 each; skip
 optimized if parent unvalued or fixed value1; no transfer between phase caps.
 Execution uses own/public keys and rejects missing keys/wrong root/seat/identity.
 Four tests pass,0 skips,1.64s. [Protocol](INCUMBENT_CONTROLLER.rst).
-Saved-plan audit scripts/check_incumbent_execution.py preflight passes120 input
-bindings and all33 available roots. Reuse existing28 complete and2 completed
-fixed plans;3 roots lack saved parent values,31 lack roots. Freeze all selections
-before66 parent/controller conditional completions, fresh strict opponents, then
-separate trace replay. This tests available saved plans, not the full fresh
-search schedule or unsaved incumbents. No search/history/source extension.
-Commit before launch; audit not yet launched. Canonical play/PDF unchanged.
+Saved-plan execution audit is complete (session96041 exited0). All33 available
+roots /66 parent-controller tails pass execution and separate trace replay.
+Seven strict adoptions (parent1:5,parent2:2);31 missing and3 unvalued available
+roots retain parent. [All64 selections and work](INCUMBENT_EXECUTION_RESULTS.rst).
+Conditional gains over32sources:576449/76876800 (+0.749835pp) and2699329/457142400
+(+0.590479pp). All realized match-win changes remain0. This adds source0's fixed
+improvement to the adopted policies, not a fresh empirical strength result.
+Actual214decisions/66conditionalcompletions; separate replay same. Parentactor
+calls130/opponent84. No new search/history/source work or training. This audit
+did not run the full new search schedule or reconstruct unsaved partial plans.
+Completec5bc93283539291ecd67cb7af7ae634131a98bf90e8fb4932fc460f596606eb4.
+Protocol5e806932b7cd4f4794700b6462e46cff6cc0423bebd08e62da75a7c53a4bcf9e.
+Report11b2146894da59e12f8b7373308b47e7708d65f80940b682c9259a5a1f1fa0d4.
+
+Next scripts/check_incumbent_recovery.py preflight passes133 bindings and exactly
+five roots0/4/20/36/52. [Fixed protocol](INCUMBENT_RECOVERY.rst). Run the actual
+controller schedule,2Mphysical/500klive/depth32 perphase, at most4M/root. Reuse
+verified support/worlds and observation-keyed action caches. Fixed phases and
+previously attempted optimized phases must reproduce old work with0newcalls.
+Three newly eligible optimized phases are explicit additional work. Verify every
+newly retained completed root policy independently; prior complete fixed maps
+must match exactly to reuse old oracle evidence. Freeze all five selections
+before actualtails, retain all64 source outcomes. Assessment helper reproduces
+frozen source0 exactly:1test passed,0skips,1.90s (existing upstream Torch warning).
+Commit before launch; not yet launched at this entry. No source/cap escalation,
+canonical model, reserved101M or manuscript change. Goal active.
 
 A saved-gradient block analysis is also closed: runs/branch_gradient_blocks.
 It verifies all four previous full-gradient totals by splitting 768 output
