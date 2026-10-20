@@ -66,8 +66,23 @@ WP109110001/Point109210001,bootstrap109310001/10kreplicates. Six simultaneous
 mixture-win lower bounds must all exceed zero:score minus none,win and retained
 at both seeds. All120secondary coordinates remain descriptive;seed1_score is
 prospectively named if the full development criterion passes. No automatic
-promotion or101Mconsumption. Next implement the separate evaluation/auditor and
-predeclared mechanism reporting while learning runs; preserve all endpoints.
+promotion or101Mconsumption. The evaluation/analysis capability now passes
+([details](SCORE_AUXILIARY_EVALUATION.rst)):all16cells/64matches,7,089decisions,
+482round endings on4shared fixture deals. All recorded actions replay natively;
+all120secondary coordinates and6simultaneous primary bands reproduce separately.
+10focused tests pass0skips(3.61s). Capability session2640 and auditor exit0;
+no main strength evaluation has run. The capability repeats the same3small
+trained endpoints across both group labels,not independent learner replications.
+
+Capability protocol911f74110a9850ab421f402069a90f5cb29f5ee9bef9e11b00ae65a4c451a1ed;
+auditcdcd8942c20b8bb6e6a49c527d06289899b0d17e3f15828d78be891d975e99a4;
+summary4b0e40c458ee10c0f2e03155119a1232cda93d690c43d5bdf60d7c178e960e69.
+All158audit bindings and107live-training input hashes verify unchanged.
+Next implement the independent main training/collection/checkpoint auditor,
+then the completion queue and predeclared mechanism. Main evaluation preparation
+requires a complete six-arm study AND a passed training_audit.json; that audit
+producer is not yet implemented. Preserve all completed capability sources and
+outputs. Actual first learner remains live;update154 was verified advancing.
 Do not reopen closed sweeps or use reserved101M deals. Parent selection and the
 canonical player remain unchanged. Stronger play/substantive novelty remain open.
 

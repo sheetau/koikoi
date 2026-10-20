@@ -7114,3 +7114,81 @@ Milestone digests:
 - runs/score_auxiliary_study_runner_tests.xml: abf32ffa53f7b9e72e2a88e08ffb2791bd734a4a0cee11e7d26f46353fa786b6
 - runs/score_auxiliary_seed_scan_tests.xml: 320f18b0c9be40f0f6d278bf13bcfb99c295ce573293198e0bb6f1c5ace0afb1
 - runs/score_auxiliary_launch_check.json: d40b126333f05a57a9d7cdd34c0e060c35db53d506e1eede7ab62622afcfb95e
+
+
+## Score-auxiliary evaluation capability completed during main learning, 20 October 2026
+
+Previous turn made main-design/launch progress(8e4510a,eca5f04). Actual learner
+17896/session20751 is verified live; it was at first-arm update154 during this
+milestone with finite advancing metrics. No frozen learning input was modified.
+At that inspected prefix:PPO2,523,136decisions/164,986rounds/21,432matches;
+auxiliary388,589decisions/25,445rounds/3,328matches. These are not endpoints.
+
+Added evaluate_score_auxiliary.py,score_auxiliary_analysis.py,
+audit_score_auxiliary_statistics.py,audit_score_auxiliary_evaluation.py.
+All candidate endpoints use standard NeuralAgent/greedyCPU2/public endgame,
+strict original assistedWP/Point opponents and existing reference match helpers.
+Two owned subprocesses,exclusive outputs,failed-worker cleanup and restart
+rejection preserve complete/failed work. Native replay checks all recorded
+initial deals,actions,legal masks,final states,margins and work. It adds no new
+independent matches or neural action selection.
+
+Analysis retains all120absolute/paired win/point coordinates. Six simultaneous
+primary mixture-win comparisons include score-minus-outcome-only at both seeds,
+in addition to none/parent. Separate scalar summation,bootstrap chunking and
+sorted quantiles reproduce all coordinates/bands/flags. Tests prove that one
+missing outcome-only comparison blocks qualification even when the other five
+pass; point gains and opponent-specific wins cannot substitute. Degenerate
+empirical coordinates retain null intervals/no sign claim. No new inference
+method or statistical method is claimed.
+
+Initial seven analysis tests pass0skips0.25s,no simulation. Combined command:
+.venv/Scripts/python.exe -m pytest tests/test_score_auxiliary_analysis.py
+tests/test_score_auxiliary_evaluation.py -q -o junit_family=xunit1
+--junitxml=runs/score_auxiliary_evaluation_tests.xml
+passes10,0skips,3.61s(one expected Transformer warning). Actual neural endpoint
+cell test2matches/217decisions/13round endings on one110030001deal stream,
+plus recorded-action replay/corruption checks. Synthetic/failure-worker tests
+add no simulated matches or learning. Owned test workers terminate and the
+ongoing main learner remains untouched. Ruff lint/format/diff pass.
+
+Capability commands:
+.venv/Scripts/python.exe -m scripts.evaluate_score_auxiliary capability
+--output runs/score_auxiliary_evaluation_capability
+.venv/Scripts/python.exe -m scripts.evaluate_score_auxiliary run
+--protocol runs/score_auxiliary_evaluation_capability/evaluation_protocol.json
+.venv/Scripts/python.exe -m scripts.audit_score_auxiliary_evaluation
+--input runs/score_auxiliary_evaluation_capability
+
+Evaluator session2640 exits0 after all16cells; native/statistical auditor exits0.
+64actual fixture matches/7,089decisions/482round endings on4distinct shared deals:
+WP110010001/110010002,Point110020001/110020002. Three production-capability
+endpoints are reused under both group labels; no independent training replication
+or playing-strength estimate follows. Retained parents are also exercised.
+No main109M evaluation or reserved101M confirmation is consumed.
+
+Capability protocol911f74110a9850ab421f402069a90f5cb29f5ee9bef9e11b00ae65a4c451a1ed
+binds123inputs. Completiond51a5ca053889c170d39ff446f13785779b8ceaa18936c22f399ca15617c4114.
+Auditcdcd8942c20b8bb6e6a49c527d06289899b0d17e3f15828d78be891d975e99a4
+binds158inputs;summary4b0e40c458ee10c0f2e03155119a1232cda93d690c43d5bdf60d7c178e960e69.
+All hashes verify,as do all107active-training input hashes. Bootstrap10kreplicates
+matches separately for all120marginal rows and6simultaneous bands. qualifiedfalse;
+capability cannot authorize promotion. No isolated latency claim during training.
+
+Main prepare requires complete six-arm receipts plus a passed independent
+score_auxiliary_training_audit_v1 artifact binding source and endpoints. That
+training-audit producer is the next unfinished component; main output cannot
+be prepared now. Next implement collection/model/optimizer accounting,completion
+queue and fixed mechanism. Do not rerun this closed capability or edit its bound
+sources without an explicit new version. Canonical player/dealer and verified
+35-page manuscript remain unchanged. Goal remains active and unachieved.
+
+Milestone digests:
+- scripts/score_auxiliary_analysis.py: 44c3d3756976ba73c36c028bc2bc213062219c2913a3ce7c77c8b76f79b1d8ad
+- scripts/audit_score_auxiliary_statistics.py: 6c358065be9a1d1c9018420103144b1e039b668767ea00f1758e8a8da51131d5
+- scripts/evaluate_score_auxiliary.py: 255f84f6ef54dcec57930533b52e0ac129eb4abc7cc0aa7d5fc50d4d016ff71c
+- scripts/audit_score_auxiliary_evaluation.py: 620a3849f9f682acdbfa8127994c42f134d0c1b93ca03ac80274e2507a1bbda4
+- tests/test_score_auxiliary_analysis.py: acec32ace4dc8037b8d38183eef16699ec669d2aafae97807a44e8b495df2366
+- tests/test_score_auxiliary_evaluation.py: 8f8825246f805f2c282228500dd571767974c5d2dbda38f67d89cdb17940ce3e
+- runs/score_auxiliary_analysis_tests.xml: 4dedc0adb38fdfe9ec29e53eba88ec154e7c710b488576ccc8081de8d0c1dd5c
+- runs/score_auxiliary_evaluation_tests.xml: 2a3c31c8523f273da5aad2e926029548f0876660e03a8658dafcdbdfbe366f08
