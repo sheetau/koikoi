@@ -25,20 +25,16 @@ additional decisions each, two adapted agents achieve 51.480\% and 51.445\%
 draw-adjusted win scores against assisted RL-WP on 10,000 held-out duplicate
 deals; both 95\% intervals exclude 50\%. Starting from RL-Point instead raises
 equal-opponent mixture point margins by 1.77--2.08 points over matched
-WP-initialized controls. We then establish two properties of the learning
-information. In an exact shared-parameter game, switching between players'
-critics can reverse the expected policy update despite exact conditional
-values; learner-decision returns correct the complete example. In Koi-Koi,
-completed public hands recover earlier actor inputs and identify the fixed
-WP/Point opponent in 86.1\% of natural final-round starts. A bounded planner
-turns this information into executable endgame policies, adopting a change only
-when its exact conditional match value exceeds the parent's. On 512 prospective
-sources, conditional gains average 0.2619 and 0.3246 percentage points; the
-replicated actual-win criterion is not met. Additional return, representation,
-public-memory and auxiliary-prediction changes likewise do not establish a
-replicated win gain. Together, the results demonstrate effective match adaptation and
-explain why informative observations or exact value estimates alone need not
-produce stronger policies.
+WP-initialized controls. We also build an executable endgame controller from
+public play. Completed hands identify the fixed WP/Point opponent in 86.1\% of
+natural final-round starts. The controller reconstructs a belief over hidden
+cards and retains complete policies whose exact conditional value exceeds the
+parent's, including policies recovered before search reaches its computation
+limit. On 512 prospective sources, conditional gains average 0.2619 and 0.3246
+percentage points; the actual-win criterion is not met. Finally, an exact
+shared-parameter counterexample shows how switching between players' critics
+can reverse the expected policy update despite exact conditional values.
+Returns between learner decisions correct the complete example.
 \end{abstract}
 
 \section{Introduction}
@@ -49,58 +45,45 @@ change the best decision for the same hand. Expected points and match wins
 are therefore distinct learning objectives.
 
 Guan et al. trained Transformer agents for these objectives: RL-WP for wins
-and RL-Point for points \cite{guan2023koikoi,pinnedkoikoi}. Their released agents
-provide a starting point for studying how match-level optimization improves
-play and which additional learning signals help. We connect terminal-match
-adaptation, critic conditioning and information recovered from public play to
-the design of stronger agents.
+and RL-Point for points \cite{guan2023koikoi,pinnedkoikoi}. We use their released
+agents to study match adaptation and the information needed for further
+improvement. The resulting system combines a match-trained actor with an
+endgame controller that reconstructs the opponent from public play. A separate
+exact analysis identifies how player-relative critic inputs can misdirect
+learning.
 
 Terminal-match self-play improves the released win policy without changing
 its deployed architecture. We convert action scores into a stochastic policy
 and optimize it with PPO \cite{schulman2017ppo}, using match-end rewards and
 retaining value across round boundaries. After 8.52 million additional decisions
-each, both adapted models beat assisted RL-WP on held-out duplicate deals with
-greedy action selection. RL-Point remains competitive in wins and superior in
-expected points against these WP-initialized agents. Starting from RL-Point
-raises the equal-opponent mixture point margin by 1.77--2.08 points over matched
-WP controls (Section~\ref{sec:point-initialization}). We also compare longer
-training and outcome-versus-margin auxiliary prediction while keeping the
-policy objective fixed (Sections~\ref{sec:duration} and~\ref{sec:score-auxiliary}).
+each, both adapted agents beat assisted RL-WP on held-out duplicate deals with
+greedy action selection. Starting from RL-Point raises equal-opponent mixture
+point margins by 1.77--2.08 points over matched WP-initialized controls
+(Section~\ref{sec:point-initialization}).
 
-Critic accuracy must be assessed relative to the information used by the
-policy update. An exactly enumerable two-step game shows that switching to the
-opponent's critic can reverse the expected update even with exact conditional
-values and shared policy parameters. The opponent's observation omits information
-used by the learner's earlier action. A nonterminal rollout cutoff preserves
-the failure even at $\lambda=1$. Returns between learner decisions correct the
-complete example (Section~\ref{sec:observer}). We implement this correction and
-an alternative that maintains the learner's viewpoint at every primitive step.
+The critic analysis explains why exact value estimates can still produce an
+incorrect policy update. In a two-step shared-parameter game, the opponent's
+observation omits information used by the learner's earlier action. Switching
+to that opponent's critic reverses the expected update. Returns between learner
+decisions correct the complete example (Section~\ref{sec:observer}).
+The Koi-Koi experiments test this return construction and a fixed-viewer
+alternative; they do not establish an additional replicated win gain.
 
-Public play also supplies information beyond the current critic input.
-Adding the viewer's seat resolves an ambiguity in actor behavior. Within a
-round, observation-only decoders recover earlier actor inputs and actions.
-Across rounds, eight public hand discards reveal the opponent's initial hand.
-Reconstructing its earlier network inputs eliminates inconsistent fixed
-opponent models and identifies WP or Point in 86.1\% of natural final-round
-starts (Section~\ref{sec:public-revelation}).
+Public reconstruction supplies a different route to improvement. Eight public
+hand discards reveal the opponent's initial hand. Reconstructing its earlier
+network inputs then eliminates inconsistent fixed opponent models, identifying
+WP or Point in 86.1\% of natural final-round starts
+(Section~\ref{sec:public-revelation}).
 
-We then turn the recovered model into a finite belief over hidden cards and
-construct complete endgame policies. The controller changes play only when a
-candidate's exact conditional match value exceeds the unchanged parent's value.
-It can retain an improving policy even when the search budget prevents further
-comparison. This links public reconstruction to an executable improvement rule
-(Section~\ref{sec:incumbent-tail}). A fixed 512-source comparison finds
-conditional gains for both parents, but does not meet its replicated
-actual-win criterion.
-
-Complete paired-match comparisons measure whether these additional signals
-improve play. The return, representation, public-memory and auxiliary changes
-do not pass their replicated primary win criteria. Five policy-direction probes
-on 8,192 complete Koi-Koi matches also do not establish the critic reversal
-(Section~\ref{sec:directional}); that result is an exact counterexample, not an
-identified failure of the retained agents. The experiments thus distinguish
-the demonstrated adaptation gain from the estimation and information properties
-that motivate further agent design.
+The controller uses this recovered model to evaluate hidden-card hypotheses
+consistent with the observed history. Indistinguishable worlds share every
+learner decision. Search retains complete contingent policies and their exact
+values, so an improving policy remains executable even when the computation
+limit prevents further comparison. Adoption requires an exact gain over the
+unchanged parent under the same belief (Section~\ref{sec:incumbent-tail}).
+A fixed comparison on 512 new source matches measures both this conditional
+gain and realized win scores against parent and root-only controls. Conditional
+gains occur for both parents; the replicated actual-win criterion is not met.
 
 \section{Related work}
 \subsection{Learning to play Koi-Koi}

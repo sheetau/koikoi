@@ -58,3 +58,16 @@ Other tests cover both seats, nonunit weights, strict boundaries, execution root
 and rule identity, missing-key rejection, opponent-only preservation and pickle
 round trips. No new natural evaluation cohort or production deployment is part
 of this milestone.
+
+Adoption and conditional execution
+----------------------------------
+
+scripts/symbolic_tail_assessment.py keeps the versioned default rule when
+constructing independent parent/candidate replay views. It rejects a selection
+that differs from the evaluated phases. Its three-tail assessment executes the
+parent, root-only and contingent selections on the same saved state, verifies
+the unchanged source suffix, and replays every trace. Symbolic parent calls are
+included in total parent adapter calls and also reported separately. These are
+conditional executions; they add no source matches. Four integration tests cover
+both seats, differing adopted root actions, exact values and unequal-reference
+rejection. No natural cohort is launched by this adapter.

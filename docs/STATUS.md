@@ -54,13 +54,23 @@ Current manuscript includes the complete prospective result and its cost table,
 as well as the previously closed exploratory64-source witnesses. Abstract and
 Conclusion now distinguish the prospective conditional gains from the failed
 actual-win criterion. Related Work has44references including POMDP safe policy
-improvement (AAAI2023). PDF38pages;Abstract195/Introduction513/Conclusion169words.
-All38pages rendered/contact-reviewed,full1/17/18/19 inspected,27fonts embedded,
+improvement (AAAI2023). PDF38pages;Abstract159/Introduction389/Conclusion169words.
+All38pages rendered/contact-reviewed,full1/2/16/17 inspected,27fonts embedded,
 no TeX/layout/bibliography warning; existing Fontconfig notice only.
-PDFbc0d2f6374f0549217d8cb4bd26abb44d2a965cec3083171886eaf086bfbdfd6.
-QA runs/manuscript_prospective_qa.json; bound source/summary/export/table record
+PDF4c32ce1413ea29f27c5a42acd4b9abe7a053c08e97b47100f499b957dd50b21b.
+QA runs/manuscript_focused_opening_qa.json; bound source/summary/export/table record
 docs/paper/generated/prospective_incumbent_evidence.json. Prior audits reused;
 no full old-corpus rehash or training rerun.
+
+The symbolic program now has a separate adoption/three-tail assessment adapter,
+scripts/symbolic_tail_assessment.py. It independently replays parent/candidate
+programs with their leaf rule intact, executes divergent fixed/contingent roots,
+and separately counts symbolic parent calls within all parent inference calls.
+Four tests pass,0skips,2.35s; Ruff passes. Both seats, exact values, source/fallback
+identity, independent action-call counters and mismatched selection/binding
+rejection are covered. This adapter has no natural evaluation launch. The frozen
+opponent-only comparison's95 inputs remain unchanged;10/32chunks complete,
+queue35056 and all four workers confirmed live during this milestone.
 
 Next: complete/audit/export the already running certificate comparison, then
 decide the next implementation from its coverage and computational results.

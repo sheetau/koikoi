@@ -9260,3 +9260,47 @@ byte-for-byte fromHEAD1bbe60d. No claimed speedup or new capability retained.
 Receipt runs/symbolic_oracle_cache_check.json records the failed cost hypothesis.
 The fixed certificate comparison remains live and unchanged; no new source or
 outcome-based adaptation. Prospective results/paper milestone1bbe60d pushed.
+
+## 2026-10-21: symbolic execution adapter and focused manuscript opening
+
+Previous goal turn classified as progress:completed prospective report/paper
+committed/pushed1bbe60d; unsupported cache attempt recorded/reverted96aa821.
+This turn re-read STATUS, polled live pipeline40713, and confirmed queue35056
+plus four worker processes. Certificate comparison progressed7to10complete
+chunks, no restart or partial outcome inspection. All95 frozen inputs pass
+scripts.certified_tail_replay.check. Existing pipeline remains sole launcher.
+
+Added isolated scripts/symbolic_tail_assessment.py. Before adoption it recomputes
+selection from fixed/optimized phases, then independently Python-replays the
+unchanged parent and chosen program while retaining the symbolic leaf rule.
+Three-tail assessment executes parent/root-only/controller from the saved root,
+requires common binding/viewer, preserves the source parent suffix and fallback,
+and independently replays traces. It counts actual symbolic default-parent calls
+both separately and within total parent adapter calls. No production/default/
+dealer changes and no new natural evaluation. This prepares the existing
+symbolic method for an eventual complete comparison after the live study closes.
+
+.venv/Scripts/python.exe -m pytest tests/test_symbolic_tail_assessment.py -q:
+4passed,0skips,2.35s. Both seats retain parent204/275 and candidate461/550; fixed
+and contingent adoptions execute different first actions. Independent actor
+wrappers confirm all inference counts. Tests also cover cap1fallback with exact
+source-tail identity, selection mismatch and wrong arm/root binding. Initial
+Ruff unused-variable/format findings fixed; final checks pass. Existing symbolic
+core12tests previously passed; no core implementation changed this turn.
+
+Rewrote only Abstract/Introduction to foreground adaptation, public reconstruction
+and executable planning, plus the exact critic counterexample. Removed redundant
+negative summaries and the list of subsidiary experiments from the opening;
+retained the failed prospective actual-win criterion explicitly. Abstract195to159
+words,Introduction513to389. All TeX from Related Work onward is byte-equivalent
+after newline normalization to96aa821. Numerical claims unchanged; evidence
+reused from complete audited studies. No partial certificate result in PDF.
+
+PDF skill reused; exactly-once marker not repeated. Backup preserved as
+output/pdf/manuscript_before_focused_opening_bc0d2f63.pdf. Tectonic build passes;
+38pages/44refs/27embeddedfonts. Rendered and contact-reviewed all38pages, full
+1/2/16/17 checked. No TeX/BibTeX/layout warnings; existing Fontconfig notice only.
+QA runs/manuscript_focused_opening_qa.json statuspassed. PDF SHA
+4c32ce1413ea29f27c5a42acd4b9abe7a053c08e97b47100f499b957dd50b21b.
+Goal remains active:complete/audit/export current certificate study before the
+next natural-evaluation decision. New replicated strength benefit unresolved.
