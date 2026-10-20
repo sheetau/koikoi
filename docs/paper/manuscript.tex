@@ -626,11 +626,23 @@ and exact enumeration give
  \mathbb E[\widehat A\,\partial_\theta\log\pi(A\mid X)]
  &=-\frac{8301}{3200000}=-0.0025940625.
 \end{align}
-Their product is negative. A sufficiently small positive step in the expected
-update direction therefore reduces true expected payoff. The opponent critic
+The expected update has the opposite sign to the true gradient
+(Figure~\ref{fig:observer-reversal}). A sufficiently small positive step
+in that direction therefore reduces true expected payoff. The opponent critic
 averages over $X$, changing the relative targets for the two actions when the
 learner knows $X=0$. This result concerns the population score-function update
 before PPO clipping and empirical advantage normalization.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.88\linewidth]{generated/observer_reversal.pdf}
+\caption{Exact expectations in the two-step game. The true gradient is positive,
+but opponent-observation GAE points in the opposite direction for
+$\lambda<6567/6767\approx0.9704$. Both critics are exact for their respective
+observations. The marked $\lambda=0.95$ case therefore reduces expected payoff
+under a sufficiently small positive update.}
+\label{fig:observer-reversal}
+\end{figure}
 
 Three controls recover the true expectation for the complete game: $\lambda=1$, a
 single learner-to-terminal transition, and an intermediate critic conditioned

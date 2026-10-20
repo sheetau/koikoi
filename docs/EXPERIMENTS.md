@@ -8329,3 +8329,73 @@ Ruff format/check and diff check pass. Calling it against the unfinished main
 run rejects missing finished.json and writes neither report nor receipt.
 The actual complete-data export remains pending; no result or promotion follows
 from this capability check. Main session98245 / PID58904 remains live.
+
+## 2026-10-20: full-source comparison closed; improvement criterion fails
+
+Session98245 / PID58904 exited0 after all12learners, training audit, all14models
+against WP/Point and evaluation audit. No process remains live. All fixed
+128-update endpoints retained; no intermediate selection, extension, promotion
+or reserved101M use. Complete results exported by
+`python -m scripts.export_full_source_results` to docs/FULL_SOURCE_RESULTS.rst.
+It preserves all6primary contrasts,12secondary means,28absolute matchup rows
+and12work rows. Export receipt binds the completed identity chain and logs.
+
+Full/high minus parent (pp, simultaneous95%): parent1 -1.171875
+[-3.22265625,+0.87890625]; parent2 -0.6591796875[-2.7099609375,+1.3916015625].
+Full/high minus root/high: +2.33154296875[+0.28076171875,+4.38232421875]
+and +3.89404296875[+1.84326171875,+5.94482421875]. Full/high minus branch/high:
++2.57568359375[+0.52490234375,+4.62646484375] and
++1.4892578125[-0.5615234375,+3.5400390625]. Required all6lower bounds>0;false.
+All-source improves over high-rate root controls at both parents but not over
+retained parents. Low-rate full-minus-parent descriptive means+.2075195pp and
++.0122070pp do not supply a separate win-gain criterion. This closes the missing
+standard complete-trajectory control, not a novel algorithm or stronger player.
+
+Source11,272,771decisions/772,262rounds/98,304matches; additional branches
+9,536,856decisions/708,187rounds/157,583completions;1,536optimizer updates and
+3,711,114gradient rows. Training elapsed1,806.783383s includes I/O.
+Evaluation6,598,037decisions/446,749rounds/57,344matches,2,048distinct streams.
+Both audits replay all recorded transitions, deals, root/training targets and
+counters; evaluation independently reconstructs the simultaneous bootstrap.
+They do not replay every neural forward or optimizer calculation.
+Protocol d878e4c8307f711e4fb1a3460502bf1fa6de353ede85b168f81a1d725ab00447.
+Training complete fa6eec799809b5b709169f9318654a354a6c8323579156f84f2ff0792fc77fa2.
+Training audit58279e548d54d872dca9495c246a265d181999430199fe6591a570d339612525.
+Evaluation summary ff6b9b7cff08a4dc517d10d577286666b1a24f6d98f551ccbba12c35ce0e59fb.
+Evaluation audit e30fd79fe943c27d4ee1b24612571b456f688809de5b2c797373ec86e7ddfb38.
+Finished60c7cf919e41a443039a2ef7e362ee4b699d4dfaa7279b80d32abbba673de840.
+Report e45c9309d0b63ff89b229181c7f1b084f243103435d860a74acf969f58909e94.
+
+Do not automatically extend the rate/root grid. A distinct next question is
+information-consistent finite-tail planning: existing retained searches compare
+first actions and then freeze future policy choices. They do not optimize an
+observation-contingent continuation tree. A model-conditional exact controller
+must preserve joint hand/model beliefs and group decisions by visible history,
+never maximize separately in hidden worlds. This is standard POMDP reasoning;
+no general novelty, runtime feasibility, game-level optimality or empirical gain
+has been established here. No implementation or new strength study launched.
+
+## 2026-10-20: exact counterexample figure and manuscript verification
+
+Added scripts/plot_observer_reversal.py. It enumerates the four signal/action
+cases using rational arithmetic over101lambda values, matches the prior audited
+true gradient, lambda.95 reversal and6567/6767zero crossing, and independently
+agrees at every coordinate with the previous trace identity. Creates an embedded-
+font vector PDF and preview with isolated external/plotting dependencies.
+No new game samples, learned models or strength measurements.
+
+Inserted the figure and one prose cross-reference in the counterexample section.
+Removing precisely those edits restores the previous TeX byte for byte. Opening,
+numerical tables, citations and40references unchanged.38pages retained;Conclusion
+nowp16. Current build uses Tectonic; no box/glyph/reference/bibliography warnings.
+All27font names embedded, text within page bounds. Pages1--11pixel-identical;
+changed12--38reviewed as contacts,12/13and actual figure inspected full-size.
+Prior3,313-binding QA is reused, not rehashed; new figure inputs/outputs rehashed.
+Ruff and diff checks pass. PDFskill marker was already executed;not repeated.
+PDF a896c9a995a8d0156585f24c493f2f721db7ed9e97f3d214f4a092901275286e.
+TeX aefd5280af68bf1de2e2fe7325999cdd6a3123b53298ece498cef0d2c7ac5176.
+QA runs/manuscript_observer_figure_qa.json
+ab2a982de405a2a36b1aff0d0d1fa9514464a168dfeb78b770fd4013ce39abdc.
+Figure6fbd269ab6f8d083d63953c756c075a5dcd9d02b1c962ce8cd464941e0629a0e.
+Backup runs/manuscript_observer_figure_previous; renders
+runs/manuscript_observer_figure_render. Stronger-play goal remains active.

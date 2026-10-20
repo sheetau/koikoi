@@ -1,0 +1,424 @@
+{
+  "status": "passed",
+  "inputs": {
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\scripts\\diagnose_shared_observer_bootstrap.py": "18db77b4901dd4d7891f62c66fd0afb4476d9854f54aebde61488a85a25bd28a",
+    "scripts\\diagnose_observer_bootstrap.py": "c8ec4c57f9b215aca1d26b3bf5df318d875b65da4a2634574036b0b08a3e432b",
+    "runs/observer_bootstrap_verified_cpu.json": "4e3e05b73b4e019bf9e68cf2b90afe0d61a2829b0e821dc303d1224b6a13aeab",
+    "runs/observer_bootstrap_verified_cuda.json": "50ecb0247856ed6ddd19b91fb1db841fc52f0783682ea6fc59780fbb4306de7b",
+    "runs\\shared_observer_bootstrap_cpu.json": "f6e500b64ecd8505ad0a2ccf52438df9df9c7efed4dadd65fdb7b799d082536e",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\scripts\\plot_observer_reversal.py": "fdaa119fcfcc1a9d57c83c9bc07c1bbac3e19ce0a2a24be931636270ea65efb9"
+  },
+  "outputs": {
+    "docs\\paper\\generated\\observer_reversal.pdf": "6fbd269ab6f8d083d63953c756c075a5dcd9d02b1c962ce8cd464941e0629a0e",
+    "runs\\observer_reversal.png": "e3912c2e09b0e864594e8fbf60beb93ddc2ecdfe0f1bc4a6daebfeb2f0274856"
+  },
+  "true_gradient": "3/800",
+  "zero_crossing": "6567/6767",
+  "coordinates": [
+    {
+      "lambda": "9/10",
+      "expected_gradient": "-14301/1600000"
+    },
+    {
+      "lambda": "901/1000",
+      "expected_gradient": "-1409799/160000000"
+    },
+    {
+      "lambda": "451/500",
+      "expected_gradient": "-694749/80000000"
+    },
+    {
+      "lambda": "903/1000",
+      "expected_gradient": "-1369197/160000000"
+    },
+    {
+      "lambda": "113/125",
+      "expected_gradient": "-42153/5000000"
+    },
+    {
+      "lambda": "181/200",
+      "expected_gradient": "-265719/32000000"
+    },
+    {
+      "lambda": "453/500",
+      "expected_gradient": "-654147/80000000"
+    },
+    {
+      "lambda": "907/1000",
+      "expected_gradient": "-1287993/160000000"
+    },
+    {
+      "lambda": "227/250",
+      "expected_gradient": "-316923/40000000"
+    },
+    {
+      "lambda": "909/1000",
+      "expected_gradient": "-1247391/160000000"
+    },
+    {
+      "lambda": "91/100",
+      "expected_gradient": "-122709/16000000"
+    },
+    {
+      "lambda": "911/1000",
+      "expected_gradient": "-1206789/160000000"
+    },
+    {
+      "lambda": "114/125",
+      "expected_gradient": "-148311/20000000"
+    },
+    {
+      "lambda": "913/1000",
+      "expected_gradient": "-1166187/160000000"
+    },
+    {
+      "lambda": "457/500",
+      "expected_gradient": "-572943/80000000"
+    },
+    {
+      "lambda": "183/200",
+      "expected_gradient": "-225117/32000000"
+    },
+    {
+      "lambda": "229/250",
+      "expected_gradient": "-276321/40000000"
+    },
+    {
+      "lambda": "917/1000",
+      "expected_gradient": "-1084983/160000000"
+    },
+    {
+      "lambda": "459/500",
+      "expected_gradient": "-532341/80000000"
+    },
+    {
+      "lambda": "919/1000",
+      "expected_gradient": "-1044381/160000000"
+    },
+    {
+      "lambda": "23/25",
+      "expected_gradient": "-12801/2000000"
+    },
+    {
+      "lambda": "921/1000",
+      "expected_gradient": "-1003779/160000000"
+    },
+    {
+      "lambda": "461/500",
+      "expected_gradient": "-491739/80000000"
+    },
+    {
+      "lambda": "923/1000",
+      "expected_gradient": "-963177/160000000"
+    },
+    {
+      "lambda": "231/250",
+      "expected_gradient": "-235719/40000000"
+    },
+    {
+      "lambda": "37/40",
+      "expected_gradient": "-36903/6400000"
+    },
+    {
+      "lambda": "463/500",
+      "expected_gradient": "-451137/80000000"
+    },
+    {
+      "lambda": "927/1000",
+      "expected_gradient": "-881973/160000000"
+    },
+    {
+      "lambda": "116/125",
+      "expected_gradient": "-107709/20000000"
+    },
+    {
+      "lambda": "929/1000",
+      "expected_gradient": "-841371/160000000"
+    },
+    {
+      "lambda": "93/100",
+      "expected_gradient": "-82107/16000000"
+    },
+    {
+      "lambda": "931/1000",
+      "expected_gradient": "-800769/160000000"
+    },
+    {
+      "lambda": "233/250",
+      "expected_gradient": "-195117/40000000"
+    },
+    {
+      "lambda": "933/1000",
+      "expected_gradient": "-760167/160000000"
+    },
+    {
+      "lambda": "467/500",
+      "expected_gradient": "-369933/80000000"
+    },
+    {
+      "lambda": "187/200",
+      "expected_gradient": "-143913/32000000"
+    },
+    {
+      "lambda": "117/125",
+      "expected_gradient": "-5463/1250000"
+    },
+    {
+      "lambda": "937/1000",
+      "expected_gradient": "-678963/160000000"
+    },
+    {
+      "lambda": "469/500",
+      "expected_gradient": "-329331/80000000"
+    },
+    {
+      "lambda": "939/1000",
+      "expected_gradient": "-638361/160000000"
+    },
+    {
+      "lambda": "47/50",
+      "expected_gradient": "-30903/8000000"
+    },
+    {
+      "lambda": "941/1000",
+      "expected_gradient": "-597759/160000000"
+    },
+    {
+      "lambda": "471/500",
+      "expected_gradient": "-288729/80000000"
+    },
+    {
+      "lambda": "943/1000",
+      "expected_gradient": "-557157/160000000"
+    },
+    {
+      "lambda": "118/125",
+      "expected_gradient": "-67107/20000000"
+    },
+    {
+      "lambda": "189/200",
+      "expected_gradient": "-103311/32000000"
+    },
+    {
+      "lambda": "473/500",
+      "expected_gradient": "-248127/80000000"
+    },
+    {
+      "lambda": "947/1000",
+      "expected_gradient": "-475953/160000000"
+    },
+    {
+      "lambda": "237/250",
+      "expected_gradient": "-113913/40000000"
+    },
+    {
+      "lambda": "949/1000",
+      "expected_gradient": "-435351/160000000"
+    },
+    {
+      "lambda": "19/20",
+      "expected_gradient": "-8301/3200000"
+    },
+    {
+      "lambda": "951/1000",
+      "expected_gradient": "-394749/160000000"
+    },
+    {
+      "lambda": "119/125",
+      "expected_gradient": "-23403/10000000"
+    },
+    {
+      "lambda": "953/1000",
+      "expected_gradient": "-354147/160000000"
+    },
+    {
+      "lambda": "477/500",
+      "expected_gradient": "-166923/80000000"
+    },
+    {
+      "lambda": "191/200",
+      "expected_gradient": "-62709/32000000"
+    },
+    {
+      "lambda": "239/250",
+      "expected_gradient": "-73311/40000000"
+    },
+    {
+      "lambda": "957/1000",
+      "expected_gradient": "-272943/160000000"
+    },
+    {
+      "lambda": "479/500",
+      "expected_gradient": "-126321/80000000"
+    },
+    {
+      "lambda": "959/1000",
+      "expected_gradient": "-232341/160000000"
+    },
+    {
+      "lambda": "24/25",
+      "expected_gradient": "-5301/4000000"
+    },
+    {
+      "lambda": "961/1000",
+      "expected_gradient": "-191739/160000000"
+    },
+    {
+      "lambda": "481/500",
+      "expected_gradient": "-85719/80000000"
+    },
+    {
+      "lambda": "963/1000",
+      "expected_gradient": "-151137/160000000"
+    },
+    {
+      "lambda": "241/250",
+      "expected_gradient": "-32709/40000000"
+    },
+    {
+      "lambda": "193/200",
+      "expected_gradient": "-22107/32000000"
+    },
+    {
+      "lambda": "483/500",
+      "expected_gradient": "-45117/80000000"
+    },
+    {
+      "lambda": "967/1000",
+      "expected_gradient": "-69933/160000000"
+    },
+    {
+      "lambda": "121/125",
+      "expected_gradient": "-1551/5000000"
+    },
+    {
+      "lambda": "969/1000",
+      "expected_gradient": "-29331/160000000"
+    },
+    {
+      "lambda": "97/100",
+      "expected_gradient": "-903/16000000"
+    },
+    {
+      "lambda": "971/1000",
+      "expected_gradient": "11271/160000000"
+    },
+    {
+      "lambda": "243/250",
+      "expected_gradient": "7893/40000000"
+    },
+    {
+      "lambda": "973/1000",
+      "expected_gradient": "51873/160000000"
+    },
+    {
+      "lambda": "487/500",
+      "expected_gradient": "36087/80000000"
+    },
+    {
+      "lambda": "39/40",
+      "expected_gradient": "3699/6400000"
+    },
+    {
+      "lambda": "122/125",
+      "expected_gradient": "14097/20000000"
+    },
+    {
+      "lambda": "977/1000",
+      "expected_gradient": "133077/160000000"
+    },
+    {
+      "lambda": "489/500",
+      "expected_gradient": "76689/80000000"
+    },
+    {
+      "lambda": "979/1000",
+      "expected_gradient": "173679/160000000"
+    },
+    {
+      "lambda": "49/50",
+      "expected_gradient": "9699/8000000"
+    },
+    {
+      "lambda": "981/1000",
+      "expected_gradient": "214281/160000000"
+    },
+    {
+      "lambda": "491/500",
+      "expected_gradient": "117291/80000000"
+    },
+    {
+      "lambda": "983/1000",
+      "expected_gradient": "254883/160000000"
+    },
+    {
+      "lambda": "123/125",
+      "expected_gradient": "17199/10000000"
+    },
+    {
+      "lambda": "197/200",
+      "expected_gradient": "59097/32000000"
+    },
+    {
+      "lambda": "493/500",
+      "expected_gradient": "157893/80000000"
+    },
+    {
+      "lambda": "987/1000",
+      "expected_gradient": "336087/160000000"
+    },
+    {
+      "lambda": "247/250",
+      "expected_gradient": "89097/40000000"
+    },
+    {
+      "lambda": "989/1000",
+      "expected_gradient": "376689/160000000"
+    },
+    {
+      "lambda": "99/100",
+      "expected_gradient": "39699/16000000"
+    },
+    {
+      "lambda": "991/1000",
+      "expected_gradient": "417291/160000000"
+    },
+    {
+      "lambda": "124/125",
+      "expected_gradient": "54699/20000000"
+    },
+    {
+      "lambda": "993/1000",
+      "expected_gradient": "457893/160000000"
+    },
+    {
+      "lambda": "497/500",
+      "expected_gradient": "239097/80000000"
+    },
+    {
+      "lambda": "199/200",
+      "expected_gradient": "99699/32000000"
+    },
+    {
+      "lambda": "249/250",
+      "expected_gradient": "129699/40000000"
+    },
+    {
+      "lambda": "997/1000",
+      "expected_gradient": "539097/160000000"
+    },
+    {
+      "lambda": "499/500",
+      "expected_gradient": "279699/80000000"
+    },
+    {
+      "lambda": "999/1000",
+      "expected_gradient": "579699/160000000"
+    },
+    {
+      "lambda": "1",
+      "expected_gradient": "3/800"
+    }
+  ],
+  "scope": "Exact four-event expectation of the existing finite example; no simulations, fitting or new strength measurements."
+}

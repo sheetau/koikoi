@@ -34,30 +34,45 @@ Evaluation auditf6dafc4c4d7609026822ce268ae8efd13b8710ebc778e9656f72674887da01c8
 Priority roots reduce confidence>=.99 from about30%to5--6%, but constant sampled
 branch outcomes remain about68--70%. Larger updates did not produce stronger play.
 
-**Full-source Monte Carlo study is running (training).** [Fixed twelve-arm design](FULL_SOURCE_STUDY.rst). All eligible decisions
-from each complete source match contribute before one optimizer step. Gradients
-are normalized by matches, accumulated in chunks, then clipped once. Root-sampled
-and shared-branch controls retain their old numerical implementation. Both
-parents x three estimators x two rates receive128updates/64matches, with full/high
-predefined as candidate. Six simultaneous primary contrasts compare it with its
-parent and both high-rate controls. No promotion or reserved101M use.
+**Full-source Monte Carlo study is complete; its six-contrast criterion fails.**
+[All outcomes and work](FULL_SOURCE_RESULTS.rst). Session98245 / PID58904 exited0;
+runs/full_source_study is closed. Both transition/statistical audits pass.
+Both parents x full/root/branch x rates1e-5/1e-4 received128updates/64matches.
 
-Core tests passed8 (CPU/CUDA source/reference replay, exact continuation,
-old-control equivalence and analytic gradients); the separate12-arm capability
-pipeline passed1, including112evaluation matches, complete transition/statistical
-audits and deliberate corrupted-return rejection. These are capability checks,
-not strength evidence. Ruff passes. Main session98245 / PID58904 is live in
-runs/full_source_study, launched from commit17a684c. Protocol SHA256
-d878e4c8307f711e4fb1a3460502bf1fa6de353ede85b168f81a1d725ab00447.
-Next: await training, transition audits, evaluation and statistical audit; then
-report every predefined comparison with scripts/export_full_source_results.py.
-The exporter is linted and rejects the unfinished main run without output; its
-complete-data export has not run yet. Do not restart the directory or alter bound
-implementation/protocol files while it is running.
+Full/high minus parent, percentage points with simultaneous95% intervals:
+parent1 -1.1719[-3.2227,+0.8789]; parent2 -0.6592[-2.7100,+1.3916].
+Full/high minus root/high: +2.3315[+0.2808,+4.3823] and
++3.8940[+1.8433,+5.9448]. Full/high minus branch/high:
++2.5757[+0.5249,+4.6265] and +1.4893[-0.5615,+3.5400].
+Using all source decisions outperforms the high-rate root-sampled controls at
+both parents, but does not establish improvement over the retained parents.
+Low-rate full-minus-parent descriptive means are +0.2075pp and +0.0122pp.
+No endpoint is promoted and no reserved101M data is used.
 
-This control removes conditional root-selection covariance from sampled-return
-learning; it does not guarantee lower variance than all-action branches or a win
-gain. It is standard complete-trajectory REINFORCE, not an algorithmic novelty.
+Source:11,272,771decisions/772,262rounds/98,304matches.
+Branches:9,536,856decisions/708,187rounds/157,583completions.
+Training:1,536updates/3,711,114gradient rows,1,806.783383s including I/O.
+Evaluation:6,598,037decisions/446,749rounds/57,344matches;2,048distinct streams.
+Protocol d878e4c8307f711e4fb1a3460502bf1fa6de353ede85b168f81a1d725ab00447.
+Training audit58279e548d54d872dca9495c246a265d181999430199fe6591a570d339612525.
+Evaluation audit e30fd79fe943c27d4ee1b24612571b456f688809de5b2c797373ec86e7ddfb38.
+Complete-only export runs/full_source_results_export.json binds all tables and
+metric counts. No full optimizer/neural-inference replay is claimed.
+
+Core tests8 and reduced12-arm capability1 passed before launch; no skips.
+The actual completed export now passes too. Do not rerun this closed comparison
+or automatically add another root-allocation/learning-rate grid. The standard
+full-trajectory REINFORCE control closes a missing comparison; it is not a new
+algorithm. The broader stronger-play objective remains active.
+
+Next technical question: existing retained-agent searches enumerate first
+choices and then use fixed continuation policies. They do not optimize future
+choices jointly by the information available at those decisions. Assess a
+finite-tail belief-state controller with a fixed-continuation control, retaining
+posterior conditioning and separating observable histories to prevent strategy
+fusion. First establish exactness, opportunity coverage and computational cost.
+This is established POMDP planning, not an already implemented novel algorithm
+or a demonstrated Koi-Koi gain. No such new study is launched.
 
 A saved-gradient block analysis is also closed: runs/branch_gradient_blocks.
 It verifies all four previous full-gradient totals by splitting 768 output
@@ -141,11 +156,10 @@ Do not describe variance reduction as stronger play or as invention of all-actio
 policy gradients. Assess root-sampling efficiency and update/coverage limitations
 before committing to another training budget; a larger learning rate is not yet
 shown to solve the problem. Read existing round-continuation/Q-boosting/search
-results before proposing a supposedly new variant. The paper has a verified 38-page opening revision: Abstract 160 words and
-Introduction 436 words, with empirical limits consolidated after the main
-contributions. Related Work onward is unchanged; all 3,313 evidence bindings
-verify. QA: runs/manuscript_priority_opening_20261020_qa.json.
-PDF SHA256 40e14e9132163e154704581c75bef31ffbe5c52e2115d126c6d053fd7fc3d0a3.
+results before proposing a supposedly new variant. The latest38-page paper
+retains its clearer160-word Abstract and436-word Introduction and now includes
+an exact finite-game gradient figure. See Latest manuscript for current QA.
+
 
 ## Recently completed score-auxiliary study
 
@@ -418,32 +432,34 @@ their empirical fixes did not establish replicated Koi-Koi win improvement.
 
 ## Latest manuscript
 
-**Latest verified manuscript:** 38 pages including appendices, 40 references,
-160-word Abstract, 436-word Introduction and 164-word Conclusion. Conclusion
-on page 15. The opening foregrounds adaptation, the exact critic-conditioning
-counterexample and public-input recovery, then consolidates empirical limits.
-All source from Related Work onward is unchanged by this prose revision.
+**Latest verified manuscript:**38pages,40references,160-word Abstract,
+436-word Introduction and164-word Conclusion, now on page16. The opening
+foregrounds adaptation, critic conditioning and public-input recovery.
+A new Figure1 on page12 shows the exact complete-game expected update versus
+lambda: true gradient3/800, reversal at6567/6767 and the lambda.95 negative
+update. Every101 plotted coordinate is independently checked against the prior
+trace identity. This visualizes the existing counterexample, not new simulation.
 
-Section 6.4 and Appendix L retain the complete auxiliary comparison: all six
-primary simultaneous win intervals and all 24 descriptive control contrasts
-include zero. The point-margin advantage over retained WP parents includes
-the no-auxiliary condition. Related Work retains its six additional verified
-auxiliary/distributional references and correct account of Transformer search.
-All numerical tables, figures, citations, labels and cross-references remain.
+Only that figure and its prose cross-reference changed; reversing those edits
+reconstructs the preceding TeX byte for byte. Existing tables, references and
+Abstract/Introduction remain intact. The auxiliary comparison and all other
+measured claims retain their previous evidence. The latest branch/full-source
+studies are separate technical reports, not newly asserted results in this PDF.
 
-The table exporter verified 1,833 inputs in the preceding revision; the current
-QA rechecks all 3,313 evidence bindings. Pages 1--11 were re-rendered and
-visually reviewed on contact sheets, with pages 1,2,11 at full size. Pages
-12--38 are pixel-identical to the preceding verified PDF. All 24 font names
-are embedded; no TeX box/glyph/reference or bibliography warnings remain.
-No new simulation, inference or training was used for this paper update.
-PDF SHA 40e14e9132163e154704581c75bef31ffbe5c52e2115d126c6d053fd7fc3d0a3;
-TeX SHA 4f6f26f78006d4c8ecb285859eed2880a728fde12c9104771ab767760fdc1c64.
-QA runs/manuscript_priority_opening_20261020_qa.json SHA
-94336c1e2822ab3b80488f3537b3ad6c3855b6c4c57df94f325a0ea37a2f31a0.
-Prior PDF/source: runs/manuscript_priority_opening_previous.
-Renders: runs/manuscript_priority_opening_render. Renderer uses system
-Python3.14, external/pdf_render PyMuPDF and Pillow; training uses .venv Python3.12.
+New figure inputs/outputs were rehashed. Prior3,313-binding validation is reused,
+not rerun. Pages1--11 are pixel-identical; changed pages12--38 were rendered and
+reviewed in contact sheets, with pages12/13 and the actual figure PDF at full
+size. All27font names are embedded; no page-bound, TeX box/glyph/reference or
+bibliography warnings remain. No new training or simulation was used for the
+figure; the simultaneous full-source study is separately counted above.
+PDF SHA a896c9a995a8d0156585f24c493f2f721db7ed9e97f3d214f4a092901275286e.
+TeX SHA aefd5280af68bf1de2e2fe7325999cdd6a3123b53298ece498cef0d2c7ac5176.
+QA runs/manuscript_observer_figure_qa.json SHA
+ab2a982de405a2a36b1aff0d0d1fa9514464a168dfeb78b770fd4013ce39abdc.
+Previous PDF/source: runs/manuscript_observer_figure_previous.
+Renders: runs/manuscript_observer_figure_render. SystemPython3.14 with
+external/pdf_render handles rendering; .venv Python3.12 with external/plotting
+creates the figure without changing training dependencies.
 The PDF-skill artifact marker already ran earlier; never repeat it.
 
 ## Local human-play delivery
