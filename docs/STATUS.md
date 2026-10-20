@@ -85,6 +85,17 @@ QA runs/manuscript_pomdp_spi_qa.json. Prospective results remain pending and are
 not included in this PDF. Completion pipeline40713/PID49904 still waits on the
 live original queue; never duplicate its export/freeze/launch actions.
 
+The certificate result exporter is prepared in
+scripts/export_certified_tail_replay.py. After pipeline40713 completes its
+certificate audit, run this exporter once to generate
+CERTIFIED_TAIL_REPLAY_RESULTS.rst and runs/certified_tail_replay_export.json.
+It checks audit/chunk/artifact bindings and exact rational all-source means,
+reports coverage and separate physical/represented/symbolic work, and adds no
+simulations. Four tests pass,0skips,2.36s; Ruff passes. It does not add a new
+strength gate or convert the reused cohort into independent confirmation.
+Original queue66280,remaining worker53444 and completion pipeline49904 remain
+live; source389 is still in its controller phase. All89 frozen inputs match.
+
 ### Completed diagnostics and supporting history
 
 **The eight-arm root-allocation/step-size study is complete. Its predefined

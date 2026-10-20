@@ -9120,3 +9120,31 @@ Bib821634f2169e9ed956a2a42050c8cb8e091ba9285103d93343cfe433882b53c4.
 QA runs/manuscript_pomdp_spi_qa.json statuspassed. Previous full evidence audits
 and closed64-root planning results remain the PDF evidence; no partial512 data.
 Original study, canonical play, dealer and reserved101M unchanged. Goalactive.
+
+## 2026-10-21: prepare complete-only certificate report export during verified wait
+
+Previous turn progressed:Related Work/PDF update committed/pushed acd7d0b.
+This turn re-read STATUS, confirmed queue66280/worker53444 and completion
+pipeline49904 live, and polled session40713. Remaining chunk024/source389 is
+still evaluating controller; no failure/restart or partial outcome analysis.
+All89 original protocol input hashes still match. No new source or model change.
+
+Added scripts/export_certified_tail_replay.py, which requires the completed
+certificate audit and verifies its protocol/chunk/artifact/record bindings.
+It recomputes exactFraction all-source means for both parents and both arms,
+retains missing roots/support refusals in256-per-parent denominators, and
+separates conditional gains from actual score changes. Coverage reports new
+and lost parent values/adoptions and greater/smaller conditional gains.
+Physical/represented/symbolic counts, oracle work and conditional executions
+stay separate. Operational time comparisons are labeled non-isolated.
+Original prospective strength gate remains fixed; no fresh gate/CI is issued
+for reused-source means. Export does no new simulation or inference.
+
+.venv/Scripts/python.exe -m pytest tests/test_export_certified_tail_replay.py -q:
+4passed,0skips,2.36s. Tests cover absent-root denominators, draw-adjusted actual
+scores, signed changes versus conditional gains, coverage distinctions,
+complete-queue requirement, full synthetic512-row report output with exact
+fractions and record-hash tamper rejection. Ruffformat/check pass.
+Next:let pipeline40713 finish original export and certificate computation/audit,
+inspect original four contrasts when available, then run the new exporter.
+Do not duplicate the live pipeline's export/freeze/launch actions. Goalactive.
