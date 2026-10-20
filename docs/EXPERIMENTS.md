@@ -8910,3 +8910,31 @@ git diff --check pass.
 python -m scripts.prospective_incumbent --freeze completed0.
 Protocol 700e11608e3ced60919ca7ef31da460785ff9391459ac83c7e8a16f4a1a0c170; 89 bound inputs.
 No new source matches collected at this freeze milestone. Launch is next.
+
+## 2026-10-21: prospective comparison launched; first complete chunk audited
+
+python -m scripts.prospective_incumbent --launch is running, session89944,
+queuePID66280,32chunks x16sources with four workers. Protocol/source files stay
+frozen at700e11608e3ced60919ca7ef31da460785ff9391459ac83c7e8a16f4a1a0c170;
+implementation/protocol commitd494d80 pushed before launch. No duplicate queue.
+Worker process.json files and queue.json are the current status authority.
+
+Added complete-only exporter scripts/export_prospective_incumbent.py. It verifies
+all chunk/artifact bindings, exact selections, root observations, stored oracle
+values, full source and actual-tail replays, and exact four-contrast arithmetic.
+Statistical analysis remains the pre-frozen runner; no outcome-dependent change.
+Two exporter tests pass,0skips,1.48s; Ruff passes. Tests reject altered root
+observations, adopted choices and source decision addresses.
+
+First complete chunk002 (16sources) passes real-artifact integration audit:
+14search arms; extra source replay1890decisions/128round endings/16completions;
+extra actual-tail replay79decisions/21round endings/21conditional completions.
+This is verification work, not extra sources or a partial strength result.
+Receipt runs/prospective_incumbent_chunk002_audit.json. Bound chunk complete
+306bf4ed4ff112a4ed3c76353fa614495a215ffc64e47dbccefcf078c7acbdce; exporter
+23f8393706be75ab127cb7ada5ea51e243f3538661601ee6c764263e9687540d.
+
+Next: let all fixed512 sources finish, run the complete-only exporter, inspect
+all four predeclared contrasts, and then integrate warranted results into the
+manuscript. No new claim of stronger play, no paper/PDF change this milestone.
+Goal remains active. Canonical play, dealer and reserved101M unchanged.
