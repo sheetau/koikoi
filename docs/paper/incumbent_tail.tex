@@ -5,7 +5,10 @@ response: evaluate complete endgame policies under the hidden-card distribution
 consistent with public play. We implement this approach at the first learner
 decision in the final round with at most five draws remaining, provided a
 preceding round has already identified the opponent. The retained parent plays
-the entire prefix.
+the entire prefix. Figure~\ref{fig:controller-overview} summarizes the
+inference, adoption and execution steps.
+
+\input{controller_overview.tex}
 
 \subsection{From compatible histories to complete policies}
 For each legal hidden hand, we replay the observed opponent actions with the

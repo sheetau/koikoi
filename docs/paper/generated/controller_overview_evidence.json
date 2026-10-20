@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "scope": "Explanatory method figure only; all earlier prose, numerical results, and frozen evaluation inputs unchanged.",
+  "bindings": {
+    "output/pdf/manuscript.pdf": "c4e6e06c054b4ab786762d6370ab384da823b29e60bdfaa7c3de4c6bc7b1bfcf",
+    "docs/paper/incumbent_tail.tex": "6a3596def9aa559e6b4947591b3d9ace787bc7752c6ad20aa8f13777a21922a0",
+    "docs/paper/controller_overview.tex": "8b0d0dfae859e9bf01596f0169ffcdd6481a39da8eff8c9e459c1ec5c9da3f9f",
+    "docs/paper/manuscript.tex": "a9e42c6afe004447468ea071267ea1e65daa171a2934c32df07ce63e05322437",
+    "runs/manuscript_uniform_method_qa.json": "f389332410a9e1826745afb82e0414e745f8640d7e98ddb99e3ceaf484b73621",
+    "runs/uniform_controller_evaluation/protocol.json": "bc5fce90a1fefb146f766e2be7177c67992292307cf896413b525ba1183dbfc9",
+    "runs\\manuscript_controller_overview_qa.json": "50355f62f657bb77497ef94b6f700a40381c7e300acd8847cdcd850de58e2afb"
+  },
+  "pages": 42,
+  "references": 46,
+  "figure_page": 16,
+  "previous_pdf_sha256": "23f4054ffa0b7a80093cc56ba6881c299deaf844288b411353bb8346fdddc5fc"
+}

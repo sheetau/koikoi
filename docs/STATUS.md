@@ -126,11 +126,15 @@ and actual performance separately. Section9.6 and AppendixL now explain the
 matching source/posterior law and exact simultaneous population-gain bounds;
 Related Work adds AIVAT. The ongoing8192-source study contributes design only,
 with no interim estimates. PDF42pages/46refs;Abstract171/Intro425/Conclusion167
-words unchanged. Main text ends20. All42pages rendered/contact-reviewed;
-5/19/37/38/40/41full size;27embedded fonts,no TeX/layout/BibTeX warnings.
-PDF23f4054ffa0b7a80093cc56ba6881c299deaf844288b411353bb8346fdddc5fc;
-QA runs/manuscript_uniform_method_qa.json passed. New method ledger:
-docs/paper/generated/uniform_method_evidence.json. Prior table/evidence:
+words unchanged. Main text ends20. Figure2 on page16 now maps public evidence,
+finite belief,capped search,exact adoption,and retained-program/parent execution.
+All42pages rendered/contact-reviewed;new figure page16full size;32embedded fonts,
+no TeX/layout/BibTeX warnings. PDF SHA256
+c4e6e06c054b4ab786762d6370ab384da823b29e60bdfaa7c3de4c6bc7b1bfcf;
+QA runs/manuscript_controller_overview_qa.json passed. New editorial ledger:
+docs/paper/generated/controller_overview_evidence.json. The prior uniform-method
+ledger remains a historical snapshot with its original PDF/source bindings.
+Prior table/evidence:
 docs/paper/generated/symbolic_comparison_table.tex and
 docs/paper/generated/symbolic_comparison_evidence.json. Earlier experiment
 audits are reused;this editorial review adds no simulation/inference.

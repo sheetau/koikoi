@@ -1,0 +1,58 @@
+\begin{figure}[htbp]
+\centering
+\begingroup
+\footnotesize
+\setlength{\fboxsep}{5pt}
+\fbox{\begin{minipage}[c][4.5em][c]{0.265\linewidth}
+\centering
+\textbf{Public evidence}\\[2pt]
+Earlier-round opponent identity; current own/public history
+\end{minipage}}
+\hfill$\longrightarrow$\hfill
+\fbox{\begin{minipage}[c][4.5em][c]{0.265\linewidth}
+\centering
+\textbf{Finite belief}\\[2pt]
+History-compatible hands and weighted stock continuations
+\end{minipage}}
+\hfill$\longrightarrow$\hfill
+\fbox{\begin{minipage}[c][4.5em][c]{0.265\linewidth}
+\centering
+\textbf{Capped search}\\[2pt]
+Complete parent reference and retained candidate programs
+\end{minipage}}
+
+\smallskip
+\makebox[\linewidth][r]{$\big\downarrow$\hspace{0.135\linewidth}}
+
+\smallskip
+\fbox{\begin{minipage}{0.91\linewidth}
+\centering
+\textbf{Exact adoption test}\\[2pt]
+Compare completed values under the same belief: $Q(\sigma)>Q(\pi)$.
+\end{minipage}}
+
+\smallskip
+\begin{tabular}{@{}c@{\hspace{0.04\linewidth}}c@{}}
+$\downarrow$ strict improvement & $\downarrow$ otherwise \\[3pt]
+\fbox{\begin{minipage}[c][5em][c]{0.425\linewidth}
+\centering
+\textbf{Execute the retained program}\\[2pt]
+Stored action at each represented history; unchanged parent in a checked
+guaranteed-win region.
+\end{minipage}}
+&
+\fbox{\begin{minipage}[c][5em][c]{0.425\linewidth}
+\centering
+\textbf{Keep the parent}\\[2pt]
+Includes missing roots, support refusals, unavailable parent values and
+no completed strict improvement.
+\end{minipage}}
+\end{tabular}
+\endgroup
+\caption{From public play to an executable continuation. Search shares learner
+actions across indistinguishable worlds. The parent plays the common prefix;
+after adoption, execution follows the retained program, including its checked
+parent-continuation rule. The guarantee uses the displayed belief and opponent
+model; population inference additionally requires a matching source law.}
+\label{fig:controller-overview}
+\end{figure}

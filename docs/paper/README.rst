@@ -12,10 +12,12 @@ endgame policies and certificate compression,followed by measured match adaptati
 Section9.6 now states the matching-law population evaluation;AppendixL derives
 the hand posterior and simultaneous lower bound from fixed threshold counts.
 The8192-source study is running,with no interim estimates in this draft.
-The new method ledger is generated/uniform_method_evidence.json. PDF SHA256
-23f4054ffa0b7a80093cc56ba6881c299deaf844288b411353bb8346fdddc5fc.
-All42pages/contact sheets checked;5/19/37/38/40/41full size;27embedded fonts,
-no TeX/BibTeX/layout defects. Opening and conclusion source text are unchanged.
+Figure2 on page16 connects public evidence,finite belief,capped search and exact
+adoption to execution of the retained program or unchanged parent. The overview
+makes the inference/execution boundary visible without adding an empirical claim.
+All42pages/contact sheets checked;the new figure page16reviewed at full size;
+32embedded fonts,no TeX/BibTeX/layout defects. Opening,conclusion and numerical
+results are unchanged.
 
 Section9 includes the closed exploratory64-source witnesses and complete
 prospective512-source comparison. Its predefined actual-win criterion fails.
@@ -34,17 +36,17 @@ and executable-policy pipeline;the conditional-expectation argument is not a
 new general safe-improvement theorem. AppendixA maps evidence to reproduction
 artifacts. Its former full ledger remains in reproduction_ledger.tex.
 
-Latest QA: ``runs/manuscript_uniform_method_qa.json``. All42pages rendered and
-contact-reviewed;5/19/37/38/40/41reviewed at full size.27embedded fonts,no page-bound,
+Latest QA: ``runs/manuscript_controller_overview_qa.json``. All42pages rendered
+and contact-reviewed;page16reviewed at full size.32embedded fonts,no page-bound,
 TeX box,glyph,reference or bibliography warning. The existing Fontconfig notice
-is unchanged. ``generated/uniform_method_evidence.json`` binds the current
-method,draft,protocol and QA. The symbolic comparison ledger retains its earlier
-snapshot binding;its completed result table and method text are unchanged.
-Previous experiment audits are reused without rehashing the entire old corpus.
+is unchanged. ``generated/controller_overview_evidence.json`` binds this editorial
+revision and its QA. The uniform-method and symbolic-comparison ledgers retain
+their original snapshot bindings;all numerical results are unchanged. Previous
+experiment audits are reused without rehashing the entire old corpus.
 
 Current PDF: ``output/pdf/manuscript.pdf``;SHA256
-23f4054ffa0b7a80093cc56ba6881c299deaf844288b411353bb8346fdddc5fc.
-Previous PDF: ``output/pdf/manuscript_before_uniform_method_21254b53.pdf``.
+c4e6e06c054b4ab786762d6370ab384da823b29e60bdfaa7c3de4c6bc7b1bfcf.
+Previous PDF: ``output/pdf/manuscript_before_controller_overview_23f4054f.pdf``.
 
 The stronger-play objective remains active. The symbolic pipeline is complete;
 the independent-uniform8192-source evaluation is now running under its frozen
