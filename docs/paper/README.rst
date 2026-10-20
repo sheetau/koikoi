@@ -3,25 +3,34 @@ Manuscript working files
 
 This is an English research manuscript, not a submitted or published paper.
 
-Current verified revision: 33 pages including appendices, 34 cited references, 159-word Abstract.
-Abstract and Introduction lead with terminal-match adaptation, the exact
-critic-conditioning counterexample and reconstruction from public history.
-Related Work covers Koi-Koi systems, action-score adaptation and exploration,
-self-play, opponent inference, critic information, temporal abstraction,
-search and policy composition. The completed longer-adaptation comparison
-appears in Section 6.2; it improves mixture point margins at both new seeds
-but does not establish replicated additional win improvement.
-The main text reaches its Conclusion on page 13, previously page 18. Detailed
-return, fixed-observer and public-memory learning comparisons are retained in
-Appendices C--E; their primary outcomes remain explicit in the main text.
-Latest QA: runs/manuscript_structure_20261020_qa.json.
-Current PDF: output/pdf/manuscript.pdf, SHA256
-b9de94e68c9b1324924d461272bebed0bae24ab48e2155136a65d4810857c88b.
+Current verified revision: 35 pages including appendices, 34 cited references,
+188-word Abstract, 467-word Introduction and 139-word Conclusion.
+Abstract and Introduction lead with terminal-match adaptation, point-margin
+transfer from Point initialization, the exact critic-conditioning counterexample
+and reconstruction from public history. Related Work covers Koi-Koi systems,
+action-score adaptation and exploration, self-play, opponent inference, critic
+information, temporal abstraction, search and policy composition.
 
-The Point-initialization comparison has completed training and is undergoing
-its fixed main evaluation. Its final-policy probability diagnostic is complete;
-neither supplies a completed main strength result yet. Current experiment
-status and the other completed follow-ups are recorded in docs/STATUS.md.
+Section 6.3 reports the completed Point-initialization comparison: all131,072
+matches and the independent action/statistics audit pass. Point initialization
+improves mixture point margins by1.77--2.08points over matched WP controls;
+all four primary simultaneous win-change intervals include zero. The pre-outcome
+mechanism diagnostic connects persistent probability differences with the lack
+of replicated greedy win benefit, without claiming causal mediation.
+Tables 6--7 are generated from the completed export; full values and dependencies
+are in generated/point_initialization_evidence.json. Section6.2 retains the
+completed longer-adaptation comparison. No candidate is promoted.
+
+The main text reaches its Conclusion on page14. Detailed return, fixed-observer
+and public-memory comparisons remain in AppendicesC--E, with their primary
+outcomes explicit in the main text. Latest QA:
+runs/manuscript_point_20261020_qa.json. All1,581evidence bindings verify; all35pages
+were visually reviewed and all fonts are embedded. Current PDF:
+output/pdf/manuscript.pdf, SHA256
+871b8afce615954c789a463a784158d4e273a70ca33c2f65d472cf67873f6bc6.
+
+All current Point training/evaluation/audit processes are terminal. Current
+research status and the other completed follow-ups are in docs/STATUS.md.
 The original archive and intermediate PDFs remain preserved. Sections below
 the build/source instructions record earlier revision milestones; their page
 counts and formerly active processes are historical, not the current manuscript

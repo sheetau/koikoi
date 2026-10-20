@@ -1,0 +1,1168 @@
+{
+  "status": "complete",
+  "inputs": {
+    "runs\\published_batch_validation.npz": "e49004ce6795da3c23fbcb036c4d23712b6676a8d96cde1b43f6fca28d17d322",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\scripts\\calibrate_point_initialization.py": "b48677144687f0a28f6a2c42dab089addb81df7620f45ab5ce92aab62938ceec",
+    "koikoi\\layout.py": "5aeb1f111f6e051f24fa8f50d53a6607d70ec92fa291c979ad3966d8784147bc",
+    "scripts\\phase_exploration_calibration.py": "116202c911be0c93be8f58fad7814ff8630b77135b91979d17c7d7d55b865d93",
+    "scripts\\compare_published_initializations.py": "2dc768706ac1267e2f3ccc0ce62e45f0f6a86d8ea108c1b27d9f4beb015e2dd4",
+    "scripts\\koi_temperature_mechanism.py": "d93052adf4f95cbbee7aaf4233c0eff4f44bb84077fb488f21c8100228316e43",
+    "scripts\\run_arbitration_study.py": "3b82987651e585e7e220ad628180f5beec0c71da12dc8a40bf9e66530664caf8",
+    "tests\\test_calibrate_point_initialization.py": "6fc168676e56206d5f455cc1e9284428a884f46b00e3c2b5880db61531bafa67",
+    "docs\\POINT_INITIALIZATION_STUDY.rst": "7b45859d4979666ce71efc5458054637ade0aadf15024ef264f9a3d4d74b09db",
+    "runs\\point_initialization_calibration.json": "869ab1e45e7e8a5569ff20edaea55fdc5e2a2464d6d6a32a9c50df188bd701f3",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\scripts\\check_point_initialization_training.py": "070ac3420dd6ec06f47591131c369af6f3ad8f8a14cdfab60dab045476bfa10f",
+    "scripts\\phase_temperature_ppo.py": "96d4f4398a40715732bc5097a6ea1e74786fd32c6ed8ce6a191783ca8aaacb47",
+    "scripts\\published_duration_study.py": "a5d04b402d6ec9f818a410e128e76b420cfbdd8280d31a77bb8c09eec68ae45c",
+    "tests\\test_phase_temperature_ppo.py": "172b024b6df5a73d26d0140791b0889a57005cd9c387f0919cd3be01dba8d9f7",
+    "runs\\phase_temperature_ppo_tests.xml": "4614925ff7267290a4a2a74e2060662267149b1e4bb657706149dd16ca923f13",
+    "koikoi\\agents.py": "e2188ea87b4c05a884737a6c38a2faec5ce8e1d3eeaf4a60ff09cb516bb3afe3",
+    "koikoi\\arbitration.py": "de2364137bb75d2a8c779d17df1421fa3cc782de22ac1ff2ac6ad939de828e57",
+    "koikoi\\batch_evaluate.py": "6e28381bea8fc0363dfc2a714d5473c1a1f291c2f37845c48d57b57affd961fe",
+    "koikoi\\benchmark.py": "30c2bb2dd463e01fff638d38dad8996aff6c00c52a6f31d4be349ec3e3f2f348",
+    "koikoi\\budget.py": "0f9cf299dbbaaa07c47cf01187eab20bfe96f74ecfb65f9d866fac8f5a4017e7",
+    "koikoi\\capture.py": "bf379603adef31968ead5c99c27b21cbe89442ddebe71e48e802ae141ee3561e",
+    "koikoi\\compare.py": "21173f9fe58f38877d3dac9128816fe5a14ea134618b6d540983c21ad59ce174",
+    "koikoi\\complete_matches.py": "8fabf48508508560f3919220b04cb82b2d17fcfaeb170f42feafe7c838b91305",
+    "koikoi\\env.py": "979617e94988b406b14d34bc00f08335ac4b78579f43e142568bddec6391f6b6",
+    "koikoi\\estimators.py": "d820083ef6c15eed8212544ab3dbf0b94f0b7480f7b2a8daa26e526082e2947a",
+    "koikoi\\evaluate.py": "50f403c3dbadcd7db38ef1bac4858d2662afab61aff7cd85a5216b7ca04a8600",
+    "koikoi\\model.py": "3dba5951daaf288016b0e274fe18e4870c3c6ade58b49900e588f37064d846fe",
+    "koikoi\\native.py": "26f0fea3bcf787be52af0abc1899cd0a6afb6020605b5c10ac5d6f86d400e028",
+    "koikoi\\opponents.py": "7b35c3d9e9ea4589d6c1704855ffaa9a906e5e01483e36a804b6f466d30272ac",
+    "koikoi\\play.py": "4ce371b2b3caa1c68ea0698d832a53baac82b43f3fd02e43350f4a44c8badee9",
+    "koikoi\\published_actor.py": "6455c08bbb3df0acc33a7a5c0205995943930f8e330d8ac78877a4d08ac0d1c6",
+    "koikoi\\published_opponent.py": "0135f52261a018998e195f80391a95964fa227b724fb3ce0f71a9de9253167c1",
+    "koikoi\\published_train.py": "bfb603296b6204bdef391949a30383d59ac870f3b95cced3536015ba57756250",
+    "koikoi\\reference.py": "52141cde4ad247fc75756da284c8d8a93197917edc1b3f9bb601c6af8405f5ff",
+    "koikoi\\round_continuation.py": "dd452723ecd9dd83fa8f02d82a091008c422df9f22f827613a0a491eea09aa45",
+    "koikoi\\search.py": "ded6944a76938ff59a68e53c0571a1b8387184c35d7de9c254720bcbac54d9db",
+    "koikoi\\search_capture.py": "a3f053bd3a2643178876c6dfb529675af6dfc087aa00e4e5ade0f573689f9b9f",
+    "koikoi\\train.py": "4b37cc872a1e334c191d2dc31708f1430103d15e22317d0fb216bec2ccd3ceea",
+    "koikoi\\upstream.py": "435d80abcdb7fe6eda3d114e1575f19dd8d94458b10be4c62bca8b6feed0d3e0",
+    "koikoi\\upstream_batch.py": "2d973d675aa02b74d9131a34ee321547072e66250fab27d48ef2426892131009",
+    "koikoi\\__init__.py": "69b906e1719fded664a246c35262d538d9e1913dacb531786c2c1fd4c86276b7",
+    "koikoi\\native\\core.h": "820333d57e060e8705e2fe1a45544d0553d396980c0d25a23b00a92aeaee5dc3",
+    "koikoi\\native\\cpu.cpp": "dc4eed0d666a7bc408111ce30a97efd27959cd1193ece8b1e7d2ff9ac5cc7c45",
+    "koikoi\\native\\kernels.cu": "cd068279c7c87bd26eb1ea767ccfae09fd564a5002b7b36ec6d702675fdf841f",
+    "koikoi\\native\\published.h": "0a8d0ce36b0ccab3714a5ebb54180e134bdc2a344d342019ca26e312b6b17ba1",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\ai_vs_ai_test.py": "f5024f6439fc169d143bdc2d166e76cf0f9b020a8b5b5e7de10029b972b619f8",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\gamerecord_replay.py": "ea11adebd332c53bcf76dc6a3abd1d8542e9c01038c53a621372426dc4a7c064",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\gamerecord_replay_func.py": "4702dd50f882a2064d5d27240de7ae2a53c1303aba61b6a0d8dbc01dc385e5f1",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\gamerecord_replay_gui.py": "9606a24e35f5632b96d378acbf7d810f4e93bb2f8269440aa24e9469e4a5bb0f",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\koikoigame.py": "17ade09c4424e346fee3526c5d2daaccbd9b7d2580c1c56c7e491baf20f7866e",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\koikoigui.py": "bd64f60f46358d28db83f5a7fc6b48aea67d4c75f28253ca0e94dd4e96492b78",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\koikoilearn.py": "bb93bdc99b70a589d0bdf42fc1cfe98f481566e1f9d98663a8a9a1936329c370",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\koikoinet2L.py": "608d91c36875afc929a5470f3c86f787455537cd7213eb3c1bcda12a004d4862",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\play_vs_ai.py": "6f1988e5f7e7bac2f4e0c6f1b808da40b48618ed409a37ae83b0e9c5448658da",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\plot_attention.py": "f2f9ec565a480e789201cbefd7120b87dca58480bb8444128a5229ef30f4d79c",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\rl_train.py": "4b1ecbcf71bdf779c010e861e5758004db74f1939e85a64ed41dc3b9dad01046",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\rl_wp_reward_regress.py": "6e34eb825c10f963c73fb2e9e981e431976ab38f40282da3492332def80c0004",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\rl_wp_reward_simulate.py": "8b08bba55d7791cf4ebd4848d44dc720b50ca22d78e88bf6d054995f249e0b51",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\sl_acc_stat.py": "d24be9cd4d95eead807c750b34a654bf87754101d77483fc18c968cc3dd6ec5c",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\sl_record_to_dataset.py": "ec08a01972632a7895f8e41f7cd94b9a0e7c5a7bccbe7c470a0f5b33798b2b13",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\sl_train.py": "294205b25b378ea3e16cd72c78352df8409fa5915bf745a84ecbb603e5880844",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\torch_text_mha.py": "9e13095004b86b6feef157eaf130ad17a5660fee175d5e7bb3c2126c8b60dc36",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\model_agent\\discard_rl_wp.pt": "31197cbd4b4fc17da6dbd6a6ae946f25000968aa941757028db92d480d548fdd",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\model_agent\\discard_rl_point.pt": "4f314359ae9d2b3780726a1b0d297e293cc3429d6d9c0ccf309574b4e35dc9b9",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\model_agent\\pick_rl_wp.pt": "4064b54356f1cda3baedcd6b94187effb51a2fac381f07dcfdb1649d8bf01e64",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\model_agent\\pick_rl_point.pt": "7439379f9e23137b3fdcb12fdcd421d4b22574222fe544de2ba1eb6f31d93f49",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\model_agent\\koikoi_rl_wp.pt": "408f931abafd7127648f9b933fbb8be7cc137a15d0b23b182090a9a83a70e3e4",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\external\\KoiKoi-AI\\model_agent\\koikoi_rl_point.pt": "79c7b83ba4ea41d6115000128c410d104447ba517cb975cc32f4d25b7bc6c266",
+    "runs\\point_initialization_capability\\seed_scan.json": "0ac03b123a80a74aa10c74e6f0976a01c590cc387f0a0615a75ac3c6a1fdd39f",
+    "runs\\point_initialization_capability\\protocol.json": "b4b2ec69b2654a038f6e24e5de7b3a63ede8b9849c32fb48e858b1eb4862bd52",
+    "runs\\point_initialization_capability\\point_fixed\\config.json": "764b871a4784ce6dd80543da4fc1fbe0ed963fbfb7a695cb20e01582affde3aa",
+    "runs\\point_initialization_capability\\point_fixed\\initial.pt": "4b7ad50b4c264c9b95e5201ba9387ecbe1cc71bdeb2610ffaec371c30de3f5b0",
+    "runs\\point_initialization_capability\\point_fixed\\metrics.jsonl": "c8179f1ed8c36a7dbd1bef05fc88ee174eb59917dca4c0fda427763868669d53",
+    "runs\\point_initialization_capability\\point_fixed\\resumed_22.pt": "e8d7f431fc961e7c188858eb50baa0db0cedef02067b5e27edcc7a1bc27cff5e",
+    "runs\\point_initialization_capability\\point_fixed\\update_00000020.pt": "eed3f3d8f0b24f0d7b0ecf65baaf7801ecda54c5a1568cdc185f377fe1f5fed3",
+    "runs\\point_initialization_capability\\point_fixed\\update_00000021.pt": "06ac9080b94ec7d69b3e92f85bcd3fa26776a94207d84cc83829e044ddc1482d",
+    "runs\\point_initialization_capability\\point_fixed\\update_00000022.pt": "2e673a90e9a8f61bac1f6bee7a29e4a0d25d4a14ebb56018589b75d3a842f1ab",
+    "runs\\point_initialization_capability\\point_matched\\config.json": "7aaf045d1edbe3d03945ccebda8aaccbf8c1b18a9d5df2b6d0db7d339892b989",
+    "runs\\point_initialization_capability\\point_matched\\initial.pt": "9028ced6abeeb4547b380a665028e354fcb145f78276af4f98f45e074b5415a9",
+    "runs\\point_initialization_capability\\point_matched\\metrics.jsonl": "f3289f175eb921e53a954219829d2b49acfbf071fbc22c8e9eded4fa694118b0",
+    "runs\\point_initialization_capability\\point_matched\\resumed_22.pt": "420d3d85f740a38736aa559131aa8bc195120b4a083761cf1417aadd60a20f4c",
+    "runs\\point_initialization_capability\\point_matched\\update_00000020.pt": "d63b3e19d86a4ce100b5a1ea4dbdadae2e7b9cc95915f5798734df9a55562ff3",
+    "runs\\point_initialization_capability\\point_matched\\update_00000021.pt": "25195b0f18c70da7c40180f2004ab0ca5d13c94306512508c59e012e3a86ea10",
+    "runs\\point_initialization_capability\\point_matched\\update_00000022.pt": "da52d5c68f7dca0aabe573a285520e8af41ac80e597fcbe64331a3d6af1b9c73",
+    "runs\\point_initialization_capability\\wp_fixed\\config.json": "00419b30b9645a92f9173698a4abb1239a0226e5315cdd4f659b06fc9c1ccd08",
+    "runs\\point_initialization_capability\\wp_fixed\\initial.pt": "294904057d6f142b895d87d16b4b5942dbc196c97c249edd58282c0f6a726c29",
+    "runs\\point_initialization_capability\\wp_fixed\\metrics.jsonl": "01dc572eae0f81f7bcb1a1ffb158c170aed7df66fd2111cce78cb1688207d0a7",
+    "runs\\point_initialization_capability\\wp_fixed\\resumed_22.pt": "b49e086094265892a5f830be9ce0ca12da03a4edd15135bb8486e9137bd8a9f1",
+    "runs\\point_initialization_capability\\wp_fixed\\update_00000020.pt": "4f38273caa2cefd4c9a22690d852121963382214d8a5bc5e48663be2b6ddfd58",
+    "runs\\point_initialization_capability\\wp_fixed\\update_00000021.pt": "548a5a687880eba28921dd7c1526e69f301e9d97317e11cca34597d1b78b1472",
+    "runs\\point_initialization_capability\\wp_fixed\\update_00000022.pt": "fb3f9ef10d67fcbdb6d1e492f2b880e34ea1797c19feae4335120126701b2c69",
+    "runs\\point_initialization_capability\\complete.json": "be2b1c01539138582eaeeb89d7c9fb6262089f0b0efe1c9f3b91ac6835d02c1e",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\scripts\\audit_point_initialization_capability.py": "b42e5015f1132b9f7530ece917bc8bd2c50d2ec83c3cbddf2ea7dbb340ad7cc0",
+    "scripts/audit_pretrained_ppo_screen.py": "620058f96d1414848eff0617cad8281977666ff15d86ad15ec7e9de31f5d6c45",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\scripts\\train_point_initialization.py": "cf97a05ffb6f49fa2971174b6aed25c1d3eda9d3185b0962ff88ea45b782a39e",
+    "runs\\point_initialization_capability\\independent_audit.json": "f8d3036e9af6b55b21cf94275515fd0c19f61b737539931133f1e38b56538367",
+    "runs\\point_initialization_main_seed_scan.json": "dfa5688894853738b608b0c79c530027cc6a0e7dc0854d54b1b932244aa98e68",
+    "docs\\POINT_INITIALIZATION_MAIN.rst": "81563de7a8a8fee58aed6aa83daa0195d27b7f5c46f93529b316e9735012caa8",
+    "tests\\test_train_point_initialization.py": "e696ac4489e9c6e0b19b90cbc68b7d75200790cdac903e5f5d5d52ae6e9df948",
+    "runs\\point_initialization_runner_tests_final.xml": "f2494ce46a37a181abc769baeff64e1d68587cb1fd27fa5f82bf5385799befc3",
+    "runs/cold_ppo_screen/seed6710001_warm/update_00000520.pt": "37d06849261e0c1f0c31a9d2f228388fa1f391b670ce6772093a1c276091cc36",
+    "runs/cold_ppo_screen/seed6720001_warm/update_00000520.pt": "5e8a123d5fafb6ebae8c1ac8d094c9de65bf364381cc10b78208337051e181cc",
+    "runs\\point_initialization_study\\protocol.json": "defd0e993e2c85efb844164b0c1edfa4ac6bae917c31ea6a6eb33d7ba4618048",
+    "runs\\point_initialization_study\\complete.json": "14a61deb6a030701c9879650bbf27c0b59d218a898f3967ef01126cbf137d620",
+    "runs\\point_initialization_study\\seed1_wp_fixed\\initial.pt": "7dcfb873df3bf6f17f5e5e1dc87f482b2316be9d76595dd2cd4c040abaf72bf5",
+    "runs\\point_initialization_study\\seed1_wp_fixed\\config.json": "422ad8e7e41f46f2444893a11da997031aba575fd9daa4bd38c67e8379004810",
+    "runs\\point_initialization_study\\seed1_wp_fixed\\metrics.jsonl": "ab866697407a35be32c645cbc1c8e8406ad843e98c811002e7baeaa7c59d7fd4",
+    "runs\\point_initialization_study\\seed1_wp_fixed\\complete.json": "c1d38f94f011d5829c6f47689be484322dae2f58419ecb43bea264e6196c425d",
+    "runs\\point_initialization_study\\seed1_wp_fixed\\update_00000020.pt": "a137b5d6212d6a0cfaf3951453fb81e9f5a9e8dc90b91cf7879a1ae84a2517f6",
+    "runs\\point_initialization_study\\seed1_point_fixed\\initial.pt": "d26eb1fade3cd9135a164d445ed56192e94d2390cd9225f2bab40ffaf13c3f4c",
+    "runs\\point_initialization_study\\seed1_point_fixed\\config.json": "d819c6d532a88afbb0af138bead77cc82bc41d7099c03a834e55ff38e37d92b2",
+    "runs\\point_initialization_study\\seed1_point_fixed\\metrics.jsonl": "a722772c9a40934b9ae870964c967cda8e44929bb94feb324cc2bdd9fc175f81",
+    "runs\\point_initialization_study\\seed1_point_fixed\\complete.json": "2b9df9afafdde7c20ad4b5bc8362cc0030955cda9c42adefa5522ba21d2cdf15",
+    "runs\\point_initialization_study\\seed1_point_fixed\\update_00000020.pt": "42c8e0124b59fcaf9ceb8a5de476a0b398b2415fdfc93ada55fa0b9d160e9e6c",
+    "runs\\point_initialization_study\\seed1_point_matched\\initial.pt": "53639d04b7ada5078cb88c586b6a8655ae1557782a133a8a66bf61a7eabc5478",
+    "runs\\point_initialization_study\\seed1_point_matched\\config.json": "4b1beb660f6648b127bb9dd4d0de1a94be00e338e1e38e19d4cdb0b183cdd249",
+    "runs\\point_initialization_study\\seed1_point_matched\\metrics.jsonl": "c325436e62173f4c2f252fc2071c06fec00545ddd577db701dfb48fa3391478c",
+    "runs\\point_initialization_study\\seed1_point_matched\\complete.json": "3f7eb95f4b2f72b3897cfd8662f74b3230e582db873c5b81d82eb1dcc7e59b76",
+    "runs\\point_initialization_study\\seed1_point_matched\\update_00000020.pt": "e751be3a6f7f9ad1307f850ea2d5ec47642162076611c772d29be33c4bd7112b",
+    "runs\\point_initialization_study\\seed2_wp_fixed\\initial.pt": "4c77e6235dc6ac7cd468a9852b5cf225ab0e55d14410844f12b87c4ab3484e8a",
+    "runs\\point_initialization_study\\seed2_wp_fixed\\config.json": "55ebad7287478ca4c701d2f1c19c5cabf78998d5bc5d09b1883a178775c76aa6",
+    "runs\\point_initialization_study\\seed2_wp_fixed\\metrics.jsonl": "547241d25f4d6911ec1151554e30bc964df032734c971e0785804c40b7bd32c1",
+    "runs\\point_initialization_study\\seed2_wp_fixed\\complete.json": "9adc0f4673938c43bfb4438433f1bd7383dddefc9b115985d7032758cc41e046",
+    "runs\\point_initialization_study\\seed2_wp_fixed\\update_00000020.pt": "b4bca0c6c372d248f0dda17c668a4079867b4109efbbe448ed11578deb9399d6",
+    "runs\\point_initialization_study\\seed2_point_fixed\\initial.pt": "156ff62138eff67dc215cbc4c3b4938fb6f7ffe72e86d276168f522cdbf17e01",
+    "runs\\point_initialization_study\\seed2_point_fixed\\config.json": "7dbd025c68201373f84b33faaac100ad80b6511aed968388c6aea534277ba5c9",
+    "runs\\point_initialization_study\\seed2_point_fixed\\metrics.jsonl": "1a63b2299b22c1514db4cd7b4640141b10895b55ad9e61f2f889148aa1524607",
+    "runs\\point_initialization_study\\seed2_point_fixed\\complete.json": "ba2514a4c81a45839562f1fe84e1c5b8e812c87109b9ba35a92e46412613eb1c",
+    "runs\\point_initialization_study\\seed2_point_fixed\\update_00000020.pt": "f4966aca4d10a6d23daa357aea0242388d17af2f65983f9d06a374b1a88a5be6",
+    "runs\\point_initialization_study\\seed2_point_matched\\initial.pt": "423da6989f722415e75c0f250e5d2d3a0c69d5359ffaff59aa87da969e9dcb2b",
+    "runs\\point_initialization_study\\seed2_point_matched\\config.json": "4867eaf4104810bc5fe7034b663fecc98e4dd6ce1bbb459ccf9a07bc3dfebf35",
+    "runs\\point_initialization_study\\seed2_point_matched\\metrics.jsonl": "bcaa209345ee75103dc7919abec16e5a2950da412843a9c449d6b93749858ab8",
+    "runs\\point_initialization_study\\seed2_point_matched\\complete.json": "127bb9d0c4fe15e302c30cd54c216f3d92fb19ca35f2648dcea08b7fec364f7b",
+    "runs\\point_initialization_study\\seed2_point_matched\\update_00000020.pt": "2a444e728b217bbc126ad4241c28d6ea8eb9e1930998f6b137a7aad080d698e0",
+    "runs\\cold_ppo_screen\\seed6710001_warm\\update_00000520.pt": "37d06849261e0c1f0c31a9d2f228388fa1f391b670ce6772093a1c276091cc36",
+    "runs\\cold_ppo_screen\\seed6720001_warm\\update_00000520.pt": "5e8a123d5fafb6ebae8c1ac8d094c9de65bf364381cc10b78208337051e181cc",
+    "scripts/evaluate_point_initialization.py": "03b4eb04f40a044e1e4fea5a5f8566c9e4e6b7166a590d7d4162055fd382b24a",
+    "scripts/point_initialization_analysis.py": "85552682475cfca54891ee6420991eac8e4db5a19a186062bb7ff5709fd6bee4",
+    "scripts/audit_point_initialization_checkpoint.py": "b03e6b3c425e850d9f7e5f5e06e2b5f9345e73441a062473c5d97ecc7a44eef9",
+    "scripts/audit_point_initialization_evaluation.py": "54b60f553e31e901933ee0b312ce94144a5665942eeb72ffc7f289f203d26207",
+    "scripts/directional_return_statistics.py": "ce5f40fd0343d8e7330d39c79f7f536854e2f26ebecf9979aa0d908d262aa213",
+    "scripts/directional_return_probe.py": "e1dc35102adc8691dc8bc46ada62c26bb9262a1f0718f8d4270da1f77fe999d8",
+    "tests/test_point_initialization_analysis.py": "546b14d9a089bfa28afe16e16539e150b064f18374a204caf87f16d3a756f800",
+    "tests/test_point_initialization_evaluation.py": "2ef70077afbeaea9557a41d204e2477f3d41d40e5219fac4b9b9a8ad67179d43",
+    "tests/test_point_checkpoint_evidence.py": "ba993eda2e49bdb05b704aad87e71864f158445eb4b52551bcf14a5f8db324fe",
+    "runs/point_initialization_evaluation_tests.xml": "2c900dc5c32de3b4ceea852461b0c2a0d4db667870607f368a423aa818b7560f",
+    "runs\\point_initialization_evaluation_capability\\evaluation_protocol.json": "d1d7646baaa00074240431c9deb1394b1e8fe51a83d0bf6022a5d906aa57d343",
+    "runs\\point_initialization_evaluation_capability\\evaluation\\parent1_parent_wp.jsonl": "9281ab4004e59882cb867a34ddb3fed682f0895aa75498cc5e32b720da9a7fb6",
+    "runs\\point_initialization_evaluation_capability\\evaluation\\parent1_parent_wp.json": "f0badcd4fa581442ad5f05972ae19388cf4a95391315113d16749db9840fb8dc",
+    "runs\\point_initialization_evaluation_capability\\evaluation\\parent1_parent_point.jsonl": "c2e09551bd361188dc2825b62685734fbd31da15bda2d00ee8196d02428ca2ef",
+    "runs\\point_initialization_evaluation_capability\\evaluation\\parent1_parent_point.json": "f5f48dd680b13dd2ebe81eaaa6a284a44a3c392286aa44177b45f3721f3a0616",
+    "runs\\point_initialization_evaluation_capability\\evaluation\\parent1_wp_fixed_wp.jsonl": "d245ec249363e1e1cd6efd88ab3cadc65fe99a9017be4291c6d864ecbe703d0b",
+    "runs\\point_initialization_evaluation_capability\\evaluation\\parent1_wp_fixed_wp.json": "736c5ef8fe3657b0dd34ef47e713826188b0f5634f44b1010e96ea8c97cc8092",
+    "runs\\point_initialization_evaluation_capability\\evaluation\\parent1_wp_fixed_point.jsonl": "2185d090a624005ce2ff44e8d2c7e77d7ae9241563e81a0e416f5e48fd17034b",
+    "runs\\point_initialization_evaluation_capability\\evaluation\\parent1_wp_fixed_point.json": "b35e55314f775debb9868dfe44391738f896bfd605634e8b10aee95b4a82670e",
+    "runs\\point_initialization_evaluation_capability\\evaluation\\parent1_point_fixed_wp.jsonl": "617a11fcd84da0cedd5c11608f5526d620bc454708311c3869202ece35e3921e",
+    "runs\\point_initialization_evaluation_capability\\evaluation\\parent1_point_fixed_wp.json": "669e25dcc38e9019e4afc94226ab1c24d4ef2584a7a00d1c1820eb5f256f5147",
+    "runs\\point_initialization_evaluation_capability\\evaluation\\parent1_point_fixed_point.jsonl": "69a806ff945fcf82710029455e9d10787b7ded21cbeb5479180d57f37424f0a1",
+    "runs\\point_initialization_evaluation_capability\\evaluation\\parent1_point_fixed_point.json": "c0e5bbdc12b3e6f4db87f1ed9630cfa15d085f56bee1b0ac4b5adab50fef768c",
+    "runs\\point_initialization_evaluation_capability\\evaluation\\parent1_point_matched_wp.jsonl": "617a11fcd84da0cedd5c11608f5526d620bc454708311c3869202ece35e3921e",
+    "runs\\point_initialization_evaluation_capability\\evaluation\\parent1_point_matched_wp.json": "ee3d47fbe44c702c873ee40015ce5a1a659a876d01e9331fc2004908440a647b",
+    "runs\\point_initialization_evaluation_capability\\evaluation\\parent1_point_matched_point.jsonl": "69a806ff945fcf82710029455e9d10787b7ded21cbeb5479180d57f37424f0a1",
+    "runs\\point_initialization_evaluation_capability\\evaluation\\parent1_point_matched_point.json": "c70c62e11a0733ca5878c373722e9dde8fff7966c87a4f5de35d27e236f86cdd",
+    "runs\\point_initialization_evaluation_capability\\evaluation\\parent2_parent_wp.jsonl": "481e5f86c51f807bc3ec30a6ca65f2b7fc9942032b96bf41167dcbc52ccea132",
+    "runs\\point_initialization_evaluation_capability\\evaluation\\parent2_parent_wp.json": "391722186cb91f0bf19ff453b8f1acb1e930821998e90d20afda627d41d86f13",
+    "runs\\point_initialization_evaluation_capability\\evaluation\\parent2_parent_point.jsonl": "f75341850fc07410ba9a4befb332dbc3c111543d461fb7508357fe993bf49b38",
+    "runs\\point_initialization_evaluation_capability\\evaluation\\parent2_parent_point.json": "4d1a0d18f05ff38859846c5f8fe4baf655ca6112e53f08af20c348dcd2600a4f",
+    "runs\\point_initialization_evaluation_capability\\evaluation\\parent2_wp_fixed_wp.jsonl": "f97899ef20d0c6af3c904af69ec5ffeb37ee0bd221cb340f5dcd431f848dbfdf",
+    "runs\\point_initialization_evaluation_capability\\evaluation\\parent2_wp_fixed_wp.json": "aa4f5a8fe0dbe7b4e388253201445f771ccb9cfbef7d71d1127ec223d7febf5a",
+    "runs\\point_initialization_evaluation_capability\\evaluation\\parent2_wp_fixed_point.jsonl": "1235ec33556141c9b38bce4eafece8e6843e3cc5bae6ca0362585e777d02d28e",
+    "runs\\point_initialization_evaluation_capability\\evaluation\\parent2_wp_fixed_point.json": "8d0ebcb99c0503fbb5acb021446a63e17320c8e45d6a6ec6c9ba7f92eae29577",
+    "runs\\point_initialization_evaluation_capability\\evaluation\\parent2_point_fixed_wp.jsonl": "799448486867ceacd8f6b347711249f100a2a4a1597f214370d0df216d978a0a",
+    "runs\\point_initialization_evaluation_capability\\evaluation\\parent2_point_fixed_wp.json": "db1e6e83f3769f9094a7c44b7356d51f59a48da9acc037de70b01b2f4866f609",
+    "runs\\point_initialization_evaluation_capability\\evaluation\\parent2_point_fixed_point.jsonl": "5d44454de0659f9712856b489a37d29e8638f9576bcba2befd250bf2bb0292d0",
+    "runs\\point_initialization_evaluation_capability\\evaluation\\parent2_point_fixed_point.json": "2f27fc802b44b0be9e193b4b2c3f4a8544b18f660507e284c8b2725721bea03c",
+    "runs\\point_initialization_evaluation_capability\\evaluation\\parent2_point_matched_wp.jsonl": "799448486867ceacd8f6b347711249f100a2a4a1597f214370d0df216d978a0a",
+    "runs\\point_initialization_evaluation_capability\\evaluation\\parent2_point_matched_wp.json": "098e2a409592771859433c1b3d3818d4108455cf7d3564e5ed3ae68cfd0b3cc3",
+    "runs\\point_initialization_evaluation_capability\\evaluation\\parent2_point_matched_point.jsonl": "5d44454de0659f9712856b489a37d29e8638f9576bcba2befd250bf2bb0292d0",
+    "runs\\point_initialization_evaluation_capability\\evaluation\\parent2_point_matched_point.json": "10e927d231f6c1ce0a3a2d054a4ae81e7a273643e92efafac297dfef7f1bb50e",
+    "runs\\point_initialization_evaluation_capability\\summary.json": "0185b290e35940374b3d0e56e4fd322ad04cf95083bf2b62ca100b39de2c6e04",
+    "runs\\point_initialization_evaluation_capability\\audit.json": "0e87ebb17f564d06711e00a0d225a6497be0e7eac3452363476e4f56dbfa958a",
+    "runs\\point_initialization_study\\seed1_wp_fixed\\update_00000520.pt": "d5e2b98de6762692348a60f3cff910584b19ba90dcbfeaef148df36ea218f41e",
+    "runs\\point_initialization_study\\seed1_point_fixed\\update_00000520.pt": "09255f171d5a79c3552efd20c8e23c32a52324c2151cdd0c9b4b7cf94ea2e4b4",
+    "runs\\point_initialization_study\\seed1_point_matched\\update_00000520.pt": "45cd3641955784e536dce2eeb644a9370cd2fcb9fb17b367f521de9c039f8167",
+    "runs\\point_initialization_study\\seed2_wp_fixed\\update_00000520.pt": "447a8699c54428737d70d1d8a0a02bf6bacd6d999c297c9cbaeb1691768bde75",
+    "runs\\point_initialization_study\\seed2_point_fixed\\update_00000520.pt": "03bdd4cfd6e33084c67d82a3bf5f2845d82c760babb54e3ad420445d0cba4ffe",
+    "runs\\point_initialization_study\\seed2_point_matched\\update_00000520.pt": "e96385a464231b56612827cef2c6944aca20f86e67bd8f07374e76eddb425e6e",
+    "runs\\point_initialization_evaluation\\evaluation_protocol.json": "1df245b6fea1799c0ed9f91518642ccb3d1e4bf9c0f7e682a1208819e609b7e7",
+    "runs\\point_initialization_evaluation\\evaluation\\parent1_parent_wp.jsonl": "6795ce597189fbd609fe6bda0f10d56c2fc20b6459fe609be4a940f805983b3d",
+    "runs\\point_initialization_evaluation\\evaluation\\parent1_parent_wp.json": "6306aba277f1f5adae0abb7087cf7a1c264247a53772a50f8f46a870470436c6",
+    "runs\\point_initialization_evaluation\\evaluation\\parent1_parent_point.jsonl": "395efc6b04b5f0dd092c000382b5f3d794e6e417a30f41fb940d0079282c5ddd",
+    "runs\\point_initialization_evaluation\\evaluation\\parent1_parent_point.json": "b015ac468b0c4fe7c5a40a9194f94b5e47b045939d7b1bf8c5730406806b2917",
+    "runs\\point_initialization_evaluation\\evaluation\\parent1_wp_fixed_wp.jsonl": "53124a9556185cd76af887f88069c33248561706f647230d81c8f0212903ad03",
+    "runs\\point_initialization_evaluation\\evaluation\\parent1_wp_fixed_wp.json": "745624b451afab1d5efcb93d14012fd44229dc61fe9940748d82c0e19e8029bf",
+    "runs\\point_initialization_evaluation\\evaluation\\parent1_wp_fixed_point.jsonl": "e04515b0ad23e7d9f2bdb7e53e595305df23fb6f4173876a4a0e7ee9d7646944",
+    "runs\\point_initialization_evaluation\\evaluation\\parent1_wp_fixed_point.json": "ac335a70a1d7fa095e71064549dcafaf73fff7509264c3381b00fa3ebfdfd29c",
+    "runs\\point_initialization_evaluation\\evaluation\\parent1_point_fixed_wp.jsonl": "3523640e05d614b347d0cb8e58e075498f2242d7bd47d7803155795afebabb18",
+    "runs\\point_initialization_evaluation\\evaluation\\parent1_point_fixed_wp.json": "624ca09630fce39a1f3f3d26f45c5c02fe58a1081bc7cd2daf3ffc626801bca9",
+    "runs\\point_initialization_evaluation\\evaluation\\parent1_point_fixed_point.jsonl": "dc49bcc86a71d6cd36712a1e9938abb40636e03ff6739de5dc9fe110336f6c0f",
+    "runs\\point_initialization_evaluation\\evaluation\\parent1_point_fixed_point.json": "5ed117c4b78e32f36860832b82865b367014ebe983a0229cf46e68edb31c6411",
+    "runs\\point_initialization_evaluation\\evaluation\\parent1_point_matched_wp.jsonl": "1330a702b4a2416e58fc64a2da9fe6364003394c23ba3ad05d07a7dd7ab4e1f0",
+    "runs\\point_initialization_evaluation\\evaluation\\parent1_point_matched_wp.json": "53b5804e5a275991b7787b1f8c29d8a5d6fc2fb109f34ccdf05be73a8b501cd5",
+    "runs\\point_initialization_evaluation\\evaluation\\parent1_point_matched_point.jsonl": "2bc1885ec6804fad2577825c5f2044b3468b6d9d672c4658bd4e890e2a3a2e6a",
+    "runs\\point_initialization_evaluation\\evaluation\\parent1_point_matched_point.json": "104497eef0e3cc85e5d4d6f2148a465c4c48bbb6314765bac01a965d2fdb9af7",
+    "runs\\point_initialization_evaluation\\evaluation\\parent2_parent_wp.jsonl": "3fde35fd8ab7de23b31b4915333df0bd36196ce2dd910c2353222faae21ebd59",
+    "runs\\point_initialization_evaluation\\evaluation\\parent2_parent_wp.json": "9a87fe44739ee064a93dce17c2e7cc5c06852a982c4f457153b66f735d5bdcb9",
+    "runs\\point_initialization_evaluation\\evaluation\\parent2_parent_point.jsonl": "b320a8ec6eac4051ab7fb1514b4278e2ac813ffa965ae95016455a84d4ba321a",
+    "runs\\point_initialization_evaluation\\evaluation\\parent2_parent_point.json": "6323cf4f45f0e41796e89aef561abb73e018e28fce5c3199ed30c0f1b39bb792",
+    "runs\\point_initialization_evaluation\\evaluation\\parent2_wp_fixed_wp.jsonl": "56d67977a9266b764547c7a10f51ffb289f034797e0ffd2534cc882db4bfc3a8",
+    "runs\\point_initialization_evaluation\\evaluation\\parent2_wp_fixed_wp.json": "11c6fe662b0dd0e1cfb42a2a537b342735c89d2e23814935dfb528b97925cb68",
+    "runs\\point_initialization_evaluation\\evaluation\\parent2_wp_fixed_point.jsonl": "141f17340a7ec383593db6ac0914b5615829ec0e69a169b3084aadaf529b8792",
+    "runs\\point_initialization_evaluation\\evaluation\\parent2_wp_fixed_point.json": "ffa0e01cdcc5b80d9eec354c0f1a9e8b67da449144dbef889095f0616b74a585",
+    "runs\\point_initialization_evaluation\\evaluation\\parent2_point_fixed_wp.jsonl": "57777a27070412fc5843a340eb58cb7081df416f9cb33d38d625f8be247d4258",
+    "runs\\point_initialization_evaluation\\evaluation\\parent2_point_fixed_wp.json": "422c240911c555ef428c40b190bbb8c0cad4661e73f056aa882be3d3c4d55203",
+    "runs\\point_initialization_evaluation\\evaluation\\parent2_point_fixed_point.jsonl": "39f0253c56b97035c217ba2a7c68686177d929d58c0252bc5cef769a1b3d9710",
+    "runs\\point_initialization_evaluation\\evaluation\\parent2_point_fixed_point.json": "b868fb46cf7eb14b6160fde0216f6809ae02560665e533ee10498a5570938672",
+    "runs\\point_initialization_evaluation\\evaluation\\parent2_point_matched_wp.jsonl": "605052c651ab7405d9b78a73ff15107901089d311fa53dcb2b531122da656b47",
+    "runs\\point_initialization_evaluation\\evaluation\\parent2_point_matched_wp.json": "fd78ad6ee94f34ed10f005eeb3c57bac61e6f6e06f7844d2cbe86a4cdaf53e27",
+    "runs\\point_initialization_evaluation\\evaluation\\parent2_point_matched_point.jsonl": "fc000e52cbe406416db8dc3915115810c2a164c76771e731feed016c3eb5983b",
+    "runs\\point_initialization_evaluation\\evaluation\\parent2_point_matched_point.json": "a2d3276ab3bc39c52ab05d6fca7673ce9972ab762b1106d36ab888db4bf1cf92",
+    "runs\\point_initialization_evaluation\\summary.json": "b1ce6a1e59eb7c4aef4494ab3a02ba5cbe7e825bdd52cc4840aead61767a0fd9",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\scripts\\finish_point_initialization.py": "f58ddced426dab69481512106275bc9d065efb1782c9c18e225a2eb11afb5a74",
+    "scripts\\finish_published_duration.py": "29c5679ec05d127333f24ea0aa530f96417ed53abe7a80c91fc0a283957ed201",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\.venv\\Scripts\\python.exe": "0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14",
+    "runs\\point_initialization_study\\started.json": "40a2aaf4aaf97274d895db00e66516923e5b10032be4aa113de8b19393d6fb1d",
+    "tests\\test_finish_point_initialization.py": "f20c1eb4c939197cc5d8d9dd406b3396e6899f62891f7de3ac881ac51285d6a7",
+    "runs\\point_initialization_queue_tests.xml": "41171301954b5db665ded3c7b5e4d383d19be22fc8361b6dd33d9afbc3e6a634",
+    "runs\\point_initialization_completion\\protocol.json": "3419c9da7ec674828b8865ea61dddc6e253600586093c9a23c8d2d940864ac8a",
+    "runs\\point_initialization_completion\\complete.json": "f84db1b43691c1641a04a4c7bbc879d1f1ed8ceaacbf310609a4b50c9f74e5f3",
+    "runs\\point_initialization_evaluation\\evaluation_complete.json": "17d2b88797a951d6b3c9508b5446991110968ac8ded18bb9965a0724d8cda134",
+    "runs\\point_initialization_evaluation\\audit.json": "6fa668b21f7422677c16892ca7f39429895387955e4e5ff2105760bd833584c8",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\scripts\\export_point_initialization_results.py": "7a282ec61e819ffdb6982bbe08fbed4528ec77da809e2fb53f514de0ea5f647f",
+    "scripts\\export_koi_temperature_results.py": "30227cc59c5a0e9b33b23dca2d5ec296b80546fcd3aec65dbde03d43897b0c08",
+    "runs\\point_initialization_results\\evidence.json": "9de59a0b52764c5a823f63c8dcb0f5cf30bb294417f9298aaa233c9d2a03b647",
+    "runs\\point_initialization_results\\results.rst": "d3034090fde4fb79c2173e811dd03b3c34c9f6567992d04f273f5f124e1649c0",
+    "docs\\POINT_INITIALIZATION_RESULTS.rst": "1141d3c52131cbf024033312de6fe8281d1bf02ec55465d1d0e8a591db4d1e2c",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\scripts\\point_initialization_mechanism.py": "dd51c883d48adb4ce9a3651300d8f7116814d10dace9a6b5b298616fa39a0896",
+    "scripts\\audit_point_initialization_mechanism.py": "68ef342c63cf337b210416665babc9fb1fa69c1068fe3081361c41905f146814",
+    "tests\\test_point_initialization_mechanism.py": "208975f96190f740186f08f6799fe6979204071945d7de2927223b1742d1efaf",
+    "runs\\point_initialization_mechanism_tests.xml": "0d423bb7580bf08489d92d2170b3bd4738787f51a828649c96033b4038538fab",
+    "docs\\POINT_INITIALIZATION_MECHANISM.rst": "8a18958350f84e5c4fcd24cd1962f401f4376be2415d3f8f8634ef924d9a1e27",
+    "scripts\\audit_koi_temperature_mechanism.py": "b52740aec94b9943ed6534c4f61e1011eab0558348479bc39ce8b45ae28153a3",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\scripts\\audit_point_initialization_mechanism.py": "68ef342c63cf337b210416665babc9fb1fa69c1068fe3081361c41905f146814",
+    "runs\\point_initialization_mechanism\\protocol.json": "cb4fdf6236f7e6cb74210ce663bac29a6b2536e5aff41fbc320ad21290a83b04",
+    "runs\\point_initialization_mechanism\\report.json": "36e66a1aaea7f0179a505558ca2d254dcb827bbe31b4060cc76c03d910373f6a",
+    "runs\\point_initialization_mechanism\\scores.npz": "1a3ec3324dee6bae91cf69d60162e3e1113d11ee8b892a17ac8c7b02ff0aff54",
+    "runs\\point_initialization_mechanism\\independent_audit.json": "892486fa2f44efcdca5d93978cfce913fc8e8ff2bdbeccd2573fd3ad1aca257f",
+    "docs\\POINT_INITIALIZATION_MECHANISM_RESULTS.rst": "d793eb29f6c3e91a9016a524d9bf37acd5b345c02a2b911b32aaa6b6c4938ff9"
+  },
+  "generated": {
+    "docs\\paper\\generated\\point_initialization_primary_table.tex": "510b2cf07c315921668be88d5d79edc08f9b3b20a8c57e91561cdf289c622945",
+    "docs\\paper\\generated\\point_initialization_points_table.tex": "174dea4c01ed0c71c3db0d609f26c246b876019c49c8a292714cac8cac1281d5"
+  },
+  "summary": {
+    "rows": {
+      "parent1/mixture/parent/win": {
+        "mean": 0.510009765625,
+        "marginal95": [
+          0.503936767578125,
+          0.51611328125
+        ]
+      },
+      "parent1/mixture/parent/points": {
+        "mean": 0.22509765625,
+        "marginal95": [
+          -0.14307556152343748,
+          0.58740234375
+        ]
+      },
+      "parent1/mixture/wp_fixed/win": {
+        "mean": 0.51214599609375,
+        "marginal95": [
+          0.506134033203125,
+          0.51824951171875
+        ]
+      },
+      "parent1/mixture/wp_fixed/points": {
+        "mean": 0.064208984375,
+        "marginal95": [
+          -0.292510986328125,
+          0.4274963378906249
+        ]
+      },
+      "parent1/mixture/point_fixed/win": {
+        "mean": 0.507110595703125,
+        "marginal95": [
+          0.501312255859375,
+          0.512908935546875
+        ]
+      },
+      "parent1/mixture/point_fixed/points": {
+        "mean": 2.030517578125,
+        "marginal95": [
+          1.669183349609375,
+          2.3945343017578127
+        ]
+      },
+      "parent1/mixture/point_matched/win": {
+        "mean": 0.514495849609375,
+        "marginal95": [
+          0.50860595703125,
+          0.520233154296875
+        ]
+      },
+      "parent1/mixture/point_matched/points": {
+        "mean": 2.03662109375,
+        "marginal95": [
+          1.665020751953125,
+          2.3985626220703127
+        ]
+      },
+      "parent1/mixture/point_matched-wp_fixed/win": {
+        "mean": 0.002349853515625,
+        "marginal95": [
+          -0.005462646484375,
+          0.0101318359375
+        ]
+      },
+      "parent1/mixture/point_matched-wp_fixed/points": {
+        "mean": 1.972412109375,
+        "marginal95": [
+          1.5004852294921875,
+          2.4346954345703127
+        ]
+      },
+      "parent1/mixture/point_matched-point_fixed/win": {
+        "mean": 0.00738525390625,
+        "marginal95": [
+          0.000885009765625,
+          0.01385498046875
+        ]
+      },
+      "parent1/mixture/point_matched-point_fixed/points": {
+        "mean": 0.006103515625,
+        "marginal95": [
+          -0.367919921875,
+          0.38086853027343737
+        ]
+      },
+      "parent1/mixture/point_matched-parent/win": {
+        "mean": 0.004486083984375,
+        "marginal95": [
+          -0.0033882141113281243,
+          0.012298583984375
+        ]
+      },
+      "parent1/mixture/point_matched-parent/points": {
+        "mean": 1.8115234375,
+        "marginal95": [
+          1.3519287109375,
+          2.2717315673828127
+        ]
+      },
+      "parent1/mixture/point_fixed-wp_fixed/win": {
+        "mean": -0.005035400390625,
+        "marginal95": [
+          -0.0126953125,
+          0.002685546875
+        ]
+      },
+      "parent1/mixture/point_fixed-wp_fixed/points": {
+        "mean": 1.96630859375,
+        "marginal95": [
+          1.51158447265625,
+          2.43739013671875
+        ]
+      },
+      "parent1/mixture/point_fixed-parent/win": {
+        "mean": -0.002899169921875,
+        "marginal95": [
+          -0.010711669921875,
+          0.0050048828125
+        ]
+      },
+      "parent1/mixture/point_fixed-parent/points": {
+        "mean": 1.805419921875,
+        "marginal95": [
+          1.3414306640625,
+          2.276007080078125
+        ]
+      },
+      "parent1/mixture/wp_fixed-parent/win": {
+        "mean": 0.00213623046875,
+        "marginal95": [
+          -0.004180908203125,
+          0.008544921875
+        ]
+      },
+      "parent1/mixture/wp_fixed-parent/points": {
+        "mean": -0.160888671875,
+        "marginal95": [
+          -0.5196533203125,
+          0.20215148925781246
+        ]
+      },
+      "parent1/wp/parent/win": {
+        "mean": 0.513916015625,
+        "marginal95": [
+          0.5057373046875,
+          0.52197265625
+        ]
+      },
+      "parent1/wp/parent/points": {
+        "mean": 2.49560546875,
+        "marginal95": [
+          2.013897705078125,
+          2.9602294921874996
+        ]
+      },
+      "parent1/wp/wp_fixed/win": {
+        "mean": 0.52056884765625,
+        "marginal95": [
+          0.51275634765625,
+          0.52862548828125
+        ]
+      },
+      "parent1/wp/wp_fixed/points": {
+        "mean": 2.48388671875,
+        "marginal95": [
+          2.008282470703125,
+          2.965338134765625
+        ]
+      },
+      "parent1/wp/point_fixed/win": {
+        "mean": 0.51092529296875,
+        "marginal95": [
+          0.50238037109375,
+          0.51953125
+        ]
+      },
+      "parent1/wp/point_fixed/points": {
+        "mean": 4.21044921875,
+        "marginal95": [
+          3.676995849609375,
+          4.747802734375
+        ]
+      },
+      "parent1/wp/point_matched/win": {
+        "mean": 0.51983642578125,
+        "marginal95": [
+          0.5111083984375,
+          0.52838134765625
+        ]
+      },
+      "parent1/wp/point_matched/points": {
+        "mean": 4.123046875,
+        "marginal95": [
+          3.5773681640625,
+          4.653625488281249
+        ]
+      },
+      "parent1/wp/point_matched-wp_fixed/win": {
+        "mean": -0.000732421875,
+        "marginal95": [
+          -0.0120849609375,
+          0.01031494140625
+        ]
+      },
+      "parent1/wp/point_matched-wp_fixed/points": {
+        "mean": 1.63916015625,
+        "marginal95": [
+          0.958734130859375,
+          2.287603759765625
+        ]
+      },
+      "parent1/wp/point_matched-point_fixed/win": {
+        "mean": 0.0089111328125,
+        "marginal95": [
+          -0.00048828125,
+          0.018310546875
+        ]
+      },
+      "parent1/wp/point_matched-point_fixed/points": {
+        "mean": -0.08740234375,
+        "marginal95": [
+          -0.642578125,
+          0.4626525878906249
+        ]
+      },
+      "parent1/wp/point_matched-parent/win": {
+        "mean": 0.00592041015625,
+        "marginal95": [
+          -0.005126953125,
+          0.01702880859375
+        ]
+      },
+      "parent1/wp/point_matched-parent/points": {
+        "mean": 1.62744140625,
+        "marginal95": [
+          0.96728515625,
+          2.2837097167968747
+        ]
+      },
+      "parent1/wp/point_fixed-wp_fixed/win": {
+        "mean": -0.0096435546875,
+        "marginal95": [
+          -0.02069091796875,
+          0.001220703125
+        ]
+      },
+      "parent1/wp/point_fixed-wp_fixed/points": {
+        "mean": 1.7265625,
+        "marginal95": [
+          1.06298828125,
+          2.3850280761718747
+        ]
+      },
+      "parent1/wp/point_fixed-parent/win": {
+        "mean": -0.00299072265625,
+        "marginal95": [
+          -0.013916015625,
+          0.0081787109375
+        ]
+      },
+      "parent1/wp/point_fixed-parent/points": {
+        "mean": 1.71484375,
+        "marginal95": [
+          1.06396484375,
+          2.375006103515625
+        ]
+      },
+      "parent1/wp/wp_fixed-parent/win": {
+        "mean": 0.00665283203125,
+        "marginal95": [
+          -0.002197265625,
+          0.015870666503906228
+        ]
+      },
+      "parent1/wp/wp_fixed-parent/points": {
+        "mean": -0.01171875,
+        "marginal95": [
+          -0.50953369140625,
+          0.4941528320312498
+        ]
+      },
+      "parent1/point/parent/win": {
+        "mean": 0.506103515625,
+        "marginal95": [
+          0.49725341796875,
+          0.51495361328125
+        ]
+      },
+      "parent1/point/parent/points": {
+        "mean": -2.04541015625,
+        "marginal95": [
+          -2.596685791015625,
+          -1.4950866699218754
+        ]
+      },
+      "parent1/point/wp_fixed/win": {
+        "mean": 0.50372314453125,
+        "marginal95": [
+          0.49493408203125,
+          0.5125732421875
+        ]
+      },
+      "parent1/point/wp_fixed/points": {
+        "mean": -2.35546875,
+        "marginal95": [
+          -2.89794921875,
+          -1.8073608398437502
+        ]
+      },
+      "parent1/point/point_fixed/win": {
+        "mean": 0.5032958984375,
+        "marginal95": [
+          0.495361328125,
+          0.51129150390625
+        ]
+      },
+      "parent1/point/point_fixed/points": {
+        "mean": -0.1494140625,
+        "marginal95": [
+          -0.64332275390625,
+          0.35205078125
+        ]
+      },
+      "parent1/point/point_matched/win": {
+        "mean": 0.5091552734375,
+        "marginal95": [
+          0.5012191772460938,
+          0.5172119140625
+        ]
+      },
+      "parent1/point/point_matched/points": {
+        "mean": -0.0498046875,
+        "marginal95": [
+          -0.552490234375,
+          0.4524047851562498
+        ]
+      },
+      "parent1/point/point_matched-wp_fixed/win": {
+        "mean": 0.00543212890625,
+        "marginal95": [
+          -0.005615234375,
+          0.0162353515625
+        ]
+      },
+      "parent1/point/point_matched-wp_fixed/points": {
+        "mean": 2.3056640625,
+        "marginal95": [
+          1.645989990234375,
+          2.962896728515625
+        ]
+      },
+      "parent1/point/point_matched-point_fixed/win": {
+        "mean": 0.005859375,
+        "marginal95": [
+          -0.00341796875,
+          0.01495361328125
+        ]
+      },
+      "parent1/point/point_matched-point_fixed/points": {
+        "mean": 0.099609375,
+        "marginal95": [
+          -0.4267578125,
+          0.635498046875
+        ]
+      },
+      "parent1/point/point_matched-parent/win": {
+        "mean": 0.0030517578125,
+        "marginal95": [
+          -0.00775146484375,
+          0.013917541503906228
+        ]
+      },
+      "parent1/point/point_matched-parent/points": {
+        "mean": 1.99560546875,
+        "marginal95": [
+          1.3298095703125,
+          2.65357666015625
+        ]
+      },
+      "parent1/point/point_fixed-wp_fixed/win": {
+        "mean": -0.00042724609375,
+        "marginal95": [
+          -0.011354064941406249,
+          0.01043701171875
+        ]
+      },
+      "parent1/point/point_fixed-wp_fixed/points": {
+        "mean": 2.2060546875,
+        "marginal95": [
+          1.526092529296875,
+          2.882574462890625
+        ]
+      },
+      "parent1/point/point_fixed-parent/win": {
+        "mean": -0.0028076171875,
+        "marginal95": [
+          -0.0137939453125,
+          0.0081787109375
+        ]
+      },
+      "parent1/point/point_fixed-parent/points": {
+        "mean": 1.89599609375,
+        "marginal95": [
+          1.235809326171875,
+          2.5640014648437495
+        ]
+      },
+      "parent1/point/wp_fixed-parent/win": {
+        "mean": -0.00238037109375,
+        "marginal95": [
+          -0.01116943359375,
+          0.0062255859375
+        ]
+      },
+      "parent1/point/wp_fixed-parent/points": {
+        "mean": -0.31005859375,
+        "marginal95": [
+          -0.81177978515625,
+          0.198486328125
+        ]
+      },
+      "parent2/mixture/parent/win": {
+        "mean": 0.510955810546875,
+        "marginal95": [
+          0.505218505859375,
+          0.5167243957519532
+        ]
+      },
+      "parent2/mixture/parent/points": {
+        "mean": 0.1341552734375,
+        "marginal95": [
+          -0.212042236328125,
+          0.4898742675781249
+        ]
+      },
+      "parent2/mixture/wp_fixed/win": {
+        "mean": 0.50787353515625,
+        "marginal95": [
+          0.502044677734375,
+          0.51385498046875
+        ]
+      },
+      "parent2/mixture/wp_fixed/points": {
+        "mean": 0.1568603515625,
+        "marginal95": [
+          -0.2189971923828125,
+          0.5421264648437498
+        ]
+      },
+      "parent2/mixture/point_fixed/win": {
+        "mean": 0.51397705078125,
+        "marginal95": [
+          0.5079948425292968,
+          0.519866943359375
+        ]
+      },
+      "parent2/mixture/point_fixed/points": {
+        "mean": 2.24169921875,
+        "marginal95": [
+          1.878643798828125,
+          2.6041442871093747
+        ]
+      },
+      "parent2/mixture/point_matched/win": {
+        "mean": 0.510589599609375,
+        "marginal95": [
+          0.5047599792480468,
+          0.516357421875
+        ]
+      },
+      "parent2/mixture/point_matched/points": {
+        "mean": 1.92578125,
+        "marginal95": [
+          1.5611572265625,
+          2.295294189453125
+        ]
+      },
+      "parent2/mixture/point_matched-wp_fixed/win": {
+        "mean": 0.002716064453125,
+        "marginal95": [
+          -0.004852294921875,
+          0.01025390625
+        ]
+      },
+      "parent2/mixture/point_matched-wp_fixed/points": {
+        "mean": 1.7689208984375,
+        "marginal95": [
+          1.2903961181640624,
+          2.247933959960937
+        ]
+      },
+      "parent2/mixture/point_matched-point_fixed/win": {
+        "mean": -0.003387451171875,
+        "marginal95": [
+          -0.009705352783203124,
+          0.002838897705078114
+        ]
+      },
+      "parent2/mixture/point_matched-point_fixed/points": {
+        "mean": -0.31591796875,
+        "marginal95": [
+          -0.6845794677734375,
+          0.040530395507812456
+        ]
+      },
+      "parent2/mixture/point_matched-parent/win": {
+        "mean": -0.0003662109375,
+        "marginal95": [
+          -0.007843017578125,
+          0.006988525390625
+        ]
+      },
+      "parent2/mixture/point_matched-parent/points": {
+        "mean": 1.7916259765625,
+        "marginal95": [
+          1.3292205810546875,
+          2.24500732421875
+        ]
+      },
+      "parent2/mixture/point_fixed-wp_fixed/win": {
+        "mean": 0.006103515625,
+        "marginal95": [
+          -0.0016487121582031243,
+          0.0137939453125
+        ]
+      },
+      "parent2/mixture/point_fixed-wp_fixed/points": {
+        "mean": 2.0848388671875,
+        "marginal95": [
+          1.6027740478515624,
+          2.5638458251953127
+        ]
+      },
+      "parent2/mixture/point_fixed-parent/win": {
+        "mean": 0.003021240234375,
+        "marginal95": [
+          -0.00457763671875,
+          0.01055908203125
+        ]
+      },
+      "parent2/mixture/point_fixed-parent/points": {
+        "mean": 2.1075439453125,
+        "marginal95": [
+          1.6507415771484375,
+          2.55810546875
+        ]
+      },
+      "parent2/mixture/wp_fixed-parent/win": {
+        "mean": -0.003082275390625,
+        "marginal95": [
+          -0.00921630859375,
+          0.002991485595703114
+        ]
+      },
+      "parent2/mixture/wp_fixed-parent/points": {
+        "mean": 0.022705078125,
+        "marginal95": [
+          -0.3506256103515625,
+          0.38855285644531246
+        ]
+      },
+      "parent2/wp/parent/win": {
+        "mean": 0.51824951171875,
+        "marginal95": [
+          0.510498046875,
+          0.52606201171875
+        ]
+      },
+      "parent2/wp/parent/points": {
+        "mean": 2.468017578125,
+        "marginal95": [
+          2.004620361328125,
+          2.94921875
+        ]
+      },
+      "parent2/wp/wp_fixed/win": {
+        "mean": 0.51324462890625,
+        "marginal95": [
+          0.505126953125,
+          0.5213027954101562
+        ]
+      },
+      "parent2/wp/wp_fixed/points": {
+        "mean": 2.428466796875,
+        "marginal95": [
+          1.922119140625,
+          2.935797119140625
+        ]
+      },
+      "parent2/wp/point_fixed/win": {
+        "mean": 0.52099609375,
+        "marginal95": [
+          0.5123275756835938,
+          0.529541015625
+        ]
+      },
+      "parent2/wp/point_fixed/points": {
+        "mean": 4.7041015625,
+        "marginal95": [
+          4.16259765625,
+          5.240972900390625
+        ]
+      },
+      "parent2/wp/point_matched/win": {
+        "mean": 0.512939453125,
+        "marginal95": [
+          0.50433349609375,
+          0.52142333984375
+        ]
+      },
+      "parent2/wp/point_matched/points": {
+        "mean": 3.813232421875,
+        "marginal95": [
+          3.2734375,
+          4.333990478515625
+        ]
+      },
+      "parent2/wp/point_matched-wp_fixed/win": {
+        "mean": -0.00030517578125,
+        "marginal95": [
+          -0.011474609375,
+          0.01080322265625
+        ]
+      },
+      "parent2/wp/point_matched-wp_fixed/points": {
+        "mean": 1.384765625,
+        "marginal95": [
+          0.70140380859375,
+          2.07081298828125
+        ]
+      },
+      "parent2/wp/point_matched-point_fixed/win": {
+        "mean": -0.008056640625,
+        "marginal95": [
+          -0.0169677734375,
+          0.0008544921875
+        ]
+      },
+      "parent2/wp/point_matched-point_fixed/points": {
+        "mean": -0.890869140625,
+        "marginal95": [
+          -1.408941650390625,
+          -0.369140625
+        ]
+      },
+      "parent2/wp/point_matched-parent/win": {
+        "mean": -0.00531005859375,
+        "marginal95": [
+          -0.016357421875,
+          0.00518798828125
+        ]
+      },
+      "parent2/wp/point_matched-parent/points": {
+        "mean": 1.34521484375,
+        "marginal95": [
+          0.67503662109375,
+          1.99267578125
+        ]
+      },
+      "parent2/wp/point_fixed-wp_fixed/win": {
+        "mean": 0.00775146484375,
+        "marginal95": [
+          -0.00347900390625,
+          0.018800354003906228
+        ]
+      },
+      "parent2/wp/point_fixed-wp_fixed/points": {
+        "mean": 2.275634765625,
+        "marginal95": [
+          1.592724609375,
+          2.9739135742187495
+        ]
+      },
+      "parent2/wp/point_fixed-parent/win": {
+        "mean": 0.00274658203125,
+        "marginal95": [
+          -0.00811767578125,
+          0.0135498046875
+        ]
+      },
+      "parent2/wp/point_fixed-parent/points": {
+        "mean": 2.236083984375,
+        "marginal95": [
+          1.57542724609375,
+          2.8855163574218747
+        ]
+      },
+      "parent2/wp/wp_fixed-parent/win": {
+        "mean": -0.0050048828125,
+        "marginal95": [
+          -0.013917541503906249,
+          0.00408935546875
+        ]
+      },
+      "parent2/wp/wp_fixed-parent/points": {
+        "mean": -0.03955078125,
+        "marginal95": [
+          -0.562017822265625,
+          0.4897521972656249
+        ]
+      },
+      "parent2/point/parent/win": {
+        "mean": 0.503662109375,
+        "marginal95": [
+          0.4949951171875,
+          0.5125732421875
+        ]
+      },
+      "parent2/point/parent/points": {
+        "mean": -2.19970703125,
+        "marginal95": [
+          -2.74097900390625,
+          -1.639398193359375
+        ]
+      },
+      "parent2/point/wp_fixed/win": {
+        "mean": 0.50250244140625,
+        "marginal95": [
+          0.493896484375,
+          0.51116943359375
+        ]
+      },
+      "parent2/point/wp_fixed/points": {
+        "mean": -2.11474609375,
+        "marginal95": [
+          -2.68726806640625,
+          -1.551507568359375
+        ]
+      },
+      "parent2/point/point_fixed/win": {
+        "mean": 0.5069580078125,
+        "marginal95": [
+          0.49884033203125,
+          0.514892578125
+        ]
+      },
+      "parent2/point/point_fixed/points": {
+        "mean": -0.220703125,
+        "marginal95": [
+          -0.71998291015625,
+          0.269287109375
+        ]
+      },
+      "parent2/point/point_matched/win": {
+        "mean": 0.50823974609375,
+        "marginal95": [
+          0.50030517578125,
+          0.51593017578125
+        ]
+      },
+      "parent2/point/point_matched/points": {
+        "mean": 0.038330078125,
+        "marginal95": [
+          -0.45997924804687496,
+          0.53173828125
+        ]
+      },
+      "parent2/point/point_matched-wp_fixed/win": {
+        "mean": 0.0057373046875,
+        "marginal95": [
+          -0.00506591796875,
+          0.016357421875
+        ]
+      },
+      "parent2/point/point_matched-wp_fixed/points": {
+        "mean": 2.153076171875,
+        "marginal95": [
+          1.467279052734375,
+          2.82227783203125
+        ]
+      },
+      "parent2/point/point_matched-point_fixed/win": {
+        "mean": 0.00128173828125,
+        "marginal95": [
+          -0.0078125,
+          0.0101318359375
+        ]
+      },
+      "parent2/point/point_matched-point_fixed/points": {
+        "mean": 0.259033203125,
+        "marginal95": [
+          -0.25318603515625,
+          0.7678344726562498
+        ]
+      },
+      "parent2/point/point_matched-parent/win": {
+        "mean": 0.00457763671875,
+        "marginal95": [
+          -0.00616455078125,
+          0.01519775390625
+        ]
+      },
+      "parent2/point/point_matched-parent/points": {
+        "mean": 2.238037109375,
+        "marginal95": [
+          1.57176513671875,
+          2.909429931640625
+        ]
+      },
+      "parent2/point/point_fixed-wp_fixed/win": {
+        "mean": 0.00445556640625,
+        "marginal95": [
+          -0.0062255859375,
+          0.01531982421875
+        ]
+      },
+      "parent2/point/point_fixed-wp_fixed/points": {
+        "mean": 1.89404296875,
+        "marginal95": [
+          1.216064453125,
+          2.56715087890625
+        ]
+      },
+      "parent2/point/point_fixed-parent/win": {
+        "mean": 0.0032958984375,
+        "marginal95": [
+          -0.00762939453125,
+          0.01434326171875
+        ]
+      },
+      "parent2/point/point_fixed-parent/points": {
+        "mean": 1.97900390625,
+        "marginal95": [
+          1.302728271484375,
+          2.63038330078125
+        ]
+      },
+      "parent2/point/wp_fixed-parent/win": {
+        "mean": -0.00115966796875,
+        "marginal95": [
+          -0.0098876953125,
+          0.00762939453125
+        ]
+      },
+      "parent2/point/wp_fixed-parent/points": {
+        "mean": 0.0849609375,
+        "marginal95": [
+          -0.45096435546874997,
+          0.6052307128906249
+        ]
+      }
+    },
+    "primary": {
+      "deals": 4096,
+      "replicates": 10000,
+      "seed": 104110001,
+      "family_size": 4,
+      "nondegenerate": 4,
+      "critical": 2.4407204281875465,
+      "rows": {
+        "parent1/mixture/point_matched-wp_fixed/win": {
+          "mean": 0.002349853515625,
+          "standard_error": 0.003967716999328487,
+          "simultaneous95": [
+            -0.007334234417903032,
+            0.012033941449153032
+          ],
+          "sign": 0
+        },
+        "parent1/mixture/point_matched-parent/win": {
+          "mean": 0.004486083984375,
+          "standard_error": 0.003989045048330691,
+          "simultaneous95": [
+            -0.005250059754046096,
+            0.014222227722796096
+          ],
+          "sign": 0
+        },
+        "parent2/mixture/point_matched-wp_fixed/win": {
+          "mean": 0.002716064453125,
+          "standard_error": 0.0038841361903397967,
+          "simultaneous95": [
+            -0.006764026092499894,
+            0.012196154998749894
+          ],
+          "sign": 0
+        },
+        "parent2/mixture/point_matched-parent/win": {
+          "mean": -0.0003662109375,
+          "standard_error": 0.003813571280278471,
+          "simultaneous95": [
+            -0.009674072265625,
+            0.008941650390625
+          ],
+          "sign": 0
+        }
+      }
+    },
+    "qualified": false,
+    "compound_blocks": 4096,
+    "distinct_initial_deals": 8192,
+    "full_matches": 131072,
+    "bootstrap_seed": 104110001,
+    "bootstrap_replicates": 10000,
+    "secondary_scope": "120 descriptive absolute/contrast win/point means with marginal percentile intervals; only the four simultaneous primary bands determine qualification.",
+    "mode": "main",
+    "protocol_sha256": "1df245b6fea1799c0ed9f91518642ccb3d1e4bf9c0f7e682a1208819e609b7e7"
+  },
+  "training_work": {
+    "decisions": 51118080,
+    "rounds": 3398982,
+    "matches": 439369,
+    "updates": 3120
+  },
+  "evaluation_and_replay_work": {
+    "decisions": 15229803,
+    "round_endings": 1016240,
+    "full_matches": 131072
+  },
+  "scope": "Completed audited initialization comparison and pre-outcome mechanism diagnostic; no new inference, analysis, matches or model selection."
+}

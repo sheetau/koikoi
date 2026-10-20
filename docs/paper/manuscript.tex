@@ -24,7 +24,11 @@ retaining its Transformer architecture and greedy inference. After 8.52 million
 additional decisions each, two adapted agents achieve 51.480\% and 51.445\%
 draw-adjusted win scores against assisted RL-WP on 10,000 held-out duplicate
 deals; both 95\% intervals exclude 50\%. RL-Point remains competitive in wins
-and superior in expected points. We also characterize a problem in estimating
+and superior in expected points against these WP-initialized agents.
+A separate matched-budget study finds that Point initialization improves
+equal-opponent mixture point margins by 1.77--2.08 points over WP initialization,
+while further
+win gains remain unestablished. We also characterize a problem in estimating
 returns across players' different observations. An exact shared-parameter game
 shows that switching to the opponent's critic can reverse the expected policy
 update, even when both critics give exact conditional values. Learner-decision
@@ -59,6 +63,12 @@ unevenly to RL-Point, which retains an expected-points advantage. Increasing
 policy updates eightfold at two fresh seeds improves mixture point margins,
 but does not establish a replicated additional win gain
 (Section~\ref{sec:duration}).
+
+A matched-budget initialization comparison also improves point margins: starting from RL-Point raises the equal-opponent
+mixture margin by 1.77--2.08 points over WP initialization across two seeds
+and two sampling settings. Neither calibrated sampling nor the initialization
+change establishes replicated additional win improvement
+(Section~\ref{sec:point-initialization}).
 
 Second, exact conditional values can still give a harmful policy update when
 return estimation switches between players' observations. We demonstrate this
@@ -121,10 +131,13 @@ We retain the released actor and optimize it directly with match rewards.
 Discrete SAC derives categorical maximum-entropy learning
 \cite{christodoulou2019discrete}, and target-entropy scheduling adapts exploration
 as learning proceeds \cite{xu2021entropy}. Our continuation-temperature control
-instead fixes one head's score divisor before PPO training; the critic retains
-ordinary match returns. Its matched comparison tests whether the inherited
-heads' different exploration levels restrict adaptation
-(Appendix~\ref{app:temperature}).
+instead fixes score divisors before PPO training; the critic retains
+ordinary match returns. We test one-head calibration
+(Appendix~\ref{app:temperature}) and a four-head calibration when changing
+from WP to Point initialization (Section~\ref{sec:point-initialization}).
+These controls change both sampling probabilities and policy-loss derivatives.
+They measure the transfer of published action scores into a match-trained
+policy rather than introduce a new entropy-control algorithm.
 
 \subsection{Self-play and strategic interaction}
 Neural Fictitious Self-Play combines learned best responses with supervised
@@ -492,6 +505,70 @@ marginal 95\%, not simultaneous across opponents or endpoints.}
 \label{tab:duration-absolute}
 \end{table}
 
+\subsection{Point initialization: points and wins separate}
+\label{sec:point-initialization}
+Changing the initial policy offers another route to adaptation. At each of two
+fresh seeds, we train three arms: original WP with divisor 0.05, original Point
+with divisor 0.05, and original Point with calibrated phase-specific divisors.
+Each receives the same 20 critic-only and 500 policy updates, or 8,519,680
+decisions. Within a seed, initial critic, optimizer, environment and random
+states match; the two Point arms also start from identical actor parameters.
+Deployment uses the unchanged greedy policy and public endgame assistance.
+
+Calibration matches Point's mean normalized action entropy to WP at 0.05 on
+75 source groups from an existing random-play input corpus. The other 25 groups
+are reserved for descriptive validation. Divisors are fixed before training;
+no match outcomes enter calibration. This controls one property of the initial
+sampling policy, while also changing policy-loss derivatives.
+
+The six endpoints and two retained agents play 131,072 matches on 8,192 shared
+development deals. The primary criterion requires calibrated Point to improve
+equal-mixture win score over both WP-fixed and retained controls at both seeds.
+All four simultaneous intervals include zero (Table~\ref{tab:point-primary}).
+Calibrated-minus-fixed Point mixture wins change by $+0.7385$ and $-0.3387$
+percentage points, so the temperature benefit does not replicate either.
+
+\begin{table}[htbp]
+\centering\small
+\input{generated/point_initialization_primary_table.tex}
+\caption{Point-calibrated development win changes in percentage points.
+One simultaneous 95\% family covers all four contrasts; 10,000 bootstrap
+replicates resample 4,096 compound blocks preserving all policies and seats.}
+\label{tab:point-primary}
+\end{table}
+
+Point initialization does improve point margins (Table~\ref{tab:point-points}).
+Both Point arms exceed the WP-fixed and retained controls at both seeds,
+against each opponent and their mixture: all 24 descriptive paired point-change
+intervals have positive lower bounds. The effect therefore appears with both
+fixed and calibrated sampling. Calibration itself reduces the second seed's
+WP point margin relative to Point-fixed by 0.8909 [0.3691, 1.4089] points.
+
+\begin{table}[htbp]
+\centering\small
+\input{generated/point_initialization_points_table.tex}
+\caption{Equal-mixture point-margin improvements under Point initialization.
+Intervals are descriptive marginal 95\%. Margins are candidate minus opponent;
+they are twice the original paper's final-minus-initial point convention.}
+\label{tab:point-points}
+\end{table}
+
+Against published RL-Point, the calibrated endpoints score 50.9155\%
+[50.1219, 51.7212] and 50.8240\% [50.0305, 51.5930] in wins. Their mean point
+margins are $-0.0498$ and $+0.0383$, with both intervals containing zero.
+These descriptive matchup results do not establish the primary gain over
+adapted controls, equivalence or win noninferiority. The canonical player is
+retained and prospective confirmation remains unused.
+
+A diagnostic fixed before outcome inspection tests the six endpoints on the
+old validation inputs. At both seeds and in all four phases, calibrated Point
+has higher entropy at its training divisor, but lower entropy at a common
+0.05 divisor and larger raw score gaps than Point-fixed. Higher sampling
+entropy persists on this corpus without a replicated greedy win benefit.
+The diagnostic measures policy outputs on reused inputs, not causal mediation
+or equality of visited states. Appendix~\ref{app:reproduction} records the
+calibration, computation and complete result bindings.
+
 \section{Critic conditioning across players}
 \label{sec:observer}
 Correct payoff signs do not ensure that the next acting player's observation
@@ -707,24 +784,26 @@ that the original representation or memory omitted; the tested learners have
 yet to turn that information into a consistent additional match-win gain.
 
 \section{Limitations and interpretation}
-Both adapted seeds improve match wins against assisted RL-WP. RL-Point remains
-competitive in wins and superior in expected points. Fixed Point continuation
-improves point margin; learned selection and paired-outcome supervision give
-no replicated win gain. Continuation decisions therefore merit further
-point-oriented adaptation.
+Both retained WP-initialized agents improve match wins against assisted
+RL-WP; RL-Point remains competitive in wins and superior in expected points
+against them. The new Point-initialized agents improve point margins over
+matched WP controls. Their primary win-improvement criterion still fails.
+Together with the fixed-role and paired-supervision results, these comparisons
+show that better point margins need not yield a detectable gain in match wins.
 
 Two training seeds and fixed opponents limit generality: held-out deals measure
 endpoint performance, not robustness across optimization runs. The ledger
 retains unsuccessful experiments. Exploitability and human performance are
-unmeasured. Temperature and learning rate change jointly, and latency covers
-one machine and a cached random-play workload.
+unmeasured. The original warm/cold comparison changes temperature and learning
+rate jointly. Latency covers one machine and a cached random-play workload.
 
 \section{Conclusion}
 Terminal-match self-play improves the released win policy at both adapted
-seeds while preserving its actor and greedy inference. RL-Point retains an
-expected-points advantage. Increasing policy updates eightfold improves
-mixture point margins at two new seeds; replicated additional win improvement
-is not established.
+seeds while preserving its actor and greedy inference. Increasing policy
+updates eightfold and changing to Point initialization each improve mixture
+point margins at two fresh seeds. Point initialization gains 1.77--2.08 points
+over matched WP controls; calibrated sampling adds no replicated win benefit.
+Neither study establishes replicated additional win improvement.
 
 An exact shared-parameter game shows that an opponent-conditioned critic can
 reverse the expected policy update, even with exact conditional values.
@@ -894,6 +973,28 @@ coordinates and four primary comparisons are in
 \path{docs/PUBLISHED_DURATION_RESULTS.rst}; the source and table bindings are in
 \path{docs/paper/generated/duration_evidence.json}.
 
+
+The Point-initialization comparison uses 51,118,080 training decisions,
+3,398,982 round endings, 439,369 completed matches and 3,120 updates, including
+warmup once. Evaluation uses 15,229,803 decisions, 1,016,240 round endings and
+131,072 complete matches. Independent native replay checks every recorded
+action; separate scalar calculations reproduce all 120 secondary coordinates
+and four simultaneous bands. Replay adds no independent matches or neural
+inference. All results are in \path{docs/POINT_INITIALIZATION_RESULTS.rst};
+bindings and table values are in
+\path{docs/paper/generated/point_initialization_evidence.json}.
+
+The four calibrated divisors are approximately 0.168081, 0.194835, 0.219496
+and 0.235761 for discard, hand capture, draw capture and continuation;
+the bound calibration report retains full precision. The source-group split uses identifier modulo four;
+group remainder three is validation. Forced actions are excluded. The final
+probability diagnostic reuses 3,258 validation rows with 3,045 unforced choices:
+2,578 discard, 122 hand capture, 130 draw capture and 215 continuation rows.
+Six endpoints require 18,270 singleton CPU calls; original WP/Point scores are
+cached. Calibrated-versus-fixed greedy actions differ on 232/200 discard rows
+and 3/6 continuation rows at the two seeds. The diagnostic adds no simulator
+steps, matches or learning. Its independent scalar audit checks population,
+probabilities and decisions from saved scores without repeating inference.
 
 The new arbitration experiments freeze the inherited actors. A traced
 near-tie shows why this detail belongs to the inference specification: with

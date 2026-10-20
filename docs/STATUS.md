@@ -108,8 +108,9 @@ Summaryb1ce6a1e59eb7c4aef4494ab3a02ba5cbe7e825bdd52cc4840aead61767a0fd9.
 Export evidence9de59a0b52764c5a823f63c8dcb0f5cf30bb294417f9298aaa233c9d2a03b647.
 Queue completionf84db1b43691c1641a04a4c7bbc879d1f1ed8ceaacbf310609a4b50c9f74e5f3.
 
-Next integrate the complete Point comparison and its pre-outcome mechanism
-into the manuscript,then identify the next evidence-supported intervention.
+The manuscript now includes the complete Point comparison and its pre-outcome
+mechanism (latest PDF below). Next identify a distinct evidence-supported
+intervention for stronger match play and a substantive research contribution.
 Do not reopen closed duration/temperature sweeps or promote a failed candidate.
 The broader stronger-play/novelty objective remains unachieved.
 
@@ -634,34 +635,34 @@ their empirical fixes did not establish replicated Koi-Koi win improvement.
 
 ## Latest manuscript
 
-**Latest verified manuscript:** 33 pages including appendices, 34 references,
-159-word Abstract, 425-word Introduction and 122-word Conclusion. The main text
-now reaches its Conclusion on page13 rather than page18. Its whitespace word
-count falls from7,484 to5,466 (27.0%). Detailed direct-opponent/return,
-fixed-observer/seat and final-round/public-memory studies move to AppendicesC--E.
-The main text retains their primary outcomes and explicit links to every detail.
+**Latest verified manuscript:** 35 pages including appendices,34references,
+188-word Abstract,467-word Introduction,139-word Conclusion. Main text6,045
+whitespace words;Conclusion on page14. The prior structure reduction remains:
+detailed return/observer/public-memory studies are retained in AppendicesC--E.
 
-Abstract, Introduction and Conclusion remain unchanged. Every original table,
-figure, citation and label remains; the reference titles now distinguish the
-moved appendices. Paragraph comparison finds only one changed original prose
-paragraph: its final forward pointer becomes an explicit appendix reference.
-New main summaries retain the failed replicated-win findings and distinguish
-fixed-critic return controls from the learner-decision procedure's optimization
-changes. No new playing-strength or algorithm claim is introduced.
+Section6.3 adds the completed Point-initialization study with both primary win
+and secondary point tables,calibration design and pre-outcome mechanism.
+Abstract/Introduction/Conclusion explicitly report1.77--2.08point gains over
+matched WP controls and the lack of replicated additional win improvement.
+Original WP-initialized versus Point findings are scoped to those retained
+agents. Related Work positions both temperature controls without claiming a
+new entropy algorithm. AppendixA records work and full evidence bindings.
+All original tables,figures,citations and labels remain.
 
-QA rechecks1,353 evidence inputs and all156 live Point queue inputs. All33pages
-are contact-reviewed and pages10--13 are inspected at full size. All34numbered
-references are present,21unique font names are embedded,and there are no TeX
-box,glyph,undefined-reference or replacement-character issues.
-PDF SHA b9de94e68c9b1324924d461272bebed0bae24ab48e2155136a65d4810857c88b;
-source SHA fcdebef32f65ebf6ba19e6c2707a7379cf64b4eb240d4a50ce911d6132b84355;
-bibliography dd702f28fb9c7d49ec33ceaabd19672268e6fa3c57d5aadadec61292ceb7ad08.
-QA runs/manuscript_structure_20261020_qa.json SHA
-d202cc996f93ead6070321a72f50b636b5d38dcd373c7a25666cb7c4db2520b2.
-Prior PDF/TeX/QA/guide: runs/manuscript_structure_previous.
-Renders: runs/manuscript_structure_render. Renderer uses system Python3.14,
-external/pdf_render PyMuPDF and Pillow; training uses .venv Python3.12.
-The PDF-skill artifact marker already ran earlier; never repeat it.
+QA verifies1,581evidence inputs,35contact pages and full pages1,9,10,14,17.
+Final wording changes alter only rendered pages1/14,both rechecked. No TeX
+box/glyph/reference warnings,replacement characters or missing numbered
+references;all21font names are embedded. A decimal-line overfull warning in
+the first build was fixed by displaying six-digit divisors while retaining
+full precision in the bound calibration report. No new simulation or training.
+PDF SHA871b8afce615954c789a463a784158d4e273a70ca33c2f65d472cf67873f6bc6;
+TeX SHAee5a7766e11e1a3743b26bc6eb2aab5a94e1ac17e6c1c4cabef6cb309473092a.
+QA runs/manuscript_point_20261020_qa.json SHA
+ d2de912a02ab580648abf11d65abc8d5175ee97341498ee2fc1b567817a3fdb0.
+Prior PDF/TeX/QA/guide: runs/manuscript_point_previous.
+Renders: runs/manuscript_point_render. Renderer uses system Python3.14,
+external/pdf_render PyMuPDF and Pillow;training uses .venv Python3.12.
+The PDF-skill artifact marker already ran earlier;never repeat it.
 
 ## Local human-play delivery
 

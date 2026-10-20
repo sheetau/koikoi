@@ -6868,3 +6868,34 @@ not independent matches or inference;export adds none. No endpoint promoted,
 no seed reranked,no canonical player/dealer change,no101Mconfirmation consumed.
 Next integrate full results and mechanism into the manuscript,then choose a
 new evidence-supported intervention. The broader requested objective is active.
+
+## Completed Point results integrated into manuscript, 20 October 2026
+
+Section6.3 adds the six-arm initialization comparison and its pre-outcome
+probability diagnostic. Two generated tables report all4primary simultaneous
+win contrasts and all8mixture point contrasts against WPfixed/retained controls.
+All120secondary coordinates remain in the full results report and tracked
+point_initialization_evidence.json. That ledger binds248inputs and2tables;
+full manuscript QA verifies1,581bindings across old and new evidence.
+No original table,figure,citation or label is removed.
+
+Abstract/Introduction/Conclusion now state the1.77--2.08mixture point gain and
+failed additional win criterion. Related Work distinguishes these fixed-divisor
+controls from an entropy algorithm;limitations scope the original joint
+warm/cold temperature/LR change to its actual comparison. AppendixA records
+actual training/evaluation/replay/mechanism work. No claim of equivalence,
+win noninferiority,causal mediation or world-best status is added.
+
+Built with external/tectonic/tectonic.exe --keep-logs --outdir output/pdf
+ docs/paper/manuscript.tex. Initial overfull decimal line corrected to six-digit
+reported divisors,with full precision retained in the linked calibration.
+Final35pagePDF has34references,21embedded font names and no box/glyph/reference
+warnings or replacement characters. All35contact pages reviewed;full pages
+1,9,10,14,17 checked. Final wording rerender changes only pages1/14;both checked.
+Abstract188words,Introduction467,Conclusion139;maintext6,045words and conclusion
+page14. Prior33pageversion remains in runs/manuscript_point_previous.
+PDF871b8afce615954c789a463a784158d4e273a70ca33c2f65d472cf67873f6bc6;
+TeXee5a7766e11e1a3743b26bc6eb2aab5a94e1ac17e6c1c4cabef6cb309473092a;
+QAd2de912a02ab580648abf11d65abc8d5175ee97341498ee2fc1b567817a3fdb0
+at runs/manuscript_point_20261020_qa.json. No model/dealer change or new game work.
+The broader stronger-play/novelty goal remains active;no study is currently live.
