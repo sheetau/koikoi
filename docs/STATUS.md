@@ -369,33 +369,31 @@ their empirical fixes did not establish replicated Koi-Koi win improvement.
 ## Latest manuscript
 
 **Latest verified manuscript:** 38 pages including appendices, 40 references,
-184-word Abstract, 514-word Introduction and 164-word Conclusion. Conclusion
-on page 15. The main account adds the auxiliary comparison in Section 6.4;
-its detailed loss, training, work and diagnostics are in Appendix L.
+160-word Abstract, 436-word Introduction and 164-word Conclusion. Conclusion
+on page 15. The opening foregrounds adaptation, the exact critic-conditioning
+counterexample and public-input recovery, then consolidates empirical limits.
+All source from Related Work onward is unchanged by this prose revision.
 
-Table 8 contains all six simultaneous primary comparisons. All intervals
-include zero; all 24 auxiliary win/point comparisons against matched controls
-also include zero. The point advantage over retained WP parents includes the
-no-auxiliary condition. Abstract/Introduction/Conclusion keep these results
-separate from the established adaptation gain and analytical information
-findings. Related Work adds six verified auxiliary/distributional references
-and corrects the abbreviated account of retained-Transformer search coverage.
-All earlier tables, figures, citations and labels remain.
+Section 6.4 and Appendix L retain the complete auxiliary comparison: all six
+primary simultaneous win intervals and all 24 descriptive control contrasts
+include zero. The point-margin advantage over retained WP parents includes
+the no-auxiliary condition. Related Work retains its six additional verified
+auxiliary/distributional references and correct account of Transformer search.
+All numerical tables, figures, citations, labels and cross-references remain.
 
-The table exporter verifies 1,833 inputs. Final QA verifies 3,313 bindings,
-all six primary table rows and six auxiliary work rows. All 38 pages were
-visually reviewed; full pages 1,3,11,15,18,34,35,36,37,38 were checked. Final
-render changes on 11,35--38 were rechecked. Removing duplicate diagnostic
-interpretation resolves the short continuation before References. All 24 font
-names are embedded; no TeX box/glyph/reference or bibliography warnings remain.
+The table exporter verified 1,833 inputs in the preceding revision; the current
+QA rechecks all 3,313 evidence bindings. Pages 1--11 were re-rendered and
+visually reviewed on contact sheets, with pages 1,2,11 at full size. Pages
+12--38 are pixel-identical to the preceding verified PDF. All 24 font names
+are embedded; no TeX box/glyph/reference or bibliography warnings remain.
 No new simulation, inference or training was used for this paper update.
-PDF SHA d4e6471cb00840cf9b773f0dc39f043db09a1782a42bd6fa0d85c1bfdd114758;
-TeX SHA 85c19bbd05057f3f021d96b27f0a7aede22b9cd012bdab9aa5af89a64aba9625.
-QA runs/manuscript_auxiliary_20261020_qa.json SHA
-0b3ed9c3301e6ea6125583ce5c0894b1a410638575f53ac84801a0632d06fc9a.
-Prior PDF/source: runs/manuscript_auxiliary_previous.
-Renders: runs/manuscript_auxiliary_render. Renderer uses system Python3.14,
-external/pdf_render PyMuPDF and Pillow; training uses .venv Python3.12.
+PDF SHA 40e14e9132163e154704581c75bef31ffbe5c52e2115d126c6d053fd7fc3d0a3;
+TeX SHA 4f6f26f78006d4c8ecb285859eed2880a728fde12c9104771ab767760fdc1c64.
+QA runs/manuscript_priority_opening_20261020_qa.json SHA
+94336c1e2822ab3b80488f3537b3ad6c3855b6c4c57df94f325a0ea37a2f31a0.
+Prior PDF/source: runs/manuscript_priority_opening_previous.
+Renders: runs/manuscript_priority_opening_render. Renderer uses system
+Python3.14, external/pdf_render PyMuPDF and Pillow; training uses .venv Python3.12.
 The PDF-skill artifact marker already ran earlier; never repeat it.
 
 ## Local human-play delivery
