@@ -1,0 +1,29 @@
+% Auxiliary-study integration draft; strength evaluation is pending.
+% Not included by manuscript.tex yet.
+\subsection{Auxiliary prediction and actor representations}
+Auxiliary tasks supply additional learning signals to a policy's representation.
+UNREAL combines reinforcement learning with auxiliary control and prediction
+objectives \cite{jaderberg2016auxiliary}. Phasic Policy Gradient alternates policy
+optimization with auxiliary representation learning and penalizes changes to the
+policy during the auxiliary phase \cite{cobbe2021phasic}. Our auxiliary study
+uses this separation to compare terminal-outcome and terminal-margin prediction
+while retaining match-win PPO and the deployed action heads.
+
+Distributional reinforcement learning predicts a return distribution through
+Bellman updates \cite{bellemare2017distributional}. Our target is instead a
+completed match's clipped score margin, learned by supervised likelihood.
+Imani and White connect benefits of distributional regression losses to their
+optimization properties \cite{imani2018distributional}; Lyle et al. examine the
+roles of nonlinear approximation, early-layer learning and categorical outputs
+\cite{lyle2019comparative}. We keep the categorical head and its initialization
+identical across outcome and margin supervision. The comparison changes target
+resolution within the loss/draw/win groups, including its resulting gradient
+effects, and measures the impact on match play.
+
+Garcin et al. show that separated actor and critic representations can specialize
+in different information, and that auxiliary objectives and data diversity
+affect their performance \cite{garcin2025interplay}. This motivates evaluating
+what a terminal-score prediction task contributes to action selection. Our
+fixed-state diagnostics measure action disagreement and entropy; complete
+paired matches measure playing strength. These two measurements distinguish
+changes in the policy from improvements in its decisions.

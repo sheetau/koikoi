@@ -7571,3 +7571,28 @@ SCORE_AUXILIARY_MECHANISM_RESULTS.rst,derived from the audited report. Descripti
 fixed-state changes do not establish on-policy visitation,held-out prediction,
 causal mediation or playing strength. No additional tests were needed for this
 report. Main evaluation/export and paper integration remain pending.
+
+
+## Auxiliary prior-work integration draft (2026-10-20)
+
+Main evaluation runner3068 and first cell workers40936/36332 remain live under
+queue56042/PID42884. Each first cell has logged1,024matches. No process restart,
+new trial,changed endpoint or changed analysis was introduced.
+
+Inspected primary publisher/author sources for PPG,UNREAL,C51,Imani/White2018,
+Lyle/Bellemare/Castro2019 and Garcin et al.ICLR2025. The latter three extend the
+prior-work comparison beyond simply citing auxiliary learning and distributions:
+optimization/nonlinear approximation and actor/critic specialization/data
+diversity offer alternative explanations for any target-resolution effect.
+Source URLs,scope and integration instructions are in
+SCORE_AUXILIARY_RELATED_WORK.rst. Created auxiliary_related_work.tex and
+auxiliary_references.bib under docs/paper:three paragraphs and six references.
+The draft describes the actual matched head/loss intervention without asserting
+unobserved strength or representation gains. Sources do not prove worldwide
+priority. No new numerical experiment follows from the literature review.
+
+All six citation keys resolve exactly once,do not collide with existing keys,
+and braces/UTF8-no-BOM/LF checks pass. Existing manuscript.tex,references.bib and
+verified PDF remain unchanged. Integrate the fragments with completed strength
+methods/results,then build and perform layout/citation QA. No closed tests or
+diagnostics were repeated. Main evaluation/audit/export remain outstanding.

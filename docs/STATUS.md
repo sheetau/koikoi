@@ -150,6 +150,14 @@ independent auditd619258403def4da3aa71cbc3b02b45179abe964a73c6ccb70e802da2ea5ab5
 passes1,160bindings. Preparation65413,scoring1612,audit1333all exited0. Do not
 rerun completed diagnostics. No new tests or training were needed.
 
+[Auxiliary prior-work review](SCORE_AUXILIARY_RELATED_WORK.rst) and three-paragraph
+LaTeX/BibTeX integration drafts are ready. Six primary references include PPG,
+UNREAL,C51,distributional-loss optimization (Imani/White2018),nonlinear learning
+(Lyle et al.2019) and actor/critic specialization/data diversity (Garcin et al.,
+ICLR2025). The draft positions the matched target-resolution intervention; it
+makes no strength or priority claim. Merge with the completed strength results,
+then rebuild/inspect the paper. The fragments are not yet included by manuscript.tex.
+
 Canonical player,dealer and the latest35page manuscript are unchanged.
 
 ## Earlier implementation milestones
