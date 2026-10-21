@@ -4,6 +4,70 @@ Earlier observations and plans are retained below. Consult STATUS.md for live jo
 
 # Experiment history
 
+## 22 October 2026: incremental scope correction retains the original cohort
+
+Initial fixed-tape pipeline/statistical tests passed 12 cases in 914.91 s;
+ledger/export tests passed 5 in 2.71 s. The original incremental protocol froze
+143 inputs and started 4,096 ordered cases. It failed on valid 4-draw roots:
+the logged gate is <=5, while the selected wrapper required exactly 5. Forced
+transitions can omit the learner's 5-draw decision. No complete audited chunk
+or strength conclusion was produced. Session 12664 / queue 69268 exited 1.
+Original protocol: fa36dd16ce48f436b755ab397aaa660b4c04ae5e23f53e6b34d37ed6929e7737.
+
+All 15 complete source ledgers are retained at their original indices. No source
+is excluded or resampled. Source 0's worker was stopped during planning after
+its source ledger was durable; uncaptured planning/actual work is unknown.
+Ten saved selection rows include 1,649,050 complete planning transitions at
+sources 16/66/67. Source 0's partial count is additional and not assumed zero.
+Failure manifest and rationale: FRONTIER_INCREMENTAL_SCOPE_AMENDMENT.rst.
+
+New isolated scope modules preserve every frozen v1 dependency. Exactly five
+draws invokes the unchanged selected method; shorter roots execute the old
+controller, giving incremental zero. Policy caps, 4,096-case assignment and
+inference thresholds/criterion remain unchanged. The amended run copies all
+15 retained ledgers byte-for-byte and generates only the other 4,081. It keeps
+retained acquisition/native/entropy costs distinct from newly executed work.
+All retained sources are audited again; no previous plans or values are imported.
+This repair is disclosed, not mislabeled as an entirely post-freeze cohort.
+
+Repair/retention/ledger suite: 13 passed in 9.87 s. It covers the first observed
+4-draw exception, identical old/hybrid actual execution, strict-gain and failed-
+parent short-tail controls, unchanged five-draw dispatch, source retention and
+tamper rejection. Frozen test reports must not be overwritten while running.
+New protocol: 793b6aa2fdae6f76397a8f17b1fb5bee0197ad0b311829a02728b7e43a872a1f.
+Base runs/frontier_incremental_scope_v2; session 45405; queue PID 66648.
+152 code/design inputs and 154 prerequisite/source bindings. Four workers are
+running; sources 20/32/48 passed the previously failing gate. No interim strength
+statistic has been interpreted. The queue retains the original full denominator.
+
+Commands: scripts.frontier_scope_study --base runs/frontier_incremental_scope_v2
+--freeze / --run. After complete audit and summary, run
+scripts.export_frontier_scope --base runs/frontier_incremental_scope_v2.
+Paper/PDF and deployed model/dealer unchanged. Goal remains active.
+
+## 22 October 2026: selected frontier integration completed; fresh comparison pipeline
+
+Completed and independently reviewed the original 12-case hybrid integration,
+8-case next-discard screen, and final selected wrapper. The final check executes
+two changed cases and explicitly reuses ten identical integrated cases. Four
+verified conditional improvements and 92 patches remain; all actual retained
+paths are unchanged. New work, reused work and all review/protocol hashes are
+in SELECTED_FRONTIER_RESULTS.rst. Closed jobs are not restarted.
+
+Implemented selected_frontier_controller.py, frontier_incremental_design.py,
+and the fresh source/plan/actual/audit pipeline. The new contrast is hybrid
+minus old symbolic controller, with exact zero for preserved programs. The
+original neural-parent comparison and its failed practical criterion remain
+closed. The fixed new design has 4,096 sources and seven threshold bounds;
+3 statistical tests passed. Fixed-tape end-to-end tests are running before
+freezing or collecting any new source. Parent/dealer and manuscript unchanged.
+
+Commands: scripts.check_selected_frontier_integration --freeze / --run;
+scripts.summarize_selected_frontier_integration --output
+runs/selected_frontier_integration_review.json; pytest
+ tests/test_frontier_incremental_pipeline.py tests/test_frontier_incremental_design.py
+ --junitxml=runs/frontier_incremental_pipeline_tests.xml.
+
 ## 22 October 2026: four verified frontier gains; integration and bounded entry
 
 The previous goal turn was progress: it implemented and tested the frontier

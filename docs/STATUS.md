@@ -30,45 +30,81 @@ Review runs/five_draw_extension_screen_review.json SHA
 673f4218a97af19de6ba1695474ff7e417e490e267b631b90abe3cd89e3d5c72.
 Session 32175 / queue 70208 exited 0. Details: FIVE_DRAW_FALLBACK_RESULTS.rst.
 
-Two new fixed jobs are RUNNING; keep their existing processes:
+The original hybrid integration and next-discard screen are COMPLETE and
+independently reviewed. All twelve integrated cases preserve the original
+fixed/optimized phases and decisions. The same four conditional improvements
+and 92 local patches reproduce. New integrated planning: 28,875,154 physical
+transitions. Session 59903 / queue 24228 exited 0; do not restart.
 
-1. runs/frontier_hybrid_integration: session 59903, actual queue PID 24228.
-   Protocol 704eeeaa395dbcf61d6fb6c3f2ec66c0fab0b48a37196665b70e7cb37e3003cd.
-   Actually reexecute the original symbolic controller first, using the patch
-   only after parent_unvalued. Same two 2M transition allowances. Compare all
-   eight saved patches exactly, including complete worlds, programs and work.
-   Four controls (sources 3/4/14/17, first no-gain/strict-gain per parent) must
-   retain their original phases/selection. Twelve cases, two bounded workers.
-   Fixtures 0--6 and preservation control 8 passed; fixtures 7/9 are running.
-   Three positive patch cases already reproduce exactly in the integrated path.
-   Wrapper passed six tests (2.23 s); synthetic failed parent at 465 transitions
-   plus 495 patch transitions proves gain 7/550, full replay checked.
-   Scope: FRONTIER_HYBRID_INTEGRATION.rst. Complete-only exporter ready.
-2. runs/next_discard_frontier_screen: session 36937, actual queue PID 70700.
-   Protocol 3419054c9abe7801b1bc939f51f0322c2296b529bff86378db99b78646892130.
-   Public root turn chooses the next learner discard: draw threshold 4 for
-   turn 10 post-draw entries, 3 for turn 11 pre-draw entries. This keeps the six
-   old complete cases identical and addresses the two prefix row refusals.
-   All eight are reexecuted, with unchanged budgets and one bounded worker.
-   Fixtures 0/1 now complete 149/180 frontier groups; peak rows 2,925/3,276
-   and prefix transitions 5,331/4,763. Both retain the parent. Fixture 2 also
-   reproduces the old result; fixture 3 is live (worker 70132). No full-screen
-   conclusion yet. Do not adjust local budgets from these intermediate results.
-   Complete-only exporter ready. Scope: NEXT_DISCARD_FRONTIER_SCREEN.rst.
+The next-discard screen completes all eight prefixes within unchanged caps.
+Sources 16/168 now have 149/180 complete groups but no extra gain; the six
+other patches/programs/work reproduce exactly. New planning: 10,826,089
+physical transitions, excluding 15,999,936 imported historical first-phase
+transitions. Session 36937 / queue 70700 exited 0; do not restart.
+Review SHA 408b220cc0d20b32dd9518b047f0bbee4ed5f78f4b9a3b935592bc5c8ac381f5.
 
-The next-discard boundary has at most 7,280 or 16,380 prefix rows and at most
-131,040 transitions under the original identified-model five-draw gate. Thus it
-fits the existing 65,536-row / 250k-transition prefix limits without an increase.
-Twenty-one tests pass (5.81 s), including all four entry phases, both seats,
-hidden-card reassignment invariance, and complete native/Python prefix agreement.
-The general policy-improvement principle is established prior work; the method's
-concrete contribution and assumptions are in FRONTIER_POLICY_PATCH.rst.
+The selected wrapper is implemented and its final integration is COMPLETE.
+Only the two changed boundaries were actually reexecuted; ten identical
+integrated programs/executions are explicitly reused. New planning 6,656,852,
+support replay 13,440, actual/replay 24 decisions each; no new value-oracle
+work or fresh sources. Session 12521 completed. Review SHA
+0ac76d0becfa11bb1d7a942ae142d3f9451f5731d88e874a011e33f1ae9a8dfa.
+Full closure evidence and hashes: SELECTED_FRONTIER_RESULTS.rst.
 
-NEXT: finish both exact jobs, independently aggregate all cases, and then freeze
-the selected hybrid for fresh prospective evaluation. Reuse no development
-sources as fresh evidence. The positive targeted gains justify integration;
-they do not establish population strength or change the old failed practical-
-gain criterion. Goal active. Manuscript/PDF and deployed actor/dealer unchanged.
+The selected next-discard boundary has at most 7,280 or 16,380 prefix rows
+and at most 131,040 transitions under the identified-model five-draw gate.
+It fits existing 65,536-row / 250k-transition prefix caps. Twenty-one tests
+cover all entry phases, both seats, hidden-assignment invariance and full
+native/Python prefix agreement. General policy-improvement principles have
+precedents; the concrete construction is described in FRONTIER_POLICY_PATCH.rst.
+
+The incremental study's first run FAILED an entry-scope check and is closed.
+runs/frontier_incremental_evaluation, session 12664 / queue 69268, exited 1.
+Protocol fa36dd16ce48f436b755ab397aaa660b4c04ae5e23f53e6b34d37ed6929e7737.
+The original source gate is <=5 draws; forced transitions can skip the exactly-5
+learner decision. A too-strict wrapper rejected valid 4-draw roots. No completed
+chunk audit or strength inference. Fifteen complete source ledgers are preserved
+at indices 0, 16--20, 32, 48, 64--70. Manifest SHA
+bbc63063d172d9c77525db53745abae274044d5a13a99805dbdc0cc90ac10f19.
+Recorded complete planning: 1,649,050 transitions at sources 16/66/67. Worker
+68444 was stopped during source 0 planning after durable source collection;
+its partial planning count and unpersisted actual-tail work are unknown, not zero.
+Do not restart this failed run or modify its frozen files/test XMLs.
+
+The mechanical scope correction is implemented and RUNNING in
+runs/frontier_incremental_scope_v2: session 45405, actual queue PID 66648.
+Protocol 793b6aa2fdae6f76397a8f17b1fb5bee0197ad0b311829a02728b7e43a872a1f.
+Exactly five draws dispatches to the unchanged selected method. Fewer draws
+preserve the original symbolic controller, including parent-value refusals;
+the incremental value is zero by identity. No budget or statistical criterion
+changes. All 15 already acquired sources are copied unchanged at their original
+indices; only the other 4,081 are newly sampled. All 4,096 originally prescribed
+sources remain in the denominator. Preserve this amendment in any publication;
+do not describe all sources as acquired after the corrected freeze.
+Scope and provenance: FRONTIER_INCREMENTAL_SCOPE_AMENDMENT.rst.
+
+Initial pipeline/statistical tests: 12 passed in 914.91 s. Ledger/export tests:
+5 passed in 2.71 s. Repair/retention/ledger tests: 13 passed in 9.87 s, including
+the actual first observed 4-draw failure, zero incremental gain, identical actual
+execution, retained-source copying and tamper rejection. New scope dispatch
+also retains both old strict gains and unvalued-parent fallbacks on short tails.
+The v2 protocol freezes 152 inputs and 154 prerequisite/source files. Do not
+rerun tests into its frozen XML paths or edit frozen dependencies while live.
+
+Four workers have progressed: chunk 0 source 0 (PID 70708), chunk 1 source 23
+(PID 71928), chunk 2 source 38 (PID 19416), chunk 3 source 49 (PID 17812).
+The earlier 4-draw failures now pass. No complete-source inference yet. Keep
+these processes; source 0 can spend minutes in full fixed/patch planning.
+Primary contrast: selected hybrid minus old symbolic controller, using exact
+independent frontier increments or zero for identical programs. The old failed
+0.1pp comparison stays closed. Complete 256 independently audited chunks before
+summarizing/exporting. Export command: python -m scripts.export_frontier_scope
+--base runs/frontier_incremental_scope_v2. The queue automatically saves the
+summary, but final complete-source re-reduction/export is a separate step.
+NEXT: finish the fixed amended cohort, verify/export all work and effect sizes,
+then integrate the method, prior-art distinction and complete results into the
+manuscript with readability/PDF review. Goal active; current PDF, play/dealer
+unchanged. Selected integration milestone pushed as 86f0a55.
 
 The preceding six-draw proposal screen is COMPLETE: three complete candidates
 at1/0/1 were independently verified, five proposals hit1Mphysical caps, and
