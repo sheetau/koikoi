@@ -11,18 +11,36 @@ Old process handles mentioned in that history are historical, not live jobs.
 
 ## Current experiment and next actions
 
-The proposal-first contingent screen is RUNNING at
-runs/proposal_interval_screen. Session9032; actual Python queue PID68556.
-Protocol SHA 20a31067a191cfd96dcef1c75ef1b20184d50c143564b43cf635f34b6cf5f439.
-All eight fixed six-draw fixtures remain. Preassigned proposal/reference caps
-are 1M + 1M transitions, with no borrowing; proposal live-node/reference-task
-caps are 250k each. Every completed compiled candidate receives independent
-full Python replay, including rejected candidates. Every adoption and newly
-exact parent also receives parent replay. Programs are saved before those
-oracles and actual-tail checks. Two bounded workers; do not restart on silence.
-Next finish all eight checks and complete-only accounting. This is development,
-not fresh strength evidence. The previous goal turn made progress: interval
-screen closed and contingent compiler/schedule implemented with verified tests.
+The five-draw parent-refusal extension screen is RUNNING at
+runs/five_draw_extension_screen. Session32175; actual Python queue PID70208.
+Protocol SHA c4a0a1e8a65ea355ca437320f5d3ff97df43a91432960d6ee696ffe42b87dbbb.
+Mechanically first old parent-unvalued source per population/seat:16,168,246,
+387,393,433,867,1054. Selection precedes planning and scans the first1,055
+closed-cohort sources. Manifest runs/five_draw_parent_gap_fixtures.json SHA
+e8db41b05a1031f2210c969cc6d6493ed9f7f4cbb8cddc7a4b2729bb57cdc8b3.
+All eight remain. Keep added1M proposal +1M reference transitions with no
+borrowing. Import the old failed fixed-phase work separately; nominal online
+sum stays<=4M. This isolates a fallback extension, not an integrated hybrid.
+Every complete candidate and every adopted/newly exact parent gets full
+independent Python value replay; support/actual-tail checks remain. Two
+bounded workers. Next finish this exact job; do not restart on silent logs.
+Scope/accounting:docs/FIVE_DRAW_FALLBACK_SCREEN.rst.
+
+The preceding six-draw proposal screen is COMPLETE: three complete candidates
+at1/0/1 were independently verified, five proposals hit1Mphysical caps, and
+no policy was adopted. All actual outcomes/traces unchanged. New planning
+5,149,891physical decisions; oracle75,372physical /271,277,664represented
+decisions. No added strength or equal-solution speedup claim. Session9032 and
+queue68556 exited0. Protocol20a31067a191cfd96dcef1c75ef1b20184d50c143564b43cf635f34b6cf5f439;
+summaryd6e83d7f6f8e66ddbaea51a145d0aa7aa595d155c52db2482ec733ccb7dc85f7.
+Complete review runs/proposal_interval_screen_review.json SHA
+b11a44a9566bc23e572bf757584d960c79b445ad67bf7566113af3c3c88abd13.
+Full record:docs/PROPOSAL_INTERVAL_RESULTS.rst. That cohort is closed.
+
+This turn makes progress through a complete independent candidate screen and
+a fixed follow-up at the original gate. The goal remains active. Preserve old
+successful selections in any eventual hybrid; test integration and fresh
+prospective strength before promotion. Paper/PDF and human play/dealer unchanged.
 
 The interval comparison development screen is COMPLETE. All eight fixtures
 passed; no root-only candidate was adopted and no new parent became exact.

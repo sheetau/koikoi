@@ -4,6 +4,35 @@ Earlier observations and plans are retained below. Consult STATUS.md for live jo
 
 # Experiment history
 
+## 22 October 2026: six-draw proposals closed; five-draw fallback screen launched
+
+All eight six-draw proposal fixtures passed. Three complete candidates have
+independently verified values1/0/1; five hit the proposal cap before producing
+a complete policy. No adoption and all actual traces/outcomes unchanged.
+Complete-only export rehashes/recompiles/checks separate budgets and all oracle
+receipts. Incomplete export refused; complete export passed. Review SHA
+b11a44a9566bc23e572bf757584d960c79b445ad67bf7566113af3c3c88abd13.
+Full counts and limitations:PROPOSAL_INTERVAL_RESULTS.rst. Session9032 and
+queue68556 exited0; do not restart that closed screen.
+
+Selected the first original five-draw parent refusal per population/seat from
+the first1,055closed sources, using prior status only. Fixed source indices
+16,168,246,387,393,433,867,1054. Manifest SHA
+e8db41b05a1031f2210c969cc6d6493ed9f7f4cbb8cddc7a4b2729bb57cdc8b3.
+Selector rehashes diagnosed record prefix, source/selection/program artifacts
+and original protocol; all8are retained before new planning. This targets the
+original gate's fallback, rather than increasing the six-draw allowance.
+
+Implemented/froze screen_five_draw_extension.py. Added1M proposal +1M reference
+caps unchanged; imported old fixed-phase work is kept separate and nominal
+online sum is<=4M. Every completed candidate and adopted/newly exact parent
+gets full independent Python replay. Support/worlds and actual tails checked.
+Protocol c4a0a1e8a65ea355ca437320f5d3ff97df43a91432960d6ee696ffe42b87dbbb.
+Commands:.venv/Scripts/python.exe -m scripts.screen_five_draw_extension --freeze
+and --run. Session32175,actual queue70208,two bounded workers. Scope is targeted
+development,not population inference or an integrated production hybrid.
+Ruff passes. Goal remains active; paper and deployed model/dealer unchanged.
+
 ## 22 October 2026: fixed contingent proposal-first screen launched
 
 Implemented scripts/screen_proposal_interval.py and froze all eight prior
