@@ -11,6 +11,20 @@ Old process handles mentioned in that history are historical, not live jobs.
 
 ## Current experiment and next actions
 
+The public score-bound development screen is RUNNING at
+runs/score_bound_screen, session30518, actual queue Python PID72696.
+All eight earlier six-draw fixtures are retained under unchanged budgets.
+Protocol SHA 02215fbaf9206ffceebc01aa0578983beb9ffa56ae1854a1543c66b5c1ecb12d.
+The new public-capture/capacity bound certifies wins/losses before the final
+turn. It maximizes all feasible koi counts, including the nonmonotone3-to-4
+case, and uses no hidden locations. Frozen predecessors remain unchanged.
+18 targeted tests pass; a separate true-parent/full-program preflight agrees
+at204/275 versus97/110 and its executor reaches terminal legally. These are
+correctness checks, not fresh strength evidence. Each newly completed parent
+value or adoption receives full independent Python replay before acceptance.
+Next finish this fixed eight-fixture comparison; do not restart it on a timeout.
+Method/proof: docs/PUBLIC_SCORE_BOUNDS.rst.
+
 The six-draw development feasibility screen is COMPLETE: all eight fixtures
 passed their source/support/program/actual-tail checks. No action was adopted:
 two parents had value 1, one fully valued comparison had value 0 and no gain,

@@ -4,6 +4,32 @@ Earlier observations and plans are retained below. Consult STATUS.md for live jo
 
 # Experiment history
 
+## 22 October 2026: public score-bound controller implemented and screen frozen
+
+Added an isolated admissible public score bound, versioned symbolic program,
+executor and full-transition verification interpreters. Captured-card exclusion
+and remaining capture capacity bound each yaku; maximizing every reachable koi
+count handles the nonmonotone3-to-4 change. Final-round margin comparisons
+certify either outcome; ordinary actions remain explicit outside this domain.
+No simulator or frozen prior-study source changed. Proof and scope are in
+PUBLIC_SCORE_BOUNDS.rst. This is domain-specific admissible pruning, not a
+claim to have invented admissible bounds or symbolic policies.
+
+Targeted tests:18passed (8.81s); exhaustive small captured-card subsets/koi
+counts, full legal two-turn tails, hidden-location invariance, both seats and
+full program replay. Initial test-only index and threshold mistakes were fixed;
+a test also used selection.action instead of selection.plan.action. No bound
+counterexample was found. Ruff passes. Separate true-parent preflight matches
+204/275 and selected97/110; executor terminates legally with a symbolic call.
+
+Froze all eight preceding fixtures with unchanged two-phase caps and launched
+.venv/Scripts/python.exe -m scripts.screen_score_bounds --run.
+Protocol 02215fbaf9206ffceebc01aa0578983beb9ffa56ae1854a1543c66b5c1ecb12d; session30518; actual queue72696.
+The program is saved before full independent oracle/actual-tail checks. New
+parent completions as well as adoptions require full reference value replay.
+No fresh chance, no replacement fixtures, no new population inference. Results
+remain pending. Production play and initial dealer remain unchanged.
+
 ## 22 October 2026: six-draw feasibility closed with zero adoptions
 
 All eight fixtures completed and passed. Two parent values equal 1; source19
