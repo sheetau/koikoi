@@ -80,7 +80,27 @@ population estimate or a separate-process strength audit.
 
 Protocol: ``runs/six_draw_gate_screen/protocol.json``.
 SHA256: ``a05bcb6b3497fc4ddfa185ec2ca66c8be987e4c6b1774f5235c86ceef1b3fada``.
-The screen is running. Inspect its queue and live processes; do not restart
-the original evaluation or replace these fixtures after observing outcomes.
-Any later controller selected using this diagnosis needs fresh prospective
-evaluation. Initial dealer and canonical human play remain unchanged.
+The screen is complete; all eight fixtures passed. Two parents already had
+value 1 (sources 1 and 237). Source 19 had parent and best candidate value 0.
+The other five sources (88, 112, 251, 322 and 738) exhausted the physical
+transition cap before valuing the parent. No policy was adopted. Every actual
+parent/controller action trace and outcome agrees. No oracle value replay was
+needed because there were no adoptions.
+
+Planning used 10,248,697 physical decisions and 6,920,050 physical completions;
+represented work was 1,338,963,814 decisions and 341,400,420 completions.
+Source, native and source-audit replays each used 991 decisions, 64 round
+endings and 8 matches. History/support audit each used 60,508 replay decisions.
+Actual execution and replay each used 42 decisions across 16 tails. These are
+separate work categories. There were no fresh chance draws. Concurrent worker
+timings are operational measurements, not isolated latency benchmarks.
+
+The complete artifact review rehashed every result and saved source/selection/
+program binding, checked the frozen script and protocol, and compared every
+actual pair. Summary SHA256:
+``73223ce652b8aef306d8b1897839359c7d186d4dd8dd905abccb5824029e35a7``.
+Review: ``runs/six_draw_gate_review.json``. Raising the gate alone did not
+produce a feasible gain in this screen. Next address evaluation cost before
+considering a broader gate. Any controller selected from these development
+sources requires fresh prospective evaluation. Initial dealer and canonical
+human play remain unchanged.

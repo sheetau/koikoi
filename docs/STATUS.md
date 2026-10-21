@@ -11,16 +11,16 @@ Old process handles mentioned in that history are historical, not live jobs.
 
 ## Current experiment and next actions
 
-The six-draw development feasibility screen is RUNNING at
-runs/six_draw_gate_screen. Session3793;queue actual Python312 PID69564.
-It uses8fixed closed-cohort fixtures,not new source observations. Protocol
-SHA a05bcb6b3497fc4ddfa185ec2ca66c8be987e4c6b1774f5235c86ceef1b3fada.
-Indices1,19,88,112,237,251,322,738 are the first added six-draw root per
-parent/opponent/seat,chosen before planning. Only max_draws changes5to6;
-all original phase/hand/node/depth budgets and policies remain fixed.
-Two bounded workers;no restart or outcome-dependent replacement. Read
-current logs/processes for live identities. Next finish all8fixture checks,
-then decide whether earlier entry is feasible under the existing caps.
+The six-draw development feasibility screen is COMPLETE: all eight fixtures
+passed their source/support/program/actual-tail checks. No action was adopted:
+two parents had value 1, one fully valued comparison had value 0 and no gain,
+and five parent evaluations exhausted the 2,000,000-transition cap. All actual
+outcomes/actions match the parent. Session3793 and its workers exited; do not
+restart this screen. Protocol a05bcb6b3497fc4ddfa185ec2ca66c8be987e4c6b1774f5235c86ceef1b3fada.
+Summary 73223ce652b8aef306d8b1897839359c7d186d4dd8dd905abccb5824029e35a7.
+Complete artifact review: runs/six_draw_gate_review.json. This is development
+feasibility, not fresh strength evidence. Next investigate public score bounds
+that can certify final-match outcomes earlier without spending the tree budget.
 
 Full recorded-source gate replay now separates4314missing roots into736
 matches ending before the final round,1075without prior identity in that

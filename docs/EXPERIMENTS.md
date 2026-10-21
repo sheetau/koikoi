@@ -4,6 +4,17 @@ Earlier observations and plans are retained below. Consult STATUS.md for live jo
 
 # Experiment history
 
+## 22 October 2026: six-draw feasibility closed with zero adoptions
+
+All eight fixtures completed and passed. Two parent values equal 1; source19
+has complete parent/best value 0; five parent evaluations hit the physical cap.
+All actual traces/outcomes equal the parent. Complete artifact hashes and
+accounting are recorded in GATE_COVERAGE_RESULTS.rst and
+runs/six_draw_gate_review.json. Planning cost 10,248,697 physical decisions;
+no fresh source/chance draws or adopted-policy oracle calls. No cohort was
+extended. Earlier entry alone is not supported by this feasibility screen.
+Next investigate public score-bound certificates to reduce evaluation cost.
+
 ## 22 October 2026: public gate diagnosis and six-draw feasibility
 
 The complete recorded-source replay identifies736matches ending before the
