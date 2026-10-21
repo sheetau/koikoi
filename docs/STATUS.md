@@ -11,52 +11,61 @@ Old process handles mentioned in that history are historical, not live jobs.
 
 ## Current experiment and next actions
 
-Two fixed development screens are active; do not restart silent workers.
+The frontier-patch screen is COMPLETE and independently reviewed. Four of eight
+original parent-refusal roots acquire 92 local patches with positive conditional
+gains. Exact increments at sources 387/433/867/1054 are 1/5265, 71/112320,
+31/214500 and 3593/10193040. Source 1054's certified lower bound is slightly
+smaller, 3563/10193040. All actual retained trajectories/outcomes remain unchanged;
+improvements concern other supported future branches. Two prefixes (16/168)
+hit the row cap; six completed 7,591 frontier groups. New planning 8,316,902
+physical transitions. Complete accounting: FRONTIER_PATCH_RESULTS.rst.
+Review runs/frontier_patch_screen_review.json SHA
+9e1bdab17379071c0e2f70ba15a5eb771b141dc2a78da5325c68cdf4bf817946.
+Session 19067 / queue 68776 exited 0. Do not restart this closed screen.
 
-1. runs/five_draw_extension_screen: session32175, actual queue70208.
-   Seven fixtures have completed; fixture2/source246 is still in independent
-   full Python value replay (worker42116). No adoption in the saved plans.
-   Protocol c4a0a1e8a65ea355ca437320f5d3ff97df43a91432960d6ee696ffe42b87dbbb.
-   The complete-only exporter scripts/summarize_five_draw_extension.py is ready;
-   its incomplete-run rejection passed. Run it only after all eight finish.
-2. runs/frontier_patch_screen: session19067, actual queue68776, one bounded
-   worker at a time. Protocol
-   6597826f4af37927e2e50d95e9134433cd3ca6eb76a3883df35a18db9b3c5db5.
-   Same eight original-gate fixtures, all retained. This experiment does not
-   depend on the concurrent screen's outcomes. First two prefixes hit the
-   65,536-row cap and correctly kept the parent. Fixture2 completed1,304
-   independently reconstructed frontier groups, with no adoption. Fixture3
-   is planning (actual worker3756); all eight remain. Complete-only exporter
-   scripts/summarize_frontier_patch_screen.py is ready and rejects incomplete
-   results. No complete-screen conclusion yet.
+The preceding whole-root five-draw proposal screen also completed: three
+candidates, two newly exact parent values, zero adoptions. All eight retained;
+full independent value replay passed, including the long-running source 246.
+Review runs/five_draw_extension_screen_review.json SHA
+673f4218a97af19de6ba1695474ff7e417e490e267b631b90abe3cd89e3d5c72.
+Session 32175 / queue 70208 exited 0. Details: FIVE_DRAW_FALLBACK_RESULTS.rst.
 
-New method: follow the parent to a complete public frontier, then commit to a
-certified local patch at selected observations. The global gain lower bound is
-sum(reach probability * local gain lower bound). Untouched paths retain exactly
-zero policy difference, so their absolute values need not be computed. The
-entire parent prefix must finish before any conditional node is usable. One
-shared2Mtransition budget covers prefix and all local comparisons; prefix250k,
-local phases50k each,25k nodes/tasks,capacity4096. Import the original failed
-fixed work separately; nominal integrated work<=4M, no hybrid deployed.
-Docs:FRONTIER_POLICY_PATCH.rst and FRONTIER_PATCH_SCREEN.rst.
+Two new fixed jobs are RUNNING; keep their existing processes:
 
-The independent Python checker reconstructs every complete frontier posterior
-and fully replays both local values for each adopted patch. Synthetic full-root
-replay separately verifies the composition: parent204/275, patched461/550,
-gain53/550, five adopted patches among226frontier observations. Planning2,906
-transitions includes365prefix transitions. Correctness evidence only.
-Preflight runs/frontier_patch_preflight.json SHA
-2057fe9370348e85de748bf065ab8ffadd4f5f75040279471d80ebb286596a0c.
-15new +30existing interval/proposal tests passed (45total,12.65s); the final
-actual-suffix integration test brings the dedicated set to16passed(4.99s).
-Ruff passes. Primary policy-switching and safe-subgame prior art is recorded;
-no new general improvement theorem or equilibrium claim is made.
+1. runs/frontier_hybrid_integration: session 59903, actual queue PID 24228.
+   Protocol 704eeeaa395dbcf61d6fb6c3f2ec66c0fab0b48a37196665b70e7cb37e3003cd.
+   Actually reexecute the original symbolic controller first, using the patch
+   only after parent_unvalued. Same two 2M transition allowances. Compare all
+   eight saved patches exactly, including complete worlds, programs and work.
+   Four controls (sources 3/4/14/17, first no-gain/strict-gain per parent) must
+   retain their original phases/selection. Twelve cases, two bounded workers.
+   First two passed; fixtures 2/3 live (workers 57676/64784 at last inspection).
+   Wrapper passed six tests (2.23 s); synthetic failed parent at 465 transitions
+   plus 495 patch transitions proves gain 7/550, full replay checked.
+   Scope: FRONTIER_HYBRID_INTEGRATION.rst. Complete-only exporter ready.
+2. runs/next_discard_frontier_screen: session 36937, actual queue PID 70700.
+   Protocol 3419054c9abe7801b1bc939f51f0322c2296b529bff86378db99b78646892130.
+   Public root turn chooses the next learner discard: draw threshold 4 for
+   turn 10 post-draw entries, 3 for turn 11 pre-draw entries. This keeps the six
+   old complete cases identical and addresses the two prefix row refusals.
+   All eight are reexecuted, with unchanged budgets and one bounded worker.
+   First fixture completed its 149 frontier groups and retained the parent;
+   fixture 1 is live (worker 70132 at last inspection). No new conclusion yet.
+   Complete-only exporter ready. Scope: NEXT_DISCARD_FRONTIER_SCREEN.rst.
 
-NEXT: finish both exact screens; independently aggregate all eight, including
-refusals and all work. If the patch method improves natural cases, integrate
-only as an old-parent-refusal fallback and freeze a fresh prospective test.
-Do not promote synthetic values or targeted cases to population strength.
-The goal remains active; manuscript/PDF and playable model/dealer unchanged.
+The next-discard boundary has at most 7,280 or 16,380 prefix rows and at most
+131,040 transitions under the original identified-model five-draw gate. Thus it
+fits the existing 65,536-row / 250k-transition prefix limits without an increase.
+Twenty-one tests pass (5.81 s), including all four entry phases, both seats,
+hidden-card reassignment invariance, and complete native/Python prefix agreement.
+The general policy-improvement principle is established prior work; the method's
+concrete contribution and assumptions are in FRONTIER_POLICY_PATCH.rst.
+
+NEXT: finish both exact jobs, independently aggregate all cases, and then freeze
+the selected hybrid for fresh prospective evaluation. Reuse no development
+sources as fresh evidence. The positive targeted gains justify integration;
+they do not establish population strength or change the old failed practical-
+gain criterion. Goal active. Manuscript/PDF and deployed actor/dealer unchanged.
 
 The preceding six-draw proposal screen is COMPLETE: three complete candidates
 at1/0/1 were independently verified, five proposals hit1Mphysical caps, and

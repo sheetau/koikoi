@@ -4,6 +4,66 @@ Earlier observations and plans are retained below. Consult STATUS.md for live jo
 
 # Experiment history
 
+## 22 October 2026: four verified frontier gains; integration and bounded entry
+
+The previous goal turn was progress: it implemented and tested the frontier
+method and froze its natural screen. This turn completed both live screens,
+independently reviewed all results, and changed the next action based on four
+positive conditional improvements.
+
+Whole-root proposal extension: all eight passed, three completed candidates,
+two newly exact parent values, zero adoptions. Full oracle and complete export
+passed; session 32175 / queue 70208 exited 0. No restart during source 246's
+silent full replay. Counts and hashes: FIVE_DRAW_FALLBACK_RESULTS.rst.
+
+Frontier patches: all eight passed, six prefixes complete, two row refusals.
+Four roots recover 92 adopted local patches with verified exact increments:
+source 387=1/5265, 433=71/112320, 867=31/214500, 1054=3593/10193040. The last
+lower certificate is 3563/10193040; its local parent interval was incomplete.
+Actual retained traces/outcomes unchanged. New planning 8,316,902 transitions;
+independent prefix/local oracles remain separate. Complete exporter rehashes,
+recompiles and checks all binding, mass, phase-budget and gain calculations.
+Review SHA 9e1bdab17379071c0e2f70ba15a5eb771b141dc2a78da5325c68cdf4bf817946.
+Session 19067 / queue 68776 exited 0. Full results: FRONTIER_PATCH_RESULTS.rst.
+
+Implemented scripts/frontier_hybrid_controller.py. Execute the unchanged
+SymbolicFinalTurnPlanner first; use the new fallback only after parent_unvalued.
+Every completed original selection is retained exactly. Each phase has a 2M
+transition cap with no borrowing. Six tests pass (2.23 s), including identical
+old phases/execution, failed prefix fallback and corrupted receipts. Synthetic
+465-transition failed first phase plus 495-transition patch proves gain 7/550;
+independent full-root replay confirms it. No historical work is imported here.
+
+Froze twelve integration cases: all eight refusal fixtures plus the first old
+strict/no-gain source per parent (indices 3/4/14/17). Two bounded workers, original
+support reconstructed, all original phases and all patch world/program/value/
+work receipts compared exactly, actual suffixes replayed. Identical previously
+verified values are reused explicitly, not counted as new oracle work.
+Protocol 704eeeaa395dbcf61d6fb6c3f2ec66c0fab0b48a37196665b70e7cb37e3003cd.
+Commands: python -m scripts.check_frontier_hybrid_integration --freeze / --run.
+Session 59903, actual queue 24228. Complete-only exporter rejects unfinished runs.
+
+Diagnosed the row refusals: a three-draw boundary can miss an optional learner
+capture/koi decision and wait through another chance draw. Splitting at the
+next learner discard uses cutoff 14 minus the public root turn, changing only
+the two turn-10 entries in this cohort. With one identified model, complete
+hand counts are bounded by C(16,3) or C(15,2); one or two new draws give at most
+7,280 or 16,380 rows. At most eight exposed decisions give a conservative
+131,040-transition bound. Both fit the old prefix caps. Twenty-one tests pass
+(5.81 s), including full native/Python prefix agreement for all entry phases
+and both seats. Hidden identities cannot change this public configuration.
+Proof, scope and frozen comparison: NEXT_DISCARD_FRONTIER_SCREEN.rst.
+
+Froze and started the same eight cases with this public boundary; all budgets
+unchanged, one bounded worker. Six unchanged boundaries must reproduce all
+previous programs and work exactly. Protocol
+3419054c9abe7801b1bc939f51f0322c2296b529bff86378db99b78646892130.
+Commands: python -m scripts.screen_next_discard_frontier --freeze / --run.
+Session 36937, actual queue 70700. First fixture completes 149 frontier groups,
+no adoption. All eight retained. Complete-only exporter rejects partial results.
+Both jobs remain active. No prospective strength, manuscript or deployment claim
+is added from this targeted development. Goal active; next finish and aggregate.
+
 ## 22 October 2026: public-frontier patch composition implemented and frozen
 
 The five-draw proposal screen remains active on its final independent oracle;
