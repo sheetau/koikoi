@@ -4,6 +4,28 @@ Earlier observations and plans are retained below. Consult STATUS.md for live jo
 
 # Experiment history
 
+## 22 October 2026: fixed contingent proposal-first screen launched
+
+Implemented scripts/screen_proposal_interval.py and froze all eight prior
+six-draw fixtures. Fixed 1M proposal + 1M reference physical transition caps,
+250k live nodes / expanded tasks separately, no borrowing. Native capacity
+4096, reference quanta4096, depth32, two workers. Protocol
+20a31067a191cfd96dcef1c75ef1b20184d50c143564b43cf635f34b6cf5f439.
+
+Worker reconstructs support from the source, rechecks the saved old worlds,
+compiles the proposal again against its full binding and saves the selection
+and program before execution. Every completed candidate receives full Python
+value replay, including non-adoptions. Adopted/newly exact parent values are
+also replayed. Native caches and outcome shortcuts are not used by the oracle.
+Parent actual tails must reproduce the source suffix. No fresh chance draws,
+fixture replacement or population-strength inference. Frozen prior inputs
+remain unchanged; Ruff passes. Existing proposal/compiler tests remain valid.
+
+Commands: .venv/Scripts/python.exe -m scripts.screen_proposal_interval --freeze
+and --run. Session9032; actual queue68556. First fixture completed, with candidate
+value1 independently verified and no strict gain. Continue the exact job;
+no restart on observation timeouts. Goal remains active.
+
 ## 22 October 2026: interval screen complete and contingent proposal bridge ready
 
 All eight interval-screen fixtures passed. No root-only adoption and no new

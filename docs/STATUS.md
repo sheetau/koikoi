@@ -11,6 +11,19 @@ Old process handles mentioned in that history are historical, not live jobs.
 
 ## Current experiment and next actions
 
+The proposal-first contingent screen is RUNNING at
+runs/proposal_interval_screen. Session9032; actual Python queue PID68556.
+Protocol SHA 20a31067a191cfd96dcef1c75ef1b20184d50c143564b43cf635f34b6cf5f439.
+All eight fixed six-draw fixtures remain. Preassigned proposal/reference caps
+are 1M + 1M transitions, with no borrowing; proposal live-node/reference-task
+caps are 250k each. Every completed compiled candidate receives independent
+full Python replay, including rejected candidates. Every adoption and newly
+exact parent also receives parent replay. Programs are saved before those
+oracles and actual-tail checks. Two bounded workers; do not restart on silence.
+Next finish all eight checks and complete-only accounting. This is development,
+not fresh strength evidence. The previous goal turn made progress: interval
+screen closed and contingent compiler/schedule implemented with verified tests.
+
 The interval comparison development screen is COMPLETE. All eight fixtures
 passed; no root-only candidate was adopted and no new parent became exact.
 Source 251 proves no root-only gain without completing its parent, using
@@ -20,7 +33,7 @@ planning uses 8,070,600 transitions versus 10,066,469 in those fixed phases
 that comparison. All five previously exact fixed-policy values are contained
 in the new intervals. Every actual trace/outcome is unchanged. No strength
 or isolated-latency claim follows. Session37010 and queue28272 exited0; no
-live experiment remains. Do not restart this closed screen.
+live predecessor job remains. Do not restart this closed screen.
 Protocol b55a1e34bac6f1ff0fa55c6f9deb72166d39d86e8923c00b6151e0bf79d4879d;
 summary 06f36a1daea59ad522f4b6799e328e9d081297397300d3b33da05b1f2c4c8d9f.
 Complete review runs/interval_tail_screen_review.json SHA
@@ -42,7 +55,7 @@ controller on all eight existing fixtures. Keep a preassigned 1M proposal +
 250k live-node/task caps per phase, and report their distinct meanings. Verify
 every completed compiled candidate by full Python replay, plus both values
 for every adoption. Parent support/identity and actual-tail checks remain.
-The runner/protocol for this new screen is NOT implemented/launched yet.
+The runner/protocol is now implemented and running as recorded above.
 Method: docs/PROPOSAL_INTERVAL_TAIL.rst. Root-only rejection is not a verdict
 on contingent play. Fresh prospective strength evaluation is still required
 for a newly selected policy. Goal active; paper/PDF and deployed model/dealer
