@@ -11,20 +11,48 @@ Old process handles mentioned in that history are historical, not live jobs.
 
 ## Current experiment and next actions
 
-The five-draw parent-refusal extension screen is RUNNING at
-runs/five_draw_extension_screen. Session32175; actual Python queue PID70208.
-Protocol SHA c4a0a1e8a65ea355ca437320f5d3ff97df43a91432960d6ee696ffe42b87dbbb.
-Mechanically first old parent-unvalued source per population/seat:16,168,246,
-387,393,433,867,1054. Selection precedes planning and scans the first1,055
-closed-cohort sources. Manifest runs/five_draw_parent_gap_fixtures.json SHA
-e8db41b05a1031f2210c969cc6d6493ed9f7f4cbb8cddc7a4b2729bb57cdc8b3.
-All eight remain. Keep added1M proposal +1M reference transitions with no
-borrowing. Import the old failed fixed-phase work separately; nominal online
-sum stays<=4M. This isolates a fallback extension, not an integrated hybrid.
-Every complete candidate and every adopted/newly exact parent gets full
-independent Python value replay; support/actual-tail checks remain. Two
-bounded workers. Next finish this exact job; do not restart on silent logs.
-Scope/accounting:docs/FIVE_DRAW_FALLBACK_SCREEN.rst.
+Two fixed development screens are active; do not restart silent workers.
+
+1. runs/five_draw_extension_screen: session32175, actual queue70208.
+   Seven fixtures have completed; fixture2/source246 is still in independent
+   full Python value replay (worker42116). No adoption in the saved plans.
+   Protocol c4a0a1e8a65ea355ca437320f5d3ff97df43a91432960d6ee696ffe42b87dbbb.
+   The complete-only exporter scripts/summarize_five_draw_extension.py is ready;
+   its incomplete-run rejection passed. Run it only after all eight finish.
+2. runs/frontier_patch_screen: session19067, actual queue68776, one bounded
+   worker at a time. Protocol
+   6597826f4af37927e2e50d95e9134433cd3ca6eb76a3883df35a18db9b3c5db5.
+   Same eight original-gate fixtures, all retained. This experiment does not
+   depend on the concurrent screen's outcomes. First two prefixes hit the
+   65,536-row cap and correctly kept the parent; no conclusion yet.
+
+New method: follow the parent to a complete public frontier, then commit to a
+certified local patch at selected observations. The global gain lower bound is
+sum(reach probability * local gain lower bound). Untouched paths retain exactly
+zero policy difference, so their absolute values need not be computed. The
+entire parent prefix must finish before any conditional node is usable. One
+shared2Mtransition budget covers prefix and all local comparisons; prefix250k,
+local phases50k each,25k nodes/tasks,capacity4096. Import the original failed
+fixed work separately; nominal integrated work<=4M, no hybrid deployed.
+Docs:FRONTIER_POLICY_PATCH.rst and FRONTIER_PATCH_SCREEN.rst.
+
+The independent Python checker reconstructs every complete frontier posterior
+and fully replays both local values for each adopted patch. Synthetic full-root
+replay separately verifies the composition: parent204/275, patched461/550,
+gain53/550, five adopted patches among226frontier observations. Planning2,906
+transitions includes365prefix transitions. Correctness evidence only.
+Preflight runs/frontier_patch_preflight.json SHA
+2057fe9370348e85de748bf065ab8ffadd4f5f75040279471d80ebb286596a0c.
+15new +30existing interval/proposal tests passed (45total,12.65s); the final
+actual-suffix integration test brings the dedicated set to16passed(4.99s).
+Ruff passes. Primary policy-switching and safe-subgame prior art is recorded;
+no new general improvement theorem or equilibrium claim is made.
+
+NEXT: finish both exact screens; independently aggregate all eight, including
+refusals and all work. If the patch method improves natural cases, integrate
+only as an old-parent-refusal fallback and freeze a fresh prospective test.
+Do not promote synthetic values or targeted cases to population strength.
+The goal remains active; manuscript/PDF and playable model/dealer unchanged.
 
 The preceding six-draw proposal screen is COMPLETE: three complete candidates
 at1/0/1 were independently verified, five proposals hit1Mphysical caps, and
@@ -36,11 +64,6 @@ summaryd6e83d7f6f8e66ddbaea51a145d0aa7aa595d155c52db2482ec733ccb7dc85f7.
 Complete review runs/proposal_interval_screen_review.json SHA
 b11a44a9566bc23e572bf757584d960c79b445ad67bf7566113af3c3c88abd13.
 Full record:docs/PROPOSAL_INTERVAL_RESULTS.rst. That cohort is closed.
-
-This turn makes progress through a complete independent candidate screen and
-a fixed follow-up at the original gate. The goal remains active. Preserve old
-successful selections in any eventual hybrid; test integration and fresh
-prospective strength before promotion. Paper/PDF and human play/dealer unchanged.
 
 The interval comparison development screen is COMPLETE. All eight fixtures
 passed; no root-only candidate was adopted and no new parent became exact.
@@ -66,18 +89,6 @@ preflight: 1,306 proposal + 465 reference transitions, candidate 97/110,
 parent interval [27/50,457/550], strict lower gain 14/275. Full replay gives
 parent 204/275; the compiled program has six public entries. These are
 correctness checks, not natural-strength evidence.
-
-NEXT: freeze and run a development screen of the proposal-first contingent
-controller on all eight existing fixtures. Keep a preassigned 1M proposal +
-1M reference transition budget (no borrowing or per-candidate multiplication),
-250k live-node/task caps per phase, and report their distinct meanings. Verify
-every completed compiled candidate by full Python replay, plus both values
-for every adoption. Parent support/identity and actual-tail checks remain.
-The runner/protocol is now implemented and running as recorded above.
-Method: docs/PROPOSAL_INTERVAL_TAIL.rst. Root-only rejection is not a verdict
-on contingent play. Fresh prospective strength evaluation is still required
-for a newly selected policy. Goal active; paper/PDF and deployed model/dealer
-unchanged this turn.
 
 The public score-bound development screen is COMPLETE: all eight fixtures
 passed, but no parent reference or adoption was recovered. Parent values remain

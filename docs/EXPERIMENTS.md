@@ -4,6 +4,52 @@ Earlier observations and plans are retained below. Consult STATUS.md for live jo
 
 # Experiment history
 
+## 22 October 2026: public-frontier patch composition implemented and frozen
+
+The five-draw proposal screen remains active on its final independent oracle;
+seven fixtures completed, all saved plans non-adopted. Its complete-only review
+script is ready and rejected incomplete export as intended. No restart or
+partial-screen conclusion. Session32175,queue70208,oracle worker42116.
+
+Implemented parent-frontier collection, shared-budget local comparisons and a
+committed public executor in scripts/frontier_policy_patch.py. An incomplete
+prefix exposes no partial conditional beliefs. At completed first-arrival
+observations, positive local certificate gaps compose by exact reach mass;
+unpatched and pre-frontier terminal paths have zero policy difference.
+This avoids valuing every untouched continuation. Independent Python replay
+reconstructs all frontier posteriors and both terminal values for every adopted
+patch; optional full-root evaluation verifies the decomposition independently.
+
+15new tests plus30existing interval/proposal tests passed (45total,12.65s).
+The added actual-suffix integration case brings the dedicated set to16passing
+in4.99s. Both seats, unequal masses, refusal/budget semantics, corrupted beliefs,
+duplicate patches, wrong gain/root and sticky execution are covered. Ruff passes.
+Synthetic fixture:226frontier nodes,5adoptions,365prefix/2,906total physical
+planning transitions; parent204/275,patched461/550,gain53/550 exactly equals the
+independent reach-weighted local sum. Preflight SHA
+2057fe9370348e85de748bf065ab8ffadd4f5f75040279471d80ebb286596a0c.
+These values verify the construction, not natural strength or matched speed.
+
+Read primary Chang/Givan/Chong policy-switching analysis (author PDF SectionII
+and AppendixA) and Burch/Johanson/Bowling AAAI2014 Theorem1. Related-work notes
+and a conditional-gain proof are in FRONTIER_POLICY_PATCH.rst. The general
+improvement/decomposition principles are established; the proposed contribution
+is the full-posterior, finite-budget certificate construction and its measured
+utility, which still needs natural-case evidence.
+
+Froze the same eight mechanically selected original five-draw parent-refusal
+fixtures before new planning. This screen uses no concurrent proposal outcomes.
+One2Mshared transition budget,250kprefix ceiling,65,536rows,50kper local phase,
+25knodes/tasks,three-draw frontier,capacity4096,one bounded worker. Original
+failed work is imported separately,nominal integrated work<=4M. Full source
+support audit,independent complete prefix/local values,actual suffix and action
+replay required. Scope:FRONTIER_PATCH_SCREEN.rst. Protocol
+6597826f4af37927e2e50d95e9134433cd3ca6eb76a3883df35a18db9b3c5db5.
+Commands:python -m scripts.screen_frontier_patch --freeze and --run.
+Session19067,actualqueue68776. First two prefix row refusals retained. No source
+replacement,parameter adjustment,paper revision or deployment promotion.
+Goal active; finish both fixed screens and aggregate before a next decision.
+
 ## 22 October 2026: six-draw proposals closed; five-draw fallback screen launched
 
 All eight six-draw proposal fixtures passed. Three complete candidates have
