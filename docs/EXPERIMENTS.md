@@ -4,6 +4,36 @@ Earlier observations and plans are retained below. Consult STATUS.md for live jo
 
 # Experiment history
 
+## 22 October 2026: frontier construction illustrated beside its guarantee
+
+Previous goal turn made progress: complete-only result exporter implemented,
+tested and pushed as 02c1cea. Queue 66648 was confirmed live again, reaching
+20 independently audited chunks / 320 sources at this checkpoint.
+No interim gain statistics were inspected and no evaluation conditions changed.
+
+Added docs/paper/frontier_overview.tex and its reference in Section 6.6. The
+figure depicts full prefix enumeration and the disjoint continuation classes:
+adopt a certified local program, keep the parent, or retain a terminal outcome.
+It states that an unfinished prefix keeps the parent everywhere. The following
+equation explains how conditional gains combine. This is an algorithm schematic,
+not a new experiment or a diagram of a privileged hidden-state policy.
+
+Initial rendering exposed cramped fixed-height boxes; increased their padding
+and replaced a redundant in-box formula with concise prose. Rebuilt with
+Tectonic and ran python runs/render_frontier_figure.py. Final 47 pages,
+48 references, main text ends 19; all opening/conclusion prose and reported
+numbers remain unchanged. All pages rendered and contact-reviewed; final full
+pages 13/19/41/42/43 inspected. 32 fonts embedded, no page/box/glyph/reference
+defects; existing Fontconfig notice unchanged. QA and hashes:
+docs/paper/generated/frontier_figure_revision_evidence.json.
+Preview SHA 7eba5d50a418bd9a6597be0eccdbc0af70179c446e49d0e82a2b92f0f15f9704.
+
+The fixed-study check verifies all 152 inputs and 154 prerequisites unchanged.
+No tests rerun into frozen paths and no gameplay/dealer changes. The canonical
+delivered PDF remains the previous complete-results version; the new preview
+will receive final incremental evidence after all 4,096 sources are audited.
+The goal remains active.
+
 ## 22 October 2026: complete-only incremental manuscript transcription
 
 Previous goal turn made progress by integrating and reviewing the frontier

@@ -1,0 +1,45 @@
+\begin{figure}[htbp]
+\centering
+\begingroup
+\footnotesize
+\setlength{\fboxsep}{5pt}
+\fbox{\begin{minipage}{0.89\linewidth}
+\centering
+\textbf{Complete the common parent prefix}\\[2pt]
+Enumerate every compatible world to the learner's next discard or termination.\\
+Group arrivals by own/public history; retain each group's full belief and mass.
+\end{minipage}}
+
+\smallskip
+\begin{tabular}{@{}c@{\hspace{0.025\linewidth}}c@{\hspace{0.025\linewidth}}c@{}}
+$\downarrow$ certified histories & $\downarrow$ other histories & $\downarrow$ terminal paths \\[3pt]
+\fbox{\begin{minipage}[c][8.5em][c]{0.27\linewidth}
+\centering
+\textbf{Adopt one local program}\\[3pt]
+Candidate lower bound exceeds parent upper bound.\\[3pt]
+Strictly positive contribution.
+\end{minipage}}
+&
+\fbox{\begin{minipage}[c][8.5em][c]{0.27\linewidth}
+\centering
+\textbf{Keep the parent}\\[3pt]
+No certified separation, or no budget for this history.\\[3pt]
+Gain $=0$ by identical continuation.
+\end{minipage}}
+&
+\fbox{\begin{minipage}[c][8.5em][c]{0.27\linewidth}
+\centering
+\textbf{Keep the outcome}\\[3pt]
+The round ended before the next learner discard.\\[3pt]
+Gain $=0$ by identical outcome.
+\end{minipage}}
+\end{tabular}
+\endgroup
+\caption{Frontier extension after an unresolved parent reference. The common
+prefix partitions all probability mass before any local comparison. Certified
+gains add across disjoint arrival histories; unchanged continuations need no
+value calculation. Execution follows the common prefix and commits to the
+single program for the reached history. If the prefix is incomplete, the
+extension keeps the parent everywhere.}
+\label{fig:frontier-overview}
+\end{figure}

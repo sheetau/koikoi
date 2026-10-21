@@ -3,9 +3,9 @@ Manuscript working files
 
 This is an English research manuscript, not a submitted or published paper.
 
-Current working draft: 46 pages including appendices, 48 cited references.
+Current working draft: 47 pages including appendices, 48 cited references.
 Abstract 174 words, Introduction 463 words, Conclusion 165 words; main text
-ends on page 18, down from 21. Title: "Verified Policy Improvement from Public
+ends on page 19, down from 21. Title: "Verified Policy Improvement from Public
 Play in Koi-Koi." This is a development-method and readability revision;
 the separate 4,096-source incremental population evaluation is still running.
 
@@ -62,15 +62,22 @@ status and threshold counts. These outputs do not exist while the study runs.
 Exporter validation: 15 tests passed; an explicitly synthetic one-page TeX
 fixture was rendered and inspected. See generated/frontier_transcription_validation.json.
 
-Draft QA: runs/manuscript_frontier_draft_qa.json and
-generated/frontier_draft_revision_evidence.json. All 46 pages rendered and
-contact-reviewed; pages 1/2/4/12/13/18/19/40/41/42 inspected at full size.
+Figure 2 now illustrates the complete common prefix and three continuation
+classes: certified local program, unchanged parent, or already terminal.
+It connects the construction to the gain decomposition immediately below.
+All abstract/introduction/conclusion prose and numerical results are unchanged.
+
+Draft QA: runs/manuscript_frontier_figure_qa.json and
+generated/frontier_figure_revision_evidence.json. All 47 pages rendered and
+contact-reviewed; pages 13/19/41/42/43 inspected at full size. The new diagram's
+box padding was corrected and the full document rebuilt and re-rendered.
 32 embedded fonts; no page-bound, TeX box, glyph, reference or bibliography
 defects. The existing Fontconfig notice is unchanged. Frozen study inputs
 and prerequisites were verified unchanged after this paper-only revision.
+The preceding 46-page draft's QA remains a historical source snapshot.
 
 Reviewed preview: tmp/pdfs/frontier_revision/manuscript.pdf; SHA256
-72054e7b66f8e60416b8b5b6f4e320b113b33f3f44f4e5642d1463c79b010127.
+7eba5d50a418bd9a6597be0eccdbc0af70179c446e49d0e82a2b92f0f15f9704.
 The previously delivered output/pdf/manuscript.pdf is UNCHANGED (43 pages,
 46 references; historical QA in generated/uniform_results_revision_evidence.json).
 Its SHA256 is a2c023c8085fe9fa01f755a6e0621442898ae1898ecbf5c0de1f387e6ebb4c0a.

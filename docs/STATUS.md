@@ -104,20 +104,24 @@ before summarizing/exporting. Export command: python -m scripts.export_frontier_
 --base runs/frontier_incremental_scope_v2. The queue automatically saves the
 summary; final complete-source re-reduction/export is a separate step.
 
-Paper-method/readability milestone: reviewed 46-page draft, 48 references,
-main text reduced from 21 to 18 pages. Abstract/Introduction/Conclusion lead
-with the executable controller and frontier construction; full local-gain
-proof, public prefix bound and independently re-audited 4/8 development
-results are integrated. Critic analysis and early experiments move to
-appendices with all results and failures retained. Parallel rollout and safe
-game decomposition clarify the established principles and concrete contribution.
-All 46 pages rendered/contact-reviewed, ten focus pages inspected full size;
+Paper-method/readability milestone: reviewed 47-page draft, 48 references,
+main text reduced from 21 to 19 pages, including the new frontier diagram.
+Abstract/Introduction/Conclusion lead with the executable controller and
+frontier construction; local-gain proof, public prefix bound and independently
+re-audited 4/8 development results are integrated. Critic analysis and early
+experiments move to appendices with all results and failures retained.
+Parallel rollout and safe game decomposition clarify prior principles and
+the concrete contribution. Figure 2 shows the common prefix, adopted local
+programs, unchanged histories and terminal paths alongside the gain proof.
+All 47 pages rendered/contact-reviewed and five focus pages inspected full size;
 32 embedded fonts and no layout/reference defects. QA and source bindings:
-docs/paper/generated/frontier_draft_revision_evidence.json.
+docs/paper/generated/frontier_figure_revision_evidence.json.
 Preview tmp/pdfs/frontier_revision/manuscript.pdf SHA
-72054e7b66f8e60416b8b5b6f4e320b113b33f3f44f4e5642d1463c79b010127.
+7eba5d50a418bd9a6597be0eccdbc0af70179c446e49d0e82a2b92f0f15f9704.
 Canonical delivered PDF remains unchanged; final incremental evidence pending.
-Previous and current goal turns made concrete progress; goal remains active.
+Previous goal turn: progress (validated transcription committed/pushed as
+02c1cea). This turn: progress (method illustration and full draft layout review).
+Goal remains active; no interim effects or changed study dependencies.
 Complete-result manuscript export is now implemented and validated in
 scripts/export_frontier_scope_paper.py. It re-reduces all 4,096 audited sources,
 pins the protocol and checks report/receipt/acquisition bindings before writing.
@@ -128,9 +132,7 @@ positive bounds and rounds lower bounds downward. Fifteen tests passed in
 One explicitly synthetic TeX page rendered and visually checked. Live-study
 export correctly refuses without writing files; frozen inputs remain intact.
 Evidence: docs/paper/generated/frontier_transcription_validation.json.
-Current queue PID 66648 remains live; 18 chunks / 288 sources audited.
-Previous goal turn: progress (paper revision committed/pushed as ba87a1d).
-This turn: progress (complete-result transcription and validation); goal active.
+Current queue PID 66648 remains live; 20 chunks / 320 sources audited.
 After scripts.export_frontier_scope completes, run
 python -m scripts.export_frontier_scope_paper --base runs/frontier_incremental_scope_v2
 --destination docs/paper/generated, then integrate the tables and exact results.

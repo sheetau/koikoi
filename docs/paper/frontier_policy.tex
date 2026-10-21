@@ -4,7 +4,8 @@ The root comparison can exhaust its budget before valuing the parent, even
 when later decisions admit tractable local comparisons. We address this
 failure by following the parent to a public decision boundary and replacing
 only continuations with a certified local gain. The original controller's
-completed selections are preserved.
+completed selections are preserved. Figure~\ref{fig:frontier-overview} shows
+the shared prefix and the continuations that can change.
 
 The boundary is the learner's next discard. We first enumerate the entire
 parent continuation to that decision or to termination, whichever comes first.
@@ -20,6 +21,8 @@ win score. A strict separation certifies improvement even if the local parent
 value remains unresolved. The program uses explicit legal overrides and a
 parent default. On reaching the frontier, execution commits to that one local
 program or keeps the parent; it never switches between sibling programs.
+
+\input{frontier_overview.tex}
 
 \paragraph{Conditional gain.}
 Fix a root belief of integer mass $M$, the opponent model and the chance law.
