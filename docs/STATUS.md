@@ -11,19 +11,32 @@ Old process handles mentioned in that history are historical, not live jobs.
 
 ## Current experiment and next actions
 
-The public score-bound development screen is RUNNING at
-runs/score_bound_screen, session30518, actual queue Python PID72696.
-All eight earlier six-draw fixtures are retained under unchanged budgets.
-Protocol SHA 02215fbaf9206ffceebc01aa0578983beb9ffa56ae1854a1543c66b5c1ecb12d.
-The new public-capture/capacity bound certifies wins/losses before the final
-turn. It maximizes all feasible koi counts, including the nonmonotone3-to-4
-case, and uses no hidden locations. Frozen predecessors remain unchanged.
-18 targeted tests pass; a separate true-parent/full-program preflight agrees
-at204/275 versus97/110 and its executor reaches terminal legally. These are
-correctness checks, not fresh strength evidence. Each newly completed parent
-value or adoption receives full independent Python replay before acceptance.
-Next finish this fixed eight-fixture comparison; do not restart it on a timeout.
-Method/proof: docs/PUBLIC_SCORE_BOUNDS.rst.
+The public score-bound development screen is COMPLETE: all eight fixtures
+passed, but no parent reference or adoption was recovered. Parent values remain
+three completed / five capped; every actual action/outcome matches the parent.
+Physical planning decisions fall10,248,697to10,216,169 (0.317387 percent).
+Source19's fixed/optimized phases save9.735/14.496 percent, but several capped
+phases take longer operationally; no latency or added-strength claim is made.
+Session30518 and queue72696 exited0. No live experiment remains; do not restart.
+Protocol02215fbaf9206ffceebc01aa0578983beb9ffa56ae1854a1543c66b5c1ecb12d;
+summary018b5b0ffaf6f284c9ef2dc72fd835cacc9be14afe6a8a991964d8df310067a6.
+Complete-only review runs/score_bound_screen_review.json SHA
+8053995bfc1f9aef30e11b85479b7e7213095d2fce753a2afad38aa4a3b8787d.
+Full results/accounting:docs/PUBLIC_SCORE_BOUND_RESULTS.rst.
+
+The isolated public-capture/capacity bound and versioned executor passed18
+correctness tests, full Python program replay and a separate true-parent
+preflight. Frozen predecessor inputs remain unchanged. The new bound is valid
+but did not remove the complete-parent bottleneck on this fixed screen.
+Next develop policy-value intervals that retain resolved mass under a budget
+and compare candidate lower bounds with true-parent upper bounds. Policies
+must be complete before valuation (e.g. root override plus parent everywhere
+else); do not reinterpret partial maps as complete programs. This interval
+extension is NOT implemented yet. Keep fixed total caps and test mass/accounting
+and independent replay before another development screen. Chance-node bounding
+has established precedents; primary-source notes are in
+SCORE_BOUND_RELATED_WORK.rst. Goal remains active; no new paper/PDF revision
+or canonical play/dealer change this turn.
 
 The six-draw development feasibility screen is COMPLETE: all eight fixtures
 passed their source/support/program/actual-tail checks. No action was adopted:

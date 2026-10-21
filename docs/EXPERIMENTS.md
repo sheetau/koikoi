@@ -4,6 +4,32 @@ Earlier observations and plans are retained below. Consult STATUS.md for live jo
 
 # Experiment history
 
+## 22 October 2026: public score-bound screen closed without new adoptions
+
+All eight fixtures pass. Completed parent references remain3and capped5;
+new adoptions0,all actual traces/outcomes unchanged. Physical decisions
+10,248,697to10,216,169 (0.317387 percent),with the substantial local saving
+confined to source19. Common8completed root values agree. Concurrent phase
+timings are mixed and often worse; no latency or additional strength claim.
+Complete counts/hashes and the decision to investigate interval-valued parent
+comparisons are in PUBLIC_SCORE_BOUND_RESULTS.rst. Queue72696/session30518
+exited0; no jobs remain. Closed cohorts must not be extended/restarted.
+
+Complete-only exporter rehashes all inputs/results/programs, reconstructs each
+selection and separates physical/represented/audit/actual/replay/oracle work.
+Its incomplete-screen refusal and complete export both pass. Review SHA
+8053995bfc1f9aef30e11b85479b7e7213095d2fce753a2afad38aa4a3b8787d.
+A separate991decision/64round/8match recorded replay reproduces final states
+and checks nonincreasing score bounds at110final-round decisions. No actual
+state in those8trajectories is certified; savings concern hypothetical tails.
+
+Read Ballard1983 primary paper Sections1-4 (chance-node lower/upper cutoffs,
+perfect-information scope) and Buro1995 publisher abstract (statistical
+shallow/deep pruning). Exact links and limits are in SCORE_BOUND_RELATED_WORK.rst.
+No claim that admissible bounds are a new general algorithm. The stronger-play
+goal stays active; interval comparison is the next proposed implementation,
+not an already measured improvement. Manuscript/PDF and human play unchanged.
+
 ## 22 October 2026: public score-bound controller implemented and screen frozen
 
 Added an isolated admissible public score bound, versioned symbolic program,
