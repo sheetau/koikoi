@@ -4,6 +4,39 @@ Earlier observations and plans are retained below. Consult STATUS.md for live jo
 
 # Experiment history
 
+## 22 October 2026: interval screen complete and contingent proposal bridge ready
+
+All eight interval-screen fixtures passed. No root-only adoption and no new
+exact parent. Source 251 rejects its stop candidate at value 0 while the parent
+lower bound is positive, using 4,116 physical transitions without finishing
+that parent. Total 8,070,600 decisions versus 10,066,469 in the predecessor's
+fixed phases (19.8269 percent reduction). Optimized phases are excluded from
+this candidate-family comparison. All five previously exact fixed values lie
+inside the new intervals; all actual traces/outcomes are unchanged. Complete
+counts, widths, hashes and limits: INTERVAL_TAIL_RESULTS.rst. Session37010/
+queue28272 exited0. No live job remains and this cohort must stay closed.
+
+Complete-only export rehashes all artifacts, reconstructs selections, checks
+the shared budget and resolved mass, and compares known predecessor values.
+Incomplete export was refused; the complete export passed. Review SHA
+f8e01985dedaa30ad18b4f21540531dce84a653cd7f10c1d97b0310ccc027d6a.
+
+Added proposal_interval_tail.py: full-belief contingent proposal first, then
+partial unchanged-parent comparison. Only a completed recognized same-belief
+policy value may compile; a partial map or action bound cannot. Proposal and
+reference caps remain separate, with no borrowing. Three additional tests
+passed (1.57s). Synthetic preflight spends 1,306 proposal + 465 reference
+transitions and certifies gain 14/275 for a six-entry contingent program of
+value 97/110, while the parent interval is [27/50,457/550]. Full Python replay
+verifies parent 204/275 and the candidate. Receipt:
+runs/proposal_interval_preflight.json. This is not natural strength evidence.
+
+Next implement/freeze the proposal-first natural development runner, retaining
+all eight fixtures and 1M+1M physical caps. Require full independent replay
+for every completed candidate and every adopted parent comparison. No such
+new experiment has been launched yet. Goal active; production play/dealer and
+manuscript/PDF unchanged. The existing 8,192-source strength cohort stays closed.
+
 ## 22 October 2026: resumable interval policy comparison and fixed screen
 
 Implemented complete legal-public-override programs with parent default,

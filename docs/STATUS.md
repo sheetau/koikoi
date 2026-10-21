@@ -11,25 +11,42 @@ Old process handles mentioned in that history are historical, not live jobs.
 
 ## Current experiment and next actions
 
-The interval comparison development screen is RUNNING at
-runs/interval_tail_screen. Session37010; actual Python queue PID28272.
-Protocol SHA b55a1e34bac6f1ff0fa55c6f9deb72166d39d86e8923c00b6151e0bf79d4879d.
-All eight earlier six-draw sources remain. Parent plus every legal root override
-share ONE2,000,000-transition budget (not per policy),500,000expanded tasks,
-quanta4096,total pending rows65536. Parent default completes every program.
-No input/cohort replacement or cap increase. Every adopted pair and newly exact
-parent requires full independent Python replay. Next finish all8fixture checks.
+The interval comparison development screen is COMPLETE. All eight fixtures
+passed; no root-only candidate was adopted and no new parent became exact.
+Source 251 proves no root-only gain without completing its parent, using
+4,116 transitions instead of the preceding fixed phase's 2,000,000. Overall
+planning uses 8,070,600 transitions versus 10,066,469 in those fixed phases
+(19.8269 percent fewer). The richer old optimized phases are excluded from
+that comparison. All five previously exact fixed-policy values are contained
+in the new intervals. Every actual trace/outcome is unchanged. No strength
+or isolated-latency claim follows. Session37010 and queue28272 exited0; no
+live experiment remains. Do not restart this closed screen.
+Protocol b55a1e34bac6f1ff0fa55c6f9deb72166d39d86e8923c00b6151e0bf79d4879d;
+summary 06f36a1daea59ad522f4b6799e328e9d081297397300d3b33da05b1f2c4c8d9f.
+Complete review runs/interval_tail_screen_review.json SHA
+f8e01985dedaa30ad18b4f21540531dce84a653cd7f10c1d97b0310ccc027d6a.
+Full accounting and interval widths: docs/INTERVAL_TAIL_RESULTS.rst.
 
-The previous goal turn made progress: public score bound implemented/tested,
-all8fixtures closed with no new adoption, changing the next action to intervals.
-This turn implements resumable exact-mass bounds, frozen legal public override
-programs, shared-budget comparison and runtime execution.27tests pass in6.53s.
-A synthetic case certifies gain9/275 with parent interval[159/275,219/275] and
-candidate228/275; full replay gives parent204/275. Arbitrary contingent maps
-are supported and a whole-map test reproduces97/110. These correctness cases
-are not natural strength evidence. This first natural screen uses root-only
-proposals to isolate interval comparison; the broader contingent-policy goal
-remains. Method/proof:docs/INTERVAL_TAIL.rst. Production play/dealer unchanged.
+The resumable interval backend, public program/executor and independent full
+Python interpreter passed 27 tests. A same-belief contingent proposal compiler
+and proposal-first/parent-interval schedule are now implemented in
+scripts/proposal_interval_tail.py, with 3 additional tests passing. Synthetic
+preflight: 1,306 proposal + 465 reference transitions, candidate 97/110,
+parent interval [27/50,457/550], strict lower gain 14/275. Full replay gives
+parent 204/275; the compiled program has six public entries. These are
+correctness checks, not natural-strength evidence.
+
+NEXT: freeze and run a development screen of the proposal-first contingent
+controller on all eight existing fixtures. Keep a preassigned 1M proposal +
+1M reference transition budget (no borrowing or per-candidate multiplication),
+250k live-node/task caps per phase, and report their distinct meanings. Verify
+every completed compiled candidate by full Python replay, plus both values
+for every adoption. Parent support/identity and actual-tail checks remain.
+The runner/protocol for this new screen is NOT implemented/launched yet.
+Method: docs/PROPOSAL_INTERVAL_TAIL.rst. Root-only rejection is not a verdict
+on contingent play. Fresh prospective strength evaluation is still required
+for a newly selected policy. Goal active; paper/PDF and deployed model/dealer
+unchanged this turn.
 
 The public score-bound development screen is COMPLETE: all eight fixtures
 passed, but no parent reference or adoption was recovered. Parent values remain
