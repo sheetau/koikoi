@@ -4,6 +4,34 @@ Earlier observations and plans are retained below. Consult STATUS.md for live jo
 
 # Experiment history
 
+## 22 October 2026: resumable interval policy comparison and fixed screen
+
+Implemented complete legal-public-override programs with parent default,
+resumable integer-mass interval evaluation, shared-budget scheduling and strict
+candidate-lower > true-parent-upper adoption. Atomic refusal retains queued
+mass. The parent reference cannot contain future overrides. Illegal future
+entries use an explicitly declared parent guard in all interpreters, ensuring
+that unresolved policy regions remain legal. Frozen earlier modules unchanged.
+
+27targeted tests passed (6.53s):both seats,unequal masses,optional certificates,
+monotone resumption,capacity/task/depth refusals,shared caps,chunking,changed
+bindings/reference rejection,complete contingent maps and actual execution.
+Synthetic partial-parent gain9/275 is independently verified against exact
+parent204/275,candidate228/275. A contingent candidate independently yields
+97/110. This verifies the comparison mechanism,not natural strength.
+
+Froze all8earlier six-draw sources. One shared2Mtransition/500ktask budget,
+quantum4096,total pending65536,native4096,depth32,two workers. This first screen
+compares root-only candidates with parent default; arbitrary contingent maps
+remain supported for subsequent proposal work. No multiple2Mallowances.
+Protocol b55a1e34bac6f1ff0fa55c6f9deb72166d39d86e8923c00b6151e0bf79d4879d.
+Command:.venv/Scripts/python.exe -m scripts.screen_interval_tail --run.
+Session37010;actual queue28272. Full parent/candidate oracle required for every
+adoption and new exact parent. Programs saved before oracle/actual execution.
+All old source/dependency/result hashes and fresh support reconstruction are
+checked. No fresh chance,fixture replacement or population inference. Ruff
+passes. Goal remains active; manuscript and deployed model/dealer unchanged.
+
 ## 22 October 2026: public score-bound screen closed without new adoptions
 
 All eight fixtures pass. Completed parent references remain3and capped5;

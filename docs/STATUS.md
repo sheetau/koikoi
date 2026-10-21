@@ -11,13 +11,33 @@ Old process handles mentioned in that history are historical, not live jobs.
 
 ## Current experiment and next actions
 
+The interval comparison development screen is RUNNING at
+runs/interval_tail_screen. Session37010; actual Python queue PID28272.
+Protocol SHA b55a1e34bac6f1ff0fa55c6f9deb72166d39d86e8923c00b6151e0bf79d4879d.
+All eight earlier six-draw sources remain. Parent plus every legal root override
+share ONE2,000,000-transition budget (not per policy),500,000expanded tasks,
+quanta4096,total pending rows65536. Parent default completes every program.
+No input/cohort replacement or cap increase. Every adopted pair and newly exact
+parent requires full independent Python replay. Next finish all8fixture checks.
+
+The previous goal turn made progress: public score bound implemented/tested,
+all8fixtures closed with no new adoption, changing the next action to intervals.
+This turn implements resumable exact-mass bounds, frozen legal public override
+programs, shared-budget comparison and runtime execution.27tests pass in6.53s.
+A synthetic case certifies gain9/275 with parent interval[159/275,219/275] and
+candidate228/275; full replay gives parent204/275. Arbitrary contingent maps
+are supported and a whole-map test reproduces97/110. These correctness cases
+are not natural strength evidence. This first natural screen uses root-only
+proposals to isolate interval comparison; the broader contingent-policy goal
+remains. Method/proof:docs/INTERVAL_TAIL.rst. Production play/dealer unchanged.
+
 The public score-bound development screen is COMPLETE: all eight fixtures
 passed, but no parent reference or adoption was recovered. Parent values remain
 three completed / five capped; every actual action/outcome matches the parent.
 Physical planning decisions fall10,248,697to10,216,169 (0.317387 percent).
 Source19's fixed/optimized phases save9.735/14.496 percent, but several capped
 phases take longer operationally; no latency or added-strength claim is made.
-Session30518 and queue72696 exited0. No live experiment remains; do not restart.
+Session30518 and queue72696 exited0. This predecessor is closed; do not restart.
 Protocol02215fbaf9206ffceebc01aa0578983beb9ffa56ae1854a1543c66b5c1ecb12d;
 summary018b5b0ffaf6f284c9ef2dc72fd835cacc9be14afe6a8a991964d8df310067a6.
 Complete-only review runs/score_bound_screen_review.json SHA
@@ -31,8 +51,8 @@ but did not remove the complete-parent bottleneck on this fixed screen.
 Next develop policy-value intervals that retain resolved mass under a budget
 and compare candidate lower bounds with true-parent upper bounds. Policies
 must be complete before valuation (e.g. root override plus parent everywhere
-else); do not reinterpret partial maps as complete programs. This interval
-extension is NOT implemented yet. Keep fixed total caps and test mass/accounting
+else); do not reinterpret partial maps as complete programs. That proposed interval
+extension has now been implemented; see the current screen above. Keep fixed total caps and test mass/accounting
 and independent replay before another development screen. Chance-node bounding
 has established precedents; primary-source notes are in
 SCORE_BOUND_RELATED_WORK.rst. Goal remains active; no new paper/PDF revision
