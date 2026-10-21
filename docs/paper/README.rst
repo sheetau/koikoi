@@ -44,6 +44,24 @@ and frontier_development_evidence.json. The completed uniform-study exporter
 scripts/export_uniform_paper_evidence.py independently re-reduces that cohort;
 its existing immutable numerical exports remain unchanged.
 
+Final incremental result transcription (after all 256 chunk audits)::
+
+    .venv/Scripts/python.exe -m scripts.export_frontier_scope --base runs/frontier_incremental_scope_v2
+    .venv/Scripts/python.exe -m scripts.export_frontier_scope_paper --base runs/frontier_incremental_scope_v2 --destination docs/paper/generated
+
+The first command re-reduces the complete cohort and creates its result report.
+The second pins the amended protocol, re-reduces all audited sources again,
+checks the report/export bindings and 15-retained/4,081-new denominator, then
+creates frontier_increment_primary_table.tex, frontier_increment_actual_table.tex,
+frontier_increment_constants.tex and frontier_increment_results_evidence.json.
+It exports successful and unsuccessful criteria alike, refuses incomplete or
+changed evidence and never overwrites an existing export. Tiny positive bounds
+use scientific notation with six significant digits, rounded downward;
+exact fractions determine the criterion. The evidence ledger keeps full work,
+status and threshold counts. These outputs do not exist while the study runs.
+Exporter validation: 15 tests passed; an explicitly synthetic one-page TeX
+fixture was rendered and inspected. See generated/frontier_transcription_validation.json.
+
 Draft QA: runs/manuscript_frontier_draft_qa.json and
 generated/frontier_draft_revision_evidence.json. All 46 pages rendered and
 contact-reviewed; pages 1/2/4/12/13/18/19/40/41/42 inspected at full size.

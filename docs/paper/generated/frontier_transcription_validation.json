@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "scope": "Exporter validation only; no incremental population result exported",
+  "tests_passed": 15,
+  "pytest_reported_seconds": 4.87,
+  "bindings": {
+    "scripts/export_frontier_scope_paper.py": "d6fa01914a0e83c1e901e9cf68393f5959a4116f27fc7fe31ef0c3d36d4d56dc",
+    "tests/test_frontier_scope_paper.py": "4db565d23c264b338ae3aa387afbe719efea93c42b5998d86ddaaf357a29ca22",
+    "runs/frontier_scope_paper_tests.xml": "744dcbaa4e00b301d1e8add22cfb8fa3928bf7c30ff1d3b1252454b070e758ec",
+    "tmp/pdfs/frontier_transcription_fixture/fixture.tex": "b75984aba02967de9f6deb7c3025550e12fc7117bc288dff5e8a76dbbdc8907f",
+    "tmp/pdfs/frontier_transcription_fixture/fixture.pdf": "fd330243518ee08d1608e005201c9fe47211252ed891297f9c444635333decb8"
+  },
+  "complete_pipeline_test": "Four deterministic missing-root sources collected, independently audited and reduced; failed criterion still exports the entire denominator",
+  "refusals": [
+    "running queue",
+    "wrong protocol",
+    "changed summary",
+    "changed report with updated hash",
+    "changed receipt",
+    "missing audit",
+    "wrong acquisition counts",
+    "overwrite"
+  ],
+  "display": "Exact rational rounding; six significant digits; positive tiny bounds remain positive and lower displays never exceed their exact values",
+  "visual_fixture": {
+    "synthetic_only": true,
+    "pages": 1,
+    "rendered_and_inspected": true,
+    "remaining_defects": []
+  },
+  "live_study_export_refused_without_writes": true,
+  "frozen_inputs_and_prerequisites_verified": true
+}

@@ -118,6 +118,23 @@ Preview tmp/pdfs/frontier_revision/manuscript.pdf SHA
 72054e7b66f8e60416b8b5b6f4e320b113b33f3f44f4e5642d1463c79b010127.
 Canonical delivered PDF remains unchanged; final incremental evidence pending.
 Previous and current goal turns made concrete progress; goal remains active.
+Complete-result manuscript export is now implemented and validated in
+scripts/export_frontier_scope_paper.py. It re-reduces all 4,096 audited sources,
+pins the protocol and checks report/receipt/acquisition bindings before writing.
+Successful and failed criteria both export; incomplete/tampered studies fail
+without output. Six-significant-digit rational formatting preserves tiny
+positive bounds and rounds lower bounds downward. Fifteen tests passed in
+4.87 s, including a real four-source collection/audit/reduction fixture.
+One explicitly synthetic TeX page rendered and visually checked. Live-study
+export correctly refuses without writing files; frozen inputs remain intact.
+Evidence: docs/paper/generated/frontier_transcription_validation.json.
+Current queue PID 66648 remains live; 18 chunks / 288 sources audited.
+Previous goal turn: progress (paper revision committed/pushed as ba87a1d).
+This turn: progress (complete-result transcription and validation); goal active.
+After scripts.export_frontier_scope completes, run
+python -m scripts.export_frontier_scope_paper --base runs/frontier_incremental_scope_v2
+--destination docs/paper/generated, then integrate the tables and exact results.
+
 NEXT: finish the fixed amended cohort, independently export all work/effect
 sizes, replace the paper's pending-results paragraph, then rebuild/review and
 deliver the final PDF. Human play/dealer remain unchanged.

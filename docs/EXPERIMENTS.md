@@ -4,6 +4,41 @@ Earlier observations and plans are retained below. Consult STATUS.md for live jo
 
 # Experiment history
 
+## 22 October 2026: complete-only incremental manuscript transcription
+
+Previous goal turn made progress by integrating and reviewing the frontier
+method/readability draft (ba87a1d pushed). Queue 66648 was confirmed live this
+turn, with 18 independently audited chunks / 288 sources at checkpoint.
+No interim effect estimate was inspected and no live frozen input changed.
+
+Added scripts/export_frontier_scope_paper.py. It requires the pinned completed
+scope-v2 protocol, re-runs complete-source reduction, verifies the saved summary,
+report and export receipt, and checks the 4,096 total / 15 retained / 4,081 newly
+acquired source counts. Output includes all four populations, both fixed equal
+mixtures, separately labeled realized differences, numerical constants and a
+full evidence ledger. It exports failed criteria too and refuses overwrites.
+Six significant digits with exact rational rounding prevent small positive
+bounds from disappearing; displayed lower bounds never round upward.
+
+Command: .venv/Scripts/python.exe -m pytest tests/test_frontier_scope_paper.py
+-q --junitxml=runs/frontier_scope_paper_tests.xml. Result: 15 passed in 4.87 s.
+The fixture executes real deterministic four-source collection, independent
+audit and reduction, with only the protocol pin/size altered for this test.
+It verifies all-zero denominator and separate source/replay work, failed-primary
+export, tamper/incomplete/acquisition refusals and numerical display properties.
+Ruff check passed. Frozen prerequisite test XMLs were not overwritten.
+
+A direct attempt on the live study correctly rejected before creating any
+output; the full frozen check passed. An explicitly synthetic table fixture
+was built with Tectonic using manuscript fonts/margins, rendered to PNG and
+visually inspected. No TeX box/glyph errors. It is not experimental evidence
+and is not included in the paper. Validation receipt:
+docs/paper/generated/frontier_transcription_validation.json.
+
+README records both final export commands. Existing manuscript/PDF and deployed
+gameplay/dealer are unchanged this turn. Complete incremental evidence and final
+paper incorporation remain pending; the goal stays active.
+
 ## 22 October 2026: frontier method and readability draft independently checked
 
 The preceding goal turn made progress by closing selected integration and
