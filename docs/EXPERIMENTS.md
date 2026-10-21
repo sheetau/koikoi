@@ -4,6 +4,49 @@ Earlier observations and plans are retained below. Consult STATUS.md for live jo
 
 # Experiment history
 
+## 22 October 2026: frontier method and readability draft independently checked
+
+The preceding goal turn made progress by closing selected integration and
+launching the corrected, source-preserving evaluation. This turn adds the
+frontier construction, conditional gain decomposition, next-discard prefix
+bound and completed development evidence to the paper. The 8,192-source base
+result and 4/8 development result are explicitly separate. Incremental
+population results remain pending; no interim gain statistic was used.
+
+Related Work adds primary-publisher-verified parallel rollout (Chang, Givan
+and Chong, DOI 10.1023/B:DISC.0000028199.78776.c4) and safe decomposition
+(Burch, Johanson and Bowling, DOI 10.1609/aaai.v28i1.8810). It distinguishes
+the fixed-opponent terminal-value guarantee from equilibrium/exploitability
+guarantees. The general improvement principle is not claimed as new.
+
+Reorganized the main narrative around method, guarantee and complete population
+evidence. Critic analysis and initial controller screens move to appendices,
+including all controls and unsuccessful results. Abstract/Introduction/
+Conclusion: 174/463/165 words. Main text ends at 18 rather than 21; full draft
+46 pages, 48 cited references. Title: Verified Policy Improvement from Public
+Play in Koi-Koi. The amended 15-retained/4,081-new acquisition is disclosed.
+
+New exporter scripts/export_frontier_development_paper.py re-runs all three
+complete development/integration reviewers into runs/frontier_paper_validation
+and requires equality with the accepted reviews. Command completed successfully;
+generated constants/table/evidence retain all eight roots and separate newly
+executed work from reused evidence. Ruff passed. No planning experiment rerun.
+
+Build: external/tectonic/tectonic.exe --keep-logs --outdir
+tmp/pdfs/frontier_revision docs/paper/manuscript.tex. Preview SHA
+72054e7b66f8e60416b8b5b6f4e320b113b33f3f44f4e5642d1463c79b010127.
+Rendered all 46 pages, visually reviewed all contact sheets and full-size
+pages 1/2/4/12/13/18/19/40/41/42. All 32 fonts embedded; no bounds/box/glyph/
+reference/BibTeX defects. Existing Fontconfig notice unchanged. QA at
+runs/manuscript_frontier_draft_qa.json and tracked generated/
+frontier_draft_revision_evidence.json. Canonical delivered PDF is unchanged.
+
+Queue 66648 remains live: 14 audited chunks / 224 sources at this
+checkpoint. No worker errors found; frozen check verifies all 152 inputs and
+154 prerequisite/source bindings. No changes to live dependencies, budgets,
+statistical criterion, sources or gameplay/dealer. Goal remains active until
+complete evaluation and final paper incorporation.
+
 ## 22 October 2026: incremental scope correction retains the original cohort
 
 Initial fixed-tape pipeline/statistical tests passed 12 cases in 914.91 s;

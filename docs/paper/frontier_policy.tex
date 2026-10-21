@@ -1,0 +1,58 @@
+\subsection{Local improvement without a completed root reference}
+\label{sec:frontier}
+The root comparison can exhaust its budget before valuing the parent, even
+when later decisions admit tractable local comparisons. We address this
+failure by following the parent to a public decision boundary and replacing
+only continuations with a certified local gain. The original controller's
+completed selections are preserved.
+
+The boundary is the learner's next discard. We first enumerate the entire
+parent continuation to that decision or to termination, whichever comes first.
+All worlds that arrive at the same own/public history form one conditional
+belief. Completing this prefix is essential: an unfinished branch may still
+reach an already encountered history and change its posterior. An incomplete
+prefix therefore supplies no usable local belief.
+
+For each complete frontier belief, search proposes a complete continuation and
+compares its lower value bound with the unchanged parent's upper bound.
+Unresolved probability mass contributes the interval $[0,1]$ for terminal
+win score. A strict separation certifies improvement even if the local parent
+value remains unresolved. The program uses explicit legal overrides and a
+parent default. On reaching the frontier, execution commits to that one local
+program or keeps the parent; it never switches between sibling programs.
+
+\paragraph{Conditional gain.}
+Fix a root belief of integer mass $M$, the opponent model and the chance law.
+Let $\mathcal A$ contain the adopted frontier histories, $M_h$ their arrival
+masses, and $L_h>U_h$ the candidate-lower and parent-upper comparisons. Then
+\begin{equation}
+ V(\pi_{\mathrm{patch}})-V(\pi)
+ \;\geq\;
+ \sum_{h\in\mathcal A}\frac{M_h}{M}(L_h-U_h)\;\geq\;0.
+ \label{eq:frontier-gain}
+\end{equation}
+Both policies follow the same prefix, giving identical arrival probabilities
+and complete conditional beliefs. First-arrival events are disjoint. Paths
+that terminate earlier or reach an unpatched history have identical
+continuations. Conditioning on these events proves the inequality. Full
+independent values for the adopted local programs give the exact increment
+by the same decomposition, without valuing unchanged paths.
+
+The extension uses the original controller's otherwise unused second-phase
+allowance after a failed parent reference, where the original controller
+already falls back to the parent. One shared two-million-transition
+cap covers prefix construction and every local attempt. At the five-draw root,
+the next-discard prefix needs at most 16,380 rows and 131,040 transitions,
+within the existing prefix limits. Roots with fewer draws retain the original
+controller. Appendix~\ref{app:frontier} gives the bound, scheduling rules and
+execution checks. The maximum allowance is unchanged; actual work increases
+when the additional phase runs.
+
+In a fixed development screen, the extension recovers improvements at
+\FrontierPositiveRoots{} of \FrontierRootCount{} roots whose parent reference
+could not be completed. It adopts \FrontierAdoptedNodes{} local programs.
+Independent Python replay verifies their conditional gains and every complete
+frontier belief. The retained actual trajectories are unchanged; improvements
+occur on other supported continuations. These cases demonstrate recovery of
+usable improvements. The 8,192-source population result above evaluates the
+base controller, without this extension.

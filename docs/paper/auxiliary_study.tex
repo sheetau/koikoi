@@ -1,6 +1,8 @@
 % Methods and fixed-state diagnostics for the completed auxiliary comparison.
 \section{Outcome and margin supervision}
 \label{app:score-auxiliary}
+\input{auxiliary_related_work.tex}
+\subsection{Matched targets and training}
 We test whether predicting differences in final margin within the same match
 outcome improves a policy trained to win. In our PPO implementation, the critic
 has its own parameters, so its prediction loss does not train the actor's

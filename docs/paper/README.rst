@@ -3,49 +3,65 @@ Manuscript working files
 
 This is an English research manuscript, not a submitted or published paper.
 
-Current verified revision:43pages including appendices,46cited references.
-Abstract179words,Introduction467words,Conclusion215words;main text ends21.
-The title remains "Match Adaptation and Public-Information Planning for
-Koi-Koi Transformers."
+Current working draft: 46 pages including appendices, 48 cited references.
+Abstract 174 words, Introduction 463 words, Conclusion 165 words; main text
+ends on page 18, down from 21. Title: "Verified Policy Improvement from Public
+Play in Koi-Koi." This is a development-method and readability revision;
+the separate 4,096-source incremental population evaluation is still running.
 
-The independent uniform-deal evaluation is COMPLETE:8192sources,512audited
-chunks. Section6.7/Table4 reports positive simultaneous95% lower bounds on
-expected improvement in all four parent/opponent populations. Equal WP/Point
-mixture means are.2819/.2143percentage points;lower bounds rounded down are
-.1130/.0886. The joint requirement that both exceed.1pp FAILED. AppendixL
-derives the matching-law argument and bounds;its actual-tail table is
-descriptive. All missing roots and fallbacks stay in the denominator.
+The draft leads with the executable public-information controller and its
+next-discard frontier extension. A complete parent prefix supplies exact
+arrival beliefs; locally certified continuations combine into a root-level
+gain without completing the root reference. Four of eight fixed development
+roots acquire 92 verified local programs. This is development evidence, not
+an estimate of the extension's population effect. Section 6.6 and Appendix O
+give the construction, proof, public prefix bound, budgets and complete work.
+The amended evaluation retains all 15 previously acquired sources at their
+original indices and acquires the other 4,081 after the corrected freeze.
 
-Abstract,Introduction and Conclusion now lead with the measured expected
-improvement and the executable public-information controller. The separate
-512-source symbolic comparison retains its8.84% physical-transition reduction
-and83to86adoption increase;every realized win score there stays unchanged.
-Related Work retains46references,including safe policy improvement,AIVAT,
-opponent inference and Koi-Koi predecessors. The contribution is the verified
-reconstruction/execution pipeline,not a new general safe-improvement theorem.
+Section 6.5/Table 3 retains the completed 8,192-source BASE-controller result:
+positive simultaneous 95% lower bounds in all four parent/opponent populations.
+Equal WP/Point mixture means are 0.2819/0.2143 percentage points; lower bounds
+rounded down are 0.1130/0.0886. The joint requirement that both exceed 0.1 pp
+FAILED. Appendix M preserves the matching-law argument and full denominator.
+This closed cohort excludes the frontier extension and must not be extended.
 
-Complete result:docs/UNIFORM_CONTROLLER_RESULTS.rst. The manuscript exporter
-scripts/export_uniform_paper_evidence.py rechecked all immutable source
-artifacts,audit bindings and cases and recomputed both primary inference and
-descriptive outcomes. Its outputs are generated/uniform_primary_table.tex,
-uniform_actual_table.tex and uniform_results_evidence.json. It refuses to
-overwrite an existing export;use a fresh --destination for reproduction.
+Related Work now includes parallel rollout and safe game decomposition,
+distinguishing fixed-opponent terminal-value improvement from equilibrium
+or exploitability guarantees. General policy improvement is established prior
+work. The proposed contribution is the bounded public-history construction,
+complete local programs and verified composition under one shared allowance.
+Critic analysis, early controller screens and auxiliary-learning context move
+to appendices; all numerical results, controls and failed criteria are retained.
 
-Latest QA:runs/manuscript_uniform_results_qa.json and
-generated/uniform_results_revision_evidence.json. All43pages rendered and
-contact-reviewed;pages1/2/14/21/22/39full size.32embedded fonts;no page-bound,
-TeX box,glyph,reference or bibliography defects. Existing Fontconfig notice
-unchanged. Historical ledgers retain their original snapshot bindings.
+Development exporter (use a new review directory for each reproduction)::
 
-Current PDF:output/pdf/manuscript.pdf;SHA256
-a2c023c8085fe9fa01f755a6e0621442898ae1898ecbf5c0de1f387e6ebb4c0a.
-Backup:output/pdf/manuscript_before_uniform_results_60fff4a3.pdf.
+    .venv/Scripts/python.exe -m scripts.export_frontier_development_paper --review-folder runs/frontier_paper_validation_reproduction
 
-The stronger-play goal remains active because the joint practical-gain
-criterion failed. This cohort is closed and must not be extended after seeing
-its outcomes. Follow-up development must have separate prospective evaluation.
-Dealer selection and human play are unchanged. Current decisions are in
-docs/STATUS.md;historical notes below are not a live-job inventory.
+It re-runs all three complete development/integration reviews and requires
+exact equality with the accepted reports before generating constants, table
+and frontier_development_evidence.json. The completed uniform-study exporter
+scripts/export_uniform_paper_evidence.py independently re-reduces that cohort;
+its existing immutable numerical exports remain unchanged.
+
+Draft QA: runs/manuscript_frontier_draft_qa.json and
+generated/frontier_draft_revision_evidence.json. All 46 pages rendered and
+contact-reviewed; pages 1/2/4/12/13/18/19/40/41/42 inspected at full size.
+32 embedded fonts; no page-bound, TeX box, glyph, reference or bibliography
+defects. The existing Fontconfig notice is unchanged. Frozen study inputs
+and prerequisites were verified unchanged after this paper-only revision.
+
+Reviewed preview: tmp/pdfs/frontier_revision/manuscript.pdf; SHA256
+72054e7b66f8e60416b8b5b6f4e320b113b33f3f44f4e5642d1463c79b010127.
+The previously delivered output/pdf/manuscript.pdf is UNCHANGED (43 pages,
+46 references; historical QA in generated/uniform_results_revision_evidence.json).
+Its SHA256 is a2c023c8085fe9fa01f755a6e0621442898ae1898ecbf5c0de1f387e6ebb4c0a.
+The final delivered PDF will be rebuilt after complete incremental results
+are incorporated. The preview is not a completed final-results manuscript.
+
+The stronger-play goal remains active. Dealer selection and human play are
+unchanged. Current decisions are in docs/STATUS.md; historical notes below
+are not a live-job inventory.
 
 From the repository root, regenerate the numerical tables and evidence ledger::
 

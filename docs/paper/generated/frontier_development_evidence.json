@@ -1,0 +1,623 @@
+{
+  "scope": "Eight fixed development roots; complete reviewed evidence; no population-strength claim",
+  "script_sha256": "69b968d5f1966fb0c030dcb1a171c276166694809dac8043e3cbe5e4c9179fc4",
+  "bindings": {
+    "runs\\frontier_hybrid_integration_review.json": "c463ce29f656d0cac973d4e30aa5fbbc9f51a687e9c30ea9b016804e97bd4190",
+    "runs\\next_discard_frontier_screen_review.json": "408b220cc0d20b32dd9518b047f0bbee4ed5f78f4b9a3b935592bc5c8ac381f5",
+    "runs\\selected_frontier_integration_review.json": "0ac76d0becfa11bb1d7a942ae142d3f9451f5731d88e874a011e33f1ae9a8dfa"
+  },
+  "roots": 8,
+  "positive_roots": 4,
+  "adopted_nodes": 92,
+  "rows": [
+    {
+      "fixture": 0,
+      "case": {
+        "index": 16,
+        "population": "0:wp",
+        "replicate": 4
+      },
+      "entry_bound": {
+        "draws": 4,
+        "target_turn": 12,
+        "future_draws": 1,
+        "maximum_hands": 560,
+        "maximum_rows": 7280,
+        "maximum_transitions": 43680
+      },
+      "changed_gate": true,
+      "prefix_complete": true,
+      "prefix_refusal": null,
+      "prefix_work": {
+        "decisions": 5331,
+        "round_endings": 0,
+        "completions": 0,
+        "peak_rows": 2925,
+        "expanded_tasks": 18,
+        "chance_rows_added": 2700,
+        "represented_decisions": 95408280,
+        "represented_completions": 0,
+        "represented_round_endings": 0,
+        "arrival_mass": 34749000,
+        "terminal_mass": 0,
+        "pending_mass": 0
+      },
+      "frontier_nodes": 149,
+      "attempted_nodes": 149,
+      "adopted_nodes": 0,
+      "gain_lower": "0",
+      "decisions": 1241546,
+      "imported_first_phase_decisions": 1999988,
+      "nominal_online_decisions": 3241534,
+      "seconds": 27.853829299798235,
+      "parent_adapter_calls": 150,
+      "opponent_adapter_calls": 24554,
+      "exact_increment": "0",
+      "oracle_seconds": 0.9166166998911649
+    },
+    {
+      "fixture": 1,
+      "case": {
+        "index": 168,
+        "population": "0:wp",
+        "replicate": 42
+      },
+      "entry_bound": {
+        "draws": 4,
+        "target_turn": 12,
+        "future_draws": 1,
+        "maximum_hands": 560,
+        "maximum_rows": 7280,
+        "maximum_transitions": 43680
+      },
+      "changed_gate": true,
+      "prefix_complete": true,
+      "prefix_refusal": null,
+      "prefix_work": {
+        "decisions": 4763,
+        "round_endings": 0,
+        "completions": 0,
+        "peak_rows": 3276,
+        "expanded_tasks": 12,
+        "chance_rows_added": 3024,
+        "represented_decisions": 92509560,
+        "represented_completions": 0,
+        "represented_round_endings": 0,
+        "arrival_mass": 38918880,
+        "terminal_mass": 0,
+        "pending_mass": 0
+      },
+      "frontier_nodes": 180,
+      "attempted_nodes": 180,
+      "adopted_nodes": 0,
+      "gain_lower": "0",
+      "decisions": 1415348,
+      "imported_first_phase_decisions": 1999970,
+      "nominal_online_decisions": 3415318,
+      "seconds": 38.50034400005825,
+      "parent_adapter_calls": 181,
+      "opponent_adapter_calls": 22076,
+      "exact_increment": "0",
+      "oracle_seconds": 0.9587022000923753
+    },
+    {
+      "fixture": 2,
+      "case": {
+        "index": 246,
+        "population": "1:wp",
+        "replicate": 61
+      },
+      "entry_bound": {
+        "draws": 3,
+        "target_turn": 13,
+        "future_draws": 2,
+        "maximum_hands": 105,
+        "maximum_rows": 16380,
+        "maximum_transitions": 131040
+      },
+      "changed_gate": false,
+      "prefix_complete": true,
+      "prefix_refusal": null,
+      "prefix_work": {
+        "decisions": 4974,
+        "round_endings": 324,
+        "completions": 324,
+        "peak_rows": 3506,
+        "expanded_tasks": 16,
+        "chance_rows_added": 3720,
+        "represented_decisions": 9040680,
+        "represented_completions": 320760,
+        "represented_round_endings": 320760,
+        "arrival_mass": 3385800,
+        "terminal_mass": 320760,
+        "pending_mass": 0
+      },
+      "frontier_nodes": 1304,
+      "attempted_nodes": 1304,
+      "adopted_nodes": 0,
+      "gain_lower": "0",
+      "decisions": 80214,
+      "imported_first_phase_decisions": 1999996,
+      "nominal_online_decisions": 2080210,
+      "seconds": 7.084675200050697,
+      "parent_adapter_calls": 1308,
+      "opponent_adapter_calls": 1164,
+      "exact_increment": "0",
+      "oracle_seconds": 2.6205791998654604
+    },
+    {
+      "fixture": 3,
+      "case": {
+        "index": 387,
+        "population": "1:point",
+        "replicate": 96
+      },
+      "entry_bound": {
+        "draws": 3,
+        "target_turn": 13,
+        "future_draws": 2,
+        "maximum_hands": 105,
+        "maximum_rows": 16380,
+        "maximum_transitions": 131040
+      },
+      "changed_gate": false,
+      "prefix_complete": true,
+      "prefix_refusal": null,
+      "prefix_work": {
+        "decisions": 11849,
+        "round_endings": 2579,
+        "completions": 2579,
+        "peak_rows": 6316,
+        "expanded_tasks": 54,
+        "chance_rows_added": 6975,
+        "represented_decisions": 25451910,
+        "represented_completions": 2553210,
+        "represented_round_endings": 2553210,
+        "arrival_mass": 4396590,
+        "terminal_mass": 2553210,
+        "pending_mass": 0
+      },
+      "frontier_nodes": 1286,
+      "attempted_nodes": 1286,
+      "adopted_nodes": 10,
+      "gain_lower": "1/5265",
+      "decisions": 1999987,
+      "imported_first_phase_decisions": 1999995,
+      "nominal_online_decisions": 3999982,
+      "seconds": 308.756782699842,
+      "parent_adapter_calls": 86670,
+      "opponent_adapter_calls": 22390,
+      "exact_increment": "1/5265",
+      "oracle_seconds": 28.54538100003265
+    },
+    {
+      "fixture": 4,
+      "case": {
+        "index": 393,
+        "population": "0:point",
+        "replicate": 98
+      },
+      "entry_bound": {
+        "draws": 3,
+        "target_turn": 13,
+        "future_draws": 2,
+        "maximum_hands": 105,
+        "maximum_rows": 16380,
+        "maximum_transitions": 131040
+      },
+      "changed_gate": false,
+      "prefix_complete": true,
+      "prefix_refusal": null,
+      "prefix_work": {
+        "decisions": 5209,
+        "round_endings": 619,
+        "completions": 619,
+        "peak_rows": 3915,
+        "expanded_tasks": 10,
+        "chance_rows_added": 4185,
+        "represented_decisions": 9273330,
+        "represented_completions": 612810,
+        "represented_round_endings": 612810,
+        "arrival_mass": 3557070,
+        "terminal_mass": 612810,
+        "pending_mass": 0
+      },
+      "frontier_nodes": 1263,
+      "attempted_nodes": 1263,
+      "adopted_nodes": 0,
+      "gain_lower": "0",
+      "decisions": 89037,
+      "imported_first_phase_decisions": 1999992,
+      "nominal_online_decisions": 2089029,
+      "seconds": 5.934141300152987,
+      "parent_adapter_calls": 1299,
+      "opponent_adapter_calls": 970,
+      "exact_increment": "0",
+      "oracle_seconds": 1.3101998001802713
+    },
+    {
+      "fixture": 5,
+      "case": {
+        "index": 433,
+        "population": "0:point",
+        "replicate": 108
+      },
+      "entry_bound": {
+        "draws": 3,
+        "target_turn": 13,
+        "future_draws": 2,
+        "maximum_hands": 105,
+        "maximum_rows": 16380,
+        "maximum_transitions": 131040
+      },
+      "changed_gate": false,
+      "prefix_complete": true,
+      "prefix_refusal": null,
+      "prefix_work": {
+        "decisions": 5760,
+        "round_endings": 108,
+        "completions": 108,
+        "peak_rows": 5184,
+        "expanded_tasks": 8,
+        "chance_rows_added": 5184,
+        "represented_decisions": 11190960,
+        "represented_completions": 498960,
+        "represented_round_endings": 498960,
+        "arrival_mass": 5060880,
+        "terminal_mass": 498960,
+        "pending_mass": 0
+      },
+      "frontier_nodes": 1409,
+      "attempted_nodes": 1409,
+      "adopted_nodes": 26,
+      "gain_lower": "71/112320",
+      "decisions": 1999988,
+      "imported_first_phase_decisions": 1999997,
+      "nominal_online_decisions": 3999985,
+      "seconds": 36.495993399992585,
+      "parent_adapter_calls": 2064,
+      "opponent_adapter_calls": 504,
+      "exact_increment": "71/112320",
+      "oracle_seconds": 13.89025880000554
+    },
+    {
+      "fixture": 6,
+      "case": {
+        "index": 867,
+        "population": "1:point",
+        "replicate": 216
+      },
+      "entry_bound": {
+        "draws": 3,
+        "target_turn": 13,
+        "future_draws": 2,
+        "maximum_hands": 105,
+        "maximum_rows": 16380,
+        "maximum_transitions": 131040
+      },
+      "changed_gate": false,
+      "prefix_complete": true,
+      "prefix_refusal": null,
+      "prefix_work": {
+        "decisions": 4379,
+        "round_endings": 41,
+        "completions": 41,
+        "peak_rows": 3859,
+        "expanded_tasks": 7,
+        "chance_rows_added": 3875,
+        "represented_decisions": 9105030,
+        "represented_completions": 40590,
+        "represented_round_endings": 40590,
+        "arrival_mass": 3820410,
+        "terminal_mass": 40590,
+        "pending_mass": 0
+      },
+      "frontier_nodes": 1200,
+      "attempted_nodes": 1200,
+      "adopted_nodes": 22,
+      "gain_lower": "31/214500",
+      "decisions": 1999981,
+      "imported_first_phase_decisions": 1999998,
+      "nominal_online_decisions": 3999979,
+      "seconds": 36.70125779998489,
+      "parent_adapter_calls": 3210,
+      "opponent_adapter_calls": 366,
+      "exact_increment": "31/214500",
+      "oracle_seconds": 12.068634600145742
+    },
+    {
+      "fixture": 7,
+      "case": {
+        "index": 1054,
+        "population": "1:wp",
+        "replicate": 263
+      },
+      "entry_bound": {
+        "draws": 3,
+        "target_turn": 13,
+        "future_draws": 2,
+        "maximum_hands": 105,
+        "maximum_rows": 16380,
+        "maximum_transitions": 131040
+      },
+      "changed_gate": false,
+      "prefix_complete": true,
+      "prefix_refusal": null,
+      "prefix_work": {
+        "decisions": 6998,
+        "round_endings": 1355,
+        "completions": 1355,
+        "peak_rows": 5148,
+        "expanded_tasks": 16,
+        "chance_rows_added": 5115,
+        "represented_decisions": 12318570,
+        "represented_completions": 1341450,
+        "represented_round_endings": 1341450,
+        "arrival_mass": 3755070,
+        "terminal_mass": 1341450,
+        "pending_mass": 0
+      },
+      "frontier_nodes": 1129,
+      "attempted_nodes": 1129,
+      "adopted_nodes": 34,
+      "gain_lower": "3563/10193040",
+      "decisions": 1999988,
+      "imported_first_phase_decisions": 2000000,
+      "nominal_online_decisions": 3999988,
+      "seconds": 36.41258849995211,
+      "parent_adapter_calls": 2577,
+      "opponent_adapter_calls": 1784,
+      "exact_increment": "3593/10193040",
+      "oracle_seconds": 12.167633400065824
+    }
+  ],
+  "work": {
+    "frontier_hybrid_integration": {
+      "fixed": {
+        "decisions": 17590711,
+        "round_endings": 15103381,
+        "completions": 15103381,
+        "live_observation_nodes": 1905642,
+        "own_decision_nodes": 1645568,
+        "chance_rows_added": 15151957,
+        "represented_decisions": 376287504,
+        "represented_round_endings": 54036054,
+        "represented_completions": 54036054,
+        "terminal_rows_valued": 15103381,
+        "terminal_mass_valued": 54036054,
+        "ceiling_cutoffs": 0,
+        "pruned_actions": 0,
+        "continuation_cutoffs": 5,
+        "bounded_actions": 5,
+        "certified_own_win_rows": 42106,
+        "certified_own_win_mass": 378954,
+        "certified_opponent_loss_rows": 0,
+        "certified_opponent_loss_mass": 0
+      },
+      "optimized": {
+        "decisions": 2967541,
+        "round_endings": 2550727,
+        "completions": 2550727,
+        "live_observation_nodes": 308236,
+        "own_decision_nodes": 248831,
+        "chance_rows_added": 2621902,
+        "represented_decisions": 45180225,
+        "represented_round_endings": 13837833,
+        "represented_completions": 13837833,
+        "terminal_rows_valued": 2550727,
+        "terminal_mass_valued": 13837833,
+        "ceiling_cutoffs": 2988,
+        "pruned_actions": 2988,
+        "continuation_cutoffs": 1605,
+        "bounded_actions": 1605,
+        "certified_own_win_rows": 77864,
+        "certified_own_win_mass": 700776,
+        "certified_opponent_loss_rows": 0,
+        "certified_opponent_loss_mass": 0
+      },
+      "prefix": {
+        "decisions": 186876,
+        "round_endings": 5026,
+        "completions": 5026,
+        "expanded_tasks": 236,
+        "chance_rows_added": 158478,
+        "represented_decisions": 338567490,
+        "represented_completions": 5367780,
+        "represented_round_endings": 5367780,
+        "arrival_mass": 59164110,
+        "terminal_mass": 5367780,
+        "pending_mass": 38479590
+      },
+      "proposal": {
+        "decisions": 5539459,
+        "round_endings": 4682052,
+        "completions": 4682052,
+        "live_observation_nodes": 603809,
+        "own_decision_nodes": 573454,
+        "chance_rows_added": 4846227,
+        "represented_decisions": 38286504,
+        "represented_round_endings": 9667308,
+        "represented_completions": 9667308,
+        "terminal_rows_valued": 4682052,
+        "terminal_mass_valued": 9667308,
+        "ceiling_cutoffs": 3201,
+        "pruned_actions": 3201,
+        "continuation_cutoffs": 325,
+        "bounded_actions": 325,
+        "certified_score_win_rows": 0,
+        "certified_score_win_mass": 0,
+        "certified_score_loss_rows": 156397,
+        "certified_score_loss_mass": 13884459
+      },
+      "reference": {
+        "decisions": 2590567,
+        "round_endings": 2239478,
+        "completions": 2239478,
+        "represented_decisions": 10210895,
+        "represented_completions": 2956586,
+        "represented_round_endings": 2956586,
+        "expanded_tasks": 304511,
+        "terminal_rows": 2239478,
+        "terminal_mass": 2956586,
+        "certified_win_rows": 0,
+        "certified_win_mass": 0,
+        "certified_loss_rows": 5874,
+        "certified_loss_mass": 5791716,
+        "chance_rows_added": 2238819
+      },
+      "support_audit": {
+        "replay_decisions": 27064,
+        "candidate_decisions": 13359,
+        "opponent_decisions": 13705,
+        "teacher_calls": 13600,
+        "guarded_decisions": 105,
+        "feature_checks": 0,
+        "feature_teacher_calls": 0
+      },
+      "actual": {
+        "decisions": 128,
+        "round_endings": 24,
+        "completions": 24
+      },
+      "replay": {
+        "decisions": 128,
+        "round_endings": 24,
+        "completions": 24
+      }
+    },
+    "next_discard_frontier_screen": {
+      "imported_fixed": {
+        "decisions": 15999936,
+        "round_endings": 13738250,
+        "completions": 13738250,
+        "live_observation_nodes": 1736782,
+        "own_decision_nodes": 1508280,
+        "chance_rows_added": 13744680,
+        "represented_decisions": 340770849,
+        "represented_round_endings": 44566488,
+        "represented_completions": 44566488,
+        "terminal_rows_valued": 13738250,
+        "terminal_mass_valued": 44566488,
+        "ceiling_cutoffs": 0,
+        "pruned_actions": 0,
+        "continuation_cutoffs": 0,
+        "bounded_actions": 0
+      },
+      "prefix": {
+        "decisions": 49263,
+        "round_endings": 5026,
+        "completions": 5026,
+        "expanded_tasks": 141,
+        "chance_rows_added": 34778,
+        "represented_decisions": 264298320,
+        "represented_completions": 5367780,
+        "represented_round_endings": 5367780,
+        "arrival_mass": 97643700,
+        "terminal_mass": 5367780,
+        "pending_mass": 0
+      },
+      "proposal": {
+        "decisions": 7116846,
+        "round_endings": 5829384,
+        "completions": 5829384,
+        "live_observation_nodes": 651270,
+        "own_decision_nodes": 581096,
+        "chance_rows_added": 6232677,
+        "represented_decisions": 132154704,
+        "represented_round_endings": 11721936,
+        "represented_completions": 11721936,
+        "terminal_rows_valued": 5829384,
+        "terminal_mass_valued": 11721936,
+        "ceiling_cutoffs": 3520,
+        "pruned_actions": 3520,
+        "continuation_cutoffs": 325,
+        "bounded_actions": 325,
+        "certified_score_win_rows": 241850,
+        "certified_score_win_mass": 70027146,
+        "certified_score_loss_rows": 156397,
+        "certified_score_loss_mass": 13884459
+      },
+      "reference": {
+        "decisions": 3659980,
+        "round_endings": 2980542,
+        "completions": 2980542,
+        "represented_decisions": 86410934,
+        "represented_completions": 4205930,
+        "represented_round_endings": 4205930,
+        "expanded_tasks": 336741,
+        "terminal_rows": 2980542,
+        "terminal_mass": 4205930,
+        "certified_win_rows": 205959,
+        "certified_win_mass": 67678416,
+        "certified_loss_rows": 5874,
+        "certified_loss_mass": 5791716,
+        "chance_rows_added": 3180040
+      },
+      "support_audit": {
+        "replay_decisions": 21499,
+        "candidate_decisions": 11049,
+        "opponent_decisions": 10450,
+        "teacher_calls": 10450,
+        "guarded_decisions": 0,
+        "feature_checks": 0,
+        "feature_teacher_calls": 0
+      },
+      "prefix_oracle_physical": {
+        "decisions": 49263,
+        "round_endings": 5026,
+        "completions": 5026
+      },
+      "prefix_oracle_represented": {
+        "decisions": 264298320,
+        "round_endings": 5367780,
+        "completions": 5367780
+      },
+      "local_oracle_physical": {
+        "decisions": 918431,
+        "round_endings": 800157,
+        "completions": 800157
+      },
+      "local_oracle_represented": {
+        "decisions": 3649710,
+        "round_endings": 1162260,
+        "completions": 1162260
+      },
+      "actual": {
+        "decisions": 96,
+        "round_endings": 16,
+        "completions": 16
+      },
+      "replay": {
+        "decisions": 96,
+        "round_endings": 16,
+        "completions": 16
+      }
+    },
+    "selected_frontier_integration": {
+      "support": {
+        "replay_decisions": 13440,
+        "candidate_decisions": 7280,
+        "opponent_decisions": 6160,
+        "teacher_calls": 6160,
+        "guarded_decisions": 0,
+        "feature_checks": 0,
+        "feature_teacher_calls": 0
+      },
+      "actual": {
+        "decisions": 24,
+        "round_endings": 4,
+        "completions": 4
+      },
+      "replay": {
+        "decisions": 24,
+        "round_endings": 4,
+        "completions": 4
+      }
+    }
+  },
+  "selected_new_planning_decisions": 6656852,
+  "outputs": {
+    "frontier_development_constants.tex": "86691500deff08b9ff191f7a07b700ec961fbd7f4354c442daeb43203f6342e2",
+    "frontier_development_table.tex": "6abee9fb27f729dd0e0fafd87b7dc93420ba456f560815ba10919255d6252279"
+  }
+}

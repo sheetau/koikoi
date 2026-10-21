@@ -5,6 +5,7 @@
 \usepackage[hidelinks]{hyperref}
 \usepackage{microtype,graphicx,placeins}
 \input{generated/observer_trace_constants.tex}
+\input{generated/frontier_development_constants.tex}
 \renewcommand{\topfraction}{0.85}
 \renewcommand{\textfraction}{0.1}
 \renewcommand{\floatpagefraction}{0.8}
@@ -12,90 +13,88 @@
 \widowpenalty=10000
 \clubpenalty=10000
 \brokenpenalty=10000
-\title{Match Adaptation and Public-Information Planning\\
-for Koi-Koi Transformers}
+\title{Verified Policy Improvement from Public Play\\
+in Koi-Koi}
 \author{}
 \date{22 October 2026}
 \begin{document}
 \maketitle
 \begin{abstract}
-We construct a public-information endgame controller that improves the expected
-match-win score of two Koi-Koi Transformer agents against fixed WP and Point
-opponents. It identifies the opponent from completed hands, reconstructs
-hidden-card beliefs, and commits to a complete contingent policy. Exact
-comparisons retain improvements over the parent under a computation cap.
-Across 8,192 independent sources with uniform valid round deals, simultaneous
-95\% lower bounds on expected improvement are positive in all four
-parent--opponent populations. Equal-opponent mixture gains average 0.2819 and
-0.2143 percentage points, with lower bounds of 0.1130 and 0.0886. The
-prespecified requirement that both mixture bounds exceed 0.1 is not met.
-Public score certificates replace explicit decisions in guaranteed-win regions
-with checked parent continuations. On a separate 512-source comparison, this
-compression reduces controller planning transitions by 8.84\% and increases
-adopted improvements from 83 to 86 under unchanged caps. Terminal-match
-self-play supplies the parents: after 8.52 million additional decisions each,
-they score 51.480\% and 51.445\% against assisted RL-WP on held-out duplicate
-deals. An exact shared-parameter counterexample also shows how switching
-between players' critics can reverse the expected policy update.
+We construct an endgame controller for Koi-Koi that uses own and public
+observations to retain verified policy improvements under a finite computation
+budget. Its frontier
+extension recovers local improvements even when the reference policy's root
+value remains unresolved. The controller identifies a fixed opponent from
+completed hands, reconstructs complete hidden-card beliefs, and executes the
+contingent policy it evaluated. Public outcome certificates compress guaranteed
+continuations. A complete partition at the next learner discard then supports
+local value comparisons whose gains combine into a root-level guarantee.
+The base controller improves expected terminal win score in all four
+parent--opponent populations of an 8,192-source uniform-deal evaluation:
+equal-opponent mixture gains average 0.2819 and 0.2143 percentage points.
+Simultaneous 95\% lower bounds are positive in every population, although the
+joint 0.1-point mixture criterion is not met. In a separate development screen,
+the frontier extension recovers \FrontierAdoptedNodes{} local improvements at
+\FrontierPositiveRoots{} of \FrontierRootCount{} selected reference-refusal
+roots. Independent terminal replay verifies the gains. Terminal-match self-play
+supplies two adapted Transformer parents, scoring 51.480\% and 51.445\%
+against assisted RL-WP on held-out duplicate deals.
 \end{abstract}
 
 \section{Introduction}
 Koi-Koi rewards both collecting valuable card combinations and deciding when
 to stop. Continuing can increase the gain, but it also gives the opponent
 another chance to score. Across a match, the score and rounds remaining can
-change the best decision for the same hand. Expected points and match wins
-are therefore distinct learning objectives.
+change the best decision for the same hand. Guan et al.'s RL-WP and RL-Point
+Transformers learn the resulting distinct objectives of wins and points
+\cite{guan2023koikoi,pinnedkoikoi}. We adapt their released actors and use
+public play to construct verified improvements to their endgame decisions.
 
-Guan et al. trained Transformer agents for these objectives: RL-WP for wins
-and RL-Point for points \cite{guan2023koikoi,pinnedkoikoi}. We adapt their
-released actors and build an endgame controller that uses public play to
-improve their decisions. The central task is to connect opponent inference
-to an executable continuation: a hidden-card search must share each learner
-decision across indistinguishable deals and execute the policy it evaluated.
+The central difficulty is turning a hidden-card search into an executable
+policy under a computation limit. Learner decisions must agree across
+indistinguishable deals, and execution must follow the continuation whose
+value justified adoption. Our base controller connects three steps: recover
+the opponent model from completed hands, reconstruct the current hidden-card
+belief, and retain complete contingent policies with exact comparisons against
+the unchanged parent. Public outcome certificates supply checked parent
+continuations in guaranteed-outcome regions, allowing a compact program to
+remain complete (Section~\ref{sec:incumbent-tail}).
 
-Our controller makes this connection in three steps. Eight public hand
-discards reveal the opponent's initial hand. Reconstructing its earlier
-network inputs identifies WP or Point in 86.1\% of natural final-round starts
-(Section~\ref{sec:public-revelation}). Current-round action likelihoods then
-filter the possible hidden hands. Finally, search retains complete contingent
-policies and exact comparisons against the unchanged parent. A retained
-improvement remains executable when the computation limit prevents further
-search (Section~\ref{sec:incumbent-tail}).
+A completed reference at the current root is still a demanding requirement.
+When that calculation reaches its cap, it can conceal useful improvements in
+smaller future beliefs. Our frontier extension follows the parent to its next
+discard and groups every arrival by the learner's own/public history. It
+replaces a continuation only when its lower value bound exceeds the parent's
+upper bound on that complete conditional belief. The gains combine according
+to their arrival probabilities, while unchanged continuations contribute zero.
+This construction recovers improvement without completing the root reference
+(Section~\ref{sec:frontier}). Its contribution is the bounded public-history
+partition, executable local programs and verified composition under one shared
+allowance.
 
-Public outcome certificates make these programs smaller. Where the final-round
-score and turn guarantee a win under every legal continuation, the program
-calls its parent instead of storing each remaining decision. Search accounts
-for that region's belief mass directly. Across all 512 saved sources,
-this compression reduces controller planning transitions by 8.84\%, completes
-five additional parent references and retains three additional improvements
-under the same caps. Independent replay verifies the entire adopted programs
-(Section~\ref{sec:symbolic-tail}).
+The base controller has a population-level result under matching source and
+posterior laws. On 8,192 independently generated matches, simultaneous 95\%
+lower bounds on expected improvement are positive for both parents against
+both published opponents. Equal-opponent mixture means are 0.2819 and 0.2143
+percentage points; the prespecified requirement that both mixture lower bounds
+exceed 0.1 is not met (Section~\ref{sec:uniform-results}). Every source remains
+in the denominator, including zero for missing roots and parent fallbacks.
 
-Matching the source distribution to the reconstructed posterior turns these
-conditional comparisons into a population result. We evaluate the frozen
-controller on 8,192 independent matches with uniform valid round deals and
-randomized learner seats. Simultaneous 95\% lower bounds on expected improvement
-are positive against both opponents for both parents. Equal-opponent mixture
-gains average 0.2819 and 0.2143 percentage points. Their lower bounds are 0.1130
-and 0.0886, so the prespecified 0.1-point requirement for both parents is not
-met (Section~\ref{sec:uniform-results}). This evaluation includes every source,
-with zero improvement when the controller falls back to its parent.
+The frontier extension addresses a different question: whether a failed root
+reference must prevent any improvement. It recovers \FrontierAdoptedNodes{}
+local programs at \FrontierPositiveRoots{} of \FrontierRootCount{} fixed
+development roots where the base controller retained the parent. Full Python
+replay independently verifies the complete posteriors and local values.
+These witnesses establish the construction's benefit; its incremental
+population evaluation is a separate study (Appendix~\ref{app:frontier}).
 
-The parent actors themselves improve through terminal-match self-play. We
-convert the released action scores into a stochastic policy and optimize it
-with PPO \cite{schulman2017ppo}, retaining value across round boundaries.
-After 8.52 million additional decisions each, both adapted agents beat
-assisted RL-WP on held-out duplicate deals with greedy action selection.
-Starting from RL-Point instead raises equal-opponent mixture point margins
-by 1.77--2.08 points over matched WP-initialized controls
-(Section~\ref{sec:point-initialization}).
-
-An exact two-step analysis explains a separate learning failure: switching
-between players' critics reverses the expected update when their observations
-contain different information. Returns between learner decisions correct the
-complete shared-parameter example (Section~\ref{sec:observer}). Koi-Koi tests
-of this construction and a fixed-viewer alternative establish no additional
-replicated win gain.
+The parent actors improve through terminal-match self-play. We convert the
+released action scores into a sampling policy and optimize it with PPO
+\cite{schulman2017ppo}, retaining value across round boundaries. Both adapted
+seeds beat assisted RL-WP on held-out duplicate deals with greedy inference.
+Point initialization also improves point margins over matched WP controls
+(Section~\ref{sec:point-initialization}). Supporting analyses of critic
+conditioning and unsuccessful training variants appear in the appendices.
 
 \section{Related work}
 \subsection{Learning to play Koi-Koi}
@@ -136,8 +135,6 @@ from WP to Point initialization (Section~\ref{sec:point-initialization}).
 These controls change both sampling probabilities and policy-loss derivatives.
 They measure the transfer of published action scores into a match-trained
 policy rather than introduce a new entropy-control algorithm.
-
-\input{auxiliary_related_work.tex}
 
 \subsection{Self-play and strategic interaction}
 Neural Fictitious Self-Play combines learned best responses with supervised
@@ -182,24 +179,6 @@ preserve the parent prefix before activation and isolate subsequent adaptation.
 They apply guided learning to test the value of reconstructed public
 information in Koi-Koi.
 
-\subsection{Critic information and decision times}
-Baisero and Amato analyze the bias from substituting state critics for history
-critics and develop a history-state formulation \cite{baisero2022asymmetric}.
-Lyu et al. show that state-based multi-agent critics can bias policy gradients
-and, even when unbiased, can increase their variance \cite{lyu2022critics}.
-Our example studies a specific instance of this conditioning problem: a
-player-relative return crosses between two players' observations. It makes the
-failure explicit with exact conditional values and a policy update that reduces
-true expected payoff. Its return recurrence is checked in all three simulator
-backends.
-
-Sutton, Precup and Singh formalize temporally extended decisions with options
-and semi-Markov models \cite{sutton1999options}. Learner-decision returns use a
-related temporal organization: opponent moves lie inside an interval between
-the learner's actions. Our analysis focuses on the information used at those
-boundaries, with exactness established for the finite example and Koi-Koi
-assessed in the fixed-opponent comparison.
-
 \subsection{Search and rollout-based improvement}
 Information Set Monte Carlo Tree Search organizes search around information
 sets \cite{cowling2012ismcts}; ReBeL combines learning and search through public
@@ -225,12 +204,22 @@ and bound the possible performance loss with high probability, assuming that
 finite histories preserve the required transition and reward information.
 Their guarantee accounts for uncertainty from finite data.
 
-Our endgame controller takes the game rules and identified opponent model as
-given, and constructs a finite hidden-card belief. Its guarantee conditions on
-that model and deal law. It compares completed policies exactly and keeps
-the parent when a strict gain cannot be established. The domain contribution is
-the path from reconstructed opponent inputs to verified executable policies,
-with explicit computation limits and complete-match assessment.
+Chang, Givan and Chong's parallel rollout combines heuristic policies to
+improve decisions in partially observable control \cite{chang2004parallel}.
+Policy switching and conditioning on future histories therefore have established
+precedents. Our frontier construction makes the conditional beliefs complete
+before any local adoption, attaches executable public programs to them, and
+accounts for all local attempts under one physical-transition allowance.
+
+Burch, Johanson and Bowling preserve full-game guarantees when decomposing
+imperfect-information games into independently solved subgames
+\cite{burch2014decomposition}. Their safe re-solving uses opponent
+counterfactual values to control exploitability. Our comparison fixes the
+opponent and deal law, reconstructs their conditional hidden-card distribution,
+and certifies terminal-value improvement under that model. The resulting
+reach-weighted gain has a different target from an equilibrium guarantee.
+The domain contribution is the verified path from public opponent evidence
+to executable improvements, including roots with an unresolved parent value.
 
 Suzuki's Open Hanafuda AI provides a recent public implementation combining
 simulation with observable-information inference and heuristics
@@ -514,6 +503,7 @@ yet to turn that information into a consistent additional match-win gain.
 
 \input{incumbent_tail.tex}
 \input{uniform_evaluation.tex}
+\input{frontier_policy.tex}
 
 \section{Evaluation and selection}
 \subsection{Duplicate deals and uncertainty}
@@ -757,111 +747,6 @@ this advantage, it does not identify an auxiliary-learning gain. The result
 separates a point-margin advantage from the additional hypothesis
 that finer terminal targets improve action selection at this training budget.
 
-\section{Critic conditioning across players}
-\label{sec:observer}
-Correct payoff signs do not ensure that the next acting player's observation
-contains the information needed by the current learner's target. The following
-finite game isolates this issue without critic fitting or sampled trajectories.
-
-A learner privately observes a uniform bit $X$ and takes a public binary action
-$A$, with $\pi(A=1\mid X=x)=\sigma(c_x\theta)$, where $c_0=1$ and
-$c_1=-1/100$. Both signal-dependent policies share the scalar parameter $\theta$.
-The opponent sees $A$, takes one forced action, and the game ends with learner
-payoff $R\in\{-1,+1\}$.
-Define $\Pr(R=+1\mid X=x,A=a)=(1+\mu_{xa})/2$, where
-\begin{equation}
- (\mu_{xa})=\begin{pmatrix}0.20&0.21\\1&-1\end{pmatrix}.
-\end{equation}
-At $\theta=0$, the exact learner values are
-$v_0=0.205,v_1=0$. The opponent's exact own-payoff value is $-m_A$, with
-$m_0=0.60,m_1=-0.395$. Signed GAE at the learner action therefore gives
-\begin{equation}
- \widehat A=\lambda R+(1-\lambda)m_A-v_X.
- \label{eq:observer-advantage}
-\end{equation}
-For the objective $J=\mathbb E[R]$ and $\lambda=0.95$, direct differentiation
-and exact enumeration give
-\begin{align}
- J'(0)&=\frac{3}{800}=0.00375,\\
- \mathbb E[\widehat A\,\partial_\theta\log\pi(A\mid X)]
- &=-\frac{8301}{3200000}=-0.0025940625.
-\end{align}
-The expected update has the opposite sign to the true gradient
-(Figure~\ref{fig:observer-reversal}). A sufficiently small positive step
-in that direction therefore reduces true expected payoff. The opponent critic
-averages over $X$, changing the relative targets for the two actions when the
-learner knows $X=0$. This result concerns the population score-function update
-before PPO clipping and empirical advantage normalization.
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.88\linewidth]{generated/observer_reversal.pdf}
-\caption{Exact expectations in the two-step game. The true gradient is positive,
-but opponent-observation GAE points in the opposite direction for
-$\lambda<6567/6767\approx0.9704$. Both critics are exact for their respective
-observations. The marked $\lambda=0.95$ case therefore reduces expected payoff
-under a sufficiently small positive update.}
-\label{fig:observer-reversal}
-\end{figure}
-
-Three controls recover the true expectation for the complete game: $\lambda=1$, a
-single learner-to-terminal transition, and an intermediate critic conditioned
-on both $X$ and $A$. The Python, native CPU and CUDA implementations reproduce
-the return calculation. The scalar expectation also agrees with direct objective
-differentiation. Appendix~\ref{app:observer} gives the derivation and a
-learner-decision implementation with explicit tail masks.
-The Koi-Koi match results above use the original signed estimator.
-Appendix~\ref{sec:learner} compares the return constructions under fixed-opponent
-training.
-
-The $\lambda=1$ cancellation requires reaching termination. Cutting this same
-game after the learner action leaves the opponent-observation bootstrap and
-a negative expected update, even at $\lambda=1$. Retaining the learner history
-restores the correct gradient. Appendix~\ref{app:trace} separates the internal
-bootstrap terms from this rollout-boundary term.
-
-\subsection{Directional measurements in the retained agents}
-\label{sec:directional}
-To connect the finite example to actual play, we collect 4,096 complete sampled
-self-play matches from each retained agent, sharing initial deals across the
-two agents. For a fixed public feature $f$, the local policy
-$\pi_\theta(a\mid o)\propto\pi_0(a\mid o)\exp(\theta f(o,a))$ has score
-$f(o,a)-\mathbb E_{\pi_0}f(o,A)$. The five features are a continuation indicator
-and one base-probability preference feature for each decision phase. Features
-and critics stay fixed. We sum score times advantage separately for each seat,
-then average the two unilateral responses against the frozen other seat.
-
-Complete terminal Monte Carlo contributions are compared with full-match
-GAE0.95 and 128-step-window GAE0.95/GAE1, using independently assigned cutoff
-positions. One 70-coordinate simultaneous bootstrap family covers all means
-and differences across both agents. Every Monte Carlo mean and every paired
-difference interval includes zero. Thus these probes do not establish the
-finite example's reversal in the retained agents. The measurement concerns
-these local policy directions before PPO clipping and normalization; it does
-not identify observer mismatch separately from critic approximation error.
-All 8,192 matches are replayed on native CPU, and independent scalar score and
-return calculations agree to $8.9\times10^{-16}$. Full coordinates and the
-fixed design are in \path{docs/DIRECTIONAL_RETURN_RESULTS.rst}.
-
-\subsection{Do return repairs improve learned play?}
-The exact counterexample motivates two implementations: returns between
-learner decisions, and a critic that maintains each player's viewpoint through
-all primitive decisions. Both are tested from the two retained parents against
-unchanged parents and signed-return controls. Each new arm receives
-8.52 million simulator decisions. Separate paired evaluations contain 160,000
-full matches per study. The fixed-observer contrast holds critic fitting fixed;
-the learner-decision procedure also changes critic fitting and optimization.
-
-Learner-decision returns have positive mean win changes in all eight primary
-comparisons, but only one lower 95\% bound is positive. Against Point, gains
-over the two parents are 0.920 percentage points [0.125, 1.755] and 0.325
-[$-0.480$, 1.165]. All four learner-minus-response win intervals include zero.
-The fixed-observer comparison has no positive lower bound among its eight
-primary intervals. These results separate the exact analytical repair from
-an additional playing-strength gain. Appendices~\ref{sec:training}
-and~\ref{sec:observer-selfplay} retain the complete training protocols,
-matched controls, point outcomes and comparison tables.
-
 \section{Limitations and interpretation}
 The comparisons measure head-to-head performance under the pinned Koi-Koi
 rules. The exact planner's guarantee requires the evaluated belief to match
@@ -879,32 +764,26 @@ unmeasured. The original warm/cold comparison changes temperature and learning
 rate jointly. Latency covers one machine and a cached random-play workload.
 
 \section{Conclusion}
-Public reconstruction identifies WP or Point in 86.1\% of natural final-round
-starts and supports exact comparisons of executable endgame policies.
-Search retains complete contingent improvements under computation caps.
-Public score certificates compress these programs into explicit decisions and
-checked parent continuations. On the same 512 saved sources, compression
-reduces controller planning transitions by 8.84\% and raises adopted improvements
-from 83 to 86. Every realized win score and final point margin remains unchanged
-from the preceding controller.
+Public play supports executable endgame improvement in Koi-Koi. Reconstructed
+opponent inputs identify a fixed model; complete history-conditioned beliefs
+support shared decisions across indistinguishable deals. The controller retains
+verified improvements under a computation cap, and public outcome certificates
+compress its guaranteed continuations.
 
-The independent 8,192-source evaluation establishes positive expected
-match-win improvement against WP and Point for both parents under uniform
-valid deals. Equal-opponent mixture means are 0.2819 and 0.2143 percentage
-points. Their simultaneous lower bounds are 0.1130 and 0.0886; the joint
-0.1-point criterion remains unmet. The result connects public reconstruction,
-executable policy improvement and population evaluation under a common law.
+The base controller improves expected terminal win score in all four fixed
+parent--opponent populations of the independent 8,192-source evaluation.
+Equal-opponent mixture means are 0.2819 and 0.2143 percentage points.
+The joint practical-gain criterion remains unmet. Terminal-match self-play
+also supplies two adapted parents that beat assisted RL-WP on held-out deals.
 
-The exact shared-parameter example identifies a separate critic-conditioning
-failure: switching to the opponent's observation can reverse the expected
-policy update. Learner-decision returns correct the complete example. Their
-Koi-Koi tests establish no replicated additional win gain.
-
-Terminal-match self-play improves the released Koi-Koi win policy at both
-adapted seeds while preserving its Transformer actor and greedy inference.
-Point initialization also raises mixture point margins by 1.77--2.08 points
-over matched WP controls. These measured adaptation gains provide the parent
-actors for the public-information controller.
+The frontier extension removes the need to finish the parent's value at every
+eligible root. It constructs complete future beliefs, adopts individually
+certified continuations and combines their gains through a disjoint arrival
+partition. Independent replay verifies \FrontierAdoptedNodes{} local programs
+at \FrontierPositiveRoots{} of \FrontierRootCount{} fixed development roots
+that previously admitted no improvement. This extends what the controller can
+retain under its maximum allowance. Its incremental population effect is being
+measured in the separate fixed-cohort evaluation.
 
 \appendix
 \section{Reproduction and evidence}
@@ -932,6 +811,7 @@ Policy composition & \path{arbitration_evidence.json}, \path{paired_evidence.jso
 Temperature and directions & \path{temperature_directional_evidence.json} \\
 Prospective endgame planning & \path{prospective_incumbent_evidence.json} \\
 Uniform-deal expected improvement & \path{uniform_results_evidence.json} \\
+Frontier development and integration & \path{frontier_development_evidence.json} \\
 \bottomrule
 \end{tabular}
 \caption{Evidence map. Each ledger identifies the underlying inputs and outputs;
@@ -965,6 +845,8 @@ and its verification workflow are described in \path{docs/ARTIFACTS.rst}.
 That archive preserves the completed adaptation snapshot; later extensions
 have their own bound records. Rebuilding the paper does not rerun or extend
 any experiment.
+
+\input{observer_analysis.tex}
 
 \section{Observer-bootstrap calculation and learner-decision returns}
 \label{app:observer}
@@ -1144,7 +1026,7 @@ endpoints as fixed controls.
 
 \subsection{Learner-decision returns}
 \label{sec:learner}
-The exact example in Section~\ref{sec:observer} motivates a comparison of three
+The exact example in Appendix~\ref{sec:observer} motivates a comparison of three
 return constructions: signed GAE with $\lambda=0.95$, learner-decision returns
 with $\lambda=0.95$, and signed GAE with $\lambda=1$. The learner-decision variant
 bootstraps at learner observations and attributes opponent-caused terminal
@@ -1818,6 +1700,8 @@ paired win-score changes in percentage points, with 95\% intervals.}
 
 \FloatBarrier
 \input{uniform_evaluation_appendix.tex}
+\input{incumbent_development.tex}
+\input{frontier_appendix.tex}
 \FloatBarrier
 \begingroup
 \raggedright\small

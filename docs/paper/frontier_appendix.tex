@@ -1,0 +1,113 @@
+\section{Public-frontier bounds and development results}
+\label{app:frontier}
+\subsection{A public bound on prefix construction}
+At the original gate, five draws remain when the learner acts either after
+turn 10's stock draw or before turn 11's stock draw. Thirteen stock cards remain.
+The opponent holds three cards in the first case and two in the second.
+The learner's next discard is reached after at most one or two new draws,
+respectively, unless the round terminates first.
+
+There are at most $\binom{16}{3}=560$ or $\binom{15}{2}=105$ compatible
+opponent hands. History consistency and valid-deal constraints can reduce
+these counts. With a single deterministic opponent model, each hand and
+ordered draw prefix has one parent path. Thus the numbers of prefix rows
+are bounded by $560\cdot13=7{,}280$ and
+$105\cdot13\cdot12=16{,}380$. A turn has at most four decisions; forced
+steps can reduce this number. Table~\ref{tab:frontier-bound} multiplies the
+maximum path length by the row bound to bound physical transitions.
+
+\begin{table}[htbp]
+\centering\small
+\begin{tabular}{lrrrr}
+\toprule
+Root phase & Turn & New draws & Rows & Transitions \\
+\midrule
+Stock capture & 10 & 1 & 7,280 & 43,680 \\
+Stop/continue & 10 & 1 & 7,280 & 36,400 \\
+Discard & 11 & 2 & 16,380 & 131,040 \\
+Hand capture & 11 & 2 & 16,380 & 114,660 \\
+\bottomrule
+\end{tabular}
+\caption{Public prefix bounds at a five-draw root. The cutoff has four
+remaining draws for turn 10 entries and three for turn 11 entries. The bounds
+use public turn, phase, stock size and opponent hand count.}
+\label{tab:frontier-bound}
+\end{table}
+
+The prefix budget is 250,000 transitions and 65,536 rows. All four entry phases
+therefore fit without increasing either limit. The complete partition includes
+terminal mass and all first-arrival beliefs. Tests cover both learner seats,
+all entry phases, hidden-card reassignment and independent Python reconstruction.
+The bound applies to the identified single-model gate; it does not extend to
+an arbitrary root or a mixture of opponent models.
+
+\subsection{Local budgets and independent verification}
+Frontier histories are attempted in descending arrival mass, with exact public
+history as the deterministic tie-break. Each attempt receives equal proposal
+and reference allowances, capped at 50,000 transitions each and at half the
+remaining shared allowance. Local node/task limits are 25,000 per phase.
+Unused transitions remain available to later histories. Prefix work and failed
+attempts count toward the same two-million-transition cap.
+
+A proposal is usable only when it defines a complete public program, including
+its parent-default regions. The reference is the unchanged parent everywhere.
+The independent verifier rebuilds all frontier posteriors using Python rules
+and fresh actor calls, then executes both policies through every remaining
+chance branch for each adopted local program. It does not substitute the
+search certificates for terminal outcomes. A small full-root fixture also
+checks that the complete policy-value difference equals the sum of local gains.
+
+\subsection{Closed development screen}
+The screen retains the first parent-value refusal in each parent/opponent/seat
+combination from the closed 8,192-source cohort. These eight selected roots
+are development cases. Table~\ref{tab:frontier-development} reports all of them,
+including the four without an improvement. The next-discard construction
+completes every prefix and adopts \FrontierAdoptedNodes{} local programs.
+
+\begin{table}[htbp]
+\centering\small
+\input{generated/frontier_development_table.tex}
+\caption{Complete next-discard development screen. Gains are conditional
+win-score increments at the selected roots, in percentage points. Cutoff is
+the number of draws remaining at the frontier. Independent full local values
+give the exact column; the lower column uses the search certificates.}
+\label{tab:frontier-development}
+\end{table}
+
+Exact increments at sources 387, 433, 867 and 1054 are respectively
+$1/5265$, $71/112320$, $31/214500$ and $3593/10193040$.
+The last search certificate is slightly smaller, $3563/10193040$.
+All eight retained actual trajectories and outcomes match the parent.
+
+The next-discard screen executes 10,826,089 new planning transitions. Its
+15,999,936 historical first-phase transitions are imported evidence, not new
+work. Independent prefix verification executes 49,263 physical transitions,
+representing 264,298,320 weighted decisions; local value verification executes
+918,431 transitions, representing 3,649,710 decisions. Actual suffix execution
+and recorded-action replay each use 96 transitions. These quantities do not
+add source matches.
+
+A separate twelve-case integration reexecutes the original controller and
+preserves its phases and selections: eight refusal cases and four controls
+covering original strict gains and no-gain decisions. The final selected
+boundary changes two cases, which are reexecuted; ten identical integrated
+programs and their execution evidence are explicitly reused. All final patches
+match the independently verified next-discard screen. The generated ledger
+\path{docs/paper/generated/frontier_development_evidence.json} binds the three
+complete reviews and their numerical exports.
+
+\subsection{Incremental population-evaluation protocol}
+A separate 4,096-source study compares the extension with the base controller,
+using 1,024 sources per parent/opponent population. Each source contributes its
+exact conditional increment, including zero for identical programs. The primary
+criterion requires positive simultaneous lower bounds for both fixed
+equal-opponent mixtures. This test is distinct from the closed base-controller
+study's 0.1-point practical criterion.
+
+An entry-scope error was corrected after 15 sources: forced steps can skip the
+five-draw decision, while the source gate includes shorter tails. Corrected
+dispatch keeps the base controller there. All 15 sources remain at their
+original indices; the other 4,081 are sampled after the correction. Provenance
+and separate work ledgers are specified in
+\path{docs/FRONTIER_INCREMENTAL_SCOPE_AMENDMENT.rst}. The evaluation is ongoing;
+no incremental population estimate is reported here.

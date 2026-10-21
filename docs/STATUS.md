@@ -91,20 +91,36 @@ also retains both old strict gains and unvalued-parent fallbacks on short tails.
 The v2 protocol freezes 152 inputs and 154 prerequisite/source files. Do not
 rerun tests into its frozen XML paths or edit frozen dependencies while live.
 
-Four workers have progressed: chunk 0 source 0 (PID 70708), chunk 1 source 23
-(PID 71928), chunk 2 source 38 (PID 19416), chunk 3 source 49 (PID 17812).
-The earlier 4-draw failures now pass. No complete-source inference yet. Keep
-these processes; source 0 can spend minutes in full fixed/patch planning.
+The incremental queue is still running (PID 66648). At the paper-revision
+checkpoint, 14 of 256 chunks / 224 of 4,096 sources have completed
+independent audit. No worker-log errors or interim effect estimates were used.
+The 152 frozen inputs and 154 prerequisite/source bindings remain unchanged.
+Keep the live queue; do not restart or tune the fixed policy/criterion.
+
 Primary contrast: selected hybrid minus old symbolic controller, using exact
 independent frontier increments or zero for identical programs. The old failed
-0.1pp comparison stays closed. Complete 256 independently audited chunks before
-summarizing/exporting. Export command: python -m scripts.export_frontier_scope
+0.1pp comparison stays closed. Complete all 256 independently audited chunks
+before summarizing/exporting. Export command: python -m scripts.export_frontier_scope
 --base runs/frontier_incremental_scope_v2. The queue automatically saves the
-summary, but final complete-source re-reduction/export is a separate step.
-NEXT: finish the fixed amended cohort, verify/export all work and effect sizes,
-then integrate the method, prior-art distinction and complete results into the
-manuscript with readability/PDF review. Goal active; current PDF, play/dealer
-unchanged. Selected integration milestone pushed as 86f0a55.
+summary; final complete-source re-reduction/export is a separate step.
+
+Paper-method/readability milestone: reviewed 46-page draft, 48 references,
+main text reduced from 21 to 18 pages. Abstract/Introduction/Conclusion lead
+with the executable controller and frontier construction; full local-gain
+proof, public prefix bound and independently re-audited 4/8 development
+results are integrated. Critic analysis and early experiments move to
+appendices with all results and failures retained. Parallel rollout and safe
+game decomposition clarify the established principles and concrete contribution.
+All 46 pages rendered/contact-reviewed, ten focus pages inspected full size;
+32 embedded fonts and no layout/reference defects. QA and source bindings:
+docs/paper/generated/frontier_draft_revision_evidence.json.
+Preview tmp/pdfs/frontier_revision/manuscript.pdf SHA
+72054e7b66f8e60416b8b5b6f4e320b113b33f3f44f4e5642d1463c79b010127.
+Canonical delivered PDF remains unchanged; final incremental evidence pending.
+Previous and current goal turns made concrete progress; goal remains active.
+NEXT: finish the fixed amended cohort, independently export all work/effect
+sizes, replace the paper's pending-results paragraph, then rebuild/review and
+deliver the final PDF. Human play/dealer remain unchanged.
 
 The preceding six-draw proposal screen is COMPLETE: three complete candidates
 at1/0/1 were independently verified, five proposals hit1Mphysical caps, and
