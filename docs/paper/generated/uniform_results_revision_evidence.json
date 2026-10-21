@@ -1,0 +1,46 @@
+{
+  "status": "passed",
+  "pages": 43,
+  "references": 46,
+  "font_count": 32,
+  "focus_pages": [
+    14,
+    21,
+    22,
+    39
+  ],
+  "word_counts": {
+    "abstract": 179,
+    "introduction": 467,
+    "conclusion": 215
+  },
+  "all_pages_rendered": true,
+  "text_outside_page": [],
+  "bad_log_lines": [],
+  "frozen_inputs_verified": 114,
+  "bindings": {
+    "output/pdf/manuscript.pdf": "a2c023c8085fe9fa01f755a6e0621442898ae1898ecbf5c0de1f387e6ebb4c0a",
+    "docs/paper/manuscript.tex": "ec81de240d2e3a4d805e76ea1ee6f15a994527acb01ba63630e017f56f28543a",
+    "docs/paper/uniform_evaluation.tex": "1521580cf2502b5341d5cbc20518fa818879f0b1e0a39676e612b2edc2849080",
+    "docs/paper/uniform_evaluation_appendix.tex": "0d440d2aeaa4f8026aa80b4ece1ea916ec8e1b833f8464c1e7977c0d64c4243d",
+    "docs/paper/references.bib": "46efd560a2a3e398393cd6cbc9558cdc38aa3cf3d066c52c85419ebad44b93a6",
+    "docs/paper/generated/uniform_results_evidence.json": "6a781f0fb7640ee71a930a17c6a68aa03c95e8fd6e6270e3822dab7bd4f1d5fb",
+    "docs/paper/generated/uniform_primary_table.tex": "53406fa433fb291dd57ef2db92cc2c276ac459fe76dbe890361c250c1b7e762b",
+    "docs/paper/generated/uniform_actual_table.tex": "2ae61445396dd8d695b3a7ae231d3dc4b530ecf0c5d00b4f9928af135b4b0406",
+    "docs/UNIFORM_CONTROLLER_RESULTS.rst": "e6d4be7eae4aaa4f82c13c22081d4ee13c051b25333c5609723e296d784e138c"
+  },
+  "scope": "Complete 8192-source results; fixed joint criterion failed.",
+  "visual_review": {
+    "all_contact_sheets": true,
+    "full_size_pages": [
+      1,
+      2,
+      14,
+      21,
+      22,
+      39
+    ],
+    "appendix_orphan_lines_removed": true,
+    "remaining_defects": []
+  }
+}

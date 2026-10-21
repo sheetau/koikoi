@@ -80,3 +80,25 @@ records. These are fixed implementation fixtures. The prospective protocol
 binds 114 files and all 8,192 cases; the declaration and code are recorded in
 \path{docs/UNIFORM_CONTROLLER_EVALUATION.rst} and
 \path{scripts/uniform_controller_study.py}.
+
+
+\subsection{Realized continuations and complete-cohort records}
+\label{app:uniform-outcomes}
+\begin{table}[htbp]
+\centering\small
+\input{generated/uniform_actual_table.tex}
+\caption{Descriptive paired realized controller-minus-parent differences on
+the 8,192-source cohort. These are observed continuation outcomes, not the
+conditional-expectation estimates used for the primary bounds.}
+\label{tab:uniform-actual}
+\end{table}
+
+The 512 collection chunks each contain 16 sources and have a separate audit.
+The manuscript exporter rechecks the full case order, immutable artifact
+hashes, audit bindings, selected gains and actual outcomes, then recomputes
+the population bounds and the fixed criterion. The record is
+\path{generated/uniform_results_evidence.json}; the complete result and work
+accounting are in \path{docs/UNIFORM_CONTROLLER_RESULTS.rst}.
+Work accounting separates source play, history reconstruction, planning,
+Python value verification and actual continuations. Simulated completions
+and represented chance mass add no source observations.

@@ -1,7 +1,7 @@
 # Current status
 
-The stronger-play and research extension is active. A new replicated match-win
-improvement has not yet been established. Initial dealer selection and the
+The stronger-play and research extension is active. Positive expected improvement is established
+under the uniform-deal source law;the joint practical-gain criterion failed. Initial dealer selection and the
 playable canonical model remain unchanged.
 
 This file is a current snapshot. Detailed commands, failed approaches and work
@@ -11,30 +11,48 @@ Old process handles mentioned in that history are historical, not live jobs.
 
 ## Current experiment and next actions
 
-The independent-uniform controller evaluation is RUNNING at
-runs/uniform_controller_evaluation. Launched2026-10-20T21:58:38Z after fixed-fixture
-validation;launcher62408,actual queue67440. Four initial workers33648/58108/
-65884/25892 were confirmed live with growing CPU time and source progress.
-Use current queue/process records and live process identities;DO NOT restart.
-Protocolbc5fce90a1fefb146f766e2be7177c67992292307cf896413b525ba1183dbfc9
-binds114inputs and8,192cases. Command: .venv/Scripts/python.exe -m
-scripts.uniform_controller_study --base runs/uniform_controller_evaluation --run.
-The queue collects16-source chunks, audits each in a separate process, then
-summarizes/exports only after all512chunks complete. No interim strength claim.
-Next monitor this exact job, inspect failures without resampling, and evaluate
-the frozen criterion only after the complete audit. Human play stays unchanged.
+The independent-uniform controller evaluation is COMPLETE: all8,192sources
+and512chunks were independently audited. Queue67440 and its workers finished;
+DO NOT restart or extend this closed cohort. Runtime73,859.63seconds. Protocol
+bc5fce90a1fefb146f766e2be7177c67992292307cf896413b525ba1183dbfc9 retains114inputs.
+Summary3352b369485404999f4c97d8ef4683bf47ea78605c7408479f0dccd75b31d030;
+report e6d4be7eae4aaa4f82c13c22081d4ee13c051b25333c5609723e296d784e138c.
 
-The post-completion manuscript exporter is ready in
-scripts/export_uniform_paper_evidence.py. Run .venv/Scripts/python.exe -m
-scripts.export_uniform_paper_evidence only after the study finishes. It requires
-the exact frozen protocol and complete export, rechecks every chunk's immutable
-artifacts/audit bindings and source order, and recomputes the four population
-bounds and descriptive actual contrasts before writing separate TeX tables and
-a provenance ledger. Lower bounds are rounded down for display; exact fractions
-still decide success. Nine export tests pass, including rejection of rehashed
-incorrect summaries and incomplete cohorts. A probe against this live study
-correctly refused export without creating artifacts; all114frozen inputs and
-8,192cases remain intact. No new result or manuscript PDF is produced yet.
+All four simultaneous95% expected-gain lower bounds are positive under the
+declared independent uniform-valid-deal law. Per-population mean/lower(pp):
+parent1 WP .223729/.095296,Point .340125/.130832;
+parent2 WP .195892/.083806,Point .232651/.093521.
+Equal WP/Point mixture mean/lower: parent1 .281927/.113064;
+parent2 .214272/.088663. The joint prespecified criterion FAILED because
+parent2's mixture lower bound does not exceed.1pp. No criterion was relaxed.
+This establishes positive expected improvement under the matching law,not
+absolute superiority or a confidence interval on realized wins.
+
+The complete-only manuscript exporter passed: it rehashed all immutable chunk
+artifacts,audit bindings and case order,then recomputed the inference and
+realized differences. Outputs: generated/uniform_primary_table.tex,
+uniform_actual_table.tex and uniform_results_evidence.json in docs/paper/.
+The result ledger SHA is6a781f0fb7640ee71a930a17c6a68aa03c95e8fd6e6270e3822dab7bd4f1d5fb.
+Full report/work accounting: docs/UNIFORM_CONTROLLER_RESULTS.rst.
+Actual paired differences are descriptive: .048828/.830078/.268555/.146484pp
+for parent1WP/Point,parent2WP/Point. They are separate from primary expectations.
+
+Post-completion fallback diagnosis: scripts/summarize_uniform_opportunities.py
+checks the complete receipt/record bindings and full8192case order. Of4314
+missing roots,3038had prior-round identity and1276did not. Of3878evaluated
+roots,1321adopted improvements,128had an unvalued parent,and2429had no strict
+gain;975of the latter already had parent value1. Fixed-phase cap refusals445
+and optimized-phase refusals615 overlap selections and are not extra sources.
+Report:runs/uniform_controller_opportunities.json. These are descriptive
+development diagnostics,not additional strength evidence. In particular,
+missing roots do not prove recoverable gain: a match may end before the gate.
+
+Next: diagnose the missing-root gate and capped continuations to choose a
+substantive new controller,then validate it on separate development fixtures.
+Keep this cohort closed as the original frozen test; any reuse is development
+only and needs a fresh prospective evaluation. Do not rerun old training grids
+or extend the sample until the existing threshold passes. Human play and the
+initial dealer remain unchanged. The stronger-play objective stays active.
 
 The complete512-source symbolic comparison is COMPLETE, audited and exported.
 Pipeline session99772/PowerShell25468,queue64312 and last worker66784 finished;
@@ -119,29 +137,23 @@ play; fresh inference still requires the declared independent sampling law.
 Historical implementation/test details are in
 EXPERIMENTS.md. The108frozen symbolic inputs remain intact.
 
-Current manuscript includes the complete symbolic result in Abstract,
-Introduction,Section6.5/Table3 and Conclusion. It leads with public
-reconstruction and executable policy compression,stating measured coverage
-and actual performance separately. Section6.6 and AppendixL now explain the
-matching source/posterior law and exact simultaneous population-gain bounds;
-Related Work adds AIVAT. The ongoing8192-source study contributes design only,
-with no interim estimates. PDF42pages/46refs;Abstract171/Intro425/Conclusion167
-words unchanged. Main text ends20. Figure1 on page10 maps public evidence,
-finite belief,capped search,exact adoption,and retained-program/parent execution.
-Public reconstruction/controller now follow parent construction in Sections5--6
-(pages7--13);parent evaluation/results and critic analysis follow in Sections7--9.
-The reordering preserves every source byte within each moved section.
-All42pages rendered/contact-reviewed;pages9/10/13full size;32embedded fonts,
-no TeX/layout/BibTeX warnings. PDF SHA256
-60fff4a3616bafe8ae5234f5fa0a301065bc2061ab1ce9362faa70db2e8aa54c;
-QA runs/manuscript_method_order_qa.json passed. New editorial ledger:
-docs/paper/generated/method_order_evidence.json. Prior editorial/method ledgers
-remain historical snapshots with their original PDF/source bindings.
-Prior table/evidence:
-docs/paper/generated/symbolic_comparison_table.tex and
-docs/paper/generated/symbolic_comparison_evidence.json. Earlier experiment
-audits are reused;this editorial review adds no simulation/inference.
-Initial dealer and canonical human-play deployment remain unchanged.
+Current manuscript includes the complete8192-source result in Abstract,
+Introduction,Section6.7/Table4 and Conclusion,with descriptive actual tails in
+AppendixL.4. The opening leads with positive expected improvement in all four
+fixed populations and states the failed joint.1pp criterion explicitly.
+Public reconstruction,complete contingent programs and symbolic compression
+remain the method contribution. Related Work retains46cited primary references.
+PDF43pages;Abstract179/Introduction467/Conclusion215words. Main text ends21.
+All43pages rendered/contact-reviewed;pages1/2/14/21/22/39full size;32embedded
+fonts,no TeX box,glyph,reference,BibTeX or page-bound defects. The existing
+Fontconfig notice remains. PDF SHA256
+a2c023c8085fe9fa01f755a6e0621442898ae1898ecbf5c0de1f387e6ebb4c0a.
+QA:runs/manuscript_uniform_results_qa.json;tracked review ledger:
+docs/paper/generated/uniform_results_revision_evidence.json.
+Prior editorial/method ledgers retain their historical snapshot bindings.
+Backup:output/pdf/manuscript_before_uniform_results_60fff4a3.pdf.
+All114frozen study inputs still verify. Initial dealer and canonical human
+play remain unchanged. This result does not meet the full active objective.
 
 ### Completed diagnostics and supporting history
 

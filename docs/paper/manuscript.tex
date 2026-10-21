@@ -15,27 +15,28 @@
 \title{Match Adaptation and Public-Information Planning\\
 for Koi-Koi Transformers}
 \author{}
-\date{21 October 2026}
+\date{22 October 2026}
 \begin{document}
 \maketitle
 \begin{abstract}
-We construct a public-information endgame controller for Koi-Koi that identifies
-a fixed WP/Point opponent from completed hands, reconstructs hidden-card
-beliefs, and commits to a complete contingent policy. Exact comparisons retain
-improvements over a parent actor under a computation cap. Replacing explicit
-decisions in guaranteed-win regions with a checked parent continuation reduces
-controller planning transitions by 8.84\% on 512 saved source matches, while
-increasing adopted improvements from 83 to 86 under unchanged caps. Mean
-conditional gains over the two parents are 0.2651 and 0.3290 percentage points;
-every realized win score remains unchanged from the preceding controller.
-Additional match-win improvement remains unconfirmed. The parent actors are
-obtained by terminal-match self-play from the published win policy. After 8.52
-million additional decisions each, they achieve 51.480\% and 51.445\%
-draw-adjusted win scores against assisted RL-WP on 10,000 held-out duplicate
-deals; both 95\% intervals exclude 50\%. They retain the published Transformer
-architecture and greedy inference. An exact shared-parameter counterexample
-also shows why switching between players' critics can reverse the expected
-policy update, motivating returns between learner decisions.
+We construct a public-information endgame controller that improves the expected
+match-win score of two Koi-Koi Transformer agents against fixed WP and Point
+opponents. It identifies the opponent from completed hands, reconstructs
+hidden-card beliefs, and commits to a complete contingent policy. Exact
+comparisons retain improvements over the parent under a computation cap.
+Across 8,192 independent sources with uniform valid round deals, simultaneous
+95\% lower bounds on expected improvement are positive in all four
+parent--opponent populations. Equal-opponent mixture gains average 0.2819 and
+0.2143 percentage points, with lower bounds of 0.1130 and 0.0886. The
+prespecified requirement that both mixture bounds exceed 0.1 is not met.
+Public score certificates replace explicit decisions in guaranteed-win regions
+with checked parent continuations. On a separate 512-source comparison, this
+compression reduces controller planning transitions by 8.84\% and increases
+adopted improvements from 83 to 86 under unchanged caps. Terminal-match
+self-play supplies the parents: after 8.52 million additional decisions each,
+they score 51.480\% and 51.445\% against assisted RL-WP on held-out duplicate
+deals. An exact shared-parameter counterexample also shows how switching
+between players' critics can reverse the expected policy update.
 \end{abstract}
 
 \section{Introduction}
@@ -70,11 +71,15 @@ five additional parent references and retains three additional improvements
 under the same caps. Independent replay verifies the entire adopted programs
 (Section~\ref{sec:symbolic-tail}).
 
-A fixed comparison on 512 new source matches evaluates the explicit controller
-against parent and root-only controls. Mean conditional gains over the parents
-are 0.2619 and 0.3246 percentage points. The predefined replicated actual-win
-criterion is not met. Reporting both quantities separates improvement under
-the reconstructed model from the realized match outcomes.
+Matching the source distribution to the reconstructed posterior turns these
+conditional comparisons into a population result. We evaluate the frozen
+controller on 8,192 independent matches with uniform valid round deals and
+randomized learner seats. Simultaneous 95\% lower bounds on expected improvement
+are positive against both opponents for both parents. Equal-opponent mixture
+gains average 0.2819 and 0.2143 percentage points. Their lower bounds are 0.1130
+and 0.0886, so the prespecified 0.1-point requirement for both parents is not
+met (Section~\ref{sec:uniform-results}). This evaluation includes every source,
+with zero improvement when the controller falls back to its parent.
 
 The parent actors themselves improve through terminal-match self-play. We
 convert the released action scores into a stochastic policy and optimize it
@@ -860,10 +865,12 @@ matched controls, point outcomes and comparison tables.
 \section{Limitations and interpretation}
 The comparisons measure head-to-head performance under the pinned Koi-Koi
 rules. The exact planner's guarantee requires the evaluated belief to match
-the conditional deal and opponent model. Conditional improvement certificates
-do not by themselves determine population win-rate gains. The prospective
-comparison has 128 distinct deal streams; it does not resolve sub-percentage-
-point effects reliably.
+the conditional deal and opponent model. The uniform-deal evaluation establishes positive expected improvement in its
+four fixed populations. Its second parent's mixture lower bound falls below
+the prespecified 0.1-point threshold. These bounds use exact conditional
+expectations under the matching source law, rather than confidence intervals
+on realized wins. The earlier 512-source comparison uses 128 distinct deal
+streams and does not resolve small realized-outcome effects reliably.
 
 Two training seeds and fixed opponents limit generality: held-out deals measure
 endpoint performance, not robustness across optimization runs. The ledger
@@ -879,8 +886,14 @@ Public score certificates compress these programs into explicit decisions and
 checked parent continuations. On the same 512 saved sources, compression
 reduces controller planning transitions by 8.84\% and raises adopted improvements
 from 83 to 86. Every realized win score and final point margin remains unchanged
-from the preceding controller. Certified planning coverage increases; an
-additional match-win gain remains unconfirmed.
+from the preceding controller.
+
+The independent 8,192-source evaluation establishes positive expected
+match-win improvement against WP and Point for both parents under uniform
+valid deals. Equal-opponent mixture means are 0.2819 and 0.2143 percentage
+points. Their simultaneous lower bounds are 0.1130 and 0.0886; the joint
+0.1-point criterion remains unmet. The result connects public reconstruction,
+executable policy improvement and population evaluation under a common law.
 
 The exact shared-parameter example identifies a separate critic-conditioning
 failure: switching to the opponent's observation can reverse the expected
@@ -918,6 +931,7 @@ Public identification and learning & \path{public_revelation_evidence.json}, \pa
 Policy composition & \path{arbitration_evidence.json}, \path{paired_evidence.json}, \path{followup_evidence.json} \\
 Temperature and directions & \path{temperature_directional_evidence.json} \\
 Prospective endgame planning & \path{prospective_incumbent_evidence.json} \\
+Uniform-deal expected improvement & \path{uniform_results_evidence.json} \\
 \bottomrule
 \end{tabular}
 \caption{Evidence map. Each ledger identifies the underlying inputs and outputs;

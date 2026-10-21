@@ -3,59 +3,49 @@ Manuscript working files
 
 This is an English research manuscript, not a submitted or published paper.
 
-Current verified revision:42pages including appendices,46cited references,
-171-word Abstract,425-word Introduction and167-word Conclusion. Main text ends
-on page20. The title is "Match Adaptation and Public-Information Planning for
-Koi-Koi Transformers." The opening leads with public reconstruction,executable
-endgame policies and certificate compression,followed by measured match adaptation.
+Current verified revision:43pages including appendices,46cited references.
+Abstract179words,Introduction467words,Conclusion215words;main text ends21.
+The title remains "Match Adaptation and Public-Information Planning for
+Koi-Koi Transformers."
 
-Section6.6 now states the matching-law population evaluation;AppendixL derives
-the hand posterior and simultaneous lower bound from fixed threshold counts.
-The8192-source study is running,with no interim estimates in this draft.
-Figure1 on page10 connects public evidence,finite belief,capped search and exact
-adoption to execution of the retained program or unchanged parent. The overview
-makes the inference/execution boundary visible without adding an empirical claim.
-All42pages/contact sheets checked;pages9/10/13reviewed at full size;
-32embedded fonts,no TeX/BibTeX/layout defects. Opening,conclusion and numerical
-results are unchanged.
+The independent uniform-deal evaluation is COMPLETE:8192sources,512audited
+chunks. Section6.7/Table4 reports positive simultaneous95% lower bounds on
+expected improvement in all four parent/opponent populations. Equal WP/Point
+mixture means are.2819/.2143percentage points;lower bounds rounded down are
+.1130/.0886. The joint requirement that both exceed.1pp FAILED. AppendixL
+derives the matching-law argument and bounds;its actual-tail table is
+descriptive. All missing roots and fallbacks stay in the denominator.
 
-Section6 includes the closed exploratory64-source witnesses and complete
-prospective512-source comparison. Its predefined actual-win criterion fails.
-Section6.5/Table3 now includes the complete512-source symbolic comparison:
-the own-win parent rule reduces controller/root-only physical planning
-transitions by8.84/19.11% relative to the opponent-only certificate baseline.
-Controller parent references rise226to231,adoptions83to86;every actual win score
-and final margin stays unchanged. Conditional gains rise to+.2651/+.3290pp.
-This is a descriptive reused-source computational result,not a new strength test.
-The separate synthetic example explains capped recovery and executable semantics.
+Abstract,Introduction and Conclusion now lead with the measured expected
+improvement and the executable public-information controller. The separate
+512-source symbolic comparison retains its8.84% physical-transition reduction
+and83to86adoption increase;every realized win score there stays unchanged.
+Related Work retains46references,including safe policy improvement,AIVAT,
+opponent inference and Koi-Koi predecessors. The contribution is the verified
+reconstruction/execution pipeline,not a new general safe-improvement theorem.
 
-Related Work includes HSVI,SPIBB,MCTS-SPIBB and the2023POMDP safe-improvement
-paper among46references,with AIVAT and exact binomial limits now added. The
-contribution is the verified Koi-Koi reconstruction
-and executable-policy pipeline;the conditional-expectation argument is not a
-new general safe-improvement theorem. AppendixA maps evidence to reproduction
-artifacts. Its former full ledger remains in reproduction_ledger.tex.
+Complete result:docs/UNIFORM_CONTROLLER_RESULTS.rst. The manuscript exporter
+scripts/export_uniform_paper_evidence.py rechecked all immutable source
+artifacts,audit bindings and cases and recomputed both primary inference and
+descriptive outcomes. Its outputs are generated/uniform_primary_table.tex,
+uniform_actual_table.tex and uniform_results_evidence.json. It refuses to
+overwrite an existing export;use a fresh --destination for reproduction.
 
-Latest QA: ``runs/manuscript_method_order_qa.json``. All42pages rendered
-and contact-reviewed;pages9/10/13reviewed at full size.32embedded fonts,no page-bound,
-TeX box,glyph,reference or bibliography warning. The existing Fontconfig notice
-is unchanged. ``generated/method_order_evidence.json`` binds this revision and
-a byte-preserving proof of whole-section reordering. Public reconstruction and
-executable policies now follow parent construction (Sections5--6,pages7--13),
-before parent evaluation/results and critic analysis (Sections7--9). All earlier
-evidence ledgers retain their original snapshot bindings. Previous
-experiment audits are reused without rehashing the entire old corpus.
+Latest QA:runs/manuscript_uniform_results_qa.json and
+generated/uniform_results_revision_evidence.json. All43pages rendered and
+contact-reviewed;pages1/2/14/21/22/39full size.32embedded fonts;no page-bound,
+TeX box,glyph,reference or bibliography defects. Existing Fontconfig notice
+unchanged. Historical ledgers retain their original snapshot bindings.
 
-Current PDF: ``output/pdf/manuscript.pdf``;SHA256
-60fff4a3616bafe8ae5234f5fa0a301065bc2061ab1ce9362faa70db2e8aa54c.
-Previous PDF: ``output/pdf/manuscript_before_method_order_c4e6e06c.pdf``.
+Current PDF:output/pdf/manuscript.pdf;SHA256
+a2c023c8085fe9fa01f755a6e0621442898ae1898ecbf5c0de1f387e6ebb4c0a.
+Backup:output/pdf/manuscript_before_uniform_results_60fff4a3.pdf.
 
-The stronger-play objective remains active. The symbolic pipeline is complete;
-the independent-uniform8192-source evaluation is now running under its frozen
-protocol. Current process identities and decisions are in ``docs/STATUS.md``;
-Historical notes below are not a live-job inventory. Dealer selection and human play remain
-unchanged. Both retained actors pass the original RL-WP criterion;the separate
-RL-Point criterion and additional replicated win gain remain unestablished.
+The stronger-play goal remains active because the joint practical-gain
+criterion failed. This cohort is closed and must not be extended after seeing
+its outcomes. Follow-up development must have separate prospective evaluation.
+Dealer selection and human play are unchanged. Current decisions are in
+docs/STATUS.md;historical notes below are not a live-job inventory.
 
 From the repository root, regenerate the numerical tables and evidence ledger::
 

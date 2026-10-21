@@ -22,5 +22,34 @@ gives a lower bound on the population mean. We allocate a total error probabilit
 of $0.05$ across all four populations and seven thresholds. Success requires
 positive lower bounds in all four populations and a lower bound above
 $0.1$ percentage point for each parent's equal WP/Point mixture. The sample
-size, thresholds, policy and budgets were frozen before collection. This
-8,192-source evaluation is in progress; the draft reports its design only.
+size, thresholds, policy and budgets were frozen before collection.
+
+\subsection{Population improvement on independent uniform deals}
+\label{sec:uniform-results}
+All 8,192 sources completed collection and independent audit.
+Table~\ref{tab:uniform-primary} reports the expected match-win improvements.
+Every population lower bound is positive, establishing improvement over each
+parent against each fixed opponent under the source law. The equal WP/Point
+mixture lower bound exceeds 0.1 percentage point for parent~1, but reaches
+only 0.0886 for parent~2. The joint prespecified criterion therefore fails.
+The cohort is closed without an outcome-based sample extension.
+
+\begin{table}[htbp]
+\centering\small
+\input{generated/uniform_primary_table.tex}
+\caption{Expected controller-minus-parent match-win improvement, in percentage
+points (pp), under independent uniform valid deals. Bounds are simultaneous
+at least 95\% across the four populations and the derived equal mixtures.
+Every source remains in the denominator. Lower bounds are rounded down;
+exact fractions determine the criterion. Mixtures reuse the population
+samples and add no source matches.}
+\label{tab:uniform-primary}
+\end{table}
+
+The paired realized continuations have positive sample differences in all four
+populations, from 0.0488 to 0.8301 percentage points. They are descriptive
+outcomes, separate from the conditional-expectation bounds above; the complete
+table and work accounting appear in Appendix~\ref{app:uniform-outcomes}.
+The primary result uses the agreement between the deal generator and the
+posterior, together with exact evaluation of the retained policy. It applies
+to these fixed WP/Point opponents and the declared source law.
