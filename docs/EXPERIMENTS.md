@@ -4,6 +4,26 @@ Earlier observations and plans are retained below. Consult STATUS.md for live jo
 
 # Experiment history
 
+## 22 October 2026: public gate diagnosis and six-draw feasibility
+
+The complete recorded-source replay identifies736matches ending before the
+final round,1075without preceding-round identity,and2503identified sources
+ending before the five-draw gate. Roots rise3878to4161at six draws,4760at
+seven and4954at eight. This is development coverage only. Corrected v2
+report and both replay passes are documented in GATE_COVERAGE_RESULTS.rst.
+All original five-draw root states,final states and work counts agree.
+
+A fixed eight-fixture screen changes only the draw gate to six. Indices
+1,19,88,112,237,251,322,738 are mechanically selected before planning,one
+per parent/opponent/seat among newly covered sources. Existing budgets and
+actors remain unchanged. Protocola05bcb6b3497fc4ddfa185ec2ca66c8be987e4c6b1774f5235c86ceef1b3fada.
+The screen uses two bounded workers and saves selection/program before
+actual-tail execution. Source/native reproduction,independent value checking
+for adoptions,source actor replay and support/program/actual-tail verification
+are implementation checks,not new independent source matches. The screen
+is running;current process details are in STATUS.md. Ruff checks pass for
+both added scripts. No original frozen study input or canonical play changed.
+
 ## 22 October 2026: complete uniform-deal controller evaluation
 
 The independent-uniform controller evaluation is COMPLETE: all8,192sources

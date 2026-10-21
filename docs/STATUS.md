@@ -11,6 +11,30 @@ Old process handles mentioned in that history are historical, not live jobs.
 
 ## Current experiment and next actions
 
+The six-draw development feasibility screen is RUNNING at
+runs/six_draw_gate_screen. Session3793;queue actual Python312 PID69564.
+It uses8fixed closed-cohort fixtures,not new source observations. Protocol
+SHA a05bcb6b3497fc4ddfa185ec2ca66c8be987e4c6b1774f5235c86ceef1b3fada.
+Indices1,19,88,112,237,251,322,738 are the first added six-draw root per
+parent/opponent/seat,chosen before planning. Only max_draws changes5to6;
+all original phase/hand/node/depth budgets and policies remain fixed.
+Two bounded workers;no restart or outcome-dependent replacement. Read
+current logs/processes for live identities. Next finish all8fixture checks,
+then decide whether earlier entry is feasible under the existing caps.
+
+Full recorded-source gate replay now separates4314missing roots into736
+matches ending before the final round,1075without prior identity in that
+round,and2503identified sources ending before the five-draw gate. Earlier
+thresholds6/7/8add283/882/1076roots;coverage is not a gain claim. Every original
+five-draw root and all final states/work counts were reproduced on all8192
+sources. No new chance or neural inference in this diagnostic. Corrected
+v2report: runs/uniform_gate_diagnosis_v2.json SHA
+6d65d8bcfb73db3b19ce817ba63303558a2de6f33965afea5f4287921b19245c.
+The initial diagnostic read an observation feature as a legal mask;v2uses
+ReferenceEnv.legal and verifies each live root has a legal action. Two full
+replays each cost950120decisions/63678round endings/8192matches. Onlyv2is
+accepted;source/root/reason counts agree. Details:docs/GATE_COVERAGE_RESULTS.rst.
+
 The independent-uniform controller evaluation is COMPLETE: all8,192sources
 and512chunks were independently audited. Queue67440 and its workers finished;
 DO NOT restart or extend this closed cohort. Runtime73,859.63seconds. Protocol
