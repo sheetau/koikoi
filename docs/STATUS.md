@@ -39,7 +39,8 @@ Two new fixed jobs are RUNNING; keep their existing processes:
    eight saved patches exactly, including complete worlds, programs and work.
    Four controls (sources 3/4/14/17, first no-gain/strict-gain per parent) must
    retain their original phases/selection. Twelve cases, two bounded workers.
-   First two passed; fixtures 2/3 live (workers 57676/64784 at last inspection).
+   Fixtures 0--6 and preservation control 8 passed; fixtures 7/9 are running.
+   Three positive patch cases already reproduce exactly in the integrated path.
    Wrapper passed six tests (2.23 s); synthetic failed parent at 465 transitions
    plus 495 patch transitions proves gain 7/550, full replay checked.
    Scope: FRONTIER_HYBRID_INTEGRATION.rst. Complete-only exporter ready.
@@ -49,8 +50,10 @@ Two new fixed jobs are RUNNING; keep their existing processes:
    turn 10 post-draw entries, 3 for turn 11 pre-draw entries. This keeps the six
    old complete cases identical and addresses the two prefix row refusals.
    All eight are reexecuted, with unchanged budgets and one bounded worker.
-   First fixture completed its 149 frontier groups and retained the parent;
-   fixture 1 is live (worker 70132 at last inspection). No new conclusion yet.
+   Fixtures 0/1 now complete 149/180 frontier groups; peak rows 2,925/3,276
+   and prefix transitions 5,331/4,763. Both retain the parent. Fixture 2 also
+   reproduces the old result; fixture 3 is live (worker 70132). No full-screen
+   conclusion yet. Do not adjust local budgets from these intermediate results.
    Complete-only exporter ready. Scope: NEXT_DISCARD_FRONTIER_SCREEN.rst.
 
 The next-discard boundary has at most 7,280 or 16,380 prefix rows and at most

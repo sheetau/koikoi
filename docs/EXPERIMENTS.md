@@ -64,6 +64,14 @@ no adoption. All eight retained. Complete-only exporter rejects partial results.
 Both jobs remain active. No prospective strength, manuscript or deployment claim
 is added from this targeted development. Goal active; next finish and aggregate.
 
+Checkpoint: the two formerly refused prefixes now complete independently
+verified partitions of 149/180 observations, with peak rows 2,925/3,276 and
+5,331/4,763 prefix transitions. Neither adds a patch; 6/4 local candidates
+remain incomplete, while all other completed candidates and references equal
+one. This resolves prefix construction, not every local search. Keep frozen
+budgets and finish all eight. Integrated cases 0--6 plus preservation control8
+passed, reproducing three positive patches exactly; cases7/9 are running.
+
 ## 22 October 2026: public-frontier patch composition implemented and frozen
 
 The five-draw proposal screen remains active on its final independent oracle;
