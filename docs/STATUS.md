@@ -24,7 +24,11 @@ Two fixed development screens are active; do not restart silent workers.
    6597826f4af37927e2e50d95e9134433cd3ca6eb76a3883df35a18db9b3c5db5.
    Same eight original-gate fixtures, all retained. This experiment does not
    depend on the concurrent screen's outcomes. First two prefixes hit the
-   65,536-row cap and correctly kept the parent; no conclusion yet.
+   65,536-row cap and correctly kept the parent. Fixture2 completed1,304
+   independently reconstructed frontier groups, with no adoption. Fixture3
+   is planning (actual worker3756); all eight remain. Complete-only exporter
+   scripts/summarize_frontier_patch_screen.py is ready and rejects incomplete
+   results. No complete-screen conclusion yet.
 
 New method: follow the parent to a complete public frontier, then commit to a
 certified local patch at selected observations. The global gain lower bound is

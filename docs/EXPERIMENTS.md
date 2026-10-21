@@ -50,6 +50,15 @@ Session19067,actualqueue68776. First two prefix row refusals retained. No source
 replacement,parameter adjustment,paper revision or deployment promotion.
 Goal active; finish both fixed screens and aggregate before a next decision.
 
+Added the complete-only frontier-screen exporter. It rehashes frozen results and
+programs,recompiles each local proposal,validates full local belief bindings and
+separate caps,reconstructs imported/shared work and independent weighted gains,
+and checks actual parent/fallback suffixes. Incomplete export rejected as
+intended; Ruff passes. First three frontier fixtures completed:two prefix-row
+refusals and one complete1,304-node partition with zero adoptions. Fixture3 is
+planning; final-parent oracle from the preceding screen remains live. Both
+jobs continue unchanged. No full-screen or strength conclusion yet.
+
 ## 22 October 2026: six-draw proposals closed; five-draw fallback screen launched
 
 All eight six-draw proposal fixtures passed. Three complete candidates have
