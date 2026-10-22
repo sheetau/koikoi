@@ -1,0 +1,318 @@
+\section{Parent adaptation and match evaluation}\label{app:parent-adaptation}
+\subsection{Policy and value functions}
+We initialize the three phase networks from the original RL-WP weights.
+Their inherited raw action scores $q_\theta(o,a)$ are not probabilities.
+For the legal action set $\mathcal A(o)$, training samples from
+\begin{equation}
+ \pi_{\theta,T}(a\mid o)=
+ \frac{\exp(q_\theta(o,a)/T)}
+ {\sum_{b\in\mathcal A(o)}\exp(q_\theta(o,b)/T)},\qquad a\in\mathcal A(o).
+\end{equation}
+The public endgame guard can further narrow $\mathcal A(o)$. At evaluation,
+the agent chooses a maximizing legal score, so a positive temperature does not
+change the mathematical argmax for fixed scores. Temperature can nevertheless
+change the learned policy through sampling and optimization. Dropout remains
+disabled during both collection and gradient updates, preserving a consistent
+policy for stored log probabilities.
+
+The inherited actors retain the upstream 256-wide, two-layer Transformer
+architecture. Native features reproduce the original 300-by-50 representation,
+including its historical input conventions. A separate value network receives
+a 560-dimensional observation of its own hand and public state, using two
+256-unit tanh hidden
+layers followed by a scalar output. Its output layer is initialized to zero;
+it shares no actor parameters. Both actor and critic use only information available to the acting player.
+
+\subsection{Player-relative returns}
+Both players use the same current stochastic policy during self-play. Rewards
+are zero until match termination, when the acting player receives $+1$, $0$,
+or $-1$ for a win, draw, or loss. We use an undiscounted, player-relative
+adaptation of generalized advantage estimation \cite{schulman2015gae}.
+Let $d_t$ indicate match termination and let $s_t$ be $+1$ when consecutive
+decision states have the same acting player and $-1$ otherwise. Then
+\begin{align}
+ \delta_t &= r_t+(1-d_t)s_t V(o_{t+1})-V(o_t),\\
+ A_t &= \delta_t+(1-d_t)s_t\lambda A_{t+1},\qquad \lambda=0.95.
+\end{align}
+Rollout truncation bootstraps from the next observation. Round boundaries
+retain continuation value unless the match ends. A terminal transition masks
+the value of the automatically reset next match. The sign follows the actual
+next acting player, which need not alternate at every decision phase.
+
+Advantages are normalized over each rollout batch before optimization.
+We optimize the clipped PPO surrogate \cite{schulman2017ppo} with clipping
+parameter 0.2, add
+one-half the value mean-squared error, and subtract 0.02 times policy entropy.
+The global trainable gradient norm is clipped at 0.5. Adam uses
+$\epsilon=10^{-5}$ and separate actor/value learning-rate groups. The first
+20 updates freeze actor parameters and fit only the critic; the next 500
+updates train both. This warmup is part of the reported budget.
+
+\subsection{Fixed development comparison}
+Each update collects 128 decisions from each of 128 parallel environments and
+uses three minibatch epochs with minibatch size 512. Each model therefore
+receives exactly 8,519,680 simulator decisions in 520 updates. The value
+learning rate is $10^{-4}$. The warm setting uses $T=0.05$ and actor learning
+rate $3\times10^{-6}$; the cold setting uses $T=0.01$ and
+$6\times10^{-7}$. Both settings are trained at seeds 6710001 and 6720001.
+Only the final update-520 checkpoints enter the comparison. Intermediate
+snapshots are retained for accounting and recovery, not strength selection.
+
+The comparison measures the joint effect of temperature and actor learning rate,
+with their ratio held fixed. The settings can produce different sampled
+trajectories, entropy and adaptive optimizer states. Execution is eager float32
+with TF32 disabled. The GPU is an
+NVIDIA GeForce RTX 5070 Ti; the runtime records PyTorch 2.12.0+cu130 and NumPy
+2.5.4. Evaluation is kept separate from training.
+
+\subsection{Implementation and inference cost}
+A shared C++/CUDA transition core runs the same rules on CPU and GPU. Differential
+checks compare transitions and observation features with the Python reference and
+published model inputs; checkpoints retain the complete state for exact restart.
+The adapted actor retains greedy, search-free deployment. On a Ryzen 9 9900X
+with two CPU threads, the canonical model averages 1.585 ms per cached-state
+decision, including feature construction and public assistance. The original
+RL-WP agent averages 1.974 ms on the same corpus. Appendix~\ref{app:systems}
+reports the validation corpus, separate training budgets and timing procedure.
+
+\subsection{Match-evaluation protocol}
+\subsubsection{Duplicate deals and uncertainty}
+For each seed we play two matches with candidate/opponent seats exchanged,
+retaining the same seat-assigned deal streams and initial dealer. If the
+candidate's two match scores are $w_{i0},w_{i1}\in\{0,1/2,1\}$, the observation
+for inference is $x_i=(w_{i0}+w_{i1})/2$. The reported draw-adjusted win score
+is $\bar x$. We resample whole pairs, not individual match legs, for 5,000
+bootstrap replicates using random seed 99 and linearly interpolated 2.5th and
+97.5th percentiles. Paired method comparisons resample the per-deal differences.
+The intervals quantify deal variation for each fixed model. Results for the
+two training seeds are reported separately.
+
+Point difference is final candidate points minus opponent points, averaged
+across the two seats. Because total points remain 60, this is twice the
+candidate's final-points-minus-initial-30 statistic used in the original paper.
+Positive expected points are reported separately and cannot substitute for a
+win-score criterion. Shared deals across models or opponents do not create
+additional independent deal samples.
+
+\subsubsection{Development and frozen final rules}
+The development study uses 5,000 duplicate pairs with seeds
+7,200,000--7,204,999 for the initial policy and four trained endpoints. An arm
+qualifies only if both training seeds have an absolute win-score 95\% interval
+lower bound above 0.5. A cold-over-warm benefit requires positive lower bounds
+for both paired score differences. Selection chooses cold if it qualifies and
+shows that replicated benefit; otherwise it chooses qualified warm, then
+qualified cold, and otherwise no method. The canonical model always uses
+training seed 6710001 of the selected arm. There is no best-seed ranking.
+
+The selection rules were fixed before this study's outcomes. Earlier development
+explored other methods and included an inconclusive two-seed warm screen at
+1,000 pairs. The present comparison uses fresh training seeds and 5,000 pairs;
+a separate final test provides confirmation after this development process.
+
+The frozen final test evaluates both selected models against assisted RL-WP
+and, separately, assisted RL-Point. Each of four jobs plays 10,000 duplicate
+pairs on seeds 100,000,000--100,009,999: 80,000 matches on 10,000 unique deal
+streams. The primary criterion requires both RL-WP interval lower bounds to
+exceed 0.5. The secondary RL-Point criterion is recorded separately. There is
+no change to the selected checkpoints or comparison budget during this final test.
+All four jobs run to completion. Four two-thread CPU workers run concurrently;
+a separate experiment measures isolated inference latency.
+
+\subsection{Development match results}
+The initialized policy reproduces the comparator's paired outcomes on all
+5,000 development deals: a win score of 0.5 and a point difference of zero.
+The trained endpoints then separate the two adaptation settings.
+
+\begin{table}[ht]
+\centering\small
+\input{generated/development_table.tex}
+\caption{Development results against assisted RL-WP. Every row uses the same
+5,000 duplicate deal seeds. Point differences use candidate-minus-opponent units.}
+\label{tab:development}
+\end{table}
+
+Both warm seeds qualify under the fixed development rule
+(Table~\ref{tab:development}). Cold qualifies only at the first seed, and its
+second interval includes 50\%. The paired differences favor warm on both
+seeds (Table~\ref{tab:paired}); cold does not meet the replicated-benefit
+criterion. The fixed rule therefore selects warm and the first-seed canonical
+checkpoint. The bundled intervention changes exploration and optimizer step size together.
+
+\begin{table}[ht]
+\centering\small
+\input{generated/paired_table.tex}
+\caption{Paired development differences. Negative values favor warm.}
+\label{tab:paired}
+\end{table}
+
+The earlier warm screen, using training seeds 6681001 and 6691001, produced
+51.275\% [49.725, 52.850] and 51.075\% [49.475, 52.725] on 1,000 shared
+development pairs. Neither cleared the original replicated criterion.
+This earlier screen remains a separate exploratory result.
+
+\subsection{Untouched final evaluation}
+All four fixed evaluations completed, totaling 80,000 matches on the same
+10,000 unique deal seeds. The primary RL-WP criterion passes; the replicated RL-Point criterion fails
+(Table~\ref{tab:final}). Both models and all evaluation deals were fixed before
+this test.
+
+\begin{table}[ht]
+\centering\small
+\input{generated/final_table.tex}
+\caption{Frozen final results. Each row contains 10,000 duplicate pairs;
+all rows share deal seeds. WP and Point denote assisted RL-WP and RL-Point.}
+\label{tab:final}
+\end{table}
+
+Against RL-WP, both selected models' win-score intervals lie above 50\%.
+Their mean point differences are also positive: 2.4203 [2.1224, 2.7133]
+and 2.0221 [1.7159, 2.3171]. Against RL-Point, the canonical seed's score
+interval includes 50\%, while the second seed's interval excludes it.
+The method therefore fails the predeclared both-model secondary win criterion.
+Moreover, both point-difference intervals are negative: -1.8918
+[-2.2427, -1.5386] and -1.9603 [-2.3197, -1.6089]. This distinction between
+match wins and expected points is part of the result. Seed 6710001 remains
+the canonical model, regardless of the second seed's RL-Point result.
+
+\subsection{Longer adaptation: a development comparison}
+\label{sec:duration}
+Two fresh original-WP learners test whether more optimization improves the
+same architecture. Each receives 20 critic-only updates and 4,000 policy
+updates, totaling 65,863,680 decisions. Its 500-policy-update checkpoint is an
+exact prefix of that trajectory, including optimizer and environment state.
+Learning rates, exploration, returns and greedy deployment are unchanged.
+The two short, two long and two retained models play 98,304 matches on 8,192
+shared development deals, with both seats and assisted WP/Point opponents.
+
+Table~\ref{tab:duration-primary} compares the long endpoints with their short
+prefixes and retained comparators. The primary endpoint weights WP and Point
+equally. One simultaneous 95\% bootstrap family covers all four contrasts;
+qualification requires every lower bound to exceed zero. Each resampled block
+retains the two opponents' distinct deals, both seats and every policy.
+Only the second seed's long-minus-short interval excludes zero, so the
+replicated improvement criterion fails.
+
+\begin{table}[htbp]
+\centering\small
+\input{generated/duration_primary_table.tex}
+\caption{Longer-training development win changes in percentage points.
+Intervals are simultaneous across these four comparisons; 10,000 bootstrap
+replicates resample 4,096 compound blocks.}
+\label{tab:duration-primary}
+\end{table}
+
+The additional training improves mixture point margins relative to both short
+and retained models at both seeds: all four descriptive paired intervals are
+positive. The gains over retained models are 0.7847 [0.3480, 1.2129] and
+0.9548 [0.5186, 1.3823] points. Both long endpoints also have individual
+win-score intervals above 50\% against each published opponent
+(Table~\ref{tab:duration-absolute}). These secondary results describe the
+fixed endpoints; they do not replace the primary win-improvement test.
+Point margins against RL-Point remain negative on average. The canonical
+player is retained and the reserved prospective confirmation is unused.
+The experiment measures scaling with training effort, not a new algorithm.
+
+\begin{table}[htbp]
+\centering\small
+\input{generated/duration_absolute_table.tex}
+\caption{Long endpoints on development deals. Intervals are descriptive
+marginal 95\%, not simultaneous across opponents or endpoints.}
+\label{tab:duration-absolute}
+\end{table}
+
+\subsection{Point initialization: points and wins separate}
+\label{sec:point-initialization}
+Changing the initial policy offers another route to adaptation. At each of two
+fresh seeds, we train three arms: original WP with divisor 0.05, original Point
+with divisor 0.05, and original Point with calibrated phase-specific divisors.
+Each receives the same 20 critic-only and 500 policy updates, or 8,519,680
+decisions. Within a seed, initial critic, optimizer, environment and random
+states match; the two Point arms also start from identical actor parameters.
+Deployment uses the unchanged greedy policy and public endgame assistance.
+
+Calibration matches Point's mean normalized action entropy to WP at 0.05 on
+75 source groups from an existing random-play input corpus. The other 25 groups
+are reserved for descriptive validation. Divisors are fixed before training;
+no match outcomes enter calibration. This controls one property of the initial
+sampling policy, while also changing policy-loss derivatives.
+
+The six endpoints and two retained agents play 131,072 matches on 8,192 shared
+development deals. The primary criterion requires calibrated Point to improve
+equal-mixture win score over both WP-fixed and retained controls at both seeds.
+All four simultaneous intervals include zero (Table~\ref{tab:point-primary}).
+Calibrated-minus-fixed Point mixture wins change by $+0.7385$ and $-0.3387$
+percentage points, so the temperature benefit does not replicate either.
+
+\begin{table}[htbp]
+\centering\small
+\input{generated/point_initialization_primary_table.tex}
+\caption{Point-calibrated development win changes in percentage points.
+One simultaneous 95\% family covers all four contrasts; 10,000 bootstrap
+replicates resample 4,096 compound blocks preserving all policies and seats.}
+\label{tab:point-primary}
+\end{table}
+
+Point initialization does improve point margins (Table~\ref{tab:point-points}).
+Both Point arms exceed the WP-fixed and retained controls at both seeds,
+against each opponent and their mixture: all 24 descriptive paired point-change
+intervals have positive lower bounds. The effect therefore appears with both
+fixed and calibrated sampling. Calibration itself reduces the second seed's
+WP point margin relative to Point-fixed by 0.8909 [0.3691, 1.4089] points.
+
+\begin{table}[htbp]
+\centering\small
+\input{generated/point_initialization_points_table.tex}
+\caption{Equal-mixture point-margin improvements under Point initialization.
+Intervals are descriptive marginal 95\%. Margins are candidate minus opponent;
+they are twice the original paper's final-minus-initial point convention.}
+\label{tab:point-points}
+\end{table}
+
+Against published RL-Point, the calibrated endpoints score 50.9155\%
+[50.1219, 51.7212] and 50.8240\% [50.0305, 51.5930] in wins. Their mean point
+margins are $-0.0498$ and $+0.0383$, with both intervals containing zero.
+These descriptive matchup results do not establish the primary gain over
+adapted controls, equivalence or win noninferiority. The canonical player is
+retained and prospective confirmation remains unused.
+
+A diagnostic fixed before outcome inspection tests the six endpoints on the
+old validation inputs. At both seeds and in all four phases, calibrated Point
+has higher entropy at its training divisor, but lower entropy at a common
+0.05 divisor and larger raw score gaps than Point-fixed. Higher sampling
+entropy persists on this corpus without a replicated greedy win benefit.
+The diagnostic measures policy outputs on reused inputs, not causal mediation
+or equality of visited states. Appendix~\ref{app:reproduction} records the
+calibration, computation and complete result bindings.
+
+\subsection{Outcome and margin auxiliary prediction}
+\label{sec:score-auxiliary}
+We compare three Point-initialized conditions at each of two fresh seeds:
+ordinary PPO, auxiliary outcome prediction and auxiliary margin prediction.
+The two prediction tasks share a 65-output head and initialization. Margin
+supervision adds the conditional likelihood within the observed loss, draw or
+win group. Each condition receives the same 20 warmup and 500 policy updates
+and collects 12,800 auxiliary matches; the control performs no auxiliary
+optimization. Appendix~\ref{app:score-auxiliary} gives the losses and procedure.
+
+Margin supervision changes 10.87\% and 8.18\% of greedy choices relative to
+outcome supervision on the fixed validation inputs. Those changes do not
+establish a playing benefit. All six primary simultaneous win-change intervals
+include zero (Table~\ref{tab:aux-primary}). All 24 descriptive win/point
+contrasts against the no-auxiliary and outcome controls also include zero
+across both seeds, both opponents and their mixture.
+
+\begin{table}[htbp]
+\centering\small
+\input{generated/score_auxiliary_primary_table.tex}
+\caption{Equal-mixture development win changes from margin supervision. One simultaneous 95\%
+family covers all six contrasts; 131,072 matches use shared deals and both
+seats. The 10,000-replicate bootstrap resamples 4,096 compound blocks.}
+\label{tab:aux-primary}
+\end{table}
+
+All three Point-initialized conditions exceed the retained WP parents in point
+margin at both seeds and all opponent scopes: all 18 descriptive paired
+intervals have positive lower bounds. Because the no-auxiliary control shares
+this advantage, it does not identify an auxiliary-learning gain. The result
+separates a point-margin advantage from the additional hypothesis
+that finer terminal targets improve action selection at this training budget.

@@ -1,0 +1,33 @@
+\subsection{Incremental population result}\label{sec:incremental-results}
+
+The separate \FrontierIncrementSources{}-source study compares the extension
+with the base controller. Sources follow the same independent uniform-deal
+and seat law as Section~\ref{sec:uniform-results}, with 1,024 matches in each
+parent--opponent population. Every source remains in the denominator. The
+comparison uses the exact increment from independent terminal replay at
+adopted histories, and zero where the complete policies coincide.
+The fixed primary criterion requires positive simultaneous lower bounds for
+both equal-opponent parent mixtures. Table~\ref{tab:frontier-increment} reports
+the complete cohort; Appendix~\ref{app:frontier} records the scope correction,
+all source outcomes and computational work.
+
+\begin{table}[htbp]
+\centering\small
+\input{generated/frontier_increment_primary_table.tex}
+\caption{Frontier extension minus base controller: expected terminal win-score
+increments in percentage points. Bounds are simultaneous at 95\% across the
+four populations; the fixed equal-weight mixtures inherit that coverage.
+All 4,096 sources contribute, including missing roots and unchanged policies.
+Lower bounds are rounded downward.}
+\label{tab:frontier-increment}
+\end{table}
+
+The primary criterion is \FrontierIncrementCriterion{}. All four individual
+population lower bounds are also positive. The extension improves 26 source
+beliefs, with equal-opponent means of \FrontierIncrementMeanOne{} and
+\FrontierIncrementMeanTwo{} percentage points. Thus a failed root reference
+can conceal a recoverable improvement in naturally reached play. The measured
+increment is small, and realized match-score differences are zero in every
+population. The earlier base-controller 0.1-point criterion remains a separate
+failed test. Additional planning uses 111,874,298 physical transitions across
+this cohort, within the unchanged maximum per-root allowance.

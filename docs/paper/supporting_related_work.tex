@@ -1,0 +1,53 @@
+\section{Related work for the supporting studies}
+\label{app:supporting-related}
+\subsection{Earlier Koi-Koi agents}
+Sato and Ikeda compared policy gradients with Neural Fitted Q Iteration using
+268 features and simplified scoring \cite{sato2017koikoi}. Nagamine and Suzuki
+used rollout rewards for fast-finishing and blocking strategies, with koi-koi
+continuation disabled \cite{nagamine2021strategy}. Their proposed switching
+between objectives motivates our comparison of learned selectors and fixed
+card/koi roles, including continuation decisions. Takaoka et al. adapt UCT
+choices to the score to keep games close and study enjoyment
+\cite{takaoka2018fun}; their objective differs from match-win optimization.
+
+\subsection{Adapting action scores and exploration}
+Policy distillation trains a student on temperature-scaled teacher scores
+\cite{rusu2016distillation}. We optimize the inherited actor directly with
+match rewards. Discrete SAC derives categorical maximum-entropy learning
+\cite{christodoulou2019discrete}, and target-entropy scheduling adapts exploration
+\cite{xu2021entropy}. Our fixed score divisors test how published scores transfer
+into match-trained policies. One-head and four-head calibration change both
+sampling and policy-loss derivatives (Appendices~\ref{app:temperature}
+and~\ref{sec:point-initialization}).
+
+\subsection{Self-play and strategic interaction}
+Neural Fictitious Self-Play learns best responses and average strategies
+\cite{heinrich2016nfsp}; Policy-Space Response Oracles respond to population
+mixtures selected through an empirical game \cite{lanctot2017psro}.
+Counterfactual regret minimization connects local regret to approximate
+equilibrium in two-player zero-sum games with perfect recall
+\cite{zinkevich2007cfr}. Our current-policy self-play measures fixed-opponent
+matchups; it supplies no exploitability analysis.
+
+\subsection{Guided adaptation and policy selection}
+Bayesian Policy Reuse selects policies from observed task signals
+\cite{rosman2016reuse}; DRON learns opponent-dependent responses from opponent
+observations \cite{he2016opponent}. Our public/masked comparison isolates the
+recovered identity's contribution. Jump-Start Reinforcement Learning constructs
+starting-state curricula with a guide \cite{uchendu2023jump}. Our fixed parent
+prefixes similarly isolate adaptation after reaching the final round or
+public identification.
+
+Classification-based policy iteration \cite{lagoudakis2003classification},
+adaptive rollout allocation \cite{dimitrakakis2008rollout} and reward-sensitive
+classification \cite{langford2005classification} connect rollout outcomes to
+policy learning. DAgger and AggreVaTe address the changing observation
+distribution through interactive learning \cite{ross2011dagger,ross2014aggrevate}.
+Our selector fits one fixed-source dataset before complete-match evaluation.
+Proposals share hidden cards and future deals; this common-random-number
+coupling can reduce comparison variance \cite{yadav2026common}.
+
+Comanici and Precup learn switching through option termination
+\cite{comanici2010switching}. Our decision-level selectors and fixed card/koi
+hybrids test whether point-oriented and win-oriented experts provide useful
+alternatives for match optimization.

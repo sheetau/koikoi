@@ -50,36 +50,39 @@ interim effects. v1 recorded complete planning was 1,649,050 transitions; one
 interrupted worker's unsaved partial work remains unknown, not zero.
 Full provenance: FRONTIER_INCREMENTAL_SCOPE_AMENDMENT.rst.
 
-## Final manuscript and validation
+## Current manuscript and user documentation
 
-Title: Verified Policy Improvement from Public Play in Koi-Koi.
-The manuscript now includes the complete incremental result, original base
-result and all failed criteria. Abstract and Introduction lead with the
-construction and measured benefit. Related Work has 48 cited references across
-the paper and distinguishes the concrete public-history partition, complete
-programs and budgeted composition from established policy-improvement and
-safe-game-solving principles. Figure 2 explains the construction next to its
-gain decomposition. Development evidence remains separate from population
-evidence. Supporting analyses are in appendices.
+The reader-focused revision reduces the main text from 19 to 10 pages.
+Appendices start on page 11; the full PDF remains 49 pages and cites 48
+references. Abstract and Introduction lead with the computation bottleneck,
+the frontier construction and the verified recovery capability. Section 4 /
+Figure 1 presents the central method before parent adaptation details.
+Section 7 discusses coverage, computational cost and transfer conditions.
+All training and supporting result tables remain in appendices.
 
-Final PDF: output/pdf/manuscript.pdf, 49 pages; main text ends on page 19,
-appendices start on page 20. All pages rendered/contact-reviewed; nine focus
-pages inspected full size. 32 embedded fonts; no layout, glyph, bibliography
-or cross-reference defects. PDF SHA 061ba210ec4226c163def99d2d31936c72359edde4461949f6085e5f839870b5.
-QA and source bindings: paper/generated/frontier_final_revision_evidence.json.
-The previous 43-page canonical PDF is superseded; old QA is historical.
+README.md is now English only and organized around play, setup, key research
+results and development links. Detailed commands moved to docs/USAGE.md.
+The trained checkpoint requirement and upstream-opponent alternatives are
+explicit. No game, dealer, model or search implementation changed.
 
-Existing tests were checked without overwriting frozen reports: frontier core
-16, hybrid 6, next-discard 21, incremental pipeline 12, ledger 5, scope repair
-13 and manuscript exporter 15, all passed. The completed evaluation itself
-independently checks every source and adopted continuation. All 152 frozen
-inputs and 154 prerequisites still match. No new training or test-set extension
-was run during final transcription.
+Final PDF: output/pdf/manuscript.pdf.
+SHA256 c43ba65ce4965fedb148dc08942c8def17f9f613a9dcc43c1836afb8830bbc70.
+All 49 pages rendered/contact-reviewed; pages 1/4/8/9/10/12/42/44 inspected
+full size. All 32 fonts are embedded; no layout, glyph, bibliography or
+cross-reference defects. English-only README and local links checked.
+Current QA: paper/generated/reader_revision_evidence.json. The earlier
+frontier_final_revision_evidence.json describes the superseded 19-page-main
+version and remains a historical record.
 
-The prior goal turn was a verified wait. This milestone closes the evaluation,
-integrates its complete evidence and verifies the final manuscript. No study
-is currently running. Submission, external artifact release, general-opponent
-robustness and equilibrium/world-best claims are outside this completed result.
+All 72 existing generated evidence files are byte-identical to the preceding
+commit. All 152 frozen evaluation inputs and 154 prerequisites still match.
+This revision adds no new experiments, training or measured strength claims.
+Previously passed implementation/exporter tests remain recorded with the
+closed studies; prose-only edits were checked by building, rendering and
+validating references, evidence preservation and source bindings.
+
+No study is running. Submission and external artifact publication remain
+separate from this completed source revision.
 
 ## Historical closed experiments
 

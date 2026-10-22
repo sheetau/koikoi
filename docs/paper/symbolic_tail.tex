@@ -34,44 +34,6 @@ certificate's predicted outcome. Common completed roots must also retain their
 exact values and explicit actions; every omitted history is checked against
 the public certificate.
 
-A synthetic three-draw fixture illustrates the resulting coverage change.
-With a final-round six-point lead, fixed-continuation evaluation falls from
-9,034 to 1,258 native transitions, and contingent evaluation from 9,082 to 1,306.
-The selected maps shrink from 462 to six entries and from 251 to six entries,
-respectively, plus the parent rule. At a cap of 1,258 transitions per phase,
-the explicit controller cannot complete its parent reference. The compressed
-program completes that reference at $204/275$ and retains a candidate valued
-$461/550$, an independently verified gain of $53/550$ at the same first action.
-
-We separately evaluated the opponent-only loss certificate on all 512 saved
-prospective sources under their original allowances
-(Appendix~\ref{app:incumbent-development}). It reduces physical
-planning transitions by 2.0191\% for the controller and 1.2086\% for root-only
-search. Parent-value coverage, adopted policies, conditional gains and realized
-scores are unchanged. This complete-cohort computational comparison adds no
-source matches; its report is \path{docs/CERTIFIED_TAIL_REPLAY_RESULTS.rst}.
-
-Adding the executable own-win rule to that baseline expands coverage under
-the same caps (Table~\ref{tab:symbolic-comparison}). Controller parent references
-increase from 226 to 231 of 237 eligible roots, and adoptions from 83 to 86.
-Root-only parent references increase from 233 to 236, with 56 adoptions in both
-versions. Physical planning transitions fall by 8.84\% and 19.11\%, respectively.
-All 978 common completed root values and their retained explicit decisions
-match. Compression omits 3,217,165 entries across these programs, each checked
-against the public certificate; this count is not a count of unique histories.
-
-\input{generated/symbolic_comparison_table.tex}
-
-The controller's mean conditional gains over its two parents rise to 0.2651 and
-0.3290 percentage points, retaining all 256 sources per parent in the denominator.
-Every realized win score and final point margin is unchanged from the
-opponent-only baseline. Independent Python verification executes 74,652,353
-transitions through terminal scoring, separately from planning. Operational
-planning times are 7,599 and 5,745 seconds versus 7,076 and 5,494 for the baseline;
-these separate concurrent runs do not establish a latency reduction. The result
-is greater certified coverage with fewer native planning transitions. It adds
-no source matches or fresh strength test; the original actual-win criterion
-remains unmet.
-
-Full counts appear in
-\path{docs/SYMBOLIC_TAIL_REPLAY_RESULTS.rst}.
+Appendix~\ref{app:symbolic-development} reports a cap-limited example and the
+complete 512-source replay. Compression reduces native planning transitions
+and expands certified coverage there; it does not establish a latency reduction.

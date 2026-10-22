@@ -2,30 +2,31 @@ Manuscript working files
 ========================
 
 This is an English research manuscript, not a submitted or published paper.
-The completed research revision is 49 pages including appendices, with
-48 cited references. The main text ends on page 19; appendices start on page 20.
 Title: "Verified Policy Improvement from Public Play in Koi-Koi."
-Source-body whitespace token counts: Abstract 176, Introduction 477,
-Conclusion 177. These counts exclude headings and expand no TeX macros.
+The reader-focused revision has 10 pages of main text, down from 19.
+Appendices begin on page 11; the complete document remains 49 pages with
+48 cited references. Source-body whitespace token counts are Abstract 181,
+Introduction 387 and Conclusion 112 (headings excluded; TeX macros unexpanded).
 
-The paper leads with executable improvement from own/public information.
-Its next-discard frontier construction reconstructs complete arrival beliefs,
-adopts certified local programs and composes their gains without completing
-the root reference. The public prefix bound, proof, algorithm schematic and
-independent terminal verification describe the concrete contribution.
-Related Work distinguishes it from parallel rollout, policy switching and
-safe equilibrium-oriented game decomposition. Supporting analyses and failed
-experiments remain in appendices.
+Abstract and Introduction follow problem, construction and demonstrated
+capability: recover verified policy changes even when the parent root value
+cannot be completed. Section 4 and Figure 1 present the frontier construction
+and conditional gain. Section 5 supplies complete programs and certificates;
+Section 6 groups the two population studies. Section 7 explains value,
+coverage, computational priorities and conditions for transfer to other games.
+Training, representation analyses and supporting experiments are in appendices.
+The empirical claims, numerical exports and closed evaluation protocols are
+unchanged. The added transfer and optimization directions are proposals.
 
 Complete population results
 ---------------------------
 
-Section 6.5/Table 3 reports the 8,192-source base-controller study. Expected
+Section 6.2/Table 1 reports the 8,192-source base-controller study. Expected
 equal-opponent mixture gains are 0.2819/0.2143 percentage points, with positive
 simultaneous 95% lower bounds in all four parent/opponent populations. The
 joint requirement that both mixture bounds exceed 0.1 pp FAILED and stays closed.
 
-Section 6.6/Table 4 reports the separate 4,096-source frontier-minus-base study.
+Section 6.3/Table 2 reports the separate 4,096-source frontier-minus-base study.
 Mixture means are 0.00128453040128/0.000783992686854 pp; simultaneous lower bounds
 are 0.0000469040321186/0.00000947225553682 pp. Both positive-mixture primary
 criteria PASSED; all four secondary population bounds are positive too.
@@ -33,7 +34,7 @@ The extension improves 26 source beliefs. Each realized score difference is
 zero. The additional expected effect is small, and actual planning increases
 by 111,874,298 physical transitions within the existing maximum allowance.
 All 15 sources acquired before a mechanical gate-scope correction are retained
-at their original indices; 4,081 were acquired afterward. Appendix O records
+at their original indices; 4,081 were acquired afterward. Appendix S records
 the amendment, development screen, full denominator and separate work.
 
 Complete-source exporters were executed successfully once::
@@ -61,16 +62,17 @@ Final PDF and checks
 --------------------
 
 Reviewed output: output/pdf/manuscript.pdf.
-SHA256 061ba210ec4226c163def99d2d31936c72359edde4461949f6085e5f839870b5.
-All 49 pages rendered/contact-reviewed; pages 1/2/13/14/19/20/42/43/44 inspected
+SHA256 c43ba65ce4965fedb148dc08942c8def17f9f613a9dcc43c1836afb8830bbc70.
+All 49 pages rendered/contact-reviewed; pages 1/4/8/9/10/12/42/44 inspected
 full size. All 32 fonts embedded; no page-bound, TeX box, missing-glyph,
 reference or bibliography defects. The longstanding Fontconfig notice does
-not affect the rendering. Final QA and all manuscript-source bindings:
-generated/frontier_final_revision_evidence.json. Earlier draft/final QA files
-are historical snapshots, not validators for this superseding output.
-All 152 evaluation inputs and 154 prerequisites remain frozen and verified.
-Human play and dealer selection are unchanged; the costly research controller
-is not part of the default playable actor. No evaluation workers remain.
+not affect rendering. Current QA and manuscript-source bindings:
+generated/reader_revision_evidence.json. Earlier QA files, including
+frontier_final_revision_evidence.json, are historical snapshots.
+All 72 prior generated evidence files are byte-identical, and all 152
+evaluation inputs and 154 prerequisites remain frozen and verified.
+Human play and dealer selection are unchanged. No new training or evaluation
+was performed for this editorial revision.
 
 From the repository root, regenerate the numerical tables and evidence ledger::
 

@@ -4,6 +4,35 @@ Earlier observations and plans are retained below. Consult STATUS.md for live jo
 
 # Experiment history
 
+## 22 October 2026: reader-focused manuscript and English user README
+
+Editorial revision only. Main text reduced from 19 to 10 pages; appendix
+starts at 11, total 49 pages, 48 references. Abstract / Introduction /
+Conclusion source token counts: 181 / 387 / 112. The frontier construction
+now precedes base-controller details; training and supporting analyses move
+to appendices. Discussion quantifies the coverage bottleneck (26/60 targeted
+cases, 26/4,096 overall) and proposal work (82.7% of additional transitions),
+and gives explicit transfer conditions and fresh-evaluation requirements.
+No new strength or efficiency result is claimed.
+
+Root README rewritten in English for users; detailed training/evaluation
+commands preserved in USAGE.md. Checked local links and absence of Japanese
+text. Game, dealer and model behavior remain unchanged.
+
+Built with `external/tectonic/tectonic.exe --keep-logs --outdir tmp/pdfs/frontier_revision docs/paper/manuscript.tex`.
+All 49 pages rendered/contact-reviewed; pages 1/4/8/9/10/12/42/44 inspected at
+full size. All 32 fonts embedded; no missing references, duplicate active
+labels, glyph defects, TeX boxes or out-of-page text. Final whitespace cleanup
+produced identical page images. QA: paper/generated/reader_revision_evidence.json.
+PDF SHA c43ba65ce4965fedb148dc08942c8def17f9f613a9dcc43c1836afb8830bbc70.
+
+All 72 prior generated files checked byte-for-byte against ba97f36.
+`scripts.frontier_scope_study.check(Path("runs/frontier_incremental_scope_v2"))`
+passed: 152 fixed inputs and 154 prerequisites. Existing implementation test
+reports retained; no runtime changes required another test run. No experiment
+was restarted or extended. Previous manuscript QA remains historical.
+
+
 ## 22 October 2026: incremental improvement established and final manuscript verified
 
 The previous goal turn was a verified wait on session 45405. On reinspection,
