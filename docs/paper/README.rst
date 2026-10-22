@@ -2,91 +2,75 @@ Manuscript working files
 ========================
 
 This is an English research manuscript, not a submitted or published paper.
+The completed research revision is 49 pages including appendices, with
+48 cited references. The main text ends on page 19; appendices start on page 20.
+Title: "Verified Policy Improvement from Public Play in Koi-Koi."
+Source-body whitespace token counts: Abstract 176, Introduction 477,
+Conclusion 177. These counts exclude headings and expand no TeX macros.
 
-Current working draft: 47 pages including appendices, 48 cited references.
-Abstract 174 words, Introduction 463 words, Conclusion 165 words; main text
-ends on page 19, down from 21. Title: "Verified Policy Improvement from Public
-Play in Koi-Koi." This is a development-method and readability revision;
-the separate 4,096-source incremental population evaluation is still running.
+The paper leads with executable improvement from own/public information.
+Its next-discard frontier construction reconstructs complete arrival beliefs,
+adopts certified local programs and composes their gains without completing
+the root reference. The public prefix bound, proof, algorithm schematic and
+independent terminal verification describe the concrete contribution.
+Related Work distinguishes it from parallel rollout, policy switching and
+safe equilibrium-oriented game decomposition. Supporting analyses and failed
+experiments remain in appendices.
 
-The draft leads with the executable public-information controller and its
-next-discard frontier extension. A complete parent prefix supplies exact
-arrival beliefs; locally certified continuations combine into a root-level
-gain without completing the root reference. Four of eight fixed development
-roots acquire 92 verified local programs. This is development evidence, not
-an estimate of the extension's population effect. Section 6.6 and Appendix O
-give the construction, proof, public prefix bound, budgets and complete work.
-The amended evaluation retains all 15 previously acquired sources at their
-original indices and acquires the other 4,081 after the corrected freeze.
+Complete population results
+---------------------------
 
-Section 6.5/Table 3 retains the completed 8,192-source BASE-controller result:
-positive simultaneous 95% lower bounds in all four parent/opponent populations.
-Equal WP/Point mixture means are 0.2819/0.2143 percentage points; lower bounds
-rounded down are 0.1130/0.0886. The joint requirement that both exceed 0.1 pp
-FAILED. Appendix M preserves the matching-law argument and full denominator.
-This closed cohort excludes the frontier extension and must not be extended.
+Section 6.5/Table 3 reports the 8,192-source base-controller study. Expected
+equal-opponent mixture gains are 0.2819/0.2143 percentage points, with positive
+simultaneous 95% lower bounds in all four parent/opponent populations. The
+joint requirement that both mixture bounds exceed 0.1 pp FAILED and stays closed.
 
-Related Work now includes parallel rollout and safe game decomposition,
-distinguishing fixed-opponent terminal-value improvement from equilibrium
-or exploitability guarantees. General policy improvement is established prior
-work. The proposed contribution is the bounded public-history construction,
-complete local programs and verified composition under one shared allowance.
-Critic analysis, early controller screens and auxiliary-learning context move
-to appendices; all numerical results, controls and failed criteria are retained.
+Section 6.6/Table 4 reports the separate 4,096-source frontier-minus-base study.
+Mixture means are 0.00128453040128/0.000783992686854 pp; simultaneous lower bounds
+are 0.0000469040321186/0.00000947225553682 pp. Both positive-mixture primary
+criteria PASSED; all four secondary population bounds are positive too.
+The extension improves 26 source beliefs. Each realized score difference is
+zero. The additional expected effect is small, and actual planning increases
+by 111,874,298 physical transitions within the existing maximum allowance.
+All 15 sources acquired before a mechanical gate-scope correction are retained
+at their original indices; 4,081 were acquired afterward. Appendix O records
+the amendment, development screen, full denominator and separate work.
 
-Development exporter (use a new review directory for each reproduction)::
-
-    .venv/Scripts/python.exe -m scripts.export_frontier_development_paper --review-folder runs/frontier_paper_validation_reproduction
-
-It re-runs all three complete development/integration reviews and requires
-exact equality with the accepted reports before generating constants, table
-and frontier_development_evidence.json. The completed uniform-study exporter
-scripts/export_uniform_paper_evidence.py independently re-reduces that cohort;
-its existing immutable numerical exports remain unchanged.
-
-Final incremental result transcription (after all 256 chunk audits)::
+Complete-source exporters were executed successfully once::
 
     .venv/Scripts/python.exe -m scripts.export_frontier_scope --base runs/frontier_incremental_scope_v2
     .venv/Scripts/python.exe -m scripts.export_frontier_scope_paper --base runs/frontier_incremental_scope_v2 --destination docs/paper/generated
 
-The first command re-reduces the complete cohort and creates its result report.
-The second pins the amended protocol, re-reduces all audited sources again,
-checks the report/export bindings and 15-retained/4,081-new denominator, then
-creates frontier_increment_primary_table.tex, frontier_increment_actual_table.tex,
-frontier_increment_constants.tex and frontier_increment_results_evidence.json.
-It exports successful and unsuccessful criteria alike, refuses incomplete or
-changed evidence and never overwrites an existing export. Tiny positive bounds
-use scientific notation with six significant digits, rounded downward;
-exact fractions determine the criterion. The evidence ledger keeps full work,
-status and threshold counts. These outputs do not exist while the study runs.
-Exporter validation: 15 tests passed; an explicitly synthetic one-page TeX
-fixture was rendered and inspected. See generated/frontier_transcription_validation.json.
+Both independently re-reduce the complete audited cohort. Existing exports
+are immutable and those commands refuse overwrites. Generated constants,
+primary/actual tables and frontier_increment_results_evidence.json bind the
+protocol, source summary, report and exporter. Tiny lower bounds use scientific
+notation and downward rounding; exact fractions decide success. The full report
+is ../FRONTIER_INCREMENTAL_RESULTS.rst. Exporter validation retains 15 passed
+tests in generated/frontier_transcription_validation.json.
 
-Figure 2 now illustrates the complete common prefix and three continuation
-classes: certified local program, unchanged parent, or already terminal.
-It connects the construction to the gain decomposition immediately below.
-All abstract/introduction/conclusion prose and numerical results are unchanged.
+The earlier development exporter independently rechecks all three closed
+development/integration reviews; its accepted outputs remain unchanged::
 
-Draft QA: runs/manuscript_frontier_figure_qa.json and
-generated/frontier_figure_revision_evidence.json. All 47 pages rendered and
-contact-reviewed; pages 13/19/41/42/43 inspected at full size. The new diagram's
-box padding was corrected and the full document rebuilt and re-rendered.
-32 embedded fonts; no page-bound, TeX box, glyph, reference or bibliography
-defects. The existing Fontconfig notice is unchanged. Frozen study inputs
-and prerequisites were verified unchanged after this paper-only revision.
-The preceding 46-page draft's QA remains a historical source snapshot.
+    .venv/Scripts/python.exe -m scripts.export_frontier_development_paper --review-folder runs/frontier_paper_validation_reproduction
 
-Reviewed preview: tmp/pdfs/frontier_revision/manuscript.pdf; SHA256
-7eba5d50a418bd9a6597be0eccdbc0af70179c446e49d0e82a2b92f0f15f9704.
-The previously delivered output/pdf/manuscript.pdf is UNCHANGED (43 pages,
-46 references; historical QA in generated/uniform_results_revision_evidence.json).
-Its SHA256 is a2c023c8085fe9fa01f755a6e0621442898ae1898ecbf5c0de1f387e6ebb4c0a.
-The final delivered PDF will be rebuilt after complete incremental results
-are incorporated. The preview is not a completed final-results manuscript.
+Use a new review directory when reproducing that review. The eight development
+roots and their 92 local programs are distinct from population-effect evidence.
 
-The stronger-play goal remains active. Dealer selection and human play are
-unchanged. Current decisions are in docs/STATUS.md; historical notes below
-are not a live-job inventory.
+Final PDF and checks
+--------------------
+
+Reviewed output: output/pdf/manuscript.pdf.
+SHA256 061ba210ec4226c163def99d2d31936c72359edde4461949f6085e5f839870b5.
+All 49 pages rendered/contact-reviewed; pages 1/2/13/14/19/20/42/43/44 inspected
+full size. All 32 fonts embedded; no page-bound, TeX box, missing-glyph,
+reference or bibliography defects. The longstanding Fontconfig notice does
+not affect the rendering. Final QA and all manuscript-source bindings:
+generated/frontier_final_revision_evidence.json. Earlier draft/final QA files
+are historical snapshots, not validators for this superseding output.
+All 152 evaluation inputs and 154 prerequisites remain frozen and verified.
+Human play and dealer selection are unchanged; the costly research controller
+is not part of the default playable actor. No evaluation workers remain.
 
 From the repository root, regenerate the numerical tables and evidence ledger::
 

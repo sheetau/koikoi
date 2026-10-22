@@ -6,6 +6,7 @@
 \usepackage{microtype,graphicx,placeins}
 \input{generated/observer_trace_constants.tex}
 \input{generated/frontier_development_constants.tex}
+\input{generated/frontier_increment_constants.tex}
 \renewcommand{\topfraction}{0.85}
 \renewcommand{\textfraction}{0.1}
 \renewcommand{\floatpagefraction}{0.8}
@@ -20,25 +21,24 @@ in Koi-Koi}
 \begin{document}
 \maketitle
 \begin{abstract}
-We construct an endgame controller for Koi-Koi that uses own and public
-observations to retain verified policy improvements under a finite computation
-budget. Its frontier
-extension recovers local improvements even when the reference policy's root
-value remains unresolved. The controller identifies a fixed opponent from
-completed hands, reconstructs complete hidden-card beliefs, and executes the
-contingent policy it evaluated. Public outcome certificates compress guaranteed
-continuations. A complete partition at the next learner discard then supports
-local value comparisons whose gains combine into a root-level guarantee.
-The base controller improves expected terminal win score in all four
-parent--opponent populations of an 8,192-source uniform-deal evaluation:
+We construct an endgame controller for Koi-Koi that retains verified policy
+improvements under a finite computation budget. Its frontier extension
+recovers local improvements even when the reference policy's root value
+remains unresolved. The controller identifies a fixed opponent from completed
+hands, reconstructs hidden-card beliefs from own and public observations, and
+executes the contingent policy it evaluated. Public outcome certificates
+compress guaranteed continuations. A complete partition at the next learner
+discard supports local comparisons whose gains combine into a root-level
+guarantee. In an 8,192-source uniform-deal evaluation, the base controller's
 equal-opponent mixture gains average 0.2819 and 0.2143 percentage points.
-Simultaneous 95\% lower bounds are positive in every population, although the
-joint 0.1-point mixture criterion is not met. In a separate development screen,
-the frontier extension recovers \FrontierAdoptedNodes{} local improvements at
-\FrontierPositiveRoots{} of \FrontierRootCount{} selected reference-refusal
-roots. Independent terminal replay verifies the gains. Terminal-match self-play
-supplies two adapted Transformer parents, scoring 51.480\% and 51.445\%
-against assisted RL-WP on held-out duplicate deals.
+Simultaneous 95\% lower bounds are positive in all four parent--opponent
+populations; the joint 0.1-point mixture criterion is unmet. A separate
+4,096-source evaluation establishes a further expected gain from the frontier
+extension for both parents, averaging 0.00128 and 0.000784 percentage points
+over the base controller. The extension improves 26 source beliefs; realized match scores
+are unchanged. Independent terminal replay verifies its gains. Terminal-match
+self-play supplies two adapted Transformer parents, scoring 51.480\% and
+51.445\% against assisted RL-WP on held-out duplicate deals.
 \end{abstract}
 
 \section{Introduction}
@@ -80,13 +80,15 @@ percentage points; the prespecified requirement that both mixture lower bounds
 exceed 0.1 is not met (Section~\ref{sec:uniform-results}). Every source remains
 in the denominator, including zero for missing roots and parent fallbacks.
 
-The frontier extension addresses a different question: whether a failed root
-reference must prevent any improvement. It recovers \FrontierAdoptedNodes{}
-local programs at \FrontierPositiveRoots{} of \FrontierRootCount{} fixed
-development roots where the base controller retained the parent. Full Python
-replay independently verifies the complete posteriors and local values.
-These witnesses establish the construction's benefit; its incremental
-population evaluation is a separate study (Appendix~\ref{app:frontier}).
+A separate \FrontierIncrementSources{}-source evaluation establishes the
+frontier extension's incremental benefit over that base controller. Both
+parents' equal-opponent mixtures have positive simultaneous lower bounds,
+with mean gains of 0.00128 and 0.000784 percentage points. The extension
+improves 26 source beliefs, verified through independent full terminal replay.
+These small gains concern expected outcomes over supported continuations;
+the realized match scores in this cohort are unchanged. Section~\ref{sec:frontier}
+reports the complete result, and Appendix~\ref{app:frontier} gives the
+development witnesses and evaluation amendment.
 
 The parent actors improve through terminal-match self-play. We convert the
 released action scores into a sampling policy and optimize it with PPO
@@ -776,14 +778,15 @@ Equal-opponent mixture means are 0.2819 and 0.2143 percentage points.
 The joint practical-gain criterion remains unmet. Terminal-match self-play
 also supplies two adapted parents that beat assisted RL-WP on held-out deals.
 
-The frontier extension removes the need to finish the parent's value at every
-eligible root. It constructs complete future beliefs, adopts individually
-certified continuations and combines their gains through a disjoint arrival
-partition. Independent replay verifies \FrontierAdoptedNodes{} local programs
-at \FrontierPositiveRoots{} of \FrontierRootCount{} fixed development roots
-that previously admitted no improvement. This extends what the controller can
-retain under its maximum allowance. Its incremental population effect is being
-measured in the separate fixed-cohort evaluation.
+The frontier extension constructs complete future beliefs and combines
+certified local gains through a disjoint arrival partition. It thereby recovers
+improvements without completing the root reference. The independent
+\FrontierIncrementSources{}-source study establishes positive expected
+increments over the base controller for both parent mixtures. Their means,
+0.00128 and 0.000784 percentage points, are small; realized scores are unchanged.
+This result demonstrates an executable way to recover useful continuations
+within the existing maximum allowance. Increasing the frequency and size of
+those gains while reducing actual search work is the next practical challenge.
 
 \appendix
 \section{Reproduction and evidence}
@@ -812,6 +815,7 @@ Temperature and directions & \path{temperature_directional_evidence.json} \\
 Prospective endgame planning & \path{prospective_incumbent_evidence.json} \\
 Uniform-deal expected improvement & \path{uniform_results_evidence.json} \\
 Frontier development and integration & \path{frontier_development_evidence.json} \\
+Frontier incremental improvement & \path{frontier_increment_results_evidence.json} \\
 \bottomrule
 \end{tabular}
 \caption{Evidence map. Each ledger identifies the underlying inputs and outputs;

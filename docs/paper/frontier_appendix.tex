@@ -96,18 +96,73 @@ match the independently verified next-discard screen. The generated ledger
 \path{docs/paper/generated/frontier_development_evidence.json} binds the three
 complete reviews and their numerical exports.
 
-\subsection{Incremental population-evaluation protocol}
-A separate 4,096-source study compares the extension with the base controller,
-using 1,024 sources per parent/opponent population. Each source contributes its
-exact conditional increment, including zero for identical programs. The primary
-criterion requires positive simultaneous lower bounds for both fixed
-equal-opponent mixtures. This test is distinct from the closed base-controller
-study's 0.1-point practical criterion.
+\subsection{Complete incremental population evaluation}
+The fixed study contains \FrontierIncrementSources{} sources, 1,024 per
+parent--opponent population. Its contrast is the frontier extension minus
+the base controller. A source contributes the exact conditional increment
+from the complete local-value decomposition, or zero for identical policies.
+The primary criterion requires positive simultaneous lower bounds for both
+fixed equal-opponent mixtures. This is distinct from the closed
+base-controller study's 0.1-point practical criterion.
 
+The threshold construction of Appendix~\ref{app:uniform-law} uses the following fixed grid in win-score units:
+\[
+\{10^{-6},10^{-5},10^{-4},10^{-3},10^{-2},10^{-1},1/2\}.
+\]
+The family error $1/20$ is split across four populations and seven thresholds.
+Exact binomial tail inversion gives downward-rounded 32-bit probability
+bounds. Integrating the resulting lower step function yields each population
+mean bound; averaging the two relevant bounds gives the fixed-mixture bound.
+All 256 chunks passed independent source, posterior, program and value audits
+before inference. Complete-source re-reduction agrees with the saved summary.
+
+\paragraph{Acquisition amendment.}
 An entry-scope error was corrected after 15 sources: forced steps can skip the
 five-draw decision, while the source gate includes shorter tails. Corrected
-dispatch keeps the base controller there. All 15 sources remain at their
-original indices; the other 4,081 are sampled after the correction. Provenance
-and separate work ledgers are specified in
-\path{docs/FRONTIER_INCREMENTAL_SCOPE_AMENDMENT.rst}. The evaluation is ongoing;
-no incremental population estimate is reported here.
+dispatch keeps the base controller there. All 15 sources remain byte-for-byte
+at their original indices; the other 4,081 were sampled after the correction.
+No source was discarded or resampled, and the original denominator, selected
+five-draw method, budgets and statistical criterion were retained. The failed
+run and amendment are recorded in
+\path{docs/FRONTIER_INCREMENTAL_SCOPE_AMENDMENT.rst}.
+
+Of 4,096 sources, 2,153 have no eligible root and 1,943 reach evaluation.
+The base controller has 626 strict-gain selections, 1,257 no-gain decisions
+and 60 unresolved parent references. The extension preserves the first two
+classes and improves 26 of the unresolved-reference cases. The complete
+population table is Table~\ref{tab:frontier-increment}. Both primary mixture
+bounds and all four secondary population bounds are positive. Actual execution
+and independent replay give zero realized score difference in all populations
+(Table~\ref{tab:frontier-actual}); these descriptive outcomes are separate from
+the conditional-expectation inference.
+
+\begin{table}[htbp]
+\centering\small
+\input{generated/frontier_increment_actual_table.tex}
+\caption{Realized terminal win-score differences on the retained actual deals,
+in percentage points. These are descriptive paired outcomes, not the expected
+increments in Table~\ref{tab:frontier-increment}.}
+\label{tab:frontier-actual}
+\end{table}
+
+\paragraph{Computational work.}
+The base controller executes 901,397,514 physical transitions in its fixed
+phase and 1,013,583,010 in its optimized phase. Additional prefix, proposal and local-reference work
+uses 370,024, 92,499,292 and 19,004,982 transitions: 111,874,298 in total.
+This is increased actual work within the existing maximum allowance, not
+a latency improvement. Independent prefix verification executes 370,024
+transitions, representing 1,054,701,450 weighted decisions. Full local-value
+verification executes 12,067,877 transitions, representing 79,200,636 decisions.
+Actual suffix execution and recorded-action replay each use 14,730 transitions
+over 3,886 completions. These counts do not add source matches.
+
+Source acquisition comprises 475,740 decisions and 31,819 round endings over
+4,096 matches. Of these, 1,735 decisions, 118 rounds and 15 matches are retained
+from the failed run; 474,005 decisions, 31,701 rounds and 4,081 matches are new.
+The failed run separately records 1,649,050 completed planning transitions;
+one interrupted worker's unsaved partial planning and suffix work are unknown.
+The complete machine-readable ledger
+\path{docs/paper/generated/frontier_increment_results_evidence.json}
+retains acquisition, native execution, sampling, support reconstruction,
+planning and audit work separately, together with every threshold count and
+the exact rational effects and bounds.

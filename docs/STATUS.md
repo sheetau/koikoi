@@ -1,145 +1,87 @@
 # Current status
 
-The stronger-play and research extension is active. Positive expected improvement is established
-under the uniform-deal source law;the joint practical-gain criterion failed. Initial dealer selection and the
-playable canonical model remain unchanged.
+The stronger-play research revision is complete. The implemented frontier
+extension adds a positive expected terminal-win-score increment over the base
+controller for both adapted parents. The increment is small; realized scores
+in the 4,096-source cohort are unchanged. The base controller's earlier joint
+0.1-percentage-point criterion remains failed. Dealer selection and the playable
+canonical model remain unchanged; expensive research search is not deployed
+in the human game.
 
-This file is a current snapshot. Detailed commands, failed approaches and work
-accounting are in [EXPERIMENTS.md](EXPERIMENTS.md). The complete preceding status
-history is preserved at [commit80a1cf1](https://github.com/sheetau/koikoi/blob/80a1cf1/docs/STATUS.md).
-Old process handles mentioned in that history are historical, not live jobs.
+Detailed commands, failed approaches and separate work accounting are in
+[EXPERIMENTS.md](EXPERIMENTS.md). Historical process handles below are closed
+jobs, not a live inventory.
 
-## Current experiment and next actions
+## Completed incremental evaluation
 
-The frontier-patch screen is COMPLETE and independently reviewed. Four of eight
-original parent-refusal roots acquire 92 local patches with positive conditional
-gains. Exact increments at sources 387/433/867/1054 are 1/5265, 71/112320,
-31/214500 and 3593/10193040. Source 1054's certified lower bound is slightly
-smaller, 3563/10193040. All actual retained trajectories/outcomes remain unchanged;
-improvements concern other supported future branches. Two prefixes (16/168)
-hit the row cap; six completed 7,591 frontier groups. New planning 8,316,902
-physical transitions. Complete accounting: FRONTIER_PATCH_RESULTS.rst.
-Review runs/frontier_patch_screen_review.json SHA
-9e1bdab17379071c0e2f70ba15a5eb771b141dc2a78da5325c68cdf4bf817946.
-Session 19067 / queue 68776 exited 0. Do not restart this closed screen.
+runs/frontier_incremental_scope_v2 completed all 256 independent chunk audits
+and all 4,096 sources. Session 45405 / queue PID 66648 exited 0; elapsed queue
+time 25,917.596 seconds. Do not restart, extend or tune this closed cohort.
+Protocol SHA 793b6aa2fdae6f76397a8f17b1fb5bee0197ad0b311829a02728b7e43a872a1f.
+Complete-source re-reduction and both result exporters passed.
+Summary SHA 6a217b913881fbf8e2922668c7c493c56259394bde9194d9fa6d24a59ff40f22.
+Report SHA 3931125d1b5d53cb0742de010e8f1d4b18cb0e9cdda37baf95bb86ded382fda7.
+Tracked full report: FRONTIER_INCREMENTAL_RESULTS.rst.
+Tracked numerical ledger: paper/generated/frontier_increment_results_evidence.json.
 
-The preceding whole-root five-draw proposal screen also completed: three
-candidates, two newly exact parent values, zero adoptions. All eight retained;
-full independent value replay passed, including the long-running source 246.
-Review runs/five_draw_extension_screen_review.json SHA
-673f4218a97af19de6ba1695474ff7e417e490e267b631b90abe3cd89e3d5c72.
-Session 32175 / queue 70208 exited 0. Details: FIVE_DRAW_FALLBACK_RESULTS.rst.
+The contrast is selected frontier hybrid minus the existing symbolic controller.
+Expected incremental mixture means are 0.00128453040128 / 0.000783992686854 pp.
+Simultaneous 95% mixture lower bounds are 0.0000469040321186 /
+0.00000947225553682 pp. Both are strictly positive: the fixed primary criterion
+PASSED. All four secondary population lower bounds are also positive.
+There are 2,153 missing roots and 1,943 evaluated sources: 626 original strict
+gains, 1,257 original no-gain decisions and 60 unresolved parent references.
+The extension improves 26 of those 60 cases. All 4,096 individual realized
+score differences are zero; the effect concerns conditional expectations.
 
-The original hybrid integration and next-discard screen are COMPLETE and
-independently reviewed. All twelve integrated cases preserve the original
-fixed/optimized phases and decisions. The same four conditional improvements
-and 92 local patches reproduce. New integrated planning: 28,875,154 physical
-transitions. Session 59903 / queue 24228 exited 0; do not restart.
+Additional planning is 111,874,298 physical transitions, comprising 370,024
+prefix, 92,499,292 proposal and 19,004,982 local-reference transitions. The old
+fixed and optimized phases execute 901,397,514 and 1,013,583,010 transitions.
+Actual search work increases within the same maximum allowance. Independent
+prefix/local terminal verification executes 370,024 / 12,067,877 transitions;
+represented work and actual suffixes are kept separate in the full report.
 
-The next-discard screen completes all eight prefixes within unchanged caps.
-Sources 16/168 now have 149/180 complete groups but no extra gain; the six
-other patches/programs/work reproduce exactly. New planning: 10,826,089
-physical transitions, excluding 15,999,936 imported historical first-phase
-transitions. Session 36937 / queue 70700 exited 0; do not restart.
-Review SHA 408b220cc0d20b32dd9518b047f0bbee4ed5f78f4b9a3b935592bc5c8ac381f5.
+The failed v1 run remains closed. Its 15 complete source ledgers were retained
+byte-for-byte at their original indices; only 4,081 sources were newly acquired
+after correction. The source gate permits <=5 draws; corrected dispatch uses
+the unchanged frontier method at exactly five and the old controller below
+five. No source, budget, method or statistical criterion was selected from
+interim effects. v1 recorded complete planning was 1,649,050 transitions; one
+interrupted worker's unsaved partial work remains unknown, not zero.
+Full provenance: FRONTIER_INCREMENTAL_SCOPE_AMENDMENT.rst.
 
-The selected wrapper is implemented and its final integration is COMPLETE.
-Only the two changed boundaries were actually reexecuted; ten identical
-integrated programs/executions are explicitly reused. New planning 6,656,852,
-support replay 13,440, actual/replay 24 decisions each; no new value-oracle
-work or fresh sources. Session 12521 completed. Review SHA
-0ac76d0becfa11bb1d7a942ae142d3f9451f5731d88e874a011e33f1ae9a8dfa.
-Full closure evidence and hashes: SELECTED_FRONTIER_RESULTS.rst.
+## Final manuscript and validation
 
-The selected next-discard boundary has at most 7,280 or 16,380 prefix rows
-and at most 131,040 transitions under the identified-model five-draw gate.
-It fits existing 65,536-row / 250k-transition prefix caps. Twenty-one tests
-cover all entry phases, both seats, hidden-assignment invariance and full
-native/Python prefix agreement. General policy-improvement principles have
-precedents; the concrete construction is described in FRONTIER_POLICY_PATCH.rst.
+Title: Verified Policy Improvement from Public Play in Koi-Koi.
+The manuscript now includes the complete incremental result, original base
+result and all failed criteria. Abstract and Introduction lead with the
+construction and measured benefit. Related Work has 48 cited references across
+the paper and distinguishes the concrete public-history partition, complete
+programs and budgeted composition from established policy-improvement and
+safe-game-solving principles. Figure 2 explains the construction next to its
+gain decomposition. Development evidence remains separate from population
+evidence. Supporting analyses are in appendices.
 
-The incremental study's first run FAILED an entry-scope check and is closed.
-runs/frontier_incremental_evaluation, session 12664 / queue 69268, exited 1.
-Protocol fa36dd16ce48f436b755ab397aaa660b4c04ae5e23f53e6b34d37ed6929e7737.
-The original source gate is <=5 draws; forced transitions can skip the exactly-5
-learner decision. A too-strict wrapper rejected valid 4-draw roots. No completed
-chunk audit or strength inference. Fifteen complete source ledgers are preserved
-at indices 0, 16--20, 32, 48, 64--70. Manifest SHA
-bbc63063d172d9c77525db53745abae274044d5a13a99805dbdc0cc90ac10f19.
-Recorded complete planning: 1,649,050 transitions at sources 16/66/67. Worker
-68444 was stopped during source 0 planning after durable source collection;
-its partial planning count and unpersisted actual-tail work are unknown, not zero.
-Do not restart this failed run or modify its frozen files/test XMLs.
+Final PDF: output/pdf/manuscript.pdf, 49 pages; main text ends on page 19,
+appendices start on page 20. All pages rendered/contact-reviewed; nine focus
+pages inspected full size. 32 embedded fonts; no layout, glyph, bibliography
+or cross-reference defects. PDF SHA 061ba210ec4226c163def99d2d31936c72359edde4461949f6085e5f839870b5.
+QA and source bindings: paper/generated/frontier_final_revision_evidence.json.
+The previous 43-page canonical PDF is superseded; old QA is historical.
 
-The mechanical scope correction is implemented and RUNNING in
-runs/frontier_incremental_scope_v2: session 45405, actual queue PID 66648.
-Protocol 793b6aa2fdae6f76397a8f17b1fb5bee0197ad0b311829a02728b7e43a872a1f.
-Exactly five draws dispatches to the unchanged selected method. Fewer draws
-preserve the original symbolic controller, including parent-value refusals;
-the incremental value is zero by identity. No budget or statistical criterion
-changes. All 15 already acquired sources are copied unchanged at their original
-indices; only the other 4,081 are newly sampled. All 4,096 originally prescribed
-sources remain in the denominator. Preserve this amendment in any publication;
-do not describe all sources as acquired after the corrected freeze.
-Scope and provenance: FRONTIER_INCREMENTAL_SCOPE_AMENDMENT.rst.
+Existing tests were checked without overwriting frozen reports: frontier core
+16, hybrid 6, next-discard 21, incremental pipeline 12, ledger 5, scope repair
+13 and manuscript exporter 15, all passed. The completed evaluation itself
+independently checks every source and adopted continuation. All 152 frozen
+inputs and 154 prerequisites still match. No new training or test-set extension
+was run during final transcription.
 
-Initial pipeline/statistical tests: 12 passed in 914.91 s. Ledger/export tests:
-5 passed in 2.71 s. Repair/retention/ledger tests: 13 passed in 9.87 s, including
-the actual first observed 4-draw failure, zero incremental gain, identical actual
-execution, retained-source copying and tamper rejection. New scope dispatch
-also retains both old strict gains and unvalued-parent fallbacks on short tails.
-The v2 protocol freezes 152 inputs and 154 prerequisite/source files. Do not
-rerun tests into its frozen XML paths or edit frozen dependencies while live.
+The prior goal turn was a verified wait. This milestone closes the evaluation,
+integrates its complete evidence and verifies the final manuscript. No study
+is currently running. Submission, external artifact release, general-opponent
+robustness and equilibrium/world-best claims are outside this completed result.
 
-The incremental queue is still running (PID 66648). At the paper-revision
-checkpoint, 14 of 256 chunks / 224 of 4,096 sources have completed
-independent audit. No worker-log errors or interim effect estimates were used.
-The 152 frozen inputs and 154 prerequisite/source bindings remain unchanged.
-Keep the live queue; do not restart or tune the fixed policy/criterion.
-
-Primary contrast: selected hybrid minus old symbolic controller, using exact
-independent frontier increments or zero for identical programs. The old failed
-0.1pp comparison stays closed. Complete all 256 independently audited chunks
-before summarizing/exporting. Export command: python -m scripts.export_frontier_scope
---base runs/frontier_incremental_scope_v2. The queue automatically saves the
-summary; final complete-source re-reduction/export is a separate step.
-
-Paper-method/readability milestone: reviewed 47-page draft, 48 references,
-main text reduced from 21 to 19 pages, including the new frontier diagram.
-Abstract/Introduction/Conclusion lead with the executable controller and
-frontier construction; local-gain proof, public prefix bound and independently
-re-audited 4/8 development results are integrated. Critic analysis and early
-experiments move to appendices with all results and failures retained.
-Parallel rollout and safe game decomposition clarify prior principles and
-the concrete contribution. Figure 2 shows the common prefix, adopted local
-programs, unchanged histories and terminal paths alongside the gain proof.
-All 47 pages rendered/contact-reviewed and five focus pages inspected full size;
-32 embedded fonts and no layout/reference defects. QA and source bindings:
-docs/paper/generated/frontier_figure_revision_evidence.json.
-Preview tmp/pdfs/frontier_revision/manuscript.pdf SHA
-7eba5d50a418bd9a6597be0eccdbc0af70179c446e49d0e82a2b92f0f15f9704.
-Canonical delivered PDF remains unchanged; final incremental evidence pending.
-Previous goal turn: progress (validated transcription committed/pushed as
-02c1cea). This turn: progress (method illustration and full draft layout review).
-Goal remains active; no interim effects or changed study dependencies.
-Complete-result manuscript export is now implemented and validated in
-scripts/export_frontier_scope_paper.py. It re-reduces all 4,096 audited sources,
-pins the protocol and checks report/receipt/acquisition bindings before writing.
-Successful and failed criteria both export; incomplete/tampered studies fail
-without output. Six-significant-digit rational formatting preserves tiny
-positive bounds and rounds lower bounds downward. Fifteen tests passed in
-4.87 s, including a real four-source collection/audit/reduction fixture.
-One explicitly synthetic TeX page rendered and visually checked. Live-study
-export correctly refuses without writing files; frozen inputs remain intact.
-Evidence: docs/paper/generated/frontier_transcription_validation.json.
-Current queue PID 66648 remains live; 20 chunks / 320 sources audited.
-After scripts.export_frontier_scope completes, run
-python -m scripts.export_frontier_scope_paper --base runs/frontier_incremental_scope_v2
---destination docs/paper/generated, then integrate the tables and exact results.
-
-NEXT: finish the fixed amended cohort, independently export all work/effect
-sizes, replace the paper's pending-results paragraph, then rebuild/review and
-deliver the final PDF. Human play/dealer remain unchanged.
+## Historical closed experiments
 
 The preceding six-draw proposal screen is COMPLETE: three complete candidates
 at1/0/1 were independently verified, five proposals hit1Mphysical caps, and

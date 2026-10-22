@@ -44,6 +44,12 @@ After setup and restoring the model, this small check reuses development deals t
 
 The selected model uses greedy CPU inference with public endgame assistance and no search. Preserve those settings when interpreting the audited results. The original final deal range is consumed; do not overwrite, extend, or tune against the completed final study.
 
+## Verified endgame improvement
+
+The research controller now combines complete public-history beliefs with executable contingent policies. Its base version has positive expected terminal-win-score gains in all four fixed parent/opponent populations on 8,192 sources. A frontier extension recovers local improvements when the base cannot finish valuing its parent: on a separate 4,096-source study, both fixed opponent mixtures have positive simultaneous 95% lower bounds for the increment. Mean added gains are **0.00128 / 0.000784 percentage points**; all realized score differences in that cohort are zero. The expected effect is small and costs additional search work. See the [complete incremental results](docs/FRONTIER_INCREMENTAL_RESULTS.rst) and [final manuscript notes](docs/paper/README.rst).
+
+The concrete contribution is the bounded public-history partition, complete local programs and verified composition under one shared allowance. The earlier joint 0.1-point criterion remains unmet. This expensive research search is separate from the fast default human-play actor described above.
+
 ## Setup (Windows / NVIDIA)
 
 Requires Python 3.12, a recent NVIDIA driver, Git, and Visual Studio C++ build tools. The project-local environment leaves system Python unchanged. NVRTC is loaded from the CUDA PyTorch wheel; a system CUDA toolkit is unnecessary.

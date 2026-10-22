@@ -4,6 +4,66 @@ Earlier observations and plans are retained below. Consult STATUS.md for live jo
 
 # Experiment history
 
+## 22 October 2026: incremental improvement established and final manuscript verified
+
+The previous goal turn was a verified wait on session 45405. On reinspection,
+the same session exited 0 and the queue reported complete: 256 independently
+audited chunks, all 4,096 source cases, 25,917.596 seconds. No restart, sample
+extension or change to the selected method occurred. Closed protocol SHA:
+793b6aa2fdae6f76397a8f17b1fb5bee0197ad0b311829a02728b7e43a872a1f.
+
+Executed both complete-only exporters:
+`.venv/Scripts/python.exe -m scripts.export_frontier_scope --base runs/frontier_incremental_scope_v2`
+and `.venv/Scripts/python.exe -m scripts.export_frontier_scope_paper --base runs/frontier_incremental_scope_v2 --destination docs/paper/generated`.
+Each complete re-reduction matched the accepted summary. Summary SHA
+6a217b913881fbf8e2922668c7c493c56259394bde9194d9fa6d24a59ff40f22; report SHA
+3931125d1b5d53cb0742de010e8f1d4b18cb0e9cdda37baf95bb86ded382fda7. Full tracked report:
+docs/FRONTIER_INCREMENTAL_RESULTS.rst. Numerical/transcription provenance:
+docs/paper/generated/frontier_increment_results_evidence.json.
+
+Primary criterion PASSED: equal-opponent mean increments over the existing
+controller are 0.00128453040128/0.000783992686854 percentage points, with
+simultaneous 95% lower bounds 0.0000469040321186/0.00000947225553682.
+All four individual population bounds are positive. There are 26 improved
+source beliefs among 60 base-controller parent-value refusals. All 4,096
+individual realized score differences are zero (checked directly from every
+audited record), not merely a zero aggregate. This is a small expected benefit;
+the separate base-controller 0.1 pp joint criterion remains FAILED.
+
+There are 2,153 missing roots, 1,943 evaluated sources, 626 old strict gains
+and 1,257 old no-gain decisions. Additional planning is 111,874,298 physical
+transitions: prefix 370,024, proposal 92,499,292, local reference 19,004,982.
+Base fixed/optimized work is 901,397,514/1,013,583,010. New/retained acquisition,
+audit physical/represented work and actual suffix execution remain separate.
+The 15 pre-correction sources remain byte-for-byte at original indices; only
+4,081 were acquired after correction. The failed run's complete planning
+1,649,050 and unknown unsaved partial work remain disclosed separately.
+
+Integrated the population table and result in Section 6.6, actual outcomes and
+full methodology/work in Appendix O, and revised Abstract/Introduction/Conclusion
+around the verified construction and its measured effect. Added the incremental
+ledger to the evidence map. Related Work retains 48 citations and distinguishes
+established improvement principles from the concrete public-frontier method.
+All older controls and failed results remain. No claim of large improvement,
+general opponent dominance, equilibrium or world-best play was introduced.
+
+Built with Tectonic; the first render exposed two overfull lines, corrected by
+displaying the threshold grid and shortening the work sentence. Corrected a
+cross-reference before the build. Final build has no box, glyph or reference
+defects. All 49 pages rendered/contact-reviewed; nine focus pages inspected.
+Main text ends page 19 and appendix starts page 20 (the earlier helper's
+"main_text_ends" represented appendix-start; final QA distinguishes these).
+32 fonts embedded. Final PDF SHA 061ba210ec4226c163def99d2d31936c72359edde4461949f6085e5f839870b5.
+Canonical output/pdf/manuscript.pdf now contains the reviewed final revision.
+QA: docs/paper/generated/frontier_final_revision_evidence.json.
+
+Existing frozen XMLs were checked: 16 core, 6 hybrid, 21 next-discard, 12 pipeline,
+5 ledger, 13 scope and 15 exporter tests passed. An attempted CLI `--check`
+was rejected because the runner has no such mode; calling its `check` function
+directly then verified all 152 inputs and 154 prerequisites. Neither check
+launched an evaluation. No frozen XML or study code was changed. Human play,
+canonical model and initial dealer remain unchanged.
+
 ## 22 October 2026: frontier construction illustrated beside its guarantee
 
 Previous goal turn made progress: complete-only result exporter implemented,
