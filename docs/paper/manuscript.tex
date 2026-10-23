@@ -17,7 +17,7 @@
 \title{Verified Policy Improvement from Public Play\\
 in Koi-Koi}
 \author{}
-\date{22 October 2026}
+\date{24 October 2026}
 \begin{document}
 \maketitle
 \begin{abstract}
@@ -242,10 +242,14 @@ The unchanged maximum allowance does not mean unchanged cost. The extension
 adds 111,874,298 planning transitions, about 27,313 per source match.
 Proposal search accounts for 82.7\% of this work; complete-prefix construction
 accounts for 0.33\%. Proposal reuse and allocation are therefore higher-priority
-targets than optimizing the prefix alone. Candidate approaches include caching
-repeated actor evaluations, reusing completed subprograms and allocating local
-attempts by arrival mass and estimated gain per cost. Cache keys must preserve
-the full relevant history, policy identity and conditional chance law.
+targets than optimizing the prefix alone. Actor evaluations are already cached by public observation. A new
+three-arm development comparison isolates completed-subprogram reuse from
+budget allocation (Appendix~\ref{app:search-reuse}). Reuse saves 3.03\% of
+physical transitions within the same refinement schedule, but that schedule
+retains only 5.56\% of the existing allocation's summed improvement. Thus
+cheaper repeated computation does not by itself produce better candidates.
+The practical target is the cost of completing useful executable programs,
+with cache keys preserving history, policy identity and conditional chance law.
 
 Public outcome certificates already reduce transition counts in development
 replay. Extending their coverage could both save work and make more programs
@@ -1215,6 +1219,7 @@ paired win-score changes in percentage points, with 95\% intervals.}
 \input{uniform_evaluation_appendix.tex}
 \input{incumbent_development.tex}
 \input{frontier_appendix.tex}
+\input{search_reuse_appendix.tex}
 \FloatBarrier
 \begingroup
 \raggedright\small

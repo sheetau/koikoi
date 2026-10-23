@@ -1,3 +1,15 @@
+24 October 2026: search-reuse development revision
+==================================================
+
+The current research revision adds the complete three-arm search-reuse result
+to the discussion and Appendix T. It preserves the verified-improvement claim
+and reports the unsuccessful broad allocation without promoting that controller.
+Main text remains ten pages; the PDF now has fifty pages. Current reviewed PDF:
+``output/pdf/search_reuse_revision/manuscript.pdf``. Its bindings and visual QA
+are in ``generated/search_reuse_revision_evidence.json``. The original PDF and
+all prior generated evidence remain unchanged. The following sections describe
+prior milestones and their historical artifact paths.
+
 Manuscript working files
 ========================
 

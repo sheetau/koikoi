@@ -1,0 +1,46 @@
+\section{Completed-subprogram reuse and budget allocation}
+\label{app:search-reuse}
+We tested whether a broad initial pass followed by geometric refinement makes
+better use of the proposal allowance. All eight original five-draw development
+fixtures were retained. Each arm received the same two-million-transition
+allowance, including prefix construction and unsuccessful attempts. The
+refinement arms used 2,000-transition pilots, up to 100,000 transitions per
+local comparison, and resumable parent intervals. One arm additionally cached
+fully completed information-set choices across proposal restarts; incomplete
+choices were never executable replacements. Cache keys retained the complete
+weighted belief, public history and solve context.
+
+\begin{table}[ht]
+\centering\small
+\begin{tabular}{lrrr}
+\toprule
+Schedule & Transitions & Local patches & Positive sources \\
+\midrule
+Existing fixed allocation & 10,826,089 & 92 & 4/8 \\
+Pilot and refinement & 11,835,488 & 12 & 3/8 \\
+Refinement with reuse & 11,477,095 & 12 & 3/8 \\
+\bottomrule
+\end{tabular}
+\caption{Complete development comparison. These are reused fixtures, not
+independent population estimates.}
+\label{tab:reuse-development}
+\end{table}
+
+Reuse saves 358,393 physical transitions (3.03\%) against the same uncached
+schedule, with identical certified gains. However, both refinement schedules
+retain only 5.56\% of the fixed schedule's summed exact improvement and fail
+the prespecified selection criterion. The cached schedule still uses 6.01\%
+more transitions than the original. Its 10,478 cache hits reference 2,099,800
+previously completed transitions; that quantity is not the net saving.
+The 64 MiB cache limit bounds serialized payload, not process memory.
+
+Every arm saved its program before independent Python prefix reconstruction,
+adopted-pair terminal evaluation and actual-suffix replay. Total planning times
+were 495.378, 535.880 and 519.029 seconds, respectively, with two concurrent
+workers; they are descriptive rather than isolated latency measurements.
+The result separates a working reuse mechanism from an unsuccessful allocation
+policy: spending broadly before completing useful programs can outweigh the
+saved recomputation. The existing controller is retained. Protocol, complete
+results and per-program audits are bound by
+\path{runs/reusable_frontier_dev_v2/summary.json}; the readable report is
+\path{docs/SEARCH_REUSE_RESULTS.rst}.

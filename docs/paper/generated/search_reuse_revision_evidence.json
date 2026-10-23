@@ -1,0 +1,17 @@
+{
+  "scope": "Completed search-reuse development comparison; no fresh population claim",
+  "pdf": "output\\pdf\\search_reuse_revision\\manuscript.pdf",
+  "pdf_sha256": "9da91a0b56ba64385fd0fcb927685836b99461643a70bc6bf19a9b9b438c732f",
+  "pages": 50,
+  "main_pages": 10,
+  "appendix_starts": 11,
+  "embedded_fonts": 32,
+  "visual_review": "All 50 pages contact-reviewed; discussion page9 and new appendix page45 inspected full size. No TeX box/reference warnings.",
+  "inputs": {
+    "docs/paper/manuscript.tex": "f6e6df6fb502fce43a2c372c6e3c8c1b31f9dba9e9d624186730f869b679aeaa",
+    "docs/paper/search_reuse_appendix.tex": "ad3e313dd5306c04a26919ead558e0bb3ed4813d24edb589afb4188379299edb",
+    "docs/SEARCH_REUSE_RESULTS.rst": "c09db9a8b774b66c5440e0b8a0f465401fe79733ffa13c94c836e7326c58171e",
+    "runs/reusable_frontier_dev_v2/protocol.json": "da55661755dfc8c592182e019248b4e2cc3be990214911770c5ca3e483be0cc2",
+    "runs/reusable_frontier_dev_v2/summary.json": "a67fce7ade9358ed9ea02d739effb76381e2535815e6ffe054723836a5ea0225"
+  }
+}
