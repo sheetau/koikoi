@@ -89,3 +89,46 @@ summary is an imported selection record, not a newly executed screen. The
 failed first confirmation remains separate, is not pooled into the new test,
 and cannot be extended or overwritten. No further rule-selection pass or
 sample extension is authorized by this protocol.
+
+Replication outcome and final rule decision
+------------------------------------------
+
+The independent replication is complete: 131,072 matches, 1,011,437 round
+endings and 15,110,348 decisions on 8,192 new shared duplicate streams. All
+saved trajectories passed independent Python replay. A separate reduction
+reconstructed win scores from saved terminal states, aligned exact seed IDs,
+and reproduced the paired means and all bootstrap bounds.
+
+.. csv-table:: Independent replication win scores
+   :header: Parent,Opponent,Control percent,Both-yaku percent
+
+   0,WP,51.525879,51.602173
+   0,Point,50.344849,51.818848
+   1,WP,51.580811,51.052856
+   1,Point,50.585938,51.611328
+
+.. csv-table:: Independent selected-minus-control mixture
+   :header: Parent,Mean gain pp,Lower bound pp
+
+   0,0.775146,0.439415
+   1,0.248718,-0.090027
+
+The exact sample mean differences are 127/16384 and 163/65536. The joint
+positive-lower-bound criterion FAILED again: this time parent 1 has a lower
+bound below zero. Both cohort means are positive for each parent, but neither
+cohort establishes the prespecified two-parent result. The first failed test
+remains separate; no pooling, sample extension or new selection was performed.
+The nominal confidence family concerns the two parents within each cohort,
+not all sequential research decisions in the project.
+
+The transferred policies' mean gains are concentrated against the point-trained
+opponent. Parent 1's mean against WP decreases in both confirmations. Thus the
+screen identifies a potentially useful rule-dependent advantage, not a robust
+strength-maximizing rule. No rule is promoted to the playable default. Neither
+rule-specific policy training nor an exhaustive search of possible variants
+was performed; the nine-profile transferred-policy question is now closed.
+
+The replication protocol and complete bound results are in
+``runs/rule_variants_replication_v1/protocol.json`` and
+``runs/rule_variants_replication_v1/confirmation_summary.json``. Python replay
+repeats the same 131,072 trajectories; it does not add independent matches.
