@@ -1,8 +1,8 @@
-Complete learned-policy continuations: next implementation boundary
-==================================================================
+Complete learned-policy continuations: implementation contract
+=============================================================
 
-Status: proposed isolated research extension; no implementation or strength
-result is claimed yet. The completed 256-source comparison stays closed.
+Status: isolated implementation in scripts/continuation_frontier.py, with
+both-seat semantic and interrupted-budget tests. No strength result is implied. The completed 256-source comparison stays closed.
 Its parent-default arm saves transitions but loses gain and coverage, while
 saved leftover-budget composition adds no observed program. The next question
 is whether already executable learned continuations provide useful multi-step
@@ -39,6 +39,14 @@ branches. An executor adapter can route the fallback actor once on entry, then
 reuse the existing frontier validation and legal override logic. It must not
 switch between sibling programs or change the reference used in certificates.
 
+Legacy parent-default evaluators/executors must not silently accept a named
+continuation and call the wrong fallback. A guarded entry mapping can refuse
+ordinary lookup until the dedicated adapter resolves the actor identity and
+copies the entries into an execution mapping. Keep the ordinary reference
+program unchanged. The existing frontier constructor can validate bindings and
+arrival gains, then a dedicated wrapper installs local executors with the
+declared fallback actors before any action is taken.
+
 Verification and development
 ----------------------------
 
@@ -53,6 +61,12 @@ For each adopted candidate, independently replay its explicit overrides and
 named continuation, alongside the original parent, then recompute the exact
 arrival-weighted increment. Actual suffix execution must reproduce those same
 semantics and retain the old parent's source trajectory as its reference.
+For a local full replay, an explicit adapter can expose the original reference
+at the root check and the declared continuation elsewhere, with the actual root
+still supplied by its legal override. Trace all reached continuation actions;
+for small-fixture full-root tests those traces can form explicit ordinary
+programs and use the existing independent full-frontier oracle. Such internal
+projections must not be saved or represented as unchanged-parent certificates.
 
 Candidate families to develop separately:
 
@@ -80,3 +94,21 @@ prospective comparison. Do not extend, pool or relabel the closed 256 sources.
 The two rule confirmations are also closed failed tests and remain separate.
 Update the paper with measured outcomes at each coherent milestone; new
 candidate definitions alone are not strength evidence.
+
+Frozen development decision
+---------------------------
+
+The runner uses ordinary root alternatives first, then the other parent, WP
+and Point in that order where included. It retains the first strict certificate.
+An eligible family must add at least one positive source, retain every baseline
+positive source, match or exceed the baseline total exact increment, and match
+or exceed its exact increment per physical transition. Select the eligible
+family with greatest total exact increment; ties prefer the smaller family.
+If neither qualifies, do not launch confirmation under this design. The baseline
+is the imported parent-default result for each of the nineteen sources.
+
+The one-source 20,000-global/2,000-local smoke checks execution only and cannot
+qualify. Development uses two million global/100,000 local transitions, a
+250,000-transition prefix cap and two workers. The smaller family always runs
+first within each source; elapsed time is descriptive rather than isolated
+latency. Programs are serialized before independent Python audits.
