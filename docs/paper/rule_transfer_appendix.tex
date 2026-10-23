@@ -45,25 +45,43 @@ bounds are distinct from exact conditional search certificates.
 The family covers the two parent comparisons within a cohort, not every
 sequential research decision in the project.
 
+
+
 \begin{table}[ht]
 \centering\small
-\begin{tabular}{lrr}
-\toprule
-First confirmation & Mean gain (pp) & Lower bound (pp) \\
-\midrule
-Parent 0 & 0.415039 & $-0.274658$ \\
-Parent 1 & 0.799561 & 0.085449 \\
-\bottomrule
-\end{tabular}
+\input{generated/research_rule_comparison.tex}
 \caption{Both-yaku settlement minus paper8 control, equal-opponent mixtures.
-The joint positive-lower-bound criterion fails.}
-\label{tab:rules-first}
+The joint positive-lower-bound criterion fails in each separate cohort.}
+\label{tab:rules-confirmations}
 \end{table}
 
-The first cohort remains failed and closed. Positive means motivate one
+The first cohort remains failed and closed. Positive means motivated one
 separate precision replication with 8,192 unused streams, the same fixed rule,
 and no further selection or sample extension. The previous confirmation is
 not pooled with that replication. Source protocols, traces and complete
 bindings are under \path{runs/rule_variants_v1} and
 \path{runs/rule_variants_replication_v1}; the readable report is
 \path{docs/RULE_TRANSFER_RESULTS.rst}.
+
+\subsection{Independent replication and rule decision}
+The replication completes 131,072 matches, 1,011,437 round endings and
+15,110,348 decisions. All traces pass independent Python replay. A separate
+reduction reconstructs win scores from saved terminal states, aligns seed IDs
+and reproduces the paired means and bootstrap bounds.
+
+
+
+Table~\ref{tab:rules-confirmations} gives both independent results.
+The joint criterion fails again, now because of parent 1.
+Neither cohort is pooled, extended or reclassified. Both parents have positive
+mixture means in both cohorts, but neither cohort establishes the prespecified
+two-parent effect. The mean advantage is concentrated against Point;
+parent 1's mean against WP decreases in both confirmations.
+
+No rule is promoted to the playable default. The result demonstrates
+rule-dependent transfer, while leaving a robust strength-maximizing rule
+unestablished. Rule-specific training and an exhaustive rule search are
+different questions from this fixed nine-profile investigation.
+
+The independent transcription and source bindings are in
+\path{generated/rule_transfer_results_evidence.json}.

@@ -234,10 +234,11 @@ fixtures improvable (Appendix~\ref{app:resumable-proposals}). Each candidate
 changes one public action and follows the parent thereafter, so it is complete
 before evaluation starts. Persistent interval evaluators then spend the budget
 on comparison rather than repeatedly constructing executable continuations.
-This is a concrete way to increase feasible coverage, although the reused
-fixtures do not establish a population effect. A separate fresh-source study
-removes the parent-refusal filter at a common five-draw gate; it measures
-direct frontier controllers, not an increment over the original integrated AI.
+This increases feasible coverage in development, but the fresh 256-source
+comparison does not reproduce a coverage advantage: parent-default proposals
+improve 35 sources, versus 38 for optimized proposals, with no new-only source.
+That study removes the parent-refusal filter at a common five-draw gate and
+measures direct frontier controllers, not increments over the integrated AI.
 
 \subsection{Reducing actual computation}
 The unchanged maximum allowance does not mean unchanged cost. The extension
@@ -254,7 +255,12 @@ Parent-default proposals address that construction cost directly. On the same
 eight five-draw fixtures, their exact gain rises by 32.40\% for 7.17\% more
 transitions: 23.55\% more gain per transition. Positive-source coverage remains
 4/8, and elapsed time does not improve. The result supports a better
-finite-budget candidate representation, not a general search speedup.
+finite-budget candidate representation, not a general search speedup. On fresh
+sources it saves 22.00\% of physical transitions while retaining 93.72\% of
+exact gain, increasing gain per transition by 20.15\%. Both superiority bounds
+are negative, and operational elapsed time increases by 9.14\%. Thus the
+narrower candidate family provides a measured computation/value tradeoff;
+it does not qualify as a stronger default.
 
 Public outcome certificates already reduce transition counts in development
 replay. Extending their coverage could both save work and make more programs
@@ -304,12 +310,13 @@ practical value.
 \appendix
 \section{Reproduction and evidence}
 \label{app:reproduction}
-Source code, fixed protocols and audit scripts are available at
-\url{https://github.com/sheetau/koikoi}. The comparator revision is pinned in
-Reference~\cite{pinnedkoikoi}. Machine-readable ledgers in
-\path{docs/paper/generated/} bind each study's protocols, checkpoints, raw
-outcomes, audit reports and numerical tables by SHA256. Table~\ref{tab:evidence-map}
-provides an entry point to those records.
+Source code and audit scripts are available at
+\url{https://github.com/sheetau/koikoi}. Frozen protocols, checkpoints and raw
+research artifacts are maintained separately and are not included in Git.
+The comparator revision is pinned in Reference~\cite{pinnedkoikoi}.
+Machine-readable ledgers in \path{docs/paper/generated/} bind the local
+protocols, checkpoints, outcomes, audits and numerical tables by SHA256.
+Table~\ref{tab:evidence-map} provides an entry point to those records.
 
 \begin{table}[ht]
 \centering\small

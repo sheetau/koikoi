@@ -1,0 +1,131 @@
+{
+  "scope": "Independent result reduction and binding checks, not new matches or policy replay",
+  "frontier": {
+    "sources": 256,
+    "statuses": {
+      "missing_root": 141,
+      "evaluated": 115
+    },
+    "positive_sources": {
+      "optimized_proposal": 38,
+      "parent_default_proposal": 35
+    },
+    "work": {
+      "source_acquisition": {
+        "decisions": 29530,
+        "round_endings": 1974,
+        "completions": 256
+      },
+      "source_replay": {
+        "decisions": 29530,
+        "round_endings": 1974,
+        "completions": 256
+      },
+      "support_reconstruction_once": {
+        "replay_decisions": 204585,
+        "candidate_decisions": 100029,
+        "opponent_decisions": 104556,
+        "teacher_calls": 99594,
+        "guarded_decisions": 4962,
+        "feature_checks": 0,
+        "feature_teacher_calls": 0
+      },
+      "support_second_check": {
+        "replay_decisions": 204585,
+        "candidate_decisions": 100029,
+        "opponent_decisions": 104556,
+        "teacher_calls": 99594,
+        "guarded_decisions": 4962,
+        "feature_checks": 0,
+        "feature_teacher_calls": 0
+      },
+      "optimized_proposal:prefix_oracle": {
+        "decisions": 231360,
+        "round_endings": 37427,
+        "completions": 37427
+      },
+      "optimized_proposal:planning": {
+        "decisions": 58939164,
+        "seconds": 2734.7502787986305,
+        "adopted_nodes": 2011
+      },
+      "optimized_proposal:actual_tails": {
+        "decisions": 913,
+        "round_endings": 230,
+        "completions": 230
+      },
+      "optimized_proposal:tail_replay": {
+        "decisions": 913,
+        "round_endings": 230,
+        "completions": 230
+      },
+      "parent_default_proposal:prefix_oracle": {
+        "decisions": 231360,
+        "round_endings": 37427,
+        "completions": 37427
+      },
+      "parent_default_proposal:planning": {
+        "decisions": 45974787,
+        "seconds": 2984.690040402813,
+        "adopted_nodes": 1873
+      },
+      "parent_default_proposal:actual_tails": {
+        "decisions": 913,
+        "round_endings": 230,
+        "completions": 230
+      },
+      "parent_default_proposal:tail_replay": {
+        "decisions": 913,
+        "round_endings": 230,
+        "completions": 230
+      },
+      "optimized_proposal:local_oracle": {
+        "decisions": 5564857,
+        "round_endings": 4734034,
+        "completions": 4734034
+      },
+      "parent_default_proposal:local_oracle": {
+        "decisions": 4403319,
+        "round_endings": 3812188,
+        "completions": 3812188
+      }
+    },
+    "exact_parent_mixture_gains": {
+      "optimized_proposal": {
+        "0": "1678832676461/6226124109004800",
+        "1": "12811853843/24841661644800"
+      },
+      "parent_default_proposal": {
+        "0": "4104979903/17738245324800",
+        "1": "12536133403/24841661644800"
+      }
+    },
+    "realized": {
+      "optimized_proposal": {
+        "positive": 0,
+        "negative": 0,
+        "mean": "0"
+      },
+      "parent_default_proposal": {
+        "positive": 0,
+        "negative": 0,
+        "mean": "0"
+      }
+    },
+    "comparisons": {
+      "0": {
+        "mean_gain": -3.822357639222197e-05,
+        "lower": -0.00015265481114532772
+      },
+      "1": {
+        "mean_gain": -1.1099114219588262e-05,
+        "lower": -8.119412416287419e-05
+      }
+    },
+    "criterion_met": false
+  },
+  "bindings": {
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\scripts\\export_research_extension.py": "3060c34ba41e29e81b81cc7db8609c1547c461f4a018768a3adf4e7c695abf9a",
+    "runs\\prospective_frontier_proposals_v1\\summary.json": "ac692e8ace280efef0fc4ef53d2f2b42482808bdca44641539606fbb35649f44"
+  }
+}

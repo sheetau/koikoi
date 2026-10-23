@@ -70,3 +70,44 @@ Implementation and semantics are in \path{scripts/resumable_frontier.py} and
 \path{docs/RESUMABLE_FRONTIER.rst}; fixed fixtures, programs and independent
 audits are bound by \path{runs/resumable_frontier_dev_v1/summary.json}. The
 readable result is \path{docs/RESUMABLE_FRONTIER_RESULTS.rst}.
+
+\subsection{Fresh direct-frontier comparison}
+The frozen comparison acquires 256 independent sources, 64 per parent/opponent
+population. Both arms apply direct frontier search at the same public
+at-most-five-draw gate, with two million transitions including prefix and
+failed attempts. This removes the original parent-refusal filter and symbolic
+first phase. It compares proposal mechanisms against the same unchanged
+parent, not increments over the original integrated controller.
+
+All sources remain in the denominator: 141 have no eligible root and 115 are
+evaluated, with no support refusal. Every program passes independent prefix,
+adopted-pair and actual-suffix checks. Table~\ref{tab:prospective-proposals}
+reports the complete comparison; neither parent-mixture lower bound is
+positive. The prespecified superiority criterion fails.
+
+\begin{table}[ht]
+\centering\small
+\input{generated/research_frontier_comparison.tex}
+\caption{Fresh-source expected gains over the parent and paired proposal
+contrasts, in percentage points. Within-population bootstrap uses 20,000
+replicates and nominal simultaneous lower bounds for the two parents.}
+\label{tab:prospective-proposals}
+\end{table}
+
+The optimized arm improves 38 sources; parent-default improves 35, all shared
+with the optimized arm. Neither changes a realized match score. Planning
+transitions fall from 58,939,164 to 45,974,787 (22.00\%), retaining 93.72\% of
+summed exact gain and increasing gain per transition by 20.15\%. Local
+adoptions fall from 2,011 to 1,873. This establishes a finite-computation
+tradeoff, not a stronger replacement. Planning-time sums are 2,734.750 and
+2,984.690 seconds under concurrent execution; no latency improvement is
+established.
+
+Source acquisition contains 256 matches, 1,974 round endings and 29,530
+decisions. Support reconstruction uses 204,585 replay transitions per pass.
+The independent prefix oracle uses 231,360 transitions per arm; adopted-pair
+oracles use 5,564,857 and 4,403,319. Each arm executes and replays 913 actual
+suffix transitions. These verification counts are distinct from planning
+and add no independent source matches. Exact values, full work accounting
+and source bindings are in \path{generated/prospective_proposal_results_evidence.json}
+and \path{docs/PROSPECTIVE_PROPOSAL_RESULTS.rst}.

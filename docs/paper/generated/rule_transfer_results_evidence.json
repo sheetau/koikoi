@@ -1,0 +1,118 @@
+{
+  "scope": "Independent result reduction and binding checks, not new matches or policy replay",
+  "rules_first": {
+    "selected": "winner_takes_yaku",
+    "unique_streams": 2048,
+    "means": {
+      "paper_control": {
+        "0": {
+          "wp": 0.51416015625,
+          "point": 0.4993896484375
+        },
+        "1": {
+          "wp": 0.5096435546875,
+          "point": 0.4814453125
+        }
+      },
+      "winner_takes_yaku": {
+        "0": {
+          "wp": 0.5140380859375,
+          "point": 0.5078125
+        },
+        "1": {
+          "wp": 0.5067138671875,
+          "point": 0.5003662109375
+        }
+      }
+    },
+    "comparisons": {
+      "0": {
+        "mean_gain": 0.004150390625,
+        "lower": -0.00274658203125,
+        "pairs": 2048
+      },
+      "1": {
+        "mean_gain": 0.00799560546875,
+        "lower": 0.0008544921875,
+        "pairs": 2048
+      }
+    },
+    "criterion_met": false,
+    "exact_mean_contrasts": {
+      "0": "17/4096",
+      "1": "131/16384"
+    },
+    "work": {
+      "initial_automatic_rounds": 0,
+      "rounds": 253249,
+      "matches": 32768,
+      "decisions": 3782656,
+      "automatic_rounds": 0
+    },
+    "python_replay_work": {
+      "rounds": 253249,
+      "matches": 32768,
+      "decisions": 3782656
+    }
+  },
+  "rules_replication": {
+    "selected": "winner_takes_yaku",
+    "unique_streams": 8192,
+    "means": {
+      "paper_control": {
+        "0": {
+          "wp": 0.5152587890625,
+          "point": 0.503448486328125
+        },
+        "1": {
+          "wp": 0.51580810546875,
+          "point": 0.505859375
+        }
+      },
+      "winner_takes_yaku": {
+        "0": {
+          "wp": 0.516021728515625,
+          "point": 0.5181884765625
+        },
+        "1": {
+          "wp": 0.510528564453125,
+          "point": 0.51611328125
+        }
+      }
+    },
+    "comparisons": {
+      "0": {
+        "mean_gain": 0.00775146484375,
+        "lower": 0.004394149780273438,
+        "pairs": 8192
+      },
+      "1": {
+        "mean_gain": 0.0024871826171875,
+        "lower": -0.0009002685546875,
+        "pairs": 8192
+      }
+    },
+    "criterion_met": false,
+    "exact_mean_contrasts": {
+      "0": "127/16384",
+      "1": "163/65536"
+    },
+    "work": {
+      "initial_automatic_rounds": 0,
+      "rounds": 1011437,
+      "matches": 131072,
+      "decisions": 15110348,
+      "automatic_rounds": 0
+    },
+    "python_replay_work": {
+      "rounds": 1011437,
+      "matches": 131072,
+      "decisions": 15110348
+    }
+  },
+  "bindings": {
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\scripts\\export_research_extension.py": "3060c34ba41e29e81b81cc7db8609c1547c461f4a018768a3adf4e7c695abf9a",
+    "runs\\rule_variants_v1\\confirmation_summary.json": "86e09eeb5c0d5a96e20352731451ba744349fcf0bd53918c72193483a5aa1d62",
+    "runs\\rule_variants_replication_v1\\confirmation_summary.json": "8f0b5b9bb1f992c2e05c39695d0fde2993b9fdba66d0ecd3298bffa5efae56be"
+  }
+}

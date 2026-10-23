@@ -56,9 +56,11 @@ The main method verifies local improvements from public play even when a computa
 | Base search vs. its parent | On 8,192 sources, expected gains are positive in all four parent/opponent populations. Mean opponent-mixture gains are **0.2819 / 0.2143 percentage points**; the joint 0.1-point lower-bound target is unmet. |
 | Frontier extension vs. base search | On 4,096 sources, both opponent mixtures have positive simultaneous lower bounds. Mean added gains are **0.00128 / 0.000784 percentage points**. It improves 26 source beliefs; realized match scores are unchanged and computation increases. |
 
+The new [256-source proposal comparison](docs/PROSPECTIVE_PROPOSAL_RESULTS.rst) finds 22.00% fewer planning transitions with 93.72% of the exact gain; its superiority criterion fails. A [nine-rule transfer investigation](docs/RULE_TRANSFER_RESULTS.rst) completes 182,272 matches, with both separate confirmation cohorts failing the joint criterion. Neither result promotes a new default.
+
 These are distinct comparisons under fixed rules and opponents. The search results measure expected win-score changes under the declared hidden-card distribution. They do not establish strongest-AI or equilibrium performance.
 
-See the [manuscript and build instructions](docs/paper/README.rst), [work log and evidence entry points](docs/WORKFLOW.md), and [complete incremental results](docs/FRONTIER_INCREMENTAL_RESULTS.rst). The locally built PDF is `output/pdf/manuscript.pdf`; PDFs, checkpoints and raw runs are ignored build or research artifacts.
+See the [manuscript and build instructions](docs/paper/README.rst), [work log and evidence entry points](docs/WORKFLOW.md), and [complete incremental results](docs/FRONTIER_INCREMENTAL_RESULTS.rst). The locally built PDF is `output/pdf/proposal_and_rule_results_revision/manuscript.pdf`; PDFs, checkpoints and raw runs are ignored build or research artifacts.
 
 ## Development
 

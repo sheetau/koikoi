@@ -1,3 +1,17 @@
+24 October 2026: complete proposal and rule comparisons
+======================================================
+
+Current reviewed PDF: ``output/pdf/proposal_and_rule_results_revision/manuscript.pdf``.
+The fixed 256-source proposal comparison and both separate rule confirmations
+are complete. The parent-default proposal is a measured computation/value
+tradeoff, not a stronger replacement; neither rule confirmation passes its
+joint criterion. No default is promoted. Main text remains ten pages; the
+complete PDF has 53 pages and 50 references. Exact reductions, generated tables
+and QA are bound by ``generated/proposal_and_rule_revision_evidence.json``.
+A further learned-continuation candidate family is planned separately in
+``../CONTINUATION_PORTFOLIO.rst``; it has no result at this snapshot.
+All earlier PDFs/evidence remain unchanged; previous milestones follow.
+
 24 October 2026: resumable-proposal development revision
 =======================================================
 

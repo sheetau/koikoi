@@ -1,0 +1,21 @@
+{
+  "scope": "Complete fixed 256-source comparison and two separate closed rule confirmations; no default promoted",
+  "pdf": "output/pdf/proposal_and_rule_results_revision/manuscript.pdf",
+  "pdf_sha256": "bfaa5999f9357a95d0917443298695c2317c86c5b5f8ebe428170e83c2ad1560",
+  "pages": 53,
+  "main_pages": 10,
+  "appendix_starts": 11,
+  "embedded_fonts": 32,
+  "visual_review": "All 53 pages contact-reviewed; discussion pages 9/10, reproduction page 11 and new result pages 47/48/49 inspected full size. No page-bound, TeX box/reference or missing-glyph defects.",
+  "inputs": {
+    "docs/paper/manuscript.tex": "63eb12fbab9db4ff989e45686b0e4fe5b1c4792716a0043df0b6ad3a3e17ce19",
+    "docs/paper/resumable_proposals_appendix.tex": "e143835f454684173fc588a41a6c109e2ab065eadc8a0320b6b6c669e852c5b4",
+    "docs/paper/rule_transfer_appendix.tex": "855d16c1479f69d5c49150d227cb820b45d0d841fb271c7a485aa47065d4768a",
+    "docs/paper/generated/prospective_proposal_results_evidence.json": "2a6dda833aff7349841bff1515aa1ab911742653c37ad024af9bb9d21e5d36cb",
+    "docs/paper/generated/rule_transfer_results_evidence.json": "096984a0520bc7183d94a33c35679f8cb3f50511bd627e4bd3e7fbc2cad7b165",
+    "docs/paper/generated/research_frontier_comparison.tex": "383d3f2941151685a3b37a1e448be75c9b2ba6fe2925d763cc2e22579458431d",
+    "docs/paper/generated/research_rule_comparison.tex": "7327240035c9f8b1460dec94bc03f2db858014775a25dd9b3169f4fe2497f975",
+    "docs/PROSPECTIVE_PROPOSAL_RESULTS.rst": "ee8c00817af01a5d3a6f8168938b4279beca4fb0644cf5cbdf2630a464b2d02f",
+    "docs/RULE_TRANSFER_RESULTS.rst": "1eb18e37539308bef3e7bdd60a885219801106514c5cd0ef359aeeeb61835500"
+  }
+}
