@@ -1,0 +1,69 @@
+\section{Rule-specific transfer of the frozen policies}
+\label{app:rule-transfer}
+Rule changes alter incentives as well as score scales. We therefore compare
+win score against the same opponents within each rule, not raw points across
+rules. Nintendo and Etohana document opening awards, seven-point doubling and
+opponent-koi doubling, but differ in match length and repeated koi calls
+\cite{nintendokoikoi,etohanakoikoi}. The profiles below are explicit modifications
+of paper8, not reproductions of either publisher's complete rules.
+
+All nine profiles retain eight rounds, 30 initial points, bankruptcy and
+symmetric zero-sum settlement. Besides the unchanged control, we test:
+six-point opening wins for four-of-a-month or four month-pairs; seven-point
+doubling; doubling against a loser who called koi; doubling for a winner who
+called koi; and settlement of both players' current yaku to the round winner.
+A common combination adds opening wins, seven-point and opponent-koi doubling,
+five-point sake yaku, no declaration-count bonus and scoreless exhausted hands.
+Two further combinations add either automatic settlement on the next yaku
+increase after a koi call, or both own-koi doubling and both-yaku settlement.
+Opening awards are never multiplied. Exact precedence and tie rules are in
+\path{docs/RULE_VARIANTS.rst}.
+
+The two frozen parents and released opponents retain their original neural
+weights and public feature encoder. All receive rule-correct public endgame
+assistance. Fixed GPU batch arithmetic defines this experiment's agents;
+the original strict-CPU final match rates are not its control. There is no
+variant-specific training. The isolated Python and shared C++/CUDA engines
+pass 21 focused tests, including full trajectory differential checks for all
+nine profiles. Every experimental action trace is independently replayed
+through Python before its result is accepted.
+
+\subsection{Selection and first untouched confirmation}
+Development uses 256 shared duplicate-deal streams per profile, both seats,
+both parents and both opponents: 18,432 matches, 124,255 round endings and
+1,829,605 decisions. Selection maximizes the worse parent's equal-opponent
+mean win score. Both-yaku settlement is selected at 51.8066\%, compared with
+50.8789\% for the control. This is a development ranking, not evidence that
+the selected rule maximizes achievable AI strength.
+
+The fixed selected-versus-control comparison then consumes 2,048 new streams:
+32,768 matches, 253,249 round endings and 3,782,656 decisions. Both seats are
+averaged within each seed, which couples rules and opponents. Twenty thousand
+seed-cluster bootstrap replicates give a one-sided 97.5\% lower bound for each
+parent mixture, a nominal 95\% Bonferroni family. These approximate sampling
+bounds are distinct from exact conditional search certificates.
+The family covers the two parent comparisons within a cohort, not every
+sequential research decision in the project.
+
+\begin{table}[ht]
+\centering\small
+\begin{tabular}{lrr}
+\toprule
+First confirmation & Mean gain (pp) & Lower bound (pp) \\
+\midrule
+Parent 0 & 0.415039 & $-0.274658$ \\
+Parent 1 & 0.799561 & 0.085449 \\
+\bottomrule
+\end{tabular}
+\caption{Both-yaku settlement minus paper8 control, equal-opponent mixtures.
+The joint positive-lower-bound criterion fails.}
+\label{tab:rules-first}
+\end{table}
+
+The first cohort remains failed and closed. Positive means motivate one
+separate precision replication with 8,192 unused streams, the same fixed rule,
+and no further selection or sample extension. The previous confirmation is
+not pooled with that replication. Source protocols, traces and complete
+bindings are under \path{runs/rule_variants_v1} and
+\path{runs/rule_variants_replication_v1}; the readable report is
+\path{docs/RULE_TRANSFER_RESULTS.rst}.

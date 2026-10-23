@@ -169,9 +169,11 @@ stopping with a winning final-round score. It does not inspect hidden cards.
 
 The primary opponent is assisted RL-WP. Assisted RL-Point is a distinct
 secondary opponent, because point-oriented and win-oriented training need not
-produce the same ordering. All final match evaluations use strict CPU
-inference and greedy actions. GPU feature/inference checks support training
-compatibility but do not establish universal floating-point action identity.
+produce the same ordering. The original paper8 final match evaluations use
+strict CPU inference and greedy actions. GPU feature/inference checks support
+training compatibility but do not establish universal floating-point action
+identity. The separate rule-transfer study uses fixed GPU arithmetic and its
+own matched control; its results are not pooled with the original matches.
 
 \subsection{Parents and public opponent evidence}
 Two fixed parents are obtained by adapting the released WP actor with
@@ -226,16 +228,16 @@ places: reaching more useful comparison sites and increasing the conditional
 gain at each site. Raising success among already targeted roots alone cannot
 remove the small population coverage.
 
-Earlier activation and other decision boundaries are plausible extensions,
-provided their complete arrival beliefs fit the budget. An existing coverage
-diagnostic finds more eligible sources at earlier gates, but its eight selected
-six-draw probes produce no adoption. The full diagnostic is recorded in
-\path{docs/GATE_COVERAGE_RESULTS.rst}.
-More coverage therefore needs better local search or cheaper verification,
-not just an earlier trigger. A next study should select boundaries and budgets
-on development sources, freeze them, and measure coverage, conditional gain
-and population gain on fresh sources. Reusing the closed confirmation cohorts
-to choose those settings would lose their confirmatory role.
+Earlier activation alone failed: the original eight six-draw probes adopted
+no program. Changing the candidate representation makes two of those same
+fixtures improvable (Appendix~\ref{app:resumable-proposals}). Each candidate
+changes one public action and follows the parent thereafter, so it is complete
+before evaluation starts. Persistent interval evaluators then spend the budget
+on comparison rather than repeatedly constructing executable continuations.
+This is a concrete way to increase feasible coverage, although the reused
+fixtures do not establish a population effect. A separate fresh-source study
+removes the parent-refusal filter at a common five-draw gate; it measures
+direct frontier controllers, not an increment over the original integrated AI.
 
 \subsection{Reducing actual computation}
 The unchanged maximum allowance does not mean unchanged cost. The extension
@@ -248,8 +250,11 @@ budget allocation (Appendix~\ref{app:search-reuse}). Reuse saves 3.03\% of
 physical transitions within the same refinement schedule, but that schedule
 retains only 5.56\% of the existing allocation's summed improvement. Thus
 cheaper repeated computation does not by itself produce better candidates.
-The practical target is the cost of completing useful executable programs,
-with cache keys preserving history, policy identity and conditional chance law.
+Parent-default proposals address that construction cost directly. On the same
+eight five-draw fixtures, their exact gain rises by 32.40\% for 7.17\% more
+transitions: 23.55\% more gain per transition. Positive-source coverage remains
+4/8, and elapsed time does not improve. The result supports a better
+finite-budget candidate representation, not a general search speedup.
 
 Public outcome certificates already reduce transition counts in development
 replay. Extending their coverage could both save work and make more programs
@@ -1220,6 +1225,8 @@ paired win-score changes in percentage points, with 95\% intervals.}
 \input{incumbent_development.tex}
 \input{frontier_appendix.tex}
 \input{search_reuse_appendix.tex}
+\input{resumable_proposals_appendix.tex}
+\input{rule_transfer_appendix.tex}
 \FloatBarrier
 \begingroup
 \raggedright\small

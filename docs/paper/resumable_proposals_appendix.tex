@@ -1,0 +1,72 @@
+\section{Executable proposals before completed evaluation}
+\label{app:resumable-proposals}
+The reuse experiment motivates changing what must be completed before a
+candidate can be considered. At a complete frontier belief, define one program
+for each legal alternative: take that action at the current own/public history,
+then follow the unchanged parent at every subsequent history. These programs
+are executable immediately. Unlike a contingent optimized continuation, their
+construction does not require finishing a search tree. All hidden worlds with
+the same observable history receive the same action.
+
+Each program and the shared parent reference have a persistent interval
+evaluator. Completed terminal or certified outcome mass and unexpanded tasks
+survive each work quantum. Candidates with upper bounds no greater than the
+parent's lower bound are eliminated. The widest remaining relevant interval
+receives the next quantum, with ties favoring the shared parent. The first
+strict candidate-lower/parent-upper separation is adopted; this does not claim
+to identify the best alternative. Every physical transition counts against
+the same local and global allowances. The arrival-weighted guarantee in
+Equation~\ref{eq:frontier-gain} is unchanged.
+
+The representation restricts the policy family in exchange for cheaper
+construction and resumable verification. It cannot dominate full contingent
+optimization with unlimited computation. Its purpose is to verify useful
+complete programs within a finite allowance. Eight focused tests cover
+interrupted comparisons, both seats, independently evaluated interval values,
+parent-default execution and full root-gain decomposition.
+
+\subsection{Complete development comparison}
+All eight original five-draw fixtures and all eight earlier six-draw fixtures
+were retained. Every saved program passed independent Python prefix
+reconstruction, adopted-pair terminal evaluation and actual suffix replay.
+The global allowance remained two million transitions per fixture, including
+the prefix and unsuccessful attempts; local comparisons used at most 100,000.
+
+\begin{table}[ht]
+\centering\small
+\begin{tabular}{lrrr}
+\toprule
+Five-draw proposal & Transitions & Local patches & Positive sources \\
+\midrule
+Optimized continuation & 10,826,089 & 92 & 4/8 \\
+Parent-default continuation & 11,602,153 & 125 & 4/8 \\
+\bottomrule
+\end{tabular}
+\caption{Matched-fixture development comparison. The unchanged positive-source
+count does not imply unchanged conditional gains.}
+\label{tab:resumable-development}
+\end{table}
+
+The summed exact increment rises from $149393/113256000$ to
+$133517/76447800$, a 32.40\% relative increase. Physical work rises by 7.17\%,
+so exact gain per transition rises by 23.55\%. The new summed certified lower
+bound is smaller, $2381/1470150$; it is not relabelled as the independently
+verified exact value. Planning-time sums are 495.378 and 628.254 seconds under
+concurrent execution. Neither total-work reduction nor a latency improvement
+is established.
+
+The previous whole-root six-draw screen adopted no program. Public
+partitioning with parent-default proposals now improves two of those eight
+fixtures. Original source 112 gains $27271/15135120$ (0.180184 percentage
+points) through 39 local programs; source 738 gains $1/8408400$ (0.000011893
+points) through one. Six remain unchanged. This changes both the local
+representation and the comparison sites, rather than merely advancing the
+trigger. Complete prefixes were checked individually; the old five-draw
+combinatorial bound is not asserted for six draws. All sixteen realized final
+point totals remain unchanged. These reused development cases establish
+feasibility, not population strength.
+
+Implementation and semantics are in \path{scripts/resumable_frontier.py} and
+\path{docs/RESUMABLE_FRONTIER.rst}; fixed fixtures, programs and independent
+audits are bound by \path{runs/resumable_frontier_dev_v1/summary.json}. The
+readable result is \path{docs/RESUMABLE_FRONTIER_RESULTS.rst}.

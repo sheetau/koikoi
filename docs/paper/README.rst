@@ -1,3 +1,15 @@
+24 October 2026: resumable-proposal development revision
+=======================================================
+
+The current reviewed PDF is ``output/pdf/resumable_development_revision/manuscript.pdf``.
+It adds executable parent-default proposals to the main method and Appendix U,
+and the nine-rule transfer screen plus failed first confirmation to Appendix V.
+All sixteen development fixtures passed independent audits; the fresh 256-source
+comparison and 8,192-stream rule replication were still pending at this snapshot.
+Main text remains ten pages; the complete PDF has 52 pages and 50 references.
+Bindings and visual QA: ``generated/resumable_development_revision_evidence.json``.
+Prior PDFs and generated evidence remain unchanged; earlier entries follow.
+
 24 October 2026: search-reuse development revision
 ==================================================
 

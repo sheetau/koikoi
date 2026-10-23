@@ -1,0 +1,23 @@
+{
+  "scope": "Completed resumable development and failed first rule confirmation; fresh frontier and rule replication still pending at this snapshot",
+  "pdf": "output/pdf/resumable_development_revision/manuscript.pdf",
+  "pdf_sha256": "6b3890cde971fd92f47fedbf5ea639c77108d1add947196917aefc5af459f4bd",
+  "pages": 52,
+  "main_pages": 10,
+  "appendix_starts": 11,
+  "embedded_fonts": 32,
+  "visual_review": "All 52 pages contact-reviewed. Method page 4 and new development page 46 inspected at full size in the draft; unchanged layout retained. Latest discussion pages 9/10 and rule page 47 inspected at full size. No page-bound, TeX box, missing-glyph or reference defects.",
+  "inputs": {
+    "docs/paper/manuscript.tex": "988a99eaa5043b81b126c679b2bee99dcd70f32b80d362ee2eea8f9d0d6225fd",
+    "docs/paper/frontier_policy.tex": "d8a5ca16aa2d5dc2f225d85fbe195ba6780c543cc436f5f407d4944c8113dc4e",
+    "docs/paper/references.bib": "a64e6dc12df43cf47d02bb865379f69a0b5496952413e7fa5584ad9d2b62a9d9",
+    "docs/paper/resumable_proposals_appendix.tex": "e316b5fec113612950ecfaa1e460c342f9be7580d0de80e85c90b288f13d1648",
+    "docs/paper/rule_transfer_appendix.tex": "ac59db455291776cb3d16efaa292d192f225f212518743a7f701b55546f41bba",
+    "docs/RESUMABLE_FRONTIER_RESULTS.rst": "8ebd20bca2efacba7b1728c7fea3473de45a103fb9831f00e50f0ee33da714b2",
+    "docs/RULE_TRANSFER_RESULTS.rst": "6ded980b2094eefd14dd847a9781654af587886fc00f211753eea7e0c3f86e35",
+    "runs/resumable_frontier_dev_v1/protocol.json": "340fc00408edebf789053056cdbff8466d714c936c02ad7249aacecca3cce1a0",
+    "runs/resumable_frontier_dev_v1/summary.json": "cc600cf63ed058f3da3bfdf99710eccf147c2013e52ca3095b0518123f2445f3",
+    "runs/rule_variants_v1/protocol.json": "e366370d113d2f665499532a9ed4267bfdacbb7873c29b68641def7165f796b4",
+    "runs/rule_variants_v1/confirmation_summary.json": "86e09eeb5c0d5a96e20352731451ba744349fcf0bd53918c72193483a5aa1d62"
+  }
+}

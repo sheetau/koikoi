@@ -24,6 +24,16 @@ value remains unresolved. The program uses explicit legal overrides and a
 parent default. On reaching the frontier, execution commits to that one local
 program or keeps the parent; it never switches between sibling programs.
 
+A complete program need not contain an optimized tree. Our parent-default
+variant changes one action and reuses the parent for every later decision.
+It is executable before evaluation begins. Persistent interval evaluators
+share the parent reference and resume whichever relevant interval is widest.
+This separates candidate construction from verification: less expressive
+programs can recover more gain within a finite budget when full contingent
+optimization spends too much work constructing candidates. The conditional
+guarantee below covers either representation; Appendix~\ref{app:resumable-proposals}
+tests this tradeoff.
+
 \input{frontier_overview.tex}
 
 \paragraph{Conditional gain.}
