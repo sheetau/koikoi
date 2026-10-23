@@ -58,9 +58,17 @@ The main method verifies local improvements from public play even when a computa
 
 These are distinct comparisons under fixed rules and opponents. The search results measure expected win-score changes under the declared hidden-card distribution. They do not establish strongest-AI or equilibrium performance.
 
-See the [manuscript and build instructions](docs/paper/README.rst), [current evidence](docs/STATUS.md), and [complete incremental results](docs/FRONTIER_INCREMENTAL_RESULTS.rst). The locally built PDF is `output/pdf/manuscript.pdf`; PDFs, checkpoints and raw runs are ignored build or research artifacts.
+See the [manuscript and build instructions](docs/paper/README.rst), [work log and evidence entry points](docs/WORKFLOW.md), and [complete incremental results](docs/FRONTIER_INCREMENTAL_RESULTS.rst). The locally built PDF is `output/pdf/manuscript.pdf`; PDFs, checkpoints and raw runs are ignored build or research artifacts.
 
 ## Development
+
+Read the compact current handoff before resuming project work:
+
+```powershell
+./.venv/Scripts/python.exe -X utf8 -m scripts.project_work brief
+```
+
+Work logs and history search use a local SQLite store with a tracked recovery journal. See the [workflow guide](docs/WORKFLOW.md). The old STATUS and EXPERIMENTS files are frozen history; new work is recorded through the CLI.
 
 Run the test suite or a short training example after setup:
 

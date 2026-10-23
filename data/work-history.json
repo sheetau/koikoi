@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "frozen_at": "2026-10-23T18:11:41+00:00",
+  "note": "Historical files retained byte-for-byte; new work is recorded through scripts.project_work.",
+  "sources": [
+    {
+      "tag": "status",
+      "path": "docs/STATUS.md",
+      "bytes": 79973,
+      "sha256": "45f6591b2566a609f795381f96bd40d66e8007569daee3690bde57e5901af341",
+      "git_sha256": "be715adcd004881c164f8f54459a469bc4d0b42b25788522fdc06cc85d0c8397",
+      "git_bytes": 78859
+    },
+    {
+      "tag": "experiments",
+      "path": "docs/EXPERIMENTS.md",
+      "bytes": 1127879,
+      "sha256": "60909f07db9a0ebe11df4cdb8d17545e5fadc6e208302714d1917896d4ada22a",
+      "git_sha256": "552c1031c14c1af39f1774a68a9be7fe1346b70b0c1e540a26ffd984a9777f45",
+      "git_bytes": 1117345
+    }
+  ]
+}
