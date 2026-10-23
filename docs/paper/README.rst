@@ -1,3 +1,20 @@
+24 October 2026: complete continuation and pruning comparisons
+==============================================================
+
+Current reviewed PDF: ``output/pdf/continuation_and_pruning_revision/manuscript.pdf``.
+The 19-source learned-continuation comparison, two serial timing studies and
+8-source optimized-pruning screen are complete. Neither learned candidate
+family passes its advancement criterion. Public-root pruning preserves every
+retained comparison and all 92 adopted policies while saving 1.27% of planning
+transitions in development; a fully certified-root benchmark shows preparation
+savings without a strength change. Both rule confirmations remain failed.
+
+Main text remains ten pages; the complete PDF has 55 pages and 50 references.
+The main claim remains verified local improvement without a completed root
+reference. Exact reductions, retained-policy identity, tables and visual QA
+are bound by ``generated/continuation_and_pruning_revision_evidence.json``.
+No research job remains running. Earlier snapshots and PDFs follow unchanged.
+
 24 October 2026: complete proposal and rule comparisons
 ======================================================
 

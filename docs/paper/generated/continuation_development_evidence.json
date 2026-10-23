@@ -1,0 +1,570 @@
+{
+  "scope": "19 reused development sources: 16 earlier fixtures plus closed-comparison misses 133/216/241; no fresh strength inference",
+  "sources": 19,
+  "new_source_matches": 0,
+  "aggregated": {
+    "parent_default": {
+      "exact_gain_sum": "13292351/3745942200",
+      "positive_sources": [
+        3,
+        5,
+        6,
+        7,
+        11,
+        15
+      ],
+      "new_positives": [],
+      "lost_positives": [],
+      "gain_ratio": "1",
+      "transition_ratio": "1",
+      "gain_per_transition_ratio": "1",
+      "eligible": false
+    },
+    "other_parent": {
+      "exact_gain_sum": "975582683/389577988800",
+      "positive_sources": [
+        3,
+        5,
+        6,
+        7,
+        10,
+        11,
+        18
+      ],
+      "new_positives": [
+        10,
+        18
+      ],
+      "lost_positives": [
+        15
+      ],
+      "gain_ratio": "975582683/1382404504",
+      "transition_ratio": "25361483/24480483",
+      "gain_per_transition_ratio": "23882735286275889/35059828327319432",
+      "eligible": false
+    },
+    "policy_pool": {
+      "exact_gain_sum": "5029931/2996753760",
+      "positive_sources": [
+        3,
+        5,
+        6,
+        7,
+        11,
+        16,
+        18
+      ],
+      "new_positives": [
+        16,
+        18
+      ],
+      "lost_positives": [
+        15
+      ],
+      "gain_ratio": "25149655/53169404",
+      "transition_ratio": "8773266/8160161",
+      "gain_per_transition_ratio": "205225233894455/466469324353464",
+      "eligible": false
+    }
+  },
+  "totals": {
+    "parent_default:planning": {
+      "decisions": 24480483,
+      "seconds": 1737.6932754002046
+    },
+    "other_parent:planning": {
+      "decisions": 25361483,
+      "seconds": 1796.5449971992057,
+      "adopted_nodes": 111
+    },
+    "other_parent:prefix_oracle": {
+      "decisions": 95809,
+      "round_endings": 11901,
+      "completions": 11901
+    },
+    "other_parent:actual_tails": {
+      "decisions": 178,
+      "round_endings": 38,
+      "completions": 38
+    },
+    "other_parent:tail_replay": {
+      "decisions": 178,
+      "round_endings": 38,
+      "completions": 38
+    },
+    "policy_pool:planning": {
+      "decisions": 26319798,
+      "seconds": 1930.8589280999731,
+      "adopted_nodes": 69
+    },
+    "policy_pool:prefix_oracle": {
+      "decisions": 95809,
+      "round_endings": 11901,
+      "completions": 11901
+    },
+    "policy_pool:actual_tails": {
+      "decisions": 178,
+      "round_endings": 38,
+      "completions": 38
+    },
+    "policy_pool:tail_replay": {
+      "decisions": 178,
+      "round_endings": 38,
+      "completions": 38
+    },
+    "other_parent:local_oracle": {
+      "decisions": 2105562,
+      "round_endings": 1742086,
+      "completions": 1742086
+    },
+    "policy_pool:local_oracle": {
+      "decisions": 1130783,
+      "round_endings": 942696,
+      "completions": 942696
+    }
+  },
+  "adopted_continuations": {
+    "other_parent": {
+      "5e8a123d5fafb6ebae8c1ac8d094c9de65bf364381cc10b78208337051e181cc": 62,
+      "37d06849261e0c1f0c31a9d2f228388fa1f391b670ce6772093a1c276091cc36": 49
+    },
+    "policy_pool": {
+      "5e8a123d5fafb6ebae8c1ac8d094c9de65bf364381cc10b78208337051e181cc": 27,
+      "c5785cbcea2fe7f656f03b039f5cf6ad04fa21afcd56d1d9ecba8c8041f7b557": 3,
+      "37d06849261e0c1f0c31a9d2f228388fa1f391b670ce6772093a1c276091cc36": 34,
+      "9a37e2302c2d780b588b36cb9f533126f8ca8fcdc0ebceb3eda257c8c2b356a2": 5
+    }
+  },
+  "actual": {
+    "other_parent": [
+      {
+        "win_score_delta": "0",
+        "own_point_delta": 0
+      },
+      {
+        "win_score_delta": "0",
+        "own_point_delta": 0
+      },
+      {
+        "win_score_delta": "0",
+        "own_point_delta": 0
+      },
+      {
+        "win_score_delta": "0",
+        "own_point_delta": 0
+      },
+      {
+        "win_score_delta": "0",
+        "own_point_delta": 0
+      },
+      {
+        "win_score_delta": "0",
+        "own_point_delta": 0
+      },
+      {
+        "win_score_delta": "0",
+        "own_point_delta": 0
+      },
+      {
+        "win_score_delta": "0",
+        "own_point_delta": 0
+      },
+      {
+        "win_score_delta": "0",
+        "own_point_delta": 0
+      },
+      {
+        "win_score_delta": "0",
+        "own_point_delta": 0
+      },
+      {
+        "win_score_delta": "0",
+        "own_point_delta": 0
+      },
+      {
+        "win_score_delta": "0",
+        "own_point_delta": 0
+      },
+      {
+        "win_score_delta": "0",
+        "own_point_delta": 0
+      },
+      {
+        "win_score_delta": "0",
+        "own_point_delta": 0
+      },
+      {
+        "win_score_delta": "0",
+        "own_point_delta": 0
+      },
+      {
+        "win_score_delta": "0",
+        "own_point_delta": 0
+      },
+      {
+        "win_score_delta": "0",
+        "own_point_delta": 0
+      },
+      {
+        "win_score_delta": "0",
+        "own_point_delta": 0
+      },
+      {
+        "win_score_delta": "0",
+        "own_point_delta": 0
+      }
+    ],
+    "policy_pool": [
+      {
+        "win_score_delta": "0",
+        "own_point_delta": 0
+      },
+      {
+        "win_score_delta": "0",
+        "own_point_delta": 0
+      },
+      {
+        "win_score_delta": "0",
+        "own_point_delta": 0
+      },
+      {
+        "win_score_delta": "0",
+        "own_point_delta": 0
+      },
+      {
+        "win_score_delta": "0",
+        "own_point_delta": 0
+      },
+      {
+        "win_score_delta": "0",
+        "own_point_delta": 0
+      },
+      {
+        "win_score_delta": "0",
+        "own_point_delta": 0
+      },
+      {
+        "win_score_delta": "0",
+        "own_point_delta": 0
+      },
+      {
+        "win_score_delta": "0",
+        "own_point_delta": 0
+      },
+      {
+        "win_score_delta": "0",
+        "own_point_delta": 0
+      },
+      {
+        "win_score_delta": "0",
+        "own_point_delta": 0
+      },
+      {
+        "win_score_delta": "0",
+        "own_point_delta": 0
+      },
+      {
+        "win_score_delta": "0",
+        "own_point_delta": 0
+      },
+      {
+        "win_score_delta": "0",
+        "own_point_delta": 0
+      },
+      {
+        "win_score_delta": "0",
+        "own_point_delta": 0
+      },
+      {
+        "win_score_delta": "0",
+        "own_point_delta": 0
+      },
+      {
+        "win_score_delta": "0",
+        "own_point_delta": 0
+      },
+      {
+        "win_score_delta": "0",
+        "own_point_delta": 0
+      },
+      {
+        "win_score_delta": "0",
+        "own_point_delta": 0
+      }
+    ]
+  },
+  "by_source": [
+    {
+      "fixture": 0,
+      "draws": 5,
+      "source": "runs\\uniform_controller_evaluation\\chunk_0001\\source_00016\\record.json",
+      "parent_default": "0",
+      "other_parent": "0",
+      "policy_pool": "0"
+    },
+    {
+      "fixture": 1,
+      "draws": 5,
+      "source": "runs\\uniform_controller_evaluation\\chunk_0010\\source_00168\\record.json",
+      "parent_default": "0",
+      "other_parent": "0",
+      "policy_pool": "0"
+    },
+    {
+      "fixture": 2,
+      "draws": 5,
+      "source": "runs\\uniform_controller_evaluation\\chunk_0015\\source_00246\\record.json",
+      "parent_default": "0",
+      "other_parent": "0",
+      "policy_pool": "0"
+    },
+    {
+      "fixture": 3,
+      "draws": 5,
+      "source": "runs\\uniform_controller_evaluation\\chunk_0024\\source_00387\\record.json",
+      "parent_default": "1/17550",
+      "other_parent": "61/1158300",
+      "policy_pool": "41/2316600"
+    },
+    {
+      "fixture": 4,
+      "draws": 5,
+      "source": "runs\\uniform_controller_evaluation\\chunk_0024\\source_00393\\record.json",
+      "parent_default": "0",
+      "other_parent": "0",
+      "policy_pool": "0"
+    },
+    {
+      "fixture": 5,
+      "draws": 5,
+      "source": "runs\\uniform_controller_evaluation\\chunk_0027\\source_00433\\record.json",
+      "parent_default": "3073/2779920",
+      "other_parent": "71/112320",
+      "policy_pool": "167/617760"
+    },
+    {
+      "fixture": 6,
+      "draws": 5,
+      "source": "runs\\uniform_controller_evaluation\\chunk_0054\\source_00867\\record.json",
+      "parent_default": "313/1544400",
+      "other_parent": "31/257400",
+      "policy_pool": "1/23400"
+    },
+    {
+      "fixture": 7,
+      "draws": 5,
+      "source": "runs\\uniform_controller_evaluation\\chunk_0065\\source_01054\\record.json",
+      "parent_default": "3/7865",
+      "other_parent": "1769/5096520",
+      "policy_pool": "811/3397680"
+    },
+    {
+      "fixture": 8,
+      "draws": 6,
+      "source": "runs/six_draw_gate_screen/fixture_00/source.json",
+      "parent_default": "0",
+      "other_parent": "0",
+      "policy_pool": "0"
+    },
+    {
+      "fixture": 9,
+      "draws": 6,
+      "source": "runs/six_draw_gate_screen/fixture_01/source.json",
+      "parent_default": "0",
+      "other_parent": "0",
+      "policy_pool": "0"
+    },
+    {
+      "fixture": 10,
+      "draws": 6,
+      "source": "runs/six_draw_gate_screen/fixture_02/source.json",
+      "parent_default": "0",
+      "other_parent": "17/6246240",
+      "policy_pool": "0"
+    },
+    {
+      "fixture": 11,
+      "draws": 6,
+      "source": "runs/six_draw_gate_screen/fixture_03/source.json",
+      "parent_default": "27271/15135120",
+      "other_parent": "13301/10090080",
+      "policy_pool": "113/112112"
+    },
+    {
+      "fixture": 12,
+      "draws": 6,
+      "source": "runs/six_draw_gate_screen/fixture_04/source.json",
+      "parent_default": "0",
+      "other_parent": "0",
+      "policy_pool": "0"
+    },
+    {
+      "fixture": 13,
+      "draws": 6,
+      "source": "runs/six_draw_gate_screen/fixture_05/source.json",
+      "parent_default": "0",
+      "other_parent": "0",
+      "policy_pool": "0"
+    },
+    {
+      "fixture": 14,
+      "draws": 6,
+      "source": "runs/six_draw_gate_screen/fixture_06/source.json",
+      "parent_default": "0",
+      "other_parent": "0",
+      "policy_pool": "0"
+    },
+    {
+      "fixture": 15,
+      "draws": 6,
+      "source": "runs/six_draw_gate_screen/fixture_07/source.json",
+      "parent_default": "1/8408400",
+      "other_parent": "0",
+      "policy_pool": "0"
+    },
+    {
+      "fixture": 16,
+      "draws": 5,
+      "source": "runs\\prospective_frontier_proposals_v1\\chunk_016\\source_0133\\record.json",
+      "parent_default": "0",
+      "other_parent": "0",
+      "policy_pool": "1/14256"
+    },
+    {
+      "fixture": 17,
+      "draws": 5,
+      "source": "runs\\prospective_frontier_proposals_v1\\chunk_027\\source_0216\\record.json",
+      "parent_default": "0",
+      "other_parent": "0",
+      "policy_pool": "0"
+    },
+    {
+      "fixture": 18,
+      "draws": 5,
+      "source": "runs\\prospective_frontier_proposals_v1\\chunk_030\\source_0241\\record.json",
+      "parent_default": "0",
+      "other_parent": "43/1389960",
+      "policy_pool": "43/1389960"
+    }
+  ],
+  "selected_for_fresh_confirmation": null,
+  "result_bindings": {
+    "runs\\continuation_frontier_dev_v1\\protocol.json": "21a96e2b1716dba61c6c91d3ecd9f6ac2374635eb8f661bec78fa1cd81b76252",
+    "runs\\continuation_frontier_dev_v1\\summary.json": "0a71c9d360be5f56ae6154983634cd6cedb9f9be4c4421f6da08f877eff88295",
+    "runs\\continuation_frontier_dev_v1\\fixture_00\\other_parent\\selection.json": "57275aa1c5d66751ba9f4d6e42105cfe71b7b62653617e7ec50e16230ce23b57",
+    "runs\\continuation_frontier_dev_v1\\fixture_00\\other_parent\\audit.json": "67fc3e140ee10616f0ff42eace99497bf29f72ddca235795ff0b923320ecb644",
+    "runs\\continuation_frontier_dev_v1\\fixture_00\\other_parent\\program.pkl.gz": "23f9a5ed6e93fb298b95948d9d5fe5e4be72d0fd061db14b1732e15954ed4dcc",
+    "runs\\continuation_frontier_dev_v1\\fixture_00\\policy_pool\\selection.json": "36cf666a0ef8d0f387fd826d61a649d617dfcc1681a98374f42250c7d32f3c66",
+    "runs\\continuation_frontier_dev_v1\\fixture_00\\policy_pool\\audit.json": "70fbaed4ac9bb62e397d3d9bbe8307f0688e62fb1fea4a45d3caa02b92785fc4",
+    "runs\\continuation_frontier_dev_v1\\fixture_00\\policy_pool\\program.pkl.gz": "97484752c517fe9dfde4e082f4e9d8471a091b0d1adc4e04fe78941f2df3e22a",
+    "runs\\continuation_frontier_dev_v1\\fixture_01\\other_parent\\selection.json": "005e730719120cec0f026f08ebc322f67637bc79b01584bc540f029a600d7f89",
+    "runs\\continuation_frontier_dev_v1\\fixture_01\\other_parent\\audit.json": "dc8f6d070a78fa699a056a68a6ea177c45fc6e1ca4159755ab5561ad99100cf3",
+    "runs\\continuation_frontier_dev_v1\\fixture_01\\other_parent\\program.pkl.gz": "8651d6849aef153fcfabf6e1f08539ebb93d80bd4738a5b5ab26564cc602cd80",
+    "runs\\continuation_frontier_dev_v1\\fixture_01\\policy_pool\\selection.json": "a0081ef53e718fa31b8af78d057ef7e54244fc5a275eea6027c50476d28ab684",
+    "runs\\continuation_frontier_dev_v1\\fixture_01\\policy_pool\\audit.json": "367d4f203bdfb44a83c2026874f9665fd6ccbf118f7a7ec5ff9bd66fe004e154",
+    "runs\\continuation_frontier_dev_v1\\fixture_01\\policy_pool\\program.pkl.gz": "5388452e305da313f52ed1635e51cc91ae7fa9adb8462f9b62ee20246f954546",
+    "runs\\continuation_frontier_dev_v1\\fixture_02\\other_parent\\selection.json": "79b231c3754ed059a8ece888887a5296c9fcd3fafa950bed3c181b7c648a6710",
+    "runs\\continuation_frontier_dev_v1\\fixture_02\\other_parent\\audit.json": "0f4af29c2fa543dd8a7c4e202ad1a367363c08e58ba753715f2bc9fe285bb607",
+    "runs\\continuation_frontier_dev_v1\\fixture_02\\other_parent\\program.pkl.gz": "53ab9611ec7d4aef19c6835c2875c284669dd68a956fd19e3cdd6e92c650c12e",
+    "runs\\continuation_frontier_dev_v1\\fixture_02\\policy_pool\\selection.json": "eb945e70dcfd3d7549bc4a20931fe564a8ac461cbdcee6a2b956040dde70f73b",
+    "runs\\continuation_frontier_dev_v1\\fixture_02\\policy_pool\\audit.json": "6123598f4d9c52dfb3ae5fcbad4a23f7030701fb9557f48929e8897326486be0",
+    "runs\\continuation_frontier_dev_v1\\fixture_02\\policy_pool\\program.pkl.gz": "87fec392d1cd9a329ded01581ad7ad2962bdd8a4f5e7e3500bb60236d2b6263c",
+    "runs\\continuation_frontier_dev_v1\\fixture_03\\other_parent\\selection.json": "56bf38fb70771a4cf8a27cb283b98a455eb8d07e9242ac2c542e654104186f1d",
+    "runs\\continuation_frontier_dev_v1\\fixture_03\\other_parent\\audit.json": "1e3067adf0a7035ed9ce70e84988f982ecad8782637f9f74c83ff4baa1f5db1f",
+    "runs\\continuation_frontier_dev_v1\\fixture_03\\other_parent\\program.pkl.gz": "6177af66aec6761915b324df6a75cc76063bb332735aa72b3cf06c4f614be61a",
+    "runs\\continuation_frontier_dev_v1\\fixture_03\\policy_pool\\selection.json": "2d74222b4ec55002e21ab028ad7d92ae2b79f00192f2550d00b4d3e8de31a4d8",
+    "runs\\continuation_frontier_dev_v1\\fixture_03\\policy_pool\\audit.json": "1b8985593d9699bd1205246d304a72fc8cc85c649dbe373cd00a589138519221",
+    "runs\\continuation_frontier_dev_v1\\fixture_03\\policy_pool\\program.pkl.gz": "51790211109e71f0ba6d59a97c043487b749b606cac54e81e6b279d0c61ecfb6",
+    "runs\\continuation_frontier_dev_v1\\fixture_04\\other_parent\\selection.json": "487041f8bcc8d3dd21ea5dbe71ec6de0e4b988f173748f9a785e5bf49aefbb0a",
+    "runs\\continuation_frontier_dev_v1\\fixture_04\\other_parent\\audit.json": "9765083beae6f8f6115673f233f5cbff3c35d41d8a5af0393dbc5391e7b4a16a",
+    "runs\\continuation_frontier_dev_v1\\fixture_04\\other_parent\\program.pkl.gz": "1531919d2c53af04d4744d57f6fce1c71d26ed39ecb160635706f5f82a1fadae",
+    "runs\\continuation_frontier_dev_v1\\fixture_04\\policy_pool\\selection.json": "26c6fce732d6375352ff5407f0932ef751e0678871d5ee40eb61ad9a322a7568",
+    "runs\\continuation_frontier_dev_v1\\fixture_04\\policy_pool\\audit.json": "0215efe6881f9d397de2a0626ed9a40a24c4d0653e4c8798cc179a640ebb1029",
+    "runs\\continuation_frontier_dev_v1\\fixture_04\\policy_pool\\program.pkl.gz": "634ac55110ab88b5a96cfe5d04061c7f21e0fc3c7265e4ce0debf477a494163d",
+    "runs\\continuation_frontier_dev_v1\\fixture_05\\other_parent\\selection.json": "f56b7a5946ecd278803ac5f9bfcb795ba95a79d2ac54a203e97f107c844919d0",
+    "runs\\continuation_frontier_dev_v1\\fixture_05\\other_parent\\audit.json": "1250d1db1b5ca7e91b4106e3817ce7c69f7a47f614eab62047d0703dd967a719",
+    "runs\\continuation_frontier_dev_v1\\fixture_05\\other_parent\\program.pkl.gz": "927dbdeaab4d28e9578de45b5aa21254e99f6458c9aec95fd401958b21f4e03e",
+    "runs\\continuation_frontier_dev_v1\\fixture_05\\policy_pool\\selection.json": "9448aba75b991eb9646d20200b0494c04821ec51774320d8f0043e98e78a6ae1",
+    "runs\\continuation_frontier_dev_v1\\fixture_05\\policy_pool\\audit.json": "98487f92ca9458e84615d45cf7ace2e4c74f521218c073f685bce0b4e8784923",
+    "runs\\continuation_frontier_dev_v1\\fixture_05\\policy_pool\\program.pkl.gz": "809f9fea504e3d354b0416e650b202e6018be688a9727b6003dbe7a2f738d553",
+    "runs\\continuation_frontier_dev_v1\\fixture_06\\other_parent\\selection.json": "4a539d4e31ad74d5d2858d23de19f90c2060dea4f2571cd9481cc0a5f4932315",
+    "runs\\continuation_frontier_dev_v1\\fixture_06\\other_parent\\audit.json": "81f66a4d9d3ccfbdda3c4e124353368560c4d2fb944c55794df5a70009867f36",
+    "runs\\continuation_frontier_dev_v1\\fixture_06\\other_parent\\program.pkl.gz": "8ec9b04ee882a4eb40a07a6895d983391ded504eee444ddbbc257a5f6ae97907",
+    "runs\\continuation_frontier_dev_v1\\fixture_06\\policy_pool\\selection.json": "215f1b97ee9e75729452ec744fccfaafc2dc1a3d0f2e3005b1891871be2d24fa",
+    "runs\\continuation_frontier_dev_v1\\fixture_06\\policy_pool\\audit.json": "1d049409e5375d5a6dc11038dd1a4d2b7e46a7869d0a853b6a09e97c47e82ed8",
+    "runs\\continuation_frontier_dev_v1\\fixture_06\\policy_pool\\program.pkl.gz": "06d9fd6b619afc45fab1fa2f2ac3f23053b469db64e4227f818017ffae51bd27",
+    "runs\\continuation_frontier_dev_v1\\fixture_07\\other_parent\\selection.json": "5d919db8d3962c4bcf3b4669428cb2ed8cc75b7c846d4271b2408f0639611f4c",
+    "runs\\continuation_frontier_dev_v1\\fixture_07\\other_parent\\audit.json": "00ca8b9e766bcf2cf66fb37b63b6773a564a0dd26fa1f6c63a838a83b1b1323d",
+    "runs\\continuation_frontier_dev_v1\\fixture_07\\other_parent\\program.pkl.gz": "95aba5521503aa95c2861a82ab0eea528f3b4d9cc8cf8bcc15504d38522a6f42",
+    "runs\\continuation_frontier_dev_v1\\fixture_07\\policy_pool\\selection.json": "f6e97cdd53bcf73fcbf286aecb8698912deef240fddf290a81f92e19c0405f22",
+    "runs\\continuation_frontier_dev_v1\\fixture_07\\policy_pool\\audit.json": "5ba861fb43aa2b36e5d91fbfc1407f0769625b6bf33da4fd5df08a250d13c8fb",
+    "runs\\continuation_frontier_dev_v1\\fixture_07\\policy_pool\\program.pkl.gz": "d4cf5b09f14771b99269ecbeef443ec1e70171ca9a274bcc5ffd79350547fa87",
+    "runs\\continuation_frontier_dev_v1\\fixture_08\\other_parent\\selection.json": "61d2df84ca481119b656c57b9bd58ec76adeace91afbdd9f9256b54406ca8cde",
+    "runs\\continuation_frontier_dev_v1\\fixture_08\\other_parent\\audit.json": "b6e97125b16349e0eeca55497a836031c69ec533ee77bb4a38a7ab77c7a51b9a",
+    "runs\\continuation_frontier_dev_v1\\fixture_08\\other_parent\\program.pkl.gz": "54bfe6fdabda0ba7ebf1f040f3bfa21896165ef0045b9ec86eccb77f93661214",
+    "runs\\continuation_frontier_dev_v1\\fixture_08\\policy_pool\\selection.json": "bd3c5a80a1572edc9a73c68f8a1e90e05c26fa33faf4cdb6fdf11465520d10ab",
+    "runs\\continuation_frontier_dev_v1\\fixture_08\\policy_pool\\audit.json": "b44ab3743b94c70ffbf6081551eccf27ca5c8c94f8679c0cab866400988fd45d",
+    "runs\\continuation_frontier_dev_v1\\fixture_08\\policy_pool\\program.pkl.gz": "54bfe6fdabda0ba7ebf1f040f3bfa21896165ef0045b9ec86eccb77f93661214",
+    "runs\\continuation_frontier_dev_v1\\fixture_09\\other_parent\\selection.json": "80512152ec4c8f2115f094eb358f75a43c587054820e5bb9fa3574c52cbc3607",
+    "runs\\continuation_frontier_dev_v1\\fixture_09\\other_parent\\audit.json": "ca3fb63cc21251194a91cac1679a605c9c87cd00e4bbf868c9306a9cd6e9d93d",
+    "runs\\continuation_frontier_dev_v1\\fixture_09\\other_parent\\program.pkl.gz": "fbd115f34e37b33ec30245d28cf06f86a54fb7ea8b77522feb03474819f66e31",
+    "runs\\continuation_frontier_dev_v1\\fixture_09\\policy_pool\\selection.json": "2ca3709fca6ca553f0f37218e2ec3ddc84cd7ad0dd6dded0892b5cf54efaa966",
+    "runs\\continuation_frontier_dev_v1\\fixture_09\\policy_pool\\audit.json": "04b73244df538e584e0b048ea94144cd6d7b74de966901965e4c550c9eb603f0",
+    "runs\\continuation_frontier_dev_v1\\fixture_09\\policy_pool\\program.pkl.gz": "f49ecb1d29bf468bc62e3c7391eae53cadaad9b82da1f3c2a4f3b078ae751697",
+    "runs\\continuation_frontier_dev_v1\\fixture_10\\other_parent\\selection.json": "d7b5f2bde74db61ab7192168e4fad4c8541d510fd732ec3c980181e3006afab1",
+    "runs\\continuation_frontier_dev_v1\\fixture_10\\other_parent\\audit.json": "1be1784a137cb15cb3e3d96840912c7219c41ebe5d504eb85f816200c1ae7b2e",
+    "runs\\continuation_frontier_dev_v1\\fixture_10\\other_parent\\program.pkl.gz": "33ae5107e9066e966601304e569f6e3347a874f41d6a8f93174f2f8bf565bc04",
+    "runs\\continuation_frontier_dev_v1\\fixture_10\\policy_pool\\selection.json": "81304284e78ef786cdd7a1714b74719269c7737dfc0823cdd4791ac1c4e009fa",
+    "runs\\continuation_frontier_dev_v1\\fixture_10\\policy_pool\\audit.json": "5d63d736e468e8ca815de2719b47d245e7f82076e560168f761a8462ef7f6507",
+    "runs\\continuation_frontier_dev_v1\\fixture_10\\policy_pool\\program.pkl.gz": "bf7107b3e8ea88256ef1d262adacd6ac5e454d8a4db790cced5506c6c27aedd1",
+    "runs\\continuation_frontier_dev_v1\\fixture_11\\other_parent\\selection.json": "78ae207e2975f50d9718bbe7333759ec6e281f38d8eaee7c93efc5c028f07946",
+    "runs\\continuation_frontier_dev_v1\\fixture_11\\other_parent\\audit.json": "256c30bdc27dc6b23a4660216cc38521215fa838756dc9a2ee1664b18cd1fbe0",
+    "runs\\continuation_frontier_dev_v1\\fixture_11\\other_parent\\program.pkl.gz": "58d395bc7196f09cb23972277cf973f3a6f8dd4de838d3c4edf74012eb9447bc",
+    "runs\\continuation_frontier_dev_v1\\fixture_11\\policy_pool\\selection.json": "473de3dc27f6238d02beff7a8dcb2d660605963fad62b06f902a4daf15490db9",
+    "runs\\continuation_frontier_dev_v1\\fixture_11\\policy_pool\\audit.json": "b40a6670d573a30e4727728cf1c72f54d7f2ce6d198a07a0e829eff07a54e837",
+    "runs\\continuation_frontier_dev_v1\\fixture_11\\policy_pool\\program.pkl.gz": "ffaa409e0e0f0ed094a5c562ccd1111ef561a41b0bec6b9b091e072d4f023468",
+    "runs\\continuation_frontier_dev_v1\\fixture_12\\other_parent\\selection.json": "494dc947b2d342623bca12fbe9ef16baef0f4d4a621a1649048c306109c0288b",
+    "runs\\continuation_frontier_dev_v1\\fixture_12\\other_parent\\audit.json": "f83bed5bb50853672cc417818871190fff27e81067fb3ae7ce945c54ccd72030",
+    "runs\\continuation_frontier_dev_v1\\fixture_12\\other_parent\\program.pkl.gz": "f9b053f070f811a816aa71f558ca1113150061363e5abfab8a0dd4622e5816aa",
+    "runs\\continuation_frontier_dev_v1\\fixture_12\\policy_pool\\selection.json": "412e5b869196bd86d87540e018d4a8eda4376001a2b79d8b48271b14b0c1e235",
+    "runs\\continuation_frontier_dev_v1\\fixture_12\\policy_pool\\audit.json": "f778422e04677ed00cbe6002431c68251c15724d6564895b8a50ec04c7c20ee3",
+    "runs\\continuation_frontier_dev_v1\\fixture_12\\policy_pool\\program.pkl.gz": "f9b053f070f811a816aa71f558ca1113150061363e5abfab8a0dd4622e5816aa",
+    "runs\\continuation_frontier_dev_v1\\fixture_13\\other_parent\\selection.json": "a59b01f26ec3559237b21be0d9828a6de5ac19b3b3a038813363fc002a443ae3",
+    "runs\\continuation_frontier_dev_v1\\fixture_13\\other_parent\\audit.json": "ded98dff0e12e222628e1a012882f50eb7c88a965866ccc0d7b1badeef4c1d38",
+    "runs\\continuation_frontier_dev_v1\\fixture_13\\other_parent\\program.pkl.gz": "439fd16621b19cd3ffd6c997d780f8550ab7e13091a1f3022f4751d41e1f2148",
+    "runs\\continuation_frontier_dev_v1\\fixture_13\\policy_pool\\selection.json": "0d69669e80957dbbf1bd95487986fb0fe3acd65ac05b3a2d7123224a27d5e74d",
+    "runs\\continuation_frontier_dev_v1\\fixture_13\\policy_pool\\audit.json": "ef6365d94ba0b12baa46db801ae0c04374119854e32035a9aa9094b5bbeeb554",
+    "runs\\continuation_frontier_dev_v1\\fixture_13\\policy_pool\\program.pkl.gz": "c2d1ab891263f3617610910d7c1a40a00372145d7f5a6b09ca61f8c2e0ffbfa8",
+    "runs\\continuation_frontier_dev_v1\\fixture_14\\other_parent\\selection.json": "b72356450c9116d588370f8a5effad7f7c29868794a1d8a00484d449bd00b919",
+    "runs\\continuation_frontier_dev_v1\\fixture_14\\other_parent\\audit.json": "7dcac2fd4fc5aa407547feec8bc267f4639d1f2e86788cb0ff31108c44c9a4aa",
+    "runs\\continuation_frontier_dev_v1\\fixture_14\\other_parent\\program.pkl.gz": "9f718992738f1b6b04839ad218a95faa969e44a66517289b0e7f29426a4d888f",
+    "runs\\continuation_frontier_dev_v1\\fixture_14\\policy_pool\\selection.json": "de9a49b8859aa162f53a7b8e3538a6c76ecbbd85327da1acd79f4b873895f051",
+    "runs\\continuation_frontier_dev_v1\\fixture_14\\policy_pool\\audit.json": "361ebd410a33d6caa59878bd9114e649ba1373b9683cb026c66d920423b9f866",
+    "runs\\continuation_frontier_dev_v1\\fixture_14\\policy_pool\\program.pkl.gz": "cb7bd77708d5c9d5a10176a4c4d3f428e148eee1a116dc726e35b4183a3e5ea6",
+    "runs\\continuation_frontier_dev_v1\\fixture_15\\other_parent\\selection.json": "e56f2d8c58808e28ed80e998a158647f693b342213a9baa4cd1d10a0535f9c22",
+    "runs\\continuation_frontier_dev_v1\\fixture_15\\other_parent\\audit.json": "bd3852cbf82a2a580fb36f72cf54612ea758366bd09042e30e0f8cdaf63e31eb",
+    "runs\\continuation_frontier_dev_v1\\fixture_15\\other_parent\\program.pkl.gz": "78a7e2844eb3af7de9dba676278691670c182879e8ead628e7e3aa0b0d351d93",
+    "runs\\continuation_frontier_dev_v1\\fixture_15\\policy_pool\\selection.json": "a8c8e29301da48dcdbcd4fd07e55cb0273ddb0dc632ebcdabbac300efd48ed57",
+    "runs\\continuation_frontier_dev_v1\\fixture_15\\policy_pool\\audit.json": "660dcfe00e7d675a136eef940ec71fc03c359b393d67a0474ad699c9df715b98",
+    "runs\\continuation_frontier_dev_v1\\fixture_15\\policy_pool\\program.pkl.gz": "6352673d444deb41c22c328b205cae027549a1c883af28d1658ebcdefea4d773",
+    "runs\\continuation_frontier_dev_v1\\fixture_16\\other_parent\\selection.json": "9b186124866aa7a8ad89e662af41db08976127f8a3720033fd0952ac16640487",
+    "runs\\continuation_frontier_dev_v1\\fixture_16\\other_parent\\audit.json": "1f7ab7cd130fefd34326a3dd0931c3117d2d429bb5134adc6c8e65dc354028b2",
+    "runs\\continuation_frontier_dev_v1\\fixture_16\\other_parent\\program.pkl.gz": "9896114ab1290beed7b874d823bc4374e1e5ed68b41ed749c1acd1c53f1c9984",
+    "runs\\continuation_frontier_dev_v1\\fixture_16\\policy_pool\\selection.json": "5bbc8e6270d29fee31590f7eb3f7a648c16555a62b3d3d1fd0028f022e1a9d13",
+    "runs\\continuation_frontier_dev_v1\\fixture_16\\policy_pool\\audit.json": "1db14b26e990d13fd70d998a44ad8be37415c745bc6d9453f916b625a4cd006c",
+    "runs\\continuation_frontier_dev_v1\\fixture_16\\policy_pool\\program.pkl.gz": "a2880095881556f573099510aa3a26e40d8da63ddc0872d37d01579b612bf19c",
+    "runs\\continuation_frontier_dev_v1\\fixture_17\\other_parent\\selection.json": "bc7853b3747868b48ab621efc58c02a3eb20acdb0e9b88fbbc19c171f369df1a",
+    "runs\\continuation_frontier_dev_v1\\fixture_17\\other_parent\\audit.json": "6afc9f722952c58b4cf5bc250ad6b345a5f5befc10f4ebb660957de216d95e36",
+    "runs\\continuation_frontier_dev_v1\\fixture_17\\other_parent\\program.pkl.gz": "bc49d528b55c713e6d0ba79581694e3ab4463993d9c38d65505ac9e4cabefe4a",
+    "runs\\continuation_frontier_dev_v1\\fixture_17\\policy_pool\\selection.json": "fde19fff76ef66f31c24c13890c5fc734e363ed8935477c567a9f10c9de7a0fa",
+    "runs\\continuation_frontier_dev_v1\\fixture_17\\policy_pool\\audit.json": "2b27e2c2fea314c93b2423f57b41b391692ad2edaf6dfc62cfbe4b9643db54a4",
+    "runs\\continuation_frontier_dev_v1\\fixture_17\\policy_pool\\program.pkl.gz": "8abd82cff5b884a79772311138c73e7cf87c9f486a2c0f3940665733f9a33d8e",
+    "runs\\continuation_frontier_dev_v1\\fixture_18\\other_parent\\selection.json": "74175b73071382d26d2fd4e11e1c721c4e428ddb5e81e1cad6baf3041e08542b",
+    "runs\\continuation_frontier_dev_v1\\fixture_18\\other_parent\\audit.json": "dae475fa23ef7a6ae3f51764bd23a3c5fccb7729dbb43ea7f24b2de78da5248c",
+    "runs\\continuation_frontier_dev_v1\\fixture_18\\other_parent\\program.pkl.gz": "c983b3d40258fe3a7f52d1b482e066e3302b1928fb002c5c71bc82fe9959dce5",
+    "runs\\continuation_frontier_dev_v1\\fixture_18\\policy_pool\\selection.json": "98652499cb1d67ca29a2541bab568cb60f066a1b7bb6d73cda0ee522a70d078a",
+    "runs\\continuation_frontier_dev_v1\\fixture_18\\policy_pool\\audit.json": "bf7a91d07c7be7a6961bec984b0cfa59acf63d148cada1ecc29ab7c369f17eb5",
+    "runs\\continuation_frontier_dev_v1\\fixture_18\\policy_pool\\program.pkl.gz": "f8568a7d0612aaaed9beb34f525e7e7ae9aa8dac6e1d17e0e3e96a901ff64d6a"
+  },
+  "exporter_sha256": "4c8b88ecbcacf4fca53278e817ee2f3db14abc09307a52b9cfa0e3a837a1f98e"
+}

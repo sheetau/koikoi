@@ -58,9 +58,11 @@ The main method verifies local improvements from public play even when a computa
 
 The new [256-source proposal comparison](docs/PROSPECTIVE_PROPOSAL_RESULTS.rst) finds 22.00% fewer planning transitions with 93.72% of the exact gain; its superiority criterion fails. A [nine-rule transfer investigation](docs/RULE_TRANSFER_RESULTS.rst) completes 182,272 matches, with both separate confirmation cohorts failing the joint criterion. Neither result promotes a new default.
 
+The [public-root pruning comparison](docs/PRUNED_OPTIMIZED_FRONTIER_RESULTS.rst) preserves all 92 adopted programs and exact gains on eight development sources while saving **1.27%** of planning transitions. A [serial implementation benchmark](docs/FRONTIER_TIMING_RESULTS.rst) finds **58.68?86.26%** less preparation time on one fully certified root; this is not a population latency claim. [Named learned continuations](docs/CONTINUATION_PORTFOLIO_RESULTS.rst) expand development coverage but reduce total gain, so neither candidate family is promoted.
+
 These are distinct comparisons under fixed rules and opponents. The search results measure expected win-score changes under the declared hidden-card distribution. They do not establish strongest-AI or equilibrium performance.
 
-See the [manuscript and build instructions](docs/paper/README.rst), [work log and evidence entry points](docs/WORKFLOW.md), and [complete incremental results](docs/FRONTIER_INCREMENTAL_RESULTS.rst). The locally built PDF is `output/pdf/proposal_and_rule_results_revision/manuscript.pdf`; PDFs, checkpoints and raw runs are ignored build or research artifacts.
+See the [manuscript and build instructions](docs/paper/README.rst), [work log and evidence entry points](docs/WORKFLOW.md), and [complete incremental results](docs/FRONTIER_INCREMENTAL_RESULTS.rst). The locally built PDF is `output/pdf/continuation_and_pruning_revision/manuscript.pdf`; PDFs, checkpoints and raw runs are ignored build or research artifacts.
 
 ## Development
 

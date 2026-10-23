@@ -1,0 +1,164 @@
+{
+  "scope": "All eight original five-draw fixtures, reused development only; imported optimized fixed baseline",
+  "sources": 8,
+  "new_source_matches": 0,
+  "rows": [
+    {
+      "fixture": 0,
+      "baseline_gain": "0",
+      "pruned_gain": "0",
+      "baseline_decisions": 1241546,
+      "pruned_decisions": 1232618,
+      "skipped_nodes": 62,
+      "baseline_work_on_skipped_nodes": 8928,
+      "actual_win_score_delta": "0",
+      "actual_point_delta": 0
+    },
+    {
+      "fixture": 1,
+      "baseline_gain": "0",
+      "pruned_gain": "0",
+      "baseline_decisions": 1415348,
+      "pruned_decisions": 1415348,
+      "skipped_nodes": 0,
+      "baseline_work_on_skipped_nodes": 0,
+      "actual_win_score_delta": "0",
+      "actual_point_delta": 0
+    },
+    {
+      "fixture": 2,
+      "baseline_gain": "0",
+      "pruned_gain": "0",
+      "baseline_decisions": 80214,
+      "pruned_decisions": 4974,
+      "skipped_nodes": 1304,
+      "baseline_work_on_skipped_nodes": 75240,
+      "actual_win_score_delta": "0",
+      "actual_point_delta": 0
+    },
+    {
+      "fixture": 3,
+      "baseline_gain": "1/5265",
+      "pruned_gain": "1/5265",
+      "baseline_decisions": 1999987,
+      "pruned_decisions": 1999987,
+      "skipped_nodes": 0,
+      "baseline_work_on_skipped_nodes": 0,
+      "actual_win_score_delta": "0",
+      "actual_point_delta": 0
+    },
+    {
+      "fixture": 4,
+      "baseline_gain": "0",
+      "pruned_gain": "0",
+      "baseline_decisions": 89037,
+      "pruned_decisions": 35577,
+      "skipped_nodes": 845,
+      "baseline_work_on_skipped_nodes": 53460,
+      "actual_win_score_delta": "0",
+      "actual_point_delta": 0
+    },
+    {
+      "fixture": 5,
+      "baseline_gain": "71/112320",
+      "pruned_gain": "71/112320",
+      "baseline_decisions": 1999988,
+      "pruned_decisions": 1999988,
+      "skipped_nodes": 0,
+      "baseline_work_on_skipped_nodes": 0,
+      "actual_win_score_delta": "0",
+      "actual_point_delta": 0
+    },
+    {
+      "fixture": 6,
+      "baseline_gain": "31/214500",
+      "pruned_gain": "31/214500",
+      "baseline_decisions": 1999981,
+      "pruned_decisions": 1999981,
+      "skipped_nodes": 0,
+      "baseline_work_on_skipped_nodes": 0,
+      "actual_win_score_delta": "0",
+      "actual_point_delta": 0
+    },
+    {
+      "fixture": 7,
+      "baseline_gain": "3593/10193040",
+      "pruned_gain": "3593/10193040",
+      "baseline_decisions": 1999988,
+      "pruned_decisions": 1999988,
+      "skipped_nodes": 0,
+      "baseline_work_on_skipped_nodes": 0,
+      "actual_win_score_delta": "0",
+      "actual_point_delta": 0
+    }
+  ],
+  "totals": {
+    "baseline": {
+      "decisions": 10826089,
+      "seconds": 495.3779891000595,
+      "adopted_nodes": 92
+    },
+    "pruned": {
+      "decisions": 10688461,
+      "seconds": 492.7484560001176,
+      "adopted_nodes": 92
+    },
+    "prefix_oracle": {
+      "decisions": 49263,
+      "round_endings": 5026,
+      "completions": 5026
+    },
+    "local_oracle": {
+      "decisions": 918431,
+      "round_endings": 800157,
+      "completions": 800157
+    },
+    "actual_tails": {
+      "decisions": 96,
+      "round_endings": 16,
+      "completions": 16
+    },
+    "tail_replay": {
+      "decisions": 96,
+      "round_endings": 16,
+      "completions": 16
+    }
+  },
+  "baseline_gain_sum": "149393/113256000",
+  "pruned_gain_sum": "149393/113256000",
+  "baseline_positive_sources": 4,
+  "pruned_positive_sources": 4,
+  "gain_ratio": "1",
+  "transition_ratio": "10688461/10826089",
+  "gain_per_transition_ratio": "10826089/10688461",
+  "criterion_met": true,
+  "result_bindings": {
+    "runs\\pruned_optimized_frontier_dev_v1\\protocol.json": "9f7fb8cffa3d59aa4a0cddd0c0ef5ca38e41cb99711f582a91f777a08669a2c1",
+    "runs\\pruned_optimized_frontier_dev_v1\\summary.json": "f71478c9c910939f5f9e86b8a6e1078eb1a856609febac19302c4eeee0d44fbc",
+    "runs\\pruned_optimized_frontier_dev_v1\\fixture_00\\selection.json": "e621f606101224cf9220f8b447ade87a7c0fc60effe32a2fa28f80f7e14d70aa",
+    "runs\\pruned_optimized_frontier_dev_v1\\fixture_00\\audit.json": "39c0f189a7330e6cc8358c8c7a9bb62c09f4c801b442c4692ab4ea476ca53c2d",
+    "runs\\pruned_optimized_frontier_dev_v1\\fixture_00\\program.pkl.gz": "390a78d4be532aefe8f51d9adbbf9549b76ae973d7d5b73fbb3cf98abd0e84e5",
+    "runs\\pruned_optimized_frontier_dev_v1\\fixture_01\\selection.json": "6de45a996b05f0636a8b90508db77c99f1d34a1480fa52ffb4f6aae904890978",
+    "runs\\pruned_optimized_frontier_dev_v1\\fixture_01\\audit.json": "f26e7d6e80fb8fe65998e36821b869ea65aefac2a6d0693a2904b91eed345e26",
+    "runs\\pruned_optimized_frontier_dev_v1\\fixture_01\\program.pkl.gz": "155cd9a11cc5b4773c0765c247cec5ede0ece4f747304d3dd31dea1a55d63cde",
+    "runs\\pruned_optimized_frontier_dev_v1\\fixture_02\\selection.json": "cbf9cdfc03ac6ef50e77314e5234e7a839be7774bf5ca0327c50ca9b1305c42d",
+    "runs\\pruned_optimized_frontier_dev_v1\\fixture_02\\audit.json": "6f47cfe4572848e063d0a8728e9e6851bccb524e3e1ea93694eee914853fbed7",
+    "runs\\pruned_optimized_frontier_dev_v1\\fixture_02\\program.pkl.gz": "c5adb2a5bdbd9e1cc3ad452cf57836ceb4dca79cb697db7991f63f8fbf588472",
+    "runs\\pruned_optimized_frontier_dev_v1\\fixture_03\\selection.json": "b7c10932add5509beae0bf1663d0724c92c077794c202fe1481d478456acdc45",
+    "runs\\pruned_optimized_frontier_dev_v1\\fixture_03\\audit.json": "403f98c6951578a49becfa6f61fdeaa60dad519be913fbf7f098581ceeb8f2cb",
+    "runs\\pruned_optimized_frontier_dev_v1\\fixture_03\\program.pkl.gz": "0a4e71c6b11eb8bd40aac2d4e042fb02cf8d7838da8893c43ca077b3a9f162a9",
+    "runs\\pruned_optimized_frontier_dev_v1\\fixture_04\\selection.json": "07988b7a7d03ae0811ba6ae1472fd6328b3801f841f7f305342262b813eee1df",
+    "runs\\pruned_optimized_frontier_dev_v1\\fixture_04\\audit.json": "9da6fc74d4e62714ee72b15d4ac0cba1f694acb6de24d35d4473fcd8f2172498",
+    "runs\\pruned_optimized_frontier_dev_v1\\fixture_04\\program.pkl.gz": "391caeb56df03aee31b2ff69e50348f2f8561f7fda45d4d09ee3d12df8ad1437",
+    "runs\\pruned_optimized_frontier_dev_v1\\fixture_05\\selection.json": "d64ab19264c050b03e0150bbf28b2e603c0008afbeb7d7f238eb2b2e461a3c2f",
+    "runs\\pruned_optimized_frontier_dev_v1\\fixture_05\\audit.json": "d0529591f44a7c2a402f493abdc3e86a2d1cd60011ed74f41066cf11d142753d",
+    "runs\\pruned_optimized_frontier_dev_v1\\fixture_05\\program.pkl.gz": "60aed5277b88aafd3a9a5ef07c91ceee1570ef4e2e708f6fce2744772931833d",
+    "runs\\pruned_optimized_frontier_dev_v1\\fixture_06\\selection.json": "c64c75c236984d0a135f7e6790ad33e0d4c0000bc2de36373b94978cf82fb2d2",
+    "runs\\pruned_optimized_frontier_dev_v1\\fixture_06\\audit.json": "8f6b2cdb869cdc934122a752409310a9d539b7f9bba1cb7457e77223ce5789cc",
+    "runs\\pruned_optimized_frontier_dev_v1\\fixture_06\\program.pkl.gz": "bb54961b83af2424372edf998a152415535c4cda2a8deac4cac6db68bc3c6718",
+    "runs\\pruned_optimized_frontier_dev_v1\\fixture_07\\selection.json": "732b78ed987af2961668c87a1299827a06e009e216b8601b0a2f16d42780739d",
+    "runs\\pruned_optimized_frontier_dev_v1\\fixture_07\\audit.json": "ae537fa2dfb8bb896cc4b9384a96044bfb671d7b8c63fe801ce91e34e7bfb968",
+    "runs\\pruned_optimized_frontier_dev_v1\\fixture_07\\program.pkl.gz": "13b2f194ad04c467c4689a8c97542b056542b2254c9512f9e1e798b537f2c6f3"
+  },
+  "exporter_sha256": "2c8ebfea3349100529096a791f2058f3b6b49385ad0778bfe5929fe83205be99"
+}

@@ -229,67 +229,71 @@ gain at each site. Raising success among already targeted roots alone cannot
 remove the small population coverage.
 
 Earlier activation alone failed: the original eight six-draw probes adopted
-no program. Changing the candidate representation makes two of those same
-fixtures improvable (Appendix~\ref{app:resumable-proposals}). Each candidate
-changes one public action and follows the parent thereafter, so it is complete
-before evaluation starts. Persistent interval evaluators then spend the budget
-on comparison rather than repeatedly constructing executable continuations.
-This increases feasible coverage in development, but the fresh 256-source
-comparison does not reproduce a coverage advantage: parent-default proposals
-improve 35 sources, versus 38 for optimized proposals, with no new-only source.
-That study removes the parent-refusal filter at a common five-draw gate and
-measures direct frontier controllers, not increments over the integrated AI.
+no program. Parent-default proposals recover gains in two of those reused
+fixtures, but the fresh 256-source comparison does not reproduce a coverage
+advantage: they improve 35 sources, versus 38 for optimized proposals, with
+no new-only source. That comparison removes the parent-refusal filter at a
+common five-draw gate and measures direct frontier controllers, not increments
+over the integrated AI (Appendix~\ref{app:resumable-proposals}).
+Named learned continuations add two positive development sources per family
+but lose one, retaining only 70.57\% or 47.30\% of baseline total gain.
+Neither meets its frozen advancement criterion. Broader candidate sets alone
+therefore do not resolve the allocation problem.
 
 \subsection{Reducing actual computation}
 The unchanged maximum allowance does not mean unchanged cost. The extension
-adds 111,874,298 planning transitions, about 27,313 per source match.
-Proposal search accounts for 82.7\% of this work; complete-prefix construction
-accounts for 0.33\%. Proposal reuse and allocation are therefore higher-priority
-targets than optimizing the prefix alone. Actor evaluations are already cached by public observation. A new
-three-arm development comparison isolates completed-subprogram reuse from
+adds 111,874,298 planning transitions, about 27,313 per source match. Proposal
+search accounts for 82.7\% of this work; complete-prefix construction accounts
+for 0.33\%. Candidate construction and verification are therefore the main
+efficiency targets. Actor evaluations are already cached by public observation.
+A three-arm development comparison isolates completed-subprogram reuse from
 budget allocation (Appendix~\ref{app:search-reuse}). Reuse saves 3.03\% of
-physical transitions within the same refinement schedule, but that schedule
-retains only 5.56\% of the existing allocation's summed improvement. Thus
-cheaper repeated computation does not by itself produce better candidates.
-Parent-default proposals address that construction cost directly. On the same
-eight five-draw fixtures, their exact gain rises by 32.40\% for 7.17\% more
-transitions: 23.55\% more gain per transition. Positive-source coverage remains
-4/8, and elapsed time does not improve. The result supports a better
-finite-budget candidate representation, not a general search speedup. On fresh
-sources it saves 22.00\% of physical transitions while retaining 93.72\% of
-exact gain, increasing gain per transition by 20.15\%. Both superiority bounds
-are negative, and operational elapsed time increases by 9.14\%. Thus the
-narrower candidate family provides a measured computation/value tradeoff;
-it does not qualify as a stronger default.
+transitions within the same refinement schedule, but that schedule retains
+only 5.56\% of the existing allocation's summed improvement. Cheaper repeated
+computation does not by itself produce better candidates.
 
-Public outcome certificates already reduce transition counts in development
-replay. Extending their coverage could both save work and make more programs
-complete under the same cap. Wall-clock improvement still needs a controlled
-measurement: native transitions omit neural-inference, bookkeeping and memory
-costs. A useful efficiency study should compare fixed-budget gain and the
-time needed to reach a fixed gain, while checking that optimized inference
-preserves the actions on which exact verification depends.
+Parent-default proposals separate construction from verification. On fresh
+sources they save 22.00\% of physical transitions while retaining 93.72\% of
+exact gain, increasing gain per transition by 20.15\%. Both superiority bounds
+are negative, and operational elapsed time increases by 9.14\%. The narrower
+family provides a measured computation/value tradeoff; it does not qualify as
+a stronger default. Transition counts omit neural inference, bookkeeping and
+memory costs, so elapsed time must be measured separately. Useful optimizations
+must preserve the actions and bounds on which verification depends. Moving public outcome checks before candidate construction reduces optimized
+proposal work by 1.27\% on eight development roots, preserving all 92 adopted
+programs and every retained comparison. On one fully certified root it cuts
+planning time by 58.68--86.26\% across candidate families, with unchanged
+policies. This special-case saving does not establish general latency;
+a separate four-case receipt-reuse comparison shows no speedup.
+
+\subsection{Rule-dependent strength}
+A separate nine-profile screen tests opening awards, scoring multipliers and
+combined local rules with frozen transferred policies. It selects a variant
+that awards both players' current yaku values to the round winner. Two
+independent confirmations both have positive mean mixture differences for
+each parent, but neither passes the joint lower-bound criterion; the failing
+parent changes between cohorts. The advantage concentrates against Point,
+while parent 1 loses mean win score against WP in both. Thus the screen finds
+rule-dependent opportunity, not a robust strength-maximizing rule. No rule is
+promoted, no rule-specific training is performed, and the failed confirmations
+remain separate (Appendix~\ref{app:rule-transfer}).
 
 \subsection{Transfer to other imperfect-information games}
-The transferable component is the partition-and-compare construction in
-Equation~\ref{eq:frontier-gain}. It requires a specified conditional opponent
-and chance model, a complete first-arrival partition, executable replacements,
-and valid candidate-lower/parent-upper comparisons. Neither hand revelation
-nor the Koi-Koi discard boundary is required by that argument. Small finite
-poker variants and short trick-taking endgames are concrete candidates for
-testing it. Policy-based hidden-deal inference in Skat provides a precedent
-for constructing beliefs from public actions \cite{rebstock2019policy}.
+The partition-and-compare construction in Equation~\ref{eq:frontier-gain}
+requires a specified conditional opponent and chance law, a complete
+first-arrival partition, executable replacements and valid value bounds.
+Neither hand revelation nor the Koi-Koi discard boundary is essential to the
+argument. Small poker variants and short trick-taking endgames are concrete
+transfer candidates; policy-based inference in Skat supplies a precedent for
+beliefs reconstructed from play \cite{rebstock2019policy}.
 
-The game-specific work is substantial. A new domain needs a tractable boundary
-and its own bounds or outcome certificates; Koi-Koi's prefix bound does not
-carry over. Stochastic opponents require action-likelihood weighting instead
-of deterministic elimination. Unknown or adapting opponents require model
-uncertainty to enter the adoption bounds before the same guarantee can be
-claimed. Safe equilibrium-oriented re-solving addresses a different target
-\cite{burch2014decomposition,brown2020rebel}. A convincing transfer experiment
-would first use a small game with full terminal verification, then compare
-complete-root and frontier controllers at matched budgets, reporting eligible
-mass, adoption frequency, expected gain, realized scores and elapsed time.
+A new domain needs its own tractable boundary and outcome bounds. Stochastic
+opponents require action-likelihood weighting; unknown or adapting opponents
+require model uncertainty inside the adoption test. Equilibrium-oriented
+re-solving targets a different guarantee \cite{burch2014decomposition,brown2020rebel}.
+A first transfer test should use a small game permitting full terminal
+verification, then compare root and frontier controllers at matched budgets,
+reporting coverage, expected gain, realized scores and elapsed time.
 
 \section{Conclusion}
 Verified local policy changes can survive an unfinished global evaluation.

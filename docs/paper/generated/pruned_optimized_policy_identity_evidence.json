@@ -1,0 +1,98 @@
+{
+  "scope": "Eight reused development sources; identity of all retained comparisons, executable policies and prefix worlds; not a universal budget-reallocation theorem",
+  "rows": [
+    {
+      "fixture": 0,
+      "retained_comparisons": 87,
+      "preserved_adoptions": 0,
+      "skipped_nodes": 62,
+      "saved_transitions": 8928,
+      "old_program": "runs\\reusable_frontier_dev_v2\\fixture_00\\fixed\\program.pkl.gz",
+      "old_program_sha256": "e9ff8ad60ae1c72bd465bb6410fdadbd4e859fd5bfd52a3a2cf649e2ac588ee7",
+      "new_program": "runs\\pruned_optimized_frontier_dev_v1\\fixture_00\\program.pkl.gz",
+      "new_program_sha256": "390a78d4be532aefe8f51d9adbbf9549b76ae973d7d5b73fbb3cf98abd0e84e5"
+    },
+    {
+      "fixture": 1,
+      "retained_comparisons": 180,
+      "preserved_adoptions": 0,
+      "skipped_nodes": 0,
+      "saved_transitions": 0,
+      "old_program": "runs\\reusable_frontier_dev_v2\\fixture_01\\fixed\\program.pkl.gz",
+      "old_program_sha256": "d0e4f7d9bc75d728cc94bfc03c44334a4af20e75b2415f566ed1624fe8ed529e",
+      "new_program": "runs\\pruned_optimized_frontier_dev_v1\\fixture_01\\program.pkl.gz",
+      "new_program_sha256": "155cd9a11cc5b4773c0765c247cec5ede0ece4f747304d3dd31dea1a55d63cde"
+    },
+    {
+      "fixture": 2,
+      "retained_comparisons": 0,
+      "preserved_adoptions": 0,
+      "skipped_nodes": 1304,
+      "saved_transitions": 75240,
+      "old_program": "runs\\reusable_frontier_dev_v2\\fixture_02\\fixed\\program.pkl.gz",
+      "old_program_sha256": "87e04f2df64ca4ac17df56b34b1f94338d95982c13bdceaded1a24a28b9681a0",
+      "new_program": "runs\\pruned_optimized_frontier_dev_v1\\fixture_02\\program.pkl.gz",
+      "new_program_sha256": "c5adb2a5bdbd9e1cc3ad452cf57836ceb4dca79cb697db7991f63f8fbf588472"
+    },
+    {
+      "fixture": 3,
+      "retained_comparisons": 1286,
+      "preserved_adoptions": 10,
+      "skipped_nodes": 0,
+      "saved_transitions": 0,
+      "old_program": "runs\\reusable_frontier_dev_v2\\fixture_03\\fixed\\program.pkl.gz",
+      "old_program_sha256": "c8e913ac054522def9a709da352ed504e3f4aa1ef86cb113bcc13f77f03576ec",
+      "new_program": "runs\\pruned_optimized_frontier_dev_v1\\fixture_03\\program.pkl.gz",
+      "new_program_sha256": "0a4e71c6b11eb8bd40aac2d4e042fb02cf8d7838da8893c43ca077b3a9f162a9"
+    },
+    {
+      "fixture": 4,
+      "retained_comparisons": 418,
+      "preserved_adoptions": 0,
+      "skipped_nodes": 845,
+      "saved_transitions": 53460,
+      "old_program": "runs\\reusable_frontier_dev_v2\\fixture_04\\fixed\\program.pkl.gz",
+      "old_program_sha256": "d0537e0742cc0984e11c7a6792d0060a56e6eed8e42b881be9ba3a993d639419",
+      "new_program": "runs\\pruned_optimized_frontier_dev_v1\\fixture_04\\program.pkl.gz",
+      "new_program_sha256": "391caeb56df03aee31b2ff69e50348f2f8561f7fda45d4d09ee3d12df8ad1437"
+    },
+    {
+      "fixture": 5,
+      "retained_comparisons": 1409,
+      "preserved_adoptions": 26,
+      "skipped_nodes": 0,
+      "saved_transitions": 0,
+      "old_program": "runs\\reusable_frontier_dev_v2\\fixture_05\\fixed\\program.pkl.gz",
+      "old_program_sha256": "c9e2491767d400ccfe099e20fadc685c898b419234acbbdc7de65d274b94a3be",
+      "new_program": "runs\\pruned_optimized_frontier_dev_v1\\fixture_05\\program.pkl.gz",
+      "new_program_sha256": "60aed5277b88aafd3a9a5ef07c91ceee1570ef4e2e708f6fce2744772931833d"
+    },
+    {
+      "fixture": 6,
+      "retained_comparisons": 1200,
+      "preserved_adoptions": 22,
+      "skipped_nodes": 0,
+      "saved_transitions": 0,
+      "old_program": "runs\\reusable_frontier_dev_v2\\fixture_06\\fixed\\program.pkl.gz",
+      "old_program_sha256": "47a9aca61c5380d991577d6694e8c81546df2e1cb98cbd6d8ae28e598c5235bf",
+      "new_program": "runs\\pruned_optimized_frontier_dev_v1\\fixture_06\\program.pkl.gz",
+      "new_program_sha256": "bb54961b83af2424372edf998a152415535c4cda2a8deac4cac6db68bc3c6718"
+    },
+    {
+      "fixture": 7,
+      "retained_comparisons": 1129,
+      "preserved_adoptions": 34,
+      "skipped_nodes": 0,
+      "saved_transitions": 0,
+      "old_program": "runs\\reusable_frontier_dev_v2\\fixture_07\\fixed\\program.pkl.gz",
+      "old_program_sha256": "cfe7015caf47b4c06e82960bb729fe8bd7286c2f91da4d39d1b0661de14f2cb8",
+      "new_program": "runs\\pruned_optimized_frontier_dev_v1\\fixture_07\\program.pkl.gz",
+      "new_program_sha256": "13b2f194ad04c467c4689a8c97542b056542b2254c9512f9e1e798b537f2c6f3"
+    }
+  ],
+  "preserved_adoptions": 92,
+  "saved_transitions": 137628,
+  "all_retained_comparisons_identical": true,
+  "protocol_sha256": "9f7fb8cffa3d59aa4a0cddd0c0ef5ca38e41cb99711f582a91f777a08669a2c1",
+  "verifier_sha256": "1e7bad89b75f4b74f8dc0401c92450c8afafc200a67d2d3ac33503371e94e61d"
+}

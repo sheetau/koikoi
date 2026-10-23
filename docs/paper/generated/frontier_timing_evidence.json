@@ -1,0 +1,448 @@
+{
+  "receipt_reuse": {
+    "scope": "Serial development latency benchmark; four first-in-order parent/draw strata; no new source matches or strength inference",
+    "fixtures": [
+      0,
+      2,
+      8,
+      9
+    ],
+    "rows": [
+      {
+        "fixture": 0,
+        "original_fixture": 0,
+        "repetition": 0,
+        "arm": "old",
+        "seconds": 38.30834380001761,
+        "decisions": 1618826,
+        "gain_lower": "0",
+        "program_sha256": "6681ac3edb1c450cbdc4dbc252ffea4ee7354c2d286a505422b7da3848e75e50",
+        "equality": "passed"
+      },
+      {
+        "fixture": 0,
+        "original_fixture": 0,
+        "repetition": 0,
+        "arm": "reused",
+        "seconds": 38.16193230007775,
+        "decisions": 1618826,
+        "gain_lower": "0",
+        "program_sha256": "9e125c4d25bfded4ac88b7c643b575d3d5fb480e384d593b6b4574ff5dac22a7",
+        "equality": "passed"
+      },
+      {
+        "fixture": 0,
+        "original_fixture": 0,
+        "repetition": 1,
+        "arm": "reused",
+        "seconds": 38.946350400103256,
+        "decisions": 1618826,
+        "gain_lower": "0",
+        "program_sha256": "c40fa3ef44433b371ca564e423647e019e53a0e54bb7a0479af84f4321f54074",
+        "equality": "passed"
+      },
+      {
+        "fixture": 0,
+        "original_fixture": 0,
+        "repetition": 1,
+        "arm": "old",
+        "seconds": 37.42260710010305,
+        "decisions": 1618826,
+        "gain_lower": "0",
+        "program_sha256": "55d0207d833718683c768e45247e26cda2679480e4deea02dca9bebce7d0d828",
+        "equality": "passed"
+      },
+      {
+        "fixture": 1,
+        "original_fixture": 2,
+        "repetition": 0,
+        "arm": "old",
+        "seconds": 5.525378999998793,
+        "decisions": 4974,
+        "gain_lower": "0",
+        "program_sha256": "72073a34fb2fcffd0e79405eebc07a273d6fc336f82a22880d1c900ff9f6b042",
+        "equality": "passed"
+      },
+      {
+        "fixture": 1,
+        "original_fixture": 2,
+        "repetition": 0,
+        "arm": "reused",
+        "seconds": 5.629142099991441,
+        "decisions": 4974,
+        "gain_lower": "0",
+        "program_sha256": "382cf50fbc1d0a268d5448e2ebf2802046fd580b69cb24993f730251bc0e1d1f",
+        "equality": "passed"
+      },
+      {
+        "fixture": 1,
+        "original_fixture": 2,
+        "repetition": 1,
+        "arm": "reused",
+        "seconds": 5.72710769996047,
+        "decisions": 4974,
+        "gain_lower": "0",
+        "program_sha256": "3075457f82677a1153c19e5690135a3287dfe5c3dad58e4f2b85853059c75ac2",
+        "equality": "passed"
+      },
+      {
+        "fixture": 1,
+        "original_fixture": 2,
+        "repetition": 1,
+        "arm": "old",
+        "seconds": 5.578213599976152,
+        "decisions": 4974,
+        "gain_lower": "0",
+        "program_sha256": "5ddad65525c57141ff8f18e140f5bb78932d18d67bd12e76947b4f7e4639f6e2",
+        "equality": "passed"
+      },
+      {
+        "fixture": 2,
+        "original_fixture": 8,
+        "repetition": 0,
+        "arm": "old",
+        "seconds": 0.004975199932232499,
+        "decisions": 74,
+        "gain_lower": "0",
+        "program_sha256": "106eb76f9143dfd1ec9b85f36a9ab1dec927ea650deb2729eb358739deb2c62f",
+        "equality": "passed"
+      },
+      {
+        "fixture": 2,
+        "original_fixture": 8,
+        "repetition": 0,
+        "arm": "reused",
+        "seconds": 0.004419900011271238,
+        "decisions": 74,
+        "gain_lower": "0",
+        "program_sha256": "106eb76f9143dfd1ec9b85f36a9ab1dec927ea650deb2729eb358739deb2c62f",
+        "equality": "passed"
+      },
+      {
+        "fixture": 2,
+        "original_fixture": 8,
+        "repetition": 1,
+        "arm": "reused",
+        "seconds": 0.004084700020030141,
+        "decisions": 74,
+        "gain_lower": "0",
+        "program_sha256": "106eb76f9143dfd1ec9b85f36a9ab1dec927ea650deb2729eb358739deb2c62f",
+        "equality": "passed"
+      },
+      {
+        "fixture": 2,
+        "original_fixture": 8,
+        "repetition": 1,
+        "arm": "old",
+        "seconds": 0.00400780001655221,
+        "decisions": 74,
+        "gain_lower": "0",
+        "program_sha256": "106eb76f9143dfd1ec9b85f36a9ab1dec927ea650deb2729eb358739deb2c62f",
+        "equality": "passed"
+      },
+      {
+        "fixture": 3,
+        "original_fixture": 9,
+        "repetition": 0,
+        "arm": "old",
+        "seconds": 11.709453099872917,
+        "decisions": 61788,
+        "gain_lower": "0",
+        "program_sha256": "13518d386c90375f530b2b226719d683422552168eaa8ca61c8b43554d2bd61b",
+        "equality": "passed"
+      },
+      {
+        "fixture": 3,
+        "original_fixture": 9,
+        "repetition": 0,
+        "arm": "reused",
+        "seconds": 11.913333799922839,
+        "decisions": 61788,
+        "gain_lower": "0",
+        "program_sha256": "c5ba342f57f6ceb8aca22d844861e3af1985f6625063f411e84b62d59ffd3cd9",
+        "equality": "passed"
+      },
+      {
+        "fixture": 3,
+        "original_fixture": 9,
+        "repetition": 1,
+        "arm": "reused",
+        "seconds": 12.040469500003383,
+        "decisions": 61788,
+        "gain_lower": "0",
+        "program_sha256": "6f6d57533a626367b0b95f931095ecb1ee81620f5648e5a94446240b5ee6d561",
+        "equality": "passed"
+      },
+      {
+        "fixture": 3,
+        "original_fixture": 9,
+        "repetition": 1,
+        "arm": "old",
+        "seconds": 12.060366300167516,
+        "decisions": 61788,
+        "gain_lower": "0",
+        "program_sha256": "1fffae0df855591720383264b1307d1d8d3300ec58de97d00a2c4d8e7244b97a",
+        "equality": "passed"
+      }
+    ],
+    "seconds": {
+      "old": 110.61334590008482,
+      "reused": 112.42684040009044
+    },
+    "runtime_ratio": 1.0163948977878647,
+    "all_receipts_equal": true,
+    "result_bindings": {
+      "runs\\frontier_receipt_benchmark_v1\\fixture_00_repeat_0_old\\result.json": "71c4240f59877ae71818553c64319b99fdb1bc1506f9b3f0a17d94c75c385afa",
+      "runs\\frontier_receipt_benchmark_v1\\fixture_00_repeat_0_old\\program.pkl.gz": "6681ac3edb1c450cbdc4dbc252ffea4ee7354c2d286a505422b7da3848e75e50",
+      "runs\\frontier_receipt_benchmark_v1\\fixture_00_repeat_0_reused\\result.json": "793645413005747fac6f8ce3867a6c9b76071506d00804abae6eba189fb073f5",
+      "runs\\frontier_receipt_benchmark_v1\\fixture_00_repeat_0_reused\\program.pkl.gz": "9e125c4d25bfded4ac88b7c643b575d3d5fb480e384d593b6b4574ff5dac22a7",
+      "runs\\frontier_receipt_benchmark_v1\\fixture_00_repeat_1_old\\result.json": "8db8b2c823fb765972b903ae6d365960c8830a84e12fe5a27e8612819fac065a",
+      "runs\\frontier_receipt_benchmark_v1\\fixture_00_repeat_1_old\\program.pkl.gz": "55d0207d833718683c768e45247e26cda2679480e4deea02dca9bebce7d0d828",
+      "runs\\frontier_receipt_benchmark_v1\\fixture_00_repeat_1_reused\\result.json": "66722135d4389ef5621a656def686a58767e77291198c4a228983be9a0a40da2",
+      "runs\\frontier_receipt_benchmark_v1\\fixture_00_repeat_1_reused\\program.pkl.gz": "c40fa3ef44433b371ca564e423647e019e53a0e54bb7a0479af84f4321f54074",
+      "runs\\frontier_receipt_benchmark_v1\\fixture_01_repeat_0_old\\result.json": "d0b42375f593057067b2b2a50e03912dcdcc6253fcc347f65a7029d6528bcc96",
+      "runs\\frontier_receipt_benchmark_v1\\fixture_01_repeat_0_old\\program.pkl.gz": "72073a34fb2fcffd0e79405eebc07a273d6fc336f82a22880d1c900ff9f6b042",
+      "runs\\frontier_receipt_benchmark_v1\\fixture_01_repeat_0_reused\\result.json": "5175ea8b19bff19ca8d15371a5e772db4eaf43aba75ca7e389d5f503bf9333be",
+      "runs\\frontier_receipt_benchmark_v1\\fixture_01_repeat_0_reused\\program.pkl.gz": "382cf50fbc1d0a268d5448e2ebf2802046fd580b69cb24993f730251bc0e1d1f",
+      "runs\\frontier_receipt_benchmark_v1\\fixture_01_repeat_1_old\\result.json": "181fe76e7af7e57c13763da1e584a752b39cf3aa02af676b3670b348534853cc",
+      "runs\\frontier_receipt_benchmark_v1\\fixture_01_repeat_1_old\\program.pkl.gz": "5ddad65525c57141ff8f18e140f5bb78932d18d67bd12e76947b4f7e4639f6e2",
+      "runs\\frontier_receipt_benchmark_v1\\fixture_01_repeat_1_reused\\result.json": "b2938a949019367ea72ab4ad28eb7ea57dcabe34c858aeaadb6e2c183eeae6a5",
+      "runs\\frontier_receipt_benchmark_v1\\fixture_01_repeat_1_reused\\program.pkl.gz": "3075457f82677a1153c19e5690135a3287dfe5c3dad58e4f2b85853059c75ac2",
+      "runs\\frontier_receipt_benchmark_v1\\fixture_02_repeat_0_old\\result.json": "8c44ae4300d9df9df48b568c7b6e660a3e5814744ca073a4f8f07c9a81e125d6",
+      "runs\\frontier_receipt_benchmark_v1\\fixture_02_repeat_0_old\\program.pkl.gz": "106eb76f9143dfd1ec9b85f36a9ab1dec927ea650deb2729eb358739deb2c62f",
+      "runs\\frontier_receipt_benchmark_v1\\fixture_02_repeat_0_reused\\result.json": "cacb200a511f77d7596fe18ebd3e6f0d8fe47a39b06844211e372be70faabb08",
+      "runs\\frontier_receipt_benchmark_v1\\fixture_02_repeat_0_reused\\program.pkl.gz": "106eb76f9143dfd1ec9b85f36a9ab1dec927ea650deb2729eb358739deb2c62f",
+      "runs\\frontier_receipt_benchmark_v1\\fixture_02_repeat_1_old\\result.json": "9407095958cc500b16dfe758d47e97ec4bfe5bbda2fa71d12be82252a1526a67",
+      "runs\\frontier_receipt_benchmark_v1\\fixture_02_repeat_1_old\\program.pkl.gz": "106eb76f9143dfd1ec9b85f36a9ab1dec927ea650deb2729eb358739deb2c62f",
+      "runs\\frontier_receipt_benchmark_v1\\fixture_02_repeat_1_reused\\result.json": "47a2990053b260a52e7f8be2b46cbefd73f012222695974cf379c7a665762a19",
+      "runs\\frontier_receipt_benchmark_v1\\fixture_02_repeat_1_reused\\program.pkl.gz": "106eb76f9143dfd1ec9b85f36a9ab1dec927ea650deb2729eb358739deb2c62f",
+      "runs\\frontier_receipt_benchmark_v1\\fixture_03_repeat_0_old\\result.json": "3d1b96971ebc7ae876edf49903de4047c1ad28629a2f3c34c6838c2b0cc6e97f",
+      "runs\\frontier_receipt_benchmark_v1\\fixture_03_repeat_0_old\\program.pkl.gz": "13518d386c90375f530b2b226719d683422552168eaa8ca61c8b43554d2bd61b",
+      "runs\\frontier_receipt_benchmark_v1\\fixture_03_repeat_0_reused\\result.json": "de6ee1d266e898b5b43340325778667a77aaafbc1955b4b384495d828d1aba9c",
+      "runs\\frontier_receipt_benchmark_v1\\fixture_03_repeat_0_reused\\program.pkl.gz": "c5ba342f57f6ceb8aca22d844861e3af1985f6625063f411e84b62d59ffd3cd9",
+      "runs\\frontier_receipt_benchmark_v1\\fixture_03_repeat_1_old\\result.json": "91bd26c5a78715ac2c3ef260620b39fa3aeda8c17d3e1d2f823f043784ffaff3",
+      "runs\\frontier_receipt_benchmark_v1\\fixture_03_repeat_1_old\\program.pkl.gz": "1fffae0df855591720383264b1307d1d8d3300ec58de97d00a2c4d8e7244b97a",
+      "runs\\frontier_receipt_benchmark_v1\\fixture_03_repeat_1_reused\\result.json": "59692cfdf89f9a084436d2b7576b2bede3ee670f1e57a4d9ecad17bb37dd1434",
+      "runs\\frontier_receipt_benchmark_v1\\fixture_03_repeat_1_reused\\program.pkl.gz": "6f6d57533a626367b0b95f931095ecb1ee81620f5648e5a94446240b5ee6d561",
+      "runs\\frontier_receipt_benchmark_v1\\protocol.json": "b81d5e570b657a118472bd31a46d9be114e48b28946f106429cfbd56944410e6",
+      "runs\\frontier_receipt_benchmark_v1\\summary.json": "4c9c639e256a313e0d9a912f41f56068ebfb0da3d8009d044291f5d2eb9498e8"
+    },
+    "limitation": "Net comparison includes the named-program adapter's identity checks as well as receipt reuse; not a pure cache microbenchmark."
+  },
+  "certificate_pruning": {
+    "scope": "Special-case serial development timing at original fixture 2, all 1304 frontier nodes publicly certified; no population latency or strength inference",
+    "rows": [
+      {
+        "family": "parent_default",
+        "repetition": 0,
+        "arm": "old",
+        "seconds": 5.261405100114644,
+        "decisions": 4974,
+        "gain_lower": "0",
+        "frontier_nodes": 1304,
+        "comparisons": 1304,
+        "continuation_calls": {},
+        "program_sha256": "06168c5035b70f9e5fc307185180901dfb6ee1bbd27ac3e55bc84fb614b814f4"
+      },
+      {
+        "family": "parent_default",
+        "repetition": 0,
+        "arm": "pruned",
+        "seconds": 2.2153006999287754,
+        "decisions": 4974,
+        "gain_lower": "0",
+        "frontier_nodes": 1304,
+        "comparisons": 0,
+        "continuation_calls": {},
+        "program_sha256": "34101b351854ae4ba76e98e0431142609689e7af6d4de769835957678f61dc4d"
+      },
+      {
+        "family": "parent_default",
+        "repetition": 1,
+        "arm": "pruned",
+        "seconds": 2.216406999854371,
+        "decisions": 4974,
+        "gain_lower": "0",
+        "frontier_nodes": 1304,
+        "comparisons": 0,
+        "continuation_calls": {},
+        "program_sha256": "c1447dfff895503f61c453a9813748abac443cbfb60609a33ead30f5a6524418"
+      },
+      {
+        "family": "parent_default",
+        "repetition": 1,
+        "arm": "old",
+        "seconds": 5.464571699965745,
+        "decisions": 4974,
+        "gain_lower": "0",
+        "frontier_nodes": 1304,
+        "comparisons": 1304,
+        "continuation_calls": {},
+        "program_sha256": "0260d8c6dd30ddca7fa589a2a3efe3dd68729e1582936bada29bf7163afe53b6"
+      },
+      {
+        "family": "other_parent",
+        "repetition": 0,
+        "arm": "old",
+        "seconds": 8.512954900041223,
+        "decisions": 4974,
+        "gain_lower": "0",
+        "frontier_nodes": 1304,
+        "comparisons": 1304,
+        "continuation_calls": {
+          "37d06849261e0c1f0c31a9d2f228388fa1f391b670ce6772093a1c276091cc36": 1304
+        },
+        "program_sha256": "9e69c31aad20d1acc84fd9d4f5727be140637fa9419f6d31f6de19822fc713b6"
+      },
+      {
+        "family": "other_parent",
+        "repetition": 0,
+        "arm": "pruned",
+        "seconds": 2.2079266000073403,
+        "decisions": 4974,
+        "gain_lower": "0",
+        "frontier_nodes": 1304,
+        "comparisons": 0,
+        "continuation_calls": {},
+        "program_sha256": "dd6ece9d46bdb046d3c1ea4ccd82abc2c40159cc8c01c8d6374ece3f56b3d427"
+      },
+      {
+        "family": "other_parent",
+        "repetition": 1,
+        "arm": "pruned",
+        "seconds": 2.2479059998877347,
+        "decisions": 4974,
+        "gain_lower": "0",
+        "frontier_nodes": 1304,
+        "comparisons": 0,
+        "continuation_calls": {},
+        "program_sha256": "b7a6cbc339e3744a71c6a083298987bf6484f4cbee72903a0957a9c902dab2b0"
+      },
+      {
+        "family": "other_parent",
+        "repetition": 1,
+        "arm": "old",
+        "seconds": 8.45988929993473,
+        "decisions": 4974,
+        "gain_lower": "0",
+        "frontier_nodes": 1304,
+        "comparisons": 1304,
+        "continuation_calls": {
+          "37d06849261e0c1f0c31a9d2f228388fa1f391b670ce6772093a1c276091cc36": 1304
+        },
+        "program_sha256": "e3744c76d066112c0c89e2240675e2e0c5b6b7337d966f86e7566308aae1312f"
+      },
+      {
+        "family": "policy_pool",
+        "repetition": 0,
+        "arm": "old",
+        "seconds": 16.227992699947208,
+        "decisions": 4974,
+        "gain_lower": "0",
+        "frontier_nodes": 1304,
+        "comparisons": 1304,
+        "continuation_calls": {
+          "37d06849261e0c1f0c31a9d2f228388fa1f391b670ce6772093a1c276091cc36": 1304,
+          "c5785cbcea2fe7f656f03b039f5cf6ad04fa21afcd56d1d9ecba8c8041f7b557": 1304,
+          "9a37e2302c2d780b588b36cb9f533126f8ca8fcdc0ebceb3eda257c8c2b356a2": 1304
+        },
+        "program_sha256": "9cc488dddbbaf7786d0f79f78345a03244571eec40ee70b4e8c907fcc7f5ac93"
+      },
+      {
+        "family": "policy_pool",
+        "repetition": 0,
+        "arm": "pruned",
+        "seconds": 2.2167303001042455,
+        "decisions": 4974,
+        "gain_lower": "0",
+        "frontier_nodes": 1304,
+        "comparisons": 0,
+        "continuation_calls": {},
+        "program_sha256": "358d48eee1ad6dc013b41cb0e8c277bf2518c6c676b6dc21d431fe24973286e6"
+      },
+      {
+        "family": "policy_pool",
+        "repetition": 1,
+        "arm": "pruned",
+        "seconds": 2.2668943000026047,
+        "decisions": 4974,
+        "gain_lower": "0",
+        "frontier_nodes": 1304,
+        "comparisons": 0,
+        "continuation_calls": {},
+        "program_sha256": "a4248f6ae958423406741dd352531625cd07f14bf0b598f05a9a7b743980f57e"
+      },
+      {
+        "family": "policy_pool",
+        "repetition": 1,
+        "arm": "old",
+        "seconds": 16.399986900156364,
+        "decisions": 4974,
+        "gain_lower": "0",
+        "frontier_nodes": 1304,
+        "comparisons": 1304,
+        "continuation_calls": {
+          "37d06849261e0c1f0c31a9d2f228388fa1f391b670ce6772093a1c276091cc36": 1304,
+          "c5785cbcea2fe7f656f03b039f5cf6ad04fa21afcd56d1d9ecba8c8041f7b557": 1304,
+          "9a37e2302c2d780b588b36cb9f533126f8ca8fcdc0ebceb3eda257c8c2b356a2": 1304
+        },
+        "program_sha256": "923fa113b3a1469532cbc9849890125ea013e6086a32a4b210c77805c4e25059"
+      }
+    ],
+    "seconds": {
+      "parent_default": {
+        "old": 10.725976800080389,
+        "pruned": 4.431707699783146
+      },
+      "other_parent": {
+        "old": 16.972844199975953,
+        "pruned": 4.455832599895075
+      },
+      "policy_pool": {
+        "old": 32.62797960010357,
+        "pruned": 4.48362460010685
+      }
+    },
+    "runtime_ratios": {
+      "parent_default": 0.41317520841084904,
+      "other_parent": 0.2625271608809906,
+      "policy_pool": 0.1374165564358946
+    },
+    "all_unchanged_comparisons_equal": true,
+    "result_bindings": {
+      "runs\\certified_frontier_benchmark_v1\\other_parent_repeat_0_old\\program.pkl.gz": "9e69c31aad20d1acc84fd9d4f5727be140637fa9419f6d31f6de19822fc713b6",
+      "runs\\certified_frontier_benchmark_v1\\other_parent_repeat_0_old\\selection.json": "0a578bec768a4065090b17508210d9ae15b3fa38b7de463656291960e21ada04",
+      "runs\\certified_frontier_benchmark_v1\\other_parent_repeat_0_pruned\\audit.json": "0b988f2a2e6874825fb9275b8289229bdba014386a28d0c567a1f5a61c45b596",
+      "runs\\certified_frontier_benchmark_v1\\other_parent_repeat_0_pruned\\program.pkl.gz": "dd6ece9d46bdb046d3c1ea4ccd82abc2c40159cc8c01c8d6374ece3f56b3d427",
+      "runs\\certified_frontier_benchmark_v1\\other_parent_repeat_0_pruned\\selection.json": "52ab6aca07e0a9f23cb1fbcfe5a4dad21a8843d3187515c4359a037d8012f87a",
+      "runs\\certified_frontier_benchmark_v1\\other_parent_repeat_1_old\\program.pkl.gz": "e3744c76d066112c0c89e2240675e2e0c5b6b7337d966f86e7566308aae1312f",
+      "runs\\certified_frontier_benchmark_v1\\other_parent_repeat_1_old\\selection.json": "0aee24ce591c7eea60db364ccce992123337802437dc36076674d82a0b71f25f",
+      "runs\\certified_frontier_benchmark_v1\\other_parent_repeat_1_pruned\\audit.json": "7c827d462bd77df4819e1d310f7ba3aea3be178b6492ce985519613c9cddeb66",
+      "runs\\certified_frontier_benchmark_v1\\other_parent_repeat_1_pruned\\program.pkl.gz": "b7a6cbc339e3744a71c6a083298987bf6484f4cbee72903a0957a9c902dab2b0",
+      "runs\\certified_frontier_benchmark_v1\\other_parent_repeat_1_pruned\\selection.json": "5405224e3d2d1ae1c333e806628702dbefd97bb8eecacf9a0598747fdac7de26",
+      "runs\\certified_frontier_benchmark_v1\\parent_default_repeat_0_old\\program.pkl.gz": "06168c5035b70f9e5fc307185180901dfb6ee1bbd27ac3e55bc84fb614b814f4",
+      "runs\\certified_frontier_benchmark_v1\\parent_default_repeat_0_old\\selection.json": "94ec9d3744131cf04cd116ef5877f95d5bb53bf9c4704ec995508b53b9cc49f7",
+      "runs\\certified_frontier_benchmark_v1\\parent_default_repeat_0_pruned\\audit.json": "c28f94d7ae0873e6f6ac799c39a8ebb4258dfbd3d468bf4f1ab797e585423839",
+      "runs\\certified_frontier_benchmark_v1\\parent_default_repeat_0_pruned\\program.pkl.gz": "34101b351854ae4ba76e98e0431142609689e7af6d4de769835957678f61dc4d",
+      "runs\\certified_frontier_benchmark_v1\\parent_default_repeat_0_pruned\\selection.json": "783d3fc180df13c9f216960b7116f428a6187d08646a26a1538b14eba885bcce",
+      "runs\\certified_frontier_benchmark_v1\\parent_default_repeat_1_old\\program.pkl.gz": "0260d8c6dd30ddca7fa589a2a3efe3dd68729e1582936bada29bf7163afe53b6",
+      "runs\\certified_frontier_benchmark_v1\\parent_default_repeat_1_old\\selection.json": "e373ad99aa2d43b9e685e3e62475f50f7230d83a89e81f08eecac048a71fbf70",
+      "runs\\certified_frontier_benchmark_v1\\parent_default_repeat_1_pruned\\audit.json": "68a16e6a48f0ebf34f223a466a10ae4ab02f920f0a9970620a072b9703b1ca8a",
+      "runs\\certified_frontier_benchmark_v1\\parent_default_repeat_1_pruned\\program.pkl.gz": "c1447dfff895503f61c453a9813748abac443cbfb60609a33ead30f5a6524418",
+      "runs\\certified_frontier_benchmark_v1\\parent_default_repeat_1_pruned\\selection.json": "a6cf4c13b31db166c7cab390c334028f7aae16324c2757fafd649a7175450eb7",
+      "runs\\certified_frontier_benchmark_v1\\policy_pool_repeat_0_old\\program.pkl.gz": "9cc488dddbbaf7786d0f79f78345a03244571eec40ee70b4e8c907fcc7f5ac93",
+      "runs\\certified_frontier_benchmark_v1\\policy_pool_repeat_0_old\\selection.json": "eba3257f148c841ab1fb0ac1bf0c32fee68e2f64d34892c6ddd4014afce5a445",
+      "runs\\certified_frontier_benchmark_v1\\policy_pool_repeat_0_pruned\\audit.json": "585e580d78080b0dd34c8094b48e1f73a2c65ffcafdd301997c57803a919232e",
+      "runs\\certified_frontier_benchmark_v1\\policy_pool_repeat_0_pruned\\program.pkl.gz": "358d48eee1ad6dc013b41cb0e8c277bf2518c6c676b6dc21d431fe24973286e6",
+      "runs\\certified_frontier_benchmark_v1\\policy_pool_repeat_0_pruned\\selection.json": "937f6dd107c768cd49194a3c1bdabb58752a9e5213eba3e3d5a62a7ddbfe3d72",
+      "runs\\certified_frontier_benchmark_v1\\policy_pool_repeat_1_old\\program.pkl.gz": "923fa113b3a1469532cbc9849890125ea013e6086a32a4b210c77805c4e25059",
+      "runs\\certified_frontier_benchmark_v1\\policy_pool_repeat_1_old\\selection.json": "70223272d4f2eea4caeec4c377101c70d6c4d05232393378f2fc6c4ed6020eb3",
+      "runs\\certified_frontier_benchmark_v1\\policy_pool_repeat_1_pruned\\audit.json": "9a5aac871d29cde187d4703f6a781c55968c539b35025b79fd55e9fa41537deb",
+      "runs\\certified_frontier_benchmark_v1\\policy_pool_repeat_1_pruned\\program.pkl.gz": "a4248f6ae958423406741dd352531625cd07f14bf0b598f05a9a7b743980f57e",
+      "runs\\certified_frontier_benchmark_v1\\policy_pool_repeat_1_pruned\\selection.json": "300d2867c0b9978d8a97bd7b73b393a60e4c17e922f813042ceffae457b8bdac",
+      "runs\\certified_frontier_benchmark_v1\\protocol.json": "9034caeeaafd6c8f4b63e8f6ca2486ad6290b90e317c067b73fd35f01c65e35e",
+      "runs\\certified_frontier_benchmark_v1\\summary.json": "2422f6f9dc6bc915bccad9d0414e4010b42608a71752fa0b1ec5bf6def4ed35b"
+    }
+  },
+  "exporter_sha256": "5004d87b241dde9ecd4076b74e26d81ec52ddee1987e31e5287f535503a5b39a"
+}
