@@ -52,6 +52,15 @@ All sixteen adaptations completed: eight rules times two parents, each with
 rounds and 498,538 matches across 2,048 updates. These are additional training
 counts, not strength evidence; historical parent training remains separate.
 
+A separate CPU audit checks all sixteen saved checkpoints against their parent
+actor/value/configuration, declared training identity and budget, source hashes,
+and correction tensor shapes. All parent fields match exactly and all 128
+correction tensors are finite. Actor corrections are nonzero for every model;
+public-card input weights are nonzero for all twelve models with preview or
+choice. This is numerical/identity validation, not evidence that the features
+improve decisions. The audit is runs/public_stock_model_audit_v2.json, generated
+by scripts.audit_public_stock_models.
+
 Both controls pass the predeclared qualification gates on 256 new duplicate
 streams, with both seats:
 
