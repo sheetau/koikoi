@@ -71,7 +71,33 @@ no across-protocol multiplicity adjustment is claimed. Failed cohorts are
 neither extended nor pooled. All rule curves, including nonmonotonic effects,
 must be reported.
 Confirmation compares the selected rule with control; rankings against
-the remaining rules remain exploratory.
+the remaining rules remain exploratory. Equal adaptation budgets need not
+produce equally mature policies; larger gains can partly reflect remaining
+policy errors. Conclusions therefore concern this fixed training/search regime.
+
+\paragraph{First-screen result.}
+The 32-decision screen completes 8,192 matches, 55,032 rounds and 1,153,925
+policy decisions on its 64 shared duplicate streams. All scored decisions
+pass Python replay; independent reductions reproduce every score and count.
+Search uses 22,993,192 rollouts and 665,914,496 transitions. The all-three
+rule has the largest worse-parent gain: 33.5938 and 28.1250 percentage points,
+versus control changes of $-10.5469$ and $-9.7656$ points. Preview plus choice
+scores slightly higher for parent 1, so this selection is not a claim of
+uniform superiority. Every rule loses mean score at two worlds. The reserved
+512-stream confirmation is running; its outcome remains unknown.
+
+\begin{table}[ht]
+\centering
+\small
+\input{generated/public_stock_v2/public_stock_curves.tex}
+\caption{Complete first-screen curves. Entries are parent-0/parent-1 gains in
+percentage points over the no-search actor. The nominal budgets are 2, 8 and
+32 worlds per legal action; horizon is 32 decisions. Work is thousands of
+physical search transitions per actual match, excluding policy training.
+Nominal particle ratios do not match costs across games. All eight rules
+share 64 duplicate streams; their 8,192 matches are not independent streams.}
+\label{tab:public-stock-v2-curves}
+\end{table}
 
 These sampled searches do not inherit the exact improvement guarantee of the
 main method. Uniform beliefs can be misspecified, and table errors propagate
@@ -80,5 +106,5 @@ uncertainty. The two protocols also differ in guard and budgets, so their
 comparison cannot isolate the effect of caching. Increasing particles increases
 sampled worlds, not the fixed rollout horizon. Particle counts do not equalize
 work across rules. Offline preparation, online transitions and
-wall time must remain distinct. The screens and any gated confirmations are
-still in progress; no preferred rule is concluded here.
+wall time must remain distinct. The completed-round screen and first-protocol
+confirmation remain in progress; no confirmed rule preference is concluded here.

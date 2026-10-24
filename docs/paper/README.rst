@@ -1,11 +1,15 @@
 24 October 2026: public-stock factorial research in progress
 ==========================================================
 
-All sixteen rule adaptations are complete; both fixed rule screens are
-running. Their qualification, model audits and distinct evaluation protocols
-are described in ``../PUBLIC_STOCK_RESULTS.rst``. The method draft
+All sixteen rule adaptations and the 32-decision screen are complete. That
+screen selects the all-three rule; its reserved confirmation is running. The
+completed-round screen remains active. Results and distinct evaluation
+protocols are described in ``../PUBLIC_STOCK_RESULTS.rst``. The method draft
 ``public_stock_appendix.tex`` is prepared but not yet included in the manuscript
-or a reviewed PDF. Final rule selection and confirmation remain pending.
+or a reviewed PDF. Final confirmation and the completed-round selection remain
+pending. The full first-screen curves are in ``generated/public_stock_v2``;
+install their pinned plotting additions with
+``.venv/Scripts/python.exe -m pip install -r requirements-paper.lock.txt``.
 
 The latest reviewed PDF remains the 55-page continuation/pruning snapshot
 below. Its completed-study statements describe that historical snapshot,

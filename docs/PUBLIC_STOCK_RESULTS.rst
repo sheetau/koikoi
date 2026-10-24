@@ -36,8 +36,8 @@ under runs/public_stock_qualification_v1. The closed.json record explicitly
 marks the unlaunched jobs. The separate eight-update engineering pilots and
 eight-match search smoke checks are not added to qualification evidence.
 
-V2 frozen-parent adaptation: preparation complete, screen active
---------------------------------------------------------------
+V2 adaptation: screen complete, confirmation active
+--------------------------------------------------
 
 PUBLIC_STOCK_STUDY_V2.rst fixes a separate protocol starting from the two
 existing stronger parent policies. It freezes their actors and learns
@@ -77,10 +77,46 @@ four endpoints contain 2,048 matches, 16,105 rounds and 225,889 decisions.
 All decisions were independently replayed in Python; final-state/action
 reductions reproduce every score, margin and evaluation count.
 
-The fixed screen uses 0/2/8/32 particles per action, 32 decisions per rollout
-and 64 new duplicate streams. The opponent is the same adapted no-search
-actor. No preferred rule is asserted before the full screen and its gated,
-reserved confirmation finish.
+The fixed screen uses 0/2/8/32 sampled worlds per legal root action and a
+32-decision horizon. It covers 64 shared duplicate streams, 8,192 actual matches,
+55,032 rounds and 1,153,925 policy decisions. Search uses 22,993,192 rollouts
+and 665,914,496 physical transitions across 413,372 roots. Independent
+reduction reproduces every endpoint's scores and counts; all 1,153,925 scored
+decisions were replayed in Python. The 8,192 matches are not 8,192 independent
+deal streams.
+
+The table gives win scores (%) for parent 0 / parent 1 against the same
+adapted no-search actor. Zero-world scores are 50% for every profile.
+
+================  =================  =================  =================
+Rule              2 worlds           8 worlds           32 worlds
+================  =================  =================  =================
+Control           33.9844 / 27.3438  36.7188 / 32.0312  39.4531 / 40.2344
+Stakes            28.9062 / 23.4375  25.7812 / 35.9375  46.8750 / 37.5000
+Choice            19.9219 / 27.7344  35.1562 / 50.3906  64.4531 / 57.0312
+Choice + stakes   24.6094 / 33.9844  42.9688 / 53.1250  67.1875 / 67.9688
+Preview           41.7969 / 35.9375  49.6094 / 47.2656  64.8438 / 61.7188
+Preview + stakes  36.7188 / 41.0156  43.3594 / 53.5156  62.5000 / 65.2344
+Preview + choice  40.2344 / 31.6406  60.9375 / 52.3438  76.1719 / 79.2969
+All three         39.4531 / 27.3438  58.9844 / 56.6406  83.5938 / 78.1250
+================  =================  =================  =================
+
+All three factors are selected by the prespecified worse-parent gain:
++33.59375 / +28.125 percentage points at 32 worlds, compared with control
+changes of -10.546875 / -9.765625 points. This selection does not establish
+superiority to every alternative: preview plus choice scores slightly higher
+for parent 1. Every rule loses mean score at two worlds in this screen.
+
+The independently reduced screen is preserved in
+``docs/paper/generated/public_stock_v2_development_evidence.json``. Its complete
+curves and per-match work table are under ``docs/paper/generated/public_stock_v2``.
+The figure's intervals are exploratory paired 95% intervals, without selection
+or multiplicity adjustment. They are not the confirmation criterion.
+
+The gate passes and the unchanged reserved confirmation is now running on
+512 new duplicate streams, comparing the selected all-three rule with control
+at all four budgets for both parents (16,384 planned matches). No confirmation
+outcome or rule promotion is asserted while that cohort is incomplete.
 
 V3 completed-round search: active
 --------------------------------
@@ -127,7 +163,10 @@ Rankings among the seven noncontrol rules remain exploratory.
 
 Each screen opponent is that rule's own adapted no-search actor. This measures
 the additional value of computation, not an absolute ranking of strength
-between different games. Winning by more points under doubled stakes is not
-strength evidence. Two parent identities, a finite rule family and one fixed
+between different games. Equal adaptation budgets do not establish equally
+mature policies across rules; larger search gains can partly reflect more
+remaining policy errors. The conclusions concern this fixed training/search
+regime, not intrinsic game difficulty or all possible agents. Winning by more
+points under doubled stakes is not strength evidence. Two parent identities, a finite rule family and one fixed
 rollout algorithm cannot establish globally maximal AI strength or that all
 further improvement has been exhausted.

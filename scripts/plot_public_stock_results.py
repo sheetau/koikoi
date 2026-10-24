@@ -56,7 +56,7 @@ def main():
                 mean,
                 yerr=[mean - low, high - mean],
                 color=color,
-                marker="o",
+                marker=("o", "s")[parent],
                 markersize=3,
                 linewidth=1.3,
                 capsize=2,
@@ -67,7 +67,7 @@ def main():
         ax.set_xticks(range(4), ["0", "1x", "4x", "16x"])
         ax.grid(axis="y", alpha=0.18)
     axes[0, 0].legend(frameon=False, fontsize=14)
-    fig.supylabel("Win-score gain over no search (percentage points)")
+    fig.supylabel("Win-score gain over no search\n(percentage points)", fontsize=14)
     fig.supxlabel(
         f"Particles per legal action {tuple(particles)}; "
         + ("roll out to round end" if completed_rounds else "horizon 32 decisions")
