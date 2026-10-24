@@ -118,6 +118,11 @@ work and the full curves. A superior win-score increment alone does not prove
 superiority at equal wall time or equal transition budget. Such a claim needs
 a separately specified matched-cost comparison.
 
+Increasing particle counts increases hidden-world sampling, not the fixed
+rollout horizon. These curves measure added computation, not a general theorem
+about deeper game-tree search. Confirmation familywise targets apply within
+each protocol; there is no claimed adjustment across the two protocols.
+
 Each screen opponent is that rule's own adapted no-search actor. This measures
 the additional value of computation, not an absolute ranking of strength
 between different games. Winning by more points under doubled stakes is not

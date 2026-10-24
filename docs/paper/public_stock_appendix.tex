@@ -1,0 +1,82 @@
+\section{Public stock and the value of additional computation}
+\label{app:public-stock}
+The frozen-transfer study in Appendix~\ref{app:rule-transfer} changes scoring
+without teaching the policies the new games. We therefore run a separate
+factorial study with rule-specific adaptation. Its question is whether public
+information, an additional stock decision, or amplified continuation stakes
+increase the benefit of computation. This is a comparison of search gains
+within games, not an absolute ranking of strength across different games.
+
+\paragraph{Three factors, eight games.}
+Preview makes the next two stock cards visible before the hand action,
+replenishing their visibility after each draw. Choice reveals two cards after
+the hand action and capture, lets the player draw one, and retains the other
+at the top. Without preview, the replacement remains hidden until the next
+stock-choice phase; the retained card remains public. With both factors,
+the player sees both options before selecting a hand card. Stakes awards
+both players' current yaku values to the round winner, then doubles once if
+the winner declared koi. The base declaration bonuses remain. This is not
+confiscation of cumulative match points or recomputation of yaku from merged
+captured cards. All eight combinations retain the original yaku, eight-round
+match, 30 initial points, bankruptcy and 16-turn round limit. A stock choice
+adds a decision, not a turn or draw.
+
+\paragraph{Adaptation and qualification.}
+Two scratch-trained controls fail their quality gate, so the replacement
+protocol freezes each of our two stronger parent actors and trains an
+observation-only residual policy and critic. Each rule receives 4,194,304
+additional decisions per parent, 67,108,864 in total. Inputs include the two
+revealed cards and rule/phase flags; they exclude hidden hands, hidden stock
+order and future randomness. Training counts are not strength measurements.
+
+On 256 new duplicate streams, with both seats, the controls score 76.6602\%
+and 79.6875\% against greedy play and 50.4883\% and 52.1484\% against
+unassisted GPU-batched RL-WP. Both pass the prespecified 65\% greedy and
+45\% WP gates. These 2,048 qualification matches are separate from the
+historical assisted-2023 comparison and are replayed independently in Python.
+
+\paragraph{Two fixed search protocols.}
+The first screen uses 64 duplicate streams and 0/2/8/32 sampled worlds per
+legal root action. It simulates 32 decisions under the fixed adapted policies,
+then uses the adapted observation-only critic. All root actions share sampled
+worlds; the baseline action is retained unless another action's mean paired
+advantage exceeds one estimated standard error. Worlds preserve public stock
+and the player's own cards but use a uniform deal-consistent hidden proposal,
+not an action-conditioned posterior.
+
+A separate protocol completes the current round before evaluating its leaf.
+For each fixed policy/rule, it computes a table of expected terminal utility
+before a fresh deal, indexed by round, absolute dealer and player-0 points.
+Backward computation uses 512 conditional round rollouts per live cell,
+483,328 per model. Absolute dealer remains necessary because the released
+parent encoder observes seat identity. Lookup uses only the public boundary;
+the next hidden deal is not used. Every saved target and table mean is reduced
+independently, with four fixed samples per cell replayed in Python (3,776
+rounds per table). These are preparation rounds, not full evaluation matches.
+The second screen reuses the same sixteen policies, with no new training,
+on 32 separate duplicate streams at 0/8/32/128 worlds per action and a
+2.5-standard-error guard. Failure to finish a rollout round is an error;
+there is no neural-value cutoff. Every scored match in both screens is
+replayed in Python.
+
+\paragraph{Selection and scope.}
+Each screen selects the noncontrol rule with the largest worse-parent
+high-budget gain over its own no-search actor. Advancement requires positive
+gains for both parents and a worse-parent gain above the control's. Reserved
+confirmation uses 512 new duplicate streams for the first protocol and 128
+for the second. Each requires four positive one-sided 98.75\% paired-bootstrap
+lower bounds: a positive selected-rule gain and a positive difference from
+the control's gain for each parent. This familywise target is per protocol;
+no across-protocol multiplicity adjustment is claimed. Failed cohorts are
+neither extended nor pooled. All rule curves, including nonmonotonic effects,
+must be reported.
+
+These sampled searches do not inherit the exact improvement guarantee of the
+main method. Uniform beliefs can be misspecified, and table errors propagate
+across rounds; conditional table standard errors do not cover that propagated
+uncertainty. The two protocols also differ in guard and budgets, so their
+comparison cannot isolate the effect of caching. Increasing particles increases
+sampled worlds, not the fixed rollout horizon. Particle counts do not equalize
+work across rules. Offline preparation, online transitions and
+wall time must remain distinct. The screens and any gated confirmations are
+still in progress; no preferred rule is concluded here.

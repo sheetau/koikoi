@@ -1,3 +1,18 @@
+24 October 2026: public-stock factorial research in progress
+==========================================================
+
+All sixteen rule adaptations are complete; both fixed rule screens are
+running. Their qualification, model audits and distinct evaluation protocols
+are described in ``../PUBLIC_STOCK_RESULTS.rst``. The method draft
+``public_stock_appendix.tex`` is prepared but not yet included in the manuscript
+or a reviewed PDF. Final rule selection and confirmation remain pending.
+
+The latest reviewed PDF remains the 55-page continuation/pruning snapshot
+below. Its completed-study statements describe that historical snapshot,
+not the currently running public-stock research. The next reviewed revision
+will bind the completed rule results and its own visual QA. Earlier PDFs and
+evidence are preserved unchanged.
+
 24 October 2026: complete continuation and pruning comparisons
 ==============================================================
 
