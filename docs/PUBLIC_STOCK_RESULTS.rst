@@ -4,6 +4,12 @@ Public-stock rule exploration: measured results
 This report covers the new eight-profile factorial in PUBLIC_STOCK_RULES.rst.
 It does not revise the closed nine-rule frozen-weight transfer studies.
 
+At a yaku stop, stakes transfers ``(S_w + S_l) * (2 if k_w > 0 else 1)``
+from loser to winner. Each ``S_i`` is that player's current captured-card
+score under unchanged paper8, including their own declaration effects;
+``k_w`` is the winner's declaration count. Captured sets are scored separately.
+The ordinary one-point exhaustion settlement remains unchanged.
+
 V1 qualification failure
 ------------------------
 
