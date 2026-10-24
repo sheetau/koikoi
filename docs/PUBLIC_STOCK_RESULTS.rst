@@ -122,6 +122,8 @@ Increasing particle counts increases hidden-world sampling, not the fixed
 rollout horizon. These curves measure added computation, not a general theorem
 about deeper game-tree search. Confirmation familywise targets apply within
 each protocol; there is no claimed adjustment across the two protocols.
+The reserved confirmations compare selected-rule gains with the control.
+Rankings among the seven noncontrol rules remain exploratory.
 
 Each screen opponent is that rule's own adapted no-search actor. This measures
 the additional value of computation, not an absolute ranking of strength
