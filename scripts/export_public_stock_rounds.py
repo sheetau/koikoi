@@ -190,6 +190,7 @@ def reduce(base, confirmation=None):
         for profile in cp["profiles"]:
             data[profile] = []
             for parent in range(2):
+                table = base / f"table_{profile}_parent{parent}"
                 rows = []
                 for particles in cp["particles"]:
                     label = f"{profile}_parent{parent}_p{particles}"
@@ -208,6 +209,12 @@ def reduce(base, confirmation=None):
                         != study["checkpoints"][f"{profile}_parent{parent}"]
                     ):
                         raise ValueError("Wrong confirmation stream")
+                    if (
+                        result["round_table_sha256"] != sha(table / "table.npz")
+                        or result["round_table_metadata_sha256"]
+                        != sha(table / "result.json")
+                    ):
+                        raise ValueError("Wrong confirmation continuation table")
                     rows.append(scores)
                     counters[label] = {k: result[k] for k in WORK}
                 data[profile].append(rows)
