@@ -113,6 +113,16 @@ curves and per-match work table are under ``docs/paper/generated/public_stock_v2
 The figure's intervals are exploratory paired 95% intervals, without selection
 or multiplicity adjustment. They are not the confirmation criterion.
 
+A supplemental observed-work figure plots all eight curves against physical
+rollout transitions per match (``public_stock_v2/public_stock_work.pdf`` in
+the same generated directory). At 32 worlds, all three uses 230.2 / 227.8
+thousand transitions per match, compared with 331.4 / 338.8 for preview plus
+choice. The corresponding mean match lengths are 5.16 / 5.10 versus
+7.51 / 7.52 rounds. This cross-game work comparison includes match-length
+differences and excludes inference and preparation costs; it is not a
+matched-cost or elapsed-time result. Source/figure identities and visual QA
+are bound by ``docs/paper/generated/public_stock_v2_work_evidence.json``.
+
 The gate passes and the unchanged reserved confirmation is now running on
 512 new duplicate streams, comparing the selected all-three rule with control
 at all four budgets for both parents (16,384 planned matches). No confirmation

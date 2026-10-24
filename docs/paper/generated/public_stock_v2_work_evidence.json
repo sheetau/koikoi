@@ -1,0 +1,36 @@
+{
+  "scope": "Supplemental observed-work plot for the completed V2 development screen; not a matched-cost or latency experiment",
+  "bindings": {
+    "docs/paper/generated/public_stock_v2_development_evidence.json": "1fd845f640695755cb5eb6e5ec259afc99315987d640092d6f3965e4a1c1e12b",
+    "scripts/plot_public_stock_results.py": "7bbb3d5bc59c1b501e0f8415fa010ec0467719533107a381422c40a7ff020548",
+    "requirements-paper.lock.txt": "02e509baa20ad08a25f99aa7ce54768b02cb8b269c21b321b843f5b9b7ab44d9",
+    "requirements-windows.lock.txt": "313065e50a3cf175c9cc5ca2e5e265e0db8ed8179abf1cb3d877fd9bb8d782b3",
+    "docs\\paper\\generated\\public_stock_v2\\public_stock_work.pdf": "7d62fa7ff804ebfbb797f4d55773f4fff2c19b9192689cd552cba7bef7295f71",
+    "docs\\paper\\generated\\public_stock_v2\\public_stock_work.png": "4a15202bc9106c3171dceaee3d144f3d83aa1c11f99313c59ab48d137179dba0"
+  },
+  "visual_review": "Both panels and all eight legend entries reviewed at full size; xlabel/legend overlap corrected. No clipped or out-of-page text.",
+  "figure_pages": 1,
+  "embedded_fonts": 2,
+  "high_budget_examples": {
+    "preview1_choice1_stakes0": [
+      {
+        "transitions_per_match": 331378.0859375,
+        "rounds_per_match": 7.5078125
+      },
+      {
+        "transitions_per_match": 338805.2265625,
+        "rounds_per_match": 7.515625
+      }
+    ],
+    "preview1_choice1_stakes1": [
+      {
+        "transitions_per_match": 230225.109375,
+        "rounds_per_match": 5.15625
+      },
+      {
+        "transitions_per_match": 227799.90625,
+        "rounds_per_match": 5.1015625
+      }
+    ]
+  }
+}
