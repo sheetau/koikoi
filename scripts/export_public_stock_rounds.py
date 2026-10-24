@@ -102,6 +102,10 @@ def reduce(base, confirmation=None):
                     or result["config"]["particles"] != particles
                     or result["profile"] != profile
                     or result["config"]["opponent"] != "self"
+                    or any(
+                        result["config"][key] != study[key]
+                        for key in ("horizon", "confidence", "search_seed")
+                    )
                 ):
                     raise ValueError("Wrong development endpoint")
                 if result["round_table_metadata_sha256"] != sha(table / "result.json"):
@@ -196,6 +200,10 @@ def reduce(base, confirmation=None):
                         or result["profile"] != profile
                         or result["config"]["particles"] != particles
                         or result["config"]["opponent"] != "self"
+                        or any(
+                            result["config"][key] != study[key]
+                            for key in ("horizon", "confidence", "search_seed")
+                        )
                         or result["checkpoint_sha256"]
                         != study["checkpoints"][f"{profile}_parent{parent}"]
                     ):
@@ -227,6 +235,10 @@ def reduce(base, confirmation=None):
             ],
             "endpoints": counters,
         }
+    bindings[str(Path(__file__).resolve())] = sha(__file__)
+    bindings["scripts/export_public_stock_results.py"] = sha(
+        "scripts/export_public_stock_results.py"
+    )
     summary["bindings"] = bindings
     return summary
 

@@ -174,6 +174,12 @@ def reduce_study(base, confirmation=None):
                 if (
                     result["profile"] != profile
                     or result["config"]["particles"] != particles
+                    or result["checkpoint_sha256"]
+                    != sha(train_dir / f"policy_{protocol['updates']:05d}.pt")
+                    or any(
+                        result["config"][key] != protocol[key]
+                        for key in ("horizon", "confidence", "search_seed")
+                    )
                 ):
                     raise ValueError("Mislabeled screen endpoint")
                 rows.append(scores)
@@ -291,6 +297,10 @@ def reduce_study(base, confirmation=None):
                         or result["profile"] != profile
                         or result["config"]["particles"] != particles
                         or result["config"]["opponent"] != "self"
+                        or any(
+                            result["config"][key] != protocol[key]
+                            for key in ("horizon", "confidence", "search_seed")
+                        )
                         or result["checkpoint_sha256"]
                         != sha(base / f"{profile}_parent{parent}" / "policy_00128.pt")
                     ):
@@ -328,6 +338,7 @@ def reduce_study(base, confirmation=None):
             "curves": {p: x.mean(2).tolist() for p, x in data.items()},
             "endpoints": work,
         }
+    bindings[str(Path(__file__).resolve())] = sha(__file__)
     summary["bindings"] = bindings
     return summary
 
