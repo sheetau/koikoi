@@ -104,6 +104,25 @@ def main():
         "\n".join(rows) + "\n", encoding="utf-8", newline="\n"
     )
 
+    if "confirmation" in data:
+        confirmation = data["confirmation"]
+        method = "Round end" if completed_rounds else "32 decisions"
+        rows = []
+        for parent in range(2):
+            score = confirmation["curves"][data["selected"]][parent][-1] * 100
+            entries = []
+            for key in ("selected_gain", "gain_minus_control"):
+                check = confirmation["checks"][key][parent]
+                entries.append(f"{check['mean'] * 100:+.2f} [{check['lower'] * 100:+.2f}]")
+            rows.append(
+                f"{method} & {parent} & {score:.2f} & "
+                + " & ".join(entries)
+                + r" \\"
+            )
+        (out / "public_stock_confirmation_rows.tex").write_text(
+            "\n".join(rows) + "\n", encoding="utf-8", newline="\n"
+        )
+
 
 if __name__ == "__main__":
     main()
