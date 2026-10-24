@@ -134,8 +134,8 @@ The gate passes and the unchanged reserved confirmation is now running on
 at all four budgets for both parents (16,384 planned matches). No confirmation
 outcome or rule promotion is asserted while that cohort is incomplete.
 
-V3 completed-round search: active
---------------------------------
+V3 completed-round search: screen complete, confirmation active
+---------------------------------------------------------------
 
 The early v2 control results motivate a separate completed-round protocol
 (PUBLIC_STOCK_STUDY_V3.rst); v2 continues unchanged. V3 reuses all sixteen
@@ -164,6 +164,50 @@ are estimated; their conditional standard errors omit propagated future-table
 uncertainty. V3 is not a certified search method. Its changed horizon, guard
 and particle budgets also prevent a causal attribution to caching alone.
 The predeclared rule selection and confirmation are separate from v2.
+
+The complete online screen contains 4,096 matches, 27,752 rounds and
+574,620 decisions from 32 shared duplicate streams. Search uses 46,309,552
+rollouts and 653,460,580 physical transitions across 211,542 roots. All scored
+decisions pass Python replay, and independent reduction reproduces every
+endpoint and the registered selection. Preparation counts above remain
+separate from these online counts.
+
+Win scores (%) for parent 0 / parent 1 follow; every zero-world score is 50%.
+
+================  =================  =================  =================
+Rule              8 worlds           32 worlds          128 worlds
+================  =================  =================  =================
+Control           48.4375 / 45.3125  53.9062 / 49.2188  46.8750 / 53.1250
+Stakes            46.8750 / 51.5625  45.3125 / 48.4375  54.6875 / 54.6875
+Choice            59.3750 / 53.1250  64.0625 / 57.0312  63.2812 / 64.8438
+Choice + stakes   54.6875 / 51.5625  67.1875 / 59.3750  67.1875 / 64.0625
+Preview           60.9375 / 62.5000  64.0625 / 68.7500  75.0000 / 78.9062
+Preview + stakes  51.5625 / 64.0625  68.7500 / 71.8750  75.0000 / 79.6875
+Preview + choice  64.8438 / 64.0625  78.1250 / 71.0938  86.7188 / 84.3750
+All three         58.5938 / 54.6875  75.7812 / 73.4375  85.9375 / 84.3750
+================  =================  =================  =================
+
+Preview plus choice is selected. Its high-budget gains are +36.71875 /
++34.375 percentage points, versus control changes of -3.125 / +3.125 points.
+The worse-parent gain ties all three at +34.375 points; the registered
+lexicographic tie-break chooses preview plus choice. Parent 0 also has a
+slightly higher mean under that profile, while parent 1 ties. This screen
+does not establish a statistically superior rule among those alternatives.
+
+Within the selected rule, 128 worlds improve over eight worlds by
+21.875 / 20.3125 points in development. The full curves retain all
+nonmonotonic results. These are exploratory means, not held-out conclusions.
+Development results are preserved in
+``docs/paper/generated/public_stock_v3_development_evidence.json``; curves,
+work tables and observed-work plots are under ``generated/public_stock_v3``
+in the paper directory. Figure identities and visual QA are bound by
+``docs/paper/generated/public_stock_v3_figures_evidence.json``.
+
+The original gate passes. Reserved confirmation is running on 128 new
+duplicate streams for control and preview plus choice, both parents, and
+0/8/128 worlds (3,072 planned matches). Both protocols' confirmations remain
+separate. V3 tests the four primary inequalities and reports high-minus-eight
+as secondary; it does not confirm a ranking against all three.
 
 Interpretation limits fixed before results
 -----------------------------------------

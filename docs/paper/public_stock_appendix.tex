@@ -105,6 +105,28 @@ share 64 duplicate streams; their 8,192 matches are not independent streams.}
 \label{tab:public-stock-v2-curves}
 \end{table}
 
+\paragraph{Completed-round screen.}
+The second screen completes 4,096 matches, 27,752 rounds and 574,620 scored
+and replayed decisions on 32 shared duplicate streams. It uses 46,309,552
+rollouts and 653,460,580 online transitions, separately from table preparation.
+Preview plus choice gains 36.7188/34.3750 points at 128 worlds, compared with
+control changes of $-3.1250/+3.1250$ points. Its worse-parent gain ties
+all three; the registered lexicographic tie-break selects preview plus choice.
+This is not a confirmed ranking between those alternatives. Increasing eight
+to 128 worlds adds 21.8750/20.3125 points within the selected rule in development.
+The reserved 128-stream confirmation is running.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{generated/public_stock_v3/public_stock_scaling.pdf}
+\caption{Complete completed-round development curves. Each rule uses its own
+adapted no-search actor as opponent. Intervals are exploratory paired 95\%
+intervals on 32 duplicate streams, without multiplicity or selection adjustment.
+The nominal budgets are 8, 32 and 128 worlds per legal root action; actual
+work varies across rules. These intervals are not the confirmation criterion.}
+\label{fig:public-stock-v3-curves}
+\end{figure}
+
 These sampled searches do not inherit the exact improvement guarantee of the
 main method. Uniform beliefs can be misspecified, and table errors propagate
 across rounds; conditional table standard errors do not cover that propagated
@@ -112,5 +134,5 @@ uncertainty. The two protocols also differ in guard and budgets, so their
 comparison cannot isolate the effect of caching. Increasing particles increases
 sampled worlds, not the fixed rollout horizon. Particle counts do not equalize
 work across rules. Offline preparation, online transitions and
-wall time must remain distinct. The completed-round screen and first-protocol
-confirmation remain in progress; no confirmed rule preference is concluded here.
+wall time must remain distinct. Both reserved confirmations remain in
+progress; no confirmed rule preference is concluded here.

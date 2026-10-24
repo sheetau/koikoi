@@ -1,3 +1,19 @@
+25 October 2026: both public-stock factorial screens complete
+===========================================================
+
+Both eight-rule screens and all sixteen continuation tables are complete.
+The 32-decision screen selects all three factors; the completed-round screen
+selects preview plus choice after its registered worse-parent tie-break.
+Both reserved confirmations are running. Completed development evidence and
+checked figures are under ``generated/public_stock_v2*`` and
+``generated/public_stock_v3*``; detailed counts and limits are in
+``../PUBLIC_STOCK_RESULTS.rst``.
+
+The appendix draft now contains both complete screens, but remains unlinked
+until the confirmations finish. The latest reviewed manuscript PDF remains
+the historical 55-page continuation/pruning snapshot below. Earlier artifacts
+are preserved.
+
 24 October 2026: public-stock factorial research in progress
 ==========================================================
 

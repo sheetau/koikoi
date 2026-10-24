@@ -1,0 +1,27 @@
+{
+  "scope": "Complete V3 development curves and observed-work figures; confirmations pending",
+  "bindings": {
+    "docs/paper/generated/public_stock_v3_development_evidence.json": "9673d61283d52b1523d99c66ee0799ec3c0dc1bd7bf3a8864a1a4087d63b1256",
+    "scripts/plot_public_stock_results.py": "7bbb3d5bc59c1b501e0f8415fa010ec0467719533107a381422c40a7ff020548",
+    "requirements-paper.lock.txt": "02e509baa20ad08a25f99aa7ce54768b02cb8b269c21b321b843f5b9b7ab44d9",
+    "requirements-windows.lock.txt": "313065e50a3cf175c9cc5ca2e5e265e0db8ed8179abf1cb3d877fd9bb8d782b3",
+    "docs/paper/generated/public_stock_v3/public_stock_curves.tex": "6d4e995231ba2cb5aee004cd1534dc3669f5dcb9f7fbd2b16fab23af3761703e",
+    "docs/paper/generated/public_stock_v3/public_stock_scaling.pdf": "013b6081b682deeab50b44a0ba9f8a734f89084c20432eb5923f1310578084ed",
+    "docs/paper/generated/public_stock_v3/public_stock_scaling.png": "05533332cc669eb65f1ebd317dae6eca8dde93aaa7c733dbf9ed355b02ba78ed",
+    "docs/paper/generated/public_stock_v3/public_stock_work.pdf": "76bb601b339aacb2857e775a656635357745cf88019d86c3cb1b85bc7b131505",
+    "docs/paper/generated/public_stock_v3/public_stock_work.png": "fbf76c0497d8271d258dd45a524fc3fcd376982ae93fd1e635f9bf87c5586603"
+  },
+  "visual_review": "All eight curve panels and both work panels reviewed at full size; labels and legends readable, no clipping or overlaps.",
+  "pdf_checks": {
+    "public_stock_scaling": {
+      "pages": 1,
+      "embedded_fonts": 1,
+      "outside_text_spans": []
+    },
+    "public_stock_work": {
+      "pages": 1,
+      "embedded_fonts": 1,
+      "outside_text_spans": []
+    }
+  }
+}
