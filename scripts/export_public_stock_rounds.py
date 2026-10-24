@@ -64,6 +64,10 @@ def reduce(base, confirmation=None):
                 or audit["transitions"] != meta["transitions"]
             ):
                 raise ValueError("Audit coverage differs")
+            for path, digest in meta["sources"].items():
+                if sha(path) != digest:
+                    raise ValueError(f"Table source changed: {path}")
+                bindings[path] = digest
             for path in [
                 table / p
                 for p in ("protocol.json", "result.json", "table.npz", "audit.json")
@@ -169,6 +173,10 @@ def reduce(base, confirmation=None):
             not gate
             or cp["profiles"] != [CONTROL, selected]
             or cp["screen_sha256"] != sha(base / "screen_result.json")
+            or cp["study_protocol_sha256"] != sha(base / "protocol.json")
+            or cp["seed"] != study["confirmation_seed"]
+            or cp["pairs"] != study["confirmation_pairs"]
+            or cp["particles"] != study["confirmation_particles"]
         ):
             raise ValueError("Unqualified confirmation")
         bindings[str(confirmation / "protocol.json")] = sha(
@@ -185,6 +193,11 @@ def reduce(base, confirmation=None):
                     if (
                         result["config"]["deal_seed"] != cp["seed"]
                         or result["config"]["pairs"] != cp["pairs"]
+                        or result["profile"] != profile
+                        or result["config"]["particles"] != particles
+                        or result["config"]["opponent"] != "self"
+                        or result["checkpoint_sha256"]
+                        != study["checkpoints"][f"{profile}_parent{parent}"]
                     ):
                         raise ValueError("Wrong confirmation stream")
                     rows.append(scores)

@@ -36,21 +36,67 @@ under runs/public_stock_qualification_v1. The closed.json record explicitly
 marks the unlaunched jobs. The separate eight-update engineering pilots and
 eight-match search smoke checks are not added to qualification evidence.
 
-V2 frozen-parent adaptation (in progress)
------------------------------------------
+V2 frozen-parent adaptation: preparation complete, screen active
+--------------------------------------------------------------
 
 PUBLIC_STOCK_STUDY_V2.rst fixes a separate protocol starting from the two
 existing stronger parent policies. It freezes their actors and learns
 public-stock corrections and rule-specific values. Initial control logits
 preserve the parent; five focused tests verify that behavior, absence of
-teacher gradients, bounded encoding batches, and hidden-state invariance of encoding and root search.
-The 45 engine/sampling/search checks from the first milestone remain relevant.
+teacher gradients, bounded encoding batches, and hidden-state invariance of
+encoding and root search. The 45 engine/sampling/search checks from the first
+milestone remain relevant.
 
-Eight rules times two parents receive 4,194,304 additional decisions each,
-conditional on the two control quality gates passing first. Final-model rule
-screening uses 0/2/8/32 particles per action, 32 decisions per rollout and
-new duplicate streams. No result or preferred rule is asserted while these
-runs are in progress.
+All sixteen adaptations completed: eight rules times two parents, each with
+4,194,304 additional decisions. The total is 67,108,864 decisions, 3,462,582
+rounds and 498,538 matches across 2,048 updates. These are additional training
+counts, not strength evidence; historical parent training remains separate.
+
+Both controls pass the predeclared qualification gates on 256 new duplicate
+streams, with both seats:
+
+========= ============ =====================
+Parent    Greedy       Released RL-WP
+========= ============ =====================
+0         76.6602%     50.4883%
+1         79.6875%     52.1484%
+========= ============ =====================
+
+The WP implementation is again unassisted GPU batching. Do not replace the
+historical assisted-2023 comparison with these qualification results. The
+four endpoints contain 2,048 matches, 16,105 rounds and 225,889 decisions.
+All decisions were independently replayed in Python; final-state/action
+reductions reproduce every score, margin and evaluation count.
+
+The fixed screen uses 0/2/8/32 particles per action, 32 decisions per rollout
+and 64 new duplicate streams. The opponent is the same adapted no-search
+actor. No preferred rule is asserted before the full screen and its gated,
+reserved confirmation finish.
+
+V3 completed-round search: active
+--------------------------------
+
+The early v2 control results motivate a separate completed-round protocol
+(PUBLIC_STOCK_STUDY_V3.rst); v2 continues unchanged. V3 reuses all sixteen
+adapted policies without further training. Every candidate rollout finishes
+the current round and looks up a sampled future-round value indexed by round,
+absolute dealer and player-0 points. This avoids a learned value cutoff within
+the round and reuses subsequent-round computation.
+
+Each model's table uses 483,328 conditional round rollouts. Every saved target
+and table mean is independently reduced, and four fixed samples per live
+public cell are replayed in Python (3,776 rounds per table). These preparation
+rounds are not complete evaluation matches. All scored online matches are
+replayed in full. Absolute dealer cannot be collapsed by seat symmetry:
+the released parent encoder observes it.
+
+The independent screen uses 32 duplicate streams and 0/8/32/128 particles per
+legal action. Its 2.5-standard-error adoption guard is heuristic. Uniform
+hidden-world proposals omit action-likelihood conditioning, and table values
+are estimated; their conditional standard errors omit propagated future-table
+uncertainty. V3 is not a certified search method. Its changed horizon, guard
+and particle budgets also prevent a causal attribution to caching alone.
+The predeclared rule selection and confirmation are separate from v2.
 
 Interpretation limits fixed before results
 -----------------------------------------

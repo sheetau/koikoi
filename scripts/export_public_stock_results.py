@@ -94,6 +94,43 @@ def reduce_study(base, confirmation=None):
         if sha(path) != digest:
             raise ValueError(f"Frozen study input changed: {path}")
         bindings[path] = digest
+    qualification = []
+    for recorded in read(base / "qualification.json"):
+        parent, opponent = recorded["parent"], recorded["opponent"]
+        _, result = reduce_endpoint(
+            base / f"qualification_parent{parent}_{opponent}", bindings
+        )
+        passed = result["win_rate"] >= (0.65 if opponent == "greedy" else 0.45)
+        if (
+            result["config"]["deal_seed"] != protocol["qualification_seed"]
+            or result["config"]["pairs"] != protocol["qualification_pairs"]
+            or result["config"]["opponent"] != opponent
+            or result["profile"] != CONTROL
+            or result["win_rate"] != recorded["win_rate"]
+            or passed != recorded["passed"]
+            or not passed
+        ):
+            raise ValueError("Qualification does not reproduce")
+        qualification.append(
+            dict(
+                recorded,
+                **{
+                    key: result[key]
+                    for key in (
+                        "matches",
+                        "rounds",
+                        "decisions",
+                        "python_replay_decisions",
+                    )
+                },
+            )
+        )
+    if {(q["parent"], q["opponent"]) for q in qualification} != {
+        (parent, opponent)
+        for parent in range(2)
+        for opponent in ("greedy", "published_wp")
+    } or len(qualification) != 4:
+        raise ValueError("Qualification coverage differs")
     curves, endpoints, training = {}, {}, {}
     for profile in PROFILES:
         curves[profile] = []
@@ -117,6 +154,10 @@ def reduce_study(base, confirmation=None):
                 or train_config["config"]["parent"] != parent
             ):
                 raise ValueError("Wrong training profile or parent")
+            for path, digest in train_config["bindings"].items():
+                if sha(path) != digest:
+                    raise ValueError(f"Training source changed: {path}")
+                bindings[path] = digest
             for name in ("config.json", "progress.jsonl"):
                 bindings[str(train_dir / name)] = sha(train_dir / name)
             training[f"{profile}_parent{parent}"] = trained
@@ -179,6 +220,7 @@ def reduce_study(base, confirmation=None):
         },
         "screen_endpoints": endpoints,
         "training": training,
+        "qualification": qualification,
         "training_totals": {
             k: sum(row[k] for row in training.values())
             for k in ("decisions", "rounds", "matches", "updates")
@@ -222,7 +264,15 @@ def reduce_study(base, confirmation=None):
     summary["factorial_gain_contrasts_exploratory"] = effects
     if confirmation is not None:
         cp = read(confirmation / "protocol.json")
-        if not gate or cp["profiles"] != [CONTROL, selected]:
+        if (
+            not gate
+            or cp["profiles"] != [CONTROL, selected]
+            or cp["screen_sha256"] != sha(base / "screen_result.json")
+            or cp["study_protocol_sha256"] != sha(base / "protocol.json")
+            or cp["seed"] != protocol["confirmation_reserved_seed"]
+            or cp["pairs"] != protocol["confirmation_pairs"]
+            or cp["particles"] != protocol["particles"]
+        ):
             raise ValueError("Unqualified confirmation")
         bindings[str(confirmation / "protocol.json")] = sha(
             confirmation / "protocol.json"
@@ -238,6 +288,11 @@ def reduce_study(base, confirmation=None):
                     if (
                         result["config"]["deal_seed"] != cp["seed"]
                         or result["config"]["pairs"] != cp["pairs"]
+                        or result["profile"] != profile
+                        or result["config"]["particles"] != particles
+                        or result["config"]["opponent"] != "self"
+                        or result["checkpoint_sha256"]
+                        != sha(base / f"{profile}_parent{parent}" / "policy_00128.pt")
                     ):
                         raise ValueError("Wrong confirmation stream")
                     rows.append(scores)
