@@ -48,11 +48,13 @@ A separate protocol completes the current round before evaluating its leaf.
 For each fixed policy/rule, it computes a table of expected terminal utility
 before a fresh deal, indexed by round, absolute dealer and player-0 points.
 Backward computation uses 512 conditional round rollouts per live cell,
-483,328 per model. Absolute dealer remains necessary because the released
+483,328 per model. All sixteen tables are complete: 7,733,248 conditional
+rounds and 163,572,208 transitions. Absolute dealer remains necessary because the released
 parent encoder observes seat identity. Lookup uses only the public boundary;
 the next hidden deal is not used. Every saved target and table mean is reduced
 independently, with four fixed samples per cell replayed in Python (3,776
-rounds per table). These are preparation rounds, not full evaluation matches.
+rounds per table; 60,416 rounds and 1,276,957 decisions in total). These are
+preparation rounds, not full evaluation matches.
 The second screen reuses the same sixteen policies, with no new training,
 on 32 separate duplicate streams at 0/8/32/128 worlds per action and a
 2.5-standard-error guard. Failure to finish a rollout round is an error;

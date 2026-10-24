@@ -138,10 +138,16 @@ the current round and looks up a sampled future-round value indexed by round,
 absolute dealer and player-0 points. This avoids a learned value cutoff within
 the round and reuses subsequent-round computation.
 
-Each model's table uses 483,328 conditional round rollouts. Every saved target
-and table mean is independently reduced, and four fixed samples per live
-public cell are replayed in Python (3,776 rounds per table). These preparation
-rounds are not complete evaluation matches. All scored online matches are
+All sixteen tables are complete, each using 483,328 conditional round
+rollouts. Preparation totals 7,733,248 conditional rounds and 163,572,208
+transitions; 1,751,874 conditional rollouts reach a terminal state. These are
+not counts of complete evaluation matches.
+
+Every saved target and table mean was independently reduced. Four fixed
+samples per live public cell were replayed in Python: 3,776 rounds per table,
+60,416 rounds and 1,276,957 decisions in total. All sixteen table hashes match
+their policy/rule metadata and saved audits. Aggregating those audit records
+is not a new replay or strength evaluation. All scored online matches are
 replayed in full. Absolute dealer cannot be collapsed by seat symmetry:
 the released parent encoder observes it.
 
