@@ -33,7 +33,7 @@ def main():
     plt.rcParams.update(
         {
             "pdf.fonttype": 42,
-            "font.size": 9,
+            "font.size": 16,
             "axes.spines.top": False,
             "axes.spines.right": False,
         }
@@ -63,14 +63,14 @@ def main():
         ax.set_title(title)
         ax.set_xticks(range(4), ["0", "1x", "4x", "16x"])
         ax.grid(axis="y", alpha=0.18)
-    axes[0, 0].legend(frameon=False, fontsize=8)
+    axes[0, 0].legend(frameon=False, fontsize=14)
     fig.supylabel("Win-score gain over no search (percentage points)")
     fig.supxlabel(
         "Particle budget per legal action (0, 2, 8, 32); horizon 32 decisions"
     )
     fig.suptitle(
         "Public-stock rule development: 64 duplicate streams, two adapted parents\nPaired 95% exploratory intervals; no multiplicity adjustment",
-        fontsize=11,
+        fontsize=16,
     )
     fig.savefig(
         out / "public_stock_scaling.pdf",
