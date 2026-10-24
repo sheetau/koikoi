@@ -28,6 +28,9 @@ def main():
     p.add_argument("--out", required=True)
     args = p.parse_args()
     data = json.loads(Path(args.evidence).read_text(encoding="utf-8"))
+    particles = data.get("particles", [0, 2, 8, 32])
+    pairs = data.get("development_pairs", 64)
+    completed_rounds = data.get("method") == "completed_rounds"
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
     plt.rcParams.update(
@@ -66,10 +69,12 @@ def main():
     axes[0, 0].legend(frameon=False, fontsize=14)
     fig.supylabel("Win-score gain over no search (percentage points)")
     fig.supxlabel(
-        "Particle budget per legal action (0, 2, 8, 32); horizon 32 decisions"
+        f"Particles per legal action {tuple(particles)}; "
+        + ("roll out to round end" if completed_rounds else "horizon 32 decisions")
     )
     fig.suptitle(
-        "Public-stock rule development: 64 duplicate streams, two adapted parents\nPaired 95% exploratory intervals; no multiplicity adjustment",
+        f"Public-stock rule development: {pairs} duplicate streams, two adapted parents\n"
+        "Paired 95% exploratory intervals; no multiplicity adjustment",
         fontsize=16,
     )
     fig.savefig(
@@ -89,7 +94,7 @@ def main():
         gains = (curves[:, 1:] - curves[:, :1]) * 100
         values = [f"{gains[0, j]:+.2f}/{gains[1, j]:+.2f}" for j in range(3)]
         work = [
-            data["screen_endpoints"][f"{profile}_parent{parent}_p32"]
+            data["screen_endpoints"][f"{profile}_parent{parent}_p{particles[-1]}"]
             for parent in range(2)
         ]
         cost = "/".join(f"{r['transitions'] / r['matches'] / 1000:.1f}" for r in work)

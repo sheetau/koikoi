@@ -125,6 +125,12 @@ def reduce_study(base, confirmation=None):
                 label = f"{profile}_parent{parent}_p{particles}"
                 scores, result = reduce_endpoint(base / f"screen_{label}", bindings)
                 if (
+                    result["config"]["deal_seed"] != protocol["development_seed"]
+                    or result["config"]["pairs"] != protocol["development_pairs"]
+                    or result["config"]["opponent"] != "self"
+                ):
+                    raise ValueError("Wrong development stream or opponent")
+                if (
                     result["profile"] != profile
                     or result["config"]["particles"] != particles
                 ):
@@ -162,6 +168,9 @@ def reduce_study(base, confirmation=None):
         0, protocol["development_pairs"], (20000, protocol["development_pairs"])
     )
     summary = {
+        "method": "learned_leaf",
+        "particles": protocol["particles"],
+        "development_pairs": protocol["development_pairs"],
         "selected": selected,
         "confirmation_gate_passed": bool(gate),
         "curves": {p: x.mean(2).tolist() for p, x in curves.items()},
@@ -226,6 +235,11 @@ def reduce_study(base, confirmation=None):
                 for particles in protocol["particles"]:
                     label = f"{profile}_parent{parent}_p{particles}"
                     scores, result = reduce_endpoint(confirmation / label, bindings)
+                    if (
+                        result["config"]["deal_seed"] != cp["seed"]
+                        or result["config"]["pairs"] != cp["pairs"]
+                    ):
+                        raise ValueError("Wrong confirmation stream")
                     rows.append(scores)
                     work[label] = {
                         k: result[k]
