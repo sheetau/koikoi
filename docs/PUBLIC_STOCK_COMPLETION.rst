@@ -1,8 +1,8 @@
 Public-stock exploration: completion evidence
 ============================================
 
-This is a requirement-to-evidence index, not a new experiment or a claim
-that the goal is complete. The active work follows the requested preview-two,
+This is a completed requirement-to-evidence audit, not a new experiment.
+The work covers the requested preview-two,
 choose-one-of-two and own-koi/both-yaku combination search. Earlier search
 efficiency work and nine-profile rule transfer remain closed; their results
 are in SEARCH_REUSE_RESULTS.rst, RESUMABLE_FRONTIER_RESULTS.rst,
@@ -70,9 +70,11 @@ Closing audit: 26 October 2026
    tables. No box/reference/glyph warning, missing font or outside-page text
    remains. The new public_stock_mature_variants_revision_evidence.json
    binds 155 inputs and 23 QA artifacts. Earlier reviewed PDFs are unchanged.
-4. **Repository closure pending:** commit and push the verified manuscript
-   milestone, then inspect the final worktree and remote revision. Record
-   that check before changing the active goal status.
+4. **Complete:** substantive milestone 3af2d9e46eb01ed49996a863394acbe85d422831
+   was committed and pushed. A direct remote-head query matches the local
+   revision, and the worktree was clean before this closure record. No
+   public-stock research process remains. The project-work closure records
+   this audit; no required experiment, reduction or manuscript check remains.
 
 Completion does not require converting a negative criterion into a positive
 one. It requires the specified observations, independent checks and complete
