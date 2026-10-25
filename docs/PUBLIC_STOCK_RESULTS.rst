@@ -363,12 +363,15 @@ The planned V5B all-improved-policy search study requires improved control
 and at least one improved finalist. That joint launch gate fails, so V5B is
 not run; its gate is not relaxed. Nevertheless, both finalists now have
 measurably stronger policies, making their search robustness a substantive
-remaining question. A separate protocol will retain the old control and
-test the qualified finalist actors against the other new parent. Such a
-comparison must state the unequal adaptation budgets and cannot attribute
-cross-rule differences to rules alone. New-policy tables and untouched
-calibration/evaluation streams are required. V4's failed work criterion
-and unresolved finalist ranking remain unchanged.
+remaining question. The separate PUBLIC_STOCK_STUDY_V5C.rst now retains the
+old control and tests qualified finalist actors against the other new parent.
+Its real preflight verifies six systems, 43 sources and 35 inputs. The runner
+is preparing four new policy-specific finalist tables and reuses two
+unchanged, previously audited control tables. New calibration/evaluation
+streams are fixed before use. Unequal adaptation budgets are explicit;
+cross-rule differences cannot be attributed to rules alone. This study is
+running, not yet search-strength evidence. V4's failed work criterion and
+unresolved finalist ranking remain unchanged.
 
 Interpretation limits fixed before results
 -----------------------------------------

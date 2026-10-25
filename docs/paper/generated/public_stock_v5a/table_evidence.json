@@ -1,0 +1,11 @@
+{
+  "inputs": {
+    "docs/paper/generated/public_stock_v5a_evidence.json": "11c74d2ac1cedb8548c436457a352c28fd578c41f94afb40c69690b0f2e7cdb0",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\scripts\\render_public_stock_adaptation.py": "7f48aeb8885ff18697acf49949f434730a077930462c3f4e20dd507a6e814ea6"
+  },
+  "outputs": {
+    "docs/paper/generated/public_stock_v5a/adaptation_contrasts.tex": "09c1ef063c74401cbba8af293cfba3c776bce7d24fb85bffab8ec7a33a390da8",
+    "docs/paper/generated/public_stock_v5a/adaptation_scores.tex": "25db50cbcbcb27e7d438c36af22ba6ea1efc50bb9c7508e1a991d6cd1374b702"
+  },
+  "scope": "All six zero-search score triplets and all twelve one-sided paired qualification contrasts. No new strength evaluation or selection."
+}

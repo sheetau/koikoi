@@ -1,0 +1,73 @@
+\FloatBarrier
+\subsection{Measuring adaptation maturity}
+\label{app:public-stock-adaptation}
+Large search gains may partly repair errors that further policy learning
+would remove. We therefore test longer adaptation before interpreting a
+search comparison as robustness to stronger baseline policies. The complete
+changed-opponent score criterion permits this separate study; it does not
+remove the failed work-admissibility condition.
+
+All six retained systems receive exactly 384 additional PPO updates from
+their 128-update weights, with fresh Adam and the original teacher frozen.
+This is a weight warm start, not restoration of optimizer or environment
+state. Each update uses 512 environments and 64 decisions, with the same
+architecture, terminal-match objective, teacher KL penalty and other PPO
+settings as the earlier adaptation. Only the final checkpoint is eligible;
+intermediate checkpoints cannot be selected or training extended.
+
+Additional work totals 75,497,472 decisions, 3,536,901 rounds, 485,230 matches
+and 2,304 updates across six systems. Each system has 16,777,216 cumulative
+adaptation decisions; original parent training remains separate. Frozen-teacher
+identity, initial/final checkpoint lineage, finite parameters and counters
+are audited. Training counts are recorded, not independently replayed, and
+training completion is not strength evidence.
+
+Qualification uses 1,024 new duplicate streams, both seats, with zero online
+search. Each new actor faces both retained old parents under its rule; the
+old actor also faces the other old parent on the same streams. The own-parent
+contrast is new score minus 0.5; deterministic duplicate self-play gives the
+old actor exactly 0.5. The other-parent contrast subtracts the old actor's
+score against that same opponent, preserving within-stream covariance.
+All twelve contrasts share 20,000 bootstrap replicates and one-sided lower
+quantile $0.05/12$. A rule qualifies only when both contrasts have positive
+lower bounds for both parents. Control and at least one finalist must qualify
+to launch the prospective all-improved-policy search study.
+
+\begin{table}[ht]
+\centering\small
+\input{generated/public_stock_v5a/adaptation_scores.tex}
+\caption{All zero-search qualification scores, with ties worth one half.
+``Own'' and ``other'' always identify retained old opponents. The old actor
+against itself has duplicate score 50\%; the old/other column is measured
+on the same streams as new/other.}
+\label{tab:public-stock-adaptation-scores}
+\end{table}
+
+The eighteen endpoints contain 36,864 matches, 264,776 rounds and 6,024,229
+scored decisions, all replayed in Python. Independent reduction verifies
+outcomes and counts; the recorded search counters are zero. Both finalists
+qualify. Against their own retained actors, preview plus choice improves by
+7.52/7.03 points and all three by 7.71/6.54 points. Their other-opponent
+improvements are 8.42/5.88 and 9.33/5.25 points, respectively. All eight
+associated lower bounds are positive.
+
+Control does not qualify: its own-parent changes are $-0.90/+0.59$ points
+and other-parent changes $+0.95/-0.88$, with all four lower bounds negative.
+The all-improved-policy search launch condition therefore fails, and that
+prospective study is not run. This is a failure to establish stronger control
+policies, not evidence that search has lost its value. The two finalists now
+have measured stronger actors; qualification measures no new-policy search
+gain. A separately specified follow-up retains old control and tests the
+qualified finalist actors, with unequal adaptation budgets and new cohorts
+explicit.
+The failed launch condition is neither relaxed nor relabeled as a pass.
+\begin{table}[ht]
+\centering\small
+\input{generated/public_stock_v5a/adaptation_contrasts.tex}
+\caption{All twelve paired qualification contrasts, in percentage points,
+with one-sided lower bounds at quantile $0.05/12$. The nominal 95\%
+familywise target is within this study only. A longer training duration
+does not itself qualify an improved policy.}
+\label{tab:public-stock-adaptation-contrasts}
+\end{table}
+\FloatBarrier

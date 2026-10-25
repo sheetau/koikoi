@@ -1,3 +1,29 @@
+25 October 2026: adaptation qualification complete
+=================================================
+
+Both public-stock finalists qualify as improved against both retained
+opponents for both parents after the fixed additional training. Control
+does not qualify, so the prospective all-improved-policy V5B study is not
+run. All 36,864 qualification matches and 6,024,229 scored decisions pass
+Python replay; independent reduction retains all twelve paired contrasts.
+Training work and qualification evidence remain separate.
+
+The reviewed manuscript is
+``../../output/pdf/public_stock_adaptation_revision/manuscript.pdf``:
+62 pages, 10 main pages, 50 references, 35 embedded fonts, SHA256
+``a349207171919ba456b316c9d876264ddc48f77dec4011a2a69cbb788be7d38f``.
+All pages were checked in contact sheets; pages 1, 9-11 and 51-59 were
+checked at full size. No TeX box/reference/glyph warnings, unembedded fonts
+or out-of-page text spans remain. Source, result, table and QA identities
+are in ``generated/public_stock_adaptation_revision_evidence.json``.
+Earlier reviewed PDFs and evidence snapshots are preserved.
+
+The separate ``../PUBLIC_STOCK_STUDY_V5C.rst`` is now running. It retains
+the old control and uses the qualified new finalist actors, with unequal
+adaptation budgets explicit. Four new policy-specific tables precede its
+two-stage work calibration and reserved search evaluation. No V5C search
+result is claimed yet. The broader goal remains active.
+
 25 October 2026: changed-opponent robustness complete
 ====================================================
 

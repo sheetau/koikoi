@@ -285,9 +285,10 @@ A separate changed-opponent study confirms the all-three rule's computation
 benefit: high-budget gains are 26.95/28.71 points, including 14.84/13.67 points
 over the lower budget. The finalist ranking remains unresolved, and one of
 twelve work checks misses the fixed tolerance, so matched-work superiority
-is unestablished (Appendix~\ref{app:public-stock-robustness}). These results
-do not inherit the exact guarantee or compare directly with the historical
-2023 opponent. Robustness to stronger adapted policies remains to be tested.
+is unestablished (Appendix~\ref{app:public-stock-robustness}). These gains
+neither inherit the exact guarantee nor compare with the 2023 opponent.
+Longer adaptation qualifies stronger finalist actors, but not control;
+stronger-actor search requires separate evaluation (Appendix~\ref{app:public-stock-adaptation}).
 
 \subsection{Transfer to other imperfect-information games}
 The partition-and-compare construction in Equation~\ref{eq:frontier-gain}
@@ -349,7 +350,7 @@ Prospective endgame planning & \path{prospective_incumbent_evidence.json} \\
 Uniform-deal expected improvement & \path{uniform_results_evidence.json} \\
 Frontier development and integration & \path{frontier_development_evidence.json} \\
 Frontier incremental improvement & \path{frontier_increment_results_evidence.json} \\
-Public-stock rule adaptation and search & \path{public_stock_v2_evidence.json}, \path{public_stock_v3_evidence.json}, \path{public_stock_v4_evidence.json} \\
+Public-stock rule adaptation and search & \path{public_stock_v2_evidence.json}, \path{public_stock_v3_evidence.json}, \path{public_stock_v4_evidence.json}, \path{public_stock_v5a_evidence.json} \\
 \bottomrule
 \end{tabular}
 \caption{Evidence map. Each ledger identifies the underlying inputs and outputs;
@@ -1251,6 +1252,7 @@ paired win-score changes in percentage points, with 95\% intervals.}
 \FloatBarrier
 \input{public_stock_appendix.tex}
 \input{public_stock_robustness_appendix.tex}
+\input{public_stock_adaptation_appendix.tex}
 \FloatBarrier
 \begingroup
 \raggedright\small
