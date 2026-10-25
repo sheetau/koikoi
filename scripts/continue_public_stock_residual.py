@@ -101,8 +101,12 @@ def train(args):
     ]
     bindings = {str(p): hashlib.sha256(p.read_bytes()).hexdigest() for p in paths}
     config = vars(args)
+    runtime = {
+        "torch": torch.__version__, "device": device,
+        "gpu": torch.cuda.get_device_name() if device == "cuda" else None,
+    }
     (out / "config.json").write_text(
-        json.dumps({"config": config, "bindings": bindings, "lineage": lineage}, indent=2),
+        json.dumps({"config": config, "bindings": bindings, "lineage": lineage, "runtime": runtime}, indent=2),
         encoding="utf-8",
         newline="\n",
     )
@@ -212,6 +216,7 @@ def train(args):
                     "counters": counters,
                     "seconds": record["seconds"],
                     "bindings": bindings,
+                    "runtime": runtime,
                     "training_method": "warm_start_fresh_adam_v1",
                     "lineage": lineage,
                     "cumulative_counters": {

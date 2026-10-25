@@ -7,6 +7,7 @@ import pytest
 import torch
 
 from koikoi.public_stock_residual import load_residual
+from scripts import export_public_stock_adaptation as exporter
 from scripts.continue_public_stock_residual import initialise, train
 from scripts.export_public_stock_results import sha
 
@@ -54,7 +55,7 @@ def test_unbound_checkpoint_is_rejected_before_loading(args, tmp_path):
         initialise(args)
 
 
-def test_cpu_training_preserves_lineage_and_separates_additional_work(args):
+def test_cpu_training_preserves_lineage_and_separates_additional_work(args, monkeypatch):
     before = sha(CHECKPOINT)
     train(args)
     path = Path(args.out) / "policy_add_00002.pt"
@@ -74,5 +75,25 @@ def test_cpu_training_preserves_lineage_and_separates_additional_work(args):
     assert all(torch.isfinite(t).all() for t in model.correction_state().values())
     for name, digest in payload["bindings"].items():
         assert sha(name) == digest
+    # Exercise the production audit on this explicitly smaller CPU engineering run.
+    # The launch/qualification contracts are not relaxed for real studies.
+    label = f"{args.profile}_parent0"
+    study = {"systems": {label: {
+        "profile": args.profile, "parent": 0,
+        "checkpoint": str(CHECKPOINT), "checkpoint_sha256": before,
+    }}, "sources": payload["bindings"]}
+    monkeypatch.setattr(exporter, "training_config", lambda *unused: vars(args))
+    audit = exporter.audit_training(Path(args.out).parent, study, label, {})
+    assert audit["status"] == "passed" and audit["teacher_unchanged"]
+    assert audit["additional"]["decisions"] == 256
+    payload["cumulative_counters"]["decisions"] += 1
+    torch.save(payload, path)
+    with pytest.raises(ValueError, match="conflated"):
+        exporter.audit_training(Path(args.out).parent, study, label, {})
+    payload["cumulative_counters"]["decisions"] -= 1
+    payload["parent"]["config"]["score_temperature"] += 1
+    torch.save(payload, path)
+    with pytest.raises(ValueError, match="frozen teacher"):
+        exporter.audit_training(Path(args.out).parent, study, label, {})
     with pytest.raises(FileExistsError):
         train(args)
