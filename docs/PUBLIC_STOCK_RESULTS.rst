@@ -303,19 +303,72 @@ intervals and twelve cost checks are rendered under
 ``docs/paper/generated/public_stock_v4``. Figure generation checks the complete
 evidence bindings; it does not generate new strength measurements.
 
-Follow-up after changed-opponent evaluation
-------------------------------------------
+V5A adaptation maturity: qualification complete
+----------------------------------------------
 
-All three's score gate permits the predeclared V5A longer-adaptation study
-(PUBLIC_STOCK_ADAPTATION_V5.rst); it does not repair V4's work failure.
-V5A is now running for all six retained systems. Each receives 384 additional
-updates from the retained 128-update weights with fresh Adam, then a separate
-zero-search qualification against its own and the other retained parent.
-Training completion alone is not strength evidence. Control and at least one
-finalist must qualify before a new-policy search study can begin. New policies
-require their own continuation tables and new evaluation streams. The two
-finalists' ranking, stronger-policy search robustness and admissible work
-matching remain unresolved; no closed study is extended or relabeled.
+All six systems completed 384 additional updates from the retained 128-update
+weights, with fresh Adam and the original teacher frozen. Additional totals
+are 75,497,472 decisions, 3,536,901 rounds, 485,230 matches and 2,304 updates.
+Each system has 16,777,216 cumulative adaptation decisions; original parent
+training remains separate. Final checkpoint lineage, finite weights, frozen
+teacher identity and progress/counter records all pass the independent audit.
+Only final additional-update-384 policies are evaluated; no checkpoint is
+selected retrospectively. Training counters are recorded, not replayed.
+
+The original runner omitted the evaluator's required ``evaluate`` subcommand
+and stopped at argument parsing before any qualification directory or scored
+match existed. The isolated completion driver preserves the failed log and
+original sources, verifies all frozen training audits, and binds a recovery
+receipt before executing the unchanged evaluation protocol. No cohort is
+restarted or extended, and no scientific setting changes.
+
+All eighteen qualification endpoints are complete: 36,864 actual matches,
+264,776 rounds and 6,024,229 scored/Python-replayed decisions on 1,024 new
+shared duplicate streams at 1240000000. Recorded online search counters
+are zero. Independent reduction verifies outcomes, margins, counts, opponent
+identities and complementary old-parent baselines. The complete evidence
+has 409 source/input bindings and SHA256
+``11c74d2ac1cedb8548c436457a352c28fd578c41f94afb40c69690b0f2e7cdb0``:
+``docs/paper/generated/public_stock_v5a_evidence.json``.
+
+All twelve paired contrasts use 20,000 bootstrap replicates (seed 1109)
+and one-sided lower quantile 0.05/12, retaining the nominal within-study
+95% familywise target. Each rule requires positive lower bounds for new
+versus its own retained parent and for new-minus-old against the other
+retained parent, for both initial parents. Scores count ties as one half.
+
+Both finalist rules qualify. Preview plus choice gains 7.5195/7.0313 points
+against its own retained actors (lower bounds 5.0049/4.5410), and
+8.4229/5.8838 points over the old actors against the other retained opponents
+(lower bounds 4.9805/2.4658). All three gains 7.7148/6.5430 points against
+its own retained actors (lower bounds 5.0537/3.8330), and 9.3262/5.2490
+points against the other retained opponents (lower bounds 5.8594/1.7334).
+Thus every one of the finalists' eight lower bounds is positive.
+
+Control does not qualify. Its own-parent changes are -0.9033/+0.5859 points
+(lower bounds -2.7588/-1.3184), and its other-parent changes are
++0.9521/-0.8789 (lower bounds -1.3916/-3.1738). No positive lower bound
+establishes improved control strength. These results do not prove control
+degradation or explain it causally. More updates alone did not establish
+improvement under the retained self-play/teacher-KL training regime.
+
+All score triplets and twelve contrasts are in the evidence and generated
+manuscript tables under ``docs/paper/generated/public_stock_v5a``. The
+qualification contains no new-policy search evaluation.
+
+Follow-up after adaptation qualification
+----------------------------------------
+
+The planned V5B all-improved-policy search study requires improved control
+and at least one improved finalist. That joint launch gate fails, so V5B is
+not run; its gate is not relaxed. Nevertheless, both finalists now have
+measurably stronger policies, making their search robustness a substantive
+remaining question. A separate protocol will retain the old control and
+test the qualified finalist actors against the other new parent. Such a
+comparison must state the unequal adaptation budgets and cannot attribute
+cross-rule differences to rules alone. New-policy tables and untouched
+calibration/evaluation streams are required. V4's failed work criterion
+and unresolved finalist ranking remain unchanged.
 
 Interpretation limits fixed before results
 -----------------------------------------
