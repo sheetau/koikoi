@@ -1,3 +1,26 @@
+25 October 2026: public-stock independent confirmations complete
+==============================================================
+
+Both original confirmation criteria pass, separately: all three factors
+at the 32-decision horizon, and preview plus choice at round completion.
+The 19,456 confirmation matches have 2,741,847 scored decisions, all replayed
+in Python. Independent reduction verifies scores, margins and evaluation
+counts; recorded planning work remains a separate quantity.
+
+The reviewed manuscript is
+``../../output/pdf/public_stock_rules_revision/manuscript.pdf``:
+58 pages, 10 main pages, 50 references, 34 embedded fonts, SHA256
+``316831da3799cbcd5c9389eb1caa5ace973177576b926631d2f004869a3da361``. All pages were checked in contact sheets and changed
+pages at full size; there are no TeX box/reference/glyph warnings or
+out-of-page text spans. The appendix is now integrated. Source/results/QA
+bindings are in ``generated/public_stock_revision_evidence.json``.
+
+The broader rule-search goal remains active. The next fixed protocol,
+``../PUBLIC_STOCK_STUDY_V4.rst``, tests changed opponents and work-calibrated
+budgets for both finalists and control. It has not been executed yet;
+stronger adaptation is a separately gated follow-up. Earlier PDFs and
+confirmation cohorts remain unchanged.
+
 25 October 2026: both public-stock factorial screens complete
 ===========================================================
 

@@ -81,13 +81,13 @@ policy errors. Conclusions therefore concern this fixed training/search regime.
 \paragraph{First-screen result.}
 The 32-decision screen completes 8,192 matches, 55,032 rounds and 1,153,925
 policy decisions on its 64 shared duplicate streams. All scored decisions
-pass Python replay; independent reductions reproduce every score and count.
+pass Python replay; independent reductions reproduce scores and evaluated-match counters.
 Search uses 22,993,192 rollouts and 665,914,496 transitions. The all-three
 rule has the largest worse-parent gain: 33.5938 and 28.1250 percentage points,
 versus control changes of $-10.5469$ and $-9.7656$ points. Preview plus choice
 scores slightly higher for parent 1, so this selection is not a claim of
 uniform superiority. Every rule loses mean score at two worlds. The reserved
-512-stream confirmation is running; its outcome remains unknown.
+512-stream confirmation is reported separately below.
 At 32 worlds, all-three matches average 5.16/5.10 rounds, versus 7.51/7.52
 for preview plus choice. The work comparison therefore includes different
 match lengths, as well as different policies and decision spaces.
@@ -114,18 +114,48 @@ control changes of $-3.1250/+3.1250$ points. Its worse-parent gain ties
 all three; the registered lexicographic tie-break selects preview plus choice.
 This is not a confirmed ranking between those alternatives. Increasing eight
 to 128 worlds adds 21.8750/20.3125 points within the selected rule in development.
-The reserved 128-stream confirmation is running.
+The reserved 128-stream confirmation is reported below.
 
 \begin{figure}[ht]
 \centering
 \includegraphics[width=\linewidth]{generated/public_stock_v3/public_stock_scaling.pdf}
-\caption{Complete completed-round development curves. Each rule uses its own
+\caption{Completed-round development curves. Each rule uses its own
 adapted no-search actor as opponent. Intervals are exploratory paired 95\%
 intervals on 32 duplicate streams, without multiplicity or selection adjustment.
 The nominal budgets are 8, 32 and 128 worlds per legal root action; actual
 work varies across rules. These intervals are not the confirmation criterion.}
 \label{fig:public-stock-v3-curves}
 \end{figure}
+
+\FloatBarrier
+\paragraph{Independent confirmations.}
+Both registered four-inequality criteria pass (Table~\ref{tab:public-stock-confirmation}).
+The first confirmation contains 16,384 matches, 112,112 rounds and 2,249,011
+replayed decisions on 512 new duplicate streams; it uses 45,492,908 rollouts
+and 1,313,528,021 online transitions. The second contains 3,072 matches,
+23,850 rounds and 492,836 replayed decisions on 128 separate new streams,
+using 42,932,832 rollouts and 605,313,887 transitions. Independent reductions
+reproduce scores, match counts, rounds and scored decisions. Search work is
+recorded separately. These cohorts are neither pooled nor extended.
+
+\begin{table}[ht]
+\centering\small
+\input{generated/public_stock_confirmation_table.tex}
+\caption{Held-out selected-rule results. Gain is the high-budget change from
+no search; excess subtracts the corresponding control gain. Changes are in
+percentage points; brackets give one-sided 98.75\% paired-bootstrap lower
+bounds. Four positive lower bounds are required within each protocol.
+The first selects all three factors; the second selects preview plus choice.
+Each system faces its own adapted no-search actor; scores count ties as one half.}
+\label{tab:public-stock-confirmation}
+\end{table}
+
+For preview plus choice, increasing eight to 128 worlds improves score by
+22.85 points for parent 0 (secondary paired 95\% interval 17.19--28.52) and
+17.77 points for parent 1 (11.72--23.83). Additional computation therefore
+helps beyond the first nonzero budget in this held-out regime. It need not
+help at every budget: the first protocol's two-world scores remain below
+50\% for both selected-rule parents (30.86/33.45\%).
 
 These sampled searches do not inherit the exact improvement guarantee of the
 main method. Uniform beliefs can be misspecified, and table errors propagate
@@ -134,5 +164,7 @@ uncertainty. The two protocols also differ in guard and budgets, so their
 comparison cannot isolate the effect of caching. Increasing particles increases
 sampled worlds, not the fixed rollout horizon. Particle counts do not equalize
 work across rules. Offline preparation, online transitions and
-wall time must remain distinct. Both reserved confirmations remain in
-progress; no confirmed rule preference is concluded here.
+wall time must remain distinct. The results establish a reproducible
+computation benefit for fixed adapted systems, not maximal strength or a
+confirmed ranking between the two selected rules. Changed opponents,
+stronger adaptation and matched work allowances are follow-up tests.

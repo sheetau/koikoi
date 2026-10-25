@@ -42,8 +42,8 @@ under runs/public_stock_qualification_v1. The closed.json record explicitly
 marks the unlaunched jobs. The separate eight-update engineering pilots and
 eight-match search smoke checks are not added to qualification evidence.
 
-V2 adaptation: screen complete, confirmation active
---------------------------------------------------
+V2 adaptation: independent confirmation complete
+-------------------------------------------------
 
 PUBLIC_STOCK_STUDY_V2.rst fixes a separate protocol starting from the two
 existing stronger parent policies. It freezes their actors and learns
@@ -129,13 +129,26 @@ differences and excludes inference and preparation costs; it is not a
 matched-cost or elapsed-time result. Source/figure identities and visual QA
 are bound by ``docs/paper/generated/public_stock_v2_work_evidence.json``.
 
-The gate passes and the unchanged reserved confirmation is now running on
-512 new duplicate streams, comparing the selected all-three rule with control
-at all four budgets for both parents (16,384 planned matches). No confirmation
-outcome or rule promotion is asserted while that cohort is incomplete.
+The gate passes and the unchanged reserved confirmation completes on 512
+new duplicate streams, selected rule and control, all four budgets and both
+parents. It contains 16,384 matches, 112,112 rounds, 2,249,011 decisions,
+45,492,908 rollouts and 1,313,528,021 online transitions. All scored decisions
+are replayed in Python. Independent reduction reproduces all outcomes.
 
-V3 completed-round search: screen complete, confirmation active
----------------------------------------------------------------
+At 32 worlds, all three score 82.4707% / 80.9082% against their own no-search
+actors, gains of 32.4707 / 30.9082 percentage points. The one-sided 98.75%
+lower bounds are 29.9316 / 28.1250 points. Control scores are 40.6250% /
+42.2363%, changes of -9.3750 / -7.7637 points. Selected-minus-control gains
+are 41.8457 / 38.6719 points, with lower bounds 37.8418 / 34.6191. All four
+registered inequalities pass; the two parents are not pooled.
+
+The selected-rule curves at 0/2/8/32 worlds are 50.0000/30.8594/59.9121/82.4707%
+and 50.0000/33.4473/62.1582/80.9082%. Thus very small search budgets still
+harm performance. Full confirmation curves, counts and source identities
+are in ``docs/paper/generated/public_stock_v2_evidence.json``.
+
+V3 completed-round search: independent confirmation complete
+------------------------------------------------------------
 
 The early v2 control results motivate a separate completed-round protocol
 (PUBLIC_STOCK_STUDY_V3.rst); v2 continues unchanged. V3 reuses all sixteen
@@ -169,7 +182,7 @@ The complete online screen contains 4,096 matches, 27,752 rounds and
 574,620 decisions from 32 shared duplicate streams. Search uses 46,309,552
 rollouts and 653,460,580 physical transitions across 211,542 roots. All scored
 decisions pass Python replay, and independent reduction reproduces every
-endpoint and the registered selection. Preparation counts above remain
+score, evaluated-match counter and the registered selection. Preparation counts above remain
 separate from these online counts.
 
 Win scores (%) for parent 0 / parent 1 follow; every zero-world score is 50%.
@@ -203,11 +216,37 @@ work tables and observed-work plots are under ``generated/public_stock_v3``
 in the paper directory. Figure identities and visual QA are bound by
 ``docs/paper/generated/public_stock_v3_figures_evidence.json``.
 
-The original gate passes. Reserved confirmation is running on 128 new
-duplicate streams for control and preview plus choice, both parents, and
-0/8/128 worlds (3,072 planned matches). Both protocols' confirmations remain
-separate. V3 tests the four primary inequalities and reports high-minus-eight
-as secondary; it does not confirm a ranking against all three.
+The original gate passes. Reserved confirmation completes on 128 new
+duplicate streams, control and preview plus choice, both parents, and
+0/8/128 worlds. It contains 3,072 matches, 23,850 rounds, 492,836 decisions,
+42,932,832 rollouts and 605,313,887 online transitions across 160,561 roots.
+Every scored decision is replayed in Python; independent reduction reproduces
+the results and verifies the continuation-table identities.
+
+Preview plus choice scores 85.1563% for both parents at 128 worlds, a gain
+of 35.1563 points over no search. One-sided 98.75% lower bounds are 30.6641 /
+30.4688 points. Control gains are 3.1250 / 3.5156 points. The excess gains
+are 32.0313 / 31.6406 points, with lower bounds 25.7813 / 25.5859. All four
+registered inequalities pass. This does not confirm a ranking against all three.
+
+Increasing eight to 128 worlds adds 22.8516 points (paired secondary 95%
+interval 17.1875 to 28.5156) for parent 0 and 17.7734 points (11.7188 to
+23.8281) for parent 1. These secondary intervals are not part of the primary
+familywise claim. The selected-rule curves at 0/8/128 worlds are
+50.0000/62.3047/85.1563% and 50.0000/67.3828/85.1563%.
+The full evidence is ``docs/paper/generated/public_stock_v3_evidence.json``.
+Both protocols retain their own cohorts and inference; they are not pooled.
+
+Follow-up questions after confirmation
+-------------------------------------
+
+Both confirmations establish large additional-computation gains in the fixed
+adapted-policy regime. They leave opponent generalization, adaptation maturity,
+matched computation budgets and the ranking of the two leading rules unresolved.
+The next study should retain both finalists and control, use new deal blocks,
+measure a changed opponent and fixed physical-work allowances, and test longer
+adaptation only after measuring whether the resulting policies are stronger.
+New conditions must not extend or relabel either completed confirmation.
 
 Interpretation limits fixed before results
 -----------------------------------------

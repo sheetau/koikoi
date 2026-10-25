@@ -17,7 +17,7 @@
 \title{Verified Policy Improvement from Public Play\\
 in Koi-Koi}
 \author{}
-\date{24 October 2026}
+\date{25 October 2026}
 \begin{document}
 \maketitle
 \begin{abstract}
@@ -38,7 +38,10 @@ additional frontier gain for both parents, averaging 0.00128 and 0.000784
 percentage points. The extension improves 26 source beliefs; realized scores
 are unchanged and actual search work increases. The result establishes a
 way to retain useful policy improvements under computation limits, with
-coverage and efficiency determining its practical impact.
+coverage and efficiency determining its practical impact. Separately,
+rule-specific adaptations with public stock confirm 30.91--35.16-point
+search gains against their own no-search actors; these sampled-search results
+identify a complementary route to greater computation value.
 \end{abstract}
 
 \section{Introduction}
@@ -266,17 +269,25 @@ planning time by 58.68--86.26\% across candidate families, with unchanged
 policies. This special-case saving does not establish general latency;
 a separate four-case receipt-reuse comparison shows no speedup.
 
-\subsection{Rule-dependent strength}
-A separate nine-profile screen tests opening awards, scoring multipliers and
-combined local rules with frozen transferred policies. It selects a variant
-that awards both players' current yaku values to the round winner. Two
-independent confirmations both have positive mean mixture differences for
-each parent, but neither passes the joint lower-bound criterion; the failing
-parent changes between cohorts. The advantage concentrates against Point,
-while parent 1 loses mean win score against WP in both. Thus the screen finds
-rule-dependent opportunity, not a robust strength-maximizing rule. No rule is
-promoted, no rule-specific training is performed, and the failed confirmations
-remain separate (Appendix~\ref{app:rule-transfer}).
+\subsection{Rules and the value of computation}
+A nine-profile frozen-transfer study selects combined winner-takes-yaku
+scoring, but neither independent confirmation passes its joint criterion
+(Appendix~\ref{app:rule-transfer}). A separate factorial study therefore
+adapts both parent policies to eight games combining public stock preview,
+a choice between two stock cards, and amplified winner-takes-yaku scoring.
+
+Both selected rules pass their independently reserved confirmation criteria.
+With a 32-decision rollout, all three factors yield search gains of
+32.47/30.91 percentage points over each rule's no-search actor. Completing
+the current round and reusing public continuation values selects preview
+plus choice, with 35.16-point gains for both parents. In that protocol,
+increasing eight to 128 sampled worlds adds 22.85/17.77 points on held-out
+deals. These results identify a reproducible regime where additional
+computation has substantial value (Appendix~\ref{app:public-stock}).
+They do not inherit the main method's exact guarantee, compare directly
+with the historical 2023 opponent, or establish superiority at matched cost.
+The two finalists' ranking and robustness to stronger policies and changed
+opponents remain open.
 
 \subsection{Transfer to other imperfect-information games}
 The partition-and-compare construction in Equation~\ref{eq:frontier-gain}
@@ -297,18 +308,16 @@ reporting coverage, expected gain, realized scores and elapsed time.
 
 \section{Conclusion}
 Verified local policy changes can survive an unfinished global evaluation.
-In Koi-Koi, public opponent evidence, complete arrival beliefs and executable
-continuations make this capability concrete under a shared computation limit.
-The frontier construction recovers improvements that the base controller
-rejects because its parent reference is unresolved. Independent population
-evaluation establishes a positive expected increment for both adapted parents.
+Public opponent evidence, complete arrival beliefs and executable
+continuations recover improvements that the parent reference cannot certify
+at the root. Independent population evaluation establishes positive increments
+for both adapted parents, although their magnitude and coverage remain small.
 
-The increment is small and requires additional work. Its value is the verified
-recovery mechanism and the clear route it gives for further improvement:
-reach more useful beliefs, complete more local programs and reduce their
-verification cost. Testing those mechanisms in another finite
-imperfect-information game is the next step toward demonstrating broader
-practical value.
+The public-stock studies provide a complementary empirical result:
+rule-specific adaptation can make additional sampled computation substantially
+more valuable. This does not strengthen the exact guarantee or establish
+maximal playing strength. The next tests address changed opponents, stronger
+adaptation and matched work budgets.
 
 \clearpage
 \appendix
@@ -340,6 +349,7 @@ Prospective endgame planning & \path{prospective_incumbent_evidence.json} \\
 Uniform-deal expected improvement & \path{uniform_results_evidence.json} \\
 Frontier development and integration & \path{frontier_development_evidence.json} \\
 Frontier incremental improvement & \path{frontier_increment_results_evidence.json} \\
+Public-stock rule adaptation and search & \path{public_stock_v2_evidence.json}, \path{public_stock_v3_evidence.json} \\
 \bottomrule
 \end{tabular}
 \caption{Evidence map. Each ledger identifies the underlying inputs and outputs;
@@ -1238,6 +1248,8 @@ paired win-score changes in percentage points, with 95\% intervals.}
 \input{search_reuse_appendix.tex}
 \input{resumable_proposals_appendix.tex}
 \input{rule_transfer_appendix.tex}
+\FloatBarrier
+\input{public_stock_appendix.tex}
 \FloatBarrier
 \begingroup
 \raggedright\small

@@ -1,0 +1,2150 @@
+{
+  "method": "completed_rounds",
+  "particles": [
+    0,
+    8,
+    32,
+    128
+  ],
+  "development_pairs": 32,
+  "selected": "preview1_choice1_stakes0",
+  "confirmation_gate_passed": true,
+  "curves": {
+    "preview0_choice0_stakes0": [
+      [
+        0.5,
+        0.484375,
+        0.5390625,
+        0.46875
+      ],
+      [
+        0.5,
+        0.453125,
+        0.4921875,
+        0.53125
+      ]
+    ],
+    "preview0_choice0_stakes1": [
+      [
+        0.5,
+        0.46875,
+        0.453125,
+        0.546875
+      ],
+      [
+        0.5,
+        0.515625,
+        0.484375,
+        0.546875
+      ]
+    ],
+    "preview0_choice1_stakes0": [
+      [
+        0.5,
+        0.59375,
+        0.640625,
+        0.6328125
+      ],
+      [
+        0.5,
+        0.53125,
+        0.5703125,
+        0.6484375
+      ]
+    ],
+    "preview0_choice1_stakes1": [
+      [
+        0.5,
+        0.546875,
+        0.671875,
+        0.671875
+      ],
+      [
+        0.5,
+        0.515625,
+        0.59375,
+        0.640625
+      ]
+    ],
+    "preview1_choice0_stakes0": [
+      [
+        0.5,
+        0.609375,
+        0.640625,
+        0.75
+      ],
+      [
+        0.5,
+        0.625,
+        0.6875,
+        0.7890625
+      ]
+    ],
+    "preview1_choice0_stakes1": [
+      [
+        0.5,
+        0.515625,
+        0.6875,
+        0.75
+      ],
+      [
+        0.5,
+        0.640625,
+        0.71875,
+        0.796875
+      ]
+    ],
+    "preview1_choice1_stakes0": [
+      [
+        0.5,
+        0.6484375,
+        0.78125,
+        0.8671875
+      ],
+      [
+        0.5,
+        0.640625,
+        0.7109375,
+        0.84375
+      ]
+    ],
+    "preview1_choice1_stakes1": [
+      [
+        0.5,
+        0.5859375,
+        0.7578125,
+        0.859375
+      ],
+      [
+        0.5,
+        0.546875,
+        0.734375,
+        0.84375
+      ]
+    ]
+  },
+  "development_gain_intervals_exploratory": {
+    "preview0_choice0_stakes0": [
+      {
+        "mean": -0.03125,
+        "lower": -0.109375,
+        "upper": 0.046875
+      },
+      {
+        "mean": 0.03125,
+        "lower": -0.046875,
+        "upper": 0.109375
+      }
+    ],
+    "preview0_choice0_stakes1": [
+      {
+        "mean": 0.046875,
+        "lower": -0.046875,
+        "upper": 0.140625
+      },
+      {
+        "mean": 0.046875,
+        "lower": -0.046875,
+        "upper": 0.140625
+      }
+    ],
+    "preview0_choice1_stakes0": [
+      {
+        "mean": 0.1328125,
+        "lower": 0.046875,
+        "upper": 0.21875
+      },
+      {
+        "mean": 0.1484375,
+        "lower": 0.0625,
+        "upper": 0.234375
+      }
+    ],
+    "preview0_choice1_stakes1": [
+      {
+        "mean": 0.171875,
+        "lower": 0.07773437500000036,
+        "upper": 0.265625
+      },
+      {
+        "mean": 0.140625,
+        "lower": 0.046875,
+        "upper": 0.234375
+      }
+    ],
+    "preview1_choice0_stakes0": [
+      {
+        "mean": 0.25,
+        "lower": 0.140625,
+        "upper": 0.359375
+      },
+      {
+        "mean": 0.2890625,
+        "lower": 0.2109375,
+        "upper": 0.3671875
+      }
+    ],
+    "preview1_choice0_stakes1": [
+      {
+        "mean": 0.25,
+        "lower": 0.171875,
+        "upper": 0.34375
+      },
+      {
+        "mean": 0.296875,
+        "lower": 0.203125,
+        "upper": 0.375
+      }
+    ],
+    "preview1_choice1_stakes0": [
+      {
+        "mean": 0.3671875,
+        "lower": 0.2890625,
+        "upper": 0.4375
+      },
+      {
+        "mean": 0.34375,
+        "lower": 0.25,
+        "upper": 0.421875
+      }
+    ],
+    "preview1_choice1_stakes1": [
+      {
+        "mean": 0.359375,
+        "lower": 0.28125,
+        "upper": 0.4375
+      },
+      {
+        "mean": 0.34375,
+        "lower": 0.265625,
+        "upper": 0.421875
+      }
+    ]
+  },
+  "development_curve_gain_intervals_exploratory": {
+    "preview0_choice0_stakes0": [
+      [
+        {
+          "mean": 0.0,
+          "lower": 0.0,
+          "upper": 0.0
+        },
+        {
+          "mean": -0.015625,
+          "lower": -0.078125,
+          "upper": 0.046875
+        },
+        {
+          "mean": 0.0390625,
+          "lower": 0.0,
+          "upper": 0.0859375
+        },
+        {
+          "mean": -0.03125,
+          "lower": -0.109375,
+          "upper": 0.046875
+        }
+      ],
+      [
+        {
+          "mean": 0.0,
+          "lower": 0.0,
+          "upper": 0.0
+        },
+        {
+          "mean": -0.046875,
+          "lower": -0.109375,
+          "upper": 0.015625
+        },
+        {
+          "mean": -0.0078125,
+          "lower": -0.0859375,
+          "upper": 0.0703125
+        },
+        {
+          "mean": 0.03125,
+          "lower": -0.046875,
+          "upper": 0.109375
+        }
+      ]
+    ],
+    "preview0_choice0_stakes1": [
+      [
+        {
+          "mean": 0.0,
+          "lower": 0.0,
+          "upper": 0.0
+        },
+        {
+          "mean": -0.03125,
+          "lower": -0.109375,
+          "upper": 0.046875
+        },
+        {
+          "mean": -0.046875,
+          "lower": -0.109375,
+          "upper": 0.015625
+        },
+        {
+          "mean": 0.046875,
+          "lower": -0.046875,
+          "upper": 0.140625
+        }
+      ],
+      [
+        {
+          "mean": 0.0,
+          "lower": 0.0,
+          "upper": 0.0
+        },
+        {
+          "mean": 0.015625,
+          "lower": -0.046875,
+          "upper": 0.078125
+        },
+        {
+          "mean": -0.015625,
+          "lower": -0.078125,
+          "upper": 0.03125
+        },
+        {
+          "mean": 0.046875,
+          "lower": -0.046875,
+          "upper": 0.140625
+        }
+      ]
+    ],
+    "preview0_choice1_stakes0": [
+      [
+        {
+          "mean": 0.0,
+          "lower": 0.0,
+          "upper": 0.0
+        },
+        {
+          "mean": 0.09375,
+          "lower": 0.015625,
+          "upper": 0.171875
+        },
+        {
+          "mean": 0.140625,
+          "lower": 0.0703125,
+          "upper": 0.21875
+        },
+        {
+          "mean": 0.1328125,
+          "lower": 0.046875,
+          "upper": 0.21875
+        }
+      ],
+      [
+        {
+          "mean": 0.0,
+          "lower": 0.0,
+          "upper": 0.0
+        },
+        {
+          "mean": 0.03125,
+          "lower": -0.03125,
+          "upper": 0.09375
+        },
+        {
+          "mean": 0.0703125,
+          "lower": -0.015625,
+          "upper": 0.15625
+        },
+        {
+          "mean": 0.1484375,
+          "lower": 0.0625,
+          "upper": 0.234375
+        }
+      ]
+    ],
+    "preview0_choice1_stakes1": [
+      [
+        {
+          "mean": 0.0,
+          "lower": 0.0,
+          "upper": 0.0
+        },
+        {
+          "mean": 0.046875,
+          "lower": -0.03125,
+          "upper": 0.125
+        },
+        {
+          "mean": 0.171875,
+          "lower": 0.09375,
+          "upper": 0.25
+        },
+        {
+          "mean": 0.171875,
+          "lower": 0.07773437500000036,
+          "upper": 0.265625
+        }
+      ],
+      [
+        {
+          "mean": 0.0,
+          "lower": 0.0,
+          "upper": 0.0
+        },
+        {
+          "mean": 0.015625,
+          "lower": -0.0625,
+          "upper": 0.09375
+        },
+        {
+          "mean": 0.09375,
+          "lower": 0.015625,
+          "upper": 0.171875
+        },
+        {
+          "mean": 0.140625,
+          "lower": 0.046875,
+          "upper": 0.234375
+        }
+      ]
+    ],
+    "preview1_choice0_stakes0": [
+      [
+        {
+          "mean": 0.0,
+          "lower": 0.0,
+          "upper": 0.0
+        },
+        {
+          "mean": 0.109375,
+          "lower": 0.015625,
+          "upper": 0.203125
+        },
+        {
+          "mean": 0.140625,
+          "lower": 0.046875,
+          "upper": 0.234375
+        },
+        {
+          "mean": 0.25,
+          "lower": 0.140625,
+          "upper": 0.359375
+        }
+      ],
+      [
+        {
+          "mean": 0.0,
+          "lower": 0.0,
+          "upper": 0.0
+        },
+        {
+          "mean": 0.125,
+          "lower": 0.0234375,
+          "upper": 0.2265625
+        },
+        {
+          "mean": 0.1875,
+          "lower": 0.1015625,
+          "upper": 0.2734375
+        },
+        {
+          "mean": 0.2890625,
+          "lower": 0.2109375,
+          "upper": 0.3671875
+        }
+      ]
+    ],
+    "preview1_choice0_stakes1": [
+      [
+        {
+          "mean": 0.0,
+          "lower": 0.0,
+          "upper": 0.0
+        },
+        {
+          "mean": 0.015625,
+          "lower": -0.078125,
+          "upper": 0.109375
+        },
+        {
+          "mean": 0.1875,
+          "lower": 0.078125,
+          "upper": 0.296875
+        },
+        {
+          "mean": 0.25,
+          "lower": 0.171875,
+          "upper": 0.34375
+        }
+      ],
+      [
+        {
+          "mean": 0.0,
+          "lower": 0.0,
+          "upper": 0.0
+        },
+        {
+          "mean": 0.140625,
+          "lower": 0.046875,
+          "upper": 0.234375
+        },
+        {
+          "mean": 0.21875,
+          "lower": 0.125,
+          "upper": 0.3125
+        },
+        {
+          "mean": 0.296875,
+          "lower": 0.203125,
+          "upper": 0.375
+        }
+      ]
+    ],
+    "preview1_choice1_stakes0": [
+      [
+        {
+          "mean": 0.0,
+          "lower": 0.0,
+          "upper": 0.0
+        },
+        {
+          "mean": 0.1484375,
+          "lower": 0.0625,
+          "upper": 0.234375
+        },
+        {
+          "mean": 0.28125,
+          "lower": 0.1953125,
+          "upper": 0.3671875
+        },
+        {
+          "mean": 0.3671875,
+          "lower": 0.2890625,
+          "upper": 0.4375
+        }
+      ],
+      [
+        {
+          "mean": 0.0,
+          "lower": 0.0,
+          "upper": 0.0
+        },
+        {
+          "mean": 0.140625,
+          "lower": 0.046875,
+          "upper": 0.234375
+        },
+        {
+          "mean": 0.2109375,
+          "lower": 0.109375,
+          "upper": 0.3046875
+        },
+        {
+          "mean": 0.34375,
+          "lower": 0.25,
+          "upper": 0.421875
+        }
+      ]
+    ],
+    "preview1_choice1_stakes1": [
+      [
+        {
+          "mean": 0.0,
+          "lower": 0.0,
+          "upper": 0.0
+        },
+        {
+          "mean": 0.0859375,
+          "lower": -0.015625,
+          "upper": 0.1875
+        },
+        {
+          "mean": 0.2578125,
+          "lower": 0.15625,
+          "upper": 0.359375
+        },
+        {
+          "mean": 0.359375,
+          "lower": 0.28125,
+          "upper": 0.4375
+        }
+      ],
+      [
+        {
+          "mean": 0.0,
+          "lower": 0.0,
+          "upper": 0.0
+        },
+        {
+          "mean": 0.046875,
+          "lower": -0.046875,
+          "upper": 0.140625
+        },
+        {
+          "mean": 0.234375,
+          "lower": 0.15625,
+          "upper": 0.328125
+        },
+        {
+          "mean": 0.34375,
+          "lower": 0.265625,
+          "upper": 0.421875
+        }
+      ]
+    ]
+  },
+  "development_high_minus_low_exploratory": {
+    "preview0_choice0_stakes0": [
+      {
+        "mean": -0.015625,
+        "lower": -0.109375,
+        "upper": 0.078125
+      },
+      {
+        "mean": 0.078125,
+        "lower": -0.03125,
+        "upper": 0.1875
+      }
+    ],
+    "preview0_choice0_stakes1": [
+      {
+        "mean": 0.078125,
+        "lower": -0.03125,
+        "upper": 0.203125
+      },
+      {
+        "mean": 0.03125,
+        "lower": -0.0625,
+        "upper": 0.125
+      }
+    ],
+    "preview0_choice1_stakes0": [
+      {
+        "mean": 0.0390625,
+        "lower": -0.0625,
+        "upper": 0.1328125
+      },
+      {
+        "mean": 0.1171875,
+        "lower": 0.0234375,
+        "upper": 0.21875
+      }
+    ],
+    "preview0_choice1_stakes1": [
+      {
+        "mean": 0.125,
+        "lower": 0.0,
+        "upper": 0.25
+      },
+      {
+        "mean": 0.125,
+        "lower": 0.015625,
+        "upper": 0.234375
+      }
+    ],
+    "preview1_choice0_stakes0": [
+      {
+        "mean": 0.140625,
+        "lower": 0.015625,
+        "upper": 0.25
+      },
+      {
+        "mean": 0.1640625,
+        "lower": 0.0390625,
+        "upper": 0.2890625
+      }
+    ],
+    "preview1_choice0_stakes1": [
+      {
+        "mean": 0.234375,
+        "lower": 0.125,
+        "upper": 0.34375
+      },
+      {
+        "mean": 0.15625,
+        "lower": 0.03125,
+        "upper": 0.28125
+      }
+    ],
+    "preview1_choice1_stakes0": [
+      {
+        "mean": 0.21875,
+        "lower": 0.1015625,
+        "upper": 0.328125
+      },
+      {
+        "mean": 0.203125,
+        "lower": 0.109375,
+        "upper": 0.3046875
+      }
+    ],
+    "preview1_choice1_stakes1": [
+      {
+        "mean": 0.2734375,
+        "lower": 0.1328125,
+        "upper": 0.4140625
+      },
+      {
+        "mean": 0.296875,
+        "lower": 0.15625,
+        "upper": 0.4375
+      }
+    ]
+  },
+  "screen_endpoints": {
+    "preview0_choice0_stakes0_parent0_p0": {
+      "matches": 64,
+      "rounds": 500,
+      "decisions": 7310,
+      "rollouts": 0,
+      "transitions": 0,
+      "roots": 0,
+      "python_replay_decisions": 7310,
+      "seconds": 5.144333699950948
+    },
+    "preview0_choice0_stakes0_parent0_p8": {
+      "matches": 64,
+      "rounds": 495,
+      "decisions": 7230,
+      "rollouts": 133992,
+      "transitions": 1302386,
+      "roots": 3466,
+      "python_replay_decisions": 7230,
+      "seconds": 65.07189660007134
+    },
+    "preview0_choice0_stakes0_parent0_p32": {
+      "matches": 64,
+      "rounds": 502,
+      "decisions": 7402,
+      "rollouts": 548096,
+      "transitions": 5364820,
+      "roots": 3563,
+      "python_replay_decisions": 7402,
+      "seconds": 182.33403149992228
+    },
+    "preview0_choice0_stakes0_parent0_p128": {
+      "matches": 64,
+      "rounds": 497,
+      "decisions": 7390,
+      "rollouts": 2160256,
+      "transitions": 21115388,
+      "roots": 3508,
+      "python_replay_decisions": 7390,
+      "seconds": 497.17490870016627
+    },
+    "preview0_choice0_stakes0_parent1_p0": {
+      "matches": 64,
+      "rounds": 492,
+      "decisions": 7400,
+      "rollouts": 0,
+      "transitions": 0,
+      "roots": 0,
+      "python_replay_decisions": 7400,
+      "seconds": 2.6781412998680025
+    },
+    "preview0_choice0_stakes0_parent1_p8": {
+      "matches": 64,
+      "rounds": 499,
+      "decisions": 7477,
+      "rollouts": 135712,
+      "transitions": 1343422,
+      "roots": 3531,
+      "python_replay_decisions": 7477,
+      "seconds": 42.29371499991976
+    },
+    "preview0_choice0_stakes0_parent1_p32": {
+      "matches": 64,
+      "rounds": 493,
+      "decisions": 7420,
+      "rollouts": 538880,
+      "transitions": 5351714,
+      "roots": 3524,
+      "python_replay_decisions": 7420,
+      "seconds": 119.073114000028
+    },
+    "preview0_choice0_stakes0_parent1_p128": {
+      "matches": 64,
+      "rounds": 491,
+      "decisions": 7347,
+      "rollouts": 2146816,
+      "transitions": 21279454,
+      "roots": 3506,
+      "python_replay_decisions": 7347,
+      "seconds": 455.6416958998889
+    },
+    "preview0_choice0_stakes1_parent0_p0": {
+      "matches": 64,
+      "rounds": 382,
+      "decisions": 5838,
+      "rollouts": 0,
+      "transitions": 0,
+      "roots": 0,
+      "python_replay_decisions": 5838,
+      "seconds": 2.709649399854243
+    },
+    "preview0_choice0_stakes1_parent0_p8": {
+      "matches": 64,
+      "rounds": 365,
+      "decisions": 5631,
+      "rollouts": 101840,
+      "transitions": 1019261,
+      "roots": 2682,
+      "python_replay_decisions": 5631,
+      "seconds": 36.54938889993355
+    },
+    "preview0_choice0_stakes1_parent0_p32": {
+      "matches": 64,
+      "rounds": 372,
+      "decisions": 5763,
+      "rollouts": 415040,
+      "transitions": 4149352,
+      "roots": 2726,
+      "python_replay_decisions": 5763,
+      "seconds": 102.16986489994451
+    },
+    "preview0_choice0_stakes1_parent0_p128": {
+      "matches": 64,
+      "rounds": 395,
+      "decisions": 6009,
+      "rollouts": 1751424,
+      "transitions": 17507836,
+      "roots": 2865,
+      "python_replay_decisions": 6009,
+      "seconds": 383.8920382000506
+    },
+    "preview0_choice0_stakes1_parent1_p0": {
+      "matches": 64,
+      "rounds": 344,
+      "decisions": 5268,
+      "rollouts": 0,
+      "transitions": 0,
+      "roots": 0,
+      "python_replay_decisions": 5268,
+      "seconds": 2.6730887999292463
+    },
+    "preview0_choice0_stakes1_parent1_p8": {
+      "matches": 64,
+      "rounds": 365,
+      "decisions": 5559,
+      "rollouts": 101016,
+      "transitions": 1011628,
+      "roots": 2649,
+      "python_replay_decisions": 5559,
+      "seconds": 34.6440252000466
+    },
+    "preview0_choice0_stakes1_parent1_p32": {
+      "matches": 64,
+      "rounds": 363,
+      "decisions": 5555,
+      "rollouts": 403008,
+      "transitions": 4058203,
+      "roots": 2637,
+      "python_replay_decisions": 5555,
+      "seconds": 92.3318759999238
+    },
+    "preview0_choice0_stakes1_parent1_p128": {
+      "matches": 64,
+      "rounds": 360,
+      "decisions": 5512,
+      "rollouts": 1604096,
+      "transitions": 16108581,
+      "roots": 2623,
+      "python_replay_decisions": 5512,
+      "seconds": 347.83649830007926
+    },
+    "preview0_choice1_stakes0_parent0_p0": {
+      "matches": 64,
+      "rounds": 508,
+      "decisions": 13292,
+      "rollouts": 0,
+      "transitions": 0,
+      "roots": 0,
+      "python_replay_decisions": 13292,
+      "seconds": 5.898167299805209
+    },
+    "preview0_choice1_stakes0_parent0_p8": {
+      "matches": 64,
+      "rounds": 503,
+      "decisions": 13118,
+      "rollouts": 181448,
+      "transitions": 3070230,
+      "roots": 6459,
+      "python_replay_decisions": 13118,
+      "seconds": 117.1839604000561
+    },
+    "preview0_choice1_stakes0_parent0_p32": {
+      "matches": 64,
+      "rounds": 510,
+      "decisions": 13328,
+      "rollouts": 740288,
+      "transitions": 12585536,
+      "roots": 6600,
+      "python_replay_decisions": 13328,
+      "seconds": 298.13538410002366
+    },
+    "preview0_choice1_stakes0_parent0_p128": {
+      "matches": 64,
+      "rounds": 504,
+      "decisions": 12714,
+      "rollouts": 2879872,
+      "transitions": 49328908,
+      "roots": 6401,
+      "python_replay_decisions": 12714,
+      "seconds": 907.8278333998751
+    },
+    "preview0_choice1_stakes0_parent1_p0": {
+      "matches": 64,
+      "rounds": 502,
+      "decisions": 12898,
+      "rollouts": 0,
+      "transitions": 0,
+      "roots": 0,
+      "python_replay_decisions": 12898,
+      "seconds": 5.979681299999356
+    },
+    "preview0_choice1_stakes0_parent1_p8": {
+      "matches": 64,
+      "rounds": 503,
+      "decisions": 13081,
+      "rollouts": 180912,
+      "transitions": 3120258,
+      "roots": 6446,
+      "python_replay_decisions": 13081,
+      "seconds": 102.38630999997258
+    },
+    "preview0_choice1_stakes0_parent1_p32": {
+      "matches": 64,
+      "rounds": 500,
+      "decisions": 12901,
+      "rollouts": 721568,
+      "transitions": 12524994,
+      "roots": 6401,
+      "python_replay_decisions": 12901,
+      "seconds": 272.57409029989503
+    },
+    "preview0_choice1_stakes0_parent1_p128": {
+      "matches": 64,
+      "rounds": 494,
+      "decisions": 12753,
+      "rollouts": 2861184,
+      "transitions": 49522358,
+      "roots": 6368,
+      "python_replay_decisions": 12753,
+      "seconds": 1040.2549241001252
+    },
+    "preview0_choice1_stakes1_parent0_p0": {
+      "matches": 64,
+      "rounds": 394,
+      "decisions": 10526,
+      "rollouts": 0,
+      "transitions": 0,
+      "roots": 0,
+      "python_replay_decisions": 10526,
+      "seconds": 10.488091100007296
+    },
+    "preview0_choice1_stakes1_parent0_p8": {
+      "matches": 64,
+      "rounds": 374,
+      "decisions": 9942,
+      "rollouts": 136880,
+      "transitions": 2343740,
+      "roots": 4882,
+      "python_replay_decisions": 9942,
+      "seconds": 159.39061430003494
+    },
+    "preview0_choice1_stakes1_parent0_p32": {
+      "matches": 64,
+      "rounds": 375,
+      "decisions": 9982,
+      "rollouts": 555392,
+      "transitions": 9542212,
+      "roots": 4984,
+      "python_replay_decisions": 9982,
+      "seconds": 331.2657302999869
+    },
+    "preview0_choice1_stakes1_parent0_p128": {
+      "matches": 64,
+      "rounds": 378,
+      "decisions": 10052,
+      "rollouts": 2232704,
+      "transitions": 38196082,
+      "roots": 4980,
+      "python_replay_decisions": 10052,
+      "seconds": 1097.3310247999616
+    },
+    "preview0_choice1_stakes1_parent1_p0": {
+      "matches": 64,
+      "rounds": 402,
+      "decisions": 10848,
+      "rollouts": 0,
+      "transitions": 0,
+      "roots": 0,
+      "python_replay_decisions": 10848,
+      "seconds": 3.0545687000267208
+    },
+    "preview0_choice1_stakes1_parent1_p8": {
+      "matches": 64,
+      "rounds": 409,
+      "decisions": 10978,
+      "rollouts": 150544,
+      "transitions": 2593305,
+      "roots": 5375,
+      "python_replay_decisions": 10978,
+      "seconds": 139.84565459983423
+    },
+    "preview0_choice1_stakes1_parent1_p32": {
+      "matches": 64,
+      "rounds": 392,
+      "decisions": 10701,
+      "rollouts": 586144,
+      "transitions": 10105469,
+      "roots": 5250,
+      "python_replay_decisions": 10701,
+      "seconds": 374.32377899996936
+    },
+    "preview0_choice1_stakes1_parent1_p128": {
+      "matches": 64,
+      "rounds": 389,
+      "decisions": 10380,
+      "rollouts": 2296448,
+      "transitions": 39806963,
+      "roots": 5141,
+      "python_replay_decisions": 10380,
+      "seconds": 802.5054168000352
+    },
+    "preview1_choice0_stakes0_parent0_p0": {
+      "matches": 64,
+      "rounds": 494,
+      "decisions": 7284,
+      "rollouts": 0,
+      "transitions": 0,
+      "roots": 0,
+      "python_replay_decisions": 7284,
+      "seconds": 2.9957383000291884
+    },
+    "preview1_choice0_stakes0_parent0_p8": {
+      "matches": 64,
+      "rounds": 497,
+      "decisions": 7364,
+      "rollouts": 136128,
+      "transitions": 1347717,
+      "roots": 3557,
+      "python_replay_decisions": 7364,
+      "seconds": 44.29228499997407
+    },
+    "preview1_choice0_stakes0_parent0_p32": {
+      "matches": 64,
+      "rounds": 489,
+      "decisions": 7159,
+      "rollouts": 537216,
+      "transitions": 5320375,
+      "roots": 3525,
+      "python_replay_decisions": 7159,
+      "seconds": 127.94186179991812
+    },
+    "preview1_choice0_stakes0_parent0_p128": {
+      "matches": 64,
+      "rounds": 489,
+      "decisions": 7163,
+      "rollouts": 2154368,
+      "transitions": 21494455,
+      "roots": 3543,
+      "python_replay_decisions": 7163,
+      "seconds": 449.57009809999727
+    },
+    "preview1_choice0_stakes0_parent1_p0": {
+      "matches": 64,
+      "rounds": 498,
+      "decisions": 7474,
+      "rollouts": 0,
+      "transitions": 0,
+      "roots": 0,
+      "python_replay_decisions": 7474,
+      "seconds": 2.5142199001275003
+    },
+    "preview1_choice0_stakes0_parent1_p8": {
+      "matches": 64,
+      "rounds": 496,
+      "decisions": 7495,
+      "rollouts": 137376,
+      "transitions": 1370802,
+      "roots": 3617,
+      "python_replay_decisions": 7495,
+      "seconds": 40.21459380001761
+    },
+    "preview1_choice0_stakes0_parent1_p32": {
+      "matches": 64,
+      "rounds": 500,
+      "decisions": 7418,
+      "rollouts": 551264,
+      "transitions": 5557400,
+      "roots": 3618,
+      "python_replay_decisions": 7418,
+      "seconds": 119.93325469992124
+    },
+    "preview1_choice0_stakes0_parent1_p128": {
+      "matches": 64,
+      "rounds": 490,
+      "decisions": 7317,
+      "rollouts": 2182656,
+      "transitions": 21991688,
+      "roots": 3616,
+      "python_replay_decisions": 7317,
+      "seconds": 446.572296399856
+    },
+    "preview1_choice0_stakes1_parent0_p0": {
+      "matches": 64,
+      "rounds": 366,
+      "decisions": 5544,
+      "rollouts": 0,
+      "transitions": 0,
+      "roots": 0,
+      "python_replay_decisions": 5544,
+      "seconds": 2.5680233000312
+    },
+    "preview1_choice0_stakes1_parent0_p8": {
+      "matches": 64,
+      "rounds": 378,
+      "decisions": 5717,
+      "rollouts": 104768,
+      "transitions": 1049679,
+      "roots": 2753,
+      "python_replay_decisions": 5717,
+      "seconds": 37.16315030003898
+    },
+    "preview1_choice0_stakes1_parent0_p32": {
+      "matches": 64,
+      "rounds": 366,
+      "decisions": 5520,
+      "rollouts": 407488,
+      "transitions": 4083038,
+      "roots": 2694,
+      "python_replay_decisions": 5520,
+      "seconds": 103.59192609996535
+    },
+    "preview1_choice0_stakes1_parent0_p128": {
+      "matches": 64,
+      "rounds": 317,
+      "decisions": 4854,
+      "rollouts": 1429504,
+      "transitions": 14408569,
+      "roots": 2389,
+      "python_replay_decisions": 4854,
+      "seconds": 312.17132949992083
+    },
+    "preview1_choice0_stakes1_parent1_p0": {
+      "matches": 64,
+      "rounds": 340,
+      "decisions": 5094,
+      "rollouts": 0,
+      "transitions": 0,
+      "roots": 0,
+      "python_replay_decisions": 5094,
+      "seconds": 2.698194900061935
+    },
+    "preview1_choice0_stakes1_parent1_p8": {
+      "matches": 64,
+      "rounds": 369,
+      "decisions": 5562,
+      "rollouts": 102056,
+      "transitions": 1028378,
+      "roots": 2683,
+      "python_replay_decisions": 5562,
+      "seconds": 37.00963790016249
+    },
+    "preview1_choice0_stakes1_parent1_p32": {
+      "matches": 64,
+      "rounds": 373,
+      "decisions": 5570,
+      "rollouts": 413440,
+      "transitions": 4205072,
+      "roots": 2731,
+      "python_replay_decisions": 5570,
+      "seconds": 104.20559599995613
+    },
+    "preview1_choice0_stakes1_parent1_p128": {
+      "matches": 64,
+      "rounds": 371,
+      "decisions": 5613,
+      "rollouts": 1668224,
+      "transitions": 16777874,
+      "roots": 2777,
+      "python_replay_decisions": 5613,
+      "seconds": 347.86857229983434
+    },
+    "preview1_choice1_stakes0_parent0_p0": {
+      "matches": 64,
+      "rounds": 510,
+      "decisions": 13050,
+      "rollouts": 0,
+      "transitions": 0,
+      "roots": 0,
+      "python_replay_decisions": 13050,
+      "seconds": 5.668565199943259
+    },
+    "preview1_choice1_stakes0_parent0_p8": {
+      "matches": 64,
+      "rounds": 508,
+      "decisions": 13289,
+      "rollouts": 184288,
+      "transitions": 3095016,
+      "roots": 6596,
+      "python_replay_decisions": 13289,
+      "seconds": 116.6358011001721
+    },
+    "preview1_choice1_stakes0_parent0_p32": {
+      "matches": 64,
+      "rounds": 495,
+      "decisions": 12599,
+      "rollouts": 715040,
+      "transitions": 12136059,
+      "roots": 6383,
+      "python_replay_decisions": 12599,
+      "seconds": 287.1074306999799
+    },
+    "preview1_choice1_stakes0_parent0_p128": {
+      "matches": 64,
+      "rounds": 486,
+      "decisions": 12409,
+      "rollouts": 2829824,
+      "transitions": 48203213,
+      "roots": 6342,
+      "python_replay_decisions": 12409,
+      "seconds": 900.7556358999573
+    },
+    "preview1_choice1_stakes0_parent1_p0": {
+      "matches": 64,
+      "rounds": 500,
+      "decisions": 13356,
+      "rollouts": 0,
+      "transitions": 0,
+      "roots": 0,
+      "python_replay_decisions": 13356,
+      "seconds": 4.209125000052154
+    },
+    "preview1_choice1_stakes0_parent1_p8": {
+      "matches": 64,
+      "rounds": 495,
+      "decisions": 12996,
+      "rollouts": 180064,
+      "transitions": 3081393,
+      "roots": 6430,
+      "python_replay_decisions": 12996,
+      "seconds": 101.91098579997197
+    },
+    "preview1_choice1_stakes0_parent1_p32": {
+      "matches": 64,
+      "rounds": 494,
+      "decisions": 12890,
+      "rollouts": 724832,
+      "transitions": 12509536,
+      "roots": 6497,
+      "python_replay_decisions": 12890,
+      "seconds": 319.4907934998628
+    },
+    "preview1_choice1_stakes0_parent1_p128": {
+      "matches": 64,
+      "rounds": 474,
+      "decisions": 12058,
+      "rollouts": 2761728,
+      "transitions": 47681662,
+      "roots": 6188,
+      "python_replay_decisions": 12058,
+      "seconds": 1264.773866500007
+    },
+    "preview1_choice1_stakes1_parent0_p0": {
+      "matches": 64,
+      "rounds": 352,
+      "decisions": 9596,
+      "rollouts": 0,
+      "transitions": 0,
+      "roots": 0,
+      "python_replay_decisions": 9596,
+      "seconds": 8.860879899933934
+    },
+    "preview1_choice1_stakes1_parent0_p8": {
+      "matches": 64,
+      "rounds": 360,
+      "decisions": 9682,
+      "rollouts": 132880,
+      "transitions": 2284029,
+      "roots": 4761,
+      "python_replay_decisions": 9682,
+      "seconds": 160.18942989991046
+    },
+    "preview1_choice1_stakes1_parent0_p32": {
+      "matches": 64,
+      "rounds": 373,
+      "decisions": 9927,
+      "rollouts": 554368,
+      "transitions": 9574648,
+      "roots": 4987,
+      "python_replay_decisions": 9927,
+      "seconds": 360.55140929995105
+    },
+    "preview1_choice1_stakes1_parent0_p128": {
+      "matches": 64,
+      "rounds": 358,
+      "decisions": 9343,
+      "rollouts": 2111104,
+      "transitions": 36706115,
+      "roots": 4707,
+      "python_replay_decisions": 9343,
+      "seconds": 1114.3426293001976
+    },
+    "preview1_choice1_stakes1_parent1_p0": {
+      "matches": 64,
+      "rounds": 376,
+      "decisions": 10536,
+      "rollouts": 0,
+      "transitions": 0,
+      "roots": 0,
+      "python_replay_decisions": 10536,
+      "seconds": 7.019155299989507
+    },
+    "preview1_choice1_stakes1_parent1_p8": {
+      "matches": 64,
+      "rounds": 379,
+      "decisions": 10336,
+      "rollouts": 141808,
+      "transitions": 2446951,
+      "roots": 5088,
+      "python_replay_decisions": 10336,
+      "seconds": 165.3277471999172
+    },
+    "preview1_choice1_stakes1_parent1_p32": {
+      "matches": 64,
+      "rounds": 367,
+      "decisions": 9767,
+      "rollouts": 545248,
+      "transitions": 9445453,
+      "roots": 4884,
+      "python_replay_decisions": 9767,
+      "seconds": 361.9710665999446
+    },
+    "preview1_choice1_stakes1_parent1_p128": {
+      "matches": 64,
+      "rounds": 340,
+      "decisions": 9033,
+      "rollouts": 2040320,
+      "transitions": 35309358,
+      "roots": 4609,
+      "python_replay_decisions": 9033,
+      "seconds": 1089.3507653998677
+    }
+  },
+  "screen_totals": {
+    "matches": 4096,
+    "rounds": 27752,
+    "decisions": 574620,
+    "rollouts": 46309552,
+    "transitions": 653460580,
+    "roots": 211542,
+    "python_replay_decisions": 574620
+  },
+  "preparation": {
+    "preview0_choice0_stakes0_parent0": {
+      "conditional_round_rollouts": 483328,
+      "terminal_round_rollouts": 85248,
+      "transitions": 7107448,
+      "seconds": 206.2162753001321,
+      "python_round_replays": 3776,
+      "python_replay_decisions": 55337
+    },
+    "preview0_choice0_stakes0_parent1": {
+      "conditional_round_rollouts": 483328,
+      "terminal_round_rollouts": 90706,
+      "transitions": 7204112,
+      "seconds": 170.87147060013376,
+      "python_round_replays": 3776,
+      "python_replay_decisions": 55820
+    },
+    "preview0_choice0_stakes1_parent0": {
+      "conditional_round_rollouts": 483328,
+      "terminal_round_rollouts": 129129,
+      "transitions": 7334424,
+      "seconds": 177.0362112999428,
+      "python_round_replays": 3776,
+      "python_replay_decisions": 57280
+    },
+    "preview0_choice0_stakes1_parent1": {
+      "conditional_round_rollouts": 483328,
+      "terminal_round_rollouts": 123609,
+      "transitions": 7309458,
+      "seconds": 170.57976750005037,
+      "python_round_replays": 3776,
+      "python_replay_decisions": 57296
+    },
+    "preview0_choice1_stakes0_parent0": {
+      "conditional_round_rollouts": 483328,
+      "terminal_round_rollouts": 88082,
+      "transitions": 13097757,
+      "seconds": 281.3245802000165,
+      "python_round_replays": 3776,
+      "python_replay_decisions": 102245
+    },
+    "preview0_choice1_stakes0_parent1": {
+      "conditional_round_rollouts": 483328,
+      "terminal_round_rollouts": 95927,
+      "transitions": 13228017,
+      "seconds": 286.5434556999244,
+      "python_round_replays": 3776,
+      "python_replay_decisions": 103520
+    },
+    "preview0_choice1_stakes1_parent0": {
+      "conditional_round_rollouts": 483328,
+      "terminal_round_rollouts": 128333,
+      "transitions": 13208714,
+      "seconds": 467.03413260006346,
+      "python_round_replays": 3776,
+      "python_replay_decisions": 102659
+    },
+    "preview0_choice1_stakes1_parent1": {
+      "conditional_round_rollouts": 483328,
+      "terminal_round_rollouts": 130612,
+      "transitions": 13275025,
+      "seconds": 429.43464180012234,
+      "python_round_replays": 3776,
+      "python_replay_decisions": 103783
+    },
+    "preview1_choice0_stakes0_parent0": {
+      "conditional_round_rollouts": 483328,
+      "terminal_round_rollouts": 89105,
+      "transitions": 7164570,
+      "seconds": 176.80462810001336,
+      "python_round_replays": 3776,
+      "python_replay_decisions": 55921
+    },
+    "preview1_choice0_stakes0_parent1": {
+      "conditional_round_rollouts": 483328,
+      "terminal_round_rollouts": 92557,
+      "transitions": 7224205,
+      "seconds": 163.58473120001145,
+      "python_round_replays": 3776,
+      "python_replay_decisions": 56255
+    },
+    "preview1_choice0_stakes1_parent0": {
+      "conditional_round_rollouts": 483328,
+      "terminal_round_rollouts": 130083,
+      "transitions": 7320035,
+      "seconds": 177.18549900013022,
+      "python_round_replays": 3776,
+      "python_replay_decisions": 56956
+    },
+    "preview1_choice0_stakes1_parent1": {
+      "conditional_round_rollouts": 483328,
+      "terminal_round_rollouts": 125139,
+      "transitions": 7322173,
+      "seconds": 173.92500539985485,
+      "python_round_replays": 3776,
+      "python_replay_decisions": 57342
+    },
+    "preview1_choice1_stakes0_parent0": {
+      "conditional_round_rollouts": 483328,
+      "terminal_round_rollouts": 89653,
+      "transitions": 12921802,
+      "seconds": 259.4209968999494,
+      "python_round_replays": 3776,
+      "python_replay_decisions": 101097
+    },
+    "preview1_choice1_stakes0_parent1": {
+      "conditional_round_rollouts": 483328,
+      "terminal_round_rollouts": 94729,
+      "transitions": 13208558,
+      "seconds": 284.24650549981743,
+      "python_round_replays": 3776,
+      "python_replay_decisions": 103352
+    },
+    "preview1_choice1_stakes1_parent0": {
+      "conditional_round_rollouts": 483328,
+      "terminal_round_rollouts": 129732,
+      "transitions": 13335317,
+      "seconds": 402.10734029999,
+      "python_round_replays": 3776,
+      "python_replay_decisions": 104295
+    },
+    "preview1_choice1_stakes1_parent1": {
+      "conditional_round_rollouts": 483328,
+      "terminal_round_rollouts": 129230,
+      "transitions": 13310593,
+      "seconds": 433.02105460013263,
+      "python_round_replays": 3776,
+      "python_replay_decisions": 103799
+    }
+  },
+  "preparation_totals": {
+    "conditional_round_rollouts": 7733248,
+    "terminal_round_rollouts": 1751874,
+    "transitions": 163572208,
+    "python_round_replays": 60416,
+    "python_replay_decisions": 1276957
+  },
+  "new_policy_training_decisions": 0,
+  "confirmation": {
+    "checks": {
+      "selected_gain": [
+        {
+          "mean": 0.3515625,
+          "lower": 0.306640625,
+          "upper": 0.39453125
+        },
+        {
+          "mean": 0.3515625,
+          "lower": 0.3046875,
+          "upper": 0.39453125
+        }
+      ],
+      "gain_minus_control": [
+        {
+          "mean": 0.3203125,
+          "lower": 0.2578125,
+          "upper": 0.380859375
+        },
+        {
+          "mean": 0.31640625,
+          "lower": 0.255859375,
+          "upper": 0.375
+        }
+      ]
+    },
+    "passed": true,
+    "curves": {
+      "preview0_choice0_stakes0": [
+        [
+          0.5,
+          0.494140625,
+          0.53125
+        ],
+        [
+          0.5,
+          0.49609375,
+          0.53515625
+        ]
+      ],
+      "preview1_choice1_stakes0": [
+        [
+          0.5,
+          0.623046875,
+          0.8515625
+        ],
+        [
+          0.5,
+          0.673828125,
+          0.8515625
+        ]
+      ]
+    },
+    "high_minus_low_secondary": [
+      {
+        "mean": 0.228515625,
+        "lower": 0.171875,
+        "upper": 0.28515625
+      },
+      {
+        "mean": 0.177734375,
+        "lower": 0.1171875,
+        "upper": 0.23828125
+      }
+    ],
+    "endpoints": {
+      "preview0_choice0_stakes0_parent0_p0": {
+        "matches": 256,
+        "rounds": 2006,
+        "decisions": 29694,
+        "rollouts": 0,
+        "transitions": 0,
+        "roots": 0,
+        "python_replay_decisions": 29694
+      },
+      "preview0_choice0_stakes0_parent0_p8": {
+        "matches": 256,
+        "rounds": 2002,
+        "decisions": 29635,
+        "rollouts": 541688,
+        "transitions": 5370701,
+        "roots": 14108,
+        "python_replay_decisions": 29635
+      },
+      "preview0_choice0_stakes0_parent0_p128": {
+        "matches": 256,
+        "rounds": 1989,
+        "decisions": 29446,
+        "rollouts": 8631424,
+        "transitions": 85289091,
+        "roots": 14072,
+        "python_replay_decisions": 29446
+      },
+      "preview0_choice0_stakes0_parent1_p0": {
+        "matches": 256,
+        "rounds": 2030,
+        "decisions": 30472,
+        "rollouts": 0,
+        "transitions": 0,
+        "roots": 0,
+        "python_replay_decisions": 30472
+      },
+      "preview0_choice0_stakes0_parent1_p8": {
+        "matches": 256,
+        "rounds": 2025,
+        "decisions": 30245,
+        "rollouts": 551392,
+        "transitions": 5527870,
+        "roots": 14398,
+        "python_replay_decisions": 30245
+      },
+      "preview0_choice0_stakes0_parent1_p128": {
+        "matches": 256,
+        "rounds": 2012,
+        "decisions": 30084,
+        "rollouts": 8787584,
+        "transitions": 87901391,
+        "roots": 14365,
+        "python_replay_decisions": 30084
+      },
+      "preview1_choice1_stakes0_parent0_p0": {
+        "matches": 256,
+        "rounds": 2004,
+        "decisions": 53132,
+        "rollouts": 0,
+        "transitions": 0,
+        "roots": 0,
+        "python_replay_decisions": 53132
+      },
+      "preview1_choice1_stakes0_parent0_p8": {
+        "matches": 256,
+        "rounds": 1960,
+        "decisions": 51725,
+        "rollouts": 718128,
+        "transitions": 12222390,
+        "roots": 25642,
+        "python_replay_decisions": 51725
+      },
+      "preview1_choice1_stakes0_parent0_p128": {
+        "matches": 256,
+        "rounds": 1923,
+        "decisions": 49940,
+        "rollouts": 11389568,
+        "transitions": 194319841,
+        "roots": 25566,
+        "python_replay_decisions": 49940
+      },
+      "preview1_choice1_stakes0_parent1_p0": {
+        "matches": 256,
+        "rounds": 1992,
+        "decisions": 54304,
+        "rollouts": 0,
+        "transitions": 0,
+        "roots": 0,
+        "python_replay_decisions": 54304
+      },
+      "preview1_choice1_stakes0_parent1_p8": {
+        "matches": 256,
+        "rounds": 1969,
+        "decisions": 53104,
+        "rollouts": 733144,
+        "transitions": 12654622,
+        "roots": 26355,
+        "python_replay_decisions": 53104
+      },
+      "preview1_choice1_stakes0_parent1_p128": {
+        "matches": 256,
+        "rounds": 1938,
+        "decisions": 51055,
+        "rollouts": 11579904,
+        "transitions": 202027981,
+        "roots": 26055,
+        "python_replay_decisions": 51055
+      }
+    }
+  },
+  "bindings": {
+    "runs\\public_stock_rounds_v3\\protocol.json": "0dd306c9c525e097a8b16754d0233de58b1f9bb52b06867009a66a175232d731",
+    "runs\\public_stock_rounds_v3\\screen_result.json": "913c02ad29cfcae3bda0fb0c0a56de0957515b343160e6d62ee46c779447dcb7",
+    "scripts/run_public_stock_rounds.py": "e4a5b126f992a8cedd8d66f950b853f4c2522fa41b901e7190048cdfd45654d0",
+    "scripts/build_auditable_round_values.py": "7354a701a7d1f218ae472ee3423d2602f65bf3ff97e54e17172e02ef8ba63200",
+    "scripts/audit_public_round_values.py": "e84d6997048847786df14002bdb0cf0b187ed57b3ee1bf5f67e54fe428b39850",
+    "scripts/evaluate_public_stock_rounds.py": "7d4fd526a5e5ba679868b521f56ad118c5b0ac88d17afff506aa82c31449191d",
+    "koikoi/public_stock_round_value.py": "d7276d2ff2135fe062c62945f04aacdc6522792c4449bbb9ddb35f5aeb0eba2c",
+    "koikoi/public_stock_residual.py": "aa4bfe4e8fbac7b9b2a49a6bce7025a1d5e8920b889a41144a916f27d2a1279e",
+    "docs/PUBLIC_STOCK_STUDY_V3.rst": "1a57fc1ea31f272fa0588247f6771b4fff6ecfd5420543b6fb93d3fd8e850e01",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\scripts\\build_auditable_round_values.py": "7354a701a7d1f218ae472ee3423d2602f65bf3ff97e54e17172e02ef8ba63200",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes0_parent0\\protocol.json": "48827bbb9b0ef019f9f6336c921a7297c4e326f8c7dd9d52559700efc076e3d8",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes0_parent0\\result.json": "6812a5c7b9856f2a4f5c4afac2c2958f66f1b308f22a221effcfca4659d2cca0",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes0_parent0\\table.npz": "8b11f3d876d03639654f2129942e8af8b72a30a2a98881ce5e5f360ad8f45996",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes0_parent0\\audit.json": "d5a457f2ce798fb145126d5981f7497b36a310c3549b3e1e49db62ce434defa3",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes0_parent0\\round_0.npz": "7340e8be51c76275d1d613029a5b975d66b459fcbc42ac6f5a069efa91ccbee1",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes0_parent0\\round_1.npz": "4100a8cee9c17cc44a3d7c49663d32c48086322a1ee3a41ed7f168cf978b28a6",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes0_parent0\\round_2.npz": "57555f02779e61843aaa024fa8dbe0605b488a42f04260c18a92155cda584c11",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes0_parent0\\round_3.npz": "ab6d01ccc936f2d378aa9208a9d0a555d1d92f137408a8055188105fc6867f12",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes0_parent0\\round_4.npz": "b1001ff7d68f67ff65b44711d65d1ed2487b367ec8faeb5dc0d86c1edd818832",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes0_parent0\\round_5.npz": "5beb344a18a8408505955e37e09306ced5e6b99b88d8864ee0308c2c8e9108e9",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes0_parent0\\round_6.npz": "da1e3156df45781286fbca87d6f0defc6b9eab15762fc7c6d1ba48f6e91ccd52",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes0_parent0\\round_7.npz": "604c5af67a9e1b335efbc672df8e075c0ae9c3efd021fd219536f6c949cf74f2",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes0_parent0_p0\\result.json": "5938719d3720b887b372c5599b5f583b85f4ae78a07151bbab2a0e7fe8e259d7",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes0_parent0_p0\\protocol.json": "300345f63645fbc6f2108c1da8d91b45efeae62c14b030ae64de95f4caa3ed46",
+    "runs\\public_stock_residual_v2\\preview0_choice0_stakes0_parent0\\policy_00128.pt": "a96ca263b5aeea72bd67fbc35c91b76eafa479f5751b4b65f8139ca725834ade",
+    "koikoi/public_stock_search.py": "b283736a8a1b1ef52a154eb215e870164b1697a832bb5d937e2cdadaca553155",
+    "koikoi/public_stock.py": "61ece1349feefb658386e519a88cea5789e6f0108b2fcc5522a4dca538f7de08",
+    "koikoi/public_stock_native.py": "900c6e2a0aa79436ded7ae73c70c1fee764b3e8fd2ad1255bc1b0981f07fbd0a",
+    "koikoi/native/public_stock.h": "3f6d415cacfeef8ea47aaa46d53a3371b360759c7eb182f1c88342b3d6477816",
+    "koikoi/native/core.h": "820333d57e060e8705e2fe1a45544d0553d396980c0d25a23b00a92aeaee5dc3",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes0_parent0_p0\\trajectories_00000.npz": "46e02c2938a78f4a94f442b99153d8f2a8108794f04d0715039bb8e6fc5da4bd",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes0_parent0_p8\\result.json": "69b7c8660410c7a71d5a0c5c433a80c138edf94d8219c444565fa0d07b82cbab",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes0_parent0_p8\\protocol.json": "54de6885131e1b09186b29d0c0d02dd0ddeef3984ce138c8fe1d1fc1eaebb322",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes0_parent0_p8\\trajectories_00000.npz": "b1a3d724bbd474ee2593a7dbceccb91b02668960046e8bf963f01fc3030c4801",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes0_parent0_p32\\result.json": "b0742a4939ad66d0343e64890e69faf8fe6464efb9f7cc4d674f7fbf6af53a91",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes0_parent0_p32\\protocol.json": "6d7bca707d9378c76ed5c874dd8449d171d4bf6a9501199c8095ea5db977c3c6",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes0_parent0_p32\\trajectories_00000.npz": "fae8b7a2fa6914daccba9baf969fe37d6ba9f632fc2834c103cab5fd909478e8",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes0_parent0_p128\\result.json": "014177ec033519873116ad0b1392c93ce66f38de500b52f2a666353c5420b427",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes0_parent0_p128\\protocol.json": "a975d4ebe77940d2b8f512cf2c8fb851745af879a80ceaeee48d040b3b4540d7",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes0_parent0_p128\\trajectories_00000.npz": "1a4c74b24ea1285fbe2a659543ee524d9f8c1785f2fd3af7bbc6b0b1d2dfb673",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes0_parent1\\protocol.json": "cce8e845e25e2fa9dc22b3ba4d4ae7448aa49dc9c8aeb6eaa5b5819a170bb32c",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes0_parent1\\result.json": "58f0fe297ae5072458f5900e2b2cde077192856fad62e1f035183d48cefbf8ee",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes0_parent1\\table.npz": "bcd532c38266ed69791b4374fa427b272614d04c3e7e8d6dba28e980c4fdb158",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes0_parent1\\audit.json": "4438b2f6d9cca5253a8f10582dfa3ac67738c27127af12ce4704c35bc01d74ee",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes0_parent1\\round_0.npz": "3c787330726c2e94fbd6074e90b7ca8d1cc652278df1fb6767211080b7d6cbcb",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes0_parent1\\round_1.npz": "45ec9a2ff446dff630d6defac7d860d02d3573b2a395c943d4eef585fef2643d",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes0_parent1\\round_2.npz": "a71078a8fec11986145c97c14552a70e905605e4ceae29863113f5a5493afc9d",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes0_parent1\\round_3.npz": "def5f233a1caf96fac6ea2fae1d7d42d91d152ae7a4943c62249718cedaed70d",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes0_parent1\\round_4.npz": "008567e49ac399590a70d98e2b985540a79b0520650ba19facfd2f22a30a5f6e",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes0_parent1\\round_5.npz": "6e537942aca2a2e9bc8f844fe6701b97723a00df28aed45e13ed4421448d4bb7",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes0_parent1\\round_6.npz": "217a138a441474aaf283887f2adc93785a2e91bc184cd6797e0dba17d4e2f179",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes0_parent1\\round_7.npz": "eeba83a74f5daacfa76d4a3f61c4d88e168cd79f54d0d33ce9f1adad9d7f773f",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes0_parent1_p0\\result.json": "1a2896b43448c8eb9b842326d7b9508e387deeec2ea2dc03f21a68b034f0827e",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes0_parent1_p0\\protocol.json": "69f38bbcbd3e6fb07a81a7dd8ab950bb51ea01931038ea12cceba7e99824fd66",
+    "runs\\public_stock_residual_v2\\preview0_choice0_stakes0_parent1\\policy_00128.pt": "e5925cac9054acf43153314ff444178db3fd13cf6f9a3c86afdb1c5607811a12",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes0_parent1_p0\\trajectories_00000.npz": "a12283484cb71f9ee124375bb89d31c5fa927cd3d023e12de98d857b825de6dc",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes0_parent1_p8\\result.json": "4dcffde99ff6d478756fdaa457385e9f8e4adf17cca763ffc04ed4c4d7843ed5",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes0_parent1_p8\\protocol.json": "fc196b5a87fc6369f3fe9b60d66ac4b396807c649222906c9cd65f4d27e2a538",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes0_parent1_p8\\trajectories_00000.npz": "1eb46bb9275593f6d39b39886176d15259a0a6626f7f011a3fd78a7eb0e47642",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes0_parent1_p32\\result.json": "2650ac7cea0b5f607424303246cd96463be6bbd57f332a7a42b8e747b1e974c1",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes0_parent1_p32\\protocol.json": "b2d9c9b04386fb0e4ee02e10f50ed02bd683923e217df409d6d26c5fe55a8f82",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes0_parent1_p32\\trajectories_00000.npz": "0c6bffde22df0c784b2ceadd849753addbb6a17bb395b6888b0f061bc5749090",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes0_parent1_p128\\result.json": "27035a4ab758b903d57408760468e798ab8b9bce7cd292fd1b659e8f7159885b",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes0_parent1_p128\\protocol.json": "43b013ca17ceb431f80f8a4e7192527ccdc40770be8e74775b54e3481d6533f4",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes0_parent1_p128\\trajectories_00000.npz": "95c39a6a5fad780457c904f554dd56148f8c827bb333b5cd45002e41630d9db8",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes1_parent0\\protocol.json": "36e464c6e396234fcb96974b08434fa02ce81ed6628b6fd462ccac64c75eaa05",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes1_parent0\\result.json": "9a5764524e8278a1b38e61916c3bb265349b66693b7577cea71509d3ecfad3c3",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes1_parent0\\table.npz": "ec57f412bf10089c3b534ead826d0c079ca1ee98d0d2ec5b7d03bdc3d8cdd2f2",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes1_parent0\\audit.json": "2d44bbcb6dd06bd09cdb17265f018c6a264cd3aa7302dae5a8bf910c51399588",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes1_parent0\\round_0.npz": "2bc02a45d9ca7037249b17bedc9b008134b4dbbf72fb34d9306704de5c3b3ae9",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes1_parent0\\round_1.npz": "e1ff5df6382feb8ced9ae2f160ba00235e445ede8177680c7cdff778b37e93a5",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes1_parent0\\round_2.npz": "47f1a02da8723da861a9b29c626d7d69751ab10b022c914e3eaa9b23f013e8c3",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes1_parent0\\round_3.npz": "4fc911d36454a50db43d72db22ecaeece7b19a79f6459abaa78166e1638206d6",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes1_parent0\\round_4.npz": "f66898af460cd3774e5797a25c385ee8a8338fda06be0546e8fb16bc1de08306",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes1_parent0\\round_5.npz": "f1e1dfe5b689b67698060b99d2afb0fb1930f4140833db139f4195db679978d5",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes1_parent0\\round_6.npz": "7ce98d6dfe41d9e90adab4cef5cd2dd74a5b29977f5de1b6638d07132e0038ed",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes1_parent0\\round_7.npz": "ad053c2f9595ca4eec453b7d9c8649975f0f04d555fa027a51068d3e6d199690",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes1_parent0_p0\\result.json": "6cd2e5d031160168703ec820c4dae614fcdbd21a8343d9a2d9f065068b7cc4a6",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes1_parent0_p0\\protocol.json": "17ba599d87b2e8bfd10cb70697e8b7936464f836b5767ea4282d377d2a077e4b",
+    "runs\\public_stock_residual_v2\\preview0_choice0_stakes1_parent0\\policy_00128.pt": "9755180cfb7016799a2c636bb3648aa6bcd9693504ebfdeeb66d6d84246bc64c",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes1_parent0_p0\\trajectories_00000.npz": "fce54ee2515f2d9822a7493b7b29b95e62fd99b4ef86e07b1ff1a7d47c688ab5",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes1_parent0_p8\\result.json": "a535df78321803e035276df7dade6c16cd0f737193234a69289360642e715e37",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes1_parent0_p8\\protocol.json": "4dd91ec96b2ff7ac7809b11de1f1b692c18a4660012807914de387d3387b6bf9",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes1_parent0_p8\\trajectories_00000.npz": "f7bf05bf24ac1dc2dbe2be47463fb7e95c90f8cdbcf63d4710fd829db49fdd23",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes1_parent0_p32\\result.json": "f961ad2a3379325e914236bd3f8ebb7312a03fe6be0bf30f39f664d9b1d1f609",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes1_parent0_p32\\protocol.json": "18214ca440af2cba6beafff35cb4c365826da329ed7643014ed57c20319ed645",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes1_parent0_p32\\trajectories_00000.npz": "7c29c43af0d7943288fc30b2d375ecc3ab39a0501c67beead8b6c0b6cdf5855a",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes1_parent0_p128\\result.json": "095efabccc84e95ca110a9f413e4c84f3cf2ed601a91503918c69f75788a483a",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes1_parent0_p128\\protocol.json": "63c9ecb9038c1a9e83e40c66f83809d6383384752a86d99039dcafdfdfb51acc",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes1_parent0_p128\\trajectories_00000.npz": "2bb18e85fcdff4bb83123974cf2f0364e93e872dc11763f5658ae8d927bfa340",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes1_parent1\\protocol.json": "825be73df7662025d3644ba1816e0198a45016ade0f51f3d56260d41d9a8385c",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes1_parent1\\result.json": "2497838bcbb863350c1db7588fc1b2e43999f69a69e0ad75a168c733ddacb273",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes1_parent1\\table.npz": "8d70676150a78488badfe6819c5e8172214dd705dc33314dd4ef769b77e5576f",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes1_parent1\\audit.json": "05f7f43a6cf3e2781455a735b76ffac44d674f260ff1445382eee9b99bff20ae",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes1_parent1\\round_0.npz": "192be24bc4cd9c3b226283dfc17856b5b2315f4e1f97b1a4a026dbc6980430f9",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes1_parent1\\round_1.npz": "d75f371d470e2de2085ad89d0cefcd986e458e544f5c2f033b8a374c078fc8e6",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes1_parent1\\round_2.npz": "6831c24e362af586c75bcf5f70bd7da0994ab630f91d5d7eba9f2e0afb202b73",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes1_parent1\\round_3.npz": "a32b0fbe696273a7338d9d329446e63eac97ccfc84010fb5ada0b4801dac24db",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes1_parent1\\round_4.npz": "2e33e0665f1f83a61cb579ccca4978dc528e8b9b968cf783aa605f8c02264bf2",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes1_parent1\\round_5.npz": "97d90197bd2de7c25b7c1272cbb86edf1700969faeb225b0df26c635a956690d",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes1_parent1\\round_6.npz": "cccff3b87f28dcd2b3cd57a604d62374352e29d31c3fefba98eff63142e56b2a",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice0_stakes1_parent1\\round_7.npz": "5337fcba9e75b0b5185a5b898847ea2b507ebc66a984d8acbb043ff2cc150f5c",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes1_parent1_p0\\result.json": "89365426a1ce078f3d093d5406733ea77a2e30e898ed457d3d58d0e9e608de02",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes1_parent1_p0\\protocol.json": "9c6fabec029ce7b753c396629541df6427f9e05b1d67000c03497f96e5b00d51",
+    "runs\\public_stock_residual_v2\\preview0_choice0_stakes1_parent1\\policy_00128.pt": "7be90a45a4bbc7f9f191da99c8e38ea5c91906e0b454d5dc30f98fa00d7da060",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes1_parent1_p0\\trajectories_00000.npz": "04fea2757797707cda5287449ef1ef5b5113f048eaf51a1cb54f5344ed6cec54",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes1_parent1_p8\\result.json": "1b1272f56cee13eee6936ecc9d9195a83332a6961158c35b4e0133e9d5317531",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes1_parent1_p8\\protocol.json": "7eb5eff74d6c50133cbcf45a1302dc04f85e5b6956a6309b1180302e9a94467d",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes1_parent1_p8\\trajectories_00000.npz": "1205b915edc06e3ea951aa449fbfded6bd994a9b05cb935629183313a6ecbf0b",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes1_parent1_p32\\result.json": "c382f2ddb25337c973d0a5dd8b91203a69790625d5d0ead0da309932041cb88b",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes1_parent1_p32\\protocol.json": "f2812723c2de900191142c0f95dbdfa2d4e1726ae34ff7e247eb8322b85ce1b7",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes1_parent1_p32\\trajectories_00000.npz": "517316c66dca0ebd1398ba50c8242aa782400c975b4705a9a08f2ea9152b64e7",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes1_parent1_p128\\result.json": "da0c55a24f4a01befffd3efa915b540afdf994383bc8a03c31f97788f5497a89",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes1_parent1_p128\\protocol.json": "72aad1b27212c616f8d9ad2346b63d9586acad2e7ed670449425a862e644ebd7",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice0_stakes1_parent1_p128\\trajectories_00000.npz": "bb70d2d66bbb95322df694683fe1efbea67741418b578642ff4d4353e8d61af8",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes0_parent0\\protocol.json": "53bd9c166723f1464f43b001c6f010ee8bc74ef4744f0e222e5036b0f25c72b4",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes0_parent0\\result.json": "9201ca1fe8c8502da11bbec466f2dbd208c721b281c26737494cc59d92bcea00",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes0_parent0\\table.npz": "2059eaf126867cc92586aac1413155f627d54f623af7cac3e579335e3fff69fb",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes0_parent0\\audit.json": "c87ba26db789ad5acb083df77e149b8fcddd51e7ab5a84a951e6ee74fd278501",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes0_parent0\\round_0.npz": "0cfd1713ae92576f8089ec8b9df1f38a1717cfa544943eaf1d103a3e4f2e0226",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes0_parent0\\round_1.npz": "1ea826936001f7d0ccf3386e159caac35b29d9912433dd39c5c1aa8896365936",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes0_parent0\\round_2.npz": "5e43621cb7866c0d1ea08c510c8f68f0b0e8da52abb08c87f01abe79d40b0424",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes0_parent0\\round_3.npz": "ae34c5d7a92fe4a537d5f1b459860efffdd0bd68d03f65cf52a61b4db852e4be",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes0_parent0\\round_4.npz": "a94bfe5d54fd36fa429c9f2f2ad1a3ce51f2083d2826a706b33ac41ffac81d2b",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes0_parent0\\round_5.npz": "ed5a4242480a9e3bb0817e9c20ec92f70df6451cfbff7c0bd24b151c84a398df",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes0_parent0\\round_6.npz": "29d99454ce18f18b9e9a4e51bb9cb4c73cf673414fead246c66b4954e77c9b4c",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes0_parent0\\round_7.npz": "076da3be4e76a3ecc3921f20b6f8f87ed9227e94d0737d3e267e99751efa7f41",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes0_parent0_p0\\result.json": "5d71644a3735d0e5d73c22fec4a6305f26ec35bfc00f339ae136c56af9e8a7f8",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes0_parent0_p0\\protocol.json": "488018a67e5c669b24e4b9e8b9f49a07cc2778e27ea6ab1ff1e69a015c04a6ba",
+    "runs\\public_stock_residual_v2\\preview0_choice1_stakes0_parent0\\policy_00128.pt": "c6b7f264230349211858630c9a8ff9ed69612c0ac79335b8292e8126e5179294",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes0_parent0_p0\\trajectories_00000.npz": "9397bbdaa76c0b39c45d14adf6ce8bb60d065ae5b2e5420d34c2b07b09ea0e68",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes0_parent0_p8\\result.json": "af392d8fa9717b85a14a708210dca9205791e23344a44b1f166e8a9305d00913",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes0_parent0_p8\\protocol.json": "3a688e9d57b986babd34ca35a2772cdbc041a216d47b7b46f5517337d9e1cfa0",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes0_parent0_p8\\trajectories_00000.npz": "074529ef42f47a27b32ce860d2185bb6e29e48d27343991f893f10e5dbab4c71",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes0_parent0_p32\\result.json": "4aaa2afe983e6823438fda900ce41b0cb73172db14e94e6acee58934734989af",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes0_parent0_p32\\protocol.json": "3ce5b22d49afb3d13efced49d6b09df6a6cad6c90cff1b81f7f26bacd600aaed",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes0_parent0_p32\\trajectories_00000.npz": "efcd2793d4e496f1b35a6f9ba7432eab90e91b967bb8bd31d8ca77ccb56d92ed",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes0_parent0_p128\\result.json": "296c1838ad39cce186e5173b2347376608afe563c7d93ab5a06ccb539055348a",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes0_parent0_p128\\protocol.json": "d56ec423e08dcfd605fa8c9298e4193aa9165a7cf6c0d8dd4257fe4217001ef1",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes0_parent0_p128\\trajectories_00000.npz": "2719e22c3cfe007086cc82c0eeb70c9d3ee0ed2272efd7908163afb8c3c4c0e0",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes0_parent1\\protocol.json": "41db6b03a3bb9f95bf39e7da442efd20eb34c1c70e3fbf3f0066274ae45db830",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes0_parent1\\result.json": "4fb026cffebedd74b3ddccbbcf2e6a4f270e567202512accd8f21262d53ed236",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes0_parent1\\table.npz": "85084098ad208179628725b269371ea65d87377634a0f39b0df916b3ab188e8c",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes0_parent1\\audit.json": "058fae88e855ccc58bdb3171f9610062d613e27928cfd4771483beca2faef03c",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes0_parent1\\round_0.npz": "a6c1911055eae9c1c60222dc7e65161d0033a5be22e84b0c18c1d2e2fdab7544",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes0_parent1\\round_1.npz": "dff90c2af0053ba89629c7af41f7f133bd9021c4eec67076264483e9f99c2caa",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes0_parent1\\round_2.npz": "845f27b1cee7ac7df1d0cb42cc203325c05f763545538ad0a63c0c54fa0d1429",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes0_parent1\\round_3.npz": "abb7bbd677d210472a166d817915ebf7cf37159165e9c31866984a9864b4dd68",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes0_parent1\\round_4.npz": "2a85a85d697b21e8ebafc016b68ac5a64dc9e99cb6f8d9bcda01ef3b6281635d",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes0_parent1\\round_5.npz": "fef79a337c7c967cd4dfa725b265ca7ff0d2f4a1933e69ed46eaa19ba0f19b49",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes0_parent1\\round_6.npz": "a91c1f51d044ad6d12fdddfed5ff8768661a11e5da6a9eb9d6dbec5b82ae43ca",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes0_parent1\\round_7.npz": "6d2b44627abfcd4ff3cccff35399996dabc8c4ea44437821af7480e7d5967ec9",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes0_parent1_p0\\result.json": "8dcf0469aaec0ccfaef73da4d40c7d897448e947bfe3e7592f96f9d6da83f215",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes0_parent1_p0\\protocol.json": "46a9c7a8faa90e841c4056b7a36bb2709cae8be9a9a0faa3a02c2d69ba8373ab",
+    "runs\\public_stock_residual_v2\\preview0_choice1_stakes0_parent1\\policy_00128.pt": "dc11c3f222477cd679cb03be05c0c52204cd5e22ea129f76f4711dc40c505927",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes0_parent1_p0\\trajectories_00000.npz": "f4dfc4bdedbab385687092dea6dc6fb7cfe47b254ca61f924357fb8b76d4657b",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes0_parent1_p8\\result.json": "9f53ce8122d790d4013757dfdefb63dee33d7b81dd4ee57bbdd4ec87330f9301",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes0_parent1_p8\\protocol.json": "3d293e20a441b8adb35b8733a3b98c6185bf42bf5e3e2de9497ec3ded91a9e5a",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes0_parent1_p8\\trajectories_00000.npz": "22ded64dc1dcd0c48155e636f099fbe6cc66299c0d248f40919cb9c18e9a3fa3",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes0_parent1_p32\\result.json": "ade1f5253b1a7dd3abaa130e940cdc9164ae853ed3121961889e65ca447f047a",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes0_parent1_p32\\protocol.json": "8fb3e15f0a3583baaca788b5019c76662016ea0f9bfe8a36903fadc7b6d47053",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes0_parent1_p32\\trajectories_00000.npz": "6328b4958dbc27e000367a44263f4b52842c618a943b15d3009647a4d23f6aa1",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes0_parent1_p128\\result.json": "b292380d935613d164038b2a6470be88ac86fa404f1ba49b4f859c801d503941",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes0_parent1_p128\\protocol.json": "5a6adb5f882b8af7905f10a88c373507a8e7c2e45e458159ba74111a0a02fef5",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes0_parent1_p128\\trajectories_00000.npz": "6cf8cef025bb884f8c5b2552535f9d53650ba07399397ba1bdcb6fe3dde9e1ca",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes1_parent0\\protocol.json": "38b1de0bcdfe8f885e53e0cca5b387eb9727013d3e0bb624a2b8527874e6aede",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes1_parent0\\result.json": "d380ebe14e95161e96ade04280526b8d0880eb974d9c4ae7d7b27a551d5032d0",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes1_parent0\\table.npz": "78880da3bd697426d7a63c309c46d3e273eb9511d63d124407f4a6297fa5c056",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes1_parent0\\audit.json": "2aa7b4c3cb8290c6ede96c97f2fb66f7afee1880671ebadd32bd01623ac8666c",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes1_parent0\\round_0.npz": "c9167532058fa0d8b36cd122e87696e7110315ee8b8dceb32ac9788236cea298",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes1_parent0\\round_1.npz": "7f7604dbc7d7993908d33977ed1be553f95a35fab4b580251e7647ad73ad0e2c",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes1_parent0\\round_2.npz": "04707d9ea7bd7df53f6e75cfe7e730eea77b97f980aa60de87ded9b462438dd2",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes1_parent0\\round_3.npz": "a6a5a608ae223f94d6f84bcea4b987b66ccba2cc36749ea23d61e721129dd31f",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes1_parent0\\round_4.npz": "ab33516551e459ae198eeefc2e9bd83d069ff63b3833c5220ac30a6a5ac251dd",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes1_parent0\\round_5.npz": "06600821e0af7882ff3627778c7026e311fd3749d9e7b8e31b2199a34b228d63",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes1_parent0\\round_6.npz": "42392899a4e19fb5834d8795f2c41232d3a061623de49b79f7776502086b2b1a",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes1_parent0\\round_7.npz": "cd5e60d6cfba421a12db7671b3cce5cae5c6206b767f9e5d72c7e77b032edad9",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes1_parent0_p0\\result.json": "45d41f131ae62eee28235b224f848e5aa5a270e4f673c252086d00ef5822c966",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes1_parent0_p0\\protocol.json": "ef212dae8c0e83d77ce6b2ace1083cb01717631fa88993669b524abe7591713d",
+    "runs\\public_stock_residual_v2\\preview0_choice1_stakes1_parent0\\policy_00128.pt": "3a948f41d3c176d25ad0f5acff0de9206bc07bc792c8c0105331353b88c790b5",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes1_parent0_p0\\trajectories_00000.npz": "6d9aff74329b1429e805e1a9fbd0df63175c9e5cea3b605ab98f966127e10d4c",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes1_parent0_p8\\result.json": "4b9b92933c7e2e7d19160aea8eb7f261e62dcd5e3ab7d21a9a6005dadd0c2dd5",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes1_parent0_p8\\protocol.json": "cecb447550680bc00a05584a2c25b5ddbe652fa779967844207525a743bcf1bb",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes1_parent0_p8\\trajectories_00000.npz": "88e0d9a3ba560a5d27a473afd455dacab275de1045ce9b1b45865d9a2c3b08d6",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes1_parent0_p32\\result.json": "ac8f2bac409646412d34d415ea7526e1e29f11db4c17579733d81d0ca518cb7b",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes1_parent0_p32\\protocol.json": "7964df8b98d4ea5f30ed6190120e80cb254d18c7370e50d7873ab43f013b9e2e",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes1_parent0_p32\\trajectories_00000.npz": "b01ca624e1db4a7a4f18ae20acaf3c442e9ea582c46b73666682b32ce66de4b5",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes1_parent0_p128\\result.json": "6490ed332a25da6d68a3b4aabafd310446624a2b2478e17fde8a01eeffdc284d",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes1_parent0_p128\\protocol.json": "5f07df66cccdfe5575bef216eab10bf1e4d9daeb3ceeaf994f5ac8cd7a45a156",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes1_parent0_p128\\trajectories_00000.npz": "0cd81d0132cd40c2b5adad5a2595903a661152954290580410faef42c5420808",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes1_parent1\\protocol.json": "c505930d117c64ff85c472b6032758811d876cbfd1e1cc356eb323ec74a24b13",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes1_parent1\\result.json": "c0a8f839760fc165fe61839f9fddda32e7f4533461aa1b23a97fad96b927f932",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes1_parent1\\table.npz": "c36d63599577ec602bb48dff9cc22a85c02c7188d5538c255078e63b0b3a03df",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes1_parent1\\audit.json": "7bd65b17f2b1d0e187cfdd2f03933123b3705d86238c2977fa424b0c10c03543",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes1_parent1\\round_0.npz": "fb6cf750410be098ffb4a1731915282a3bf7a047d1fb8c7eb6eb530fd8708e9f",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes1_parent1\\round_1.npz": "e90ba66dc9a53a781c6ecac3ee35ee5dfa3fe6a396b9bf0da3a6d7d2e7f38855",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes1_parent1\\round_2.npz": "7eb59573e317a15b83466dde59574c726e7abfd04994d7bb6d8799a7c0c37b9e",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes1_parent1\\round_3.npz": "0200d595aa47f51ac1c6cc3b1f84b3fcef5fcbcb61ddc68737471db494fef7c7",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes1_parent1\\round_4.npz": "1d6c1e361cc5de43fe216484c83518898f8242feebcd32dbe2ef9be2fa59073a",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes1_parent1\\round_5.npz": "d99c22c8a4fca634339f2dc2ee4680742d2b53acc6892a21fd981bf55437b9ea",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes1_parent1\\round_6.npz": "d1d479ec186583b19fbf891b79f04129cbe62174045f31011b632efd60459e79",
+    "runs\\public_stock_rounds_v3\\table_preview0_choice1_stakes1_parent1\\round_7.npz": "c5b2a47eea2cbf84fc42436a08ef78a0005ffd934a4df8b7198554cfaca05b56",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes1_parent1_p0\\result.json": "48cd75019d9139f2c588bd2b2e3574ad8dce2e27e5f3211ca73bb15158120600",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes1_parent1_p0\\protocol.json": "e57fba823eece7376ba777c548f6b9bfed0e7a4e3102e701bdb5fb409da0545a",
+    "runs\\public_stock_residual_v2\\preview0_choice1_stakes1_parent1\\policy_00128.pt": "caabaaff1b97731497630eb8dc3c2a47a37ccc9b920de7d545a5e1d3785ea497",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes1_parent1_p0\\trajectories_00000.npz": "3eabd326a9a83af5e690f89111fcdc35499fb2f9604002e9136337a1830a2c9a",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes1_parent1_p8\\result.json": "16149b4c825679ebc897de9759635e6dd639770ca426fae7a310905a308a3283",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes1_parent1_p8\\protocol.json": "313298f2970f247bf185c29e498df13265f694754c35af5fe4e675cab9ec47c8",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes1_parent1_p8\\trajectories_00000.npz": "b03623ebfbc1f7487e51ebfe286c17f03f1db2495283097c098550503a3edd25",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes1_parent1_p32\\result.json": "1393d2cb0c8240728e2c41270c2ab46f112bc838be6d32c7747a503a6168ddf0",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes1_parent1_p32\\protocol.json": "077695fcb45acc63ec5bde0f4afbd9bfe968823aa801c4653ae0252a8d500853",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes1_parent1_p32\\trajectories_00000.npz": "f276835f7a95c474ee38282719b582247248a1d85da69bb7dbcb90c97e844544",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes1_parent1_p128\\result.json": "16ba639371b8afbb78313a8a8cac2313af01d95fd2db91a6ae5960a07c985118",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes1_parent1_p128\\protocol.json": "03b4ee544bbd2cd6cabc31b740603ab15ca2908c670a469d7b0bdf19778b0de7",
+    "runs\\public_stock_rounds_v3\\screen_preview0_choice1_stakes1_parent1_p128\\trajectories_00000.npz": "bf917f2dd8185ab012490649e76cd035c0ffc35a1b304dc855e9112ff36225b3",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes0_parent0\\protocol.json": "0948f8f28a896f43a8f0c662cba94a2deeb2aa4f26ffafe7ac915e8e3ad3a87b",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes0_parent0\\result.json": "3d0b9ff1a41592d654bc0d7d7124975b28219441d5eea324182c0723687bc68b",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes0_parent0\\table.npz": "5b9437090a2486d8a77c5ce039148a0a2b812972a41b44d9e5d125fcc267d0e8",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes0_parent0\\audit.json": "3e26f5ff36ca5ae887d8339c207adf8f31f8b927f6de6cfa0db04a3293912069",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes0_parent0\\round_0.npz": "0051717eba2e7f910bab445397e83a568d62da19048e461c18ae5684d7b62253",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes0_parent0\\round_1.npz": "9931995134f6d574372a3c29342cc1d730a7ff73796913d1b0452eb260740afa",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes0_parent0\\round_2.npz": "d6bfc446b88def9957b8586341da58c4ee052c1e9f34fb0dcb172abca2a717b5",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes0_parent0\\round_3.npz": "145cb230ea79e8b15068b4d6e300c2fb2ce1541115a420f8f0c7885635b7aed7",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes0_parent0\\round_4.npz": "fd0f60cfcb153634e9c8c982f4fdb38b33f7e7f87ea7ecc35833c0dd169f288e",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes0_parent0\\round_5.npz": "6d8e0f4951910712b68e10d5bc67416055293f0d1d1fc3a2dcf2c950d25fdb24",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes0_parent0\\round_6.npz": "8b21a9f93e17fe453ccbf690b325d03ab58591cef57978d0add09f17a23ab9f1",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes0_parent0\\round_7.npz": "1d4deaa24f4b59d135e84d4cd11949984d7f1aab2c488b672267fab9633b08e7",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes0_parent0_p0\\result.json": "0d69b7f19fca7d1152f1148b72d50ae4d541d3e9df29cc7f68aa101522584a56",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes0_parent0_p0\\protocol.json": "96b2ad1679bfd2d3fed63f35a272de26909bb7128c8b2a9fb377528f67448f63",
+    "runs\\public_stock_residual_v2\\preview1_choice0_stakes0_parent0\\policy_00128.pt": "6a756b63dc6092b44a48d185da9fa906c310f57c4d3f12bb3f3e7f05461c3df0",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes0_parent0_p0\\trajectories_00000.npz": "777f2fc9907a55706ab3731b3d36a19fb3f245a7516c290f37f45a3ba5b0a64c",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes0_parent0_p8\\result.json": "6a1efad48d41f14ad7cf9c62c142fdb447569d3f2af5b5f715a797998d531077",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes0_parent0_p8\\protocol.json": "633331a91f16e92c4dff613cd2a59e857725eb41b39592e8dfb64faf8da9e6f1",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes0_parent0_p8\\trajectories_00000.npz": "405fc980726a912b7b4f702940c9b10fa0f53c0395f6b6dc888e3a5ce8571c9c",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes0_parent0_p32\\result.json": "fae981a6f43861c22999d5c0c0b0947a5a27f7f2d9f474ac98f8b08cf9c28dfd",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes0_parent0_p32\\protocol.json": "8d08308e2941e5ad85739ed88981187d3a4e377dff8aebb2218f99a7075b3427",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes0_parent0_p32\\trajectories_00000.npz": "95680634c86a181e51db3ecb5fec67350a53a5aac3f1f7dc8598399e5ae16266",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes0_parent0_p128\\result.json": "319174ccd8a0a45dbdad8ec9bf0f615229c093ebf04985484f9c3a25abb13a7e",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes0_parent0_p128\\protocol.json": "7bdb5c4afafa5d791943edbeeb2f2a687612d754652dd4ef3c543454b0971bde",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes0_parent0_p128\\trajectories_00000.npz": "fdd432268df5fca15695e1f02b952e98e6c8421b051df19cc31f07059b6e9e8d",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes0_parent1\\protocol.json": "0206a3cdaa33380a9802929bb47215836645026a9099245d484ff24fe9ea77b1",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes0_parent1\\result.json": "d45f828782080e584ab0007028093603f34681fbd91becc53627780deed32c39",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes0_parent1\\table.npz": "61afa30a527a6225b87285dd1691ea0447ec7a6d20bc99d3d02eb3e9c2ba1424",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes0_parent1\\audit.json": "f25f226ace7e8d7f576e94a829eff11e5bb896d4aae0d0e161680d961c5468c7",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes0_parent1\\round_0.npz": "ecb225227707e6b6b8ed422458cda34b990e56d4c731a34ad95d119bb9451a73",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes0_parent1\\round_1.npz": "dde1f85bc5d3a861a7d90bff22a3f1564deee96dd556e8ce2119d4dc03433a7f",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes0_parent1\\round_2.npz": "9435f7d56526fedf5dd6a2a6e12bb92bcf928f640e1cf548ef1b96bbd02e73ae",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes0_parent1\\round_3.npz": "322416561b463f31c547b9a2c6356461a29d4942b4e8b18f3181b44669af527a",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes0_parent1\\round_4.npz": "37a5dbae4b0206ad94f86d98a4de6cb630de702aba284c7bb7a713380aec9d5d",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes0_parent1\\round_5.npz": "4a7e99217840c5e3d46c969ae253c248cada8608ea012425d3588a5c93007c69",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes0_parent1\\round_6.npz": "23fdc03c71a48e737365974fc842db4346fe9b7bdccdd7da66089ec36b79e663",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes0_parent1\\round_7.npz": "721fa9dfcc374154840a5bf74e2c4304f624a2bdc914ec2433b8ceda7e37e1a5",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes0_parent1_p0\\result.json": "677a655afecbaf971ddab3d444b0ff76bcb6801e6f037401c805460437061c02",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes0_parent1_p0\\protocol.json": "1d9503d455a50a3d1232af51a64019ca22658de456513200d5062dd399018551",
+    "runs\\public_stock_residual_v2\\preview1_choice0_stakes0_parent1\\policy_00128.pt": "82d823f9846a5a307851f548d3c361ffdde94c3330a93ef6701a9676f0833af7",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes0_parent1_p0\\trajectories_00000.npz": "53392fe00b91d066d99449ee0da457c05c83580e3363aa51afcc8bfbf7d74788",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes0_parent1_p8\\result.json": "1eed3282c5ba3f371193cc21095d3fe9225426765f2ea727d9828b2b4bec0667",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes0_parent1_p8\\protocol.json": "122eb7471280da71921a70834a4cb043a949a9d26a1e8f8f6b6da65d57f81d91",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes0_parent1_p8\\trajectories_00000.npz": "6a6e4133aea093a2329c448cf7448e392a68db20516231bc7647bfbe1199b290",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes0_parent1_p32\\result.json": "01a79d00df763ea36e2593200155d64d9ce37ba025d5045f19da5614a5f0ddee",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes0_parent1_p32\\protocol.json": "dfceb8a774e67781ea5c74bbd02b80f818803fee1a94cc4d98f5d91014a5ccf9",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes0_parent1_p32\\trajectories_00000.npz": "5821d1b2c443875c87362dcbc1ae483d0c7960c0c382f071e2f69f772bbfaa0f",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes0_parent1_p128\\result.json": "85ac72885b039df0bb325be9979193c8ce49790e03d1bdce23533cf029dfe7a5",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes0_parent1_p128\\protocol.json": "f5022b81db1cfb444a76764ad9f3780962d05678af2e43862ea11d07b159ff78",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes0_parent1_p128\\trajectories_00000.npz": "3cb76dffc96adca608c2a42b978b801376a941bc357c68be7c294f5c1eb7a58c",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes1_parent0\\protocol.json": "9787cd6cef212085fa4b58d6fd3edde47b6e3eb52eb91347c901521728b05149",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes1_parent0\\result.json": "97686bb51cee7ed11654ade8336b0f50f904e53e4a2362195e82a2596580764c",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes1_parent0\\table.npz": "6576212568b85281ae3ccc993d150499f6a56abe27bb73936ec71c9b1cc0fe43",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes1_parent0\\audit.json": "029a69bd7b07a8f6a1ac5fe461d2403922c505462ad8d9d0b83b0348c393250c",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes1_parent0\\round_0.npz": "4b66721ff164388ed731e31cefbdc6edd720b2d047d4c3563f59a1c742b35d53",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes1_parent0\\round_1.npz": "56f35cfd2d0e949714f7aa19e5785032416b637a27c17e88bdadf19d10085537",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes1_parent0\\round_2.npz": "42fd739dff2e52fdfcfff9bbbaafc1320d6a6468e48d7539015b6f9c7a47e486",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes1_parent0\\round_3.npz": "5e8fa86088a23bdf9b0701f34ef97d5e4f8b80c4fa233e45269d618add2ee5f8",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes1_parent0\\round_4.npz": "2052b3292c9d38f6f422b5074a91a023eeae617a67d89fab40bdf69c702ea04a",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes1_parent0\\round_5.npz": "b4b4c2b07d51c6d046b17297972ee3f26401819277727caf1dff6992e28648f2",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes1_parent0\\round_6.npz": "ab0fde567f9a5f5effe573f9f50182f7b580df38e750db55a463636fefc75686",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes1_parent0\\round_7.npz": "090fb6cd99009114d159992eb47a7c6dcc706ee093fd5ca11a0b12e5be81586f",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes1_parent0_p0\\result.json": "dcff2faa57c8e4d987ffe07898eb877c9d87ab82da8590c8ab045fde27a49cf0",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes1_parent0_p0\\protocol.json": "aad098addd9291e660e8c48e71c4ac01ea1a036a165ad309c79d0bdfaf82db17",
+    "runs\\public_stock_residual_v2\\preview1_choice0_stakes1_parent0\\policy_00128.pt": "fdc1dc2aa4f304539e4e5f1340256d9e1008f6988197d9cb89a8bb10d87b3755",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes1_parent0_p0\\trajectories_00000.npz": "d0b7d192ca3672a6fe2590a44c52e2d860b400dc4166a204cb20ba4828d5a482",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes1_parent0_p8\\result.json": "deac94670a2092cc2bb71916cb125f28b6509fb539d199a6fc512aec212cb1cd",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes1_parent0_p8\\protocol.json": "9f8627f20da57f4661975292759f5a24a997f6f481c92bceb23fa6559edc9893",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes1_parent0_p8\\trajectories_00000.npz": "e8dd0d1157cf63d0dafd904e901866cd5f2cb621fba1bc5c25b7c59582f078cc",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes1_parent0_p32\\result.json": "65ec41313fc43f8db1e0e6657d0721e0606ed6194d9de87f74b6edc4dedb3f69",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes1_parent0_p32\\protocol.json": "a5fcf793c44238c0cb5a19c85862a8f991b86dc219b9963de6f76b60f7e245ec",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes1_parent0_p32\\trajectories_00000.npz": "6824ddf3e022d27a7cacb2bc07c2e8bef5b0e00afb11a7181cf7985bb81f6b0d",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes1_parent0_p128\\result.json": "ca00613d90ab54e0604872e5f69c9a1984a25a8d72a7ac6559158cd7b9cf496b",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes1_parent0_p128\\protocol.json": "eb875c956b4dbcf09dbc2d8668a52611650ee5ac48b2f3852ed65ebbef0dc6df",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes1_parent0_p128\\trajectories_00000.npz": "dfda5eedc6ee2c592dff7d7652f2f0882279924558ea6cd8af3a841e1c3709f6",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes1_parent1\\protocol.json": "7bbb2944deeee64acd02bdf4943f4484b9f4fb8c40eb9d95b72b43b720bb16b1",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes1_parent1\\result.json": "683c71ef44021885adea671c7288c9976c2e9fd919d2e86df422986587a05091",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes1_parent1\\table.npz": "f919044fa7e17174feccbf238bc262abfa97ac6627e3fe3f6415fe5099002f69",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes1_parent1\\audit.json": "7f1eadaebf16b53dd2a4177c11fe02b99a809624019cba493a14466c2e6631c9",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes1_parent1\\round_0.npz": "cb8ed8ec66d0f667074ab30ee05a2beab93ffec7caa59e8cfdbc6f95a284ebde",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes1_parent1\\round_1.npz": "f4a75469880e494281f8b881698f58d27dc24a258268e048aa8268de5bc1ed6f",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes1_parent1\\round_2.npz": "af99b0adc3643ed749ddecf853bf54ca1620308a4adb2d24ee7585c2a48d78d4",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes1_parent1\\round_3.npz": "8c2ebb01e4819d34bc7f6d5952f57a44eb8847785ea8bb6eed0d0ac4b711cd6c",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes1_parent1\\round_4.npz": "ac8c01cbff761d2036484687b40f3eff9cf54631f5dad5a3feed8da973e4653d",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes1_parent1\\round_5.npz": "80eb3ff4b8dcb8fd10c19fed522a79ff227ec0e3d8c320c69460ef13b0686be3",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes1_parent1\\round_6.npz": "c0e1078af34ea8d9575b080db124053968501f93a747839bc414efa390b07391",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice0_stakes1_parent1\\round_7.npz": "536716595da17bdec1c5c6c67874e72952a6faff105654d391d289d3d7f9293d",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes1_parent1_p0\\result.json": "8effba3d4ee13586b73fc70572c388bf225531e9195ef82f2edb34ba4f3b1ede",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes1_parent1_p0\\protocol.json": "24c9b72bedbdfb8f9fdb26b4de3395d92fd7143c72e35cbe74430089613d7a2e",
+    "runs\\public_stock_residual_v2\\preview1_choice0_stakes1_parent1\\policy_00128.pt": "17f052979e763cb526e65f141e5c3884ede50d3000a8a9d9499aa2fbff4db040",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes1_parent1_p0\\trajectories_00000.npz": "2ae19736d8bba10eb78bf8b1be23767b1ee4f6c18f52ec4152c9dc498ab54152",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes1_parent1_p8\\result.json": "f47cfc90a283d9fd548f904c14ab4501acb341c32957159eec847c07e9690661",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes1_parent1_p8\\protocol.json": "63824f1209c1235ab29c52bc6f019db02ac21e04395fbdae13b75379cb8c51eb",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes1_parent1_p8\\trajectories_00000.npz": "aaec5074bf3556715ec77e2051b579bd3a7f6a8494d894994c5ed067c7a22235",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes1_parent1_p32\\result.json": "0d014ebcb72f315a421f9ad659623facb5dee113280c7e83b7da165eebd1db5e",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes1_parent1_p32\\protocol.json": "8a6387c8abb99040911b287528e89cf3e1aa7815d6e252c8b2a97b6b2f0b1648",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes1_parent1_p32\\trajectories_00000.npz": "363a251b1b1af25ed5fbbd78a71e415fe40a9bf550d1db73911c9db35649ff2f",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes1_parent1_p128\\result.json": "52c41fb290469f158a02f58d4277781f712907003777d1d491334dfe978bce96",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes1_parent1_p128\\protocol.json": "3f9d9243af2f30a26052e6dc8c0b16f6196acf84c47df17fd5b8067d2c75be39",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice0_stakes1_parent1_p128\\trajectories_00000.npz": "da873b30456b8170bf52aea59a34dfe7623686ff68cdbc977054819114085e90",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes0_parent0\\protocol.json": "73726e577632f140b99854fbc99a1b8ab583ccc7b9e7dae0d0d158e8b94a52e0",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes0_parent0\\result.json": "018891eb951965a8623da69e9ae02f998c385b0d6887109181c2d769e6501333",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes0_parent0\\table.npz": "69f15a49747582a1053f007a613411203158bc8da5222a2b34e41fe4c4e9dbfb",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes0_parent0\\audit.json": "43dd173c73f9592c4f426589f99a3ecc2759d5511793200f7e2eb8fdc8255a0d",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes0_parent0\\round_0.npz": "126ed36857963bc3a036fc4d5dad8739b75b9c197c7255b69f5a51aaa6d3003d",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes0_parent0\\round_1.npz": "64f9936d682ecaae602bc8cf737b1031a200e75bae349b012902da2fa997ab10",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes0_parent0\\round_2.npz": "b9688e26845f7c021657b8fcb0bb62a2d03041e00d7e61c7ecad8dadeb6326eb",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes0_parent0\\round_3.npz": "e0c54db3ef8a9b315447cc2e9dc58b5a4efd9b470bdd92a850c09bbb218d5810",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes0_parent0\\round_4.npz": "ecf2a50e9901693ab3fdbd5fdfabefa1d996e15aee07782d936702e3f9ff145f",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes0_parent0\\round_5.npz": "a12b079487a8744771cdda6837eb83b6235bf9e3ebe4baa25dd2592d33d70f10",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes0_parent0\\round_6.npz": "3990207f344eab826f218b249525b6334cfed58142309a4f6e1cf9800961eb18",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes0_parent0\\round_7.npz": "3aaae4c37e2f259003e59cebac06e2b96930b0107c4bba5cec399963f0ef8f7d",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes0_parent0_p0\\result.json": "e07cf33f7f8db7270e3dacc4d41c05064b5564afa0cb4b8cffe43fd446b5ce11",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes0_parent0_p0\\protocol.json": "22d8597b811aa5a5bf71ac7390574c89c43a1bda4b9aae74bca6b3b291bcc20f",
+    "runs\\public_stock_residual_v2\\preview1_choice1_stakes0_parent0\\policy_00128.pt": "447ec69a594993d371a907e94c1ba1fff6bbdc4cfc7a412b6b9d3ede9b8c6936",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes0_parent0_p0\\trajectories_00000.npz": "0eacc89ed7dfff38815f594f994a5b7afe18cbfa9320dfc4422c2ab9cad3a10b",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes0_parent0_p8\\result.json": "f256d7afcab8084cfe2d51d62241817dfcc18f40daf269a7902da02296de4ffb",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes0_parent0_p8\\protocol.json": "460072e4a34de1adf69a1b53a8ce1f91cf4ad0de4699fc9b7c8fbf6dea2db8a8",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes0_parent0_p8\\trajectories_00000.npz": "4cb4190767177d5ecc3ac420d286bbc6bb03c40eab9fc45d63d46fb726c1865e",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes0_parent0_p32\\result.json": "43c1665e8f7a46eb12634e1e82427577af5109ebf54e1ca628f0243d95f29ac2",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes0_parent0_p32\\protocol.json": "ae898c7aed5011b5274aca170248d953e4fbc0b30f0e3b82e1bf103ae5fa46d5",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes0_parent0_p32\\trajectories_00000.npz": "7437d19a356bb0c76646fd269e1822513fa9f8a0b0af9ab53bab290cdb457501",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes0_parent0_p128\\result.json": "6ebdbec93af5b80e29429bf629b357fdfaaf14114838edc6389df58b937a23f8",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes0_parent0_p128\\protocol.json": "6f14bc81aa54988ffdc1e79b880f38c8d66e26fe6ffecec4acae288f30c3229d",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes0_parent0_p128\\trajectories_00000.npz": "03c613ed14943f93320c70c3046306d189d32cf2eb7483091808798640672d02",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes0_parent1\\protocol.json": "b6d17ed23bb185911063b2561d291712fcd2410a9fa3807e42235ca116247c43",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes0_parent1\\result.json": "3c1d917408cd58881242bcab4c8a7c0a2a21f7806406387ab1ef1aff8774c7da",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes0_parent1\\table.npz": "77c729aff6d2f1ffb95756dda28e07d910a3c826a7ee899e2df2f65767ecc6f8",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes0_parent1\\audit.json": "9791e5dc933332c48a331f4e51e9d3d0d53b95dc44052c4fa87f99d5fbdc787f",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes0_parent1\\round_0.npz": "1524fbd92a75e9507865484e378b2fd5d79f705efe22ad83aec4edfabea4a105",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes0_parent1\\round_1.npz": "ef47cc778034d9ea1525df7b6ee03812041b18f9f13296a75190369a36e5c68a",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes0_parent1\\round_2.npz": "23d242cf7cf912fa1b044de94d27e0ead0cbd68622114b0f4864100397666479",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes0_parent1\\round_3.npz": "180f8c2b82c9be09226af83470e77333edf031e0cb1fac78836646a0f9114cf2",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes0_parent1\\round_4.npz": "304ae6f848e51afdeff8b6d4072d0fd49c3faa53b95c5768056a52d36135613b",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes0_parent1\\round_5.npz": "a52885d0f77d8f6dc0a249214aeabafcae1554f7eef6c3a08a264cdcd451cc17",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes0_parent1\\round_6.npz": "388ea221842d8259ac4377d0299f2cecc8819752a46e5fd519221eb46e315df2",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes0_parent1\\round_7.npz": "5dec049f13a036511b9f674a458ee94373dd8ce3bd3b197aa2fe90e9e6c2a056",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes0_parent1_p0\\result.json": "93b037f71f3ae057b4475ab9e02c53ce659419a8b8cd0b371c88156ae9810834",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes0_parent1_p0\\protocol.json": "57a938d02b09240fa8ffee58b412506d6452491d3f5f19085cbba7be95b1a2b1",
+    "runs\\public_stock_residual_v2\\preview1_choice1_stakes0_parent1\\policy_00128.pt": "a16815f58304a940d63d8266c7efaacdeddba374c70ac5d06689f2468794be4b",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes0_parent1_p0\\trajectories_00000.npz": "fb023a454fcafaa13a775c1f4230475cb50a2cd5a3795a881be7e00fff5c5b06",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes0_parent1_p8\\result.json": "d87331435f36b60af17c67925cab0066be3f7a473ed37c045f23f5d6918bbc5a",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes0_parent1_p8\\protocol.json": "c069b8a07732d335d6e46124b328327bb769d2264732db659a801e4c69f6f83d",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes0_parent1_p8\\trajectories_00000.npz": "5a47cd0d70db6d529e2402c82d2470fb3fd921d0d36227064ed98ebc25a65d03",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes0_parent1_p32\\result.json": "d024a2089f8ca35db00dac2c02f4e5213098f8a32cbc8617486b055eb22f043c",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes0_parent1_p32\\protocol.json": "24ca43d647e76f1b12d3373072ece5012fad6af95978ea1f4281a08ecacb10c7",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes0_parent1_p32\\trajectories_00000.npz": "98e2f908451d8d4eca8b32440a943515daaf41870cba576ead88929b3a329aff",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes0_parent1_p128\\result.json": "d94b235214fa23d67f2fc0f234970a2e85a0999a93ec6873f9c7e75a1bfd18df",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes0_parent1_p128\\protocol.json": "b03a02e2efebcae30e9c61bfd19ea91717785f64c0a75e356cf1b27768608df8",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes0_parent1_p128\\trajectories_00000.npz": "f1d53e24aba40fa5eb61b21ede6699c37245e537ef5df79f7f0bcbd6967e55b9",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes1_parent0\\protocol.json": "726d062656d6b720cde99d2fc1d23c2e0df5a3dec591a4bfffdafb45d8ffd3db",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes1_parent0\\result.json": "7553bf9da8c337d60d78812f220a967b72656ae16f8b6fa8edce500d2362f85c",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes1_parent0\\table.npz": "66e50130e6c1948d3852e19570dfce710a2c4d68d88eaae3f9ef9c5cb89881eb",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes1_parent0\\audit.json": "7eec7fca308e17f6a44546481fccbdd8840b737a8aa22f24224f00ccc0ea79be",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes1_parent0\\round_0.npz": "a8672fac3031c978f6c55d273369d0ac621e44538da45fb63392a103077a524d",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes1_parent0\\round_1.npz": "0fcdedb1515605d5e60ed936b8339399d422fbe35b96a244b41b011e9c562fe9",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes1_parent0\\round_2.npz": "b4eea68543a1254c880b988236cd483b7c681621563838fbf8f2dbabb2a9cc05",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes1_parent0\\round_3.npz": "d785471b2c1c58c2e145eada0917c3e568eed4b19dfd2d3dc1501282228dc44f",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes1_parent0\\round_4.npz": "896618138fc3cecd98d784175b92f82167546b9153df0275492d8f5138c7f6a8",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes1_parent0\\round_5.npz": "4b4bf29b2aaef6663a7f255a0051ec683bbd31670fb548583bf8c6f8f4527e5d",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes1_parent0\\round_6.npz": "c7ca348dcd1e374707c85eb321b69f187bb86eb0c56a706fe98a780aad8e3cf7",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes1_parent0\\round_7.npz": "dbb7fd8ac1c5facdf6c4fdbd56726e3a6dd4ec85ffdb628ea334db083d0fe3a6",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes1_parent0_p0\\result.json": "bd59563701e77ed8c2945431a44b7b7f4f87396af7fc373b2b85444513d6dc50",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes1_parent0_p0\\protocol.json": "f69023352b474452d9d46b357a87644fcbd8a985e3d8faa83ba0286876521c52",
+    "runs\\public_stock_residual_v2\\preview1_choice1_stakes1_parent0\\policy_00128.pt": "5563a5a0c63fd58c09b0a0aebefb5eec72e6165a78132b9369a035c6cf5c1b83",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes1_parent0_p0\\trajectories_00000.npz": "6944462d7649787baaad1598eefc660658ddff4b2d468a519b30ec6501b6dbfe",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes1_parent0_p8\\result.json": "aa079e8db2c771bbb097d0a6ea91b09fbd1dce41897ebd1fc07f45290e8718b4",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes1_parent0_p8\\protocol.json": "842a30dfe1aa955704e6015497e17287d32ff0910ef640f5645295b241ff298b",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes1_parent0_p8\\trajectories_00000.npz": "b46beb64b4a6e7142a92f947e463f636de408b65f5c9b46da03524909da4c687",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes1_parent0_p32\\result.json": "3c5dd38839428320a74c9dbf0afd0ffc9717370ab410096215aeb5b60c1e139e",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes1_parent0_p32\\protocol.json": "a42499abd5f63495aed619fe5abf58e600cca2b908d96f5138183ae9a049d5f0",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes1_parent0_p32\\trajectories_00000.npz": "aa6eaa78341b188d8f72ffe97bf0b2bda7c9690a4831f78cbab1452ceeaf069e",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes1_parent0_p128\\result.json": "e56e2c8851ab47be27042a2c72570ae6ffc0c6fdf5b32f36362af671f97ec881",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes1_parent0_p128\\protocol.json": "561c1a9d389ed029c51b144138f894c1dbe9bf099e497a3b590fd45278a46026",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes1_parent0_p128\\trajectories_00000.npz": "aa8db1622e236a75d6b9f49088fc91e9fdc92ad83145f1103be2eb42ceb9acfa",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes1_parent1\\protocol.json": "a63c12f52f46144ad1b0ebfd23ae8da79786bd04f6f783b2683188ae22a58933",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes1_parent1\\result.json": "5783296c8e2279c67757f53b3882cd0397144b3cc0036eddd3db072f471b9fce",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes1_parent1\\table.npz": "c7b4dd667d627777d0a7b11b29a04b15f1a10e0b6b9a7270725cfc74a56d6dbb",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes1_parent1\\audit.json": "5745cfc36cb338ef5b555dad076a7023311da173cca29c6601056e9daa9227ef",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes1_parent1\\round_0.npz": "04eb66b558ec78e789a21b988e8d96c44bd0861a0437d948c6f62966acef0980",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes1_parent1\\round_1.npz": "bf935e5436e9782fcae92a817c0cd6105a592e5b5cbdde0fee893903e0394b16",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes1_parent1\\round_2.npz": "8d22eec3e687f0953b4c86207b188b1f94241eed3cd8b3b814c71871efaf0f51",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes1_parent1\\round_3.npz": "58398f96054fa728e5dd313f89e0796104b53617307bf81affc3baa0d0319369",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes1_parent1\\round_4.npz": "bf4d17499f88e5c964f41847b89afb2d19dfe917deba555cd30982b447979fb5",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes1_parent1\\round_5.npz": "aadf9f34250478adb166672a1cae2745035fd26e67cf0687b7f32f2aac29dfeb",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes1_parent1\\round_6.npz": "edc98aeda1281ec0f66c989b52f9cb2b800d85ab360e07bd0a4327c4ec89a1d4",
+    "runs\\public_stock_rounds_v3\\table_preview1_choice1_stakes1_parent1\\round_7.npz": "3fcb516eb658d4ecb302d94235d56357dff10e4d1c0071dd4d14d08e3608c28e",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes1_parent1_p0\\result.json": "5fb59f2f3d64c9605182b5a04c40126f43da7a49494e532f9905776e692d8d54",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes1_parent1_p0\\protocol.json": "09bf71ecc6b79c3a535a24e86bb8a48217ca1429d80f421a608c55b37e2c53d9",
+    "runs\\public_stock_residual_v2\\preview1_choice1_stakes1_parent1\\policy_00128.pt": "206e4750109d8de4373accc8428acda012fce3b10bd46dedab88f0fb3c6d6f60",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes1_parent1_p0\\trajectories_00000.npz": "9f5a6937974aad24ab8415d320bfd6beb1900ac2da180cb85a2782f8159bf3bd",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes1_parent1_p8\\result.json": "8010410348283100828e1d1aa1df5bda2be3bc19d6c599971c804dbe6e018693",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes1_parent1_p8\\protocol.json": "feee2d4130bb480a11a968b6368c6a2bb2f9e104bea34f78bf29e9a672980039",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes1_parent1_p8\\trajectories_00000.npz": "dea8f4d8de5f7020f42ef162e100b55b94043f3cd2963e4773b19b8384c5ba7a",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes1_parent1_p32\\result.json": "4fe6ed34f7768c6f5c83ad4be8d21c2d12de2acc6c18fc112b15804267c88221",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes1_parent1_p32\\protocol.json": "5f27436147ebe9f9d42b9afc761846e46e1720eda8ec366c59b182544ed45444",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes1_parent1_p32\\trajectories_00000.npz": "756c6e963ef38feef898cf218a7f36c15418234d1544ccc099153b219fbd393c",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes1_parent1_p128\\result.json": "a61bada825a867637d1181f89677d11345ae4e85b699fdaa3b0fc3da628c65ea",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes1_parent1_p128\\protocol.json": "4da81947088fd753e048d4fee8c1c54394c347d90dd121c17d7d0d88538eba3a",
+    "runs\\public_stock_rounds_v3\\screen_preview1_choice1_stakes1_parent1_p128\\trajectories_00000.npz": "a791f90593de9c6d09893d23d72899b2f584d8906697b1fcc6d63d731882b258",
+    "runs\\public_stock_rounds_confirmation_v3\\protocol.json": "025e0b5c4447a7b932ee4b0721f314d458ed22d60ce1a6e87cbb038881858c5d",
+    "runs\\public_stock_rounds_confirmation_v3\\preview0_choice0_stakes0_parent0_p0\\result.json": "839166c600e552d4dd846c815163b05c6161cad6b695800b85e95b8aa181a1b5",
+    "runs\\public_stock_rounds_confirmation_v3\\preview0_choice0_stakes0_parent0_p0\\protocol.json": "45dfb89fbf71ed1a466d90f31d98e67037bfaea27ff7898172f95e785c6db0e9",
+    "runs\\public_stock_rounds_confirmation_v3\\preview0_choice0_stakes0_parent0_p0\\trajectories_00000.npz": "d4abe62d835b3812a59a5718d5b0a03ea11a601c75d3cc11d3c72fcca18ac015",
+    "runs\\public_stock_rounds_confirmation_v3\\preview0_choice0_stakes0_parent0_p0\\trajectories_00032.npz": "322210a0c5fed26133ba7632ccbe6f9a14a42786811e88b6688fe6d9b58365ef",
+    "runs\\public_stock_rounds_confirmation_v3\\preview0_choice0_stakes0_parent0_p0\\trajectories_00064.npz": "d2958efe3b7e5341a377279e25d28b3389f7eeb592f480e5c412ae3c748a8ec6",
+    "runs\\public_stock_rounds_confirmation_v3\\preview0_choice0_stakes0_parent0_p0\\trajectories_00096.npz": "4e8d3153bc9f950f6f696e5d188f79afc20fc667267410bd2423d00776396450",
+    "runs\\public_stock_rounds_confirmation_v3\\preview0_choice0_stakes0_parent0_p8\\result.json": "f61bfab673aaa0ae936d371516cea79a48235ddef0796360da0dcfefceeaeb17",
+    "runs\\public_stock_rounds_confirmation_v3\\preview0_choice0_stakes0_parent0_p8\\protocol.json": "f3ca3fdadf771cd081d84e0b9a078f9af99a05d7d200b890d4f1702e4161fd01",
+    "runs\\public_stock_rounds_confirmation_v3\\preview0_choice0_stakes0_parent0_p8\\trajectories_00000.npz": "1334fa6e38fc6fe0ba4a2123a1c98c5d42d7547d972defbeaaa3e0476843d341",
+    "runs\\public_stock_rounds_confirmation_v3\\preview0_choice0_stakes0_parent0_p8\\trajectories_00032.npz": "7d5e20569b16c787a062f933d3d5aea6efd5f0a7b591f934464d69fe843ad302",
+    "runs\\public_stock_rounds_confirmation_v3\\preview0_choice0_stakes0_parent0_p8\\trajectories_00064.npz": "198f97e76b4011e2c073114a1a0a13e16760f8c6664978865b3d493b7c051970",
+    "runs\\public_stock_rounds_confirmation_v3\\preview0_choice0_stakes0_parent0_p8\\trajectories_00096.npz": "d6a6873b2902fd269e496a80d453a308bd9c02d51ce77f22ff8286890a5aff00",
+    "runs\\public_stock_rounds_confirmation_v3\\preview0_choice0_stakes0_parent0_p128\\result.json": "ceb57682ee107c982086d9417da2ed52de4da832180cea7272ad47276b777884",
+    "runs\\public_stock_rounds_confirmation_v3\\preview0_choice0_stakes0_parent0_p128\\protocol.json": "8ff898d4d2f4d122454eb9b1415604b844a1d6f8a000360fd5b482a138387ccf",
+    "runs\\public_stock_rounds_confirmation_v3\\preview0_choice0_stakes0_parent0_p128\\trajectories_00000.npz": "1755f58bf184dcbeeb5d06f7375231041d0027012656f4d9185a423b7916c4b5",
+    "runs\\public_stock_rounds_confirmation_v3\\preview0_choice0_stakes0_parent0_p128\\trajectories_00032.npz": "a4467bfb1a65b4853f4581073b6ba0a83d33d4d2388962a84ece19772c88a199",
+    "runs\\public_stock_rounds_confirmation_v3\\preview0_choice0_stakes0_parent0_p128\\trajectories_00064.npz": "580d3e2e8c369487d91f648085cc6859713cbcb1abd114aa622504420fa28f78",
+    "runs\\public_stock_rounds_confirmation_v3\\preview0_choice0_stakes0_parent0_p128\\trajectories_00096.npz": "604aa667f116949371b0aa0cf9b519f461f2dfb71a33ceade6358baeb7add424",
+    "runs\\public_stock_rounds_confirmation_v3\\preview0_choice0_stakes0_parent1_p0\\result.json": "e25c2d38a2679c92a7925e175fe673fe11b3ffa612c2dbe576130de72a23e4ab",
+    "runs\\public_stock_rounds_confirmation_v3\\preview0_choice0_stakes0_parent1_p0\\protocol.json": "c7319eca27c5356ac66d7bfbbffd604830dea8e797efaacc4305e488fc8964e0",
+    "runs\\public_stock_rounds_confirmation_v3\\preview0_choice0_stakes0_parent1_p0\\trajectories_00000.npz": "b03965252f7155d40a628a334429240be2deb1acbb45088e67797fa4c56601da",
+    "runs\\public_stock_rounds_confirmation_v3\\preview0_choice0_stakes0_parent1_p0\\trajectories_00032.npz": "a5fcc7dfd1f42039351fbeca4d4f3b4bda3b90e7147468565b69b25bcb0689b5",
+    "runs\\public_stock_rounds_confirmation_v3\\preview0_choice0_stakes0_parent1_p0\\trajectories_00064.npz": "4305845deb1ac77a38caaeb0478f0488e5d2b3f375cca18572629b1d37add6b6",
+    "runs\\public_stock_rounds_confirmation_v3\\preview0_choice0_stakes0_parent1_p0\\trajectories_00096.npz": "1d4e95965cb8578cc814d2fea7713ee52a9087a14b7866cb592ba7932bd60aa6",
+    "runs\\public_stock_rounds_confirmation_v3\\preview0_choice0_stakes0_parent1_p8\\result.json": "c86ea0c118d1273c38a17349526dad95128de6c41384ef9ff326513035dd4f87",
+    "runs\\public_stock_rounds_confirmation_v3\\preview0_choice0_stakes0_parent1_p8\\protocol.json": "c5a0f4648d6f96254aa99f47d54495435c96a0c5ec008902ab1d58db78a912e7",
+    "runs\\public_stock_rounds_confirmation_v3\\preview0_choice0_stakes0_parent1_p8\\trajectories_00000.npz": "ede86fc738eed54fe5a73ecf925417e4dfe4c7e55fd75469f48107858575639d",
+    "runs\\public_stock_rounds_confirmation_v3\\preview0_choice0_stakes0_parent1_p8\\trajectories_00032.npz": "f30c8112774f5f2e03f9912bb2c3b46412c7c06df795db9fabef689d78f26ca1",
+    "runs\\public_stock_rounds_confirmation_v3\\preview0_choice0_stakes0_parent1_p8\\trajectories_00064.npz": "33d25ea61357a52dc5a337dd0fde1d7dffc5fd5bf998902b7c60160ac1de7a5c",
+    "runs\\public_stock_rounds_confirmation_v3\\preview0_choice0_stakes0_parent1_p8\\trajectories_00096.npz": "b18d3a69ea3cff48971458096b6980e0a654c668a6b65524c4186d66a65a3d66",
+    "runs\\public_stock_rounds_confirmation_v3\\preview0_choice0_stakes0_parent1_p128\\result.json": "8bede53c6de32de8af624d30a0a23c6acfb831c593068b138cd93757c1585e7a",
+    "runs\\public_stock_rounds_confirmation_v3\\preview0_choice0_stakes0_parent1_p128\\protocol.json": "ac86f658d65c41bd58d997de94070bb0735c973bef1bf99bcbf84654d97e372c",
+    "runs\\public_stock_rounds_confirmation_v3\\preview0_choice0_stakes0_parent1_p128\\trajectories_00000.npz": "53567f307c385d0add83700ffb3e8bf2bdf88e709e7abb590be705b9e900b645",
+    "runs\\public_stock_rounds_confirmation_v3\\preview0_choice0_stakes0_parent1_p128\\trajectories_00032.npz": "036aa0b6388b4141cda31da3760579a0d1365281b943301861509e4bf5fb85dc",
+    "runs\\public_stock_rounds_confirmation_v3\\preview0_choice0_stakes0_parent1_p128\\trajectories_00064.npz": "225b5825371b79e4d1267c7a92b651f868dbc062394e5b6c270509ef9323a43c",
+    "runs\\public_stock_rounds_confirmation_v3\\preview0_choice0_stakes0_parent1_p128\\trajectories_00096.npz": "b4c35e7598944510f8d84dd8580a59c5053ba65de95e7534916bafd4889714e5",
+    "runs\\public_stock_rounds_confirmation_v3\\preview1_choice1_stakes0_parent0_p0\\result.json": "049cb25d1a109e42fe4636632b78f8af985289ed8cd400d50dc96784029f9fba",
+    "runs\\public_stock_rounds_confirmation_v3\\preview1_choice1_stakes0_parent0_p0\\protocol.json": "25910e9f6d59cad555de8151bee25cbedefb2c524a910262d6fc56e3815acb9b",
+    "runs\\public_stock_rounds_confirmation_v3\\preview1_choice1_stakes0_parent0_p0\\trajectories_00000.npz": "b1d24e9e849804bc5f723b98e57d02635cc0656726ff19cc22d1eb954cdf62a0",
+    "runs\\public_stock_rounds_confirmation_v3\\preview1_choice1_stakes0_parent0_p0\\trajectories_00032.npz": "18b26203808a4ac6b0c7859c49cd94bf8890678e73542a1e5b2a798de7aeec7b",
+    "runs\\public_stock_rounds_confirmation_v3\\preview1_choice1_stakes0_parent0_p0\\trajectories_00064.npz": "f316a285ce1d40d982a1cd7e6947ac6539ea506e946cf4a23792960753cdd673",
+    "runs\\public_stock_rounds_confirmation_v3\\preview1_choice1_stakes0_parent0_p0\\trajectories_00096.npz": "606247e26d7b36e7e5ab9f0cd3b84dfe9b5ecbe269dc90bf80f57f39dcdfc2f6",
+    "runs\\public_stock_rounds_confirmation_v3\\preview1_choice1_stakes0_parent0_p8\\result.json": "d6a1606d61f5a3ba7f74b1c27436c7cf66227ba94c9e63d3357e0604bf31ce4e",
+    "runs\\public_stock_rounds_confirmation_v3\\preview1_choice1_stakes0_parent0_p8\\protocol.json": "efd9f3d35eb189a5da5cc2869802f83c9815c8fe4907839d4d42067717f0029f",
+    "runs\\public_stock_rounds_confirmation_v3\\preview1_choice1_stakes0_parent0_p8\\trajectories_00000.npz": "30d8fe12e420c42b3d10d5c6d4c6153beb5788443d161a649b49cd2fb14ad7ab",
+    "runs\\public_stock_rounds_confirmation_v3\\preview1_choice1_stakes0_parent0_p8\\trajectories_00032.npz": "10761fffd8b4cc4befe643858c08df1d0968a518d4f06d100db6b2b478c59bd0",
+    "runs\\public_stock_rounds_confirmation_v3\\preview1_choice1_stakes0_parent0_p8\\trajectories_00064.npz": "53be8a2ac461bad53f890f28323231d2e71b7014cb31f3b34d7c385c8a4d3d0e",
+    "runs\\public_stock_rounds_confirmation_v3\\preview1_choice1_stakes0_parent0_p8\\trajectories_00096.npz": "a4e6a4db7cb1e35ed03ca243092b9c05b2a734e7d2df9695f902e6ea0cca3711",
+    "runs\\public_stock_rounds_confirmation_v3\\preview1_choice1_stakes0_parent0_p128\\result.json": "876f3b9d97ff8ad85b10c25786f04452e74cec721df0f5faf490edce06005f26",
+    "runs\\public_stock_rounds_confirmation_v3\\preview1_choice1_stakes0_parent0_p128\\protocol.json": "f1cb6bfdfcf7bd0472f31a76229e320559297a8099c00201b072fe1e8ebedccf",
+    "runs\\public_stock_rounds_confirmation_v3\\preview1_choice1_stakes0_parent0_p128\\trajectories_00000.npz": "46636cd7cbcc50e06a8c1caaef2b11184a38360af0a6572737b5e32151fdb2c3",
+    "runs\\public_stock_rounds_confirmation_v3\\preview1_choice1_stakes0_parent0_p128\\trajectories_00032.npz": "975da9ddc8516fc29bdd37cd653a2fa5627f0cc71f449d673c08515d85df1fad",
+    "runs\\public_stock_rounds_confirmation_v3\\preview1_choice1_stakes0_parent0_p128\\trajectories_00064.npz": "f00f5dec2c71d11ae50d65a0896a4f170c84031811f21923bf95c1bcb577e382",
+    "runs\\public_stock_rounds_confirmation_v3\\preview1_choice1_stakes0_parent0_p128\\trajectories_00096.npz": "e0746a0fa9f79fa90ea6af4896b80946516895b575fb3659b99eca6f0c6c45dc",
+    "runs\\public_stock_rounds_confirmation_v3\\preview1_choice1_stakes0_parent1_p0\\result.json": "d1a1aa881cc8e85b0ef7aa8923bc4ce9436663a80b5e446ce13d042184cb052a",
+    "runs\\public_stock_rounds_confirmation_v3\\preview1_choice1_stakes0_parent1_p0\\protocol.json": "723d3359890b730c7116019a2b1122e9735a112025abad23f67448bbce4f5faa",
+    "runs\\public_stock_rounds_confirmation_v3\\preview1_choice1_stakes0_parent1_p0\\trajectories_00000.npz": "533b90a426ec2ddcd3511e9902d8f1088975a0d777985b0367abc5affaac186e",
+    "runs\\public_stock_rounds_confirmation_v3\\preview1_choice1_stakes0_parent1_p0\\trajectories_00032.npz": "e28aadf17ab3b22ac5e765c083617246e1b06318747bef0ff2850c8fa6eb13e3",
+    "runs\\public_stock_rounds_confirmation_v3\\preview1_choice1_stakes0_parent1_p0\\trajectories_00064.npz": "bc0b20da0e3db3e660074bdfe8f5a78c12e399c395baeecd9edf57576ff7ce55",
+    "runs\\public_stock_rounds_confirmation_v3\\preview1_choice1_stakes0_parent1_p0\\trajectories_00096.npz": "0f4f1e33639185070eb08d5533f02386e4ad3672232025218095d38cfc5ad751",
+    "runs\\public_stock_rounds_confirmation_v3\\preview1_choice1_stakes0_parent1_p8\\result.json": "da1b77e6ff7b534d1e5b110ecd3d4cfb272ab9ba0268292277b1f8401cef4d8e",
+    "runs\\public_stock_rounds_confirmation_v3\\preview1_choice1_stakes0_parent1_p8\\protocol.json": "653d6e14aa6933a25b18256b58115ad842bc0dfd646059c3c32409ddef850b69",
+    "runs\\public_stock_rounds_confirmation_v3\\preview1_choice1_stakes0_parent1_p8\\trajectories_00000.npz": "7df1dca8270add26a4641c2bd3141a6cd5b11019141a97083895e1c56d79cdcb",
+    "runs\\public_stock_rounds_confirmation_v3\\preview1_choice1_stakes0_parent1_p8\\trajectories_00032.npz": "40249e716f3babc18f894b5e9c253db3621c7d42e5c53c9b12bdcff74de73926",
+    "runs\\public_stock_rounds_confirmation_v3\\preview1_choice1_stakes0_parent1_p8\\trajectories_00064.npz": "933e184c2ae1e5140b621910112e630807c01706e38d5b6af17071bccfde85ad",
+    "runs\\public_stock_rounds_confirmation_v3\\preview1_choice1_stakes0_parent1_p8\\trajectories_00096.npz": "fc478ecb3bffa3cad7871f7aa2b8566e505d2f9f64fffbd6b22e6a512fc44ee7",
+    "runs\\public_stock_rounds_confirmation_v3\\preview1_choice1_stakes0_parent1_p128\\result.json": "d3e9877bb3ce5ef5e15e01112d3eb47f2771744a3a487f4ec837193bde125387",
+    "runs\\public_stock_rounds_confirmation_v3\\preview1_choice1_stakes0_parent1_p128\\protocol.json": "08e47041b3baaf944ea82254468671cc99eaee5ac9097619b1e9630494441028",
+    "runs\\public_stock_rounds_confirmation_v3\\preview1_choice1_stakes0_parent1_p128\\trajectories_00000.npz": "e827d4a459ebc65ee2850c4dd7b8b1443ce18d131e1e23161cc416e659eca9d2",
+    "runs\\public_stock_rounds_confirmation_v3\\preview1_choice1_stakes0_parent1_p128\\trajectories_00032.npz": "d332b8ae54992f5f73206522d2b5742b666848578f1a99da255503c715352286",
+    "runs\\public_stock_rounds_confirmation_v3\\preview1_choice1_stakes0_parent1_p128\\trajectories_00064.npz": "a72a3b8a75a81e16d89515d50e85e059758a8d27e858a47de4374390a1885a2d",
+    "runs\\public_stock_rounds_confirmation_v3\\preview1_choice1_stakes0_parent1_p128\\trajectories_00096.npz": "48a8838e2a7d651eed18f4ec766d84bd09f97177fb772bcd5df43a154ac7e2e3",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\scripts\\export_public_stock_rounds.py": "92cca04062e5a2d26681cbb1e2a7aff36b44710861663325fd92f71ff94d0a57",
+    "scripts/export_public_stock_results.py": "6389ee1891f71d090e5223acc326a77a5e54e596d94bd0784e4a87b8c73b867f"
+  }
+}
