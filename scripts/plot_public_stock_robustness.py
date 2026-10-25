@@ -87,7 +87,8 @@ def render(data, out):
     ax.set_xticks(positions, labels, fontsize=10)
     ax.set_ylabel("Observed work deviation from target (%)")
     ax.set_title("Held-out cost admissibility: every endpoint must be within 10%")
-    ax.legend(frameon=False, ncols=3, fontsize=10, loc="upper left")
+    fig.legend(*ax.get_legend_handles_labels(), frameon=False, ncols=3, fontsize=10,
+               loc="outside lower center")
     fig.savefig(out / "public_stock_robustness_costs.pdf")
     fig.savefig(out / "public_stock_robustness_costs.png", dpi=180)
     plt.close(fig)

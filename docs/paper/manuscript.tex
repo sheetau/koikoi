@@ -39,9 +39,9 @@ percentage points. The extension improves 26 source beliefs; realized scores
 are unchanged and actual search work increases. The result establishes a
 way to retain useful policy improvements under computation limits, with
 coverage and efficiency determining its practical impact. Separately,
-rule-specific adaptations with public stock confirm 30.91--35.16-point
-search gains against their own no-search actors; these sampled-search results
-identify a complementary route to greater computation value.
+rule-specific adaptations with public stock confirm large sampled-search gains
+against both their own and changed no-search opponents, identifying a
+complementary route to greater computation value.
 \end{abstract}
 
 \section{Introduction}
@@ -270,24 +270,24 @@ policies. This special-case saving does not establish general latency;
 a separate four-case receipt-reuse comparison shows no speedup.
 
 \subsection{Rules and the value of computation}
-A nine-profile frozen-transfer study selects combined winner-takes-yaku
-scoring, but neither independent confirmation passes its joint criterion
-(Appendix~\ref{app:rule-transfer}). A separate factorial study therefore
-adapts both parent policies to eight games combining public stock preview,
-a choice between two stock cards, and amplified winner-takes-yaku scoring.
+A nine-profile frozen-transfer study fails both independent confirmations
+(Appendix~\ref{app:rule-transfer}). A separate factorial study adapts both
+parents to eight games combining public stock preview, choice between two
+stock cards, and amplified winner-takes-yaku scoring.
 
-Both selected rules pass their independently reserved confirmation criteria.
-With a 32-decision rollout, all three factors yield search gains of
-32.47/30.91 percentage points over each rule's no-search actor. Completing
-the current round and reusing public continuation values selects preview
-plus choice, with 35.16-point gains for both parents. In that protocol,
-increasing eight to 128 sampled worlds adds 22.85/17.77 points on held-out
-deals. These results identify a reproducible regime where additional
-computation has substantial value (Appendix~\ref{app:public-stock}).
-They do not inherit the main method's exact guarantee, compare directly
-with the historical 2023 opponent, or establish superiority at matched cost.
-The two finalists' ranking and robustness to stronger policies and changed
-opponents remain open.
+Both selected rules pass independent confirmations against their own
+no-search actors. At 32-decision rollouts, all three yield 32.47/30.91-point
+search gains. Round completion with public continuation values selects
+preview plus choice, with 35.16-point gains for both parents; increasing
+eight to 128 worlds adds 22.85/17.77 points (Appendix~\ref{app:public-stock}).
+
+A separate changed-opponent study confirms the all-three rule's computation
+benefit: high-budget gains are 26.95/28.71 points, including 14.84/13.67 points
+over the lower budget. The finalist ranking remains unresolved, and one of
+twelve work checks misses the fixed tolerance, so matched-work superiority
+is unestablished (Appendix~\ref{app:public-stock-robustness}). These results
+do not inherit the exact guarantee or compare directly with the historical
+2023 opponent. Robustness to stronger adapted policies remains to be tested.
 
 \subsection{Transfer to other imperfect-information games}
 The partition-and-compare construction in Equation~\ref{eq:frontier-gain}
@@ -316,8 +316,8 @@ for both adapted parents, although their magnitude and coverage remain small.
 The public-stock studies provide a complementary empirical result:
 rule-specific adaptation can make additional sampled computation substantially
 more valuable. This does not strengthen the exact guarantee or establish
-maximal playing strength. The next tests address changed opponents, stronger
-adaptation and matched work budgets.
+maximal playing strength. Changed-opponent gains persist; stronger adapted
+policies and matched work budgets remain tests of their practical scope.
 
 \clearpage
 \appendix
@@ -349,7 +349,7 @@ Prospective endgame planning & \path{prospective_incumbent_evidence.json} \\
 Uniform-deal expected improvement & \path{uniform_results_evidence.json} \\
 Frontier development and integration & \path{frontier_development_evidence.json} \\
 Frontier incremental improvement & \path{frontier_increment_results_evidence.json} \\
-Public-stock rule adaptation and search & \path{public_stock_v2_evidence.json}, \path{public_stock_v3_evidence.json} \\
+Public-stock rule adaptation and search & \path{public_stock_v2_evidence.json}, \path{public_stock_v3_evidence.json}, \path{public_stock_v4_evidence.json} \\
 \bottomrule
 \end{tabular}
 \caption{Evidence map. Each ledger identifies the underlying inputs and outputs;
@@ -1250,6 +1250,7 @@ paired win-score changes in percentage points, with 95\% intervals.}
 \input{rule_transfer_appendix.tex}
 \FloatBarrier
 \input{public_stock_appendix.tex}
+\input{public_stock_robustness_appendix.tex}
 \FloatBarrier
 \begingroup
 \raggedright\small

@@ -1,3 +1,28 @@
+25 October 2026: changed-opponent robustness complete
+====================================================
+
+The all-three public-stock rule passes all six prespecified changed-opponent
+score comparisons, with high-budget search gains of 26.95/28.71 percentage
+points. The finalist ranking remains unresolved. Eleven of twelve work
+checks meet tolerance; the remaining -10.72% deviation makes the full
+matched-work criterion fail. All fourteen intervals and twelve costs are
+retained in the manuscript and ``../PUBLIC_STOCK_RESULTS.rst``.
+
+The reviewed manuscript is
+``../../output/pdf/public_stock_robustness_revision/manuscript.pdf``:
+61 pages, 10 main pages, 50 references, 35 embedded fonts, SHA256
+``467efcfa9906ba5ee3dd8246f868cf986a77ee800c8abe4a8b2564263fd70729``.
+All pages were checked in contact sheets; pages 1, 9-11 and 51-57 were
+checked at full size. There are no TeX box/reference/glyph warnings or
+out-of-page text spans. Results, sources, figures and visual QA are bound in
+``generated/public_stock_robustness_revision_evidence.json``. Earlier reviewed
+PDFs and their evidence snapshots are preserved.
+
+The broader goal remains active. The conditional longer-adaptation study
+``../PUBLIC_STOCK_ADAPTATION_V5.rst`` is running; training alone is not
+strength evidence. It must qualify improved policies before a separate
+new-policy search study. V4's failed work condition remains unresolved.
+
 25 October 2026: public-stock independent confirmations complete
 ==============================================================
 

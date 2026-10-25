@@ -1,0 +1,15 @@
+{
+  "inputs": {
+    "docs/paper/generated/public_stock_v4_evidence.json": "694b550472811cf3f1bb5fc1511eec01f5771420795ebd132d4b4d9d493e089e",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\scripts\\plot_public_stock_robustness.py": "a77787862b3f4eb78fefd567340e7a6734a5b1535e9f98a0dd9043b8590fa28f"
+  },
+  "outputs": {
+    "docs/paper/generated/public_stock_v4/public_stock_robustness_comparisons.tex": "2b8e1fab701a0459bd81b0886bf2c48cd5558acac946ef93e6e5ba573d644a93",
+    "docs/paper/generated/public_stock_v4/public_stock_robustness_costs.pdf": "6c5f9e0cb879c6f0568d66553e8ef2584c92ee0165430ab1d9ade938d296be59",
+    "docs/paper/generated/public_stock_v4/public_stock_robustness_costs.png": "a794d61afd92f0d87b8414f871c76f129ea16a19e9c7946f58b657944eae34b9",
+    "docs/paper/generated/public_stock_v4/public_stock_robustness_costs.tex": "bd48f4ce7dd8fb8e61310911ec7af1e083a9adac670328cc2756f233d5b7f792",
+    "docs/paper/generated/public_stock_v4/public_stock_robustness_work.pdf": "e7307ecdd67de6dece230a27de27674dc15034f9e773753f9a1a612370061c51",
+    "docs/paper/generated/public_stock_v4/public_stock_robustness_work.png": "16d468e876076e89180f8014a25f923b118c149fa52d5adafff698555e7a15c2"
+  },
+  "scope": "Means at observed work; complete fourteen simultaneous paired intervals and twelve work-admissibility endpoints. No new strength evaluation or statistical selection."
+}

@@ -237,16 +237,85 @@ familywise claim. The selected-rule curves at 0/8/128 worlds are
 The full evidence is ``docs/paper/generated/public_stock_v3_evidence.json``.
 Both protocols retain their own cohorts and inference; they are not pooled.
 
-Follow-up questions after confirmation
--------------------------------------
+V4 changed opponents and work calibration: complete
+--------------------------------------------------
 
-Both confirmations establish large additional-computation gains in the fixed
-adapted-policy regime. They leave opponent generalization, adaptation maturity,
-matched computation budgets and the ranking of the two leading rules unresolved.
-The next study should retain both finalists and control, use new deal blocks,
-measure a changed opponent and fixed physical-work allowances, and test longer
-adaptation only after measuring whether the resulting policies are stronger.
-New conditions must not extend or relabel either completed confirmation.
+The fixed protocol PUBLIC_STOCK_STUDY_V4.rst retains control, preview plus
+choice, and all three, with both parents. Each actual opponent is the other
+parent's retained adapted actor under the same rule. Rollouts and continuation
+tables retain the searching actor's own policy; no opponent oracle is supplied.
+This study adds no training or table preparation.
+
+Thirty-two separate duplicate streams at 1200000000, both seats, calibrate
+work using 32 worlds per action: 384 matches, 2,731 rounds, 61,213 scored and
+Python-replayed decisions, 3,664,640 rollouts, 55,378,349 transitions and
+30,237 roots. Only work selects the frozen low/high counts for targets of
+60,000/240,000 transitions per match: control 24/95 and 23/94; preview plus
+choice 10/40 and 10/38; all three 12/49 and 13/50 (parents 0/1).
+Counts use the fixed half-up rounding and [2,256] clamp. Calibration identity:
+``49e45bc4af0657ac2f5c3a956c37cdb94d5192a8e5cf6ada58042eb478221528``.
+
+The eighteen evaluation endpoints use 128 new duplicate streams at
+1210000000, both seats and zero/low/high budgets: 4,608 matches, 32,587 rounds,
+725,475 scored decisions, 32,934,469 rollouts, 449,378,614 transitions and
+235,771 roots. Every scored decision is Python-replayed. Independent reduction
+reproduces scores, margins, rounds and decisions; internal rollout work is
+recorded rather than independently replayed. The 128 streams are the
+independent units, not the 4,608 matches.
+
+Win-score curves (%) at zero/low/high, with ties worth one half:
+
+================  ===========================  ===========================
+Rule              Parent 0                     Parent 1
+================  ===========================  ===========================
+Control           47.4609 / 50.0000 / 49.2188  52.5391 / 51.5625 / 54.2969
+Preview + choice  48.0469 / 58.7891 / 73.4375  51.9531 / 69.1406 / 71.8750
+All three         51.9531 / 64.0625 / 78.9063  48.0469 / 63.0859 / 76.7578
+================  ===========================  ===========================
+
+Fourteen fixed comparisons use 20,000 paired-stream bootstrap replicates
+(seed 1093), two-sided Bonferroni quantiles 0.05/28 and 1-0.05/28, for a
+nominal 95% familywise target within V4 only. Each finalist must have positive
+lower bounds for high-minus-zero, excess over control's gain, and high-minus-low
+for both parents. All three passes all six score inequalities: high-minus-zero
+gains are 26.9531/28.7109 points, excess gains 25.1953/26.9531 points, and
+high-minus-low gains 14.8438/13.6719 points (simultaneous lower bounds
+6.2500/5.0220 for the latter). Preview plus choice has positive gain and excess
+bounds for both parents, but parent 1's high-minus-low gain is 2.7344 points
+with interval [-6.0547,11.5234], so its full six-inequality criterion fails.
+Neither paired finalist-difference interval excludes zero; ranking is unresolved.
+All fourteen intervals are retained in the evidence and manuscript table.
+
+Eleven of twelve work checks fall within the registered +/-10% tolerance.
+All-three parent 0 high uses 214,281.8086 transitions per match: -10.7159%
+from its 240,000 target. The full matched-work criterion fails, and no
+matched-work replication or ranking is claimed. Actual work and every
+deviation remain reported; the closed cohort is neither retuned nor extended.
+These are expected-work targets, not hard per-match deadlines or equal wall
+time. Neural inference, bookkeeping and preparation are excluded from the
+physical transition count.
+
+Independent evidence is ``docs/paper/generated/public_stock_v4_evidence.json``
+(226 input/source bindings; SHA256
+``694b550472811cf3f1bb5fc1511eec01f5771420795ebd132d4b4d9d493e089e``).
+The runner's finished receipt binds that evidence. All curves, fourteen
+intervals and twelve cost checks are rendered under
+``docs/paper/generated/public_stock_v4``. Figure generation checks the complete
+evidence bindings; it does not generate new strength measurements.
+
+Follow-up after changed-opponent evaluation
+------------------------------------------
+
+All three's score gate permits the predeclared V5A longer-adaptation study
+(PUBLIC_STOCK_ADAPTATION_V5.rst); it does not repair V4's work failure.
+V5A is now running for all six retained systems. Each receives 384 additional
+updates from the retained 128-update weights with fresh Adam, then a separate
+zero-search qualification against its own and the other retained parent.
+Training completion alone is not strength evidence. Control and at least one
+finalist must qualify before a new-policy search study can begin. New policies
+require their own continuation tables and new evaluation streams. The two
+finalists' ranking, stronger-policy search robustness and admissible work
+matching remain unresolved; no closed study is extended or relabeled.
 
 Interpretation limits fixed before results
 -----------------------------------------
