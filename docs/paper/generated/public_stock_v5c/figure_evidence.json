@@ -1,0 +1,16 @@
+{
+  "inputs": {
+    "docs/paper/generated/public_stock_v5c_evidence.json": "f1e1f4e50e557f74f98829c9ca9410490e9aad2df1f8a332cd99c56a01ca3614",
+    "C:\\Users\\sheeta\\Documents\\sheeta_vault\\myDownloads\\Codes\\koikoi\\scripts\\plot_public_stock_mature_variants.py": "d63ea303edaef0547659ee0d1e641f3cc3f2ae21a3dfe1cc7a63405f77013b70",
+    "scripts/plot_public_stock_robustness.py": "a77787862b3f4eb78fefd567340e7a6734a5b1535e9f98a0dd9043b8590fa28f"
+  },
+  "outputs": {
+    "docs/paper/generated/public_stock_v5c/public_stock_robustness_comparisons.tex": "9ed84393b7019433f9a487d8b1bea44d2a7c7ed71e982ff1cbbca94444786323",
+    "docs/paper/generated/public_stock_v5c/public_stock_robustness_costs.pdf": "25774ef21c23c04b6743382a250569056e94933555dfb651e9bddb06f6a60b05",
+    "docs/paper/generated/public_stock_v5c/public_stock_robustness_costs.png": "3a9e39912c5ce268f6be4380f17731d1a1bc1b35eb22bbea949f57edc05198aa",
+    "docs/paper/generated/public_stock_v5c/public_stock_robustness_costs.tex": "90852fa883ae5fb414fa05f1362faf6a1c2e61236b72fdbd95db9b1a629a7e2e",
+    "docs/paper/generated/public_stock_v5c/public_stock_robustness_work.pdf": "4f90cac5abb465027b168e2585f4fe974f504cd17596fa8e3bb22a41e4aebbe3",
+    "docs/paper/generated/public_stock_v5c/public_stock_robustness_work.png": "3c4cdaa0d97ca46317787591d4f09960f5de619413a8ad508bb2659ed84ee2c3"
+  },
+  "scope": "All fourteen simultaneous comparisons and twelve observed-work checks. Qualified 512-update finalist policies, retained 128-update control; unequal adaptation budgets. Reuses the reviewed V4 layout without modifying V4 artifacts. No new strength evaluation."
+}

@@ -17,7 +17,7 @@
 \title{Verified Policy Improvement from Public Play\\
 in Koi-Koi}
 \author{}
-\date{25 October 2026}
+\date{26 October 2026}
 \begin{document}
 \maketitle
 \begin{abstract}
@@ -39,9 +39,9 @@ percentage points. The extension improves 26 source beliefs; realized scores
 are unchanged and actual search work increases. The result establishes a
 way to retain useful policy improvements under computation limits, with
 coverage and efficiency determining its practical impact. Separately,
-rule-specific adaptations with public stock confirm large sampled-search gains
-against both their own and changed no-search opponents, identifying a
-complementary route to greater computation value.
+public-stock variants retain 25.68--28.42-point sampled-search gains after
+measured policy improvement, with every held-out work target met. This
+greater computation value complements, but does not inherit, the exact guarantee.
 \end{abstract}
 
 \section{Introduction}
@@ -271,33 +271,35 @@ a separate four-case receipt-reuse comparison shows no speedup.
 
 \subsection{Rules and the value of computation}
 A nine-profile frozen-transfer study fails both independent confirmations
-(Appendix~\ref{app:rule-transfer}). A separate factorial study adapts both
-parents to eight games combining public stock preview, choice between two
-stock cards, and amplified winner-takes-yaku scoring.
+(Appendix~\ref{app:rule-transfer}). A separate factorial adapts both parents
+to eight games combining public stock preview, choice between two stock
+cards and amplified winner-takes-yaku scoring. Both selected combinations
+pass independent search confirmations (Appendix~\ref{app:public-stock}).
+A changed-opponent study retains large gains but misses one work target
+(Appendix~\ref{app:public-stock-robustness}).
 
-Both selected rules pass independent confirmations against their own
-no-search actors. At 32-decision rollouts, all three yield 32.47/30.91-point
-search gains. Round completion with public continuation values selects
-preview plus choice, with 35.16-point gains for both parents; increasing
-eight to 128 worlds adds 22.85/17.77 points (Appendix~\ref{app:public-stock}).
+Further adaptation qualifies stronger finalist actors, but not control
+(Appendix~\ref{app:public-stock-adaptation}). A separately specified study
+therefore retains original control and tests the improved finalists against
+each other parent. Preview plus choice gains 25.68/26.76 points over no search;
+all three gains 25.78/28.42. Increasing low to high work adds 9.86--11.91 points,
+with positive simultaneous lower bounds in every case. Both finalists pass
+all six score criteria and all twelve work targets meet the fixed 10\%
+tolerance (Appendix~\ref{app:public-stock-mature-variants}).
 
-A separate changed-opponent study confirms the all-three rule's computation
-benefit: high-budget gains are 26.95/28.71 points, including 14.84/13.67 points
-over the lower budget. The finalist ranking remains unresolved, and one of
-twelve work checks misses the fixed tolerance, so matched-work superiority
-is unestablished (Appendix~\ref{app:public-stock-robustness}). These gains
-neither inherit the exact guarantee nor compare with the 2023 opponent.
-Longer adaptation qualifies stronger finalist actors, but not control;
-stronger-actor search requires separate evaluation (Appendix~\ref{app:public-stock-adaptation}).
+Thus substantial computation value survives measured policy improvement.
+The finalist ranking remains unresolved. Unequal adaptation budgets preclude
+a rule-only training effect; transition matching does not equalize wall time.
+These empirical gains neither inherit the exact guarantee nor compare
+directly with the historical 2023 opponent.
 
 \subsection{Transfer to other imperfect-information games}
 The partition-and-compare construction in Equation~\ref{eq:frontier-gain}
 requires a specified conditional opponent and chance law, a complete
 first-arrival partition, executable replacements and valid value bounds.
-Neither hand revelation nor the Koi-Koi discard boundary is essential to the
-argument. Small poker variants and short trick-taking endgames are concrete
-transfer candidates; policy-based inference in Skat supplies a precedent for
-beliefs reconstructed from play \cite{rebstock2019policy}.
+Neither hand revelation nor the Koi-Koi discard boundary is essential.
+Policy-based inference in Skat supplies a precedent for reconstructing beliefs
+from play \cite{rebstock2019policy}.
 
 A new domain needs its own tractable boundary and outcome bounds. Stochastic
 opponents require action-likelihood weighting; unknown or adapting opponents
@@ -314,11 +316,10 @@ continuations recover improvements that the parent reference cannot certify
 at the root. Independent population evaluation establishes positive increments
 for both adapted parents, although their magnitude and coverage remain small.
 
-The public-stock studies provide a complementary empirical result:
-rule-specific adaptation can make additional sampled computation substantially
-more valuable. This does not strengthen the exact guarantee or establish
-maximal playing strength. Changed-opponent gains persist; stronger adapted
-policies and matched work budgets remain tests of their practical scope.
+Public-stock variants also retain substantial computation gains after measured
+policy improvement and within the registered work tolerance. This empirical
+result complements the verified construction; it neither establishes maximal
+strength nor ranks the two finalists.
 
 \clearpage
 \appendix
@@ -350,7 +351,7 @@ Prospective endgame planning & \path{prospective_incumbent_evidence.json} \\
 Uniform-deal expected improvement & \path{uniform_results_evidence.json} \\
 Frontier development and integration & \path{frontier_development_evidence.json} \\
 Frontier incremental improvement & \path{frontier_increment_results_evidence.json} \\
-Public-stock rule adaptation and search & \path{public_stock_v2_evidence.json}, \path{public_stock_v3_evidence.json}, \path{public_stock_v4_evidence.json}, \path{public_stock_v5a_evidence.json} \\
+Public-stock rule adaptation and search & \path{public_stock_v2_evidence.json}, \path{public_stock_v3_evidence.json}, \path{public_stock_v4_evidence.json}, \path{public_stock_v5a_evidence.json}, \path{public_stock_v5c_evidence.json} \\
 \bottomrule
 \end{tabular}
 \caption{Evidence map. Each ledger identifies the underlying inputs and outputs;
@@ -1253,6 +1254,7 @@ paired win-score changes in percentage points, with 95\% intervals.}
 \input{public_stock_appendix.tex}
 \input{public_stock_robustness_appendix.tex}
 \input{public_stock_adaptation_appendix.tex}
+\input{public_stock_mature_variants_appendix.tex}
 \FloatBarrier
 \begingroup
 \raggedright\small

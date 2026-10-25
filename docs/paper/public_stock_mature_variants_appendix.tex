@@ -1,0 +1,100 @@
+\FloatBarrier
+\subsection{Search after measured finalist improvement}
+\label{app:public-stock-mature-variants}
+The failed control qualification leaves the all-improved-policy study
+unexecuted. A separate, prospectively fixed study retains original control
+and tests both qualified finalists against the other improved parent.
+Control has 128 adaptation updates and the finalists 512; original parent
+training is reused separately. This unequal allocation precludes a
+matched-training estimate of a rule effect. Within each rule, all search
+budgets use the same actor and opponent. Rollouts and continuation values
+still use the searching actor's own policy, without an opponent oracle or
+access to actual hidden cards.
+
+Four new policy-specific continuation tables require 1,933,312 conditional
+round rollouts and 53,080,083 transitions. Independent reduction checks all
+saved targets and means; fixed-stratum Python replay checks 15,104 rounds
+and 415,656 decisions. The two original control tables are reused unchanged,
+with identities and audit receipts checked. Their historical preparation is
+not counted as new work. These sampled tables are not certified value bounds.
+
+Work calibration uses two separate cohorts of 64 duplicate streams, both
+seats. Initial measurements at 32 worlds propose low/high counts for targets
+of 60,000/240,000 physical transitions per match. A second cohort measures
+each proposed count and permits exactly one work-only correction. Both steps
+round $tMp/T$ half-up and clamp to $[2,256]$, where $t$ is the target,
+$M$ the matches, $p$ the measured world count and $T$ recorded transitions.
+Independent reduction reproduces both stages before counts are frozen.
+Calibration uses 768 then 1,536 matches, 121,172 then 241,350 scored/replayed
+decisions, and 109,732,789 then 229,692,761 planning transitions. No outcome
+selects a rule, checkpoint or budget. The final counts are in
+Table~\ref{tab:public-stock-mature-costs}.
+
+Reserved evaluation uses 256 new duplicate streams shared by all arms,
+both seats, three rules, two parents and zero/low/high budgets: 9,216 matches,
+65,435 rounds and 1,473,646 scored decisions. All decisions pass Python
+replay; independent reduction reproduces outcomes, counts and identities.
+Recorded search work is 66,947,471 rollouts and 926,858,779 transitions across
+480,132 roots; these internal planning counters are not independently replayed.
+The independent units are the 256 streams, not the number of matches.
+
+Fourteen prespecified contrasts use 20,000 paired-stream bootstrap replicates
+and two-sided quantiles $0.05/28$ and $1-0.05/28$, a nominal within-study
+95\% familywise target. Each finalist requires positive lower bounds for
+high-minus-zero, excess over retained control and high-minus-low, for both
+parents. Ranking requires both finalist gain-difference intervals to exclude
+zero in the same direction.
+
+\begin{table}[ht]
+\centering\small
+\input{generated/public_stock_v5c/public_stock_robustness_comparisons.tex}
+\caption{All fourteen stronger-finalist comparisons in percentage points,
+with simultaneous paired-bootstrap intervals under the fixed V5C family.
+Excess subtracts retained control's corresponding high-minus-zero gain.
+The last two rows compare search gains, not absolute strength across games.
+Scores count ties as one half.}
+\label{tab:public-stock-mature-comparisons}
+\end{table}
+
+Both finalists pass all six score inequalities. Preview plus choice gains
+25.68/26.76 points over zero search; all three gains 25.78/28.42 points.
+Increasing low to high adds 9.86/11.91 and 9.96/10.45 points, respectively,
+with every simultaneous lower bound positive. The retained control's
+high-minus-zero means are $+0.88/-0.39$ points. Thus the computation benefit
+persists after measured finalist improvement and against another improved
+parent; it is not restricted to the earlier, weaker adapted actors.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{generated/public_stock_v5c/public_stock_robustness_work.pdf}
+\caption{Stronger finalist actors and opponents, with retained original
+control. Each curve starts at its own no-search score. Points are the three
+fixed budgets at observed mean work; connecting lines do not establish a
+response at untested budgets. Simultaneous comparisons are in
+Table~\ref{tab:public-stock-mature-comparisons}. Adaptation budgets differ
+across rules.}
+\label{fig:public-stock-mature-work}
+\end{figure}
+
+\begin{table}[ht]
+\centering\small
+\input{generated/public_stock_v5c/public_stock_robustness_costs.tex}
+\caption{All twelve reserved work checks. Target and actual work are
+thousands of physical rollout transitions per match; worlds are per legal
+root action. Every endpoint meets the fixed 10\% tolerance. Transition
+counts exclude inference, sampling, bookkeeping and offline preparation;
+this is not an equal-wall-time comparison.}
+\label{tab:public-stock-mature-costs}
+\end{table}
+
+All twelve work checks pass, with deviations from $-2.56$\% to $+5.54$\%.
+Both finalists therefore meet the prespecified matched-work criterion.
+Their paired gain differences remain unresolved: preview minus all three
+is $-0.10$ points with interval $[-9.21,8.79]$ for parent 0 and $-1.66$
+with $[-10.35,7.23]$ for parent 1. Neither a ranking nor equivalence follows.
+V4's failed work criterion remains unchanged; this separate cohort does not
+retroactively repair it. Differences from V4 cannot be attributed to learning
+alone because actors, opponents, tables, budgets and cohorts all differ.
+The result identifies two supported routes to greater computation value,
+without establishing a globally optimal rule or universally maximal strength.
+\FloatBarrier

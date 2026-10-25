@@ -365,18 +365,86 @@ not run; its gate is not relaxed. Nevertheless, both finalists now have
 measurably stronger policies, making their search robustness a substantive
 remaining question. The separate PUBLIC_STOCK_STUDY_V5C.rst now retains the
 old control and tests qualified finalist actors against the other new parent.
-Its real preflight verifies six systems, 43 sources and 35 inputs. The runner
-is preparing four new policy-specific finalist tables and reuses two
-unchanged, previously audited control tables. New calibration/evaluation
-streams are fixed before use. Unequal adaptation budgets are explicit;
-cross-rule differences cannot be attributed to rules alone. This study is
-running, not yet search-strength evidence. V4's failed work criterion and
-unresolved finalist ranking remain unchanged.
+Its real preflight verified six systems, 43 sources and 35 inputs. The
+complete follow-up is reported below. Unequal adaptation budgets remain
+explicit; cross-rule differences cannot be attributed to rules alone.
+V4's failed work criterion remains unchanged.
+
+V5C: computation value persists after measured improvement
+---------------------------------------------------------
+
+The separate study completes all eighteen reserved endpoints. Control uses
+the original 128-update actors; both qualified finalists use 512-update
+actors and face the other improved parent. Within each rule all budgets
+share the same actor/opponent. Rollouts and continuation values use the
+searching actor's own policy, without access to actual hidden cards.
+
+Four new finalist tables require 1,933,312 conditional round rollouts,
+433,005 terminal round rollouts and 53,080,083 transitions. All saved targets
+are reduced; 15,104 fixed-stratum rounds and 415,656 decisions pass Python
+replay. Two original control tables are reused after identity/audit checks;
+their historical 966,656 conditional rounds and 14,311,560 transitions are
+not new preparation. No new training occurs in V5C.
+
+Two-stage work-only calibration uses 64 separate duplicate streams per stage,
+both seats: initially 768 matches and 121,172 scored/replayed decisions, then
+1,536 matches and 241,350 decisions. Planning transitions are 109,732,789 and
+229,692,761, respectively. Independent reduction reproduces both stages.
+The final low/high worlds are 23/91 for both controls, 10/39 for both
+preview-plus-choice actors, and 13/52 and 13/54 for all-three parents 0/1.
+No score selects a budget, rule or checkpoint. Counts are frozen before
+reserved evaluation; only one correction is permitted.
+
+Evaluation uses 256 new duplicate streams, both seats: 9,216 actual matches,
+65,435 rounds and 1,473,646 scored decisions, all replayed in Python.
+Independent reduction checks outcomes, counts, cohort and policy identities.
+Recorded internal planning comprises 66,947,471 rollouts, 926,858,779
+transitions and 480,132 roots; it is not independently replayed. The 9,216
+matches are not 9,216 independent streams. The finish receipt and all 382
+bindings verify against ``docs/paper/generated/public_stock_v5c_evidence.json``
+(SHA256 ``f1e1f4e50e557f74f98829c9ca9410490e9aad2df1f8a332cd99c56a01ca3614``).
+
+.. csv-table:: Reserved win scores, ties counted as one half
+   :header: Rule,Parent,Zero percent,Low percent,High percent
+
+   Control,0,48.0469,48.2422,48.9258
+   Control,1,51.9531,51.5625,51.5625
+   Preview plus choice,0,50.3906,66.2109,76.0742
+   Preview plus choice,1,49.6094,64.4531,76.3672
+   All three,0,52.0508,67.8711,77.8320
+   All three,1,47.9492,65.9180,76.3672
+
+All fourteen paired contrasts use 20,000 bootstrap replicates and two-sided
+quantiles 0.05/28 and 1-0.05/28, a nominal within-study 95% familywise target.
+Both finalists pass all six required score inequalities. Preview plus choice
+gains 25.6836/26.7578 points over zero search, and all three gains
+25.7813/28.4180. High-minus-low changes are 9.8633/11.9141 and
+9.9609/10.4492 points, respectively. All gain, excess-over-control and
+high-minus-low lower bounds are positive. Thus the benefit of added
+computation persists after measured finalist improvement and against another
+improved parent; it is not confined to the earlier weaker adapted actors.
+
+All twelve work endpoints satisfy the fixed +/-10% tolerance. Deviations
+range from -2.5609% to +5.5442%; both finalists pass the full registered
+matched-work criterion. Physical transitions exclude inference, sampling,
+bookkeeping and offline preparation, so this is not an equal-wall-time claim.
+
+The finalist ranking remains unresolved. Preview-minus-all search gain is
+-0.0977 points with interval [-9.2078,8.7891] for parent 0 and -1.6602 with
+[-10.3516,7.2266] for parent 1. Neither superiority nor equivalence follows.
+All fourteen intervals and twelve work checks are retained in the evidence
+and the complete tables/figures under ``docs/paper/generated/public_stock_v5c``.
+
+The new cohort does not retroactively repair V4. Differences between studies
+cannot be attributed to learning alone: actors, opponents, tables, budgets
+and deal cohorts differ. Two supported candidates are identified; a globally
+optimal rule or universally strongest AI is not established. The fixed study
+is complete without extending deals or retuning after evaluation.
 
 Interpretation limits fixed before results
 -----------------------------------------
 
-Particle counts give a 1:4:16 nominal budget ratio within a rule. They do not
+The V2 screen uses a 1:4:16 nonzero particle-count ratio within a rule. This does not
 equalize actual transitions across rules: legal-action counts, extra stock
 choices, terminal timing and rollout lengths differ. A 32-decision horizon
 also spans fewer ordinary turns when stock choice is enabled. Report actual
@@ -387,7 +455,7 @@ a separately specified matched-cost comparison.
 Increasing particle counts increases hidden-world sampling, not the fixed
 rollout horizon. These curves measure added computation, not a general theorem
 about deeper game-tree search. Confirmation familywise targets apply within
-each protocol; there is no claimed adjustment across the two protocols.
+each protocol; there is no claimed adjustment across the research sequence.
 The reserved confirmations compare selected-rule gains with the control.
 Rankings among the seven noncontrol rules remain exploratory.
 

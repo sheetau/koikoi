@@ -9,8 +9,8 @@ are in SEARCH_REUSE_RESULTS.rst, RESUMABLE_FRONTIER_RESULTS.rst,
 PRUNED_OPTIMIZED_FRONTIER_RESULTS.rst and RULE_TRANSFER_RESULTS.rst.
 No historical cohort is reopened by this index.
 
-Evidence inspected before final evaluation
-------------------------------------------
+Coverage inspected for completion
+---------------------------------
 
 * **Rule coverage:** PUBLIC_STOCK_RULES.rst defines all eight combinations,
   including each factor alone and all three together. The V2 and V3 evidence
@@ -48,28 +48,31 @@ Evidence ledger filenames above are relative to docs/paper/generated/.
 Reported numerical outcomes and their limits remain in the original result
 report and ledgers; this index does not duplicate or re-estimate them.
 
-Still required before completion
---------------------------------
+Closing audit: 26 October 2026
+-----------------------------
 
-1. Finish the already running V5C initial and refinement calibration, then
-   all eighteen reserved endpoints. Verify independently reduced evidence,
-   its finish receipt, frozen identities, every scored decision's replay,
-   all fourteen score intervals and all twelve work checks. Separate new
-   preparation from reused control preparation and from evaluated matches.
-   The preparation manifest is complete; calibration is currently running.
-2. Report V5C's measured gains, additional-budget effects, cost admissibility
-   and candidate ranking separately, including every failed criterion. Do
-   not infer a rule-only training effect, an equal-wall-time result, reduced
-   intrinsic luck or universally optimal play from these comparisons.
-3. Integrate the complete result into PUBLIC_STOCK_RESULTS.rst and the
-   manuscript, preserving the standard-game verified-improvement contribution
-   and distinguishing the empirical variant-search result. Generate and
-   inspect all final figures/tables and a new PDF; bind source/evidence/QA
-   identities and preserve earlier reviewed snapshots. The current reviewed
-   62-page adaptation snapshot does not contain final V5C search results.
-4. Inspect the final worktree, records and artifact identities; commit and
-   push the verified milestone. Revisit this index against actual completed
-   evidence before changing the active goal's status.
+1. **Complete:** V5C finished all six initial, twelve refinement and eighteen
+   reserved endpoints. The runner exited successfully. The independently
+   reduced evidence and finish receipt agree; all 382 bindings verify.
+   Every scored decision is covered by replay, and all endpoint counts sum
+   to the recorded stage totals. New table preparation, historical reused
+   control preparation and actual evaluated matches remain separate.
+2. **Complete:** all fourteen simultaneous score intervals and twelve work
+   checks are reported. Both finalists meet the full score/work criterion;
+   their ranking remains unresolved. PUBLIC_STOCK_RESULTS.rst and Appendix
+   W.3 retain unequal-training, wall-time, uncertainty and causal limits.
+   V4's failed work criterion and the unexecuted V5B gate are unchanged.
+3. **Complete:** the final manuscript incorporates the result in its abstract,
+   discussion and conclusion while retaining the verified standard-game
+   contribution. The new PDF has 65 pages, 10 main pages, 50 references and
+   36 embedded fonts. All pages were visually reviewed; pages 1, 9--11 and
+   51--62 at full size. All 14 comparisons and 12 costs appear in legible
+   tables. No box/reference/glyph warning, missing font or outside-page text
+   remains. The new public_stock_mature_variants_revision_evidence.json
+   binds 155 inputs and 23 QA artifacts. Earlier reviewed PDFs are unchanged.
+4. **Repository closure pending:** commit and push the verified manuscript
+   milestone, then inspect the final worktree and remote revision. Record
+   that check before changing the active goal status.
 
 Completion does not require converting a negative criterion into a positive
 one. It requires the specified observations, independent checks and complete

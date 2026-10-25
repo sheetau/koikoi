@@ -1,3 +1,34 @@
+26 October 2026: stronger-finalist search complete
+================================================
+
+Both qualified finalist rules retain large computation gains against the
+other improved parent: 25.68/26.76 points for preview plus choice and
+25.78/28.42 for all three. High-minus-low gains are 9.86--11.91 points;
+all twelve finalist score inequalities have positive simultaneous lower
+bounds. All twelve reserved work checks meet the fixed 10% tolerance.
+The finalists' ranking remains unresolved. Control retains its original
+128-update actors; finalists use 512-update actors, so this is not a
+matched-training estimate of a rule effect or an equal-wall-time result.
+
+All 9,216 reserved matches and 1,473,646 scored decisions pass Python
+replay. Independent reduction, the finish receipt and all 382 V5C bindings
+verify. Preparation, reused control tables and the two calibration cohorts
+remain separately accounted. V4's failed work criterion and V5B's failed
+launch gate are preserved. See ``../PUBLIC_STOCK_RESULTS.rst`` for the
+complete result and ``../PUBLIC_STOCK_COMPLETION.rst`` for the closing audit.
+
+The reviewed manuscript is
+``../../output/pdf/public_stock_mature_variants_revision/manuscript.pdf``:
+65 pages, 10 main pages, 50 references, 36 embedded fonts, SHA256
+``13b13b87b4fce3331ffb834a0988bbd8afebce9b1fe8b8dd46f6c7e133e381c7``.
+All pages were visually inspected in contact sheets; pages 1, 9--11 and
+51--62 at full size. No TeX box/reference/glyph warnings, unembedded fonts,
+replacement glyphs, out-of-page text or visual clipping/overlap remain.
+All fourteen intervals and twelve work checks appear in the appendix;
+the main narrative remains ten pages. Source, result, figure and QA
+identities are in ``generated/public_stock_mature_variants_revision_evidence.json``.
+Earlier reviewed PDFs and evidence snapshots are preserved.
+
 25 October 2026: adaptation qualification complete
 =================================================
 
