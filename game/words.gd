@@ -13,7 +13,7 @@ const TEXT = {
 	"play": ["出す札を選んでください", "CHOOSE A CARD TO PLAY"],
 	"pick": ["取る場札を選んでください", "CHOOSE A MATCHING FIELD CARD"],
 	"thinking": ["相手が考えています", "OPPONENT IS THINKING"],
-	"koi_question": ["こいこいしますか？", "KOI KOI?"],
+	"koi_question": ["こいこい？", "Koikoi?"],
 	"yes": ["はい", "YES"],
 	"no": ["いいえ", "NO"],
 	"koi_you": ["あなたがこいこいしました", "YOU CALLED KOI KOI"],

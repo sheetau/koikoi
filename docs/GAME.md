@@ -31,7 +31,8 @@ Click START, then a hand card. Cards that can capture are raised; discards remai
 cards match, select the hand first and then its target; click elsewhere to
 cancel. Two identical chaff cards are selected automatically. Hover does not
 enlarge cards. A pending hand remains in its slot and a pending draw stays on
-top of the stock until the target is chosen. Koi displays the question together with Yes/No buttons. All buttons have hover feedback.
+top of the stock until the target is chosen. New yaku are announced individually in order, followed by a short koi question
+and Yes/No buttons. All buttons have hover feedback.
 Drag vertically to orbit the table; use the wheel to zoom. Esc cancels selection
 or opens settings; F11 toggles full screen. Japanese/English, animation speed,
 audio, opponent and rule preferences persist in Godot's per-user directory.
@@ -74,12 +75,13 @@ The renderer cannot submit AI actions: the service runs the frozen adapter.
 Revision checks and serialized requests reject stale and out-of-turn input.
 
 `game/table.gd` consumes these events. A pool of exactly 48 physical objects
-persists through reveals, four batches of pairwise dealing, fixed hand slots,
+persists through reveals, four batches of single-card dealing, fixed hand slots,
 captures, yaku and return flights. Guided smoothstep flight trajectories
 keep position/orientation continuous; stronger yaku landings use real rigid-body
 gravity, velocity and tabletop collision. The stock top's immediate flip is
 the explicit exception. Total-yaku settlement follows semicircular overhead
-paths. No infinite ground plane or dynamic shadows are present.
+paths. Winner cards retain their exact positions and row/slot order; opponent
+roles append below them without mixing. No infinite ground plane or dynamic shadows are present.
 
 A physical card belonging to several yaku appears once, in the first applicable
 row; all applicable yaku still receive their full points and result entries.
@@ -91,10 +93,13 @@ the floating plum board. Cards, the board and UI are flat surfaces; the stock
 is one six-face cuboid whose height follows the remaining card count.
 The background stays solid gold, without a floor, grid or shadows.
 
-Each dealt pair starts in one frame. Field cards flip instantly at the stock;
-hand pairs remain face down during the deal. An opposite-facing hand reveals
+Dealer cards and the ordinary deal move one card at a time. The original
+field/dealer/opponent order and two-card batches remain; each card completes
+its flight before the next leaves the stock. Field cards flip instantly at
+the stock; hand cards remain face down during the deal. An opposite-facing hand reveals
 with a stationary half turn; an already aligned hand skips that turn. The subsequent flight combines translation and
-alignment rotation. The field retains exactly two rows and
+alignment rotation. A field-play flight takes 0.30 seconds at normal speed
+(previously 0.62). The field retains exactly two rows and
 adds columns as needed. Empty slots are reused; only column expansion slides
 existing cards horizontally. Captures form half-overlapping horizontal groups
 for chaff, animals, ribbons and lights, with reserved space for their maximum
@@ -123,7 +128,8 @@ used in the English UI. The Japanese UI uses Noto Serif JP Black for all
 characters, including Latin letters and digits; no external font path is
 required. Six user-supplied MP3 clips are copied unchanged into `game/assets/audio/`.
 Dealer/hand landings use `tefuda-place`; each yaku card plays `yaku` at arrival.
-Total-yaku transfers also play `fuda-take`. Four original synthesized retro
+Total-yaku transfers play `fuda-take` once per transferred role at departure,
+with no yaku arrival sounds. Four original synthesized retro
 cues cover button presses, messages, wins and losses. Their playback gains
 are trimmed by 9.4–11.1 dB to match the hand/draw clips. No external audio path
 is needed. In-game credits and `THIRD_PARTY_NOTICES.md` identify the sources.
@@ -147,8 +153,8 @@ practice opponent, conserving 48 objects. Screenshots go to ignored
 languages using `game/tests/dense_result.json`. It is a layout fixture, not a
 reachable research match or game result.
 
-`game/tests/concept_check.gd` checks the public opening fixture, simultaneous
-pair dealing and return flights; it also captures the normal view, question
+`game/tests/concept_check.gd` checks the public opening fixture,
+single-card dealing and return flights; it also captures the normal view, question
 and settings. `game/tests/motion_audit.gd` checks moving card intersections with
 oriented-box separating axes and checks board clearance. These checks exercise
 presentation geometry only; intentional same-group return merges are excluded
@@ -176,7 +182,7 @@ least one second; AI choices wait at least 0.8 seconds (1.2 for a koi decision).
 Human clicks are handled immediately. Win and lose messages occupy opposing,
 single-sided faces simultaneously, so neither bleeds through the other.
 `game/tests/audio_return_check.gd` checks all ten audio streams, per-card
-arrival sounds, total-yaku sounds, corner gathering and no-flip horizontal returns.
+arrival sounds, per-role transfer sounds, corner gathering and no-flip horizontal returns.
 
 The UI smoke harness accelerates announcement/AI waits through the testing-only
 `KOIKOI_QA_FAST` flag. Minimum display durations are checked independently in
@@ -201,3 +207,7 @@ remain private in `.dashboard/checks/`. Timing tests retain real waits.
 The motion auditor rejects disjoint enclosing boxes before its unchanged OBB
 separating-axis test. `motion_math_check.gd` compares it against the original
 calculation on 12,000 deterministic pairs and reports measured runtime.
+
+`game/tests/backlog_check.gd` checks single-card dealing/batch order, fixed winner
+rows during total-yaku transfers for both seats, one cue per role, sequential
+readable yaku notices, the following minimal koi prompt and faster field play.

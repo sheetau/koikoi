@@ -4,9 +4,9 @@ Original authorship and license were not supplied.
 tefuda-place.mp3: hand and dealer-card landings
 bafuda-place.mp3: ordinary field landings
 bafuda-place-yaku.mp3: yaku impact contact
-fuda-take.mp3: draws, captures, total-yaku transfers and return packets
+fuda-take.mp3: draws, captures and return packets; total-yaku departure once per role
 fuda-turn.mp3: disclosure and stock flips
-yaku.mp3: once per yaku card when its motion finishes
+yaku.mp3: once per newly formed yaku card when its motion finishes; silent during total-yaku transfers
 
 ui-click.wav, ui-message.wav, win.wav, lose.wav: original procedural
 pulse/triangle chiptone effects generated for this project; no sampled sources.

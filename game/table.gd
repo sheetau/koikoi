@@ -97,8 +97,6 @@ var camera_radius := Vector2(6.8, 10.6).length()
 var camera_pivot := Vector3(0, 1.8, 0)
 var returning_all := false
 var last_burst_peak := 0.0
-var can_ask_koi := false
-var question_yaku: Array = []
 var decision_announced_revision := -1
 var last_impact_settled := false
 
@@ -430,8 +428,6 @@ func receive(result: int, code: int, _headers: PackedStringArray, body: PackedBy
 	paused = parsed.get("paused", false)
 	finished = parsed.get("finished", false)
 	ending = parsed.get("end", {}) if parsed.get("end") != null else {}
-	question_yaku.clear()
-	can_ask_koi = not paused and int(parsed.get("view", {}).get("phase", -1)) == 3
 	clear_menu()
 	for event in parsed.get("events", []):
 		await animate_event(event)
@@ -473,8 +469,7 @@ func show_decision() -> void:
 	elif int(state.phase) == 3:
 		clear_menu()
 		menu.position.y = 3.7
-		var names: Array = question_yaku.map(func(key): return word(key))
-		var question := word("koi_question") if names.is_empty() else "・".join(names) + "です。こいこいにしますか？" if language == 0 else ", ".join(names) + ". Koikoi?"
+		var question := word("koi_question")
 		var question_size := text_size(question, 28) + Vector2(0.6, 0.25)
 		plane(question_size, Vector3(0, 0.75 + question_size.y / 2, 0.008), Color("3d301c"), menu, GOLD)
 		var question_label := label3(question, Vector3(0, 0.75 + question_size.y / 2, 0.013), 28, CREAM, menu)
@@ -940,7 +935,7 @@ func opening(event: Dictionary) -> void:
 			pair.append(card)
 			fly(card, Vector3(-0.7 if p == 0 else 0.7, 2.25, 0), Vector3(0, PI * p, 0), 0.65)
 			card.arrival_sound = "tefuda-place"
-		await finish_flights()
+			await finish_flights()
 		await wait_for(0.3)
 		# Dealer reveal is the one explicitly requested stationary turn.
 		play_sound("fuda-turn")
@@ -966,28 +961,24 @@ func deal_cards(view: Dictionary, returning: bool = true) -> void:
 	refresh_hud()
 	for batch in range(4):
 		for group in [2, int(view.dealer), 1 - int(view.dealer)]:
-			var pair: Array = []
-			var destinations: Array[Vector3] = []
+			# Preserve the field/dealer/opponent two-card batches, dealt singly.
 			for j in range(2):
 				var slot := batch * 2 + j
 				var id := int(view.field[slot]) if group == 2 else int(view.hand[slot]) if group == 0 else -1
 				var card = take_card(id)
-				pair.append(card)
+				var destination: Vector3
 				if group == 2:
 					card.rotation = FLAT
-					destinations.append(field_position(id))
+					destination = field_position(id)
 				else:
 					card.slot = slot
 					card.seat = group
 					if group == 1:
 						opponent_cards[slot] = card
-					destinations.append(hand_position(slot, group))
-			pair[1].pair_peer = pair[0]
-			# Both flights start within this frame, with the same duration/rotation.
-			for j in range(2):
-				fly(pair[j], destinations[j], FLAT if group == 2 else Vector3(0, PI * group, 0), 0.6)
-				pair[j].arrival_sound = "bafuda-place" if group == 2 else "tefuda-place"
-			await finish_flights()
+					destination = hand_position(slot, group)
+				fly(card, destination, FLAT if group == 2 else Vector3(0, PI * group, 0), 0.42)
+				card.arrival_sound = "bafuda-place" if group == 2 else "tefuda-place"
+				await finish_flights()
 
 func needs_pick(view: Dictionary, card_id: int) -> bool:
 	return view.field.filter(func(c): return int(c) / 4 == card_id / 4).size() == 2
@@ -1033,7 +1024,7 @@ func animate_event(event: Dictionary) -> void:
 		if kind == "place":
 			slide_field(view.field, int(event.card))
 		var target: Vector3 = field_position(int(event.card)) if kind == "place" else known[int(event.targets[0])].position + Vector3(0.13, 0.032, 0.13)
-		fly(card, target + Vector3(0, 0.48 if event.new_yaku else 0, 0), FLAT, 0.62)
+		fly(card, target + Vector3(0, 0.48 if event.new_yaku else 0, 0), FLAT, 0.30)
 		card.arrival_sound = "" if event.new_yaku else "bafuda-place"
 		await finish_flights()
 		if event.new_yaku:
@@ -1044,10 +1035,9 @@ func animate_event(event: Dictionary) -> void:
 			await arrange_captures(view)
 			if event.new_yaku:
 				var changed_roles: Array = view.yaku[int(event.player)].filter(func(row): return not row.cards.is_empty() and not state.yaku[int(event.player)].any(func(old): return old.key == row.key and old.points >= row.points))
-				question_yaku = changed_roles.map(func(row): return row.key)
-				if not can_ask_koi:
-					var names: Array = question_yaku.map(func(key): return word(key))
-					await announce("・".join(names) + "です。" if language == 0 else ", ".join(names) + ".", 1.25, int(event.player))
+				for row in changed_roles:
+					await announce(word(row.key) + "です。" if language == 0 else word(row.key) + ".", 1.0, int(event.player))
+
 
 	elif kind == "koi":
 		if int(event.player) == 1:
@@ -1228,41 +1218,44 @@ func stagger_roles(cards: Array) -> void:
 		cards[i].start_delay = (base + i * 0.1 - times[i]) / speed
 
 func sweep_yaku(view: Dictionary, winner: int) -> void:
-	clear_yaku_labels()
-	var allocated: Array = []
-	var row_index := 0
+	var loser := 1 - winner
 	var direction := 1 if winner == 0 else -1
-	for player in [winner, 1 - winner]:
-		var rows: Array = view.yaku[player].filter(func(row): return not row.cards.is_empty())
-		rows.sort_custom(func(a, b): return role_order[player].find(role_key(a.key)) < role_order[player].find(role_key(b.key)))
-		for row in rows:
-			var ids: Array = []
-			for raw_id in row.cards:
-				var id := int(raw_id)
-				if id not in allocated:
-					allocated.append(id)
-					ids.append(id)
-			if ids.is_empty():
-				continue
-			var y := 3.55 - row_index * 1.52
-			var title := word(row.key) + "  " + str(row.points)
-			var size := text_size(title, 18) + Vector2(0.35, 0.16)
-			var plaque := Node3D.new()
-			plaque.set_meta("yaku_key", row.key)
-			plaque.set_meta("points", row.points)
-			plaque.set_meta("direction", direction)
-			plaque.position = Vector3((3.6 + size.x / 2) * direction, y, 11.8 * direction)
-			plaque.rotation.y = PI if winner == 0 else 0
-			add_child(plaque)
-			plane(size, Vector3.ZERO, Color("3d301c"), plaque, GOLD)
-			label3(title, Vector3(0, 0, 0.006), 18, GOLD, plaque)
-			label_nodes.append(plaque)
-			for i in range(ids.size()):
-				var target := Vector3((3.0 - i * 0.88) * direction, y, 11.8 * direction)
-				fly(known[ids[i]], target, Vector3(0, PI if winner == 0 else 0, 0), 1.2, 0.0, true)
-				known[ids[i]].arrival_sound = "yaku"
-				play_sound("fuda-take", ids[i])
-			row_index += 1
+	# The winner's cards and plaques keep their exact settled transforms.
+	for i in range(label_nodes.size() - 1, -1, -1):
+		if int(label_nodes[i].get_meta("direction", direction)) != direction:
+			label_nodes[i].queue_free()
+			label_nodes.remove_at(i)
+	var allocated: Array = []
+	var row_index: int = view.yaku[winner].filter(func(row): return not row.cards.is_empty()).size()
+	var rows: Array = view.yaku[loser].filter(func(row): return not row.cards.is_empty())
+	rows.sort_custom(func(a, b): return role_order[loser].find(role_key(a.key)) < role_order[loser].find(role_key(b.key)))
+	for row in rows:
+		var ids: Array = []
+		for raw_id in row.cards:
+			var id := int(raw_id)
+			if id not in allocated:
+				allocated.append(id)
+				ids.append(id)
+		var y := 3.55 - row_index * 1.52
+		var title := word(row.key) + "  " + str(row.points)
+		var size := text_size(title, 18) + Vector2(0.35, 0.16)
+		var plaque := Node3D.new()
+		plaque.set_meta("yaku_key", row.key)
+		plaque.set_meta("points", row.points)
+		plaque.set_meta("direction", direction)
+		plaque.position = Vector3((3.6 + size.x / 2) * direction, y, 12.2 * direction)
+		plaque.rotation.y = PI if winner == 0 else 0
+		add_child(plaque)
+		plane(size, Vector3.ZERO, Color("3d301c"), plaque, GOLD)
+		label3(title, Vector3(0, 0, 0.006), 18, GOLD, plaque)
+		label_nodes.append(plaque)
+		var slots: Dictionary = role_slots[loser].get(role_key(row.key), {})
+		play_sound("fuda-take") # One cue per transferred role, never per card.
+		for i in range(ids.size()):
+			var slot := int(slots.get(ids[i], i))
+			var target := Vector3((3.0 - slot * 0.88) * direction, y, 12.2 * direction)
+			fly(known[ids[i]], target, Vector3(0, PI if winner == 0 else 0, 0), 1.2, 0.0, true)
+		row_index += 1
 	await finish_flights()
 
 func impact_capture(card, targets: Array) -> void:

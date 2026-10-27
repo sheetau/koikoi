@@ -41,8 +41,8 @@ func run() -> void:
 	check(table.known.values().all(func(c): return c.role_route), "Field-to-role transfer skipped the outer turn")
 	table.sound_log.clear()
 	await table.sweep_yaku(view, 1)
-	check(table.sound_log.filter(func(e): return e.sound == "fuda-take").size() == 3, "Total-yaku transfer needs a take sound for each card")
-	check(table.sound_log.filter(func(e): return e.sound == "yaku").size() == 3, "Total-yaku arrivals need a sound for each card")
+	check(table.sound_log.filter(func(e): return e.sound == "fuda-take").size() == 1, "Total-yaku transfer needs one take sound per role")
+	check(table.sound_log.filter(func(e): return e.sound == "yaku").size() == 0, "Total-yaku transfer must not replay yaku arrival sounds")
 	await table.reset_deck()
 	var cards: Array = []
 	for i in range(3):

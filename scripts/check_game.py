@@ -20,7 +20,7 @@ GODOT = ROOT / "external/godot/Godot_v4.7.2-stable_win64_console.exe"
 OUTPUT = ROOT / ".dashboard/checks"
 SUITES = {
     "management": ["dashboard", "legacy"],
-    "quick": ["motion_math", "audio_return"],
+    "quick": ["motion_math", "audio_return", "backlog"],
     "motion": ["motion_math", "role_motion", "capture_motion", "impact"],
     "visual": ["concept", "addendum", "layout"],
     "full": ["match"],
