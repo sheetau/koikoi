@@ -1,3 +1,23 @@
+# Current workflow: private dashboard
+
+Start with `./.venv/Scripts/python.exe -X utf8 .dashboard/app.py brief`. Read relevant
+IDs and bounded events; manage tasks through revision-checked JSON operations or
+`powershell -NoProfile -File .dashboard/open.ps1`. See
+[Dashboard operations](../.dashboard/README.md). Do not read plan.txt as a work queue.
+
+AI-finished tasks enter review; actual owner confirmation makes them done. Keep
+corrections and questions on the same item/thread. Record shared verification once.
+After a successful push and required checks, checkpoint with the pushed commit;
+unfinished/review tasks carry forward. Private SQLite, backups, exports and archives
+are ignored. Normal Save persists immediately; Backup creates a recovery snapshot.
+Only an explicitly curated public_summary can generate docs/DASHBOARD.md.
+
+The former journal is frozen history. Its reader/index remains available for scoped
+research-history inquiries and integrity checks; log/state writes are disabled.
+The former workflow below is preserved for recovery/reference, not active instructions.
+
+---
+
 # Project work and research records
 
 Run commands from the repository root. Start with the current handoff, not the

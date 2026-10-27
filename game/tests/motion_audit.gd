@@ -30,6 +30,14 @@ func inspect(table) -> void:
                     cases[str(card.identity) + ":" + str(other.identity)] = true
                     push_error("Card intersection: %s / %s at flight t=%.3f return=%s role=%s pos=%s/%s from=%s to=%s other_from=%s other_to=%s elapsed=%s/%s duration=%s/%s" % [card.identity, other.identity, card.elapsed / card.duration, card.returning, card.role_route, card.position, other.position, card.flight_from, card.flight_to, other.flight_from, other.flight_to, card.elapsed, other.elapsed, card.duration, other.duration])
 func intersects(a: Transform3D, b: Transform3D) -> bool:
+    # Exact enclosing AABBs cheaply reject separated pairs before the OBB SAT.
+    # This only rejects impossible intersections; the narrow-phase tolerance stays unchanged.
+    var half_box := Vector3(0.39, 0.64, 0.001)
+    var a_extent := a.basis.x.abs() * half_box.x + a.basis.y.abs() * half_box.y + a.basis.z.abs() * half_box.z
+    var b_extent := b.basis.x.abs() * half_box.x + b.basis.y.abs() * half_box.y + b.basis.z.abs() * half_box.z
+    var separation := (a.origin - b.origin).abs() - a_extent - b_extent
+    if separation.x > 0.0001 or separation.y > 0.0001 or separation.z > 0.0001:
+        return false
     var axes: Array[Vector3] = [a.basis.x,a.basis.y,a.basis.z,b.basis.x,b.basis.y,b.basis.z]
     for x in [a.basis.x,a.basis.y,a.basis.z]:
         for y in [b.basis.x,b.basis.y,b.basis.z]:

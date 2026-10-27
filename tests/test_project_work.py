@@ -303,3 +303,18 @@ def test_import_does_not_load_research_or_third_party_modules():
         cwd=Path(work.__file__).resolve().parents[1],
         check=True,
     )
+
+
+def test_migrated_project_rejects_legacy_writes_before_reading_payload(project, capsys):
+    dashboard = project / ".dashboard"
+    dashboard.mkdir()
+    (dashboard / "app.py").write_text("# installed", encoding="utf-8")
+    before = (project / work.JOURNAL).read_bytes()
+    assert (
+        work.main(
+            ["log", "--file", "missing.json", "--expected-revision", "1"], root=project
+        )
+        == 1
+    )
+    assert "read-only" in capsys.readouterr().err
+    assert (project / work.JOURNAL).read_bytes() == before

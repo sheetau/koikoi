@@ -556,6 +556,8 @@ def main(argv=None, root=ROOT):
     args = parser().parse_args(argv)
     store = None
     try:
+        if args.command in {"log", "state"} and (Path(root) / ".dashboard" / "app.py").is_file():
+            raise ValueError("Live records moved to .dashboard/app.py apply; legacy journal is read-only")
         store = Store(root)
         if args.command == "brief":
             result = store.brief()

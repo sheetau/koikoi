@@ -183,3 +183,21 @@ The UI smoke harness accelerates announcement/AI waits through the testing-only
 `addendum_check.gd`. `scripts.game_ui_check --headless` routes input into the
 viewport directly and avoids waiting for visible-window screenshots. Rendered
 screenshots explicitly draw a frame so minimizing a QA window cannot stall capture.
+
+## Development task management and fast checks
+
+Open `dashboard.cmd` for the private task/question ledger. Agent work starts with
+`.venv/Scripts/python.exe -X utf8 .dashboard/app.py brief`, then relevant IDs;
+the former plan.txt is archived, not a live queue. Management code is separate
+from the game runtime. See `.dashboard/README.md` for recovery and review flow.
+
+Use `python -m scripts.check_game --suite quick` with the project virtual
+environment. Suites can be combined: `management`, `quick`, `motion`, `visual`,
+`full`. Visual checks use the actual renderer; other geometry checks are headless.
+`--list` prints commands. `--reuse` explicitly reuses only passing results with
+identical source/assets/engine/interpreter inputs, and labels them REUSED, not
+newly measured. Full learned-opponent matches always run. Logs/timings/cache
+remain private in `.dashboard/checks/`. Timing tests retain real waits.
+The motion auditor rejects disjoint enclosing boxes before its unchanged OBB
+separating-axis test. `motion_math_check.gd` compares it against the original
+calculation on 12,000 deterministic pairs and reports measured runtime.
