@@ -32,6 +32,11 @@ var bottom_return := false
 var capture_slide := false
 var gather_group := -1
 var arrival_sound := ""
+var return_curve := false
+var return_c1 := Vector3.ZERO
+var return_c2 := Vector3.ZERO
+var return_lengths := PackedFloat32Array()
+var return_length := 0.0
 var role_route := false
 var role_side := 1.0
 var role_edge := 6.2
@@ -116,6 +121,7 @@ func unstow() -> void:
 
 func move_to(target: Vector3, angles: Vector3, seconds: float, arc: float = 0.0, circle: bool = false) -> void:
 	returning = false
+	return_curve = false
 	bottom_return = false
 	gather_group = -1
 	arrival_sound = ""
@@ -147,6 +153,31 @@ func route_to_role(player: int, board_edge: float = 6.5) -> void:
 	var radius := absf(flight_to.z - flight_from.z) / 2
 	role_lengths = Vector3(absf(role_edge - flight_from.x), PI * sqrt((1.0 + radius * radius) / 2), absf(flight_to.x - role_edge))
 
+func stock_point(u: float) -> Vector3:
+	return flight_from.bezier_interpolate(return_c1,return_c2,flight_to,u)
+
+func route_to_stock(straight: bool = false) -> void:
+	return_curve = true
+	return_c1 = flight_from + Vector3(2.0 if flight_from.x <= flight_to.x else -2.0,0,0)
+	return_c2 = flight_to + Vector3(2.2,0,signf(flight_from.z- flight_to.z)*1.5)
+	if straight:
+		return_c1 = flight_from.lerp(flight_to,1.0/3)
+		return_c2 = flight_from.lerp(flight_to,2.0/3)
+	return_lengths = PackedFloat32Array([0.0])
+	return_length = 0
+	var previous := flight_from
+	for i in range(1,65):
+		var point := stock_point(i/64.0)
+		return_length += point.distance_to(previous)
+		return_lengths.append(return_length)
+		previous = point
+
+func stock_parameter(distance: float) -> float:
+	for i in range(1,return_lengths.size()):
+		if return_lengths[i] >= distance:
+			return (i-1+inverse_lerp(return_lengths[i-1],return_lengths[i],distance))/64.0
+	return 1.0
+
 static func turn_between(a: Quaternion, b: Quaternion, weight: float) -> Quaternion:
 	# A half turn has two equally short paths. Tiny physics roundoff must not
 	# make two otherwise parallel cards select opposite rotational directions.
@@ -168,8 +199,12 @@ func pose_at(time: float) -> Transform3D:
 		return Transform3D(Basis(rotation_from), flight_from)
 	var clock_t := clampf(time / duration, 0.0, 1.0)
 	var t := clampf((time - start_delay) / (duration - start_delay), 0.0, 1.0)
-	var u := t if role_route else t * t * (3.0 - 2.0 * t)
+	var u := t if role_route or return_curve else t * t * (3.0 - 2.0 * t)
 	var pos := flight_from.lerp(flight_to, u)
+	if return_curve:
+		var curve_t := stock_parameter(t*return_length)
+		pos = stock_point(curve_t)
+		pos.y = lerpf(flight_from.y,flight_to.y,smoothstep(0.0,0.65,curve_t))
 	if orbit:
 		var radius := Vector2(flight_from.x - orbit_center.x, flight_from.z - orbit_center.z).length()
 		var angle := orbit_angle - PI * u
@@ -202,7 +237,7 @@ func pose_at(time: float) -> Transform3D:
 	if returning:
 		# Direct translation starts with the rotation; finish folding before
 		# parallel cards converge into adjacent stock layers.
-		q = turn_between(rotation_from, rotation_to, smoothstep(0.0, 0.55, t))
+		q = turn_between(rotation_from, rotation_to, smoothstep(0.0, 0.25, t))
 	var rotation_basis := Basis(q)
 	pos.y += extra_y
 	if pair_peer != null and is_instance_valid(pair_peer):

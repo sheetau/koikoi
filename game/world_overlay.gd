@@ -27,16 +27,12 @@ func _ready() -> void:
 	surface.material_override = mat
 	add_child(surface)
 
-func fit_content(pixels: Vector2i, camera: Camera3D) -> void:
+func fit_content(pixels: Vector2i, _camera: Camera3D) -> void:
 	PIXELS = pixels
 	SIZE = Vector2(pixels) * 0.0075
 	viewport.size = pixels
 	(surface.mesh as QuadMesh).size = SIZE
-	var distance := camera.global_position.distance_to(global_position)
-	var height := 2.0 * distance * tan(deg_to_rad(camera.fov / 2)) * 0.78
-	var viewport_size := camera.get_viewport().get_visible_rect().size
-	var width := height * viewport_size.x / viewport_size.y
-	scale = Vector3.ONE * minf(1.0, minf(width / SIZE.x, height / SIZE.y))
+	scale = Vector3.ONE # World UI keeps its size and anchor when the camera zooms.
 
 func screen_point(local_pixel: Vector2, camera: Camera3D) -> Vector2:
 	var pos := Vector3((local_pixel.x / PIXELS.x - 0.5) * SIZE.x, (0.5 - local_pixel.y / PIXELS.y) * SIZE.y, 0.0)

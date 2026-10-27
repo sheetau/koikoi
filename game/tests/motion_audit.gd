@@ -20,10 +20,6 @@ func inspect(table) -> void:
         for other in table.bodies:
             if other == card or not other.visible:
                 continue
-            # Plan explicitly requests coalescing a region into one flat packet.
-            # Test all other pairs; intentional gathering has no added thickness.
-            if card.gather_group >= 0 and card.gather_group == other.gather_group:
-                continue
             if intersects(card.transform, other.transform):
                 overlaps += 1
                 if not cases.has(str(card.identity) + ":" + str(other.identity)) and cases.size() < 8:

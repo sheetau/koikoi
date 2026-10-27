@@ -104,6 +104,13 @@ var returning_all := false
 var last_burst_peak := 0.0
 var decision_announced_revision := -1
 var last_impact_settled := false
+var presentation_rng := RandomNumberGenerator.new()
+var impact_samples: Array = []
+var camera_focus_armed := false
+var role_camera_active := false
+var saved_camera_transform := Transform3D.IDENTITY
+var owned_roles_world: Node3D
+var owned_roles_text := ""
 
 func word(key: String) -> String:
 	return Words.get_text(key, language)
@@ -117,6 +124,7 @@ func _ready() -> void:
 	if autoplay:
 		speed = 12.0
 		opponent = "greedy"
+	presentation_rng.seed = 73019 if testing else Time.get_ticks_usec()
 	load_fonts()
 	load_cards()
 	make_world()
@@ -142,7 +150,6 @@ func load_fonts() -> void:
 func update_camera() -> void:
 	camera.position = camera_pivot + Vector3(0, sin(orbit_pitch), cos(orbit_pitch)) * camera_radius
 	camera.look_at(camera_pivot)
-	refresh_world_ui()
 
 func refresh_world_ui() -> void:
 	if not is_instance_valid(left_label):
@@ -385,10 +392,10 @@ func label_background(label: Label3D, common_width: float = 0) -> void:
 	var back := plane(size, Vector3(0,0,-0.008), INK, label, GOLD)
 	back.name = "TextBackground"
 
-func scroll_text(text: String, font_size: int, parent: Node3D, maximum := Vector2i(840,360)) -> Node3D:
+func scroll_text(text: String, font_size: int, parent: Node3D, maximum := Vector2i(840,360), centered: bool = false) -> Node3D:
 	# One translucent panel for the whole block; overlong lines/rows scroll.
 	var pixels := FONT.get_multiline_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size)
-	var dimensions := Vector2i(clampi(ceili(pixels.x)+56,320,maximum.x),clampi(ceili(pixels.y)+44,64,maximum.y))
+	var dimensions := Vector2i(clampi(ceili(pixels.x)+56,mini(320,maximum.x),maximum.x),clampi(ceili(pixels.y)+44,64,maximum.y))
 	var world := WorldOverlay.new()
 	parent.add_child(world)
 	var frame := PanelContainer.new()
@@ -402,6 +409,11 @@ func scroll_text(text: String, font_size: int, parent: Node3D, maximum := Vector
 	frame.add_child(scroll)
 	var content := ui_label(text,font_size)
 	content.name = "ContentText"
+	if centered:
+		content.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		content.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		content.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	scroll.add_child(content)
 	world.fit_content(dimensions,camera)
 	return world
@@ -455,19 +467,54 @@ func refresh_hud() -> void:
 	right_label.text = "%s  %d %s%s\n%s" % [word("ai"), pts[1], word("points"), "  · " + word("dealer") if state.dealer == 1 else "", word("turn_you") if state.player == 0 else word("turn_ai")]
 	if paused:
 		right_label.text = right_label.text.get_slice("\n", 0) + "\n" + word("final" if finished else "round_complete")
+	refresh_owned_roles()
 	var hud_width := maxf(text_size(left_label.text,17).x,text_size(right_label.text,17).x)+0.45
 	label_background(left_label,hud_width)
 	label_background(right_label,hud_width)
-	var viewport_size := get_viewport().get_visible_rect().size
-	var narrow := viewport_size.x/viewport_size.y < 1.35
-	var hud_y := 0.38 if narrow else 2.0
-	var depth := maxf(1.0,-camera.to_local(Vector3(0,hud_y,0)).z)
-	var available := 2*depth*tan(deg_to_rad(camera.fov/2))*viewport_size.x/viewport_size.y*0.93
-	var factor := minf(1,available*0.45/hud_width)
-	left_label.scale = Vector3.ONE*factor
-	right_label.scale = Vector3.ONE*factor
-	left_label.position = Vector3(-minf(5.15,available/4),hud_y,0)
-	right_label.position = Vector3(minf(5.15,available/4),hud_y,0)
+	left_label.scale = Vector3.ONE
+	right_label.scale = Vector3.ONE
+	left_label.position = Vector3(-6.2,2,0)
+	right_label.position = Vector3(6.2,2,0)
+
+func refresh_owned_roles(view: Dictionary = {}) -> void:
+	if view.is_empty():
+		view = state
+	var lines: PackedStringArray = []
+	for row in view.get("yaku",[[],[]])[0]:
+		if not row.cards.is_empty():
+			lines.append(word(row.key)+"  "+str(row.points))
+	var text := "\n".join(lines)
+	if text == owned_roles_text:
+		return
+	owned_roles_text = text
+	if is_instance_valid(owned_roles_world):
+		owned_roles_world.queue_free()
+		owned_roles_world = null
+	if not text.is_empty():
+		owned_roles_world = scroll_text(text,17,self,Vector2i(220,240))
+		owned_roles_world.position = Vector3(-6.2,3.2,0)
+		owned_roles_world.scale = Vector3.ONE
+
+func _physics_process(_delta: float) -> void:
+	if not camera_focus_armed or role_camera_active:
+		return
+	for card in bodies:
+		if card.flight and card.role_route and card.role_side < 0:
+			var t: float = clampf((card.elapsed-card.start_delay)/(card.duration-card.start_delay),0,1)
+			if t*(card.role_lengths.x+card.role_lengths.y+card.role_lengths.z)>=card.role_lengths.x:
+				role_camera_active = true
+				camera.position.z = -absf(saved_camera_transform.origin.z)
+				camera.look_at(camera_pivot)
+				return
+
+func finish_role_camera() -> void:
+	if not camera_focus_armed:
+		return
+	if role_camera_active:
+		await wait_minimum(0.45,0.45)
+	camera.transform = saved_camera_transform
+	camera_focus_armed = false
+	role_camera_active = false
 
 func send(path: String, data: Dictionary = {}) -> void:
 	if busy:
@@ -580,7 +627,7 @@ func announce(message: String, seconds: float = 0.9, recipient: int = 0) -> void
 	play_sound("ui-message")
 	announcement.text = message
 	announcement.visible = false
-	message_world = scroll_text(message,18,self,Vector2i(900,260))
+	message_world = scroll_text(message,18,self,Vector2i(900,260),true)
 	message_world.position = Vector3(0,3.6 + message_world.SIZE.y*message_world.scale.y/2,0)
 	message_world.rotation.y = announcement.rotation.y
 	announcement_history.append(message)
@@ -600,7 +647,7 @@ func announce_outcome(winner: int, stopped: bool) -> void:
 	play_sound("ui-message")
 	for player in range(2):
 		var message := outcome_message(player, player == winner, stopped)
-		var face := scroll_text(message,18,self,Vector2i(900,260))
+		var face := scroll_text(message,18,self,Vector2i(900,260),true)
 		face.name = "OutcomeFront" if player == 0 else "OutcomeBack"
 		face.set_meta("text",message)
 		face.position = Vector3(0,3.6 + face.SIZE.y*face.scale.y/2,0.016 if player == 0 else -0.016)
@@ -813,6 +860,21 @@ func flight_root(card):
 func plan_flights() -> void:
 	var flights := pending_flights.duplicate()
 	pending_flights.clear()
+	# A tilted card left by the rebound must leave before the card beneath
+	# it rises to the ordinary capture plane. Preserve both landing poses.
+	for card in flights:
+		if not card.capture_slide:
+			continue
+		var delay: float = card.start_delay
+		for other in flights:
+			if other==card or not other.role_route or other.flight_from.y<=card.flight_from.y:
+				continue
+			if not Card.overlaps(Transform3D(Basis(card.rotation_from),card.flight_from),Transform3D(Basis(other.rotation_from),other.flight_from),0.04):
+				continue
+			var distance: float = other.role_lengths.x+other.role_lengths.y+other.role_lengths.z
+			delay = maxf(delay,other.start_delay+minf(2.0/distance,1.0)*(other.duration-other.start_delay))
+		card.duration += delay-card.start_delay
+		card.start_delay = delay
 	# Register every destination before considering the other moving cards.
 	for card in flights:
 		for other in flights:
@@ -854,6 +916,8 @@ func plan_flights() -> void:
 				peer.clearance[sample] = height
 
 func plan_clearance(card, lower_priority: Array) -> void:
+	if card.orbit or card.return_curve:
+		return # Dedicated routes stay outside the table and use staggered spacing.
 	# Minimum clearance above the board and the current/future card footprints.
 	# Position and orientation are solved together; no arbitrary central waypoint.
 	for iteration in range(12):
@@ -948,72 +1012,78 @@ func reset_deck(separate_cards: bool = false) -> void:
 	active_pending = -1
 	var returning: Array = bodies.filter(func(c): return c.visible)
 	var groups: Dictionary = {}
-	returning.sort_custom(func(a, b): return a.position.y > b.position.y)
-	if separate_cards:
-		returning.sort_custom(func(a, b): return a.position.x > b.position.x)
 	for card in returning:
-		var z: float = card.position.z
-		var key: String = "role_%s_%s" % [signf(z), roundi(card.position.y / 1.52)] if absf(z) > 11 else "capture_%s_%s" % [signf(z), roundi(absf(z))] if absf(z) > 2.85 and absf(card.basis.z.y) > 0.5 else "hand_%s" % signf(z) if absf(z) > 3.5 else "field"
-		if Vector2(card.position.x - STACK.x, card.position.z - STACK.z).length() < 0.05:
-			key = "stock"
+		if absf(card.basis.z.y)>0.5 and Vector2(card.position.x-STACK.x,card.position.z-STACK.z).length()<0.05:
+			card.bottom_return = false
+			card.set_meta("return_to_stock",true)
+			card_arrived(card)
+			continue
+		var flat: bool = absf(card.basis.z.y)>0.5 and Vector2(card.position.x-STACK.x,card.position.z-STACK.z).length()>0.05
+		# Horizontal rows share a return clock so their direct paths can merge
+		# without crossing cards still waiting in an adjacent field row.
+		var key := "flat" if flat else "%s_%s" % [roundi(card.position.z*10),roundi(card.position.y/1.52)]
 		if separate_cards:
-			key = "single_%s" % card.get_instance_id()
+			key = str(card.get_instance_id())
 		if not groups.has(key):
-			groups[key] = []
-		groups[key].append(card)
+			groups[key] = {"cards":[],"bottom":flat,"distance":absf(card.position.z)}
+		groups[key].cards.append(card)
+	var rows: Array = groups.values()
+	rows.sort_custom(func(a,b):return a.bottom if a.bottom!=b.bottom else a.distance<b.distance)
 	returning_all = true
-	var packets: Array = []
-	var group_id := 0
-	for group in groups.values():
-		# Pick an existing outer corner nearest the stock. Gathering uses the
-		# same plane and adds no stack height; merged cards become one visual.
-		group.sort_custom(func(a, b): return a.position.x > b.position.x if not is_equal_approx(a.position.x, b.position.x) else a.position.distance_to(STACK) < b.position.distance_to(STACK))
-		var anchor = group[0]
-		var target: Vector3 = anchor.position
-		var angles: Vector3 = anchor.rotation
-		for card in group:
+	for row in rows:
+		# Keep every card visible and distinct. Adjacent cards leave along the
+		# same outward curve, nearest to the stock first, with a spaced merge.
+		row.cards.sort_custom(func(a,b):return a.position.distance_to(STACK)<b.position.distance_to(STACK))
+		var previous_arrival := -1.0
+		var scheduled: Array = []
+		var initial_count := stack.size()
+		if row.bottom:
+			await create_tween().tween_property(stock_visual,"position:y",maxf(0.04,row.cards.map(func(c):return c.position.y).max()+0.025),0.1/speed).finished
+		for i in range(row.cards.size()):
+			var card = row.cards[i]
+			var target := STACK+Vector3(0,0.012 if row.bottom else (initial_count+i)*CARD_LAYER+0.012,0)
 			card.pair_peer = null
-			card.move_to(target, angles, 0.38 / speed)
-			card.gather_group = group_id
-		packets.append({"anchor": anchor, "members": group, "bottom": absf(anchor.basis.z.y) > 0.5 and Vector2(anchor.position.x - STACK.x, anchor.position.z - STACK.z).length() > 0.05})
-		group_id += 1
-	await finish_flights()
-	for packet in packets:
-		for card in packet.members:
-			if card != packet.anchor:
-				card.stow()
-		packet.anchor.gather_group = -1
-	packets.sort_custom(func(a, b): return a.bottom and not b.bottom)
-	for packet in packets:
-		var card = packet.anchor
-		var target_angles: Vector3 = card.rotation
-		if absf(card.basis.z.y) < 0.5:
-			target_angles = BACK_FLAT
-		# Flat packets slide under the deck. Lift the deck, never the incoming
-		# cards; its top stays continuous when the packet merges into the prism.
-		if packet.bottom:
-			var gap: float = maxf(packet.members.size() * CARD_LAYER, card.position.y + 0.025)
-			create_tween().tween_property(stock_visual, "position:y", gap, 0.12 / speed)
-		var landing_y: float = 0.012 if packet.bottom else stack.size() * CARD_LAYER + 0.012
-		fly(card, STACK + Vector3(0, landing_y, 0), target_angles, 0.6)
-		card.returning = true
-		card.bottom_return = packet.bottom
-		play_sound("fuda-turn", card.identity)
+			card.move_to(target,card.rotation if row.bottom else BACK_FLAT,1)
+			card.returning = true
+			card.bottom_return = row.bottom
+			card.route_to_stock(row.bottom)
+			var travel: float = maxf(0.3,card.return_length/8.0)/speed
+			card.duration = maxf(travel,previous_arrival+0.24/speed)
+			card.start_delay = card.duration-travel
+			# Resolve merge spacing in time, rather than lifting or overlapping
+			# the cards. All trajectories share the same group clock.
+			for attempt in range(128):
+				var collision := false
+				var samples := ceili(card.duration*speed*100)
+				var times: Array[float] = []
+				for sample in range(1,samples):
+					times.append(card.duration*sample/samples)
+				# The tightest merge can happen immediately before a leading
+				# card disappears into the stock, between uniform samples.
+				for other in scheduled:
+					times.append(other.duration-0.00001)
+				for at in times:
+					var pose: Transform3D = card.pose_at(at)
+					for other in scheduled:
+						if at>=other.duration:
+							continue
+						var other_pose: Transform3D = other.pose_at(at)
+						if pose.origin.distance_squared_to(other_pose.origin)<2.5 and Card.overlaps(pose,other_pose,0.015):
+							collision = true
+							break
+					if collision:
+						break
+				if not collision:
+					break
+				card.duration += 0.04/speed
+				card.start_delay += 0.04/speed
+			scheduled.append(card)
+			previous_arrival = card.duration
+			card.set_meta("return_to_stock",true)
+		play_sound("fuda-turn")
 		await finish_flights()
-		for member in packet.members:
-			member.stow()
-			member.identity = -1
-			member.set_face(null)
-			if packet.bottom:
-				stack.push_front(member)
-			else:
-				stack.append(member)
-		if packet.bottom:
-			stock_visual.position.y = maxf(0, stock_visual.position.y - packet.members.size() * CARD_LAYER)
-		update_stock()
-		if stock_visual.position.y > 0.001:
-			await create_tween().tween_property(stock_visual, "position:y", 0.0, 0.12 / speed).finished
-	stock_visual.position.y = 0.0
+		if row.bottom:
+			await create_tween().tween_property(stock_visual,"position:y",0.0,0.1/speed).finished
 	returning_all = false
 	configure_field([])
 
@@ -1122,7 +1192,12 @@ func animate_event(event: Dictionary) -> void:
 		active_pending = -1
 		if kind == "capture":
 			slide_field(view.field)
+			if event.new_yaku and int(event.player)==0:
+				saved_camera_transform = camera.transform
+				camera_focus_armed = true
 			await arrange_captures(view)
+			refresh_owned_roles(view)
+			await finish_role_camera()
 			if event.new_yaku:
 				var changed_roles: Array = view.yaku[int(event.player)].filter(func(row): return not row.cards.is_empty() and not state.yaku[int(event.player)].any(func(old): return old.key == row.key and old.points >= row.points))
 				for row in changed_roles:
@@ -1411,11 +1486,13 @@ func impact_capture(card, targets: Array) -> void:
 	var contact_joint: PinJoint3D
 	var settled_frames := 0
 	var first_rebound := false
+	var released := false
+	impact_samples.clear()
 	last_impact_settled = false
 	while elapsed < 5.0:
 		await get_tree().physics_frame
 		elapsed += 1.0 / Engine.physics_ticks_per_second
-		if contact_joint == null and struck.size() == 2 and card.position.y - struck[1].position.y < 0.04 and card.linear_velocity.y < 0:
+		if not released and contact_joint == null and struck.size() == 2 and card.position.y - struck[1].position.y < 0.04 and card.linear_velocity.y < 0:
 			# A short-lived contact bond lets the two thin cards share the
 			# tabletop's restitution, rather than pinning the lower rigid proxy.
 			play_sound("bafuda-place-yaku", card.identity)
@@ -1424,12 +1501,24 @@ func impact_capture(card, targets: Array) -> void:
 			add_child(contact_joint)
 			contact_joint.node_a = card.get_path()
 			contact_joint.node_b = struck[1].get_path()
+		if contact_joint != null and not released and struck.all(func(c): return c.position.y>0.08 and c.linear_velocity.y>0):
+			contact_joint.queue_free()
+			released = true
+			for body in struck:
+				body.axis_lock_angular_x = false
+				body.axis_lock_angular_y = false
+				body.axis_lock_angular_z = false
+				body.angular_damp = 2.5
+				body.angular_velocity = Vector3(presentation_rng.randf_range(-0.5,0.5),presentation_rng.randf_range(-0.8,0.8),presentation_rng.randf_range(-0.5,0.5))
+				body.apply_central_impulse(Vector3(presentation_rng.randf_range(-0.002,0.002),0,presentation_rng.randf_range(-0.002,0.002)))
+		if testing:
+			impact_samples.append(struck.map(func(c):return {"position":c.position,"angles":c.rotation,"velocity":c.linear_velocity}))
 		last_burst_peak = maxf(last_burst_peak, struck.map(func(c): return c.position.y).min())
 		if last_burst_peak > 0.1 and struck.all(func(c): return c.linear_velocity.y <= 0):
 			first_rebound = true
 		if first_rebound:
 			for body in struck:
-				body.physics_material_override.bounce = 0.12
+				body.physics_material_override.bounce = 0.36
 		if elapsed > 3.0:
 			for body in struck:
 				body.physics_material_override.bounce = 0.0
@@ -1440,15 +1529,30 @@ func impact_capture(card, targets: Array) -> void:
 			last_impact_settled = true
 			break
 	Engine.physics_ticks_per_second = previous_ticks
-	if contact_joint != null:
+	if is_instance_valid(contact_joint):
 		contact_joint.queue_free()
 	for body in struck:
 		body.freeze = true
 		body.linear_velocity = Vector3.ZERO
 		body.physics_material_override.bounce = 0.38
 		body.linear_damp = 1.2
+		body.angular_velocity = Vector3.ZERO
+		body.axis_lock_angular_x = true
+		body.axis_lock_angular_y = true
+		body.axis_lock_angular_z = true
 
 func card_arrived(card) -> void:
+	if card.has_meta("return_to_stock"):
+		card.remove_meta("return_to_stock")
+		var bottom: bool = card.bottom_return
+		card.stow()
+		card.identity = -1
+		card.set_face(null)
+		if bottom:
+			stack.push_front(card)
+		else:
+			stack.append(card)
+		update_stock()
 	if card.has_meta("role_plaque"):
 		var plaque = card.get_meta("role_plaque")
 		if is_instance_valid(plaque):
@@ -1496,6 +1600,11 @@ func _unhandled_input(event: InputEvent) -> void:
 	if is_instance_valid(message_world) and event is InputEventMouse and message_world.contains_screen(event.position,camera):
 		message_world.route(event,camera)
 		return
+	if is_instance_valid(owned_roles_world) and event is InputEventMouse and owned_roles_world.contains_screen(event.position,camera):
+		owned_roles_world.route(event,camera)
+		return
+	if camera_focus_armed:
+		return
 	if event is InputEventMouseButton:
 		if event.pressed and event.button_index in [MOUSE_BUTTON_WHEEL_UP, MOUSE_BUTTON_WHEEL_DOWN]:
 			camera_radius = clampf(camera_radius * (0.91 if event.button_index == MOUSE_BUTTON_WHEEL_UP else 1.1), 9.5, 30.0)
@@ -1521,7 +1630,7 @@ func hit_card(screen: Vector2):
 	return hit.get("collider")
 
 func hover_menu(screen: Vector2) -> void:
-	if not state.is_empty() and int(state.player) == 1 and int(state.phase) == 3:
+	if not paused and not state.is_empty() and int(state.player) == 1 and int(state.phase) == 3:
 		return
 	if not is_instance_valid(menu):
 		return
@@ -1708,6 +1817,8 @@ func screenshot(name: String) -> void:
 	get_viewport().get_texture().get_image().save_png(path.path_join(name + ".png"))
 
 func _process(delta: float) -> void:
+	if not busy and not modal:
+		hover_menu(get_viewport().get_mouse_position())
 	if autoplay:
 		elapsed_match += delta
 		if elapsed_match > 300:

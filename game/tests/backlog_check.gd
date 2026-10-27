@@ -83,9 +83,12 @@ func run() -> void:
 	next.legal = [48,49]
 	table.clear_menu()
 	table.announcement_history.clear()
+	var camera_before: Transform3D = table.camera.transform
+	var focused := [false]
 	var timing: Array = []
 	var seen: Array = []
 	var observe_notice := func():
+		focused[0] = focused[0] or table.role_camera_active
 		if not table.announcement.text.is_empty() and table.announcement.text not in seen:
 			seen.append(table.announcement.text)
 			timing.append(Time.get_ticks_msec())
@@ -93,6 +96,8 @@ func run() -> void:
 	physics_frame.connect(observe_notice)
 	await table.animate_event({"kind":"capture","card":32,"targets":[33],"player":0,"new_yaku":true,"view":next})
 	physics_frame.disconnect(observe_notice)
+	check(focused[0] and table.camera.transform.is_equal_approx(camera_before) and not table.camera_focus_armed,"Human role camera did not focus and restore")
+	check(table.owned_roles_text.contains("花見酒") and table.owned_roles_text.contains("月見酒"),"Completed roles missing from side UI")
 	check(seen==["花見酒です。","月見酒です。"], "New roles were not announced separately in order")
 	check(timing.size()==2 and timing[1]-timing[0]>=980, "Role notice disappeared too soon")
 	table.started = true

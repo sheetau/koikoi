@@ -29,22 +29,22 @@ func run() -> void:
 	var seen := [false,false,false]
 	var check_motion := func():
 		audit.inspect(table)
-		if captures[0].gather_group>=0:
+		if captures.any(func(c):return c.flight and c.returning):
 			seen[0] = true
-			check(captures.all(func(c):return c.gather_group==captures[0].gather_group), "Capture kinds were split into separate return packets")
+			check(captures.all(func(c):return c.gather_group==-1),"Return coalesced capture cards")
 		for card in table.bodies:
 			if not card.flight or not card.returning:
 				continue
 			if card.bottom_return:
 				seen[1] = true
-				check(is_equal_approx(card.flight_to.y,0.012), "Horizontal packet targeted the stock top")
+				check(is_equal_approx(card.flight_to.y,0.012), "Horizontal card targeted the stock top")
 				check(card.position.y<=card.flight_from.y+0.005, "Horizontal return lifted above its initial plane")
-				check(absf(card.rotation_from.dot(card.rotation_to))>0.9999, "Horizontal packet flipped")
+				check(absf(card.rotation_from.dot(card.rotation_to))>0.9999, "Horizontal card flipped")
 				if absf(card.position.x-table.STACK.x)<0.77 and absf(card.position.z-table.STACK.z)<1.27 and not table.stack.is_empty():
-					check(card.position.y+0.003<=table.stock_visual.position.y+0.005,"Bottom packet passed through the solid stock")
+					check(card.position.y+0.003<=table.stock_visual.position.y+0.005,"Bottom return passed through the solid stock")
 			elif card==role:
 				seen[2] = true
-				check(card.flight_to.y>0.1,"Upright role packet was not returned to the top")
+				check(card.flight_to.y>0.1,"Upright role card was not returned to the top")
 	physics_frame.connect(check_motion)
 	await table.reset_deck()
 	physics_frame.disconnect(check_motion)

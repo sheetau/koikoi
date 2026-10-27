@@ -1,5 +1,5 @@
 extends SceneTree
-## Public fixtures check audio timing and the explicitly requested visual merge.
+## Public fixtures check audio timing and distinct individual return flights.
 var errors: Array[String] = []
 func _initialize() -> void:
 	call_deferred("run")
@@ -50,20 +50,18 @@ func run() -> void:
 		card.position = Vector3(-3 + i * 0.39, 0.014 + i * 0.012, 3.65)
 		card.rotation = table.FLAT
 		cards.append(card)
-	var corner: Vector3 = cards[2].position
 	var observed := [false, false]
 	var inspect := func():
 		for card in cards:
-			if card.flight and card.gather_group >= 0:
+			if card.flight and card.returning:
 				observed[0] = true
-				check(card.flight_to.is_equal_approx(corner), "Group did not gather to its existing outer corner")
-				check(card.lift == 0, "Gather added stack height")
-			elif card.flight and card.returning:
-				observed[1] = true
-				check(absf(card.rotation_from.dot(card.rotation_to)) > 0.9999, "Horizontal return packet flipped")
+				observed[1] = observed[1] or cards.filter(func(c):return c.flight).size()>1
+				check(card.gather_group==-1,"Return coalesced distinct cards")
+				check(absf(card.rotation_from.dot(card.rotation_to))>0.9999,"Horizontal return flipped")
+
 	physics_frame.connect(inspect)
 	await table.reset_deck()
 	physics_frame.disconnect(inspect)
-	check(observed.all(func(value): return value) and table.stack.size() == 48, "Return packet sequence lost cards or skipped a stage")
+	check(observed.all(func(value): return value) and table.stack.size() == 48, "Individual return sequence lost cards or skipped a stage")
 	print("GAME_AUDIO_RETURN failures=%d clips=%d cards=%d" % [errors.size(), table.SOUNDS.size(), table.stack.size()])
 	quit(0 if errors.is_empty() else 1)

@@ -108,9 +108,14 @@ Named roles that share cards, including transitive overlaps, occupy one unwrappe
 yaku travel sideways beyond the board, round a U-turn, then arrive from right
 to left. A role shares its turn position and nominal travel speed; leftmost
 cards arrive first at evenly spaced times. The turn extends beyond long rows.
-Returns first gather each group into an existing outer-corner card, without
-adding stack height. These intentional visual merges run together. Each merged
-packet then flies to the stock. All capture categories at the same seat gather together. Horizontal packets retain their facing and slide beneath the lifted stock without rising; upright role packets align while moving and return to its top.
+Returns keep every card separate and visible. Each upright hand or role row
+follows a curved line to the stock, nearest cards first. Horizontal cards return
+in straight lines on a shared timeline without fixed delays between rows;
+only collision spacing can delay individual cards. Arc-length sampling
+keeps travel speed steady; early rotation and collision-checked start delays
+keep the merge spaced. Horizontal cards retain their facing and slide beneath
+the lifted stock without rising; upright cards align early and return to its
+top. A pending card already on the stock is stowed directly.
 Collision clearance is conservative, not a globally shortest-path solver.
 The camera fills windows of any aspect ratio without letterboxing.
 
@@ -127,7 +132,7 @@ used in the English UI. The Japanese UI uses Noto Serif JP Black for all
 characters, including Latin letters and digits; no external font path is
 required. Six user-supplied MP3 clips are copied unchanged into `game/assets/audio/`.
 Dealer/hand landings use `tefuda-place`; each yaku card plays `yaku` at arrival.
-New role movement and total-yaku transfers play `fuda-take` once per moving role row at departure; transfers have no yaku arrival sounds. Draws, ordinary captures and return packets use `fuda-turn`. Stationary opponent/dealer reveals are silent. Four original synthesized retro
+New role movement and total-yaku transfers play `fuda-take` once per moving role row at departure; transfers have no yaku arrival sounds. Draws, ordinary captures and returning rows use `fuda-turn`. Stationary opponent/dealer reveals are silent. Four original synthesized retro
 cues cover button presses, messages, wins and losses. Their playback gains
 are trimmed by 9.4–11.1 dB to match the hand/draw clips. No external audio path
 is needed. In-game credits and `THIRD_PARTY_NOTICES.md` identify the sources.
@@ -155,8 +160,8 @@ reachable research match or game result.
 single-card dealing and return flights; it also captures the normal view, question
 and settings. `game/tests/motion_audit.gd` checks moving card intersections with
 oriented-box separating axes and checks board clearance. These checks exercise
-presentation geometry only; intentional same-group return merges are excluded
-from intersection counts; no research or model evaluation is involved.
+presentation geometry only; all visible cards participate in intersection
+counts, including returns. No research or model evaluation is involved.
 
 Geometry and dense layout checks (using the pinned console executable):
 
@@ -166,21 +171,24 @@ external/godot/Godot_v4.7.2-stable_win64_console.exe --path game --script res://
 ```
 
 `game/tests/addendum_check.gd` exercises selection/cancellation, stationary
-reveal, stock choice, two-row expansion, equivalent targets, corner-gathered return,
+reveal, stock choice, two-row expansion, equivalent targets, individual curved returns,
 contact-driven rebound, camera orbit/zoom, UI depth, minimum announcement
 duration, simultaneous front/back win/lose text, hover feedback and wide/tall rendering.
 
 `game/tests/role_motion_check.gd`, `capture_motion_check.gd` and
 `impact_check.gd` isolate arrival order, half-overlapping capture groups,
 returns and collision-driven rebound. Strong landings temporarily use 480 Hz
-physics and a contact joint between the touching cards so tabletop restitution
-can rebound both thin proxies. No upward rebound velocity is injected. Cards
-settle under gravity before collection. Announcements remain visible for at
+physics and a brief contact joint between the touching cards so tabletop
+restitution can rebound both thin proxies. The joint releases on ascent;
+independent angular velocities and small horizontal impulses vary the angles
+and landing offsets. Reduced restitution produces a smaller second bounce.
+No upward rebound velocity is injected. Cards settle under gravity before
+collection; an upper role card clears the lower card before it slides away. Announcements remain visible for at
 least one second; AI choices wait at least 0.8 seconds (1.2 for a koi decision).
 Human clicks are handled immediately. Win and lose messages occupy opposing,
 single-sided faces simultaneously, so neither bleeds through the other.
 `game/tests/audio_return_check.gd` checks all ten audio streams, per-card
-arrival sounds, per-role transfer sounds, corner gathering and no-flip horizontal returns.
+arrival sounds, per-role transfer sounds, distinct traveling cards and no-flip horizontal returns.
 
 The UI smoke harness accelerates announcement/AI waits through the testing-only
 `KOIKOI_QA_FAST` flag. Minimum display durations are checked independently in
@@ -210,16 +218,15 @@ calculation on 12,000 deterministic pairs and reports measured runtime.
 rows during total-yaku transfers for both seats, one cue per role, sequential
 readable yaku notices, the following minimal koi prompt and faster field play.
 
-`migration_check.gd` verifies unified capture gathering, bottom insertion, no upward
+`migration_check.gd` verifies distinct capture returns, bottom insertion, no upward
 card movement, deck clearance and the revised audio routing. `grouped_roles_check.gd`
 checks shared/transitive role membership, bilingual labels, stable winner rows,
 conservation on return, match-length settings and restart protection. Game-service
 tests verify all four match lengths and exclusive light upgrades against the existing
 scoring implementation; these are functional checks, not strength evidence.
 
-Dealer-reveal cards bypass packet merging and return one at a time, nearest
-stock first. `dealer_return_check.gd` audits that path without excluding the pair
-as an intentional gathering group.
+Dealer-reveal cards return one at a time, nearest stock first.
+`dealer_return_check.gd` audits that path with both cards counted.
 
 Review refinements use 17–20 point text for HUD, notices and result details, with
 shared translucent backgrounds; the settings typography is unchanged. Settings
@@ -236,3 +243,16 @@ AI koi choices visibly hover for at least 0.4 seconds before their click cue;
 wall-clock enforcement prevents a costly render frame shortening that pause.
 `review_check.gd` exercises these requirements, bounded result scrolling, narrow
 layout and translucent settings from both sides. The game scoring is unchanged.
+
+Own role formation temporarily shows the rear view at the start of the first
+U-turn. After the cards arrive, the view holds for 0.45 seconds and restores
+the exact previous camera transform. A compact side panel lists the player's
+current yaku and points. Scores and this list use fixed world positions; zoom
+does not move or rescale UI independently of the scene. Short announcements
+are centered; role lists and result details stay left aligned. Hover feedback
+refreshes each frame, including next-round buttons after an AI settlement.
+
+`flow_check.gd` checks camera timing/restoration, own-role display, fixed UI
+anchors, centered notices, result hover, all 48 individual returns, continuous
+total-yaku destination height and three varied contact-driven rebounds. It
+captures the temporary rear view and restored view with the role list.
