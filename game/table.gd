@@ -3,7 +3,12 @@ extends Node3D
 
 const Card = preload("res://card.gd")
 const Words = preload("res://words.gd")
-const FONT = preload("res://assets/fonts/interface.tres")
+const SERIF = preload("res://assets/fonts/NotoSerifJP-Black.otf")
+const Layout = preload("res://layout.gd")
+var latin_font: FontFile
+var FONT: Font:
+	get: return SERIF if language == 0 else latin_font
+var latin_font_loaded := false
 const GOLD = Color("e9ca85")
 const INK = Color("241a22")
 const CREAM = Color("fff3d5")
@@ -12,6 +17,23 @@ const BACK_FLAT = Vector3(PI / 2.0, 0, 0)
 const STACK = Vector3(4.2, 0.0, -0.15)
 const WorldOverlay = preload("res://world_overlay.gd")
 const CARD_LAYER = 0.018
+const SOUNDS = {
+	"tefuda-place": preload("res://assets/audio/tefuda-place.mp3"),
+	"bafuda-place": preload("res://assets/audio/bafuda-place.mp3"),
+	"bafuda-place-yaku": preload("res://assets/audio/bafuda-place-yaku.mp3"),
+	"fuda-take": preload("res://assets/audio/fuda-take.mp3"),
+	"fuda-turn": preload("res://assets/audio/fuda-turn.mp3"),
+	"yaku": preload("res://assets/audio/yaku.mp3"),
+	"ui-click": preload("res://assets/audio/ui-click.wav"),
+	"ui-message": preload("res://assets/audio/ui-message.wav"),
+	"win": preload("res://assets/audio/win.wav"),
+	"lose": preload("res://assets/audio/lose.wav"),
+}
+# UI tones are balanced to about -30 dBFS RMS before the shared master gain,
+# matching the hand/draw clips rather than their much higher original tone RMS.
+const SOUND_GAIN_DB = {"ui-click": -9.4, "ui-message": -10.0, "win": -10.9, "lose": -11.1}
+
+var sound_log: Array = []
 const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 const JP_MONTHS = ["松", "梅", "桜", "藤", "菖蒲", "牡丹", "萩", "芒", "菊", "紅葉", "柳", "桐"]
 var textures: Array[Texture2D] = []
@@ -20,6 +42,7 @@ var stack: Array = []
 var known: Dictionary = {}
 var opponent_cards: Dictionary = {}
 var field_slots: Dictionary = {}
+var field_columns := 4
 var camera: Camera3D
 var request: HTTPRequest
 var revision := 0
@@ -50,12 +73,34 @@ var capture_slots: Array[Dictionary] = [{}, {}]
 var overlay: PanelContainer
 var overlay_box: VBoxContainer
 var modal := false
-var audio: AudioStreamPlayer
 var autoplay := false
 var qa := false
 var qa_frames: Dictionary = {}
 var elapsed_match := 0.0
 var testing := false
+var board: MeshInstance3D
+var board_body: StaticBody3D
+var board_shape: BoxShape3D
+var board_left := -5.3
+var selected_hand := -1
+var queued_capture := -1
+var active_pending := -1
+var pending_origin := Vector3.ZERO
+var pending_angles := Vector3.ZERO
+var announcement: Label3D
+var announcement_history: Array[String] = []
+var drag_start := Vector2.ZERO
+var camera_drag := false
+var drag_distance := 0.0
+var orbit_pitch := atan2(6.8, 10.6)
+var camera_radius := Vector2(6.8, 10.6).length()
+var camera_pivot := Vector3(0, 1.8, 0)
+var returning_all := false
+var last_burst_peak := 0.0
+var can_ask_koi := false
+var question_yaku: Array = []
+var decision_announced_revision := -1
+var last_impact_settled := false
 
 func word(key: String) -> String:
 	return Words.get_text(key, language)
@@ -69,6 +114,7 @@ func _ready() -> void:
 	if autoplay:
 		speed = 12.0
 		opponent = "greedy"
+	load_fonts()
 	load_cards()
 	make_world()
 	make_hud()
@@ -76,15 +122,22 @@ func _ready() -> void:
 	request.timeout = 45.0
 	add_child(request)
 	request.request_completed.connect(receive)
-	audio = AudioStreamPlayer.new()
-	audio.volume_db = -16
-	add_child(audio)
 	show_title()
 	if qa:
 		await get_tree().create_timer(1.0).timeout
 		await screenshot("title")
 	if autoplay:
 		send("/start", {"opponent": opponent, "flags": flags})
+
+func load_fonts() -> void:
+	var latin: FontFile = preload("res://assets/fonts/AntiqueSix-ExtraBold.ttf").duplicate()
+	latin.fallbacks = [SERIF]
+	latin_font = latin
+	latin_font_loaded = true
+
+func update_camera() -> void:
+	camera.position = camera_pivot + Vector3(0, sin(orbit_pitch), cos(orbit_pitch)) * camera_radius
+	camera.look_at(camera_pivot)
 
 func load_cards() -> void:
 	for month in range(12):
@@ -121,6 +174,7 @@ func label3(text: String, pos: Vector3, font_size: int = 42, color: Color = CREA
 	label.modulate = color
 	label.position = pos
 	label.no_depth_test = false
+	label.alpha_cut = Label3D.ALPHA_CUT_OPAQUE_PREPASS
 	label.double_sided = false
 	if parent == null:
 		add_child(label)
@@ -164,18 +218,18 @@ func make_world() -> void:
 	add_child(camera)
 	camera.look_at(Vector3(0, 1.8, 0))
 	camera.current = true
-	var board := plane(Vector2(10.6, 5.7), Vector3.ZERO, Color("4f063d"), self, Color("f4e7ba"))
+	board = plane(Vector2(10.6, 5.7), Vector3.ZERO, Color("4f063d"), self, Color("f4e7ba"))
 	board.rotation.x = -PI / 2.0
-	var table_body := StaticBody3D.new()
+	board_body = StaticBody3D.new()
 	var shape := CollisionShape3D.new()
-	var box := BoxShape3D.new()
-	box.size = Vector3(10.6, 0.01, 5.7)
-	box.margin = 0.001
-	shape.shape = box
-	table_body.position.y = -0.005
-	table_body.collision_layer = 1
-	table_body.add_child(shape)
-	add_child(table_body)
+	board_shape = BoxShape3D.new()
+	board_shape.size = Vector3(10.6, 0.8, 5.7)
+	board_shape.margin = 0.001
+	shape.shape = board_shape
+	board_body.position.y = -0.4
+	board_body.collision_layer = 1
+	board_body.add_child(shape)
+	add_child(board_body)
 	stock_visual = Node3D.new()
 	stock_visual.position = STACK
 	add_child(stock_visual)
@@ -185,6 +239,7 @@ func make_world() -> void:
 		card.position = STACK + Vector3(0, i * CARD_LAYER, 0)
 		card.rotation = BACK_FLAT
 		card.stow()
+		card.arrived.connect(card_arrived)
 		bodies.append(card)
 		stack.append(card)
 	update_stock()
@@ -241,7 +296,7 @@ func ui_button(text: String, callback: Callable) -> Button:
 	b.add_theme_stylebox_override("normal", style(INK, Color("806b48")))
 	b.add_theme_stylebox_override("hover", style(Color("513c37"), GOLD))
 	b.add_theme_stylebox_override("pressed", style(Color("6b433d"), GOLD))
-	b.pressed.connect(callback)
+	b.pressed.connect(func(): play_sound("ui-click"); callback.call())
 	return b
 
 func make_hud() -> void:
@@ -249,6 +304,10 @@ func make_hud() -> void:
 	left_label = label3("", Vector3(-5.65, 2.0, 0.0), 26, CREAM)
 	right_label = label3("", Vector3(5.65, 2.0, 0.0), 26, CREAM)
 	bottom_label = label3("", Vector3(0, 1.32, 0.0), 25, GOLD)
+	bottom_label.visible = false
+	announcement = label3("", Vector3(0, 4.8, 0), 28, CREAM)
+	announcement.double_sided = true
+	announcement.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	hud = CanvasLayer.new()
 	add_child(hud)
 	var root := Control.new()
@@ -270,10 +329,16 @@ func clear_menu() -> void:
 	menu.position = Vector3(0, 2.7, 0)
 	add_child(menu)
 
+func text_size(text: String, size: int) -> Vector2:
+	return FONT.get_multiline_string_size(text, HORIZONTAL_ALIGNMENT_CENTER, -1, size) * 0.0085
+
 func panel(title: String, subtitle: String = "", reverse: String = "", _height: float = 0.9, mirrored: bool = false) -> void:
 	clear_menu()
-	var width := clampf(FONT.get_string_size(title, HORIZONTAL_ALIGNMENT_LEFT, -1, 46).x * 0.0085 + 0.65, 3.7, 7.2)
-	plane(Vector2(width, 0.92), Vector3.ZERO, Color("3d301c"), menu, Color("f2bc58"))
+	var front_size := text_size(title, 46)
+	var reverse_size := text_size(reverse if reverse != "" else title, 46)
+	var width := maxf(front_size.x, reverse_size.x) + 0.65
+	var height := maxf(front_size.y, reverse_size.y) + 0.24
+	plane(Vector2(width, height), Vector3.ZERO, Color("3d301c"), menu, Color("f2bc58"))
 	var text := label3(title, Vector3(0, 0, 0.006), 46, Color("c73c0b"), menu)
 	text.outline_size = 4
 	text.outline_modulate = Color("ffce65")
@@ -287,17 +352,31 @@ func panel(title: String, subtitle: String = "", reverse: String = "", _height: 
 		back.scale.x = -1.0
 
 func world_button(text: String, y: float, action: String, value: int = 0, x: float = 0, width: float = 3.4) -> void:
-	plane(Vector2(width, 0.48), Vector3(x, y, 0.008), Color("49351e"), menu, GOLD)
-	label3(text, Vector3(x, y, 0.013), 29, CREAM, menu)
-	menu_buttons.append({"x": x, "y": y, "width": width, "height": 0.48, "action": action, "value": value})
+	var measured := text_size(text, 29) + Vector2(0.6, 0.22)
+	width = maxf(width, measured.x)
+	var plate := plane(Vector2(width, measured.y), Vector3(x, y, 0.008), Color("49351e"), menu, GOLD)
+	var caption := label3(text, Vector3(x, y, 0.013), 29, CREAM, menu)
+	menu_buttons.append({"x": x, "y": y, "width": width, "height": measured.y, "action": action, "value": value, "plate": plate, "caption": caption, "fill": Color("49351e"), "ink": CREAM})
 
 func show_title() -> void:
 	panel("START")
-	menu_buttons.append({"x": 0.0, "y": 0.0, "width": 3.7, "height": 0.92, "action": "start", "value": 0})
+	menu_buttons.append({"x": 0.0, "y": 0.0, "width": (menu.get_child(0).mesh as QuadMesh).size.x, "height": (menu.get_child(0).mesh as QuadMesh).size.y, "action": "start", "value": 0, "plate": menu.get_child(0), "caption": menu.get_child(1), "fill": menu.get_child(0).material_override.albedo_color, "ink": menu.get_child(1).modulate})
 	refresh_hud()
 
 func switch_language() -> void:
 	language = 1 - language
+	for label in find_children("*", "Label3D", true, false):
+		label.font = FONT
+	for plaque in label_nodes:
+		var text: Label3D = plaque.get_child(1)
+		text.text = word(plaque.get_meta("yaku_key")) + "  " + str(plaque.get_meta("points"))
+		var size := text_size(text.text, 18) + Vector2(0.35, 0.16)
+		plaque.position.x = (3.6 + size.x / 2) * int(plaque.get_meta("direction"))
+		var old_plate: Node = plaque.get_child(0)
+		plaque.remove_child(old_plate)
+		old_plate.queue_free()
+		var new_plate := plane(size, Vector3.ZERO, Color("3d301c"), plaque, GOLD)
+		plaque.move_child(new_plate, 0)
 	save_settings()
 	refresh_hud()
 	if not busy:
@@ -311,19 +390,21 @@ func refresh_hud() -> void:
 		right_label.text = ""
 		bottom_label.text = ""
 		return
-	bottom_label.visible = not is_instance_valid(menu) or menu.get_child_count() == 0
+	bottom_label.visible = false
+	left_label.font = FONT
+	right_label.font = FONT
+	announcement.font = FONT
 	var pts: Array = state.points
 	left_label.text = "%s    %02d / 12\n%s  %d %s%s" % [word("round"), state.round, word("you"), pts[0], word("points"), "  · " + word("dealer") if state.dealer == 0 else ""]
 	right_label.text = "%s  %d %s%s\n%s" % [word("ai"), pts[1], word("points"), "  · " + word("dealer") if state.dealer == 1 else "", word("turn_you") if state.player == 0 else word("turn_ai")]
-	bottom_label.text = word("thinking") if busy or state.player == 1 else word("pick") if state.phase in [1, 2] else word("play")
 	if paused:
-		bottom_label.text = word("final") if finished else "%s %d / 12" % [word("round"), state.round]
 		right_label.text = right_label.text.get_slice("\n", 0) + "\n" + word("final" if finished else "round_complete")
 
 func send(path: String, data: Dictionary = {}) -> void:
 	if busy:
 		return
 	busy = true
+	update_hand_affordance()
 	data["revision"] = revision
 	if path == "/start":
 		panel(word("loading"))
@@ -349,6 +430,8 @@ func receive(result: int, code: int, _headers: PackedStringArray, body: PackedBy
 	paused = parsed.get("paused", false)
 	finished = parsed.get("finished", false)
 	ending = parsed.get("end", {}) if parsed.get("end") != null else {}
+	question_yaku.clear()
+	can_ask_koi = not paused and int(parsed.get("view", {}).get("phase", -1)) == 3
 	clear_menu()
 	for event in parsed.get("events", []):
 		await animate_event(event)
@@ -358,6 +441,14 @@ func receive(result: int, code: int, _headers: PackedStringArray, body: PackedBy
 		if not paused:
 			await arrange_captures(state)
 	busy = false
+	if queued_capture >= 0 and not paused and int(state.phase) == 1 and has_id(state.legal, queued_capture):
+		var chosen := queued_capture
+		queued_capture = -1
+		send("/action", {"action": chosen})
+		return
+	if not paused and int(state.player) == 0 and int(state.phase) in [1, 2] and equivalent_targets(state.legal):
+		send("/action", {"action": int(state.legal[0])})
+		return
 	show_decision()
 	refresh_hud()
 	if not state.is_empty():
@@ -380,15 +471,131 @@ func show_decision() -> void:
 	elif paused:
 		show_result()
 	elif int(state.phase) == 3:
-		panel(word("koi_question"), "%d %s" % [state.yaku_points[int(state.player)], word("points")], word("koi_question"), 3.3, true)
-		menu.position.y = 4.9
-		if int(state.player) == 0:
-			world_button(word("yes"), -1.35, "action", 49, -1.4, 2.5)
-			world_button(word("no"), -1.35, "action", 48, 1.4, 2.5)
-		else:
+		clear_menu()
+		menu.position.y = 3.7
+		var names: Array = question_yaku.map(func(key): return word(key))
+		var question := word("koi_question") if names.is_empty() else "・".join(names) + "です。こいこいにしますか？" if language == 0 else ", ".join(names) + ". Koikoi?"
+		var question_size := text_size(question, 28) + Vector2(0.6, 0.25)
+		plane(question_size, Vector3(0, 0.75 + question_size.y / 2, 0.008), Color("3d301c"), menu, GOLD)
+		var question_label := label3(question, Vector3(0, 0.75 + question_size.y / 2, 0.013), 28, CREAM, menu)
+		question_label.double_sided = true
+		var free_width := right_label.position.x - text_size(right_label.text, right_label.font_size).x / 2 - left_label.position.x - text_size(left_label.text, left_label.font_size).x / 2 - 0.4
+		menu.scale = Vector3.ONE * minf(1.0, free_width / maxf(question_size.x, 5.3))
+		if decision_announced_revision != revision:
+			play_sound("ui-message")
+			decision_announced_revision = revision
+		world_button(word("yes"), 0.0, "action", 49, -1.4, 2.5)
+		world_button(word("no"), 0.0, "action", 48, 1.4, 2.5)
+		for child in menu.get_children():
+			if child is Label3D:
+				child.double_sided = true
+		if int(state.player) == 1:
 			menu.rotation.y = PI
+			menu_buttons.clear()
 	else:
 		clear_menu()
+	update_hand_affordance()
+
+func player_name(player: int) -> String:
+	return ("プレイヤー" if player == 0 else "AI") if language == 0 else ("Player" if player == 0 else "AI")
+
+func card_name(id: int) -> String:
+	var special := {0: "松に鶴", 4: "梅に鶯", 8: "桜に幕", 12: "藤に不如帰", 16: "菖蒲に八橋", 20: "牡丹に蝶", 24: "萩に猪", 28: "芒に月", 29: "芒に雁", 32: "菊に盃", 36: "紅葉に鹿", 40: "柳に小野道風", 41: "柳に燕", 44: "桐に鳳凰"}
+	if language == 0:
+		return special.get(id, JP_MONTHS[id / 4] + ("の短冊" if Layout.category(id) == 2 else "のかす"))
+	return MONTHS[id / 4] + " · " + ["Chaff", "Animal", "Ribbon", "Light"][Layout.category(id)]
+
+func announce(message: String, seconds: float = 0.9, recipient: int = 0) -> void:
+	announcement.rotation.y = PI if recipient == 1 else 0
+	play_sound("ui-message")
+	announcement.text = message
+	var viewport_size := get_viewport().get_visible_rect().size
+	var depth := maxf(1.0, -camera.to_local(announcement.global_position).z)
+	var available_width := 2.0 * depth * tan(deg_to_rad(camera.fov / 2)) * viewport_size.x / viewport_size.y * 0.85
+	announcement.width = ceili(minf(text_size(message, announcement.font_size).x, available_width) / announcement.pixel_size)
+	announcement_history.append(message)
+	await wait_minimum(seconds, 1.0)
+	announcement.text = ""
+
+func outcome_message(player: int, won: bool, stopped: bool) -> String:
+	if language == 1:
+		return player_name(player) + (" WIN" if won else " LOSE")
+	if won:
+		return player_name(player) + "さんの勝ちです"
+	return (player_name(1 - player) + "さんがこいこいしませんでした。" if stopped else "") + player_name(player) + "さんの負けです。"
+
+func announce_outcome(winner: int, stopped: bool) -> void:
+	var faces: Array[Label3D] = []
+	play_sound("ui-message")
+	for player in range(2):
+		var message := outcome_message(player, player == winner, stopped)
+		var face := label3(message, announcement.position + Vector3(0, 0, 0.012 if player == 0 else -0.012), announcement.font_size, CREAM, self)
+		face.name = "OutcomeFront" if player == 0 else "OutcomeBack"
+		face.double_sided = false
+		face.rotation.y = PI if player == 1 else 0
+		var viewport_size := get_viewport().get_visible_rect().size
+		var depth := maxf(1.0, -camera.to_local(face.global_position).z)
+		var available_width := 2.0 * depth * tan(deg_to_rad(camera.fov / 2)) * viewport_size.x / viewport_size.y * 0.85
+		face.width = ceili(minf(text_size(message, face.font_size).x, available_width) / face.pixel_size)
+		faces.append(face)
+		announcement_history.append(message)
+	await wait_minimum(1.25, 1.25)
+	for face in faces:
+		face.queue_free()
+
+func update_hand_affordance() -> void:
+	if state.is_empty():
+		return
+	for slot in range(8):
+		var id := int(state.hand[slot])
+		if id < 0 or id == active_pending or not known.has(id):
+			continue
+		var card = known[id]
+		var raised: bool = not busy and not modal and not paused and int(state.player) == 0 and int(state.phase) == 0 and has_id(state.legal, id) and not matching_field(id).is_empty()
+		if selected_hand >= 0:
+			raised = id == selected_hand
+		var target := hand_position(slot, 0) + Vector3(0, 0.24 if raised else 0, 0)
+		if card.position.distance_to(target) > 0.005:
+			card.move_to(target, Vector3.ZERO, 0.16 / speed)
+
+func has_id(values: Array, id: int) -> bool:
+	return values.any(func(value): return int(value) == id)
+
+func matching_field(id: int) -> Array:
+	return state.field.filter(func(c): return int(c) / 4 == id / 4)
+
+func equivalent_targets(ids: Array) -> bool:
+	if ids.size() < 2:
+		return false
+	return ids.all(func(id): return int(id) / 4 == int(ids[0]) / 4 and Layout.category(int(id)) == Layout.category(int(ids[0])))
+
+func cancel_selection() -> void:
+	selected_hand = -1
+	queued_capture = -1
+	update_hand_affordance()
+
+func handle_table_click(screen: Vector2) -> void:
+	if click_menu(screen) or busy or not started or paused or int(state.player) != 0:
+		return
+	var card = hit_card(screen)
+	if selected_hand >= 0:
+		if card != null and has_id(matching_field(selected_hand), card.identity):
+			var chosen := selected_hand
+			queued_capture = card.identity if matching_field(chosen).size() == 2 else -1
+			selected_hand = -1
+			active_pending = chosen
+			send("/action", {"action": chosen})
+			return
+		if card == null or card.identity == selected_hand or not has_id(state.hand, card.identity):
+			cancel_selection()
+			return
+	if card != null and has_id(state.legal, card.identity):
+		if int(state.phase) == 0 and matching_field(card.identity).size() >= 2 and not equivalent_targets(matching_field(card.identity)):
+			selected_hand = card.identity
+			update_hand_affordance()
+		else:
+			active_pending = card.identity if int(state.phase) == 0 else active_pending
+			send("/action", {"action": card.identity})
 
 func show_result() -> void:
 	var winner := int(ending.get("winner", 0))
@@ -412,22 +619,38 @@ func show_result() -> void:
 	text += "\n+%d %s" % [ending.get("payment", 0), word("points")]
 	var lines := text.split("\n")
 	var columns := lines.size() > 8
-	var height := maxf(1.1, (ceilf(lines.size() / 2.0) if columns else lines.size()) * 0.29 + 0.45)
-	panel(headline, word("final") if finished else "%s %d / 12" % [word("round"), state.round], "LOSE" if headline == "WIN" else "WIN" if headline == "LOSE" else "DRAW", height)
+	var middle := ceili(lines.size() / 2.0)
+	var parts: Array = ["\n".join(lines.slice(0, middle)), "\n".join(lines.slice(middle))] if columns else [text]
+	var font_size := 23 if columns else 25
+	var sizes: Array[Vector2] = []
+	var width := 0.6
+	var height := 0.0
+	for part in parts:
+		var measured := text_size(part, font_size)
+		sizes.append(measured)
+		width += measured.x + 0.4
+		height = maxf(height, measured.y + 0.5)
+	panel(headline, word("final") if finished else "%s %d / 12" % [word("round"), state.round], "LOSE" if headline == "WIN" else "WIN" if headline == "LOSE" else "DRAW")
 	menu.get_child(0).material_override = Card.material(Color("b94013"))
 	for child in menu.get_children():
 		if child is Label3D and child.font_size == 46:
 			child.modulate = CREAM
 			child.outline_modulate = Color("18797d")
 	menu.position.y = 3.8 + maxf(0, height - 1.6) * 0.5
-	plane(Vector2(6.6, height), Vector3(0, -0.92 - height / 2.0, 0.002), Color("3d301c"), menu, GOLD)
-	if columns:
-		var middle := ceili(lines.size() / 2.0)
-		label3("\n".join(lines.slice(0, middle)), Vector3(-1.65, -0.92 - height / 2.0, 0.006), 23, CREAM, menu)
-		label3("\n".join(lines.slice(middle)), Vector3(1.65, -0.92 - height / 2.0, 0.006), 23, CREAM, menu)
-	else:
-		label3(text, Vector3(0, -0.92 - height / 2.0, 0.006), 25, CREAM, menu)
-	world_button(word("new" if finished else "next"), -1.28 - height, "start" if finished else "next")
+	var top := -maxf(1.05, (menu.get_child(0).mesh as QuadMesh).size.y / 2 + text_size(word("final"), 25).y + 0.35)
+	plane(Vector2(width, height), Vector3(0, top - height / 2, 0.002), Color("3d301c"), menu, GOLD)
+	var x := -width / 2 + 0.5
+	for i in range(parts.size()):
+		label3(parts[i], Vector3(x + sizes[i].x / 2, top - height / 2, 0.006), font_size, CREAM, menu)
+		x += sizes[i].x + 0.4
+	world_button(word("new" if finished else "next"), top - height - text_size(word("new" if finished else "next"), 29).y / 2 - 0.22, "start" if finished else "next")
+	# The content determines its plate size; fit the entire result between the
+	# two persistent score readouts instead of clipping or shrinking a text box.
+	var free_width := right_label.position.x - text_size(right_label.text, right_label.font_size).x / 2 - left_label.position.x - text_size(left_label.text, left_label.font_size).x / 2 - 0.4
+	var factor := minf(1.0, free_width / width)
+	menu.scale = Vector3.ONE * factor
+	menu.position.y = 3.8 + maxf(0, height * factor - 1.6) * 0.5
+
 
 func maybe_ai() -> void:
 	if busy or modal or state.is_empty() or finished:
@@ -435,13 +658,20 @@ func maybe_ai() -> void:
 	if autoplay and paused:
 		send("/next")
 	elif not paused and int(state.player) == 1:
-		await wait_for(0.55)
+		await wait_minimum(0.55, 1.2 if int(state.phase) == 3 else 0.8)
 		if not busy and not modal:
 			send("/ai")
 	elif autoplay and not paused:
 		var actions: Array = state.legal
 		if not actions.is_empty():
 			send("/action", {"action": int(actions[0])})
+
+func wait_minimum(seconds: float, minimum: float) -> void:
+	# Functional QA may accelerate the clock; separate presentation tests
+	# exercise the actual minimum duration without this environment flag.
+	if testing and OS.get_environment("KOIKOI_QA_FAST") == "1":
+		minimum = 0.0
+	await get_tree().create_timer(maxf(minimum, seconds / speed)).timeout
 
 func wait_for(seconds: float) -> void:
 	await get_tree().create_timer(maxf(0.018, seconds / speed)).timeout
@@ -463,19 +693,40 @@ func take_card(id: int = -1):
 func hand_position(slot: int, player: int) -> Vector3:
 	return Vector3((slot - 3.5) * 0.99, 1.04, 3.9 if player == 0 else -4.25)
 
+func configure_field(ids: Array) -> void:
+	for id in field_slots.keys():
+		if not has_id(ids, int(id)):
+			field_slots.erase(id)
+	for raw_id in ids:
+		var id := int(raw_id)
+		if not field_slots.has(id):
+			var slot := 0
+			while slot in field_slots.values():
+				slot += 1
+			field_slots[id] = slot
+			field_columns = maxi(field_columns, ceili((slot + 1) / 2.0))
+	board_left = Layout.field_left(field_columns * 2)
+	var width := 5.3 - board_left
+	board.scale.x = width / 10.6
+	board.position.x = (5.3 + board_left) / 2
+	board_body.position.x = board.position.x
+	board_shape.size.x = width
+
 func field_position(card_id: int) -> Vector3:
 	if not field_slots.has(card_id):
-		var occupied := field_slots.values()
-		for i in range(32):
-			if i not in occupied:
-				field_slots[card_id] = i
-				break
-	var index: int = field_slots[card_id]
-	if index < 8:
-		return Vector3((index % 4 - 1.5) * 1.32 - 0.9, 0.012, (index / 4 - 0.5) * 1.7)
-	if index < 16:
-		return Vector3((index % 4 - 1.5) * 1.32 - 0.9, 0.012, -2.18 if index < 12 else 2.18)
-	return Vector3(-4.25 if index < 20 else 2.5, 0.012 + maxf(0, index - 24) * 0.018, ((index - 16) % 4 - 1.5) * 1.4)
+		configure_field(field_slots.keys() + [card_id])
+	return Layout.field(int(field_slots[card_id]), field_columns * 2)
+
+func slide_field(ids: Array, except_id: int = -1) -> void:
+	configure_field(ids)
+	for raw_id in ids:
+		var id := int(raw_id)
+		if id == except_id or not known.has(id):
+			continue
+		var card = known[id]
+		var pos := field_position(id)
+		if card.position.distance_to(pos) > 0.008:
+			fly(card, pos, FLAT, 0.62)
 
 func half_bounds(basis: Basis) -> Vector3:
 	return basis.x.abs() * Card.SIZE.x / 2 + basis.y.abs() * Card.SIZE.y / 2 + basis.z.abs() * Card.SIZE.z / 2
@@ -496,7 +747,7 @@ func plan_flights() -> void:
 	# Register every destination before considering the other moving cards.
 	for card in flights:
 		for other in flights:
-			if other == card or card.pair_peer != null or other.pair_peer == card:
+			if other == card or card.capture_slide or card.pair_peer != null or other.pair_peer == card:
 				continue
 			if card.flight_from.y >= other.flight_from.y:
 				continue
@@ -511,8 +762,14 @@ func plan_flights() -> void:
 	flights.sort_custom(func(a, b):
 		var ar = flight_root(a)
 		var br = flight_root(b)
+		if ar.capture_slide != br.capture_slide:
+			return ar.capture_slide
+		if ar.capture_slide and br.capture_slide and ar.flight_to.y != br.flight_to.y:
+			return ar.flight_to.y < br.flight_to.y
 		if ar == br:
 			return a.flight_from.y > b.flight_from.y
+		if absf(ar.flight_to.z) > 11.0 and absf(br.flight_to.z) > 11.0 and ar.flight_to.z * br.flight_to.z > 0 and ar.flight_to.y != br.flight_to.y:
+			return ar.flight_to.y < br.flight_to.y
 		if ar.flight_from.y != br.flight_from.y:
 			return ar.flight_from.y > br.flight_from.y
 		return ar.get_instance_id() < br.get_instance_id())
@@ -534,10 +791,13 @@ func plan_clearance(card, lower_priority: Array) -> void:
 		var changed := false
 		for i in range(1, 96):
 			var t := i / 96.0
+			if card.role_route and card.role_clearance_weight((t * card.duration - card.start_delay) / (card.duration - card.start_delay)) < 0.001:
+				continue
 			var pose: Transform3D = card.pose_at(t * card.duration)
 			var extent := half_bounds(pose.basis)
 			var floor_y := -100.0
-			if absf(pose.origin.x) < 5.3 + extent.x and absf(pose.origin.z) < 2.85 + extent.z:
+			var ceiling_y := 100.0
+			if pose.origin.x > board_left - extent.x and pose.origin.x < 5.3 + extent.x and absf(pose.origin.z) < 2.85 + extent.z:
 				floor_y = 0.006
 			# The solid stock participates as one box, never 48 exposed slabs.
 			if absf(pose.origin.x - STACK.x) < extent.x + Card.SIZE.x / 2 and absf(pose.origin.z - STACK.z) < extent.z + Card.SIZE.y / 2:
@@ -547,15 +807,37 @@ func plan_clearance(card, lower_priority: Array) -> void:
 					continue
 				var other_pose: Transform3D = other.pose_at(other.elapsed + t * card.duration) if other.flight else other.transform
 				var other_extent := half_bounds(other_pose.basis)
+				var role_t: float = clampf((t * card.duration - card.start_delay) / (card.duration - card.start_delay), 0, 1)
+				var in_sideways_leg: bool = card.role_route and role_t * (card.role_lengths.x + card.role_lengths.y + card.role_lengths.z) < card.role_lengths.x
+				if card.role_route and not Card.overlaps(pose, other_pose, 0.001 if in_sideways_leg else 0.03):
+					continue
 				var diff := (pose.origin - other_pose.origin).abs()
 				if diff.x < extent.x + other_extent.x + 0.03 and diff.z < extent.z + other_extent.z + 0.03:
-					# Don't route above upright racks that are entirely above this route.
-					if other.flight or pose.origin.y + extent.y >= other_pose.origin.y - other_extent.y - 0.01:
-						floor_y = maxf(floor_y, other_pose.origin.y + other_extent.y + 0.025)
+					if card.capture_slide:
+						if other_pose.origin.y - other_extent.y > 0.25:
+							continue
+						var other_y: float = other.flight_to.y if other.flight else other_pose.origin.y
+						if other_y > card.flight_to.y + 0.005:
+							ceiling_y = minf(ceiling_y, other_pose.origin.y - other_extent.y - 0.001)
+							continue
+					# Passing beneath a separated card is valid; lift only for a
+					# vertical conflict, including a sampling/clearance margin.
+					if card.capture_slide or (minf(card.flight_from.z, card.flight_to.z) < other_pose.origin.z and maxf(card.flight_from.z, card.flight_to.z) > other_pose.origin.z and other_extent.y > 0.5 and (is_equal_approx(other_pose.origin.z, 3.9) or is_equal_approx(other_pose.origin.z, -4.25)) and (not other.flight or Vector2(other.flight_from.x, other.flight_from.z).distance_to(Vector2(other.flight_to.x, other.flight_to.z)) < 0.001)) or (pose.origin.y + extent.y >= other_pose.origin.y - other_extent.y - 0.08 and pose.origin.y - extent.y <= other_pose.origin.y + other_extent.y + 0.08):
+						floor_y = maxf(floor_y, other_pose.origin.y + other_extent.y + (0.001 if card.capture_slide or (returning_all and t > 0.9) else 0.025))
 			var deficit := floor_y + extent.y - pose.origin.y
 			if deficit > 0:
 				card.clearance[i] += deficit + 0.003
 				changed = true
+			if card.capture_slide:
+				var adjusted: Transform3D = card.pose_at(t * card.duration)
+				var excess := adjusted.origin.y + extent.y - ceiling_y
+				if excess > 0:
+					card.clearance[i] -= excess + 0.001
+					changed = true
+		if card.capture_slide:
+			if not changed:
+				break
+			continue
 		var expanded = card.clearance.duplicate()
 		for i in range(1, 96):
 			for j in range(maxi(1, i - 2), mini(96, i + 3)):
@@ -566,6 +848,14 @@ func plan_clearance(card, lower_priority: Array) -> void:
 			card.clearance[i] = maxf(card.clearance[i], card.clearance[i + 1] - 0.12)
 		for i in range(2, 96):
 			card.clearance[i] = maxf(card.clearance[i], card.clearance[i - 1] - 0.12)
+		if card.pair_peer != null:
+			# Both cards share clearance while they are still touching. Update
+			# the leader now so the follower's separation constraint cannot
+			# repeatedly cancel the lift and make the solver accumulate height.
+			for sample in range(1, 96):
+				var shared: float = maxf(card.clearance[sample], card.pair_peer.clearance[sample])
+				card.clearance[sample] = shared
+				card.pair_peer.clearance[sample] = shared
 		if not changed:
 			break
 
@@ -579,23 +869,65 @@ func reset_deck() -> void:
 	known.clear()
 	opponent_cards.clear()
 	field_slots.clear()
+	field_columns = 4
 	capture_slots = [{}, {}]
 	role_order = [[], []]
 	role_slots = [{}, {}]
 	pending_flights.clear()
-	# A short ordered return peels exposed cards off first, avoiding crossing lanes.
+	selected_hand = -1
+	queued_capture = -1
+	active_pending = -1
 	var returning: Array = bodies.filter(func(c): return c.visible)
+	var groups: Dictionary = {}
 	returning.sort_custom(func(a, b): return a.position.y > b.position.y)
 	for card in returning:
-		card.pair_peer = null
-		card.reveal_turn = false
-		fly(card, STACK + Vector3(0, (stack.size() + 1) * CARD_LAYER, 0), BACK_FLAT, 0.24)
+		var z: float = card.position.z
+		var key: String = "role_%s_%s" % [signf(z), roundi(card.position.y / 1.52)] if absf(z) > 11 else "capture_%s_%s_%s" % [signf(z), roundi(absf(z)), Layout.category(card.identity)] if absf(z) > 2.85 and absf(card.basis.z.y) > 0.5 else "hand_%s" % signf(z) if absf(z) > 3.5 else "field"
+		if Vector2(card.position.x - STACK.x, card.position.z - STACK.z).length() < 0.05:
+			key = "stock"
+		if not groups.has(key):
+			groups[key] = []
+		groups[key].append(card)
+	returning_all = true
+	var packets: Array = []
+	var group_id := 0
+	for group in groups.values():
+		# Pick an existing outer corner nearest the stock. Gathering uses the
+		# same plane and adds no stack height; merged cards become one visual.
+		group.sort_custom(func(a, b): return a.position.x > b.position.x if not is_equal_approx(a.position.x, b.position.x) else a.position.distance_to(STACK) < b.position.distance_to(STACK))
+		var anchor = group[0]
+		var target: Vector3 = anchor.position
+		var angles: Vector3 = anchor.rotation
+		for card in group:
+			card.pair_peer = null
+			card.move_to(target, angles, 0.38 / speed)
+			card.gather_group = group_id
+		packets.append({"anchor": anchor, "members": group})
+		group_id += 1
+	await finish_flights()
+	for packet in packets:
+		for card in packet.members:
+			if card != packet.anchor:
+				card.stow()
+		packet.anchor.gather_group = -1
+	for packet in packets:
+		var card = packet.anchor
+		var target_angles: Vector3 = card.rotation
+		if absf(card.basis.z.y) < 0.5:
+			target_angles = BACK_FLAT
+		# A horizontal packet keeps its current face; there is no flip.
+		fly(card, STACK + Vector3(0, stack.size() * CARD_LAYER + 0.012, 0), target_angles, 0.6)
+		card.returning = true
+		play_sound("fuda-take", card.identity)
 		await finish_flights()
-		card.stow()
-		card.identity = -1
-		card.set_face(null)
-		stack.append(card)
+		for member in packet.members:
+			member.stow()
+			member.identity = -1
+			member.set_face(null)
+			stack.append(member)
 		update_stock()
+	returning_all = false
+	configure_field([])
 
 func opening(event: Dictionary) -> void:
 	await reset_deck()
@@ -607,15 +939,20 @@ func opening(event: Dictionary) -> void:
 			var card = take_card(int(reveal.cards[p]))
 			pair.append(card)
 			fly(card, Vector3(-0.7 if p == 0 else 0.7, 2.25, 0), Vector3(0, PI * p, 0), 0.65)
+			card.arrival_sound = "tefuda-place"
 		await finish_flights()
 		await wait_for(0.3)
 		# Dealer reveal is the one explicitly requested stationary turn.
+		play_sound("fuda-turn")
 		for card in pair:
 			card.move_to(card.position, card.rotation + Vector3(0, PI, 0), 1.1 / speed)
 		await finish_flights()
-		panel(word("tie") if int(reveal.winner) < 0 else word("dealer_you" if int(reveal.winner) == 0 else "dealer_ai"))
-		menu.position.y = 4.4
-		await wait_for(0.55)
+		clear_menu()
+		if int(reveal.winner) < 0:
+			await announce(word("tie"))
+		else:
+			var names := card_name(int(reveal.cards[0])) + "、" + card_name(int(reveal.cards[1]))
+			await announce(names + "。親が" + player_name(int(reveal.winner)) + "さんに決定しました。" if language == 0 else names + ". " + player_name(int(reveal.winner)) + " is the dealer.", 1.5)
 		await reset_deck()
 	clear_menu()
 	await deal_cards(event.view, false)
@@ -625,6 +962,7 @@ func deal_cards(view: Dictionary, returning: bool = true) -> void:
 		await reset_deck()
 	clear_menu()
 	state = view
+	configure_field(view.field)
 	refresh_hud()
 	for batch in range(4):
 		for group in [2, int(view.dealer), 1 - int(view.dealer)]:
@@ -636,6 +974,7 @@ func deal_cards(view: Dictionary, returning: bool = true) -> void:
 				var card = take_card(id)
 				pair.append(card)
 				if group == 2:
+					card.rotation = FLAT
 					destinations.append(field_position(id))
 				else:
 					card.slot = slot
@@ -647,8 +986,8 @@ func deal_cards(view: Dictionary, returning: bool = true) -> void:
 			# Both flights start within this frame, with the same duration/rotation.
 			for j in range(2):
 				fly(pair[j], destinations[j], FLAT if group == 2 else Vector3(0, PI * group, 0), 0.6)
+				pair[j].arrival_sound = "bafuda-place" if group == 2 else "tefuda-place"
 			await finish_flights()
-			tap(0.65)
 
 func needs_pick(view: Dictionary, card_id: int) -> bool:
 	return view.field.filter(func(c): return int(c) / 4 == card_id / 4).size() == 2
@@ -673,40 +1012,58 @@ func animate_event(event: Dictionary) -> void:
 			known[id] = card
 		else:
 			card = known[id]
-		card.reveal_turn = true
-		if needs_pick(view, id):
-			fly(card, Vector3(2.65, 0.1, 0), FLAT, 0.62)
+		active_pending = id
+		pending_origin = card.position
+		if int(event.player) == 1:
+			play_sound("fuda-turn", id)
+			card.move_to(card.position, Vector3.ZERO, 0.42 / speed)
 			await finish_flights()
+		pending_angles = card.rotation
 	elif kind == "draw":
 		var id := int(event.card)
 		var card = take_card(id)
+		play_sound("fuda-take", id)
+		play_sound("fuda-turn", id)
 		card.rotation = FLAT # The specified exception: instantaneous stock-top flip.
-		if needs_pick(view, id):
-			fly(card, Vector3(2.65, 0.1, 0), FLAT, 0.48)
-			await finish_flights()
+		active_pending = id
+		pending_origin = card.position
+		pending_angles = card.rotation
 	elif kind in ["capture", "place"]:
 		var card = known[int(event.card)]
+		if kind == "place":
+			slide_field(view.field, int(event.card))
 		var target: Vector3 = field_position(int(event.card)) if kind == "place" else known[int(event.targets[0])].position + Vector3(0.13, 0.032, 0.13)
-		fly(card, target + Vector3(0, 0.14 if event.new_yaku else 0, 0), FLAT, 0.62)
+		fly(card, target + Vector3(0, 0.48 if event.new_yaku else 0, 0), FLAT, 0.62)
+		card.arrival_sound = "" if event.new_yaku else "bafuda-place"
 		await finish_flights()
 		if event.new_yaku:
-			card.strike()
-			await get_tree().create_timer(0.24).timeout
-		tap(1.2 if event.new_yaku else 0.8)
+			await impact_capture(card, event.targets)
+		active_pending = -1
 		if kind == "capture":
-			for c in event.targets:
-				field_slots.erase(int(c))
+			slide_field(view.field)
 			await arrange_captures(view)
+			if event.new_yaku:
+				var changed_roles: Array = view.yaku[int(event.player)].filter(func(row): return not row.cards.is_empty() and not state.yaku[int(event.player)].any(func(old): return old.key == row.key and old.points >= row.points))
+				question_yaku = changed_roles.map(func(row): return row.key)
+				if not can_ask_koi:
+					var names: Array = question_yaku.map(func(key): return word(key))
+					await announce("・".join(names) + "です。" if language == 0 else ", ".join(names) + ".", 1.25, int(event.player))
+
 	elif kind == "koi":
-		panel(word("koi_you" if int(event.player) == 0 else "koi_ai"), "", word("koi_you" if int(event.player) == 0 else "koi_ai"), 0.9, true)
-		menu.position.y = 4.9
-		if int(event.player) == 0:
-			menu.rotation.y = PI
-		await wait_for(0.9)
-		clear_menu()
+		if int(event.player) == 1:
+			play_sound("ui-click")
+		var name := player_name(int(event.player))
+		await announce(name + "さん、こいこいです。" if language == 0 else name + " calls Koikoi", 0.9, 1 - int(event.player))
 	elif kind == "round_end":
+		var winner := int(event.winner)
+		play_sound("win" if winner == 0 else "lose")
+		await announce_outcome(winner, event.reason == "stop")
 		if event.total_yaku:
-			await sweep_yaku(view, int(event.winner))
+			announcement.rotation.y = 0
+			announcement.text = "得点が移動します。" if language == 0 else "The points are being transferred."
+			announcement_history.append(announcement.text)
+			await sweep_yaku(view, winner)
+			announcement.text = ""
 			await screenshot("total_yaku")
 	state = view
 	refresh_hud()
@@ -714,6 +1071,7 @@ func animate_event(event: Dictionary) -> void:
 func restore_view(view: Dictionary) -> void:
 	# Recover public objects through visible, collision-aware flights.
 	await reset_deck()
+	configure_field(view.field)
 	for slot in range(8):
 		var id := int(view.hand[slot])
 		if id >= 0:
@@ -735,8 +1093,16 @@ func restore_view(view: Dictionary) -> void:
 		fly(take_card(id), field_position(id), FLAT, 0.3)
 		await finish_flights()
 	if int(view.pending) >= 0:
-		fly(take_card(int(view.pending)), Vector3(2.65, 0.1, 0), FLAT, 0.3)
-		await finish_flights()
+		var pending = take_card(int(view.pending))
+		active_pending = int(view.pending)
+		if int(view.phase) == 1:
+			pending.slot = int(view.get("pending_slot", 0))
+			fly(pending, hand_position(pending.slot, int(view.player)), Vector3(0, PI if int(view.player) == 0 else 0, 0), 0.3)
+			await finish_flights()
+		else:
+			pending.rotation = FLAT
+		pending_origin = pending.position
+		pending_angles = pending.rotation
 	await arrange_captures(view, true)
 	if paused and ending.get("total_yaku", false):
 		await sweep_yaku(view, int(ending.winner))
@@ -774,109 +1140,258 @@ func arrange_captures(view: Dictionary, serial: bool = false) -> void:
 					cards_here.append(id)
 					if not slots.has(id):
 						slots[id] = slots.size()
-			var z := 9.3 if player == 0 else -9.3
+			var z := 12.2 if player == 0 else -12.2
 			var y := 3.55 - row_index * 1.52
 			var plaque := Node3D.new()
-			plaque.position = Vector3(4.6 if player == 0 else -4.6, y, z)
+			plaque.set_meta("yaku_key", row.key)
+			plaque.set_meta("points", row.points)
+			plaque.set_meta("direction", 1 if player == 0 else -1)
+			var plaque_text := word(row.key) + "  " + str(row.points)
+			var plaque_size := text_size(plaque_text, 18) + Vector2(0.35, 0.16)
+			plaque.position = Vector3((3.6 + plaque_size.x / 2) * (1 if player == 0 else -1), y, z)
 			plaque.rotation.y = PI if player == 0 else 0.0
 			add_child(plaque)
-			plane(Vector2(1.9, 0.4), Vector3.ZERO, Color("3d301c"), plaque, GOLD)
-			label3(word(row.key) + "  " + str(row.points), Vector3(0, 0, 0.006), 18, GOLD, plaque)
+			plane(plaque_size, Vector3.ZERO, Color("3d301c"), plaque, GOLD)
+			label3(plaque_text, Vector3(0, 0, 0.006), 18, GOLD, plaque)
 			label_nodes.append(plaque)
+			var arrivals: Array = []
 			for i in range(cards_here.size()):
 				var card = known[cards_here[i]] if known.has(cards_here[i]) else take_card(cards_here[i])
 				var slot: int = slots[cards_here[i]]
 				var spacing := 0.88
-				var x := (3.0 - (slot % 10) * spacing) * (1 if player == 0 else -1)
-				var pos := Vector3(x, y - (slot / 10) * 1.52, z)
+				var x := (3.0 - slot * spacing) * (1 if player == 0 else -1)
+				var pos := Vector3(x, y, z)
 				# Real cards occupy just one role row; overlapping roles share membership.
 				if card.position.distance_to(pos) > 0.015:
-					fly(card, pos, Vector3(0, PI if player == 0 else 0.0, 0), 0.6)
+					fly(card, pos, Vector3(0, PI if player == 0 else 0.0, 0), 0.85 + slot * 0.055)
+					card.arrival_sound = "yaku"
+					arrivals.append(card)
+					if absf(card.flight_from.z) < 10.0:
+						card.route_to_role(player, absf(board_left) + 1.2 if player == 0 else 6.5)
 					changed = true
 					if serial:
 						await finish_flights()
-			row_index += maxi(1, ceili(slots.size() / 10.0))
+			if not serial:
+				stagger_roles(arrivals)
+			row_index += 1
 		for id in allocated:
 			capture_slots[player].erase(id)
-		var index := 0
-		for raw_id in view.captured[player]:
+		var incoming: Array = view.captured[player].duplicate()
+		incoming.sort_custom(func(a, b): return known[int(a)].position.y < known[int(b)].position.y if known.has(int(a)) and known.has(int(b)) else int(a) < int(b))
+		for raw_id in incoming:
 			var id := int(raw_id)
 			if id in allocated:
 				continue
 			if not capture_slots[player].has(id):
-				var used: Array = capture_slots[player].values()
+				var used: Array = capture_slots[player].keys().filter(func(c): return Layout.category(int(c)) == Layout.category(id)).map(func(c): return capture_slots[player][c])
 				var free := 0
 				while free in used:
 					free += 1
 				capture_slots[player][id] = free
-			index = capture_slots[player][id]
-			var pos := Vector3(-3.465 + (index % 8) * 0.99, 0.014, (3.18 + (index / 8) * 1.42) * (1 if player == 0 else -1))
+		var counts := [0, 0, 0, 0]
+		for id in capture_slots[player]:
+			var kind := Layout.category(int(id))
+			counts[kind] = maxi(counts[kind], int(capture_slots[player][id]) + 1)
+		for raw_id in view.captured[player]:
+			var id := int(raw_id)
+			if id in allocated:
+				continue
+			var pos := Layout.capture(id, int(capture_slots[player][id]), player, counts)
 			var card = known[id] if known.has(id) else take_card(id)
 			if card.position.distance_to(pos) > 0.015:
 				fly(card, pos, FLAT if player == 0 else Vector3(-PI / 2, 0, PI), 0.55)
+				card.arrival_sound = "fuda-take"
+				card.capture_slide = absf(card.flight_from.y) < 0.1
 				changed = true
 				if serial:
 					await finish_flights()
-			index += 1
 	if changed:
 		await finish_flights()
 
+func stagger_roles(cards: Array) -> void:
+	var common_edge := 0.0
+	for card in cards:
+		if card.role_route:
+			common_edge = maxf(common_edge, absf(card.role_edge))
+	for card in cards:
+		if card.role_route:
+			card.route_to_role(0 if card.role_side < 0 else 1, common_edge)
+	var base := 0.0
+	var times: Array[float] = []
+	for card in cards:
+		var length: float = card.role_lengths.x + card.role_lengths.y + card.role_lengths.z if card.role_route else card.flight_from.distance_to(card.flight_to)
+		var seconds := maxf(0.45, length / 14.0)
+		times.append(seconds)
+		base = maxf(base, seconds)
+	for i in range(cards.size()):
+		cards[i].duration = (base + i * 0.1) / speed
+		cards[i].start_delay = (base + i * 0.1 - times[i]) / speed
+
 func sweep_yaku(view: Dictionary, winner: int) -> void:
 	clear_yaku_labels()
-	var ids: Array = []
-	for player in range(2):
-		for row in view.yaku[player]:
-			for c in row.cards:
-				if int(c) not in ids:
-					ids.append(int(c))
-	for i in range(ids.size()):
-		var target := Vector3((i % 12 - 5.5) * 0.95, 3.55 - (i / 12) * 1.52, 11.8 if winner == 0 else -11.8)
-		fly(known[ids[i]], target, Vector3(0, PI if winner == 0 else 0, 0), 1.2, 0.0, true)
-
+	var allocated: Array = []
+	var row_index := 0
+	var direction := 1 if winner == 0 else -1
+	for player in [winner, 1 - winner]:
+		var rows: Array = view.yaku[player].filter(func(row): return not row.cards.is_empty())
+		rows.sort_custom(func(a, b): return role_order[player].find(role_key(a.key)) < role_order[player].find(role_key(b.key)))
+		for row in rows:
+			var ids: Array = []
+			for raw_id in row.cards:
+				var id := int(raw_id)
+				if id not in allocated:
+					allocated.append(id)
+					ids.append(id)
+			if ids.is_empty():
+				continue
+			var y := 3.55 - row_index * 1.52
+			var title := word(row.key) + "  " + str(row.points)
+			var size := text_size(title, 18) + Vector2(0.35, 0.16)
+			var plaque := Node3D.new()
+			plaque.set_meta("yaku_key", row.key)
+			plaque.set_meta("points", row.points)
+			plaque.set_meta("direction", direction)
+			plaque.position = Vector3((3.6 + size.x / 2) * direction, y, 11.8 * direction)
+			plaque.rotation.y = PI if winner == 0 else 0
+			add_child(plaque)
+			plane(size, Vector3.ZERO, Color("3d301c"), plaque, GOLD)
+			label3(title, Vector3(0, 0, 0.006), 18, GOLD, plaque)
+			label_nodes.append(plaque)
+			for i in range(ids.size()):
+				var target := Vector3((3.0 - i * 0.88) * direction, y, 11.8 * direction)
+				fly(known[ids[i]], target, Vector3(0, PI if winner == 0 else 0, 0), 1.2, 0.0, true)
+				known[ids[i]].arrival_sound = "yaku"
+				play_sound("fuda-take", ids[i])
+			row_index += 1
 	await finish_flights()
 
-func tap(intensity: float = 1.0) -> void:
-	if not sound or autoplay:
+func impact_capture(card, targets: Array) -> void:
+	var previous_ticks := Engine.physics_ticks_per_second
+	Engine.physics_ticks_per_second = 480
+	# Release the contacted cards before striking. Every upward motion comes
+	# from rigid-body contact restitution, never a scripted rebound impulse.
+	var struck: Array = [card]
+	for id in targets.slice(0, 1):
+		if known.has(int(id)):
+			struck.append(known[int(id)])
+	for body in struck:
+		body.flight = false
+		body.freeze = false
+		body.sleeping = false
+		body.physics_material_override.bounce = 0.95
+		body.linear_damp = 0.2
+	card.strike()
+	last_burst_peak = 0
+	var elapsed := 0.0
+	var contact_joint: PinJoint3D
+	var settled_frames := 0
+	var first_rebound := false
+	last_impact_settled = false
+	while elapsed < 5.0:
+		await get_tree().physics_frame
+		elapsed += 1.0 / Engine.physics_ticks_per_second
+		if contact_joint == null and struck.size() == 2 and card.position.y - struck[1].position.y < 0.04 and card.linear_velocity.y < 0:
+			# A short-lived contact bond lets the two thin cards share the
+			# tabletop's restitution, rather than pinning the lower rigid proxy.
+			play_sound("bafuda-place-yaku", card.identity)
+			contact_joint = PinJoint3D.new()
+			contact_joint.position = struck[1].position
+			add_child(contact_joint)
+			contact_joint.node_a = card.get_path()
+			contact_joint.node_b = struck[1].get_path()
+		last_burst_peak = maxf(last_burst_peak, struck.map(func(c): return c.position.y).min())
+		if last_burst_peak > 0.1 and struck.all(func(c): return c.linear_velocity.y <= 0):
+			first_rebound = true
+		if first_rebound:
+			for body in struck:
+				body.physics_material_override.bounce = 0.12
+		if elapsed > 3.0:
+			for body in struck:
+				body.physics_material_override.bounce = 0.0
+				body.linear_damp = 4.0
+		var resting: bool = struck.all(func(c): return c.position.y < 0.075 and absf(c.linear_velocity.y) < 0.15)
+		settled_frames = settled_frames + 1 if resting else 0
+		if settled_frames >= 12:
+			last_impact_settled = true
+			break
+	Engine.physics_ticks_per_second = previous_ticks
+	if contact_joint != null:
+		contact_joint.queue_free()
+	for body in struck:
+		body.freeze = true
+		body.linear_velocity = Vector3.ZERO
+		body.physics_material_override.bounce = 0.38
+		body.linear_damp = 1.2
+
+func card_arrived(card) -> void:
+	if not card.arrival_sound.is_empty():
+		play_sound(card.arrival_sound, card.identity)
+		card.arrival_sound = ""
+
+func play_sound(key: String, card_id: int = -1) -> void:
+	if testing:
+		sound_log.append({"sound": key, "card": card_id, "time": Time.get_ticks_msec()})
+	if not sound or autoplay or testing:
 		return
-	var sample := AudioStreamWAV.new()
-	sample.format = AudioStreamWAV.FORMAT_16_BITS
-	sample.mix_rate = 22050
-	var bytes := PackedByteArray()
-	bytes.resize(2205 * 2)
-	for i in range(2205):
-		var t := float(i) / 22050.0
-		var value := (sin(t * 1950) + sin(t * 3270) * 0.4) * exp(-t * 65) * 5600 * intensity
-		bytes.encode_s16(i * 2, int(value))
-	sample.data = bytes
-	audio.stream = sample
-	audio.play()
+	var voice := AudioStreamPlayer.new()
+	voice.stream = SOUNDS[key]
+	voice.volume_db = -12.0 + float(SOUND_GAIN_DB.get(key, 0.0))
+	voice.finished.connect(voice.queue_free)
+	add_child(voice)
+	voice.play()
 
 func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion and not modal:
+		hover_menu(event.position)
 	if event is InputEventKey and event.pressed:
 		if event.keycode == KEY_F11:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN else DisplayServer.WINDOW_MODE_FULLSCREEN)
 		elif event.keycode == KEY_ESCAPE:
-			if modal:
+			if selected_hand >= 0:
+				cancel_selection()
+			elif modal:
 				close_overlay()
 			else:
 				open_overlay("settings")
 	if modal:
 		overlay_world.route(event, camera)
 		return
-	if busy:
-		return
-	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		if click_menu(event.position):
-			return
-		if started and not paused and int(state.player) == 0:
-			var card = hit_card(event.position)
-			if card != null and state.legal.any(func(a): return int(a) == card.identity):
-				send("/action", {"action": card.identity})
+	if event is InputEventMouseButton:
+		if event.pressed and event.button_index in [MOUSE_BUTTON_WHEEL_UP, MOUSE_BUTTON_WHEEL_DOWN]:
+			camera_radius = clampf(camera_radius * (0.91 if event.button_index == MOUSE_BUTTON_WHEEL_UP else 1.1), 9.5, 30.0)
+			update_camera()
+		elif event.button_index in [MOUSE_BUTTON_LEFT, MOUSE_BUTTON_RIGHT]:
+			if event.pressed:
+				camera_drag = true
+				drag_start = event.position
+				drag_distance = 0
+			else:
+				camera_drag = false
+				if event.button_index == MOUSE_BUTTON_LEFT and drag_distance < 6:
+					handle_table_click(event.position)
+	elif event is InputEventMouseMotion and camera_drag:
+		drag_distance += event.relative.length()
+		if drag_distance >= 6:
+			orbit_pitch = clampf(orbit_pitch + event.relative.y * 0.003, deg_to_rad(20), deg_to_rad(56))
+			update_camera()
 
 func hit_card(screen: Vector2):
 	var ray := PhysicsRayQueryParameters3D.create(camera.project_ray_origin(screen), camera.project_ray_origin(screen) + camera.project_ray_normal(screen) * 80.0, 2)
 	var hit := get_world_3d().direct_space_state.intersect_ray(ray)
 	return hit.get("collider")
+
+func hover_menu(screen: Vector2) -> void:
+	if not is_instance_valid(menu):
+		return
+	var face := Plane(menu.global_basis.z.normalized(), menu.global_position)
+	var point = face.intersects_ray(camera.project_ray_origin(screen), camera.project_ray_normal(screen))
+	for item in menu_buttons:
+		var hovered := false
+		if point != null:
+			var local: Vector3 = menu.to_local(point)
+			hovered = absf(local.x - item.x) <= item.width / 2 and absf(local.y - item.y) <= item.height / 2
+		item.plate.material_override.albedo_color = item.fill.lerp(GOLD, 0.28) if hovered else item.fill
+		item.caption.modulate = GOLD if hovered else item.ink
 
 func click_menu(screen: Vector2) -> bool:
 	if not is_instance_valid(menu) or menu_buttons.is_empty():
@@ -890,6 +1405,7 @@ func click_menu(screen: Vector2) -> bool:
 	var local: Vector3 = menu.to_local(point)
 	for item in menu_buttons:
 		if absf(local.x - item.x) <= item.width / 2.0 and absf(local.y - item.y) <= item.height / 2.0:
+			play_sound("ui-click")
 			match item.action:
 				"start": send("/start", {"opponent": opponent, "flags": flags})
 				"action": send("/action", {"action": item.value})
@@ -901,6 +1417,7 @@ func click_menu(screen: Vector2) -> bool:
 
 func open_overlay(kind: String) -> void:
 	modal = true
+	update_hand_affordance()
 	if is_instance_valid(overlay_world):
 		overlay_world.queue_free()
 	overlay_world = WorldOverlay.new()
@@ -911,6 +1428,7 @@ func open_overlay(kind: String) -> void:
 	overlay.size = Vector2(820, 780)
 	overlay_world.viewport.add_child(overlay)
 	var scroll := ScrollContainer.new()
+	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	scroll.custom_minimum_size = Vector2(780, 740)
 	overlay.add_child(scroll)
 	overlay_box = VBoxContainer.new()
@@ -928,28 +1446,32 @@ func open_overlay(kind: String) -> void:
 		help.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		overlay_box.add_child(help)
 	elif kind == "credits":
-		var credits := ui_label("HANAFUDA\nLouie Mantia · すけじょ (traditional colors)\nCC BY-SA 4.0\n\ncommons.wikimedia.org\nFrames recolored to #b44519; illustration ink retained.\n\nNoto Sans JP · The Noto Project\nSIL Open Font License 1.1\n\nGodot Engine 4.7.2 · MIT\ngodotengine.org\n\nRules & AI integration\nKoiKoi-AI · Sanghai Guan · MIT\n\nFull notices: game/assets and THIRD_PARTY_NOTICES.md", 17)
+		var credits := ui_label("HANAFUDA\nLouie Mantia · すけじょ (traditional colors)\nCC BY-SA 4.0\n\ncommons.wikimedia.org\nFrames recolored to #b44519; illustration ink retained.\n\nAntique Six Extra Bold · Jordan Davies\nNoto Serif JP Black · The Noto Project\nSIL Open Font License 1.1\n\nCard audio · user-supplied clips\nUI audio · original synthesized cues\n\nGodot Engine 4.7.2 · MIT\ngodotengine.org\n\nRules & AI integration\nKoiKoi-AI · Sanghai Guan · MIT\n\nFull notices: game/assets and THIRD_PARTY_NOTICES.md", 17)
 		overlay_box.add_child(credits)
 	else:
 		overlay_box.add_child(ui_button("日本語 / ENGLISH", switch_language))
 		overlay_box.add_child(ui_label(word("opponent"), 17, GOLD))
 		var options := OptionButton.new()
+		options.add_theme_stylebox_override("hover", style(Color("513c37"), GOLD))
+		options.add_theme_stylebox_override("pressed", style(Color("6b433d"), GOLD))
 		options.add_theme_font_override("font", FONT)
 		options.add_theme_font_size_override("font_size", 17)
 		var names := ["trained", "rl-wp", "rl-point", "greedy"]
 		for name in names:
 			options.add_item(word(name) if name in ["trained", "greedy"] else name.to_upper())
 		options.select(names.find(opponent))
-		options.item_selected.connect(func(i): opponent = names[i]; save_settings())
+		options.item_selected.connect(func(i): play_sound("ui-click"); opponent = names[i]; save_settings())
 		overlay_box.add_child(options)
 		overlay_box.add_child(ui_label(word("rules") + " · 12", 17, GOLD))
 		for rule in [{"key": "total", "bit": 16}, {"key": "double", "bit": 8}]:
 			var toggle := CheckButton.new()
+			toggle.add_theme_stylebox_override("hover", style(Color("513c37"), GOLD))
+			toggle.add_theme_stylebox_override("hover_pressed", style(Color("6b433d"), GOLD))
 			toggle.text = word(rule.key)
 			toggle.add_theme_font_override("font", FONT)
 			toggle.add_theme_font_size_override("font_size", 17)
 			toggle.button_pressed = (flags & int(rule.bit)) != 0
-			toggle.toggled.connect(func(on): flags = flags | int(rule.bit) if on else flags & ~int(rule.bit); save_settings())
+			toggle.toggled.connect(func(on): play_sound("ui-click"); flags = flags | int(rule.bit) if on else flags & ~int(rule.bit); save_settings())
 			overlay_box.add_child(toggle)
 		overlay_box.add_child(ui_label(word("apply_next"), 14, GOLD))
 		overlay_box.add_child(ui_label(word("speed"), 17))
@@ -961,18 +1483,26 @@ func open_overlay(kind: String) -> void:
 		slider.value_changed.connect(func(v): speed = v; save_settings())
 		overlay_box.add_child(slider)
 		var sound_toggle := CheckButton.new()
+		sound_toggle.add_theme_stylebox_override("hover", style(Color("513c37"), GOLD))
+		sound_toggle.add_theme_stylebox_override("hover_pressed", style(Color("6b433d"), GOLD))
 		sound_toggle.text = word("sound")
 		sound_toggle.add_theme_font_override("font", FONT)
 		sound_toggle.button_pressed = sound
-		sound_toggle.toggled.connect(func(v): sound = v; save_settings())
+		sound_toggle.toggled.connect(func(v): sound = v; play_sound("ui-click"); save_settings())
 		overlay_box.add_child(sound_toggle)
 		overlay_box.add_child(ui_button(word("help"), func(): open_overlay("help")))
 		overlay_box.add_child(ui_button(word("credits"), func(): open_overlay("credits")))
+	await get_tree().process_frame
+	if is_instance_valid(overlay_world) and is_instance_valid(overlay):
+		var minimum := overlay.get_combined_minimum_size()
+		overlay.size = Vector2(maxf(820, minimum.x), maxf(780, minimum.y))
+		overlay_world.fit_content(Vector2i(overlay.size.ceil()), camera)
 
 func close_overlay() -> void:
 	if is_instance_valid(overlay_world):
 		overlay_world.queue_free()
 	modal = false
+	update_hand_affordance()
 	await maybe_ai()
 
 func load_settings() -> void:
@@ -996,7 +1526,8 @@ func screenshot(name: String) -> void:
 	if not qa or qa_frames.has(name) or DisplayServer.get_name() == "headless":
 		return
 	qa_frames[name] = true
-	await RenderingServer.frame_post_draw
+	await get_tree().process_frame
+	RenderingServer.force_draw(false)
 	var path := ProjectSettings.globalize_path("res://../output/game-qa")
 	DirAccess.make_dir_recursive_absolute(path)
 	get_viewport().get_texture().get_image().save_png(path.path_join(name + ".png"))

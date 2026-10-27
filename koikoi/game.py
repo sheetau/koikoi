@@ -16,6 +16,7 @@ from .layout import (
     KOIS,
     PENDING,
     PHASE,
+    PICK_HAND,
     PLAYER,
     POINTS,
     ROUND,
@@ -120,6 +121,13 @@ class GameEnv(VariantEnv):
             "round": int(s[ROUND]) + 1,
             "phase": int(s[PHASE]),
             "pending": int(s[PENDING]),
+            "pending_slot": (
+                s[48 + 8 * int(s[PLAYER]) : 56 + 8 * int(s[PLAYER])]
+                .tolist()
+                .index(int(s[PENDING]))
+                if s[PHASE] == PICK_HAND and s[PENDING] >= 0
+                else -1
+            ),
             "stock_count": max(0, int(s[STOCK]) - 23),
             "legal": np.flatnonzero(self.legal()).tolist() if s[PLAYER] == 0 else [],
         }

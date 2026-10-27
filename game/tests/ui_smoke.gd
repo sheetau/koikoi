@@ -5,6 +5,7 @@ var audit
 var failures: Array[String] = []
 
 func _initialize() -> void:
+	root.size = Vector2i(1440, 900)
 	call_deferred("run")
 
 func check(ok: bool, message: String) -> void:
@@ -12,20 +13,28 @@ func check(ok: bool, message: String) -> void:
 		failures.append(message)
 		push_error(message)
 
+func inject(event: InputEvent) -> void:
+	if DisplayServer.get_name() == "headless":
+		root.push_input(event, true)
+	else:
+		Input.parse_input_event(event)
+
 func click_at(point: Vector2) -> void:
 	var motion := InputEventMouseMotion.new()
 	motion.position = point
-	Input.parse_input_event(motion)
+	inject(motion)
 	await process_frame
 	var click := InputEventMouseButton.new()
 	click.button_index = MOUSE_BUTTON_LEFT
 	click.position = point
 	click.pressed = true
-	Input.parse_input_event(click)
+	inject(click)
 	await process_frame
 	click.pressed = false
-	Input.parse_input_event(click)
+	inject(click)
+	Input.flush_buffered_events()
 	await process_frame
+	await physics_frame
 
 func until_ready() -> void:
 	for i in range(2000):
@@ -67,6 +76,9 @@ func run() -> void:
 	check(table.hit_card(mouse) == card, "Camera ray did not pick the human card")
 	var rev: int = table.revision
 	await click_at(mouse)
+	if table.selected_hand >= 0:
+		var target = table.known[int(table.matching_field(table.selected_hand)[0])]
+		await click_at(table.camera.unproject_position(target.global_position))
 	check(table.busy, "Hand click did not submit an action")
 	await until_ready()
 	check(table.revision > rev, "Hand action did not reach the backend")
@@ -121,14 +133,17 @@ func run() -> void:
 			var button: Dictionary = table.menu_buttons[0]
 			await click_at(table.camera.unproject_position(table.menu.to_global(Vector3(button.x, button.y, 0.013))))
 		elif int(table.state.player) == 0:
-			if int(table.state.phase) == 3 and not checked_koi:
+			if table.selected_hand >= 0:
+				var target = table.known[int(table.matching_field(table.selected_hand)[0])]
+				await click_at(table.camera.unproject_position(target.global_position))
+			elif int(table.state.phase) == 3 and not checked_koi:
 				await table.screenshot("human_koi")
-				await click_at(table.camera.unproject_position(table.menu.to_global(Vector3(-1.4, -1.35, 0.013))))
+				await click_at(table.camera.unproject_position(table.menu.to_global(Vector3(-1.4, 0.0, 0.013))))
 				checked_koi = true
 			else:
 				var pick: int = int(table.state.legal[0])
 				if pick == 48:
-					await click_at(table.camera.unproject_position(table.menu.to_global(Vector3(1.4, -1.35, 0.013))))
+					await click_at(table.camera.unproject_position(table.menu.to_global(Vector3(1.4, 0.0, 0.013))))
 				else:
 					await click_at(table.camera.unproject_position(table.known[pick].global_position))
 	check(audit.overlaps == 0, "Moving cards intersected")

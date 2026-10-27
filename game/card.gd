@@ -1,6 +1,8 @@
 extends RigidBody3D
 ## Zero-thickness, two-sided artwork. The tiny collision proxy is not rendered.
 
+signal arrived(card)
+
 const SIZE = Vector3(0.78, 1.28, 0.006)
 var identity := -1
 var slot := -1
@@ -13,6 +15,7 @@ var rotation_from := Quaternion.IDENTITY
 var rotation_to := Quaternion.IDENTITY
 var elapsed := 0.0
 var duration := 0.6
+var start_delay := 0.0
 var lift := 0.0
 var clearance := PackedFloat32Array()
 var orbit := false
@@ -23,6 +26,29 @@ var collision_proxy: CollisionShape3D
 var pair_peer = null
 var pair_sign := 1.0
 var reveal_turn := false
+var kick_velocity := NAN
+var returning := false
+var capture_slide := false
+var gather_group := -1
+var arrival_sound := ""
+var role_route := false
+var role_side := 1.0
+var role_edge := 6.2
+var role_lengths := Vector3.ONE
+
+static func overlaps(a: Transform3D, b: Transform3D, margin: float = 0.015) -> bool:
+	var axes: Array[Vector3] = [a.basis.x, a.basis.y, a.basis.z, b.basis.x, b.basis.y, b.basis.z]
+	for x in [a.basis.x, a.basis.y, a.basis.z]:
+		for y in [b.basis.x, b.basis.y, b.basis.z]:
+			if x.cross(y).length_squared() > 0.00001:
+				axes.append(x.cross(y).normalized())
+	var half := SIZE / 2 + Vector3.ONE * margin
+	for axis in axes:
+		var ar: float = absf(axis.dot(a.basis.x)) * half.x + absf(axis.dot(a.basis.y)) * half.y + absf(axis.dot(a.basis.z)) * half.z
+		var br: float = absf(axis.dot(b.basis.x)) * half.x + absf(axis.dot(b.basis.y)) * half.y + absf(axis.dot(b.basis.z)) * half.z
+		if absf(axis.dot(a.origin - b.origin)) >= ar + br:
+			return false
+	return true
 
 static func material(color: Color) -> StandardMaterial3D:
 	var mat := StandardMaterial3D.new()
@@ -79,6 +105,8 @@ func stow() -> void:
 	collision_proxy.disabled = true
 	flight = false
 	freeze = true
+	gather_group = -1
+	arrival_sound = ""
 
 func unstow() -> void:
 	show()
@@ -86,6 +114,11 @@ func unstow() -> void:
 	collision_proxy.disabled = false
 
 func move_to(target: Vector3, angles: Vector3, seconds: float, arc: float = 0.0, circle: bool = false) -> void:
+	returning = false
+	gather_group = -1
+	arrival_sound = ""
+	capture_slide = false
+	role_route = false
 	freeze = true
 	linear_velocity = Vector3.ZERO
 	angular_velocity = Vector3.ZERO
@@ -93,6 +126,7 @@ func move_to(target: Vector3, angles: Vector3, seconds: float, arc: float = 0.0,
 	flight_to = target
 	rotation_from = quaternion
 	rotation_to = Quaternion.from_euler(angles)
+	start_delay = 0.0
 	duration = maxf(seconds, 0.025)
 	elapsed = 0.0
 	lift = arc
@@ -103,6 +137,13 @@ func move_to(target: Vector3, angles: Vector3, seconds: float, arc: float = 0.0,
 	orbit_angle = atan2(flight_from.z - orbit_center.z, flight_from.x - orbit_center.x)
 	flight = true
 	done = false
+
+func route_to_role(player: int, board_edge: float = 6.5) -> void:
+	role_route = true
+	role_side = -1.0 if player == 0 else 1.0
+	role_edge = role_side * maxf(board_edge, maxf(absf(flight_from.x) + 0.8, flight_to.x * role_side + 1.0))
+	var radius := absf(flight_to.z - flight_from.z) / 2
+	role_lengths = Vector3(absf(role_edge - flight_from.x), PI * sqrt((1.0 + radius * radius) / 2), absf(flight_to.x - role_edge))
 
 static func turn_between(a: Quaternion, b: Quaternion, weight: float) -> Quaternion:
 	# A half turn has two equally short paths. Tiny physics roundoff must not
@@ -115,25 +156,53 @@ static func turn_between(a: Quaternion, b: Quaternion, weight: float) -> Quatern
 		return a * Quaternion(axis, PI * weight)
 	return a.slerp(b, weight)
 
+func role_clearance_weight(t: float) -> float:
+	var u := clampf(t, 0.0, 1.0)
+	var distance := u * (role_lengths.x + role_lengths.y + role_lengths.z)
+	return 1.0 - smoothstep(role_lengths.x, role_lengths.x + role_lengths.y / 2, distance)
+
 func pose_at(time: float) -> Transform3D:
-	var t := clampf(time / duration, 0.0, 1.0)
-	var u := t * t * (3.0 - 2.0 * t)
+	if time < start_delay:
+		return Transform3D(Basis(rotation_from), flight_from)
+	var clock_t := clampf(time / duration, 0.0, 1.0)
+	var t := clampf((time - start_delay) / (duration - start_delay), 0.0, 1.0)
+	var u := t if role_route else t * t * (3.0 - 2.0 * t)
 	var pos := flight_from.lerp(flight_to, u)
 	if orbit:
 		var radius := Vector2(flight_from.x - orbit_center.x, flight_from.z - orbit_center.z).length()
 		var angle := orbit_angle + PI * u
 		pos.x = orbit_center.x + cos(angle) * radius
 		pos.z = orbit_center.z + sin(angle) * radius
-	pos.y += 4.0 * u * (1.0 - u) * lift
+	var role_turn := u
+	if role_route:
+		var distance := u * (role_lengths.x + role_lengths.y + role_lengths.z)
+		if distance < role_lengths.x:
+			pos.x = lerpf(flight_from.x, role_edge, distance / role_lengths.x)
+			pos.z = flight_from.z
+		elif distance < role_lengths.x + role_lengths.y:
+			var angle := (distance - role_lengths.x) / role_lengths.y * PI
+			pos.x = role_edge + role_side * sin(angle)
+			pos.z = lerpf(flight_from.z, flight_to.z, (1.0 - cos(angle)) / 2)
+		else:
+			pos.x = lerpf(role_edge, flight_to.x, (distance - role_lengths.x - role_lengths.y) / role_lengths.z)
+			pos.z = flight_to.z
+		role_turn = smoothstep(role_lengths.x, role_lengths.x + role_lengths.y / 2, distance)
+		pos.y = lerpf(flight_from.y, flight_to.y, role_turn)
+	var extra_y := 4.0 * u * (1.0 - u) * lift
 	if clearance.size() == 97:
-		var index := minf(t * 96.0, 95.99999)
+		var index := minf(clock_t * 96.0, 95.99999)
 		var cell := int(index)
-		pos.y += lerpf(clearance[cell], clearance[cell + 1], index - cell)
-	var q := turn_between(rotation_from, rotation_to, u)
+		extra_y += lerpf(clearance[cell], clearance[cell + 1], index - cell) * (role_clearance_weight(t) if role_route else 1.0)
+	var q := turn_between(rotation_from, rotation_to, role_turn)
 	if reveal_turn:
 		var facing := rotation_from * Quaternion(Vector3.UP, PI)
 		q = turn_between(rotation_from, facing, u / 0.48) if u < 0.48 else turn_between(facing, rotation_to, (u - 0.48) / 0.52)
+	if returning:
+		# Direct translation starts with the rotation; finish folding before
+		# parallel cards converge into adjacent stock layers.
+		q = turn_between(rotation_from, rotation_to, smoothstep(0.0, 0.55, t))
 	var rotation_basis := Basis(q)
+	pos.y += extra_y
 	if pair_peer != null and is_instance_valid(pair_peer):
 		var peer_pose: Transform3D = pair_peer.pose_at(time)
 		var relative: Vector3 = rotation_basis.inverse() * (pos - peer_pose.origin)
@@ -154,10 +223,22 @@ func _physics_process(delta: float) -> void:
 		reveal_turn = false
 		pair_peer = null
 		pair_sign = 1.0
+		arrived.emit(self)
+
+func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
+	if not is_nan(kick_velocity):
+		state.linear_velocity = Vector3(0, kick_velocity, 0)
+		kick_velocity = NAN
+
+func kick(velocity: float) -> void:
+	flight = false
+	freeze = false
+	sleeping = false
+	kick_velocity = velocity
 
 func strike() -> void:
 	flight = false
 	freeze = false
 	sleeping = false
-	linear_velocity = Vector3(0, -2.6, 0)
+	kick(-10.0)
 	angular_velocity = Vector3.ZERO

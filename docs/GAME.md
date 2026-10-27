@@ -27,11 +27,14 @@ an ephemeral bearer token to its child process, and shuts down when the game
 closes. There is no external listener, telemetry, game upload or online play.
 The default renderer is OpenGL Compatibility with unlit materials and no shadows.
 
-Click START, then click a hand card. There are no legal-card highlights.
-If two field cards match, click the one to capture. Hover does not enlarge cards.
-The central board panel offers koi/stop and next-round actions. Esc opens
-settings; F11 toggles full screen. Japanese/English, animation speed, audio,
-opponent and rule preferences persist in Godot's per-user settings directory.
+Click START, then a hand card. Cards that can capture are raised; discards remain down. When several different field
+cards match, select the hand first and then its target; click elsewhere to
+cancel. Two identical chaff cards are selected automatically. Hover does not
+enlarge cards. A pending hand remains in its slot and a pending draw stays on
+top of the stock until the target is chosen. Koi displays the question together with Yes/No buttons. All buttons have hover feedback.
+Drag vertically to orbit the table; use the wheel to zoom. Esc cancels selection
+or opens settings; F11 toggles full screen. Japanese/English, animation speed,
+audio, opponent and rule preferences persist in Godot's per-user directory.
 AI/rule changes take effect on the next match. The match itself is ephemeral.
 
 ## Product rules and inference
@@ -88,13 +91,24 @@ the floating plum board. Cards, the board and UI are flat surfaces; the stock
 is one six-face cuboid whose height follows the remaining card count.
 The background stays solid gold, without a floor, grid or shadows.
 
-Each dealt pair starts in one frame with a shared motion duration. Translation
-and rotation run together; normal moves go directly to the target, with only
-collision clearance added. Clearance around simultaneous role flights is
-conservative; it is not a globally shortest-path solver. A pending card uses a reserved location beside the
-field when the human must choose between two matches. Captures that form a role
-go directly to that role. Cards return in short flights from the highest
-exposed layer first. The opening dealer reveal retains its specified slow turn.
+Each dealt pair starts in one frame. Field cards flip instantly at the stock;
+hand pairs remain face down during the deal. An opposite-facing hand reveals
+with a stationary half turn; an already aligned hand skips that turn. The subsequent flight combines translation and
+alignment rotation. The field retains exactly two rows and
+adds columns as needed. Empty slots are reused; only column expansion slides
+existing cards horizontally. Captures form half-overlapping horizontal groups
+for chaff, animals, ribbons and lights, with reserved space for their maximum
+unscored counts. Capture groups sit just outside the board, beneath the hands.
+Each yaku occupies one unwrapped row. Both field cards and captures promoted to
+yaku travel sideways beyond the board, round a U-turn, then arrive from right
+to left. A role shares its turn position and nominal travel speed; leftmost
+cards arrive first at evenly spaced times. The turn extends beyond long rows.
+Returns first gather each group into an existing outer-corner card, without
+adding stack height. These intentional visual merges run together. Each merged
+packet then flies to the stock; upright packets align while moving, while
+horizontal packets retain their facing without flipping.
+Collision clearance is conservative, not a globally shortest-path solver.
+The camera fills windows of any aspect ratio without letterboxing.
 
 ## Assets
 
@@ -103,8 +117,16 @@ The official 960-pixel-wide PNG renderings are retained byte-for-byte. A
 geometric shader masks only the black outer
 frame with #b44519; it leaves illustration ink unchanged. Source URLs, hashes
 and CC BY-SA 4.0 attribution are bundled in `game/assets/cards/`. Godot imports
-with mipmaps for stable downsampling. Noto Sans JP is bundled under SIL OFL
-1.1. In-game credits and `THIRD_PARTY_NOTICES.md` identify the sources.
+with mipmaps for stable downsampling. Noto Serif JP Black is bundled under SIL
+OFL 1.1. The user-provided Antique Six Extra Bold is copied into the project and
+used in the English UI. The Japanese UI uses Noto Serif JP Black for all
+characters, including Latin letters and digits; no external font path is
+required. Six user-supplied MP3 clips are copied unchanged into `game/assets/audio/`.
+Dealer/hand landings use `tefuda-place`; each yaku card plays `yaku` at arrival.
+Total-yaku transfers also play `fuda-take`. Four original synthesized retro
+cues cover button presses, messages, wins and losses. Their playback gains
+are trimmed by 9.4–11.1 dB to match the hand/draw clips. No external audio path
+is needed. In-game credits and `THIRD_PARTY_NOTICES.md` identify the sources.
 
 ## Focused checks
 
@@ -129,7 +151,8 @@ reachable research match or game result.
 pair dealing and return flights; it also captures the normal view, question
 and settings. `game/tests/motion_audit.gd` checks moving card intersections with
 oriented-box separating axes and checks board clearance. These checks exercise
-presentation geometry only; no research or model evaluation is involved.
+presentation geometry only; intentional same-group return merges are excluded
+from intersection counts; no research or model evaluation is involved.
 
 Geometry and dense layout checks (using the pinned console executable):
 
@@ -137,3 +160,26 @@ Geometry and dense layout checks (using the pinned console executable):
 external/godot/Godot_v4.7.2-stable_win64_console.exe --path game --script res://tests/concept_check.gd
 external/godot/Godot_v4.7.2-stable_win64_console.exe --path game --script res://tests/layout_check.gd
 ```
+
+`game/tests/addendum_check.gd` exercises selection/cancellation, stationary
+reveal, stock choice, two-row expansion, equivalent targets, corner-gathered return,
+contact-driven rebound, camera orbit/zoom, UI depth, minimum announcement
+duration, simultaneous front/back win/lose text, hover feedback and wide/tall rendering.
+
+`game/tests/role_motion_check.gd`, `capture_motion_check.gd` and
+`impact_check.gd` isolate arrival order, half-overlapping capture groups,
+returns and collision-driven rebound. Strong landings temporarily use 480 Hz
+physics and a contact joint between the touching cards so tabletop restitution
+can rebound both thin proxies. No upward rebound velocity is injected. Cards
+settle under gravity before collection. Announcements remain visible for at
+least one second; AI choices wait at least 0.8 seconds (1.2 for a koi decision).
+Human clicks are handled immediately. Win and lose messages occupy opposing,
+single-sided faces simultaneously, so neither bleeds through the other.
+`game/tests/audio_return_check.gd` checks all ten audio streams, per-card
+arrival sounds, total-yaku sounds, corner gathering and no-flip horizontal returns.
+
+The UI smoke harness accelerates announcement/AI waits through the testing-only
+`KOIKOI_QA_FAST` flag. Minimum display durations are checked independently in
+`addendum_check.gd`. `scripts.game_ui_check --headless` routes input into the
+viewport directly and avoids waiting for visible-window screenshots. Rendered
+screenshots explicitly draw a frame so minimizing a QA window cannot stall capture.

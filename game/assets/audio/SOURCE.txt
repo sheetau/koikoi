@@ -1,0 +1,16 @@
+User-supplied game audio, copied byte-for-byte from concepts.
+Original authorship and license were not supplied.
+
+tefuda-place.mp3: hand and dealer-card landings
+bafuda-place.mp3: ordinary field landings
+bafuda-place-yaku.mp3: yaku impact contact
+fuda-take.mp3: draws, captures, total-yaku transfers and return packets
+fuda-turn.mp3: disclosure and stock flips
+yaku.mp3: once per yaku card when its motion finishes
+
+ui-click.wav, ui-message.wav, win.wav, lose.wav: original procedural
+pulse/triangle chiptone effects generated for this project; no sampled sources.
+
+UI playback trim (dB): click -9.4, message -10.0, win -10.9, lose -11.1.
+Measured tone RMS after trim is approximately -30 dBFS, comparable to the
+hand/draw clips, before the shared -12 dB master gain. Source bytes are unchanged.

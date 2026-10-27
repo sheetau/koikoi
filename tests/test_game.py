@@ -108,9 +108,29 @@ def test_view_has_no_hidden_card_identities_or_future_deal():
         "round",
         "phase",
         "pending",
+        "pending_slot",
         "stock_count",
         "legal",
     }
+
+
+def test_public_pending_hand_slot_tracks_the_revealed_card():
+    game = GameEnv(197, 0)
+    seats = set()
+    for _ in range(1000):
+        view = game.view()
+        if view["phase"] == 1:
+            seat = view["player"]
+            slots = game.state[48 + seat * 8 : 56 + seat * 8].tolist()
+            assert slots[view["pending_slot"]] == view["pending"]
+            assert view["pending"] not in view["hand"]
+            seats.add(seat)
+        else:
+            assert view["pending_slot"] == -1
+        if seats == {0, 1} or game.state[PHASE] == TERMINAL:
+            break
+        game.step(int(np.flatnonzero(game.legal())[0]))
+    assert seats == {0, 1}
 
 
 def test_yaku_breakdown_matches_scoring_including_overlap():

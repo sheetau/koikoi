@@ -46,3 +46,18 @@ Font SHA256: `c2f3b4d463500a2ddcd3849cded1fceeb9fd6d1c32e6cbecd568453ba50fc68f`.
 The external Godot 4.7.2 engine is MIT-licensed; see
 https://godotengine.org/license/ and its distribution notices. The setup script
 verifies the pinned release archive against its SHA512 before extraction.
+
+`game/assets/fonts/NotoSerifJP-Black.otf` is Noto Serif JP Black, from
+https://github.com/notofonts/noto-cjk/tree/main/Serif/SubsetOTF/JP .
+The SIL Open Font License 1.1 is retained in `game/assets/fonts/NotoSerif-OFL.txt`.
+
+`game/assets/fonts/AntiqueSix-ExtraBold.ttf` was supplied by the user and copied
+into this project at their request. Its embedded copyright is Copyright (c)
+2005 by Jordan Davies. This font is separate from the Noto OFL license; the
+supplied file has no embedded license grant.
+
+The six MP3 clips in `game/assets/audio/` were supplied by the user and copied
+unchanged from their concepts directory. Original authorship and license
+information were not supplied. The four WAV UI cues are original procedural
+pulse/triangle effects created for this project, with no sampled source audio.
+See `game/assets/audio/SOURCE.txt` for assignments.

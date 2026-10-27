@@ -1,7 +1,7 @@
 extends Node3D
 ## Ordinary Godot controls rendered and hit-tested on a plane in the world.
-const SIZE = Vector2(6.15, 5.85)
-const PIXELS = Vector2i(820, 780)
+var SIZE = Vector2(6.15, 5.85)
+var PIXELS = Vector2i(820, 780)
 var viewport: SubViewport
 var surface: MeshInstance3D
 
@@ -20,10 +20,22 @@ func _ready() -> void:
 	var mat := StandardMaterial3D.new()
 	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA_SCISSOR
+	mat.depth_draw_mode = BaseMaterial3D.DEPTH_DRAW_ALWAYS
 	mat.albedo_texture = viewport.get_texture()
 	mat.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR
 	surface.material_override = mat
 	add_child(surface)
+
+func fit_content(pixels: Vector2i, camera: Camera3D) -> void:
+	PIXELS = pixels
+	SIZE = Vector2(pixels) * 0.0075
+	viewport.size = pixels
+	(surface.mesh as QuadMesh).size = SIZE
+	var distance := camera.global_position.distance_to(global_position)
+	var height := 2.0 * distance * tan(deg_to_rad(camera.fov / 2)) * 0.78
+	var viewport_size := camera.get_viewport().get_visible_rect().size
+	var width := height * viewport_size.x / viewport_size.y
+	scale = Vector3.ONE * minf(1.0, minf(width / SIZE.x, height / SIZE.y))
 
 func screen_point(local_pixel: Vector2, camera: Camera3D) -> Vector2:
 	var pos := Vector3((local_pixel.x / PIXELS.x - 0.5) * SIZE.x, (0.5 - local_pixel.y / PIXELS.y) * SIZE.y, 0.0)

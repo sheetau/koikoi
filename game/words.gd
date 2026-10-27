@@ -3,7 +3,7 @@ extends RefCounted
 const TEXT = {
 	"title": ["こいこい", "KOI KOI"],
 	"subtitle": ["十二の月、ひとつの勝負。", "TWELVE MONTHS. ONE MATCH."],
-	"you": ["あなた", "YOU"], "ai": ["対戦相手", "OPPONENT"],
+	"you": ["あなた", "YOU"], "ai": ["AI", "AI"],
 	"round": ["回戦", "ROUND"], "points": ["点", "PT"],
 	"turn_you": ["あなたの番", "YOUR TURN"], "turn_ai": ["相手の番", "OPPONENT’S TURN"],
 	"dealer": ["親", "DEALER"], "opening": ["親を決めます", "CHOOSING THE DEALER"],
@@ -14,8 +14,8 @@ const TEXT = {
 	"pick": ["取る場札を選んでください", "CHOOSE A MATCHING FIELD CARD"],
 	"thinking": ["相手が考えています", "OPPONENT IS THINKING"],
 	"koi_question": ["こいこいしますか？", "KOI KOI?"],
-	"yes": ["はい · こいこい", "YES · CONTINUE"],
-	"no": ["いいえ · 勝負", "NO · STOP"],
+	"yes": ["はい", "YES"],
+	"no": ["いいえ", "NO"],
 	"koi_you": ["あなたがこいこいしました", "YOU CALLED KOI KOI"],
 	"koi_ai": ["相手がこいこいしました", "OPPONENT CALLED KOI KOI"],
 	"next": ["次の回戦へ", "NEXT ROUND"],
@@ -45,8 +45,8 @@ const TEXT = {
 	"final": ["対戦終了", "MATCH COMPLETE"],
 	"round_complete": ["回戦終了", "ROUND COMPLETE"],
 	"help_body": [
-		"手札をクリックして出します。同じ月の場札を取ります。\n2枚が同じ月なら、取る1枚を選んでください。\n続いて山札を1枚引き、同じように取ります。\n役の点数が増えると、こいこい（続行）か勝負（上がり）を選べます。\n最後の手番で役が増えた場合は、自動的に上がります。\n12回戦終了時に持ち点が多い方の勝ち。各30点から始めます。\n\n五光 10 / 四光 8 / 雨四光 7 / 三光 5\n猪鹿蝶 5 / 赤短 5 / 青短 5 / 赤短・青短は追加10\nたね5枚・短冊5枚 1点（以後1枚ごとに+1）\nかす10枚 1点（以後1枚ごとに+1）。盃はたね・かす両方。\n花見酒・月見酒 各1点、こいこい後は各3点。\nこいこい3回までは回数を加点、4回以上は役点×（回数−2）。\n役の増加なく16手で終了した場合、親に1点。\n\nEsc：設定  /  F11：全画面",
-		"Click a hand card to play. Capture field cards of the same month.\nIf two match, choose one. Then draw and resolve a stock card.\nWhen your yaku score increases, stop to collect or call koi koi to continue.\nA score increase on your last turn stops automatically.\nThe higher score after 12 rounds wins. Both players start with 30.\n\nFive lights 10 / Four 8 / Rainy four 7 / Three dry lights 5\nBoar-deer-butterfly 5 / Red poetry ribbons 5 / Blue ribbons 5\nAll six special ribbons add a further 10.\nFive animals or ribbons: 1 (+1 per extra). Ten chaff: 1 (+1 per extra).\nSake counts as both an animal and chaff.\nFlower/moon viewing: 1 each, 3 after your first koi koi.\nUp to three koi calls: add their count. Four or more: yaku × (calls−2).\nNo increase by turn 16: dealer gains 1 point.\n\nEsc: settings / F11: full screen."
+		"手札をクリックして出します。同じ月の場札を取ります。\n合う場札が複数なら、手札を選んでから場札を選びます。\n同じ絵柄の2枚は自動選択。別の場所をクリックすると選択を解除。\n続いて山札を1枚引き、同じように取ります。\n役の点数が増えると、こいこい（続行）か勝負（上がり）を選べます。\n最後の手番で役が増えた場合は、自動的に上がります。\n12回戦終了時に持ち点が多い方の勝ち。各30点から始めます。\n\n五光 10 / 四光 8 / 雨四光 7 / 三光 5\n猪鹿蝶 5 / 赤短 5 / 青短 5 / 赤短・青短は追加10\nたね5枚・短冊5枚 1点（以後1枚ごとに+1）\nかす10枚 1点（以後1枚ごとに+1）。盃はたね・かす両方。\n花見酒・月見酒 各1点、こいこい後は各3点。\nこいこい3回までは回数を加点、4回以上は役点×（回数−2）。\n役の増加なく16手で終了した場合、親に1点。\n\nドラッグ：視点の上下  /  ホイール：ズーム\nEsc：選択解除・設定  /  F11：全画面",
+		"Click a hand card to play. Capture field cards of the same month.\nChoose a matching field card; identical chaff is selected automatically.\nClick elsewhere to cancel a selected hand card. Then resolve the draw.\nWhen your yaku score increases, stop to collect or call koi koi to continue.\nA score increase on your last turn stops automatically.\nThe higher score after 12 rounds wins. Both players start with 30.\n\nFive lights 10 / Four 8 / Rainy four 7 / Three dry lights 5\nBoar-deer-butterfly 5 / Red poetry ribbons 5 / Blue ribbons 5\nAll six special ribbons add a further 10.\nFive animals or ribbons: 1 (+1 per extra). Ten chaff: 1 (+1 per extra).\nSake counts as both an animal and chaff.\nFlower/moon viewing: 1 each, 3 after your first koi koi.\nUp to three koi calls: add their count. Four or more: yaku × (calls−2).\nNo increase by turn 16: dealer gains 1 point.\n\nDrag: orbit vertically / Wheel: zoom\nEsc: cancel selection or settings / F11: full screen."
 	],
 }
 

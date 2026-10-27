@@ -3,6 +3,7 @@
 This tests presentation and input routing, not playing strength.
 """
 
+import os
 import sys
 from functools import partial
 
@@ -10,6 +11,7 @@ from koikoi import game_server
 
 
 def main():
+    os.environ["KOIKOI_QA_FAST"] = "1"
     game_server.GameSession = partial(game_server.GameSession, seed=197)
     if "--ui-test" not in sys.argv:
         sys.argv.append("--ui-test")
