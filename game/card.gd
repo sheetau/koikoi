@@ -28,6 +28,7 @@ var pair_sign := 1.0
 var reveal_turn := false
 var kick_velocity := NAN
 var returning := false
+var bottom_return := false
 var capture_slide := false
 var gather_group := -1
 var arrival_sound := ""
@@ -115,6 +116,7 @@ func unstow() -> void:
 
 func move_to(target: Vector3, angles: Vector3, seconds: float, arc: float = 0.0, circle: bool = false) -> void:
 	returning = false
+	bottom_return = false
 	gather_group = -1
 	arrival_sound = ""
 	capture_slide = false

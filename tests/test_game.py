@@ -141,6 +141,56 @@ def test_yaku_breakdown_matches_scoring_including_overlap():
         assert sum(r["points"] for r in yaku_rows(cards, koi)) == score(cards, koi)
 
 
+def test_light_upgrades_are_exclusive_and_other_overlaps_remain_additive():
+    for cards, expected in [
+        ([0, 8, 28], "three"), ([0, 8, 28, 44], "four"),
+        ([0, 8, 28, 40], "rain_four"), ([0, 8, 28, 40, 44], "five"),
+    ]:
+        rows = yaku_rows(cards)
+        assert [r["key"] for r in rows] == [expected]
+        assert sum(r["points"] for r in rows) == score(cards)
+    assert yaku_rows([0, 8, 40]) == []  # Rain does not make three lights.
+    rows = yaku_rows([0, 8, 28, 32])
+    assert {r["key"] for r in rows} == {"three", "flower", "moon"}
+    assert sum(r["points"] for r in rows) == score([0, 8, 28, 32]) == 7
+    rows = yaku_rows([1, 5, 9, 21, 33, 37])
+    assert {r["key"] for r in rows} == {"red", "blue", "red_blue", "ribbons"}
+    assert sum(r["points"] for r in rows) == score([1, 5, 9, 21, 33, 37]) == 22
+
+
+@pytest.mark.parametrize("rounds", [1, 3, 6, 12])
+def test_selected_match_length_ends_at_exact_round(rounds):
+    session = GameSession(GreedyAgent(), seed=71, rounds=rounds)
+    ended = 0
+    for _ in range(1500):
+        if session.env.state[PHASE] == TERMINAL:
+            break
+        if session.paused:
+            session.next_round()
+        action = None if session.env.state[PLAYER] else int(GreedyAgent().act(session.env))
+        session.act(action)
+        if session.paused:
+            ended += 1
+            assert session.response()["view"]["rounds"] == rounds
+            assert session.response()["view"]["round"] == ended
+    assert ended == rounds and session.env.state[PHASE] == TERMINAL
+
+
+def test_restart_applies_new_settings_without_accepting_invalid_lengths():
+    service = GameService(lambda _: GreedyAgent())
+    service.request("/start", {"revision": 0, "rounds": 1})
+    previous = service.session
+    for invalid in [True, 0, 2, 24, "6", 6.0]:
+        with pytest.raises(ValueError):
+            service.request("/start", {"revision": 1, "rounds": invalid})
+        assert service.session is previous and service.revision == 1
+    result = service.request("/start", {"revision": 1, "rounds": 6, "flags": 24})
+    assert service.session is not previous
+    assert result["view"]["round"] == 1 and result["view"]["rounds"] == 6
+    assert result["view"]["points"] == [30, 30]
+    assert result["events"][0]["kind"] == "opening"
+
+
 def test_dealer_month_value_and_tie():
     class Fixed:
         pairs = iter([(2, 3), (0, 1)])

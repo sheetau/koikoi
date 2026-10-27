@@ -21,6 +21,9 @@ const TEXT = {
 	"next": ["次の回戦へ", "NEXT ROUND"],
 	"new": ["もう一度遊ぶ", "PLAY AGAIN"],
 	"settings": ["設定", "SETTINGS"], "close": ["閉じる", "CLOSE"],
+	"match_rounds": ["総回戦数", "ROUNDS PER MATCH"],
+	"restart": ["最初からやり直す", "RESTART MATCH"],
+	"restart_prompt": ["現在の対戦を終了し、設定した条件で新しい対戦を始めます。", "End this match and start a new one with your selected settings."],
 	"rules": ["ルール", "RULES"], "help": ["遊び方・役", "HOW TO PLAY"],
 	"credits": ["クレジット", "CREDITS"], "language": ["言語", "LANGUAGE"],
 	"standard": ["基本ルール", "STANDARD"],
@@ -30,7 +33,7 @@ const TEXT = {
 	"trained": ["学習済みAI", "TRAINED AI"], "greedy": ["練習用AI", "PRACTICE AI"],
 	"speed": ["演出の速さ", "ANIMATION SPEED"],
 	"sound": ["効果音", "SOUND"],
-	"apply_next": ["ルールとAIの変更は次の対戦から適用", "RULES & AI APPLY TO THE NEXT MATCH"],
+	"apply_next": ["回戦数・ルール・AIの変更は次の対戦から適用", "ROUNDS, RULES & AI APPLY TO THE NEXT MATCH"],
 	"error": ["接続エラー", "CONNECTION ERROR"],
 	"retry": ["再接続", "RECONNECT"],
 	"loading": ["対戦を準備しています", "PREPARING YOUR MATCH"],
@@ -45,8 +48,8 @@ const TEXT = {
 	"final": ["対戦終了", "MATCH COMPLETE"],
 	"round_complete": ["回戦終了", "ROUND COMPLETE"],
 	"help_body": [
-		"手札をクリックして出します。同じ月の場札を取ります。\n合う場札が複数なら、手札を選んでから場札を選びます。\n同じ絵柄の2枚は自動選択。別の場所をクリックすると選択を解除。\n続いて山札を1枚引き、同じように取ります。\n役の点数が増えると、こいこい（続行）か勝負（上がり）を選べます。\n最後の手番で役が増えた場合は、自動的に上がります。\n12回戦終了時に持ち点が多い方の勝ち。各30点から始めます。\n\n五光 10 / 四光 8 / 雨四光 7 / 三光 5\n猪鹿蝶 5 / 赤短 5 / 青短 5 / 赤短・青短は追加10\nたね5枚・短冊5枚 1点（以後1枚ごとに+1）\nかす10枚 1点（以後1枚ごとに+1）。盃はたね・かす両方。\n花見酒・月見酒 各1点、こいこい後は各3点。\nこいこい3回までは回数を加点、4回以上は役点×（回数−2）。\n役の増加なく16手で終了した場合、親に1点。\n\nドラッグ：視点の上下  /  ホイール：ズーム\nEsc：選択解除・設定  /  F11：全画面",
-		"Click a hand card to play. Capture field cards of the same month.\nChoose a matching field card; identical chaff is selected automatically.\nClick elsewhere to cancel a selected hand card. Then resolve the draw.\nWhen your yaku score increases, stop to collect or call koi koi to continue.\nA score increase on your last turn stops automatically.\nThe higher score after 12 rounds wins. Both players start with 30.\n\nFive lights 10 / Four 8 / Rainy four 7 / Three dry lights 5\nBoar-deer-butterfly 5 / Red poetry ribbons 5 / Blue ribbons 5\nAll six special ribbons add a further 10.\nFive animals or ribbons: 1 (+1 per extra). Ten chaff: 1 (+1 per extra).\nSake counts as both an animal and chaff.\nFlower/moon viewing: 1 each, 3 after your first koi koi.\nUp to three koi calls: add their count. Four or more: yaku × (calls−2).\nNo increase by turn 16: dealer gains 1 point.\n\nDrag: orbit vertically / Wheel: zoom\nEsc: cancel selection or settings / F11: full screen."
+		"手札をクリックして出します。同じ月の場札を取ります。\n合う場札が複数なら、手札を選んでから場札を選びます。\n同じ絵柄の2枚は自動選択。別の場所をクリックすると選択を解除。\n続いて山札を1枚引き、同じように取ります。\n役の点数が増えると、こいこい（続行）か勝負（上がり）を選べます。\n最後の手番で役が増えた場合は、自動的に上がります。\n設定した回戦数の終了時に持ち点が多い方の勝ち。各30点から始めます。\n\n五光 10 / 四光 8 / 雨四光 7 / 三光 5\n猪鹿蝶 5 / 赤短 5 / 青短 5 / 赤短・青短は追加10\nたね5枚・短冊5枚 1点（以後1枚ごとに+1）\nかす10枚 1点（以後1枚ごとに+1）。盃はたね・かす両方。\n花見酒・月見酒 各1点、こいこい後は各3点。\nこいこい3回までは回数を加点、4回以上は役点×（回数−2）。\n役の増加なく16手で終了した場合、親に1点。\n\nドラッグ：視点の上下  /  ホイール：ズーム\nEsc：選択解除・設定  /  F11：全画面",
+		"Click a hand card to play. Capture field cards of the same month.\nChoose a matching field card; identical chaff is selected automatically.\nClick elsewhere to cancel a selected hand card. Then resolve the draw.\nWhen your yaku score increases, stop to collect or call koi koi to continue.\nA score increase on your last turn stops automatically.\nThe higher score after the selected number of rounds wins. Both players start with 30.\n\nFive lights 10 / Four 8 / Rainy four 7 / Three dry lights 5\nBoar-deer-butterfly 5 / Red poetry ribbons 5 / Blue ribbons 5\nAll six special ribbons add a further 10.\nFive animals or ribbons: 1 (+1 per extra). Ten chaff: 1 (+1 per extra).\nSake counts as both an animal and chaff.\nFlower/moon viewing: 1 each, 3 after your first koi koi.\nUp to three koi calls: add their count. Four or more: yaku × (calls−2).\nNo increase by turn 16: dealer gains 1 point.\n\nDrag: orbit vertically / Wheel: zoom\nEsc: cancel selection or settings / F11: full screen."
 	],
 }
 

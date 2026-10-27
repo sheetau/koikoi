@@ -57,6 +57,7 @@ var speed := 1.0
 var sound := true
 var opponent := "trained"
 var flags := 0
+var match_rounds := 12
 var menu: Node3D
 var menu_buttons: Array = []
 var label_nodes: Array = []
@@ -367,7 +368,7 @@ func switch_language() -> void:
 		label.font = FONT
 	for plaque in label_nodes:
 		var text: Label3D = plaque.get_child(1)
-		text.text = word(plaque.get_meta("yaku_key")) + "  " + str(plaque.get_meta("points"))
+		text.text = role_title(plaque.get_meta("roles"))
 		var size := text_size(text.text, 18) + Vector2(0.35, 0.16)
 		plaque.position.x = (3.6 + size.x / 2) * int(plaque.get_meta("direction"))
 		var old_plate: Node = plaque.get_child(0)
@@ -393,7 +394,7 @@ func refresh_hud() -> void:
 	right_label.font = FONT
 	announcement.font = FONT
 	var pts: Array = state.points
-	left_label.text = "%s    %02d / 12\n%s  %d %s%s" % [word("round"), state.round, word("you"), pts[0], word("points"), "  · " + word("dealer") if state.dealer == 0 else ""]
+	left_label.text = "%s    %02d / %02d\n%s  %d %s%s" % [word("round"), state.round, state.get("rounds", 12), word("you"), pts[0], word("points"), "  · " + word("dealer") if state.dealer == 0 else ""]
 	right_label.text = "%s  %d %s%s\n%s" % [word("ai"), pts[1], word("points"), "  · " + word("dealer") if state.dealer == 1 else "", word("turn_you") if state.player == 0 else word("turn_ai")]
 	if paused:
 		right_label.text = right_label.text.get_slice("\n", 0) + "\n" + word("final" if finished else "round_complete")
@@ -405,6 +406,10 @@ func send(path: String, data: Dictionary = {}) -> void:
 	update_hand_affordance()
 	data["revision"] = revision
 	if path == "/start":
+		data["rounds"] = match_rounds
+		selected_hand = -1
+		queued_capture = -1
+		active_pending = -1
 		panel(word("loading"))
 	var url := OS.get_environment("KOIKOI_URL")
 	var token := OS.get_environment("KOIKOI_TOKEN")
@@ -450,7 +455,7 @@ func receive(result: int, code: int, _headers: PackedStringArray, body: PackedBy
 	if not state.is_empty():
 		await screenshot("round_end" if paused else "koi" if state.phase == 3 else "table")
 	if autoplay and finished:
-		print("GAME_QA_COMPLETE rounds=12 points=%s bodies=%d" % [state.points, bodies.size()])
+		print("GAME_QA_COMPLETE rounds=%d points=%s bodies=%d" % [state.get("rounds", 12), state.points, bodies.size()])
 		get_tree().quit(0)
 		return
 	await maybe_ai()
@@ -795,7 +800,7 @@ func plan_clearance(card, lower_priority: Array) -> void:
 			if pose.origin.x > board_left - extent.x and pose.origin.x < 5.3 + extent.x and absf(pose.origin.z) < 2.85 + extent.z:
 				floor_y = 0.006
 			# The solid stock participates as one box, never 48 exposed slabs.
-			if absf(pose.origin.x - STACK.x) < extent.x + Card.SIZE.x / 2 and absf(pose.origin.z - STACK.z) < extent.z + Card.SIZE.y / 2:
+			if not card.bottom_return and absf(pose.origin.x - STACK.x) < extent.x + Card.SIZE.x / 2 and absf(pose.origin.z - STACK.z) < extent.z + Card.SIZE.y / 2:
 				floor_y = maxf(floor_y, stack.size() * CARD_LAYER + 0.006)
 			for other in bodies:
 				if other == card or other in lower_priority or not other.visible or card.pair_peer == other or other.pair_peer == card:
@@ -859,7 +864,7 @@ func finish_flights() -> void:
 	while bodies.any(func(c): return c.flight):
 		await get_tree().physics_frame
 
-func reset_deck() -> void:
+func reset_deck(separate_cards: bool = false) -> void:
 	clear_yaku_labels()
 	known.clear()
 	opponent_cards.clear()
@@ -875,11 +880,15 @@ func reset_deck() -> void:
 	var returning: Array = bodies.filter(func(c): return c.visible)
 	var groups: Dictionary = {}
 	returning.sort_custom(func(a, b): return a.position.y > b.position.y)
+	if separate_cards:
+		returning.sort_custom(func(a, b): return a.position.x > b.position.x)
 	for card in returning:
 		var z: float = card.position.z
-		var key: String = "role_%s_%s" % [signf(z), roundi(card.position.y / 1.52)] if absf(z) > 11 else "capture_%s_%s_%s" % [signf(z), roundi(absf(z)), Layout.category(card.identity)] if absf(z) > 2.85 and absf(card.basis.z.y) > 0.5 else "hand_%s" % signf(z) if absf(z) > 3.5 else "field"
+		var key: String = "role_%s_%s" % [signf(z), roundi(card.position.y / 1.52)] if absf(z) > 11 else "capture_%s_%s" % [signf(z), roundi(absf(z))] if absf(z) > 2.85 and absf(card.basis.z.y) > 0.5 else "hand_%s" % signf(z) if absf(z) > 3.5 else "field"
 		if Vector2(card.position.x - STACK.x, card.position.z - STACK.z).length() < 0.05:
 			key = "stock"
+		if separate_cards:
+			key = "single_%s" % card.get_instance_id()
 		if not groups.has(key):
 			groups[key] = []
 		groups[key].append(card)
@@ -897,7 +906,7 @@ func reset_deck() -> void:
 			card.pair_peer = null
 			card.move_to(target, angles, 0.38 / speed)
 			card.gather_group = group_id
-		packets.append({"anchor": anchor, "members": group})
+		packets.append({"anchor": anchor, "members": group, "bottom": absf(anchor.basis.z.y) > 0.5 and Vector2(anchor.position.x - STACK.x, anchor.position.z - STACK.z).length() > 0.05})
 		group_id += 1
 	await finish_flights()
 	for packet in packets:
@@ -905,22 +914,37 @@ func reset_deck() -> void:
 			if card != packet.anchor:
 				card.stow()
 		packet.anchor.gather_group = -1
+	packets.sort_custom(func(a, b): return a.bottom and not b.bottom)
 	for packet in packets:
 		var card = packet.anchor
 		var target_angles: Vector3 = card.rotation
 		if absf(card.basis.z.y) < 0.5:
 			target_angles = BACK_FLAT
-		# A horizontal packet keeps its current face; there is no flip.
-		fly(card, STACK + Vector3(0, stack.size() * CARD_LAYER + 0.012, 0), target_angles, 0.6)
+		# Flat packets slide under the deck. Lift the deck, never the incoming
+		# cards; its top stays continuous when the packet merges into the prism.
+		if packet.bottom:
+			var gap: float = maxf(packet.members.size() * CARD_LAYER, card.position.y + 0.025)
+			create_tween().tween_property(stock_visual, "position:y", gap, 0.12 / speed)
+		var landing_y: float = 0.012 if packet.bottom else stack.size() * CARD_LAYER + 0.012
+		fly(card, STACK + Vector3(0, landing_y, 0), target_angles, 0.6)
 		card.returning = true
-		play_sound("fuda-take", card.identity)
+		card.bottom_return = packet.bottom
+		play_sound("fuda-turn", card.identity)
 		await finish_flights()
 		for member in packet.members:
 			member.stow()
 			member.identity = -1
 			member.set_face(null)
-			stack.append(member)
+			if packet.bottom:
+				stack.push_front(member)
+			else:
+				stack.append(member)
+		if packet.bottom:
+			stock_visual.position.y = maxf(0, stock_visual.position.y - packet.members.size() * CARD_LAYER)
 		update_stock()
+		if stock_visual.position.y > 0.001:
+			await create_tween().tween_property(stock_visual, "position:y", 0.0, 0.12 / speed).finished
+	stock_visual.position.y = 0.0
 	returning_all = false
 	configure_field([])
 
@@ -938,7 +962,6 @@ func opening(event: Dictionary) -> void:
 			await finish_flights()
 		await wait_for(0.3)
 		# Dealer reveal is the one explicitly requested stationary turn.
-		play_sound("fuda-turn")
 		for card in pair:
 			card.move_to(card.position, card.rotation + Vector3(0, PI, 0), 1.1 / speed)
 		await finish_flights()
@@ -948,7 +971,7 @@ func opening(event: Dictionary) -> void:
 		else:
 			var names := card_name(int(reveal.cards[0])) + "、" + card_name(int(reveal.cards[1]))
 			await announce(names + "。親が" + player_name(int(reveal.winner)) + "さんに決定しました。" if language == 0 else names + ". " + player_name(int(reveal.winner)) + " is the dealer.", 1.5)
-		await reset_deck()
+		await reset_deck(true) # Dealer cards return singly, without merging.
 	clear_menu()
 	await deal_cards(event.view, false)
 
@@ -1006,14 +1029,12 @@ func animate_event(event: Dictionary) -> void:
 		active_pending = id
 		pending_origin = card.position
 		if int(event.player) == 1:
-			play_sound("fuda-turn", id)
 			card.move_to(card.position, Vector3.ZERO, 0.42 / speed)
 			await finish_flights()
 		pending_angles = card.rotation
 	elif kind == "draw":
 		var id := int(event.card)
 		var card = take_card(id)
-		play_sound("fuda-take", id)
 		play_sound("fuda-turn", id)
 		card.rotation = FLAT # The specified exception: instantaneous stock-top flip.
 		active_pending = id
@@ -1105,19 +1126,50 @@ func clear_yaku_labels() -> void:
 func role_key(key: String) -> String:
 	return "lights" if key in ["three", "four", "rain_four", "five"] else key
 
+func presentation_roles(view: Dictionary, player: int) -> Array:
+	# Connected components: a physical card belongs to one row, including
+	# transitive overlaps such as lights + flower viewing + moon viewing.
+	var rows: Array = view.yaku[player].filter(func(row): return not row.cards.is_empty())
+	for row in rows:
+		var key := role_key(row.key)
+		if key not in role_order[player]:
+			role_order[player].append(key)
+			role_slots[player][key] = {}
+	rows.sort_custom(func(a, b): return role_order[player].find(role_key(a.key)) < role_order[player].find(role_key(b.key)))
+	var groups: Array = []
+	while not rows.is_empty():
+		var first: Dictionary = rows.pop_front()
+		var group := {"key": first.key, "points": first.points, "cards": first.cards.duplicate(), "roles": [first]}
+		var expanded := true
+		while expanded:
+			expanded = false
+			for i in range(rows.size() - 1, -1, -1):
+				var row: Dictionary = rows[i]
+				if row.cards.any(func(id): return id in group.cards):
+					group.roles.append(row)
+					group.points += row.points
+					for id in row.cards:
+						if id not in group.cards:
+							group.cards.append(id)
+					rows.remove_at(i)
+					expanded = true
+		group.roles.sort_custom(func(a, b): return role_order[player].find(role_key(a.key)) < role_order[player].find(role_key(b.key)))
+		groups.append(group)
+	return groups
+
+func role_title(roles: Array) -> String:
+	var titles: PackedStringArray = []
+	for row in roles:
+		titles.append(word(row.key) + "  " + str(row.points))
+	return " ／ ".join(titles)
+
 func arrange_captures(view: Dictionary, serial: bool = false) -> void:
 	clear_yaku_labels()
 	var changed := false
 	for player in range(2):
 		var allocated: Array = []
 		var row_index := 0
-		var rows: Array = view.yaku[player].filter(func(row): return not row.cards.is_empty())
-		for row in rows:
-			var key := role_key(row.key)
-			if key not in role_order[player]:
-				role_order[player].append(key)
-				role_slots[player][key] = {}
-		rows.sort_custom(func(a, b): return role_order[player].find(role_key(a.key)) < role_order[player].find(role_key(b.key)))
+		var rows := presentation_roles(view, player)
 		for row in rows:
 			var slots: Dictionary = role_slots[player][role_key(row.key)]
 			if row.cards.is_empty():
@@ -1133,10 +1185,11 @@ func arrange_captures(view: Dictionary, serial: bool = false) -> void:
 			var z := 12.2 if player == 0 else -12.2
 			var y := 3.55 - row_index * 1.52
 			var plaque := Node3D.new()
+			plaque.set_meta("roles", row.roles)
 			plaque.set_meta("yaku_key", row.key)
 			plaque.set_meta("points", row.points)
 			plaque.set_meta("direction", 1 if player == 0 else -1)
-			var plaque_text := word(row.key) + "  " + str(row.points)
+			var plaque_text := role_title(row.roles)
 			var plaque_size := text_size(plaque_text, 18) + Vector2(0.35, 0.16)
 			plaque.position = Vector3((3.6 + plaque_size.x / 2) * (1 if player == 0 else -1), y, z)
 			plaque.rotation.y = PI if player == 0 else 0.0
@@ -1153,6 +1206,8 @@ func arrange_captures(view: Dictionary, serial: bool = false) -> void:
 				var pos := Vector3(x, y, z)
 				# Real cards occupy just one role row; overlapping roles share membership.
 				if card.position.distance_to(pos) > 0.015:
+					if arrivals.is_empty():
+						play_sound("fuda-take")
 					fly(card, pos, Vector3(0, PI if player == 0 else 0.0, 0), 0.85 + slot * 0.055)
 					card.arrival_sound = "yaku"
 					arrivals.append(card)
@@ -1190,7 +1245,7 @@ func arrange_captures(view: Dictionary, serial: bool = false) -> void:
 			var card = known[id] if known.has(id) else take_card(id)
 			if card.position.distance_to(pos) > 0.015:
 				fly(card, pos, FLAT if player == 0 else Vector3(-PI / 2, 0, PI), 0.55)
-				card.arrival_sound = "fuda-take"
+				card.arrival_sound = "fuda-turn"
 				card.capture_slide = absf(card.flight_from.y) < 0.1
 				changed = true
 				if serial:
@@ -1226,9 +1281,8 @@ func sweep_yaku(view: Dictionary, winner: int) -> void:
 			label_nodes[i].queue_free()
 			label_nodes.remove_at(i)
 	var allocated: Array = []
-	var row_index: int = view.yaku[winner].filter(func(row): return not row.cards.is_empty()).size()
-	var rows: Array = view.yaku[loser].filter(func(row): return not row.cards.is_empty())
-	rows.sort_custom(func(a, b): return role_order[loser].find(role_key(a.key)) < role_order[loser].find(role_key(b.key)))
+	var row_index: int = presentation_roles(view, winner).size()
+	var rows := presentation_roles(view, loser)
 	for row in rows:
 		var ids: Array = []
 		for raw_id in row.cards:
@@ -1237,9 +1291,10 @@ func sweep_yaku(view: Dictionary, winner: int) -> void:
 				allocated.append(id)
 				ids.append(id)
 		var y := 3.55 - row_index * 1.52
-		var title := word(row.key) + "  " + str(row.points)
+		var title := role_title(row.roles)
 		var size := text_size(title, 18) + Vector2(0.35, 0.16)
 		var plaque := Node3D.new()
+		plaque.set_meta("roles", row.roles)
 		plaque.set_meta("yaku_key", row.key)
 		plaque.set_meta("points", row.points)
 		plaque.set_meta("direction", direction)
@@ -1434,7 +1489,12 @@ func open_overlay(kind: String) -> void:
 	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	top.add_child(title)
 	top.add_child(ui_button(word("close"), close_overlay))
-	if kind == "help":
+	if kind == "restart":
+		overlay_box.add_child(ui_label(word("restart_prompt"), 17))
+		var restart := ui_button(word("restart"), restart_match)
+		restart.disabled = busy
+		overlay_box.add_child(restart)
+	elif kind == "help":
 		var help := ui_label(word("help_body"), 16)
 		help.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		overlay_box.add_child(help)
@@ -1455,7 +1515,18 @@ func open_overlay(kind: String) -> void:
 		options.select(names.find(opponent))
 		options.item_selected.connect(func(i): play_sound("ui-click"); opponent = names[i]; save_settings())
 		overlay_box.add_child(options)
-		overlay_box.add_child(ui_label(word("rules") + " · 12", 17, GOLD))
+		overlay_box.add_child(ui_label(word("match_rounds"), 17, GOLD))
+		var rounds_option := OptionButton.new()
+		rounds_option.name = "MatchRounds"
+		rounds_option.add_theme_font_override("font", FONT)
+		rounds_option.add_theme_font_size_override("font_size", 17)
+		var lengths := [1, 3, 6, 12]
+		for count in lengths:
+			rounds_option.add_item(str(count))
+		rounds_option.select(lengths.find(match_rounds))
+		rounds_option.item_selected.connect(func(i): play_sound("ui-click"); match_rounds = lengths[i]; save_settings())
+		overlay_box.add_child(rounds_option)
+		overlay_box.add_child(ui_label(word("rules"), 17, GOLD))
 		for rule in [{"key": "total", "bit": 16}, {"key": "double", "bit": 8}]:
 			var toggle := CheckButton.new()
 			toggle.add_theme_stylebox_override("hover", style(Color("513c37"), GOLD))
@@ -1483,6 +1554,10 @@ func open_overlay(kind: String) -> void:
 		sound_toggle.button_pressed = sound
 		sound_toggle.toggled.connect(func(v): sound = v; play_sound("ui-click"); save_settings())
 		overlay_box.add_child(sound_toggle)
+		var restart := ui_button(word("restart"), func(): open_overlay("restart"))
+		restart.name = "RestartMatch"
+		restart.disabled = busy or not started
+		overlay_box.add_child(restart)
 		overlay_box.add_child(ui_button(word("help"), func(): open_overlay("help")))
 		overlay_box.add_child(ui_button(word("credits"), func(): open_overlay("credits")))
 	await get_tree().process_frame
@@ -1490,6 +1565,15 @@ func open_overlay(kind: String) -> void:
 		var minimum := overlay.get_combined_minimum_size()
 		overlay.size = Vector2(maxf(820, minimum.x), maxf(780, minimum.y))
 		overlay_world.fit_content(Vector2i(overlay.size.ceil()), camera)
+
+func restart_match() -> void:
+	if busy:
+		return
+	# Do not resume the old AI turn through close_overlay before /start.
+	if is_instance_valid(overlay_world):
+		overlay_world.queue_free()
+	modal = false
+	send("/start", {"opponent": opponent, "flags": flags})
 
 func close_overlay() -> void:
 	if is_instance_valid(overlay_world):
@@ -1506,12 +1590,14 @@ func load_settings() -> void:
 		sound = bool(config.get_value("game", "sound", true))
 		opponent = str(config.get_value("game", "opponent", "trained"))
 		flags = int(config.get_value("game", "flags", 0)) & 24
+		var saved_rounds := int(config.get_value("game", "rounds", 12))
+		match_rounds = saved_rounds if saved_rounds in [1, 3, 6, 12] else 12
 
 func save_settings() -> void:
 	if testing:
 		return
 	var config := ConfigFile.new()
-	for pair in [["language", language], ["speed", speed], ["sound", sound], ["opponent", opponent], ["flags", flags]]:
+	for pair in [["language", language], ["speed", speed], ["sound", sound], ["opponent", opponent], ["flags", flags], ["rounds", match_rounds]]:
 		config.set_value("game", pair[0], pair[1])
 	config.save("user://settings.cfg")
 

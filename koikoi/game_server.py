@@ -50,13 +50,16 @@ class GameService:
             if path == "/start":
                 name = payload.get("opponent", "trained")
                 flags = payload.get("flags", 0)
+                rounds = payload.get("rounds", 12)
                 if name not in ("trained", "rl-wp", "rl-point", "greedy"):
                     raise ValueError("Unknown opponent")
                 if type(flags) is not int or flags not in (0, 8, 16, 24):
                     raise ValueError("Unknown rules")
+                if type(rounds) is not int or rounds not in (1, 3, 6, 12):
+                    raise ValueError("Unknown match length")
                 if name not in self.agents:
                     self.agents[name] = self.loader(name)
-                self.session = GameSession(self.agents[name], flags=flags)
+                self.session = GameSession(self.agents[name], flags=flags, rounds=rounds)
             elif self.session is None:
                 raise ValueError("Start a game first")
             elif path == "/action":

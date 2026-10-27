@@ -96,7 +96,7 @@ Use a compact single HTML page, sticky single-line header, content-height split 
 
 Run `./.venv/Scripts/python.exe -X utf8 -m unittest discover -s .dashboard -p test_app.py -v`; UI changes also need headless browser checks. Cover review/confirmation, same-record follow-ups, periods, conflicts, deletion/recovery and narrow layouts. No product or research rebuild is needed for this tool.
 
-GET: `/api/brief`, `/api/items?view=&scope=&search=&limit=&offset=`, `/api/item?id=`, `/api/events?id=&before=&after=&limit=`. POST `/api` accepts CLI operations, `backup`, and `checkpoint` with project revision and label. Item responses include `can_confirm`. The server substitutes `__DASHBOARD_TOKEN__` in HTML; send it as `X-Dashboard-Token`. Host/origin checks and fixed routes restrict this loopback-only service; it is not for remote hosting.
+GET: `/api/brief`, `/api/items?view=&scope=&search=&limit=&offset=`, `/api/item?id=`, `/api/events?id=&before=&after=&limit=`. POST `/api` accepts CLI operations, `backup`, and `checkpoint` with project revision and label. Item responses include `can_confirm`, `confirmation_blockers` with readable reasons and related record IDs, and `related` summaries. The detail view keeps the confirmation action visible and links its blocking prerequisites. It refreshes when dependencies change, even when the selected item revision does not. CLI `get.gates` describes execution gates; `confirmation_blockers` separately describes final owner confirmation. The server substitutes `__DASHBOARD_TOKEN__` in HTML; send it as `X-Dashboard-Token`. Host/origin checks and fixed routes restrict this loopback-only service; it is not for remote hosting.
 
 ## Koi-Koi migration
 

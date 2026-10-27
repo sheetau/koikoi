@@ -321,6 +321,34 @@ class Store:
             self.event(identity, actor, "deleted" if deleted else "restored", {})
         return self.item(identity)
 
+    def confirmation_blockers(self, item):
+        """Owner-facing reasons; execution may proceed while dependencies are in review."""
+        blockers = []
+        for identity in item.get("depends_on", []):
+            other = self.item(identity)
+            if other.get("deleted") or other["status"] != "done":
+                blockers.append({"reason": "前提タスクを先に確認してください。", **{k: other.get(k) for k in ("id", "title", "status", "deleted")}})
+        for identity in item.get("required_questions", []):
+            other = self.item(identity)
+            answered = bool(other.get("answer", "").strip()) and other["status"] in {"answered", "closed"}
+            default = other.get("requires_answer") is False and bool(other.get("default_action", "").strip())
+            if other.get("deleted") or not (answered or default):
+                blockers.append({"reason": "前提の質問への回答が必要です。", **{k: other.get(k) for k in ("id", "title", "status", "deleted")}})
+        if item.get("thread_waiting_for"):
+            blockers.append({"reason": "この項目のスレッドが回答待ちです。", "title": item.get("blocked_reason", "")})
+        for check in item.get("checks", []):
+            if not check["done"]:
+                blockers.append({"reason": "未確認の条件：", "title": check["text"]})
+        return blockers
+
+    def detail(self, identity):
+        item = self.item(identity)
+        links = list(dict.fromkeys(item.get("depends_on", []) + item.get("required_questions", []) + ([item["parent_id"]] if item.get("parent_id") else [])))
+        return {"item": item, "events": self.history(identity),
+                "children": [dict(r) for r in self.db.execute("SELECT id,title,kind,status FROM items WHERE json_extract(data,'$.parent_id')=?", (identity,))],
+                "related": [{k: record.get(k) for k in ("id", "title", "status", "deleted")} for record in map(self.item, links)],
+                "can_confirm": self.can_confirm(item), "confirmation_blockers": self.confirmation_blockers(item)}
+
     def can_confirm(self, item):
         return (item["kind"] == "task" and (item["status"] == "review" or
                 (item["status"] == "waiting" and item.get("owner_review") is True))
@@ -579,10 +607,7 @@ def server(path, port=0):
                     elif parsed.path == "/api/items":
                         result = store.query(**{k: v for k, v in args.items() if k in {"view", "scope", "search", "limit", "offset"}})
                     elif parsed.path == "/api/item":
-                        result = {"item": store.item(args.get("id")), "events": store.history(args.get("id")),
-                                  "children": [dict(r) for r in store.db.execute(
-                                      "SELECT id,title,kind,status FROM items WHERE json_extract(data,'$.parent_id')=?", (args.get("id"),))]}
-                        result["can_confirm"] = store.can_confirm(result["item"])
+                        result = store.detail(args.get("id"))
                     elif parsed.path == "/api/events":
                         result = store.history(args.get("id"), args.get("limit", 50), args.get("before"), args.get("after"))
                     else:
@@ -657,7 +682,9 @@ def main():
                 result = store.query(args.view, args.scope, args.search, args.limit, args.offset)
             elif args.command == "get":
                 result = store.item(args.id)
-                result["gates"] = store.gates(result)
+                result["gates"] = store.gates(result, require_confirmed=False)
+                result["confirmation_blockers"] = store.confirmation_blockers(result)
+                result["can_confirm"] = store.can_confirm(result)
                 if not args.full and len(result["body"]) > 6000:
                     result["body"] = result["body"][:6000]
                     result["body_truncated"] = True

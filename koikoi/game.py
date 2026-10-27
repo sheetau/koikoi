@@ -20,6 +20,7 @@ from .layout import (
     PLAYER,
     POINTS,
     ROUND,
+    ROUNDS,
     STOCK,
     TERMINAL,
     TURN,
@@ -85,19 +86,22 @@ def choose_dealer(rng):
 
 
 class GameEnv(VariantEnv):
-    """Use existing variant transitions with a twelve-round casual configuration.
+    """Use existing variant transitions with a configurable casual match length.
 
     The variant research constructor deliberately fixes eight rounds. This local
     adapter initializes the reference engine directly, without changing that gate.
     Events contain only human/public information, never the packed engine state.
     """
 
-    def __init__(self, seed, dealer, flags=0):
+    def __init__(self, seed, dealer, flags=0, rounds=12):
         if flags not in (0, OWN_KOI, TOTAL_YAKU, OWN_KOI | TOTAL_YAKU):
             raise ValueError("Unsupported game rules")
+        if type(rounds) is not int or rounds not in (1, 3, 6, 12):
+            raise ValueError("Unsupported match length")
         self.events = []
-        self.variant = Variant("desktop12", flags, rounds=12, bankrupt=False)
+        self.variant = Variant("desktop", flags, rounds=rounds, bankrupt=False)
         ReferenceEnv.__init__(self, seed, "research12")
+        self.state[ROUNDS] = rounds
         self.state[DEALER] = self.state[PLAYER] = dealer
         self.events = []
 
@@ -119,6 +123,7 @@ class GameEnv(VariantEnv):
             "dealer": int(s[DEALER]),
             "player": int(s[PLAYER]),
             "round": int(s[ROUND]) + 1,
+            "rounds": int(s[ROUNDS]),
             "phase": int(s[PHASE]),
             "pending": int(s[PENDING]),
             "pending_slot": (
@@ -179,10 +184,10 @@ class GameEnv(VariantEnv):
 
 
 class GameSession:
-    def __init__(self, agent, seed=None, flags=0):
+    def __init__(self, agent, seed=None, flags=0, rounds=12):
         seed = seed if seed is not None else secrets.randbelow(90_000_000) + 1
         dealer, self.reveals = choose_dealer(random.Random(seed))
-        self.env = GameEnv(seed, dealer, flags)
+        self.env = GameEnv(seed, dealer, flags, rounds)
         self.agent = agent
         self.paused = False
         self.end = None

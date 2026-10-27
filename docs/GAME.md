@@ -40,7 +40,7 @@ AI/rule changes take effect on the next match. The match itself is ephemeral.
 
 ## Product rules and inference
 
-Twelve rounds, 30 points per player, no bankruptcy termination. The smaller
+Choose 1, 3, 6 or 12 rounds (default 12), with 30 points per player and no bankruptcy termination. Settings apply to the next match. Restart in Settings confirms ending the current match and begins a fresh dealer draw with the selected conditions; it is disabled while an event/request is in flight. The smaller
 month wins the opening dealer draw, with conventional card values 20/10/5/1
 breaking same-month ties. Equal month and value draws another pair. Opening
 cards return to the deck before the deal. The round winner deals next.
@@ -56,7 +56,7 @@ The selected learned checkpoint remains identity-checked and unchanged:
 It and the optional original RL-WP/RL-Point opponents use eight-round encoders.
 The game-only adapter projects match context onto their existing input format:
 eight-round/bankruptcy feature flags and `max(0, round_index - 4)`.
-Actual legality, settlement, twelve-round termination and payoff-correct public
+Actual legality, settlement, selected-length termination and payoff-correct public
 endgame assistance use the unprojected game. No new training, policy weights,
 strength evaluation, or research-search rollout is performed. Twelve-round
 feature transfer is a deployment choice, not evidence of twelve-round strength.
@@ -104,14 +104,13 @@ adds columns as needed. Empty slots are reused; only column expansion slides
 existing cards horizontally. Captures form half-overlapping horizontal groups
 for chaff, animals, ribbons and lights, with reserved space for their maximum
 unscored counts. Capture groups sit just outside the board, beneath the hands.
-Each yaku occupies one unwrapped row. Both field cards and captures promoted to
+Roles that share cards, including transitive overlaps, occupy one unwrapped row with all role names and their scores. Physical cards appear only once. Independent roles keep separate rows; light upgrades replace their lower role without adding its points. Both field cards and captures promoted to
 yaku travel sideways beyond the board, round a U-turn, then arrive from right
 to left. A role shares its turn position and nominal travel speed; leftmost
 cards arrive first at evenly spaced times. The turn extends beyond long rows.
 Returns first gather each group into an existing outer-corner card, without
 adding stack height. These intentional visual merges run together. Each merged
-packet then flies to the stock; upright packets align while moving, while
-horizontal packets retain their facing without flipping.
+packet then flies to the stock. All capture categories at the same seat gather together. Horizontal packets retain their facing and slide beneath the lifted stock without rising; upright role packets align while moving and return to its top.
 Collision clearance is conservative, not a globally shortest-path solver.
 The camera fills windows of any aspect ratio without letterboxing.
 
@@ -128,8 +127,7 @@ used in the English UI. The Japanese UI uses Noto Serif JP Black for all
 characters, including Latin letters and digits; no external font path is
 required. Six user-supplied MP3 clips are copied unchanged into `game/assets/audio/`.
 Dealer/hand landings use `tefuda-place`; each yaku card plays `yaku` at arrival.
-Total-yaku transfers play `fuda-take` once per transferred role at departure,
-with no yaku arrival sounds. Four original synthesized retro
+New role movement and total-yaku transfers play `fuda-take` once per moving role row at departure; transfers have no yaku arrival sounds. Draws, ordinary captures and return packets use `fuda-turn`. Stationary opponent/dealer reveals are silent. Four original synthesized retro
 cues cover button presses, messages, wins and losses. Their playback gains
 are trimmed by 9.4–11.1 dB to match the hand/draw clips. No external audio path
 is needed. In-game credits and `THIRD_PARTY_NOTICES.md` identify the sources.
@@ -211,3 +209,14 @@ calculation on 12,000 deterministic pairs and reports measured runtime.
 `game/tests/backlog_check.gd` checks single-card dealing/batch order, fixed winner
 rows during total-yaku transfers for both seats, one cue per role, sequential
 readable yaku notices, the following minimal koi prompt and faster field play.
+
+`migration_check.gd` verifies unified capture gathering, bottom insertion, no upward
+card movement, deck clearance and the revised audio routing. `grouped_roles_check.gd`
+checks shared/transitive role membership, bilingual labels, stable winner rows,
+conservation on return, match-length settings and restart protection. Game-service
+tests verify all four match lengths and exclusive light upgrades against the existing
+scoring implementation; these are functional checks, not strength evidence.
+
+Dealer-reveal cards bypass packet merging and return one at a time, nearest
+stock first. `dealer_return_check.gd` audits that path without excluding the pair
+as an intentional gathering group.

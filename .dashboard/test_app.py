@@ -50,6 +50,20 @@ class LedgerTests(unittest.TestCase):
             self.assertEqual(app.main(), 1)
         self.assertEqual(frozen.read_bytes(), b"frozen history")
 
+    def test_confirmation_explains_prerequisites_and_refreshes_unchanged_child(self):
+        dependency = self.task(title="Setup", status="review")
+        item = self.task(title="Implementation", status="review", depends_on=[dependency["id"]])
+        detail = self.store.detail(item["id"])
+        self.assertFalse(detail["can_confirm"])
+        self.assertEqual(detail["confirmation_blockers"][0]["title"], "Setup")
+        self.assertEqual(detail["related"][0]["status"], "review")
+        self.store.confirm(dependency["id"], dependency["rev"], "user")
+        detail = self.store.detail(item["id"])
+        self.assertEqual(detail["item"]["rev"], item["rev"])
+        self.assertTrue(detail["can_confirm"])
+        self.assertEqual(detail["confirmation_blockers"], [])
+        self.store.confirm(item["id"], item["rev"], "user")
+
     def test_question_gates_default_is_not_recommendation(self):
         q = self.store.create({"kind": "question", "title": "Choose", "recommended": "Option A"}, "assistant")
         t = self.task(required_questions=[q["id"]], scope="current")
