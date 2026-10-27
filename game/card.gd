@@ -33,6 +33,7 @@ var capture_slide := false
 var gather_group := -1
 var arrival_sound := ""
 var return_curve := false
+var return_direct_height := false
 var return_c1 := Vector3.ZERO
 var return_c2 := Vector3.ZERO
 var return_lengths := PackedFloat32Array()
@@ -156,13 +157,17 @@ func route_to_role(player: int, board_edge: float = 6.5) -> void:
 func stock_point(u: float) -> Vector3:
 	return flight_from.bezier_interpolate(return_c1,return_c2,flight_to,u)
 
-func route_to_stock(straight: bool = false) -> void:
+func route_to_stock(straight: bool = false, direct_height: bool = false) -> void:
 	return_curve = true
-	return_c1 = flight_from + Vector3(2.0 if flight_from.x <= flight_to.x else -2.0,0,0)
-	return_c2 = flight_to + Vector3(2.2,0,signf(flight_from.z- flight_to.z)*1.5)
-	if straight:
-		return_c1 = flight_from.lerp(flight_to,1.0/3)
-		return_c2 = flight_from.lerp(flight_to,2.0/3)
+	return_direct_height = direct_height
+	return_c1 = flight_from.lerp(flight_to,1.0/3)
+	return_c2 = flight_from.lerp(flight_to,2.0/3)
+	if not straight:
+		# A shallow bend softens the direct route without going past the stock.
+		var direction := Vector2(flight_to.x-flight_from.x,flight_to.z-flight_from.z).normalized()
+		var bend := Vector3(-direction.y,0,direction.x)*minf(1.0,flight_from.distance_to(flight_to)*0.10)
+		return_c1 += bend
+		return_c2 += bend
 	return_lengths = PackedFloat32Array([0.0])
 	return_length = 0
 	var previous := flight_from
@@ -204,7 +209,11 @@ func pose_at(time: float) -> Transform3D:
 	if return_curve:
 		var curve_t := stock_parameter(t*return_length)
 		pos = stock_point(curve_t)
-		pos.y = lerpf(flight_from.y,flight_to.y,smoothstep(0.0,0.65,curve_t))
+		# Horizontal capture layers retain their separation until clear of
+		# the resting pile, then settle beneath the lifted stock.
+		var height_t := smoothstep(0.72,1.0,curve_t) if bottom_return else smoothstep(0.0,0.65,curve_t)
+		if not return_direct_height:
+			pos.y = lerpf(flight_from.y,flight_to.y,height_t)
 	if orbit:
 		var radius := Vector2(flight_from.x - orbit_center.x, flight_from.z - orbit_center.z).length()
 		var angle := orbit_angle - PI * u

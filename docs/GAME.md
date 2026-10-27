@@ -95,7 +95,9 @@ The background stays solid gold, without a floor, grid or shadows.
 
 Dealer cards and the ordinary deal move one card at a time. The original
 field/dealer/opponent order and two-card batches remain; each card completes
-its flight before the next leaves the stock. Field cards flip instantly at
+its flight before the next leaves the stock. Ordinary dealing takes 0.20 seconds
+per card at normal speed (previously 0.42), about five seconds for 24 cards.
+Field cards flip instantly at
 the stock; hand cards remain face down during the deal. An opposite-facing hand reveals
 with a stationary half turn; an already aligned hand skips that turn. The subsequent flight combines translation and
 alignment rotation. A field-play flight takes 0.30 seconds at normal speed
@@ -109,12 +111,16 @@ yaku travel sideways beyond the board, round a U-turn, then arrive from right
 to left. A role shares its turn position and nominal travel speed; leftmost
 cards arrive first at evenly spaced times. The turn extends beyond long rows.
 Returns keep every card separate and visible. Each upright hand or role row
-follows a curved line to the stock, nearest cards first. Horizontal cards return
+follows a gently curved, nearly direct line to the stock, nearest cards first;
+the path does not swing outward or pass the stock. Horizontal cards return
 in straight lines on a shared timeline without fixed delays between rows;
 only collision spacing can delay individual cards. Arc-length sampling
 keeps travel speed steady; early rotation and collision-checked start delays
 keep the merge spaced. Horizontal cards retain their facing and slide beneath
-the lifted stock without rising; upright cards align early and return to its
+the lifted stock without rising. Capture layers retain their height separation
+until clear of the resting pile, then descend near the stock. Collision checks
+use the thin card geometry rather than padding wider than the capture layers;
+legal resting overlap must not accumulate departure delays. Upright cards align early and return to its
 top. A pending card already on the stock is stowed directly.
 Collision clearance is conservative, not a globally shortest-path solver.
 The camera fills windows of any aspect ratio without letterboxing.
@@ -225,7 +231,7 @@ conservation on return, match-length settings and restart protection. Game-servi
 tests verify all four match lengths and exclusive light upgrades against the existing
 scoring implementation; these are functional checks, not strength evidence.
 
-Dealer-reveal cards return one at a time, nearest stock first.
+Dealer-reveal cards return directly one at a time, nearest stock first.
 `dealer_return_check.gd` audits that path with both cards counted.
 
 Review refinements use 17–20 point text for HUD, notices and result details, with
@@ -244,9 +250,15 @@ wall-clock enforcement prevents a costly render frame shortening that pause.
 `review_check.gd` exercises these requirements, bounded result scrolling, narrow
 layout and translucent settings from both sides. The game scoring is unchanged.
 
-Own role formation temporarily shows the rear view at the start of the first
-U-turn. After the cards arrive, the view holds for 0.45 seconds and restores
-the exact previous camera transform. A compact side panel lists the player's
+Own role formation temporarily frames the player's role cards at
+the start of the first U-turn. The camera fits their final bounds and renders
+only those cards; the board, HUD and role labels do not intrude. It leaves at
+least three rows' worth of viewing space for a single role, and extra margins
+around larger collections, slightly farther than the supplied yaku reference.
+Camera controls
+stay locked during this view. After the cards arrive, it holds for 1.1 seconds
+and restores the exact previous camera transform and normal rendering.
+A compact side panel lists the player's
 current yaku and points. Scores and this list use fixed world positions; zoom
 does not move or rescale UI independently of the scene. Short announcements
 are centered; role lists and result details stay left aligned. Hover feedback
@@ -256,3 +268,9 @@ refreshes each frame, including next-round buttons after an AI settlement.
 anchors, centered notices, result hover, all 48 individual returns, continuous
 total-yaku destination height and three varied contact-driven rebounds. It
 captures the temporary rear view and restored view with the role list.
+It also verifies all four rows of a 24-card fixture remain inside the frame.
+
+`pace_check.gd` checks a real half-overlapping 16-card capture fixture at normal
+speed: concurrent rows/cards, a four-second return budget, no half-second
+planning stalls, conservation and collision clearance. It also checks a
+six-second 24-card deal budget and nearly direct upright return trajectories.

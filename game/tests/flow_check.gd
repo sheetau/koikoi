@@ -119,6 +119,7 @@ func run() -> void:
 		card.position = Vector3(-2+i,0.012,0)
 		card.rotation = table.FLAT
 	var before: Transform3D = table.camera.transform
+	var before_mask: int = table.camera.cull_mask
 	table.saved_camera_transform = before
 	table.camera_focus_armed = true
 	table.arrange_captures(view)
@@ -126,14 +127,50 @@ func run() -> void:
 		check(table.camera.transform.is_equal_approx(before),"Camera moved before the U-turn")
 		await physics_frame
 	check(table.role_camera_active,"Camera missed the role U-turn")
+	check(table.camera.cull_mask==2 and table.known[0].surface.layers==2 and table.board.layers==1,"Close-up did not isolate the player's role cards")
+	var focused_camera: Transform3D = table.camera.transform
+	var wheel := InputEventMouseButton.new()
+	wheel.button_index = MOUSE_BUTTON_WHEEL_UP
+	wheel.pressed = true
+	wheel.position = Vector2(720,450)
+	table._unhandled_input(wheel)
+	var drag := InputEventMouseMotion.new()
+	drag.position = Vector2(720,450)
+	drag.relative = Vector2(0,100)
+	table.camera_drag = true
+	table._unhandled_input(drag)
+	check(table.camera.transform.is_equal_approx(focused_camera),"Role close-up camera moved with input")
 	await table.screenshot("flow_role_camera")
 	await table.finish_flights()
+	var first: Vector2 = table.camera.unproject_position(table.known[0].position)
+	var last: Vector2 = table.camera.unproject_position(table.known[28].position)
+	check(first.distance_to(last)>root.size.x*0.12 and first.distance_to(last)<root.size.x*0.30,"Role framing differs from the reference's comfortable distance")
+	for id in [0,8,28]:
+		check(Rect2(Vector2.ZERO,Vector2(root.size)).has_point(table.camera.unproject_position(table.known[id].position)),"Role close-up cropped a card")
 	table.refresh_owned_roles(view)
 	await table.screenshot("flow_role_arrived")
 	var held_at := Time.get_ticks_msec()
 	await table.finish_role_camera()
-	check(Time.get_ticks_msec()-held_at>=440 and table.camera.transform.is_equal_approx(before),"Camera did not hold then restore the original view")
+	check(Time.get_ticks_msec()-held_at>=1080 and table.camera.transform.is_equal_approx(before),"Camera did not hold then restore the original view")
+	check(table.camera.cull_mask==before_mask and table.known[0].surface.layers==1,"Close-up left ordinary scene rendering hidden")
 	table.refresh_hud()
 	await table.screenshot("flow_role_list")
+	# Four full rows must fit with margins, not just the first three-card role.
+	await table.reset_deck()
+	for i in range(24):
+		var card = table.take_card(i)
+		card.position = Vector3(3-(i%6)*0.88,3.55-(i/6)*1.52,12.2)
+		card.rotation = Vector3(0,PI,0)
+	table.saved_camera_transform = table.camera.transform
+	table.camera_focus_armed = true
+	table.role_camera_active = true
+	table.focus_role_cards()
+	var safe := Rect2(Vector2(20,20),Vector2(root.size)-Vector2(40,40))
+	for card in table.known.values():
+		for x in [-0.39,0.39]:
+			for y in [-0.64,0.64]:
+				check(safe.has_point(table.camera.unproject_position(card.position+Vector3(x,y,0))),"Multiple role rows were cropped")
+	await table.screenshot("flow_role_multiple")
+	await table.finish_role_camera()
 	print("GAME_FLOW_CHECK failures=%d convoy_max=%d overlaps=%d board=%d landings=%s"%[failures.size(),count[0],audit.overlaps,audit.board_hits,landings])
 	quit(0 if failures.is_empty() else 1)

@@ -109,6 +109,7 @@ var impact_samples: Array = []
 var camera_focus_armed := false
 var role_camera_active := false
 var saved_camera_transform := Transform3D.IDENTITY
+var saved_camera_cull_mask := 0
 var owned_roles_world: Node3D
 var owned_roles_text := ""
 
@@ -503,16 +504,48 @@ func _physics_process(_delta: float) -> void:
 			var t: float = clampf((card.elapsed-card.start_delay)/(card.duration-card.start_delay),0,1)
 			if t*(card.role_lengths.x+card.role_lengths.y+card.role_lengths.z)>=card.role_lengths.x:
 				role_camera_active = true
-				camera.position.z = -absf(saved_camera_transform.origin.z)
-				camera.look_at(camera_pivot)
+				focus_role_cards()
 				return
+
+func focus_role_cards() -> void:
+	var minimum := Vector3(INF,INF,12.2)
+	var maximum := Vector3(-INF,-INF,12.2)
+	for card in bodies:
+		var destination: Vector3 = card.flight_to if card.flight else card.position
+		if card.visible and is_equal_approx(destination.z,12.2):
+			minimum = minimum.min(destination-Vector3(Card.SIZE.x/2,Card.SIZE.y/2,0))
+			maximum = maximum.max(destination+Vector3(Card.SIZE.x/2,Card.SIZE.y/2,0))
+			for mesh in card.get_children():
+				if mesh is MeshInstance3D:
+					mesh.layers = 2
+	if not is_finite(minimum.x):
+		return
+	var center := (minimum+maximum)/2
+	var span := maximum-minimum+Vector3(0.8,0.65,0)
+	var viewport_size := get_viewport().get_visible_rect().size
+	var aspect := viewport_size.x/viewport_size.y
+	# Keep at least three rows' worth of breathing room even for a single
+	# new role; larger collections still fit with margins on all sides.
+	var framed_height := maxf(5.6,maxf(span.y,span.x/aspect)*1.18)
+	var distance := framed_height/(2*tan(deg_to_rad(camera.fov/2)))
+	camera.position = center-Vector3(0,0,maxf(2.0,distance))
+	camera.look_at(center)
+	saved_camera_cull_mask = camera.cull_mask
+	camera.cull_mask = 2 # Only the player's role cards belong to this close-up.
+	camera_drag = false
 
 func finish_role_camera() -> void:
 	if not camera_focus_armed:
 		return
 	if role_camera_active:
-		await wait_minimum(0.45,0.45)
+		await wait_minimum(1.1,1.1)
+		camera.cull_mask = saved_camera_cull_mask
+		for card in bodies:
+			for mesh in card.get_children():
+				if mesh is MeshInstance3D:
+					mesh.layers = 1
 	camera.transform = saved_camera_transform
+	camera_drag = false
 	camera_focus_armed = false
 	role_camera_active = false
 
@@ -1046,9 +1079,9 @@ func reset_deck(separate_cards: bool = false) -> void:
 			card.move_to(target,card.rotation if row.bottom else BACK_FLAT,1)
 			card.returning = true
 			card.bottom_return = row.bottom
-			card.route_to_stock(row.bottom)
-			var travel: float = maxf(0.3,card.return_length/8.0)/speed
-			card.duration = maxf(travel,previous_arrival+0.24/speed)
+			card.route_to_stock(row.bottom or separate_cards,separate_cards)
+			var travel: float = maxf(0.3,card.return_length/12.0)/speed
+			card.duration = maxf(travel,previous_arrival+0.12/speed)
 			card.start_delay = card.duration-travel
 			# Resolve merge spacing in time, rather than lifting or overlapping
 			# the cards. All trajectories share the same group clock.
@@ -1067,8 +1100,10 @@ func reset_deck(separate_cards: bool = false) -> void:
 					for other in scheduled:
 						if at>=other.duration:
 							continue
+						if at<=card.start_delay and at<=other.start_delay:
+							continue # Resting capture layers already have valid separation.
 						var other_pose: Transform3D = other.pose_at(at)
-						if pose.origin.distance_squared_to(other_pose.origin)<2.5 and Card.overlaps(pose,other_pose,0.015):
+						if pose.origin.distance_squared_to(other_pose.origin)<2.5 and Card.overlaps(pose,other_pose,0.0005):
 							collision = true
 							break
 					if collision:
@@ -1138,7 +1173,7 @@ func deal_cards(view: Dictionary, returning: bool = true) -> void:
 					if group == 1:
 						opponent_cards[slot] = card
 					destination = hand_position(slot, group)
-				fly(card, destination, FLAT if group == 2 else Vector3(0, PI * group, 0), 0.42)
+				fly(card, destination, FLAT if group == 2 else Vector3(0, PI * group, 0), 0.20)
 				card.arrival_sound = "bafuda-place" if group == 2 else "tefuda-place"
 				await finish_flights()
 
@@ -1669,6 +1704,8 @@ func click_menu(screen: Vector2) -> bool:
 	return false
 
 func open_overlay(kind: String) -> void:
+	if camera_focus_armed:
+		return
 	modal = true
 	update_hand_affordance()
 	if is_instance_valid(overlay_world):

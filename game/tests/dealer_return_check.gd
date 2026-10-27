@@ -17,6 +17,12 @@ func run() -> void:
 	var observe := func():
 		audit.inspect(table)
 		simultaneous[0] = maxi(simultaneous[0],table.bodies.filter(func(c):return c.flight and c.returning).size())
+		for card in table.bodies:
+			if card.flight and card.returning:
+				var line: Vector3 = card.flight_to-card.flight_from
+				var offset: Vector3 = card.position-card.flight_from
+				if line.cross(offset).length()>0.001 and "Dealer return took a curved detour" not in failures:
+					failures.append("Dealer return took a curved detour")
 	physics_frame.connect(observe)
 	await table.reset_deck(true)
 	physics_frame.disconnect(observe)
