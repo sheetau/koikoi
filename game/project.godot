@@ -24,3 +24,4 @@ environment/defaults/default_clear_color=Color(0.70, 0.49, 0.19, 1)
 
 [physics]
 common/physics_ticks_per_second=120
+3d/solver/contact_max_allowed_penetration=0.0005

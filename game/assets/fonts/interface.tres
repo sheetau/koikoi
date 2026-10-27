@@ -4,5 +4,5 @@
 
 [resource]
 base_font = ExtResource("1")
-variation_opentype = {"wght": 450.0}
+variation_opentype = {"wght": 600.0}
 variation_embolden = 0.3

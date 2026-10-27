@@ -28,15 +28,15 @@ SOFTWARE.
 
 ## Floating-table game assets
 
-The 48 unmodified SVG images in `game/assets/cards/` are Louie Mantia's
-Hanafuda deck, recolored by dotty-dev, from
-https://github.com/dotty-dev/Hanafuda-Louie-Recolor at commit
-`a4ac60e4bd60f95ab8c4e5176b50bfd2e3772992`.
-Licensed under Creative Commons Attribution-ShareAlike 4.0 International:
-https://creativecommons.org/licenses/by-sa/4.0/ . Full license and original
-source-image links are retained in `game/assets/cards/LICENSE.txt` and
-`game/assets/cards/SOURCE.md`. Godot generates raster caches/mipmaps from the
-original SVGs for display. This asset license applies to the artwork.
+The 48 PNG images in `game/assets/cards/` are the traditional-color Hanafuda
+set by Louie Mantia and すけじょ, from Wikimedia Commons:
+https://commons.wikimedia.org/wiki/Category:SVG_Hanafuda_with_traditional_colors_(black_border) .
+They are licensed under Creative Commons Attribution-ShareAlike 4.0 International:
+https://creativecommons.org/licenses/by-sa/4.0/ . Original downloaded PNG bytes, per-file links
+and checksums are retained; see `game/assets/cards/SOURCE.md`, `sources.json`,
+`manifest.json` and `LICENSE.txt`. The client masks only the outer frame with
+#b44519 while preserving the illustration. The adapted appearance remains under
+CC BY-SA 4.0. This asset license applies to the artwork.
 
 `game/assets/fonts/NotoSansJP.ttf` is Noto Sans JP from the Noto Project via
 https://github.com/google/fonts/tree/main/ofl/notosansjp . The SIL Open Font

@@ -12,12 +12,12 @@ Double-click **`play.cmd`** to open the new floating-table 3D game, or run:
 
 The native Windows client uses **Godot 4.7.2 + GDScript**, with the existing
 **Python 3.12** rules and frozen AI running locally on CPU. The gold background,
-plum board, physical card animations and high-resolution SVG deck follow the
+plum board, physical card animations and high-resolution traditional-color deck follow the
 game plan. Japanese and English are available in Settings.
 
 Click START, then click a hand card. If two field cards match its month, choose
 one. Stock draws are automatic; use the central panel for koi/stop and the next
-round. Hover over a card to inspect it. Esc opens settings; F11 toggles full screen.
+round. Esc opens settings; F11 toggles full screen.
 There are twelve rounds, starting at 30 points each, without bankruptcy ending
 the match early. Settings include winner-takes-both-yaku and own-koi doubling.
 

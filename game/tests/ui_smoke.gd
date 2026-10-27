@@ -1,6 +1,7 @@
 extends SceneTree
 ## Real input routing through the rendered application, with the local service.
 var table
+var audit
 var failures: Array[String] = []
 
 func _initialize() -> void:
@@ -36,6 +37,8 @@ func until_ready() -> void:
 func run() -> void:
 	table = load("res://main.tscn").instantiate()
 	root.add_child(table)
+	audit = load("res://tests/motion_audit.gd").new()
+	physics_frame.connect(func(): audit.inspect(table))
 	await create_timer(0.4).timeout
 	table.speed = 10.0
 	table.qa = true
@@ -43,7 +46,7 @@ func run() -> void:
 	var saved_flags: int = table.flags
 	table.flags = 24
 	await table.screenshot("title")
-	var start: Vector2 = table.camera.unproject_position(table.menu.to_global(Vector3(0, -0.35, 0.12)))
+	var start: Vector2 = table.camera.unproject_position(table.menu.to_global(Vector3(0, 0, 0.013)))
 	await click_at(start)
 	check(table.busy, "START did not route through world-space button hit testing")
 	await until_ready()
@@ -78,7 +81,7 @@ func run() -> void:
 	check(table.overlay.get_global_rect().position.x >= 0, "Settings panel is off-screen")
 	# Click the real language Button, using its observed layout rectangle.
 	var language_button = table.overlay_box.get_child(1)
-	await click_at(language_button.get_global_rect().get_center())
+	await click_at(table.overlay_world.screen_point(language_button.get_global_rect().get_center(), table.camera))
 	check(table.language == 1, "Language button did not change to English")
 	await table.screenshot("settings_en")
 	table.open_overlay("help")
@@ -116,18 +119,20 @@ func run() -> void:
 				await table.screenshot("result_ui")
 				checked_end = true
 			var button: Dictionary = table.menu_buttons[0]
-			await click_at(table.camera.unproject_position(table.menu.to_global(Vector3(0, button.y, 0.12))))
+			await click_at(table.camera.unproject_position(table.menu.to_global(Vector3(button.x, button.y, 0.013))))
 		elif int(table.state.player) == 0:
 			if int(table.state.phase) == 3 and not checked_koi:
 				await table.screenshot("human_koi")
-				await click_at(table.camera.unproject_position(table.menu.to_global(Vector3(0, -0.35, 0.12))))
+				await click_at(table.camera.unproject_position(table.menu.to_global(Vector3(-1.4, -1.35, 0.013))))
 				checked_koi = true
 			else:
 				var pick: int = int(table.state.legal[0])
 				if pick == 48:
-					await click_at(table.camera.unproject_position(table.menu.to_global(Vector3(0, -0.98, 0.12))))
+					await click_at(table.camera.unproject_position(table.menu.to_global(Vector3(1.4, -1.35, 0.013))))
 				else:
 					await click_at(table.camera.unproject_position(table.known[pick].global_position))
+	check(audit.overlaps == 0, "Moving cards intersected")
+	check(audit.board_hits == 0, "Moving cards crossed the board")
 	check(table.finished, "Full rendered match did not finish")
 	check(int(table.state.round) == 12, "Rendered match did not complete twelve rounds")
 	await table.screenshot("final_ui")
@@ -136,5 +141,6 @@ func run() -> void:
 	table.speed = 1.0
 	table.flags = saved_flags
 	table.save_settings()
+	print("GAME_MOTION_AUDIT max_lift=%.3f normal_max=%.3f overlaps=%d board=%d" % [audit.max_lift, audit.normal_max, audit.overlaps, audit.board_hits])
 	print("GAME_UI_CHECKS failures=%d revision=%d" % [failures.size(), table.revision])
 	quit(0 if failures.is_empty() else 1)

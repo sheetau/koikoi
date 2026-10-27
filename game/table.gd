@@ -9,7 +9,9 @@ const INK = Color("241a22")
 const CREAM = Color("fff3d5")
 const FLAT = Vector3(-PI / 2.0, 0, 0)
 const BACK_FLAT = Vector3(PI / 2.0, 0, 0)
-const STACK = Vector3(5.1, 0.10, 0.05)
+const STACK = Vector3(4.2, 0.0, -0.15)
+const WorldOverlay = preload("res://world_overlay.gd")
+const CARD_LAYER = 0.018
 const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 const JP_MONTHS = ["松", "梅", "桜", "藤", "菖蒲", "牡丹", "萩", "芒", "菊", "紅葉", "柳", "桐"]
 var textures: Array[Texture2D] = []
@@ -36,16 +38,18 @@ var menu: Node3D
 var menu_buttons: Array = []
 var label_nodes: Array = []
 var hud: CanvasLayer
-var left_label: Label
-var right_label: Label
-var bottom_label: Label
+var left_label: Label3D
+var right_label: Label3D
+var bottom_label: Label3D
+var overlay_world: Node3D
+var stock_visual: Node3D
+var pending_flights: Array = []
+var role_order: Array[Array] = [[], []]
+var role_slots: Array[Dictionary] = [{}, {}]
+var capture_slots: Array[Dictionary] = [{}, {}]
 var overlay: PanelContainer
 var overlay_box: VBoxContainer
-var inspector: PanelContainer
-var inspect_image: TextureRect
-var inspect_text: Label
 var modal := false
-var last_hover := -1
 var audio: AudioStreamPlayer
 var autoplay := false
 var qa := false
@@ -94,7 +98,7 @@ func load_cards() -> void:
 		elif month == 11:
 			kinds = ["Hikari", "Kasu_1", "Kasu_2", "Kasu_3"]
 		for kind in kinds:
-			textures.append(load("res://assets/cards/Hanafuda_%s_%s.svg" % [MONTHS[month], kind]))
+			textures.append(load("res://assets/cards/Hanafuda_%s_%s.png" % [MONTHS[month], kind]))
 
 func mesh_box(size: Vector3, pos: Vector3, color: Color, parent: Node3D) -> MeshInstance3D:
 	var node := MeshInstance3D.new()
@@ -117,52 +121,96 @@ func label3(text: String, pos: Vector3, font_size: int = 42, color: Color = CREA
 	label.modulate = color
 	label.position = pos
 	label.no_depth_test = false
+	label.double_sided = false
 	if parent == null:
 		add_child(label)
 	else:
 		parent.add_child(label)
 	return label
 
+func plane(size: Vector2, pos: Vector3, color: Color, parent: Node3D, border: Color = Color.TRANSPARENT) -> MeshInstance3D:
+	var node := MeshInstance3D.new()
+	var mesh := QuadMesh.new()
+	mesh.size = size
+	node.mesh = mesh
+	node.material_override = Card.material(color)
+	node.material_override.cull_mode = BaseMaterial3D.CULL_DISABLED
+	node.position = pos
+	parent.add_child(node)
+	if border.a > 0:
+		var outline := MeshInstance3D.new()
+		var lines := ImmediateMesh.new()
+		lines.surface_begin(Mesh.PRIMITIVE_LINE_STRIP)
+		for uv in [Vector2(-1,-1), Vector2(1,-1), Vector2(1,1), Vector2(-1,1), Vector2(-1,-1)]:
+			lines.surface_add_vertex(Vector3(uv.x * size.x / 2, uv.y * size.y / 2, 0.001))
+		lines.surface_end()
+		outline.mesh = lines
+		outline.material_override = Card.material(border)
+		node.add_child(outline)
+	return node
+
 func make_world() -> void:
 	var environment := WorldEnvironment.new()
 	var env := Environment.new()
 	env.background_mode = Environment.BG_COLOR
-	env.background_color = Color("b78b39")
+	env.background_color = Color("b79232")
 	env.tonemap_mode = Environment.TONE_MAPPER_LINEAR
 	environment.environment = env
 	add_child(environment)
 	camera = Camera3D.new()
-	camera.position = Vector3(0, 14.6, 15.0)
-	camera.projection = Camera3D.PROJECTION_ORTHOGONAL
-	camera.size = 11.7
+	camera.position = Vector3(0, 8.6, 10.6)
+	camera.projection = Camera3D.PROJECTION_PERSPECTIVE
+	camera.fov = 44.0
 	add_child(camera)
-	camera.look_at(Vector3(0, 0.4, 0.1))
+	camera.look_at(Vector3(0, 1.8, 0))
 	camera.current = true
-	mesh_box(Vector3(12.6, 0.15, 5.65), Vector3(0, -0.10, 0), Color("291324"), self)
-	mesh_box(Vector3(12.5, 0.06, 5.55), Vector3(0, 0, 0), Color("4f063d"), self)
-	# A real collision surface, confined to the floating board (no ground plane).
+	var board := plane(Vector2(10.6, 5.7), Vector3.ZERO, Color("4f063d"), self, Color("f4e7ba"))
+	board.rotation.x = -PI / 2.0
 	var table_body := StaticBody3D.new()
 	var shape := CollisionShape3D.new()
 	var box := BoxShape3D.new()
-	box.size = Vector3(12.5, 0.12, 5.55)
+	box.size = Vector3(10.6, 0.01, 5.7)
+	box.margin = 0.001
 	shape.shape = box
-	table_body.position.y = -0.03
+	table_body.position.y = -0.005
 	table_body.collision_layer = 1
 	table_body.add_child(shape)
 	add_child(table_body)
-	for x in [-6.15, 6.15]:
-		mesh_box(Vector3(0.015, 0.006, 5.3), Vector3(x, 0.035, 0), GOLD, self)
-	for z in [-2.65, 2.65]:
-		mesh_box(Vector3(12.3, 0.006, 0.015), Vector3(0, 0.035, z), GOLD, self)
-	var mark := label3("KOI  /  KOI", Vector3(-5.0, 0.04, 0), 29, Color("b37399"))
-	mark.rotation.x = -PI / 2
+	stock_visual = Node3D.new()
+	stock_visual.position = STACK
+	add_child(stock_visual)
 	for i in range(48):
 		var card = Card.new()
 		add_child(card)
-		card.position = STACK + Vector3(0, i * 0.047, 0)
+		card.position = STACK + Vector3(0, i * CARD_LAYER, 0)
 		card.rotation = BACK_FLAT
+		card.stow()
 		bodies.append(card)
 		stack.append(card)
+	update_stock()
+
+func update_stock() -> void:
+	for child in stock_visual.get_children():
+		child.queue_free()
+	if stack.is_empty():
+		return
+	var height := stack.size() * CARD_LAYER
+	mesh_box(Vector3(Card.SIZE.x, height, Card.SIZE.y), Vector3(0, height / 2.0, 0), Color("b44519"), stock_visual)
+	var outline := MeshInstance3D.new()
+	var lines := ImmediateMesh.new()
+	lines.surface_begin(Mesh.PRIMITIVE_LINES)
+	var corners: Array[Vector3] = []
+	for z in [-1, 1]:
+		for y in [0, 1]:
+			for x in [-1, 1]:
+				corners.append(Vector3(x * Card.SIZE.x / 2, y * height, z * Card.SIZE.y / 2))
+	for pair in [[0,1],[0,2],[1,3],[2,3],[4,5],[4,6],[5,7],[6,7],[0,4],[1,5],[2,6],[3,7]]:
+		lines.surface_add_vertex(corners[pair[0]])
+		lines.surface_add_vertex(corners[pair[1]])
+	lines.surface_end()
+	outline.mesh = lines
+	outline.material_override = Card.material(Color("713d21"))
+	stock_visual.add_child(outline)
 
 func style(bg: Color, border: Color = Color.TRANSPARENT, radius: int = 4) -> StyleBoxFlat:
 	var s := StyleBoxFlat.new()
@@ -197,47 +245,21 @@ func ui_button(text: String, callback: Callable) -> Button:
 	return b
 
 func make_hud() -> void:
+	# Round, scores and turn status inhabit the same upright world plane as decisions.
+	left_label = label3("", Vector3(-5.65, 2.0, 0.0), 26, CREAM)
+	right_label = label3("", Vector3(5.65, 2.0, 0.0), 26, CREAM)
+	bottom_label = label3("", Vector3(0, 1.32, 0.0), 25, GOLD)
 	hud = CanvasLayer.new()
 	add_child(hud)
 	var root := Control.new()
 	root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	root.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	hud.add_child(root)
-	left_label = ui_label("", 17, INK)
-	left_label.position = Vector2(30, 28)
-	root.add_child(left_label)
-	right_label = ui_label("", 17, INK)
-	right_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	right_label.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
-	right_label.position = Vector2(-350, 28)
-	right_label.size.x = 320
-	root.add_child(right_label)
-	bottom_label = ui_label("", 15, INK)
-	bottom_label.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_LEFT)
-	bottom_label.position = Vector2(30, -50)
-	root.add_child(bottom_label)
-	var rail := HBoxContainer.new()
-	rail.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
-	rail.position = Vector2(-270, -62)
-	rail.add_theme_constant_override("separation", 8)
-	root.add_child(rail)
-	rail.add_child(ui_button("?", func(): open_overlay("help")))
-	rail.add_child(ui_button("JA / EN", switch_language))
-	rail.add_child(ui_button("☰", func(): open_overlay("settings")))
-	inspector = PanelContainer.new()
-	inspector.position = Vector2(26, 150)
-	inspector.add_theme_stylebox_override("panel", style(INK, GOLD))
-	var box := VBoxContainer.new()
-	inspector.add_child(box)
-	inspect_image = TextureRect.new()
-	inspect_image.custom_minimum_size = Vector2(148, 243)
-	inspect_image.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	inspect_image.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	box.add_child(inspect_image)
-	inspect_text = ui_label("", 14)
-	box.add_child(inspect_text)
-	root.add_child(inspector)
-	inspector.hide()
+	var settings := ui_button("☰", func(): open_overlay("settings"))
+	settings.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
+	settings.position = Vector2(-78, -66)
+	settings.size = Vector2(50, 42)
+	root.add_child(settings)
 	refresh_hud()
 
 func clear_menu() -> void:
@@ -245,29 +267,33 @@ func clear_menu() -> void:
 		menu.queue_free()
 	menu_buttons.clear()
 	menu = Node3D.new()
-	menu.position = Vector3(0, 1.9, 0.5)
+	menu.position = Vector3(0, 2.7, 0)
 	add_child(menu)
 
-func panel(title: String, subtitle: String = "", reverse: String = "", height: float = 3.3, mirrored: bool = false) -> void:
+func panel(title: String, subtitle: String = "", reverse: String = "", _height: float = 0.9, mirrored: bool = false) -> void:
 	clear_menu()
-	menu.position.y = maxf(1.9, height / 2.0 + 0.35)
-	mesh_box(Vector3(7.5, height, 0.08), Vector3.ZERO, GOLD, menu)
-	mesh_box(Vector3(7.46, height - 0.04, 0.09), Vector3.ZERO, INK, menu)
-	label3(title, Vector3(0, height / 2 - 0.55, 0.05), 64, GOLD, menu)
+	var width := clampf(FONT.get_string_size(title, HORIZONTAL_ALIGNMENT_LEFT, -1, 46).x * 0.0085 + 0.65, 3.7, 7.2)
+	plane(Vector2(width, 0.92), Vector3.ZERO, Color("3d301c"), menu, Color("f2bc58"))
+	var text := label3(title, Vector3(0, 0, 0.006), 46, Color("c73c0b"), menu)
+	text.outline_size = 4
+	text.outline_modulate = Color("ffce65")
 	if not subtitle.is_empty():
-		label3(subtitle, Vector3(0, height / 2 - 1.1, 0.05), 27, CREAM, menu)
-	var back := label3(reverse if reverse != "" else title, Vector3(0, 0.2, -0.06), 52, GOLD, menu)
-	back.rotation.y = 0.0 if mirrored else PI
+		label3(subtitle, Vector3(0, -0.75, 0.006), 25, CREAM, menu)
+	var back := label3(reverse if reverse != "" else title, Vector3(0, 0, -0.006), 46, Color("c73c0b"), menu)
+	back.outline_size = 4
+	back.outline_modulate = Color("ffce65")
+	back.rotation.y = PI
+	if mirrored:
+		back.scale.x = -1.0
 
-func world_button(text: String, y: float, action: String, value: int = 0) -> void:
-	mesh_box(Vector3(4.6, 0.48, 0.035), Vector3(0, y, 0.08), Color("594334"), menu)
-	label3(text, Vector3(0, y, 0.105), 30, CREAM, menu)
-	menu_buttons.append({"y": y, "action": action, "value": value})
+func world_button(text: String, y: float, action: String, value: int = 0, x: float = 0, width: float = 3.4) -> void:
+	plane(Vector2(width, 0.48), Vector3(x, y, 0.008), Color("49351e"), menu, GOLD)
+	label3(text, Vector3(x, y, 0.013), 29, CREAM, menu)
+	menu_buttons.append({"x": x, "y": y, "width": width, "height": 0.48, "action": action, "value": value})
 
 func show_title() -> void:
-	panel("KOI KOI", word("subtitle"), "KOI KOI")
-	world_button("START", -0.35, "start")
-	world_button(word("settings"), -0.98, "settings")
+	panel("START")
+	menu_buttons.append({"x": 0.0, "y": 0.0, "width": 3.7, "height": 0.92, "action": "start", "value": 0})
 	refresh_hud()
 
 func switch_language() -> void:
@@ -281,14 +307,15 @@ func switch_language() -> void:
 
 func refresh_hud() -> void:
 	if state.is_empty():
-		left_label.text = "KOI  /  KOI\n" + word("title")
-		right_label.text = "12  /  " + word("round")
-		bottom_label.text = "THE FLOATING TABLE"
+		left_label.text = ""
+		right_label.text = ""
+		bottom_label.text = ""
 		return
+	bottom_label.visible = not is_instance_valid(menu) or menu.get_child_count() == 0
 	var pts: Array = state.points
 	left_label.text = "%s    %02d / 12\n%s  %d %s%s" % [word("round"), state.round, word("you"), pts[0], word("points"), "  · " + word("dealer") if state.dealer == 0 else ""]
 	right_label.text = "%s  %d %s%s\n%s" % [word("ai"), pts[1], word("points"), "  · " + word("dealer") if state.dealer == 1 else "", word("turn_you") if state.player == 0 else word("turn_ai")]
-	bottom_label.text = word("thinking") if busy else word("pick") if state.phase in [1, 2] else word("play")
+	bottom_label.text = word("thinking") if busy or state.player == 1 else word("pick") if state.phase in [1, 2] else word("play")
 	if paused:
 		bottom_label.text = word("final") if finished else "%s %d / 12" % [word("round"), state.round]
 		right_label.text = right_label.text.get_slice("\n", 0) + "\n" + word("final" if finished else "round_complete")
@@ -297,7 +324,6 @@ func send(path: String, data: Dictionary = {}) -> void:
 	if busy:
 		return
 	busy = true
-	inspector.hide()
 	data["revision"] = revision
 	if path == "/start":
 		panel(word("loading"))
@@ -355,9 +381,10 @@ func show_decision() -> void:
 		show_result()
 	elif int(state.phase) == 3:
 		panel(word("koi_question"), "%d %s" % [state.yaku_points[int(state.player)], word("points")], word("koi_question"), 3.3, true)
+		menu.position.y = 4.9
 		if int(state.player) == 0:
-			world_button(word("yes"), -0.35, "action", 49)
-			world_button(word("no"), -0.98, "action", 48)
+			world_button(word("yes"), -1.35, "action", 49, -1.4, 2.5)
+			world_button(word("no"), -1.35, "action", 48, 1.4, 2.5)
 		else:
 			menu.rotation.y = PI
 	else:
@@ -385,15 +412,22 @@ func show_result() -> void:
 	text += "\n+%d %s" % [ending.get("payment", 0), word("points")]
 	var lines := text.split("\n")
 	var columns := lines.size() > 8
-	var height := maxf(4.2, 2.8 + (ceilf(lines.size() / 2.0) if columns else lines.size()) * 0.36)
+	var height := maxf(1.1, (ceilf(lines.size() / 2.0) if columns else lines.size()) * 0.29 + 0.45)
 	panel(headline, word("final") if finished else "%s %d / 12" % [word("round"), state.round], "LOSE" if headline == "WIN" else "WIN" if headline == "LOSE" else "DRAW", height)
+	menu.get_child(0).material_override = Card.material(Color("b94013"))
+	for child in menu.get_children():
+		if child is Label3D and child.font_size == 46:
+			child.modulate = CREAM
+			child.outline_modulate = Color("18797d")
+	menu.position.y = 3.8 + maxf(0, height - 1.6) * 0.5
+	plane(Vector2(6.6, height), Vector3(0, -0.92 - height / 2.0, 0.002), Color("3d301c"), menu, GOLD)
 	if columns:
 		var middle := ceili(lines.size() / 2.0)
-		label3("\n".join(lines.slice(0, middle)), Vector3(-1.8, -0.15, 0.06), 23, CREAM, menu)
-		label3("\n".join(lines.slice(middle)), Vector3(1.8, -0.15, 0.06), 23, CREAM, menu)
+		label3("\n".join(lines.slice(0, middle)), Vector3(-1.65, -0.92 - height / 2.0, 0.006), 23, CREAM, menu)
+		label3("\n".join(lines.slice(middle)), Vector3(1.65, -0.92 - height / 2.0, 0.006), 23, CREAM, menu)
 	else:
-		label3(text, Vector3(0, -0.15, 0.06), 25, CREAM, menu)
-	world_button(word("new" if finished else "next"), -height / 2.0 + 0.4, "start" if finished else "next")
+		label3(text, Vector3(0, -0.92 - height / 2.0, 0.006), 25, CREAM, menu)
+	world_button(word("new" if finished else "next"), -1.28 - height, "start" if finished else "next")
 
 func maybe_ai() -> void:
 	if busy or modal or state.is_empty() or finished:
@@ -414,14 +448,20 @@ func wait_for(seconds: float) -> void:
 
 func take_card(id: int = -1):
 	var card = stack.pop_back()
+	card.position = STACK + Vector3(0, (stack.size() + 1) * CARD_LAYER + 0.006, 0)
+	card.rotation = BACK_FLAT
 	card.identity = id
+	card.reveal_turn = false
+	card.pair_peer = null
+	card.set_face(textures[id] if id >= 0 else null)
+	card.unstow()
 	if id >= 0:
-		card.set_face(textures[id])
 		known[id] = card
+	update_stock()
 	return card
 
 func hand_position(slot: int, player: int) -> Vector3:
-	return Vector3((slot - 3.5) * 0.87, 1.25, 3.85 if player == 0 else -3.85)
+	return Vector3((slot - 3.5) * 0.99, 1.04, 3.9 if player == 0 else -4.25)
 
 func field_position(card_id: int) -> Vector3:
 	if not field_slots.has(card_id):
@@ -432,51 +472,150 @@ func field_position(card_id: int) -> Vector3:
 				break
 	var index: int = field_slots[card_id]
 	if index < 8:
-		return Vector3((index % 4 - 1.5) * 1.1, 0.075, (index / 4 - 0.5) * 1.35)
+		return Vector3((index % 4 - 1.5) * 1.32 - 0.9, 0.012, (index / 4 - 0.5) * 1.7)
 	if index < 16:
-		return Vector3((index % 4 - 1.5) * 1.1, 0.075, -2.0 if index < 12 else 2.0)
-	return Vector3(-3.5 - ((index - 16) / 4) * 0.79, 0.075, ((index - 16) % 4 - 1.5) * 1.3)
+		return Vector3((index % 4 - 1.5) * 1.32 - 0.9, 0.012, -2.18 if index < 12 else 2.18)
+	return Vector3(-4.25 if index < 20 else 2.5, 0.012 + maxf(0, index - 24) * 0.018, ((index - 16) % 4 - 1.5) * 1.4)
 
-func fly(card, pos: Vector3, rotation: Vector3, seconds: float = 0.7, lift: float = 0.6, circle: bool = false) -> void:
-	card.move_to(pos, rotation, seconds / speed, lift, circle)
+func half_bounds(basis: Basis) -> Vector3:
+	return basis.x.abs() * Card.SIZE.x / 2 + basis.y.abs() * Card.SIZE.y / 2 + basis.z.abs() * Card.SIZE.z / 2
+
+func fly(card, pos: Vector3, rotation: Vector3, seconds: float = 0.55, requested_lift: float = 0.0, circle: bool = false) -> void:
+	card.move_to(pos, rotation, seconds / speed, requested_lift, circle)
+	pending_flights.append(card)
+
+func flight_root(card):
+	var leader = card
+	while leader.pair_peer != null:
+		leader = leader.pair_peer
+	return leader
+
+func plan_flights() -> void:
+	var flights := pending_flights.duplicate()
+	pending_flights.clear()
+	# Register every destination before considering the other moving cards.
+	for card in flights:
+		for other in flights:
+			if other == card or card.pair_peer != null or other.pair_peer == card:
+				continue
+			if card.flight_from.y >= other.flight_from.y:
+				continue
+			if absf(card.duration - other.duration) > 0.00001:
+				continue
+			if absf(card.rotation_from.dot(other.rotation_from)) < 0.999 or absf(card.rotation_to.dot(other.rotation_to)) < 0.999:
+				continue
+			var relative: Vector3 = Basis(card.rotation_from).inverse() * (card.flight_from - other.flight_from)
+			if absf(relative.x) < Card.SIZE.x and absf(relative.y) < Card.SIZE.y and absf(relative.z) < 0.1:
+				card.pair_peer = other
+				card.pair_sign = 1.0 if relative.z >= 0 else -1.0
+	flights.sort_custom(func(a, b):
+		var ar = flight_root(a)
+		var br = flight_root(b)
+		if ar == br:
+			return a.flight_from.y > b.flight_from.y
+		if ar.flight_from.y != br.flight_from.y:
+			return ar.flight_from.y > br.flight_from.y
+		return ar.get_instance_id() < br.get_instance_id())
+	for i in range(flights.size()):
+		var card = flights[i]
+		plan_clearance(card, flights.slice(i + 1))
+		# Finish a paired group's shared clearance before planning later flights.
+		if card.pair_peer != null:
+			var peer = card.pair_peer
+			for sample in range(1, 96):
+				var height: float = maxf(card.clearance[sample], peer.clearance[sample])
+				card.clearance[sample] = height
+				peer.clearance[sample] = height
+
+func plan_clearance(card, lower_priority: Array) -> void:
+	# Minimum clearance above the board and the current/future card footprints.
+	# Position and orientation are solved together; no arbitrary central waypoint.
+	for iteration in range(12):
+		var changed := false
+		for i in range(1, 96):
+			var t := i / 96.0
+			var pose: Transform3D = card.pose_at(t * card.duration)
+			var extent := half_bounds(pose.basis)
+			var floor_y := -100.0
+			if absf(pose.origin.x) < 5.3 + extent.x and absf(pose.origin.z) < 2.85 + extent.z:
+				floor_y = 0.006
+			# The solid stock participates as one box, never 48 exposed slabs.
+			if absf(pose.origin.x - STACK.x) < extent.x + Card.SIZE.x / 2 and absf(pose.origin.z - STACK.z) < extent.z + Card.SIZE.y / 2:
+				floor_y = maxf(floor_y, stack.size() * CARD_LAYER + 0.006)
+			for other in bodies:
+				if other == card or other in lower_priority or not other.visible or card.pair_peer == other or other.pair_peer == card:
+					continue
+				var other_pose: Transform3D = other.pose_at(other.elapsed + t * card.duration) if other.flight else other.transform
+				var other_extent := half_bounds(other_pose.basis)
+				var diff := (pose.origin - other_pose.origin).abs()
+				if diff.x < extent.x + other_extent.x + 0.03 and diff.z < extent.z + other_extent.z + 0.03:
+					# Don't route above upright racks that are entirely above this route.
+					if other.flight or pose.origin.y + extent.y >= other_pose.origin.y - other_extent.y - 0.01:
+						floor_y = maxf(floor_y, other_pose.origin.y + other_extent.y + 0.025)
+			var deficit := floor_y + extent.y - pose.origin.y
+			if deficit > 0:
+				card.clearance[i] += deficit + 0.003
+				changed = true
+		var expanded = card.clearance.duplicate()
+		for i in range(1, 96):
+			for j in range(maxi(1, i - 2), mini(96, i + 3)):
+				expanded[j] = maxf(expanded[j], card.clearance[i])
+		card.clearance = expanded
+		# Limit sharp changes while retaining the minimum local obstacle clearance.
+		for i in range(94, 0, -1):
+			card.clearance[i] = maxf(card.clearance[i], card.clearance[i + 1] - 0.12)
+		for i in range(2, 96):
+			card.clearance[i] = maxf(card.clearance[i], card.clearance[i - 1] - 0.12)
+		if not changed:
+			break
+
+func finish_flights() -> void:
+	plan_flights()
+	while bodies.any(func(c): return c.flight):
+		await get_tree().physics_frame
 
 func reset_deck() -> void:
 	clear_yaku_labels()
 	known.clear()
 	opponent_cards.clear()
 	field_slots.clear()
-	stack.clear()
-	# Return in ordered waves. Every card keeps its transform until its flight starts.
-	for i in range(bodies.size()):
-		var card = bodies[i]
-		fly(card, STACK + Vector3(0, i * 0.047, 0), BACK_FLAT, 0.9, 1.2 + (i % 4) * 0.09)
-		stack.append(card)
-		await wait_for(0.012)
-	await wait_for(1.0)
-	for card in bodies:
+	capture_slots = [{}, {}]
+	role_order = [[], []]
+	role_slots = [{}, {}]
+	pending_flights.clear()
+	# A short ordered return peels exposed cards off first, avoiding crossing lanes.
+	var returning: Array = bodies.filter(func(c): return c.visible)
+	returning.sort_custom(func(a, b): return a.position.y > b.position.y)
+	for card in returning:
+		card.pair_peer = null
+		card.reveal_turn = false
+		fly(card, STACK + Vector3(0, (stack.size() + 1) * CARD_LAYER, 0), BACK_FLAT, 0.24)
+		await finish_flights()
+		card.stow()
 		card.identity = -1
 		card.set_face(null)
+		stack.append(card)
+		update_stock()
 
 func opening(event: Dictionary) -> void:
 	await reset_deck()
 	for reveal in event.reveals:
-		panel(word("opening"), "", word("opening"), 1.7)
-		menu.position.y = 3.5
+		panel(word("opening"))
+		menu.position.y = 4.4
 		var pair: Array = []
 		for p in range(2):
 			var card = take_card(int(reveal.cards[p]))
 			pair.append(card)
-			fly(card, Vector3(-0.65 if p == 0 else 0.65, 1.7, 0), Vector3(0, PI * p, 0), 1.0)
-		await wait_for(1.1)
+			fly(card, Vector3(-0.7 if p == 0 else 0.7, 2.25, 0), Vector3(0, PI * p, 0), 0.65)
+		await finish_flights()
+		await wait_for(0.3)
+		# Dealer reveal is the one explicitly requested stationary turn.
 		for card in pair:
-			fly(card, card.position, card.rotation + Vector3(0, PI, 0), 1.5, 0)
-		await wait_for(1.6)
-		for card in pair:
-			fly(card, card.position, card.rotation + Vector3(0, PI, 0), 1.5, 0)
-		await wait_for(1.5)
-		panel(word("tie") if int(reveal.winner) < 0 else word("dealer_you" if int(reveal.winner) == 0 else "dealer_ai"), "", "", 1.7)
-		menu.position.y = 3.5
-		await wait_for(1.0)
+			card.move_to(card.position, card.rotation + Vector3(0, PI, 0), 1.1 / speed)
+		await finish_flights()
+		panel(word("tie") if int(reveal.winner) < 0 else word("dealer_you" if int(reveal.winner) == 0 else "dealer_ai"))
+		menu.position.y = 4.4
+		await wait_for(0.55)
 		await reset_deck()
 	clear_menu()
 	await deal_cards(event.view, false)
@@ -487,25 +626,32 @@ func deal_cards(view: Dictionary, returning: bool = true) -> void:
 	clear_menu()
 	state = view
 	refresh_hud()
-	# Four sets: field pair, dealer hand pair, other hand pair.
 	for batch in range(4):
 		for group in [2, int(view.dealer), 1 - int(view.dealer)]:
+			var pair: Array = []
+			var destinations: Array[Vector3] = []
 			for j in range(2):
 				var slot := batch * 2 + j
 				var id := int(view.field[slot]) if group == 2 else int(view.hand[slot]) if group == 0 else -1
 				var card = take_card(id)
+				pair.append(card)
 				if group == 2:
-					fly(card, field_position(id), FLAT)
+					destinations.append(field_position(id))
 				else:
 					card.slot = slot
 					card.seat = group
 					if group == 1:
 						opponent_cards[slot] = card
-					fly(card, hand_position(slot, group), Vector3(0, PI * group, 0))
-				await wait_for(0.065)
-			await wait_for(0.14)
-	await wait_for(0.8)
-	tap()
+					destinations.append(hand_position(slot, group))
+			pair[1].pair_peer = pair[0]
+			# Both flights start within this frame, with the same duration/rotation.
+			for j in range(2):
+				fly(pair[j], destinations[j], FLAT if group == 2 else Vector3(0, PI * group, 0), 0.6)
+			await finish_flights()
+			tap(0.65)
+
+func needs_pick(view: Dictionary, card_id: int) -> bool:
+	return view.field.filter(func(c): return int(c) / 4 == card_id / 4).size() == 2
 
 func animate_event(event: Dictionary) -> void:
 	var kind: String = event.kind
@@ -527,43 +673,36 @@ func animate_event(event: Dictionary) -> void:
 			known[id] = card
 		else:
 			card = known[id]
-		fly(card, card.position, card.rotation + Vector3(0, PI, 0), 0.8, 0)
-		await wait_for(0.85)
-		# Keep the revealed card aloft until capture/place tells us its destination.
-		fly(card, Vector3(0, 1.65, 0), Vector3(0, 0, 0), 0.65, 0.35)
-		await wait_for(0.7)
+		card.reveal_turn = true
+		if needs_pick(view, id):
+			fly(card, Vector3(2.65, 0.1, 0), FLAT, 0.62)
+			await finish_flights()
 	elif kind == "draw":
-		var card = take_card(int(event.card))
-		# The sole intentional instantaneous flip specified in the design.
-		card.rotation = FLAT
-		await wait_for(0.25)
-		fly(card, Vector3(0, 1.65, 0), Vector3.ZERO, 0.65, 0.5)
-		await wait_for(0.7)
+		var id := int(event.card)
+		var card = take_card(id)
+		card.rotation = FLAT # The specified exception: instantaneous stock-top flip.
+		if needs_pick(view, id):
+			fly(card, Vector3(2.65, 0.1, 0), FLAT, 0.48)
+			await finish_flights()
 	elif kind in ["capture", "place"]:
 		var card = known[int(event.card)]
-		var target: Vector3
-		if kind == "capture":
-			target = known[int(event.targets[0])].position + Vector3(0.14, 0.08, 0.14)
-		else:
-			target = field_position(int(event.card))
-		fly(card, target + Vector3(0, 0.45 if event.new_yaku else 0, 0), FLAT, 0.6, 0.3)
-		await wait_for(0.65)
+		var target: Vector3 = field_position(int(event.card)) if kind == "place" else known[int(event.targets[0])].position + Vector3(0.13, 0.032, 0.13)
+		fly(card, target + Vector3(0, 0.14 if event.new_yaku else 0, 0), FLAT, 0.62)
+		await finish_flights()
 		if event.new_yaku:
 			card.strike()
-			# Give the actual physics contact time even at fast presentation speed.
-			await get_tree().create_timer(0.32).timeout
-		tap(1.35 if event.new_yaku else 1.0)
+			await get_tree().create_timer(0.24).timeout
+		tap(1.2 if event.new_yaku else 0.8)
 		if kind == "capture":
 			for c in event.targets:
 				field_slots.erase(int(c))
-			await wait_for(0.18)
 			await arrange_captures(view)
 	elif kind == "koi":
-		panel("KOI KOI", word("koi_you" if int(event.player) == 0 else "koi_ai"), "KOI KOI", 3.3, true)
-		# Notice faces the recipient; the other player sees the reversed front.
+		panel(word("koi_you" if int(event.player) == 0 else "koi_ai"), "", word("koi_you" if int(event.player) == 0 else "koi_ai"), 0.9, true)
+		menu.position.y = 4.9
 		if int(event.player) == 0:
 			menu.rotation.y = PI
-		await wait_for(1.4)
+		await wait_for(0.9)
 		clear_menu()
 	elif kind == "round_end":
 		if event.total_yaku:
@@ -573,7 +712,7 @@ func animate_event(event: Dictionary) -> void:
 	refresh_hud()
 
 func restore_view(view: Dictionary) -> void:
-	# Recovery is a visible return/re-layout, never a replay of an accepted action.
+	# Recover public objects through visible, collision-aware flights.
 	await reset_deck()
 	for slot in range(8):
 		var id := int(view.hand[slot])
@@ -581,24 +720,24 @@ func restore_view(view: Dictionary) -> void:
 			var card = take_card(id)
 			card.slot = slot
 			card.seat = 0
-			fly(card, hand_position(slot, 0), Vector3.ZERO)
+			fly(card, hand_position(slot, 0), Vector3.ZERO, 0.3)
+			await finish_flights()
 	for raw_slot in view.opponent_slots:
 		var slot := int(raw_slot)
 		var card = take_card()
 		card.slot = slot
 		card.seat = 1
 		opponent_cards[slot] = card
-		fly(card, hand_position(slot, 1), Vector3(0, PI, 0))
+		fly(card, hand_position(slot, 1), Vector3(0, PI, 0), 0.3)
+		await finish_flights()
 	for raw_id in view.field:
 		var id := int(raw_id)
-		fly(take_card(id), field_position(id), FLAT)
-	for capture in view.captured:
-		for raw_id in capture:
-			take_card(int(raw_id))
+		fly(take_card(id), field_position(id), FLAT, 0.3)
+		await finish_flights()
 	if int(view.pending) >= 0:
-		fly(take_card(int(view.pending)), Vector3(0, 1.65, 0), Vector3.ZERO)
-	await arrange_captures(view)
-	await wait_for(0.8)
+		fly(take_card(int(view.pending)), Vector3(2.65, 0.1, 0), FLAT, 0.3)
+		await finish_flights()
+	await arrange_captures(view, true)
 	if paused and ending.get("total_yaku", false):
 		await sweep_yaku(view, int(ending.winner))
 
@@ -607,13 +746,24 @@ func clear_yaku_labels() -> void:
 		node.queue_free()
 	label_nodes.clear()
 
-func arrange_captures(view: Dictionary) -> void:
+func role_key(key: String) -> String:
+	return "lights" if key in ["three", "four", "rain_four", "five"] else key
+
+func arrange_captures(view: Dictionary, serial: bool = false) -> void:
 	clear_yaku_labels()
 	var changed := false
 	for player in range(2):
 		var allocated: Array = []
 		var row_index := 0
-		for row in view.yaku[player]:
+		var rows: Array = view.yaku[player].filter(func(row): return not row.cards.is_empty())
+		for row in rows:
+			var key := role_key(row.key)
+			if key not in role_order[player]:
+				role_order[player].append(key)
+				role_slots[player][key] = {}
+		rows.sort_custom(func(a, b): return role_order[player].find(role_key(a.key)) < role_order[player].find(role_key(b.key)))
+		for row in rows:
+			var slots: Dictionary = role_slots[player][role_key(row.key)]
 			if row.cards.is_empty():
 				continue
 			var cards_here: Array = []
@@ -622,34 +772,54 @@ func arrange_captures(view: Dictionary) -> void:
 				if id not in allocated:
 					allocated.append(id)
 					cards_here.append(id)
-			var z := 5.0 if player == 0 else -5.0
-			var y := 2.0 - row_index * 1.32
-			var title := label3(word(row.key) + "  " + str(row.points), Vector3(0, y + 0.56, z), 20, INK)
-			title.rotation.y = PI if player == 0 else 0.0
-			label_nodes.append(title)
+					if not slots.has(id):
+						slots[id] = slots.size()
+			var z := 9.3 if player == 0 else -9.3
+			var y := 3.55 - row_index * 1.52
+			var plaque := Node3D.new()
+			plaque.position = Vector3(4.6 if player == 0 else -4.6, y, z)
+			plaque.rotation.y = PI if player == 0 else 0.0
+			add_child(plaque)
+			plane(Vector2(1.9, 0.4), Vector3.ZERO, Color("3d301c"), plaque, GOLD)
+			label3(word(row.key) + "  " + str(row.points), Vector3(0, 0, 0.006), 18, GOLD, plaque)
+			label_nodes.append(plaque)
 			for i in range(cards_here.size()):
-				var card = known[cards_here[i]]
-				var spacing := minf(0.71, 6.5 / maxf(1, cards_here.size() - 1))
-				var x := (3.25 - i * spacing) * (1 if player == 0 else -1)
-				var pos := Vector3(x, y - 0.18, z + (0.03 * row_index if player == 0 else -0.03 * row_index))
+				var card = known[cards_here[i]] if known.has(cards_here[i]) else take_card(cards_here[i])
+				var slot: int = slots[cards_here[i]]
+				var spacing := 0.88
+				var x := (3.0 - (slot % 10) * spacing) * (1 if player == 0 else -1)
+				var pos := Vector3(x, y - (slot / 10) * 1.52, z)
 				# Real cards occupy just one role row; overlapping roles share membership.
 				if card.position.distance_to(pos) > 0.015:
-					fly(card, pos, Vector3(0, PI if player == 0 else 0.0, 0), 0.85, 0.9)
+					fly(card, pos, Vector3(0, PI if player == 0 else 0.0, 0), 0.6)
 					changed = true
-			row_index += 1
+					if serial:
+						await finish_flights()
+			row_index += maxi(1, ceili(slots.size() / 10.0))
+		for id in allocated:
+			capture_slots[player].erase(id)
 		var index := 0
 		for raw_id in view.captured[player]:
 			var id := int(raw_id)
 			if id in allocated:
 				continue
-			var pos := Vector3(-4.8 + index * 0.31, 0.08 + index * 0.002, 3.08 if player == 0 else -3.08)
-			var card = known[id]
+			if not capture_slots[player].has(id):
+				var used: Array = capture_slots[player].values()
+				var free := 0
+				while free in used:
+					free += 1
+				capture_slots[player][id] = free
+			index = capture_slots[player][id]
+			var pos := Vector3(-3.465 + (index % 8) * 0.99, 0.014, (3.18 + (index / 8) * 1.42) * (1 if player == 0 else -1))
+			var card = known[id] if known.has(id) else take_card(id)
 			if card.position.distance_to(pos) > 0.015:
-				fly(card, pos, FLAT if player == 0 else Vector3(-PI / 2, 0, PI), 0.75, 0.75)
+				fly(card, pos, FLAT if player == 0 else Vector3(-PI / 2, 0, PI), 0.55)
 				changed = true
+				if serial:
+					await finish_flights()
 			index += 1
 	if changed:
-		await wait_for(0.9)
+		await finish_flights()
 
 func sweep_yaku(view: Dictionary, winner: int) -> void:
 	clear_yaku_labels()
@@ -660,10 +830,10 @@ func sweep_yaku(view: Dictionary, winner: int) -> void:
 				if int(c) not in ids:
 					ids.append(int(c))
 	for i in range(ids.size()):
-		var target := Vector3((i % 12 - 5.5) * 0.7, 0.18 + (i / 12) * 0.05, 3.05 if winner == 0 else -3.05)
-		fly(known[ids[i]], target, FLAT, 1.5, 1.3, true)
-		await wait_for(0.025)
-	await wait_for(1.6)
+		var target := Vector3((i % 12 - 5.5) * 0.95, 3.55 - (i / 12) * 1.52, 11.8 if winner == 0 else -11.8)
+		fly(known[ids[i]], target, Vector3(0, PI if winner == 0 else 0, 0), 1.2, 0.0, true)
+
+	await finish_flights()
 
 func tap(intensity: float = 1.0) -> void:
 	if not sound or autoplay:
@@ -690,7 +860,10 @@ func _unhandled_input(event: InputEvent) -> void:
 				close_overlay()
 			else:
 				open_overlay("settings")
-	if modal or busy:
+	if modal:
+		overlay_world.route(event, camera)
+		return
+	if busy:
 		return
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		if click_menu(event.position):
@@ -699,16 +872,6 @@ func _unhandled_input(event: InputEvent) -> void:
 			var card = hit_card(event.position)
 			if card != null and state.legal.any(func(a): return int(a) == card.identity):
 				send("/action", {"action": card.identity})
-	if event is InputEventMouseMotion:
-		var card = hit_card(event.position)
-		var id: int = card.identity if card != null else -1
-		if id >= 0 and id != last_hover:
-			inspect_image.texture = textures[id]
-			inspect_text.text = "%d月 · %s" % [id / 4 + 1, JP_MONTHS[id / 4]] if language == 0 else MONTHS[id / 4].to_upper()
-			inspector.show()
-		elif id < 0:
-			inspector.hide()
-		last_hover = id
 
 func hit_card(screen: Vector2):
 	var ray := PhysicsRayQueryParameters3D.create(camera.project_ray_origin(screen), camera.project_ray_origin(screen) + camera.project_ray_normal(screen) * 80.0, 2)
@@ -720,13 +883,13 @@ func click_menu(screen: Vector2) -> bool:
 		return false
 	var ray := camera.project_ray_normal(screen)
 	var origin := camera.project_ray_origin(screen)
-	var plane := Plane(menu.global_basis.z, menu.global_position + menu.global_basis.z * 0.12)
+	var plane := Plane(menu.global_basis.z, menu.global_position + menu.global_basis.z * 0.013)
 	var point = plane.intersects_ray(origin, ray)
 	if point == null:
 		return false
 	var local: Vector3 = menu.to_local(point)
 	for item in menu_buttons:
-		if absf(local.x) <= 2.3 and absf(local.y - item.y) <= 0.24:
+		if absf(local.x - item.x) <= item.width / 2.0 and absf(local.y - item.y) <= item.height / 2.0:
 			match item.action:
 				"start": send("/start", {"opponent": opponent, "flags": flags})
 				"action": send("/action", {"action": item.value})
@@ -734,21 +897,21 @@ func click_menu(screen: Vector2) -> bool:
 				"settings": open_overlay("settings")
 				"retry": send("/state")
 			return true
-	return absf(local.x) < 3.75 and absf(local.y) < 1.65
+	return false
 
 func open_overlay(kind: String) -> void:
 	modal = true
-	inspector.hide()
-	if is_instance_valid(overlay):
-		overlay.queue_free()
+	if is_instance_valid(overlay_world):
+		overlay_world.queue_free()
+	overlay_world = WorldOverlay.new()
+	overlay_world.position = Vector3(0, 3.3, 0.4)
+	add_child(overlay_world)
 	overlay = PanelContainer.new()
-	overlay.add_theme_stylebox_override("panel", style(INK, GOLD, 8))
-	overlay.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
-	overlay.position = Vector2(-385, -365)
-	overlay.custom_minimum_size = Vector2(770, 730)
-	hud.add_child(overlay)
+	overlay.add_theme_stylebox_override("panel", style(INK, GOLD, 3))
+	overlay.size = Vector2(820, 780)
+	overlay_world.viewport.add_child(overlay)
 	var scroll := ScrollContainer.new()
-	scroll.custom_minimum_size = Vector2(730, 690)
+	scroll.custom_minimum_size = Vector2(780, 740)
 	overlay.add_child(scroll)
 	overlay_box = VBoxContainer.new()
 	overlay_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -765,7 +928,7 @@ func open_overlay(kind: String) -> void:
 		help.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		overlay_box.add_child(help)
 	elif kind == "credits":
-		var credits := ui_label("HANAFUDA\nLouie Mantia · recolored by dotty-dev\nCC BY-SA 4.0\n\ngithub.com/dotty-dev/Hanafuda-Louie-Recolor\nOriginal SVG artwork bundled without modification.\n\nNoto Sans JP · The Noto Project\nSIL Open Font License 1.1\n\nGodot Engine 4.7.2 · MIT\ngodotengine.org\n\nRules & AI integration\nKoiKoi-AI · Sanghai Guan · MIT\n\nFull notices: game/assets and THIRD_PARTY_NOTICES.md", 17)
+		var credits := ui_label("HANAFUDA\nLouie Mantia · すけじょ (traditional colors)\nCC BY-SA 4.0\n\ncommons.wikimedia.org\nFrames recolored to #b44519; illustration ink retained.\n\nNoto Sans JP · The Noto Project\nSIL Open Font License 1.1\n\nGodot Engine 4.7.2 · MIT\ngodotengine.org\n\nRules & AI integration\nKoiKoi-AI · Sanghai Guan · MIT\n\nFull notices: game/assets and THIRD_PARTY_NOTICES.md", 17)
 		overlay_box.add_child(credits)
 	else:
 		overlay_box.add_child(ui_button("日本語 / ENGLISH", switch_language))
@@ -807,8 +970,8 @@ func open_overlay(kind: String) -> void:
 		overlay_box.add_child(ui_button(word("credits"), func(): open_overlay("credits")))
 
 func close_overlay() -> void:
-	if is_instance_valid(overlay):
-		overlay.queue_free()
+	if is_instance_valid(overlay_world):
+		overlay_world.queue_free()
 	modal = false
 	await maybe_ai()
 
