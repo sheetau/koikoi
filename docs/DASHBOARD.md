@@ -1,8 +1,8 @@
 # Current work and handoff
 
 <!-- Generated from the explicitly curated public summary. Do not edit directly. -->
-Generated: 2026-10-27T16:52:42.359372+00:00. Public project revision: 7.
+Generated: 2026-10-27T17:40:08.968440+00:00. Public project revision: 9.
 
-ローカル開発ダッシュボードの閲覧・編集・スコープ・質問昇格・復元を整理し、完了確認を妨げる前提と移動先を表示。ゲームは取り札の一括回収と山札下への返却、役移動/通常操作の効果音、重なる役の同段表示、1/3/6/12回戦設定とやり直し、親決め札の単札返却を改善。管理・復元・ブラウザ・ゲーム操作を検証。12回戦操作検証で札交差/盤面貫通0件、追加の単札返却も個別検証済み。研究モデルと得点ルールは変更していない。
+ゲーム表示の残件を改善。役名は最初の札の到着時に表示し、枚数役の行を分離。総取りでは勝者の配置を維持し、通常の役成立と同じ側から相手の役を追加する。文字背景を半透明で統一し、結果・通知にサイズ上限とスクロールを追加。縦長画面の得点表示を調整。AI選択にホバーと押下演出を追加。描画・入力・12回戦操作検証が成功し、札交差/盤面貫通0件。得点ルールと研究モデルは変更していない。
 
 Private tasks, questions, evidence and archives stay in the local dashboard. Run `python .dashboard/app.py brief` for current work, or see [Dashboard operations](../.dashboard/README.md). This export is a checkpoint, not the live task queue.

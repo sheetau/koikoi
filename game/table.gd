@@ -58,6 +58,10 @@ var sound := true
 var opponent := "trained"
 var flags := 0
 var match_rounds := 12
+var result_world: Node3D
+var result_scroll: ScrollContainer
+var message_world: Node3D
+var outcome_worlds: Array = []
 var menu: Node3D
 var menu_buttons: Array = []
 var label_nodes: Array = []
@@ -117,6 +121,7 @@ func _ready() -> void:
 	load_cards()
 	make_world()
 	make_hud()
+	get_viewport().size_changed.connect(refresh_world_ui)
 	request = HTTPRequest.new()
 	request.timeout = 45.0
 	add_child(request)
@@ -137,6 +142,16 @@ func load_fonts() -> void:
 func update_camera() -> void:
 	camera.position = camera_pivot + Vector3(0, sin(orbit_pitch), cos(orbit_pitch)) * camera_radius
 	camera.look_at(camera_pivot)
+	refresh_world_ui()
+
+func refresh_world_ui() -> void:
+	if not is_instance_valid(left_label):
+		return
+	refresh_hud()
+	if paused and not busy and not modal:
+		show_result()
+	if modal and is_instance_valid(overlay_world):
+		overlay_world.fit_content(Vector2i(overlay.size.ceil()),camera)
 
 func load_cards() -> void:
 	for month in range(12):
@@ -173,8 +188,9 @@ func label3(text: String, pos: Vector3, font_size: int = 42, color: Color = CREA
 	label.modulate = color
 	label.position = pos
 	label.no_depth_test = false
-	label.alpha_cut = Label3D.ALPHA_CUT_OPAQUE_PREPASS
-	label.double_sided = false
+	label.alpha_cut = Label3D.ALPHA_CUT_DISABLED
+	label.render_priority = 1
+	label.double_sided = true
 	if parent == null:
 		add_child(label)
 	else:
@@ -188,6 +204,10 @@ func plane(size: Vector2, pos: Vector3, color: Color, parent: Node3D, border: Co
 	node.mesh = mesh
 	node.material_override = Card.material(color)
 	node.material_override.cull_mode = BaseMaterial3D.CULL_DISABLED
+	if color.to_html(false) in ["3d301c", "49351e", "241a22", "b94013"]:
+		node.material_override.albedo_color.a = 0.86
+		node.material_override.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+		node.material_override.render_priority = -1
 	node.position = pos
 	parent.add_child(node)
 	if border.a > 0:
@@ -268,7 +288,7 @@ func update_stock() -> void:
 
 func style(bg: Color, border: Color = Color.TRANSPARENT, radius: int = 4) -> StyleBoxFlat:
 	var s := StyleBoxFlat.new()
-	s.bg_color = bg
+	s.bg_color = Color(bg, 0.86)
 	s.border_color = border
 	s.set_border_width_all(1)
 	s.set_corner_radius_all(radius)
@@ -300,11 +320,11 @@ func ui_button(text: String, callback: Callable) -> Button:
 
 func make_hud() -> void:
 	# Round, scores and turn status inhabit the same upright world plane as decisions.
-	left_label = label3("", Vector3(-5.65, 2.0, 0.0), 26, CREAM)
-	right_label = label3("", Vector3(5.65, 2.0, 0.0), 26, CREAM)
+	left_label = label3("", Vector3(-5.15, 2.0, 0.0), 17, CREAM)
+	right_label = label3("", Vector3(5.15, 2.0, 0.0), 17, CREAM)
 	bottom_label = label3("", Vector3(0, 1.32, 0.0), 25, GOLD)
 	bottom_label.visible = false
-	announcement = label3("", Vector3(0, 4.8, 0), 28, CREAM)
+	announcement = label3("", Vector3(0, 4.8, 0), 18, CREAM)
 	announcement.double_sided = true
 	announcement.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	hud = CanvasLayer.new()
@@ -321,6 +341,8 @@ func make_hud() -> void:
 	refresh_hud()
 
 func clear_menu() -> void:
+	result_world = null
+	result_scroll = null
 	if is_instance_valid(menu):
 		menu.queue_free()
 	menu_buttons.clear()
@@ -333,29 +355,64 @@ func text_size(text: String, size: int) -> Vector2:
 
 func panel(title: String, subtitle: String = "", reverse: String = "", _height: float = 0.9, mirrored: bool = false) -> void:
 	clear_menu()
-	var front_size := text_size(title, 46)
-	var reverse_size := text_size(reverse if reverse != "" else title, 46)
-	var width := maxf(front_size.x, reverse_size.x) + 0.65
+	var front_size := text_size(title, 28)
+	var reverse_size := text_size(reverse if reverse != "" else title, 28)
+	var subtitle_size := text_size(subtitle, 17)
+	var width := maxf(maxf(front_size.x, reverse_size.x), subtitle_size.x) + 0.65
 	var height := maxf(front_size.y, reverse_size.y) + 0.24
-	plane(Vector2(width, height), Vector3.ZERO, Color("3d301c"), menu, Color("f2bc58"))
-	var text := label3(title, Vector3(0, 0, 0.006), 46, Color("c73c0b"), menu)
-	text.outline_size = 4
-	text.outline_modulate = Color("ffce65")
 	if not subtitle.is_empty():
-		label3(subtitle, Vector3(0, -0.75, 0.006), 25, CREAM, menu)
-	var back := label3(reverse if reverse != "" else title, Vector3(0, 0, -0.006), 46, Color("c73c0b"), menu)
-	back.outline_size = 4
-	back.outline_modulate = Color("ffce65")
+		height += subtitle_size.y + 0.18
+	plane(Vector2(width, height), Vector3(0, -(subtitle_size.y + 0.18) / 2 if not subtitle.is_empty() else 0, 0), Color("3d301c"), menu, GOLD)
+	var front := label3(title, Vector3(0, 0, 0.006), 28, GOLD, menu)
+	front.double_sided = false
+	if not subtitle.is_empty():
+		label3(subtitle, Vector3(0, -(front_size.y + subtitle_size.y) / 2 - 0.16, 0.006), 17, CREAM, menu)
+	var back := label3(reverse if reverse != "" else title, Vector3(0, 0, -0.006), 28, GOLD, menu)
+	back.double_sided = false
 	back.rotation.y = PI
 	if mirrored:
 		back.scale.x = -1.0
 
+func label_background(label: Label3D, common_width: float = 0) -> void:
+	var old := label.get_node_or_null("TextBackground")
+	if old:
+		label.remove_child(old)
+		old.queue_free()
+	if label.text.is_empty():
+		return
+	var size := text_size(label.text, label.font_size) + Vector2(0.45,0.24)
+	size.x = maxf(size.x, common_width)
+	var back := plane(size, Vector3(0,0,-0.008), INK, label, GOLD)
+	back.name = "TextBackground"
+
+func scroll_text(text: String, font_size: int, parent: Node3D, maximum := Vector2i(840,360)) -> Node3D:
+	# One translucent panel for the whole block; overlong lines/rows scroll.
+	var pixels := FONT.get_multiline_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size)
+	var dimensions := Vector2i(clampi(ceili(pixels.x)+56,320,maximum.x),clampi(ceili(pixels.y)+44,64,maximum.y))
+	var world := WorldOverlay.new()
+	parent.add_child(world)
+	var frame := PanelContainer.new()
+	frame.size = dimensions
+	frame.add_theme_stylebox_override("panel",style(INK,GOLD))
+	world.viewport.add_child(frame)
+	var scroll := ScrollContainer.new()
+	scroll.name = "ContentScroll"
+	scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	frame.add_child(scroll)
+	var content := ui_label(text,font_size)
+	content.name = "ContentText"
+	scroll.add_child(content)
+	world.fit_content(dimensions,camera)
+	return world
+
+
 func world_button(text: String, y: float, action: String, value: int = 0, x: float = 0, width: float = 3.4) -> void:
-	var measured := text_size(text, 29) + Vector2(0.6, 0.22)
+	var measured := text_size(text, 20) + Vector2(0.6, 0.22)
 	width = maxf(width, measured.x)
 	var plate := plane(Vector2(width, measured.y), Vector3(x, y, 0.008), Color("49351e"), menu, GOLD)
-	var caption := label3(text, Vector3(x, y, 0.013), 29, CREAM, menu)
-	menu_buttons.append({"x": x, "y": y, "width": width, "height": measured.y, "action": action, "value": value, "plate": plate, "caption": caption, "fill": Color("49351e"), "ink": CREAM})
+	var caption := label3(text, Vector3(x, y, 0.013), 20, CREAM, menu)
+	menu_buttons.append({"x": x, "y": y, "width": width, "height": measured.y, "action": action, "value": value, "plate": plate, "caption": caption, "fill": Color(Color("49351e"),0.86), "ink": CREAM})
 
 func show_title() -> void:
 	panel("START")
@@ -398,6 +455,19 @@ func refresh_hud() -> void:
 	right_label.text = "%s  %d %s%s\n%s" % [word("ai"), pts[1], word("points"), "  · " + word("dealer") if state.dealer == 1 else "", word("turn_you") if state.player == 0 else word("turn_ai")]
 	if paused:
 		right_label.text = right_label.text.get_slice("\n", 0) + "\n" + word("final" if finished else "round_complete")
+	var hud_width := maxf(text_size(left_label.text,17).x,text_size(right_label.text,17).x)+0.45
+	label_background(left_label,hud_width)
+	label_background(right_label,hud_width)
+	var viewport_size := get_viewport().get_visible_rect().size
+	var narrow := viewport_size.x/viewport_size.y < 1.35
+	var hud_y := 0.38 if narrow else 2.0
+	var depth := maxf(1.0,-camera.to_local(Vector3(0,hud_y,0)).z)
+	var available := 2*depth*tan(deg_to_rad(camera.fov/2))*viewport_size.x/viewport_size.y*0.93
+	var factor := minf(1,available*0.45/hud_width)
+	left_label.scale = Vector3.ONE*factor
+	right_label.scale = Vector3.ONE*factor
+	left_label.position = Vector3(-minf(5.15,available/4),hud_y,0)
+	right_label.position = Vector3(minf(5.15,available/4),hud_y,0)
 
 func send(path: String, data: Dictionary = {}) -> void:
 	if busy:
@@ -433,6 +503,7 @@ func receive(result: int, code: int, _headers: PackedStringArray, body: PackedBy
 	paused = parsed.get("paused", false)
 	finished = parsed.get("finished", false)
 	ending = parsed.get("end", {}) if parsed.get("end") != null else {}
+	await preview_ai_choice(parsed.get("events", []))
 	clear_menu()
 	for event in parsed.get("events", []):
 		await animate_event(event)
@@ -475,9 +546,9 @@ func show_decision() -> void:
 		clear_menu()
 		menu.position.y = 3.7
 		var question := word("koi_question")
-		var question_size := text_size(question, 28) + Vector2(0.6, 0.25)
+		var question_size := text_size(question, 18) + Vector2(0.6, 0.25)
 		plane(question_size, Vector3(0, 0.75 + question_size.y / 2, 0.008), Color("3d301c"), menu, GOLD)
-		var question_label := label3(question, Vector3(0, 0.75 + question_size.y / 2, 0.013), 28, CREAM, menu)
+		var question_label := label3(question, Vector3(0, 0.75 + question_size.y / 2, 0.013), 18, CREAM, menu)
 		question_label.double_sided = true
 		var free_width := right_label.position.x - text_size(right_label.text, right_label.font_size).x / 2 - left_label.position.x - text_size(left_label.text, left_label.font_size).x / 2 - 0.4
 		menu.scale = Vector3.ONE * minf(1.0, free_width / maxf(question_size.x, 5.3))
@@ -491,7 +562,6 @@ func show_decision() -> void:
 				child.double_sided = true
 		if int(state.player) == 1:
 			menu.rotation.y = PI
-			menu_buttons.clear()
 	else:
 		clear_menu()
 	update_hand_affordance()
@@ -509,13 +579,15 @@ func announce(message: String, seconds: float = 0.9, recipient: int = 0) -> void
 	announcement.rotation.y = PI if recipient == 1 else 0
 	play_sound("ui-message")
 	announcement.text = message
-	var viewport_size := get_viewport().get_visible_rect().size
-	var depth := maxf(1.0, -camera.to_local(announcement.global_position).z)
-	var available_width := 2.0 * depth * tan(deg_to_rad(camera.fov / 2)) * viewport_size.x / viewport_size.y * 0.85
-	announcement.width = ceili(minf(text_size(message, announcement.font_size).x, available_width) / announcement.pixel_size)
+	announcement.visible = false
+	message_world = scroll_text(message,18,self,Vector2i(900,260))
+	message_world.position = Vector3(0,3.6 + message_world.SIZE.y*message_world.scale.y/2,0)
+	message_world.rotation.y = announcement.rotation.y
 	announcement_history.append(message)
 	await wait_minimum(seconds, 1.0)
 	announcement.text = ""
+	message_world.queue_free()
+	message_world = null
 
 func outcome_message(player: int, won: bool, stopped: bool) -> String:
 	if language == 1:
@@ -525,23 +597,21 @@ func outcome_message(player: int, won: bool, stopped: bool) -> String:
 	return (player_name(1 - player) + "さんがこいこいしませんでした。" if stopped else "") + player_name(player) + "さんの負けです。"
 
 func announce_outcome(winner: int, stopped: bool) -> void:
-	var faces: Array[Label3D] = []
 	play_sound("ui-message")
 	for player in range(2):
 		var message := outcome_message(player, player == winner, stopped)
-		var face := label3(message, announcement.position + Vector3(0, 0, 0.012 if player == 0 else -0.012), announcement.font_size, CREAM, self)
+		var face := scroll_text(message,18,self,Vector2i(900,260))
 		face.name = "OutcomeFront" if player == 0 else "OutcomeBack"
-		face.double_sided = false
+		face.set_meta("text",message)
+		face.position = Vector3(0,3.6 + face.SIZE.y*face.scale.y/2,0.016 if player == 0 else -0.016)
 		face.rotation.y = PI if player == 1 else 0
-		var viewport_size := get_viewport().get_visible_rect().size
-		var depth := maxf(1.0, -camera.to_local(face.global_position).z)
-		var available_width := 2.0 * depth * tan(deg_to_rad(camera.fov / 2)) * viewport_size.x / viewport_size.y * 0.85
-		face.width = ceili(minf(text_size(message, face.font_size).x, available_width) / face.pixel_size)
-		faces.append(face)
+		face.surface.material_override.cull_mode = BaseMaterial3D.CULL_BACK
+		outcome_worlds.append(face)
 		announcement_history.append(message)
 	await wait_minimum(1.25, 1.25)
-	for face in faces:
+	for face in outcome_worlds:
 		face.queue_free()
+	outcome_worlds.clear()
 
 func update_hand_affordance() -> void:
 	if state.is_empty():
@@ -603,7 +673,7 @@ func show_result() -> void:
 	if finished:
 		headline = "DRAW" if state.points[0] == state.points[1] else "WIN" if state.points[0] > state.points[1] else "LOSE"
 	var rows: Array = state.yaku[winner]
-	var text := "%s 12 · %s\n" % [word("round"), word("you" if winner == 0 else "ai")] if finished else ""
+	var text := "%s %d · %s\n" % [word("round"), state.get("rounds",12), word("you" if winner == 0 else "ai")] if finished else ""
 	if ending.get("reason", "stop") == "exhausted":
 		rows = []
 	for row in rows:
@@ -617,40 +687,34 @@ func show_result() -> void:
 	if base_points > 0 and int(ending.get("payment", 0)) == base_points * 2:
 		text += "KOI KOI × 2\n"
 	text += "\n+%d %s" % [ending.get("payment", 0), word("points")]
-	var lines := text.split("\n")
-	var columns := lines.size() > 8
-	var middle := ceili(lines.size() / 2.0)
-	var parts: Array = ["\n".join(lines.slice(0, middle)), "\n".join(lines.slice(middle))] if columns else [text]
-	var font_size := 23 if columns else 25
-	var sizes: Array[Vector2] = []
-	var width := 0.6
-	var height := 0.0
-	for part in parts:
-		var measured := text_size(part, font_size)
-		sizes.append(measured)
-		width += measured.x + 0.4
-		height = maxf(height, measured.y + 0.5)
-	panel(headline, word("final") if finished else "%s %d / 12" % [word("round"), state.round], "LOSE" if headline == "WIN" else "WIN" if headline == "LOSE" else "DRAW")
-	menu.get_child(0).material_override = Card.material(Color("b94013"))
+	panel(headline, word("final") if finished else "%s %d / %d" % [word("round"), state.round, state.get("rounds",12)], "LOSE" if headline == "WIN" else "WIN" if headline == "LOSE" else "DRAW")
+	menu.position.y = 0.85
+	result_world = scroll_text(text.strip_edges(),17,menu,Vector2i(740,330))
+	result_scroll = result_world.viewport.get_child(0).get_child(0)
+	var height: float = result_world.SIZE.y * result_world.scale.y
+	result_world.position = Vector3(0,0.6+height/2,0.02)
+	# Grow upward from a fixed footer, keeping every panel above the board.
 	for child in menu.get_children():
-		if child is Label3D and child.font_size == 46:
-			child.modulate = CREAM
-			child.outline_modulate = Color("18797d")
-	menu.position.y = 3.8 + maxf(0, height - 1.6) * 0.5
-	var top := -maxf(1.05, (menu.get_child(0).mesh as QuadMesh).size.y / 2 + text_size(word("final"), 25).y + 0.35)
-	plane(Vector2(width, height), Vector3(0, top - height / 2, 0.002), Color("3d301c"), menu, GOLD)
-	var x := -width / 2 + 0.5
-	for i in range(parts.size()):
-		label3(parts[i], Vector3(x + sizes[i].x / 2, top - height / 2, 0.006), font_size, CREAM, menu)
-		x += sizes[i].x + 0.4
-	world_button(word("new" if finished else "next"), top - height - text_size(word("new" if finished else "next"), 29).y / 2 - 0.22, "start" if finished else "next")
-	# The content determines its plate size; fit the entire result between the
-	# two persistent score readouts instead of clipping or shrinking a text box.
-	var free_width := right_label.position.x - text_size(right_label.text, right_label.font_size).x / 2 - left_label.position.x - text_size(left_label.text, left_label.font_size).x / 2 - 0.4
-	var factor := minf(1.0, free_width / width)
-	menu.scale = Vector3.ONE * factor
-	menu.position.y = 3.8 + maxf(0, height * factor - 1.6) * 0.5
+		if child != result_world and child is Node3D:
+			child.position.y += height + 1.45
+	world_button(word("new" if finished else "next"),0,"start" if finished else "next")
 
+
+func preview_ai_choice(events: Array) -> void:
+	if state.is_empty() or int(state.player) != 1 or int(state.phase) != 3 or menu_buttons.is_empty():
+		return
+	if not events.any(func(e): return e.kind in ["koi", "round_end"]):
+		return
+	var choice := 49 if events.any(func(e): return e.kind == "koi") else 48
+	for button in menu_buttons:
+		if button.value == choice:
+			button.plate.material_override.albedo_color = button.fill.lerp(GOLD, 0.28)
+			button.caption.modulate = GOLD
+			await wait_minimum(0.4, 0.4)
+			button.plate.material_override.albedo_color = Color("6b433d")
+			play_sound("ui-click")
+			await wait_minimum(0.12, 0.12)
+			return
 
 func maybe_ai() -> void:
 	if busy or modal or state.is_empty() or finished:
@@ -671,7 +735,12 @@ func wait_minimum(seconds: float, minimum: float) -> void:
 	# exercise the actual minimum duration without this environment flag.
 	if testing and OS.get_environment("KOIKOI_QA_FAST") == "1":
 		minimum = 0.0
+	var deadline := Time.get_ticks_msec() + ceili(minimum * 1000)
 	await get_tree().create_timer(maxf(minimum, seconds / speed)).timeout
+	# A timer created in a costly render frame can consume that frame's delta.
+	# Keep the promised visible pause measured from the actual presentation.
+	while Time.get_ticks_msec() < deadline:
+		await get_tree().create_timer((deadline-Time.get_ticks_msec())/1000.0).timeout
 
 func wait_for(seconds: float) -> void:
 	await get_tree().create_timer(maxf(0.018, seconds / speed)).timeout
@@ -1145,7 +1214,7 @@ func presentation_roles(view: Dictionary, player: int) -> Array:
 			expanded = false
 			for i in range(rows.size() - 1, -1, -1):
 				var row: Dictionary = rows[i]
-				if row.cards.any(func(id): return id in group.cards):
+				if row.key not in ["kasu", "tane", "ribbons"] and group.key not in ["kasu", "tane", "ribbons"] and row.cards.any(func(id): return id in group.cards):
 					group.roles.append(row)
 					group.points += row.points
 					for id in row.cards:
@@ -1197,6 +1266,7 @@ func arrange_captures(view: Dictionary, serial: bool = false) -> void:
 			plane(plaque_size, Vector3.ZERO, Color("3d301c"), plaque, GOLD)
 			label3(plaque_text, Vector3(0, 0, 0.006), 18, GOLD, plaque)
 			label_nodes.append(plaque)
+			plaque.visible = false
 			var arrivals: Array = []
 			for i in range(cards_here.size()):
 				var card = known[cards_here[i]] if known.has(cards_here[i]) else take_card(cards_here[i])
@@ -1209,6 +1279,7 @@ func arrange_captures(view: Dictionary, serial: bool = false) -> void:
 					if arrivals.is_empty():
 						play_sound("fuda-take")
 					fly(card, pos, Vector3(0, PI if player == 0 else 0.0, 0), 0.85 + slot * 0.055)
+					card.set_meta("role_plaque", plaque)
 					card.arrival_sound = "yaku"
 					arrivals.append(card)
 					if absf(card.flight_from.z) < 10.0:
@@ -1216,6 +1287,10 @@ func arrange_captures(view: Dictionary, serial: bool = false) -> void:
 					changed = true
 					if serial:
 						await finish_flights()
+				else:
+					plaque.visible = true
+			if cards_here.is_empty():
+				plaque.visible = true
 			if not serial:
 				stagger_roles(arrivals)
 			row_index += 1
@@ -1304,12 +1379,14 @@ func sweep_yaku(view: Dictionary, winner: int) -> void:
 		plane(size, Vector3.ZERO, Color("3d301c"), plaque, GOLD)
 		label3(title, Vector3(0, 0, 0.006), 18, GOLD, plaque)
 		label_nodes.append(plaque)
+		plaque.visible = false
 		var slots: Dictionary = role_slots[loser].get(role_key(row.key), {})
 		play_sound("fuda-take") # One cue per transferred role, never per card.
 		for i in range(ids.size()):
 			var slot := int(slots.get(ids[i], i))
 			var target := Vector3((3.0 - slot * 0.88) * direction, y, 12.2 * direction)
 			fly(known[ids[i]], target, Vector3(0, PI if winner == 0 else 0, 0), 1.2, 0.0, true)
+			known[ids[i]].set_meta("role_plaque", plaque)
 		row_index += 1
 	await finish_flights()
 
@@ -1372,6 +1449,11 @@ func impact_capture(card, targets: Array) -> void:
 		body.linear_damp = 1.2
 
 func card_arrived(card) -> void:
+	if card.has_meta("role_plaque"):
+		var plaque = card.get_meta("role_plaque")
+		if is_instance_valid(plaque):
+			plaque.visible = true
+		card.remove_meta("role_plaque")
 	if not card.arrival_sound.is_empty():
 		play_sound(card.arrival_sound, card.identity)
 		card.arrival_sound = ""
@@ -1404,6 +1486,16 @@ func _unhandled_input(event: InputEvent) -> void:
 	if modal:
 		overlay_world.route(event, camera)
 		return
+	for face in outcome_worlds:
+		if is_instance_valid(face) and event is InputEventMouse and face.contains_screen(event.position,camera):
+			face.route(event,camera)
+			return
+	if is_instance_valid(result_world) and event is InputEventMouse and result_world.contains_screen(event.position,camera):
+		result_world.route(event,camera)
+		return
+	if is_instance_valid(message_world) and event is InputEventMouse and message_world.contains_screen(event.position,camera):
+		message_world.route(event,camera)
+		return
 	if event is InputEventMouseButton:
 		if event.pressed and event.button_index in [MOUSE_BUTTON_WHEEL_UP, MOUSE_BUTTON_WHEEL_DOWN]:
 			camera_radius = clampf(camera_radius * (0.91 if event.button_index == MOUSE_BUTTON_WHEEL_UP else 1.1), 9.5, 30.0)
@@ -1429,6 +1521,8 @@ func hit_card(screen: Vector2):
 	return hit.get("collider")
 
 func hover_menu(screen: Vector2) -> void:
+	if not state.is_empty() and int(state.player) == 1 and int(state.phase) == 3:
+		return
 	if not is_instance_valid(menu):
 		return
 	var face := Plane(menu.global_basis.z.normalized(), menu.global_position)
@@ -1442,6 +1536,8 @@ func hover_menu(screen: Vector2) -> void:
 		item.caption.modulate = GOLD if hovered else item.ink
 
 func click_menu(screen: Vector2) -> bool:
+	if busy or (not paused and not state.is_empty() and int(state.player) == 1):
+		return false
 	if not is_instance_valid(menu) or menu_buttons.is_empty():
 		return false
 	var ray := camera.project_ray_normal(screen)

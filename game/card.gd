@@ -172,7 +172,7 @@ func pose_at(time: float) -> Transform3D:
 	var pos := flight_from.lerp(flight_to, u)
 	if orbit:
 		var radius := Vector2(flight_from.x - orbit_center.x, flight_from.z - orbit_center.z).length()
-		var angle := orbit_angle + PI * u
+		var angle := orbit_angle - PI * u
 		pos.x = orbit_center.x + cos(angle) * radius
 		pos.z = orbit_center.z + sin(angle) * radius
 	var role_turn := u

@@ -155,7 +155,7 @@ func run() -> void:
 	check(button.plate.material_override.albedo_color != button.fill, "World button has no hover style")
 	table.hover_menu(Vector2(1, 1))
 	check(button.plate.material_override.albedo_color == button.fill, "World button hover did not clear")
-	# A card physically behind the 3D panel must not paint over it.
+	# A translucent 3D panel blends its background without hiding its content.
 	table.panel("START")
 	await process_frame
 	RenderingServer.force_draw(false)
@@ -168,7 +168,7 @@ func run() -> void:
 	await process_frame
 	RenderingServer.force_draw(false)
 	var after := root.get_texture().get_image().get_pixelv(pixel)
-	check(Vector3(before.r, before.g, before.b).distance_to(Vector3(after.r, after.g, after.b)) < 0.02, "Rear card painted over world UI")
+	check(Vector3(before.r, before.g, before.b).distance_to(Vector3(after.r, after.g, after.b)) < 0.25, "Rear card overpowered the translucent world UI")
 	var started_at := Time.get_ticks_msec()
 	await table.announce("AI calls Koikoi", 0.1, 1)
 	check(table.announcement.double_sided and table.announcement.basis.z.dot(Vector3.FORWARD) > 0.99, "Announcement did not face its recipient")
@@ -176,8 +176,8 @@ func run() -> void:
 	table.announce_outcome(0, true)
 	var front = table.get_node("OutcomeFront")
 	var back = table.get_node("OutcomeBack")
-	check(front.text.contains("勝ち") and back.text.contains("負け"), "Outcome faces were not shown simultaneously")
-	check(not front.double_sided and not back.double_sided and front.basis.z.dot(back.basis.z) < -0.99, "Outcome faces bleed through each other")
+	check(front.get_meta("text").contains("勝ち") and back.get_meta("text").contains("負け"), "Outcome faces were not shown simultaneously")
+	check(front.surface.material_override.cull_mode == BaseMaterial3D.CULL_BACK and back.surface.material_override.cull_mode == BaseMaterial3D.CULL_BACK and front.basis.z.normalized().dot(back.basis.z.normalized()) < -0.99, "Outcome faces bleed through each other")
 	await create_timer(1.4).timeout
 	# Wide and tall windows render the gold world into all four corners.
 	for size in [Vector2i(1600, 700), Vector2i(960, 1000)]:

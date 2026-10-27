@@ -104,7 +104,7 @@ adds columns as needed. Empty slots are reused; only column expansion slides
 existing cards horizontally. Captures form half-overlapping horizontal groups
 for chaff, animals, ribbons and lights, with reserved space for their maximum
 unscored counts. Capture groups sit just outside the board, beneath the hands.
-Roles that share cards, including transitive overlaps, occupy one unwrapped row with all role names and their scores. Physical cards appear only once. Independent roles keep separate rows; light upgrades replace their lower role without adding its points. Both field cards and captures promoted to
+Named roles that share cards, including transitive overlaps, occupy one unwrapped row with all role names and their scores. Count roles (animals, ribbons, chaff) retain separate rows; their counting membership never joins unrelated named roles. The sake cup still counts for chaff under the existing rules, while its physical card appears only once. Independent roles keep separate rows; light upgrades replace their lower role without adding its points. Both field cards and captures promoted to
 yaku travel sideways beyond the board, round a U-turn, then arrive from right
 to left. A role shares its turn position and nominal travel speed; leftmost
 cards arrive first at evenly spaced times. The turn extends beyond long rows.
@@ -220,3 +220,19 @@ scoring implementation; these are functional checks, not strength evidence.
 Dealer-reveal cards bypass packet merging and return one at a time, nearest
 stock first. `dealer_return_check.gd` audits that path without excluding the pair
 as an intentional gathering group.
+
+Review refinements use 17–20 point text for HUD, notices and result details, with
+shared translucent backgrounds; the settings typography is unchanged. Settings
+and generic notice/result surfaces render from both sides. The distinct win/lose
+faces remain single-sided so each seat sees its own result. Result details and
+messages use bounded SubViewport scroll containers, grow upward from a fixed
+bottom clearance, and route pointer/wheel input to the panel beneath the cursor.
+An overflowing line scrolls horizontally instead of forcing premature wrapping.
+
+New role titles appear at the first physical card arrival. Already settled rows
+remain visible. Total-yaku transfer keeps each seat's rows separate and approaches
+from the same side as normal role formation, with winner transforms unchanged.
+AI koi choices visibly hover for at least 0.4 seconds before their click cue;
+wall-clock enforcement prevents a costly render frame shortening that pause.
+`review_check.gd` exercises these requirements, bounded result scrolling, narrow
+layout and translucent settings from both sides. The game scoring is unchanged.

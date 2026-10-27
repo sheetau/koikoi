@@ -19,8 +19,9 @@ func _ready() -> void:
 	surface.mesh = mesh
 	var mat := StandardMaterial3D.new()
 	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA_SCISSOR
-	mat.depth_draw_mode = BaseMaterial3D.DEPTH_DRAW_ALWAYS
+	mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	mat.depth_draw_mode = BaseMaterial3D.DEPTH_DRAW_DISABLED
+	mat.cull_mode = BaseMaterial3D.CULL_DISABLED
 	mat.albedo_texture = viewport.get_texture()
 	mat.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR
 	surface.material_override = mat
@@ -54,3 +55,10 @@ func route(event: InputEvent, camera: Camera3D) -> void:
 		viewport.push_input(copy, true)
 	else:
 		viewport.push_input(event, true)
+
+func contains_screen(screen: Vector2, camera: Camera3D) -> bool:
+	var point = Plane(global_basis.z,global_position).intersects_ray(camera.project_ray_origin(screen),camera.project_ray_normal(screen))
+	if point == null:
+		return false
+	var local := to_local(point)
+	return absf(local.x) <= SIZE.x/2 and absf(local.y) <= SIZE.y/2

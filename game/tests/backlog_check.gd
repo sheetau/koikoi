@@ -98,7 +98,7 @@ func run() -> void:
 	table.started = true
 	table.show_decision()
 	var labels: Array = table.menu.get_children().filter(func(c): return c is Label3D).map(func(c): return c.text)
-	check(labels.size()==3 and "こいこい？" in labels and "はい" in labels and "いいえ" in labels, "Koi prompt must contain only the question and choices")
+	check(labels.size()==3 and table.word("koi_question") in labels and "はい" in labels and "いいえ" in labels, "Koi prompt must contain only the question and choices")
 	await table.reset_deck()
 	# Ordinary play duration is less than half the previous 0.62 second flight.
 	var discard = table.take_card(2)

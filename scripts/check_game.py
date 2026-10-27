@@ -22,7 +22,7 @@ SUITES = {
     "management": ["dashboard", "legacy"],
     "quick": ["motion_math", "audio_return", "backlog", "migration", "dealer_return"],
     "motion": ["motion_math", "role_motion", "capture_motion", "impact"],
-    "visual": ["concept", "addendum", "layout", "grouped_roles"],
+    "visual": ["concept", "addendum", "layout", "grouped_roles", "review"],
     "full": ["match"],
 }
 

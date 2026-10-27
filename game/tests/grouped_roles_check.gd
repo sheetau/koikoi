@@ -29,7 +29,7 @@ func run() -> void:
 	table.camera.look_at(Vector3(3,2,12))
 	var groups: Array = table.presentation_roles(view,0)
 	check(groups.size()==2 and groups[0].roles.size()==3 and groups[0].cards.size()==4,"Transitive overlaps did not merge into one unique-card row")
-	check(table.label_nodes.size()==3,"Overlapping role labels created separate rows")
+	check(table.label_nodes.size()==4,"Overlapping role labels created separate rows")
 	var plaque = table.label_nodes[0]
 	check(plaque.get_child(1).text.contains("三光") and plaque.get_child(1).text.contains("花見酒") and plaque.get_child(1).text.contains("月見酒"),"Shared row lost a role name")
 	for id in [0,8,28,32]:
@@ -45,9 +45,9 @@ func run() -> void:
 	await table.sweep_yaku(view,0)
 	for id in fixed:
 		check(table.known[id].transform.is_equal_approx(fixed[id]),"Grouped total-yaku moved the winner")
-	for id in view.captured[1]:
+	for id in [20,24,36]:
 		check(is_equal_approx(table.known[id].position.y,0.51),"Transferred shared roles did not append after two winner rows")
-	check(table.sound_log.filter(func(e):return e.sound=="fuda-take").size()==1,"Shared transfer repeated the take cue")
+	check(table.sound_log.filter(func(e):return e.sound=="fuda-take").size()==2,"Separate count role lost the take cue")
 	check(table.sound_log.filter(func(e):return e.sound=="yaku").is_empty(),"Transfer replayed formation audio")
 	await table.reset_deck()
 	check(table.stack.size()==48,"Shared return lost cards")
