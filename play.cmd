@@ -6,4 +6,4 @@ if not exist ".venv\Scripts\pythonw.exe" (
     pause
     exit /b 1
 )
-start "" /D "%~dp0" "%~dp0.venv\Scripts\pythonw.exe" -m koikoi.play
+start "" /D "%~dp0" "%~dp0.venv\Scripts\pythonw.exe" -m koikoi.game_server

@@ -25,3 +25,24 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+## Floating-table game assets
+
+The 48 unmodified SVG images in `game/assets/cards/` are Louie Mantia's
+Hanafuda deck, recolored by dotty-dev, from
+https://github.com/dotty-dev/Hanafuda-Louie-Recolor at commit
+`a4ac60e4bd60f95ab8c4e5176b50bfd2e3772992`.
+Licensed under Creative Commons Attribution-ShareAlike 4.0 International:
+https://creativecommons.org/licenses/by-sa/4.0/ . Full license and original
+source-image links are retained in `game/assets/cards/LICENSE.txt` and
+`game/assets/cards/SOURCE.md`. Godot generates raster caches/mipmaps from the
+original SVGs for display. This asset license applies to the artwork.
+
+`game/assets/fonts/NotoSansJP.ttf` is Noto Sans JP from the Noto Project via
+https://github.com/google/fonts/tree/main/ofl/notosansjp . The SIL Open Font
+License 1.1 is retained in `game/assets/fonts/OFL.txt`.
+Font SHA256: `c2f3b4d463500a2ddcd3849cded1fceeb9fd6d1c32e6cbecd568453ba50fc68f`.
+
+The external Godot 4.7.2 engine is MIT-licensed; see
+https://godotengine.org/license/ and its distribution notices. The setup script
+verifies the pinned release archive against its SHA512 before extraction.

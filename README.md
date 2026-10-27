@@ -4,47 +4,54 @@ Play Koi-Koi against trained AI opponents, or explore self-play learning and ver
 
 ## Play
 
-On a configured Windows machine, double-click **`play.cmd`**, or run this command from the repository folder:
+Double-click **`play.cmd`** to open the new floating-table 3D game, or run:
 
 ```powershell
-./.venv/Scripts/python.exe -m koikoi.play
+./.venv/Scripts/python.exe -X utf8 -m koikoi.game_server
 ```
 
-The default opponent is the selected trained model. Gameplay runs locally on CPU and does not require a GPU. The interface is in Japanese.
+The native Windows client uses **Godot 4.7.2 + GDScript**, with the existing
+**Python 3.12** rules and frozen AI running locally on CPU. The gold background,
+plum board, physical card animations and high-resolution SVG deck follow the
+game plan. Japanese and English are available in Settings.
 
-1. Click a gold-bordered hand card to play it. When two field cards match its month, click the one to capture.
-2. Stock cards are drawn automatically. When offered a choice, select **Stop** or **Koi-Koi**.
-3. Select **Next round** to continue. Use **Restart** after changing the opponent in the top menu.
+Click START, then click a hand card. If two field cards match its month, choose
+one. Stock draws are automatic; use the central panel for koi/stop and the next
+round. Hover over a card to inspect it. Esc opens settings; F11 toggles full screen.
+There are twelve rounds, starting at 30 points each, without bankruptcy ending
+the match early. Settings include winner-takes-both-yaku and own-koi doubling.
 
-Matches use the benchmark's eight-round rules: 30 starting points each, with early termination at zero points. Some scoring conventions differ from other Koi-Koi variants; see the in-game help and [rules](docs/RULES.md).
-
-You can also choose an opponent from the command line:
+Install the pinned engine and import the bundled card/font assets once:
 
 ```powershell
-./.venv/Scripts/python.exe -m koikoi.play --opponent rl-wp
-./.venv/Scripts/python.exe -m koikoi.play --opponent rl-point
-./.venv/Scripts/python.exe -m koikoi.play --opponent greedy
+powershell -ExecutionPolicy Bypass -File scripts/setup_game.ps1
 ```
 
-The trained opponent uses greedy inference with public endgame assistance. The expensive research search is separate from the playable game.
+See [the game guide](docs/GAME.md) for architecture, controls, licenses and focused
+checks. The original eight-round Tkinter client remains available through
+`python -m koikoi.play` for reference.
 
 ## Setup
 
-The tested development setup is Windows with Python 3.12, Git, Visual Studio C++ build tools, and an NVIDIA GPU with a recent driver. The bootstrap creates a project-local environment, installs pinned dependencies, fetches the upstream models and card assets, and runs the tests:
+Use the existing project-local Python 3.12 environment. For a fresh research
+checkout, the original `scripts/bootstrap.ps1` restores dependencies and the
+pinned upstream source. The game launcher itself starts no training or evaluation.
+The Godot renderer uses OpenGL 3.3 Compatibility; AI inference runs on CPU.
 
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts/bootstrap.ps1
-```
-
-A system CUDA toolkit is unnecessary. Gameplay uses CPU after setup; Linux has not been validated here.
-
-**The additional trained checkpoint is not included in Git.** Restore it using the [artifact instructions](docs/ARTIFACTS.rst) to use the default opponent:
+**The learned checkpoint is not included in Git.** Restore it using the
+[artifact instructions](docs/ARTIFACTS.rst):
 
 ```text
 runs/cold_ppo_screen/seed6710001_warm/update_00000520.pt
 ```
 
-If that checkpoint is unavailable, launch with `--opponent rl-wp`, `rl-point`, or `greedy`. A missing model produces an error rather than silently selecting another opponent. If `play.cmd` fails, use the PowerShell command above to see the error. All opponents use card assets from the pinned upstream checkout.
+Settings also offer original RL-WP, RL-Point, and a practice AI. Missing models
+produce an error rather than silently changing the opponent. The eight-round
+learned/published encoders use an explicit game-only twelve-round feature
+projection; this is a deployment choice, not a new strength result. Research
+models, engines, protocols and evidence remain unchanged. The new card art is
+bundled and no longer depends on the external checkout. Consoleless launcher
+output is written to ignored `.koikoi-work/game.log`.
 
 ## Research results
 

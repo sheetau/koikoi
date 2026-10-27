@@ -22,3 +22,6 @@ runs/
 /output/pdf/
 /tmp/pdfs/
 /output/figures/
+
+/game/.godot/
+/output/game-qa/

@@ -1,0 +1,26 @@
+config_version=5
+
+[application]
+config/name="KOI KOI — The Floating Table"
+run/main_scene="res://main.tscn"
+config/features=PackedStringArray("4.7", "GL Compatibility")
+config/description="A twelve-round game of hanafuda in a golden void."
+
+[display]
+window/size/viewport_width=1440
+window/size/viewport_height=900
+window/size/window_width_override=1440
+window/size/window_height_override=900
+window/stretch/mode="canvas_items"
+window/size/min_width=960
+window/size/min_height=640
+
+[rendering]
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+textures/default_filters/use_nearest_mipmap_filter=false
+anti_aliasing/quality/msaa_3d=2
+environment/defaults/default_clear_color=Color(0.70, 0.49, 0.19, 1)
+
+[physics]
+common/physics_ticks_per_second=120
