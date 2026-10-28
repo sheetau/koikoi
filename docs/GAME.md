@@ -328,15 +328,25 @@ orders without duplicating physical cards or changing scoring.
 visibility restoration, replay/title return, WIN blinking, ordered role impacts,
 per-card return audio, simultaneous seats and the ordinary-capture pause.
 
-`sky_check.gd` checks bounded, independent cloud deformation over ten minutes,
-width expansion/contraction of double U bands, unclipped and invariant vertical
-rendered bounds, and the same background world rays under camera movement.
+The cloud panorama uses all five supplied templates in twelve mirrored and
+independently stretched copies. Three staggered lanes cover every longitude;
+clouds stay inside separate horizontal corridors so no more than three overlap.
+Each straight span extends independently and reverses only at its corridor
+limit, with a 40-105 second traversal. The first inner U stays attached to its
+parent. The cloud band and white sun sit higher than before. Each gold square
+has a separate rotated brush patch, faint grain and variable crease highlights;
+the central latitude band is brighter.
+
+`sky_check.gd` samples deformation, panorama coverage and the three-cloud limit
+over ten minutes. It checks attached U bands, boundary-only span reversals,
+invariant vertical bounds, visible clouds at twelve camera bearings, a white
+sun, and the same background world rays under camera movement.
 It captures multiple animation phases. Role clearance samples the active moving
 interval independently of its initial delay; `role_motion_check.gd` covers
 short pickup routes after long waits. The role spacing check in
 `polish_check.gd` measures first contact after the prior role fully settles.
 
-Automatic stock draws remain face-up at the stock for at least 0.65 seconds
+Automatic stock draws remain face-up at the stock for at least 0.325 seconds
 before moving to the field. Human two-target choices with distinct cards
 keep their immediate interaction; equivalent targets still follow the automatic
 path. A centered Japanese/English prompt remains visible while the human

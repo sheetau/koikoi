@@ -74,6 +74,6 @@ func run() -> void:
 		await table.animate_event({"kind":"draw","card":item[0],"player":item[2],"view":view})
 		timings.append(Time.get_ticks_msec()-began)
 		physics_frame.disconnect(watch)
-		check(timings[-1]>=650 and not moved[0],"Automatic draw skipped its stationary reveal beat")
+		check(timings[-1]>=325 and timings[-1]<550 and not moved[0],"Automatic draw skipped its stationary reveal beat")
 	print("GAME_CHOICE_CHECK failures=%d manual_ms=%d automatic_ms=%s"%[failures.size(),manual_ms,timings])
 	quit(0 if failures.is_empty() else 1)

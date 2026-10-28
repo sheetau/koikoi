@@ -1303,7 +1303,7 @@ func animate_event(event: Dictionary) -> void:
 		var matches: Array = view.field.filter(func(c):return int(c)/4==id/4)
 		var manual_choice: bool = int(event.player)==0 and matches.size()==2 and not equivalent_targets(matches)
 		if not manual_choice:
-			await wait_minimum(0.65,0.65)
+			await wait_minimum(0.325,0.325)
 	elif kind in ["capture", "place"]:
 		var card = known[int(event.card)]
 		if kind == "place":
