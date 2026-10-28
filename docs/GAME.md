@@ -334,8 +334,11 @@ clouds stay inside separate horizontal corridors so no more than three overlap.
 Each straight span extends independently and reverses only at its corridor
 limit, with a 40-105 second traversal. The first inner U stays attached to its
 parent. The cloud band and white sun sit higher than before. Each gold square
-has a separate rotated brush patch, faint grain and variable crease highlights;
-the central latitude band is brighter.
+uses one of five supplied image tiles with a separate rotation and crop offset.
+Normalized square UVs stretch the source images to square faces. Their
+mean-centered luminance modulates the existing gold palette; the original
+image tint does not replace it. Mipmaps reduce texture shimmer. Crease
+highlights remain variable and the central latitude band is brighter.
 
 `sky_check.gd` samples deformation, panorama coverage and the three-cloud limit
 over ten minutes. It checks attached U bands, boundary-only span reversals,
