@@ -54,7 +54,8 @@ func run() -> void:
 		card.move_to(table.STACK+Vector3(0,0.5,0),table.BACK_FLAT,1)
 		card.route_to_stock()
 		var direct: float = from.distance_to(card.flight_to)
-		check(card.return_length<direct*1.02,"Upright return takes a detour exceeding two percent")
+		check(card.return_length<direct*1.6,"Quarter-arc return takes an unnecessary detour")
+		check(absf(card.return_c2.x-card.flight_to.x)<0.001,"Upright return does not enter along the front/back stock axis")
 		for i in range(101):
 			var point: Vector3 = card.stock_point(i/100.0)
 			var projection: float = (point-from).dot(card.flight_to-from)/direct

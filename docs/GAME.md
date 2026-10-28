@@ -190,7 +190,7 @@ independent angular velocities and small horizontal impulses vary the angles
 and landing offsets. Reduced restitution produces a smaller second bounce.
 No upward rebound velocity is injected. Cards settle under gravity before
 collection; an upper role card clears the lower card before it slides away. Announcements remain visible for at
-least one second; AI choices wait at least 0.8 seconds (1.2 for a koi decision).
+least 1.4 seconds (longer for longer text), and outcomes for two seconds; AI choices wait at least 0.8 seconds (1.2 for a koi decision).
 Human clicks are handled immediately. Win and lose messages occupy opposing,
 single-sided faces simultaneously, so neither bleeds through the other.
 `game/tests/audio_return_check.gd` checks all ten audio streams, per-card
@@ -251,10 +251,10 @@ wall-clock enforcement prevents a costly render frame shortening that pause.
 layout and translucent settings from both sides. The game scoring is unchanged.
 
 Own role formation temporarily frames the player's role cards at
-the start of the first U-turn. The camera fits their final bounds and renders
-only those cards; the board, HUD and role labels do not intrude. It leaves at
-least three rows' worth of viewing space for a single role, and extra margins
-around larger collections, slightly farther than the supplied yaku reference.
+the start of the first U-turn. Only the camera transform changes: the same
+scene, including role names, stays visible. Framing includes the cards and their
+plaques, with at least 7.4 world units of vertical space and extra margins around
+larger collections, farther than the supplied yaku reference.
 Camera controls
 stay locked during this view. After the cards arrive, it holds for 1.1 seconds
 and restores the exact previous camera transform and normal rendering.
@@ -273,4 +273,42 @@ It also verifies all four rows of a 24-card fixture remain inside the frame.
 `pace_check.gd` checks a real half-overlapping 16-card capture fixture at normal
 speed: concurrent rows/cards, a four-second return budget, no half-second
 planning stalls, conservation and collision clearance. It also checks a
-six-second 24-card deal budget and nearly direct upright return trajectories.
+six-second 24-card deal budget and quarter-ellipse upright return trajectories,
+which enter along the front/back axis of the stock. Both seats can return
+concurrently; each actual card arrival emits its own cue.
+
+## Presentation refinements
+
+The title shows the rules above PLAY; START is a notice after dealing. Settings
+remain compatible with camera orbit/zoom, hide the other world UI while open,
+and provide BACK navigation and a title-screen action. Finished matches offer
+replay and title-screen buttons. English baseline adjustment, identical hover
+padding, themed dropdowns, translucent gold scrollbars and subtle chromatic
+fringes are shared across UI. World text obeys scene depth.
+
+Notices, buttons and modal surfaces open from their centers and shrink on
+removal. Role/result lists expand downward from their top before revealing
+individual lines; their full layout is reserved throughout the animation.
+Result lists grow upward from the footer with a 500-pixel maximum height.
+The complete WIN/LOSE block follows the list top with explicit clearance,
+including its subtitle. WIN text alone blinks slowly with a quiet synthesized
+tone; original card/audio cues remain in use.
+
+The sky uses small gold facets, varied soft reflection, darker upper/lower
+regions and pole seams, a smaller sun, and independently rotating U/S/e-shaped
+clouds with repeated horizontal light/dark gradients. Shader effects
+run on the Compatibility renderer. Role cards emit growing spark trails near
+their destination, then a burst and a brief, diffuse pressure/smoke wave at
+first contact, followed by a small overshoot and recoil. Field impacts emit
+at actual contact and rebound. These visuals introduce no collision bodies.
+Successive new roles make first contact only after the previous role settles.
+Ordinary captures pause for at least 0.32 seconds after field landing.
+
+Shared special roles use a single row. Count roles retain an independent row
+when enough unallocated cards remain; if sharing leaves zero or one card,
+all sharing rows and names combine. This is recomputed across role-formation
+orders without duplicating physical cards or changing scoring.
+`grouped_roles_check.gd` covers both seats, completion orders and live regrouping.
+`polish_check.gd` covers bilingual title/settings/dropdowns, modal camera input,
+visibility restoration, replay/title return, WIN blinking, ordered role impacts,
+per-card return audio, simultaneous seats and the ordinary-capture pause.

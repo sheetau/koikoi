@@ -127,7 +127,7 @@ func run() -> void:
 		check(table.camera.transform.is_equal_approx(before),"Camera moved before the U-turn")
 		await physics_frame
 	check(table.role_camera_active,"Camera missed the role U-turn")
-	check(table.camera.cull_mask==2 and table.known[0].surface.layers==2 and table.board.layers==1,"Close-up did not isolate the player's role cards")
+	check(table.camera.cull_mask==before_mask and table.known[0].surface.layers==1,"Role view changed the scene rather than only the camera")
 	var focused_camera: Transform3D = table.camera.transform
 	var wheel := InputEventMouseButton.new()
 	wheel.button_index = MOUSE_BUTTON_WHEEL_UP
@@ -142,6 +142,7 @@ func run() -> void:
 	check(table.camera.transform.is_equal_approx(focused_camera),"Role close-up camera moved with input")
 	await table.screenshot("flow_role_camera")
 	await table.finish_flights()
+	check(table.label_nodes.all(func(p):return p.visible),"Role names disappeared in the role view")
 	var first: Vector2 = table.camera.unproject_position(table.known[0].position)
 	var last: Vector2 = table.camera.unproject_position(table.known[28].position)
 	check(first.distance_to(last)>root.size.x*0.12 and first.distance_to(last)<root.size.x*0.30,"Role framing differs from the reference's comfortable distance")

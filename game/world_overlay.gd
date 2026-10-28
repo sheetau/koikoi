@@ -17,6 +17,7 @@ func _ready() -> void:
 	var mesh := QuadMesh.new()
 	mesh.size = SIZE
 	surface.mesh = mesh
+	surface.layers = 4
 	var mat := StandardMaterial3D.new()
 	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
@@ -25,6 +26,11 @@ func _ready() -> void:
 	mat.albedo_texture = viewport.get_texture()
 	mat.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR
 	surface.material_override = mat
+	var fringe := ShaderMaterial.new()
+	fringe.shader = preload("res://chromatic_surface.gdshader")
+	fringe.set_shader_parameter("source_tex",viewport.get_texture())
+	fringe.set_shader_parameter("texel",Vector2.ONE/Vector2(PIXELS))
+	mat.next_pass = fringe
 	add_child(surface)
 
 func fit_content(pixels: Vector2i, _camera: Camera3D) -> void:
@@ -32,6 +38,7 @@ func fit_content(pixels: Vector2i, _camera: Camera3D) -> void:
 	SIZE = Vector2(pixels) * 0.0075
 	viewport.size = pixels
 	(surface.mesh as QuadMesh).size = SIZE
+	surface.material_override.next_pass.set_shader_parameter("texel",Vector2.ONE/Vector2(pixels))
 	scale = Vector3.ONE # World UI keeps its size and anchor when the camera zooms.
 
 func screen_point(local_pixel: Vector2, camera: Camera3D) -> Vector2:

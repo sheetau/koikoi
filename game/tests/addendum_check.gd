@@ -157,7 +157,7 @@ func run() -> void:
 	check(button.plate.material_override.albedo_color == button.fill, "World button hover did not clear")
 	# A translucent 3D panel blends its background without hiding its content.
 	table.panel("START")
-	await process_frame
+	await create_timer(0.30).timeout # Sample after the requested popup settles.
 	RenderingServer.force_draw(false)
 	var point: Vector3 = table.menu.to_global(Vector3(0.2, -0.22, 0.008))
 	var pixel: Vector2i = Vector2i(table.camera.unproject_position(point))
@@ -179,15 +179,21 @@ func run() -> void:
 	check(front.get_meta("text").contains("勝ち") and back.get_meta("text").contains("負け"), "Outcome faces were not shown simultaneously")
 	check(front.surface.material_override.cull_mode == BaseMaterial3D.CULL_BACK and back.surface.material_override.cull_mode == BaseMaterial3D.CULL_BACK and front.basis.z.normalized().dot(back.basis.z.normalized()) < -0.99, "Outcome faces bleed through each other")
 	await create_timer(1.4).timeout
-	# Wide and tall windows render the gold world into all four corners.
+	# Wide/tall windows fill every corner. Use a bright diagnostic sky so
+	# the intentionally dark artwork is not mistaken for black letterboxing.
 	for size in [Vector2i(1600, 700), Vector2i(960, 1000)]:
 		root.size = size
+		var artwork: Shader = table.background_material.shader
+		var probe := Shader.new()
+		probe.code = "shader_type sky; void sky() { COLOR=vec3(0.7,0.5,0.2); }"
+		table.background_material.shader = probe
 		await process_frame
 		RenderingServer.force_draw(false)
 		var shot := root.get_texture().get_image()
 		for p in [Vector2i(1, 1), Vector2i(shot.get_width()-2, 1), Vector2i(1, shot.get_height()-2), Vector2i(shot.get_width()-2, shot.get_height()-2)]:
 			var color := shot.get_pixelv(p)
 			check(color.r > 0.3 and color.g > 0.2, "Letterbox detected")
+		table.background_material.shader = artwork
 		await table.screenshot("addendum_%dx%d" % [size.x, size.y])
 	print("GAME_ADDENDUM_CHECK failures=%d returned_cards=%d burst_peak=%.3f" % [errors.size(), expected, table.last_burst_peak])
 	quit(0 if errors.is_empty() else 1)

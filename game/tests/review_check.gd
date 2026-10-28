@@ -58,6 +58,9 @@ func run() -> void:
 			check(table.known[id].transform.is_equal_approx(fixed[id]),"Total-yaku moved a winner card")
 	# A dense result has bounded width/height, can scroll, and grows upward.
 	var dense: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://tests/dense_result.json"))
+	# The taller result now fits the original fixture; stress overflow explicitly.
+	for repeat in range(2):
+		dense.view.yaku[0].append_array(dense.view.yaku[0].duplicate(true))
 	table.state = dense.view
 	table.ending = dense.end
 	table.paused = true
@@ -65,9 +68,12 @@ func run() -> void:
 	table.language = 1
 	table.refresh_hud()
 	table.show_result()
-	await process_frame
-	check(table.result_world.PIXELS.x<=740 and table.result_world.PIXELS.y<=330,"Result viewport exceeded its bounds")
+	await create_timer(0.35).timeout
+	check(table.result_world.PIXELS.x<=740 and table.result_world.PIXELS.y<=500,"Result viewport exceeded its bounds")
 	check(table.result_world.global_position.y-table.result_world.SIZE.y*table.result_world.global_basis.y.length()/2>0.8,"Result panel crossed the board")
+	var header: MeshInstance3D = table.menu.get_child(0)
+	var list_top: float = table.result_world.position.y+table.result_world.SIZE.y/2
+	check(header.position.y-header.mesh.size.y/2>=list_top+0.24,"WIN/LOSE overlaps the upward-growing list")
 	var bar: VScrollBar = table.result_scroll.get_v_scroll_bar()
 	check(bar.max_value>bar.page,"Dense result did not expose scrolling")
 	var old_scroll: int = table.result_scroll.scroll_vertical
@@ -88,7 +94,7 @@ func run() -> void:
 	await table.screenshot("review_result_ja")
 	root.size = Vector2i(960,1000)
 	table.show_result()
-	await process_frame
+	await create_timer(0.35).timeout
 	for corner in [Vector2(-1,-1),Vector2(1,1)]:
 		var point: Vector3 = table.result_world.to_global(Vector3(corner.x*table.result_world.SIZE.x/2,corner.y*table.result_world.SIZE.y/2,0))
 		var pixel: Vector2 = table.camera.unproject_position(point)

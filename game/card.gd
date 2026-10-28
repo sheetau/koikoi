@@ -2,6 +2,7 @@ extends RigidBody3D
 ## Zero-thickness, two-sided artwork. The tiny collision proxy is not rendered.
 
 signal arrived(card)
+signal role_hit(card)
 
 const SIZE = Vector3(0.78, 1.28, 0.006)
 var identity := -1
@@ -39,6 +40,8 @@ var return_c2 := Vector3.ZERO
 var return_lengths := PackedFloat32Array()
 var return_length := 0.0
 var role_route := false
+var role_rebound := false
+var role_hit_sent := false
 var role_side := 1.0
 var role_edge := 6.2
 var role_lengths := Vector3.ONE
@@ -121,6 +124,8 @@ func unstow() -> void:
 	collision_proxy.disabled = false
 
 func move_to(target: Vector3, angles: Vector3, seconds: float, arc: float = 0.0, circle: bool = false) -> void:
+	role_rebound = false
+	role_hit_sent = false
 	returning = false
 	return_curve = false
 	bottom_return = false
@@ -163,11 +168,12 @@ func route_to_stock(straight: bool = false, direct_height: bool = false) -> void
 	return_c1 = flight_from.lerp(flight_to,1.0/3)
 	return_c2 = flight_from.lerp(flight_to,2.0/3)
 	if not straight:
-		# A shallow bend softens the direct route without going past the stock.
-		var direction := Vector2(flight_to.x-flight_from.x,flight_to.z-flight_from.z).normalized()
-		var bend := Vector3(-direction.y,0,direction.x)*minf(1.0,flight_from.distance_to(flight_to)*0.10)
-		return_c1 += bend
-		return_c2 += bend
+		# Quarter-ellipse handles: leave sideways, enter along the stock's
+		# front/back axis, without looping past it.
+		return_c1.x = lerpf(flight_from.x,flight_to.x,0.5523)
+		return_c1.z = flight_from.z
+		return_c2.x = flight_to.x
+		return_c2.z = lerpf(flight_from.z,flight_to.z,0.4477)
 	return_lengths = PackedFloat32Array([0.0])
 	return_length = 0
 	var previous := flight_from
@@ -205,6 +211,8 @@ func pose_at(time: float) -> Transform3D:
 	var clock_t := clampf(time / duration, 0.0, 1.0)
 	var t := clampf((time - start_delay) / (duration - start_delay), 0.0, 1.0)
 	var u := t if role_route or return_curve else t * t * (3.0 - 2.0 * t)
+	if role_route and role_rebound:
+		u = minf(t/0.94,1.0)
 	var pos := flight_from.lerp(flight_to, u)
 	if return_curve:
 		var curve_t := stock_parameter(t*return_length)
@@ -234,6 +242,8 @@ func pose_at(time: float) -> Transform3D:
 			pos.z = flight_to.z
 		role_turn = smoothstep(role_lengths.x, role_lengths.x + role_lengths.y / 2, distance)
 		pos.y = lerpf(flight_from.y, flight_to.y, role_turn)
+		if role_rebound and t>0.94:
+			pos.x -= role_side*0.035*sin((t-0.94)/0.06*PI)
 	var extra_y := 4.0 * u * (1.0 - u) * lift
 	if clearance.size() == 97:
 		var index := minf(clock_t * 96.0, 95.99999)
@@ -261,6 +271,9 @@ func _physics_process(delta: float) -> void:
 		return
 	elapsed += delta
 	transform = pose_at(elapsed)
+	if role_rebound and not role_hit_sent and (elapsed-start_delay)/(duration-start_delay)>=0.94:
+		role_hit_sent = true
+		role_hit.emit(self)
 	if elapsed >= duration:
 		position = flight_to
 		quaternion = rotation_to

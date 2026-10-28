@@ -71,5 +71,38 @@ func run() -> void:
 	await table.open_overlay("restart")
 	check(table.overlay_box.get_child_count()==3,"Restart confirmation is missing")
 	await table.screenshot("restart_en")
+	table.started = false
+	await table.close_overlay()
+	# Count roles stay separate with two spare cards, but never leave an
+	# empty or one-card row, regardless of which role completed first.
+	for player in range(2):
+		for count_first in [false,true]:
+			for spare in range(3):
+				table.role_order.assign([[],[]])
+				table.role_slots.assign([{},{}])
+				var special := {"key":"animals","points":5,"cards":[20,24,36]}
+				var counted := {"key":"tane","points":1,"cards":[20,24,36]}
+				for id in [4,12].slice(0,spare): counted.cards.append(id)
+				var sample := {"yaku":[[],[]]}
+				sample.yaku[player] = [counted if count_first else special]
+				table.presentation_roles(sample,player)
+				sample.yaku[player] = [special,counted]
+				var merged: Array = table.presentation_roles(sample,player)
+				check(merged.size()==(2 if spare==2 and not count_first else 1),"Count-role timing leaves an empty/single-card row")
+				if merged.size()==1:
+					check(merged[0].roles.size()==2 and merged[0].cards.size()==3+spare,"Merged row lost cards or names")
+	# Re-layout a previously independent row when a new role consumes it.
+	await table.reset_deck()
+	view.captured = [[20,24,36,4],[]]
+	view.yaku = [[{"key":"tane","points":1,"cards":[20,24,36,4]}],[]]
+	table.state = view
+	await table.restore_view(view)
+	view.yaku[0].append({"key":"animals","points":5,"cards":[20,24,36]})
+	table.arrange_captures(view)
+	await table.finish_flights()
+	check(table.label_nodes.size()==1 and table.label_nodes[0].get_meta("roles").size()==2,"Live role update retained an orphan plaque")
+	for id in view.captured[0]:
+		check(is_equal_approx(table.known[id].position.y,table.label_nodes[0].position.y),"Merged live role has split card rows")
+	await table.screenshot("grouped_orphan_roles")
 	print("GAME_GROUPED_ROLES_CHECK failures=%d"%failures.size())
 	quit(0 if failures.is_empty() else 1)
