@@ -201,7 +201,7 @@ static func turn_between(a: Quaternion, b: Quaternion, weight: float) -> Quatern
 	return a.slerp(b, weight)
 
 func role_clearance_weight(t: float) -> float:
-	var u := clampf(t, 0.0, 1.0)
+	var u := minf(clampf(t,0.0,1.0)/0.94,1.0) if role_rebound else clampf(t,0.0,1.0)
 	var distance := u * (role_lengths.x + role_lengths.y + role_lengths.z)
 	return 1.0 - smoothstep(role_lengths.x, role_lengths.x + role_lengths.y / 2, distance)
 
@@ -246,7 +246,7 @@ func pose_at(time: float) -> Transform3D:
 			pos.x -= role_side*0.035*sin((t-0.94)/0.06*PI)
 	var extra_y := 4.0 * u * (1.0 - u) * lift
 	if clearance.size() == 97:
-		var index := minf(clock_t * 96.0, 95.99999)
+		var index := minf((t if role_route else clock_t) * 96.0, 95.99999)
 		var cell := int(index)
 		extra_y += lerpf(clearance[cell], clearance[cell + 1], index - cell) * (role_clearance_weight(t) if role_route else 1.0)
 	var q := turn_between(rotation_from, rotation_to, role_turn)

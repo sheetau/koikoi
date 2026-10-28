@@ -18,6 +18,7 @@ var effect_elapsed := 0.0
 var modal_cull_mask := 0
 var win_tick: AudioStreamWAV
 var background_material: ShaderMaterial
+var sky_background: Node
 const UI_WORDS = {"home":["初期画面へ","TITLE SCREEN"],"back":["戻る","BACK"]}
 var FONT: Font:
 	get: return SERIF if language == 0 else latin_font
@@ -258,6 +259,9 @@ func make_world() -> void:
 	var sky_material := ShaderMaterial.new()
 	sky_material.shader = preload("res://gold_sky.gdshader")
 	background_material = sky_material
+	sky_background = preload("res://sky_background.gd").new()
+	add_child(sky_background)
+	sky_background.configure(sky_material)
 	sky.sky_material = sky_material
 	env.sky = sky
 	env.tonemap_mode = Environment.TONE_MAPPER_LINEAR
@@ -1013,13 +1017,16 @@ func plan_clearance(card, lower_priority: Array) -> void:
 		return # Dedicated routes stay outside the table and use staggered spacing.
 	# Minimum clearance above the board and the current/future card footprints.
 	# Position and orientation are solved together; no arbitrary central waypoint.
+	# Role samples cover only active travel, so a long pre-arrival beat cannot
+	# consume the sampling budget and hide a short collision near departure.
 	for iteration in range(12):
 		var changed := false
 		for i in range(1, 96):
 			var t := i / 96.0
-			if card.role_route and card.role_clearance_weight((t * card.duration - card.start_delay) / (card.duration - card.start_delay)) < 0.001:
+			var sample_time: float = card.start_delay+t*(card.duration-card.start_delay) if card.role_route else t*card.duration
+			if card.role_route and card.role_clearance_weight(t)<0.001:
 				continue
-			var pose: Transform3D = card.pose_at(t * card.duration)
+			var pose: Transform3D = card.pose_at(sample_time)
 			var extent := half_bounds(pose.basis)
 			var floor_y := -100.0
 			var ceiling_y := 100.0
@@ -1031,9 +1038,9 @@ func plan_clearance(card, lower_priority: Array) -> void:
 			for other in bodies:
 				if other == card or other in lower_priority or not other.visible or card.pair_peer == other or other.pair_peer == card:
 					continue
-				var other_pose: Transform3D = other.pose_at(other.elapsed + t * card.duration) if other.flight else other.transform
+				var other_pose: Transform3D = other.pose_at(other.elapsed + sample_time) if other.flight else other.transform
 				var other_extent := half_bounds(other_pose.basis)
-				var role_t: float = clampf((t * card.duration - card.start_delay) / (card.duration - card.start_delay), 0, 1)
+				var role_t: float = minf(t/0.94,1.0) if card.role_rebound else t
 				var in_sideways_leg: bool = card.role_route and role_t * (card.role_lengths.x + card.role_lengths.y + card.role_lengths.z) < card.role_lengths.x
 				if card.role_route and not Card.overlaps(pose, other_pose, 0.001 if in_sideways_leg else 0.03):
 					continue
@@ -1055,7 +1062,7 @@ func plan_clearance(card, lower_priority: Array) -> void:
 				card.clearance[i] += deficit + 0.003
 				changed = true
 			if card.capture_slide:
-				var adjusted: Transform3D = card.pose_at(t * card.duration)
+				var adjusted: Transform3D = card.pose_at(sample_time)
 				var excess := adjusted.origin.y + extent.y - ceiling_y
 				if excess > 0:
 					card.clearance[i] -= excess + 0.001
@@ -1497,7 +1504,7 @@ func arrange_captures(view: Dictionary, serial: bool = false) -> void:
 				stagger_roles(arrivals)
 				if not arrivals.is_empty():
 					var first_arrival: float = arrivals.map(func(c):return c.start_delay+0.94*(c.duration-c.start_delay) if c.role_rebound else c.duration).min()
-					var shift := maxf(0,previous_role_end+0.18/speed-first_arrival)
+					var shift := maxf(0,previous_role_end+maxf(0.65,0.8/speed)-first_arrival) if previous_role_end>0 else 0.0
 					for card in arrivals:
 						card.duration += shift
 						card.start_delay += shift
@@ -2022,8 +2029,6 @@ func screenshot(name: String) -> void:
 	get_viewport().get_texture().get_image().save_png(path.path_join(name + ".png"))
 
 func _process(delta: float) -> void:
-	if is_instance_valid(camera) and background_material:
-		background_material.set_shader_parameter("view_center",acos(clampf(-camera.global_basis.z.y,-1,1))/PI)
 	effect_elapsed += delta
 	if is_instance_valid(celebration) and effect_elapsed>=0.025:
 		effect_elapsed = 0

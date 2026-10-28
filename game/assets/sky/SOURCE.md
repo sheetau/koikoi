@@ -1,0 +1,1 @@
+Cloud centerlines and swept semicircle bands reconstructed from the user-authored SVG paths in concepts/cloud.txt. Runtime geometry preserves circular turns and constant stroke width while animating horizontal anchors. Gold foil is procedural, visually guided by the user-supplied concepts/kinbyobu.jpg; the photograph is not bundled.

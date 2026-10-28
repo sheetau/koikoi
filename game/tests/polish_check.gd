@@ -100,7 +100,7 @@ func run() -> void:
 	while table.celebration.impacts==0: await physics_frame
 	await table.screenshot("polish_role_impact")
 	await table.finish_flights()
-	check(contacts[1]>maxi(arrivals[0],maxi(arrivals[8],arrivals[28])),"Second role arrived before the first role finished")
+	check(contacts[1]-maxi(arrivals[0],maxi(arrivals[8],arrivals[28]))>=600,"Second role skipped the readable beat after the first role finished")
 	check(table.celebration.impacts>=6 and table.celebration.emitted>960,"Role arrival lacks per-card impacts and growing spark trails")
 	check(table.label_nodes.all(func(p):return p.visible) and table.camera.cull_mask==before_mask,"Role view hid its names or changed scene visibility")
 	await table.screenshot("polish_roles")

@@ -63,6 +63,28 @@ func run() -> void:
 		check(not audit.intersects(entering.pose_at(entering.duration * sample / 100.0), settled.transform), "Long row arrival crossed an earlier card")
 	await table.finish_flights()
 	await table.reset_deck()
+	# A readable role-to-role wait must not coarsen collision sampling in the
+	# short moving interval. This pickup crosses a resting card at its height.
+	for wait in [0.0,0.65,1.3]:
+		table.speed = 12
+		var obstacle = table.take_card(40)
+		obstacle.position = Vector3(3.69,0.014,-3.65)
+		obstacle.rotation = table.FLAT
+		var delayed = table.take_card(33)
+		delayed.position = Vector3(1.54,0.014,-3.65)
+		delayed.rotation = table.FLAT
+		table.fly(delayed,Vector3(-0.36,-1.01,-12.2),Vector3.ZERO)
+		delayed.route_to_role(1)
+		delayed.role_rebound = true
+		delayed.duration = wait+0.24
+		delayed.start_delay = wait
+		table.plan_flights()
+		var crossed := false
+		for sample in range(501):
+			crossed = crossed or audit.intersects(delayed.pose_at(wait+sample*0.24/500.0),obstacle.transform)
+		check(not crossed,"Delayed role crossed a resting capture card")
+		await table.finish_flights()
+		await table.reset_deck()
 	# Different role rows share the outer turn but must remain separated.
 	table.speed = 12
 	for item in [[21, 1.54, -0.36, 2.03, 0.15402866091047], [36, -0.61, -1.24, 3.55, 0.1584929443541]]:

@@ -294,14 +294,26 @@ The complete WIN/LOSE block follows the list top with explicit clearance,
 including its subtitle. WIN text alone blinks slowly with a quiet synthesized
 tone; original card/audio cues remain in use.
 
-The sky uses small gold facets, varied soft reflection, darker upper/lower
-regions and pole seams, a smaller sun, and independently rotating U/S/e-shaped
-clouds with repeated horizontal light/dark gradients. Shader effects
-run on the Compatibility renderer. Role cards emit growing spark trails near
+The sky uses gold-leaf height/roughness noise, small square facets and thin
+reflections along their straight edges, guided by `concepts/kinbyobu.jpg`.
+Upper/lower shading is fixed to world latitude, with a subdued upper shadow
+and a dark lower region; camera orbit never moves that shading. Pole patterns
+fade out. The smaller sun and cloud layer rotate independently.
+
+Clouds reconstruct the five user-drawn centerlines and swept semicircle bands
+from `concepts/cloud.txt` into bundled geometry (`assets/sky/cloud_shapes.json`).
+Round caps, stroke width, circular radii and Y coordinates stay fixed. Seeded,
+independent smooth motion changes horizontal anchors, cloud position and each
+double-U band's width/offset inside separated corridors. The cloud gradient
+has five times the previous wavelength. A small 2D viewport draws this mask
+for the sky shader; no stretched bitmap or anisotropically scaled turn is used.
+The foil and cloud shaders run on the Compatibility renderer. Role cards emit growing spark trails near
 their destination, then a burst and a brief, diffuse pressure/smoke wave at
 first contact, followed by a small overshoot and recoil. Field impacts emit
 at actual contact and rebound. These visuals introduce no collision bodies.
-Successive new roles make first contact only after the previous role settles.
+Successive new roles make first contact one beat after the previous role
+settles: 0.8 seconds at normal speed, with a 0.65-second minimum at faster
+settings.
 Ordinary captures pause for at least 0.32 seconds after field landing.
 
 Shared special roles use a single row. Count roles retain an independent row
@@ -312,3 +324,11 @@ orders without duplicating physical cards or changing scoring.
 `polish_check.gd` covers bilingual title/settings/dropdowns, modal camera input,
 visibility restoration, replay/title return, WIN blinking, ordered role impacts,
 per-card return audio, simultaneous seats and the ordinary-capture pause.
+
+`sky_check.gd` checks bounded, independent cloud deformation over ten minutes,
+width expansion/contraction of double U bands, unclipped and invariant vertical
+rendered bounds, and the same background world rays under camera movement.
+It captures multiple animation phases. Role clearance samples the active moving
+interval independently of its initial delay; `role_motion_check.gd` covers
+short pickup routes after long waits. The role spacing check in
+`polish_check.gd` measures first contact after the prior role fully settles.
