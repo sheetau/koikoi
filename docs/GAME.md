@@ -294,15 +294,18 @@ The complete WIN/LOSE block follows the list top with explicit clearance,
 including its subtitle. WIN text alone blinks slowly with a quiet synthesized
 tone; original card/audio cues remain in use.
 
-The sky uses gold-leaf height/roughness noise, small square facets and thin
-reflections along their straight edges, guided by `concepts/kinbyobu.jpg`.
+The sky uses broad orange pigment variation, directional brush grain,
+subtle gold-leaf relief and straight facet-edge reflections, guided by
+`concepts/sky-texture.jpg` and `concepts/kinbyobu.jpg`. Coarse black mottling
+is suppressed; brush direction and pigment vary between facets.
 Upper/lower shading is fixed to world latitude, with a subdued upper shadow
 and a dark lower region; camera orbit never moves that shading. Pole patterns
-fade out. The smaller sun and cloud layer rotate independently.
+fade out. The sun and clouds sit higher in the background and rotate independently.
 
 Clouds reconstruct the five user-drawn centerlines and swept semicircle bands
 from `concepts/cloud.txt` into bundled geometry (`assets/sky/cloud_shapes.json`).
-Round caps, stroke width, circular radii and Y coordinates stay fixed. Seeded,
+All five variants use the same reduced global scale. Round caps, stroke
+width, circular radii and Y coordinates stay fixed during motion. Seeded,
 independent smooth motion changes horizontal anchors, cloud position and each
 double-U band's width/offset inside separated corridors. The cloud gradient
 has five times the previous wavelength. A small 2D viewport draws this mask
@@ -332,3 +335,13 @@ It captures multiple animation phases. Role clearance samples the active moving
 interval independently of its initial delay; `role_motion_check.gd` covers
 short pickup routes after long waits. The role spacing check in
 `polish_check.gd` measures first contact after the prior role fully settles.
+
+Automatic stock draws remain face-up at the stock for at least 0.65 seconds
+before moving to the field. Human two-target choices with distinct cards
+keep their immediate interaction; equivalent targets still follow the automatic
+path. A centered Japanese/English prompt remains visible while the human
+chooses a field card from a selected hand card or a stock draw. Cancellation,
+submission, modal entry and leaving the game dismiss it.
+`choice_check.gd` checks both prompt flows and measures manual response versus
+stationary automatic reveal timing for zero/one/three/equivalent-two targets
+and AI choices. The tests use public synthetic presentation fixtures.

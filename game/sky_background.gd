@@ -6,8 +6,8 @@ func configure(material: ShaderMaterial) -> void:
 	var noise := FastNoiseLite.new()
 	noise.seed = 37851
 	noise.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
-	noise.frequency = 0.055
-	noise.fractal_octaves = 5
+	noise.frequency = 0.035
+	noise.fractal_octaves = 4
 	noise.fractal_gain = 0.45
 	foil = NoiseTexture2D.new()
 	foil.width = 1024

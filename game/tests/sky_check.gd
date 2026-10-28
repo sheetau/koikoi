@@ -20,6 +20,7 @@ func run() -> void:
 	clouds.set_process(false)
 	table.background_material.set_shader_parameter("animation_time",0.0)
 	check(clouds.shapes.size()==5,"User cloud variants were lost")
+	check(clouds.clouds.all(func(c):return is_equal_approx(c.scale,0.25)),"Cloud variants have unequal or oversized global scales")
 	var samples := 0
 	for cloud in clouds.clouds:
 		var min_widths: Array = cloud.shape.bands.map(func(b):return INF)

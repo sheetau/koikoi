@@ -2,6 +2,7 @@ extends Node2D
 ## User-drawn cloud centerlines: circular turns, swept U bands and rigid Y.
 const WIDTH := 4096.0
 const STROKE := 10.0
+const CLOUD_SCALE := 0.25
 var shapes: Array = JSON.parse_string(FileAccess.get_file_as_string("res://assets/sky/cloud_shapes.json"))
 var clouds: Array = []
 var clock := 0.0
@@ -31,9 +32,9 @@ func _ready() -> void:
 			# Original bands sit on the inside of their parent turn. Keep their
 			# entire swept interval in that corridor, including the stroke.
 			bands.append({"drift":track(1.0),"width":track(1.0)})
-		var scale_factor: float = rng.randf_range(1050,1400)/shape.size[0]
+		var scale_factor: float = CLOUD_SCALE
 		clouds.append({"shape":shape,"clusters":clusters,"bands":bands,"scale":scale_factor,
-			"origin":Vector2((index%2)*2048-600+rng.randf_range(-100,100),100+(index/2)*145),"drift":track(70.0)})
+			"origin":Vector2((index%2)*2048-300+rng.randf_range(-100,100),235+(index/2)*60),"drift":track(70.0)})
 	queue_redraw()
 func track(amplitude: float) -> Dictionary:
 	return {"amplitude":amplitude,"f1":rng.randf_range(0.07,0.16),"f2":rng.randf_range(0.17,0.29),"p1":rng.randf()*TAU,"p2":rng.randf()*TAU}

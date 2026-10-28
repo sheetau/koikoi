@@ -19,7 +19,9 @@ var modal_cull_mask := 0
 var win_tick: AudioStreamWAV
 var background_material: ShaderMaterial
 var sky_background: Node
-const UI_WORDS = {"home":["初期画面へ","TITLE SCREEN"],"back":["戻る","BACK"]}
+var pick_message: Node3D
+var pick_message_text := ""
+const UI_WORDS = {"pick_field":["場札を選んでください","CHOOSE A FIELD CARD"],"home":["初期画面へ","TITLE SCREEN"],"back":["戻る","BACK"]}
 var FONT: Font:
 	get: return SERIF if language == 0 else latin_font
 var latin_font_loaded := false
@@ -514,6 +516,7 @@ func switch_language() -> void:
 		open_overlay("settings")
 
 func refresh_hud() -> void:
+	refresh_pick_message()
 	if state.is_empty():
 		left_label.text = ""
 		right_label.text = ""
@@ -752,7 +755,21 @@ func announce_outcome(winner: int, stopped: bool) -> void:
 		Presentation.dismiss(face)
 	outcome_worlds.clear()
 
+func refresh_pick_message() -> void:
+	var choosing := false
+	if started and not busy and not paused and not modal and not state.is_empty() and int(state.player)==0:
+		choosing = selected_hand>=0 or (int(state.phase) in [1,2] and state.legal.size()>1 and not equivalent_targets(state.legal))
+	var text := word("pick_field") if choosing else ""
+	if text==pick_message_text: return
+	pick_message_text = text
+	if is_instance_valid(pick_message): Presentation.dismiss(pick_message)
+	pick_message = null
+	if not text.is_empty():
+		pick_message = scroll_text(text,18,self,Vector2i(600,120),true)
+		pick_message.position = Vector3(0,3.6,0)
+
 func update_hand_affordance() -> void:
+	refresh_pick_message()
 	if state.is_empty():
 		return
 	for slot in range(8):
@@ -1283,6 +1300,10 @@ func animate_event(event: Dictionary) -> void:
 		active_pending = id
 		pending_origin = card.position
 		pending_angles = card.rotation
+		var matches: Array = view.field.filter(func(c):return int(c)/4==id/4)
+		var manual_choice: bool = int(event.player)==0 and matches.size()==2 and not equivalent_targets(matches)
+		if not manual_choice:
+			await wait_minimum(0.65,0.65)
 	elif kind in ["capture", "place"]:
 		var card = known[int(event.card)]
 		if kind == "place":
@@ -1981,6 +2002,7 @@ func return_home() -> void:
 	modal = false
 	busy = true
 	started = false
+	refresh_pick_message()
 	await reset_deck()
 	state.clear()
 	ending.clear()
